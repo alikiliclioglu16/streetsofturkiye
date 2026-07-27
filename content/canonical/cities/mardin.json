@@ -1,0 +1,169 @@
+{
+  "schemaVersion": "1.0",
+  "contentAuthority": "index-html-canonical",
+  "source": {
+    "file": "source/index.html",
+    "sha256": "ed74da639543bd1847d3e970f114e006ec9be8a8d441197a1968afca5a07f995",
+    "cityArray": "CITIES2",
+    "cityArrayIndex": 37
+  },
+  "id": "mardin",
+  "order": 78,
+  "name": {
+    "en": "Mardin",
+    "tr": null
+  },
+  "regionId": "southeastern-anatolia",
+  "sourceRegionIndex": 6,
+  "coordinates": {
+    "longitude": 40.74,
+    "latitude": 37.31
+  },
+  "legacyGuideId": "keloglan",
+  "stops": [
+    {
+      "id": "mardin-stop-01",
+      "order": 1,
+      "sourceTupleIndex": 0,
+      "legacyArt": {
+        "type": "ev",
+        "params": {
+          "stone": 1
+        }
+      },
+      "category": "history",
+      "title": {
+        "en": "The Stone Fairy-Tale City",
+        "tr": null
+      },
+      "description": {
+        "en": "Mardin's honey-colored stone houses climb the hillside like steps, looking over the endless Mesopotamian plain. At night the city glows like a golden crown!",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🌇",
+        "label": {
+          "en": "a golden city photo",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "Careful, don't blink — you might miss something beautiful!",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    },
+    {
+      "id": "mardin-stop-02",
+      "order": 2,
+      "sourceTupleIndex": 1,
+      "legacyArt": {
+        "type": "craft",
+        "params": {
+          "kind": "silver",
+          "s": "TELKÂRİ",
+          "f": "#5F7482"
+        }
+      },
+      "category": "craft",
+      "title": {
+        "en": "Telkâri — Silver Lace",
+        "tr": null
+      },
+      "description": {
+        "en": "Mardin's masters twist silver wire thinner than spaghetti into 'telkâri' — jewelry that looks like frozen lace. Butterflies, flowers, stars… all from silver threads!",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🦋",
+        "label": {
+          "en": "a silver filigree butterfly",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "Look at this — amazing, right?",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    },
+    {
+      "id": "mardin-stop-03",
+      "order": 3,
+      "sourceTupleIndex": 2,
+      "legacyArt": {
+        "type": "cami",
+        "params": {
+          "min": 1
+        }
+      },
+      "category": "history",
+      "title": {
+        "en": "City of Many Faiths",
+        "tr": null
+      },
+      "description": {
+        "en": "In Mardin, mosques, churches and the ancient Deyrulzafaran (Saffron) Monastery have stood side by side for centuries — different bells and calls to prayer sharing the same golden sky.",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🕊️",
+        "label": {
+          "en": "a peace dove",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "This is one of my favorite spots in all of Türkiye!",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    }
+  ],
+  "quiz": [
+    {
+      "id": "mardin-quiz-01",
+      "order": 1,
+      "question": {
+        "en": "What is Mardin's telkâri art made from?",
+        "tr": null
+      },
+      "options": [
+        {
+          "id": "mardin-quiz-01-option-01",
+          "order": 1,
+          "text": {
+            "en": "Twisted silver wire",
+            "tr": null
+          },
+          "correct": true
+        },
+        {
+          "id": "mardin-quiz-01-option-02",
+          "order": 2,
+          "text": {
+            "en": "Spaghetti",
+            "tr": null
+          },
+          "correct": false
+        },
+        {
+          "id": "mardin-quiz-01-option-03",
+          "order": 3,
+          "text": {
+            "en": "Grass",
+            "tr": null
+          },
+          "correct": false
+        }
+      ],
+      "sourceRule": "The first option in the HTML source is correct. The application may shuffle display order at runtime."
+    }
+  ]
+}

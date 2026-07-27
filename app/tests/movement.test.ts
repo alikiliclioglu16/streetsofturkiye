@@ -1,15 +1,11 @@
-import { readFileSync } from 'node:fs';
-import path from 'node:path';
 import { describe, expect, it } from 'vitest';
-import { citySchema } from '@/content/schemas/city';
+import { loadComposedCity } from './helpers';
 import { clampToBounds, isInsideBounds, stepPosition } from '@/engine/controls/movement';
 import { advanceGuided, createGuidedState, guidedPauseHotspot } from '@/engine/controls/guided';
 import { buildScene } from '@/engine/scene/buildScene';
 import { resolveAsset } from '@/engine/assets/registry';
 
-const city = citySchema.parse(
-  JSON.parse(readFileSync(path.resolve(process.cwd(), 'public/content/pilot/istanbul.json'), 'utf8')),
-);
+const city = loadComposedCity('istanbul');
 const bounds = city.route.bounds;
 
 describe('movement bounds', () => {

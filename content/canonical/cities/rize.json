@@ -1,0 +1,163 @@
+{
+  "schemaVersion": "1.0",
+  "contentAuthority": "index-html-canonical",
+  "source": {
+    "file": "source/index.html",
+    "sha256": "ed74da639543bd1847d3e970f114e006ec9be8a8d441197a1968afca5a07f995",
+    "cityArray": "CITIES2",
+    "cityArrayIndex": 15
+  },
+  "id": "rize",
+  "order": 56,
+  "name": {
+    "en": "Rize",
+    "tr": null
+  },
+  "regionId": "black-sea",
+  "sourceRegionIndex": 4,
+  "coordinates": {
+    "longitude": 40.52,
+    "latitude": 41.02
+  },
+  "legacyGuideId": "keloglan",
+  "stops": [
+    {
+      "id": "rize-stop-01",
+      "order": 1,
+      "sourceTupleIndex": 0,
+      "legacyArt": {
+        "type": "cay",
+        "params": {}
+      },
+      "category": "food",
+      "title": {
+        "en": "The Tea Capital",
+        "tr": null
+      },
+      "description": {
+        "en": "Rize's emerald hills are covered in tea bushes — almost all of Türkiye's tea grows here! Pickers with baskets gather the top leaves, and every Turkish home serves Rize tea in tulip glasses.",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🫖",
+        "label": {
+          "en": "a tulip tea glass",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "This is one of my favorite spots in all of Türkiye!",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    },
+    {
+      "id": "rize-stop-02",
+      "order": 2,
+      "sourceTupleIndex": 1,
+      "legacyArt": {
+        "type": "kale",
+        "params": {
+          "rock": 1
+        }
+      },
+      "category": "history",
+      "title": {
+        "en": "Zilkale in the Mists",
+        "tr": null
+      },
+      "description": {
+        "en": "Deep in the Fırtına Valley, the stone castle of Zilkale rises out of the fog like a storybook picture, guarding an ancient mountain road.",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🌫️",
+        "label": {
+          "en": "a misty castle photo",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "We made it! Take a good look around.",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    },
+    {
+      "id": "rize-stop-03",
+      "order": 3,
+      "sourceTupleIndex": 2,
+      "legacyArt": {
+        "type": "dag",
+        "params": {}
+      },
+      "category": "nature",
+      "title": {
+        "en": "Ayder Highland",
+        "tr": null
+      },
+      "description": {
+        "en": "Up in Ayder Yaylası, wooden chalets sit in flower meadows under the Kaçkar peaks. Waterfalls, hot springs, grazing cows with bells — pure mountain happiness!",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🐄",
+        "label": {
+          "en": "a tiny cow bell",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "Every traveler stops here — now it's your turn!",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    }
+  ],
+  "quiz": [
+    {
+      "id": "rize-quiz-01",
+      "order": 1,
+      "question": {
+        "en": "What grows on Rize's emerald hills?",
+        "tr": null
+      },
+      "options": [
+        {
+          "id": "rize-quiz-01-option-01",
+          "order": 1,
+          "text": {
+            "en": "Tea",
+            "tr": null
+          },
+          "correct": true
+        },
+        {
+          "id": "rize-quiz-01-option-02",
+          "order": 2,
+          "text": {
+            "en": "Cactus",
+            "tr": null
+          },
+          "correct": false
+        },
+        {
+          "id": "rize-quiz-01-option-03",
+          "order": 3,
+          "text": {
+            "en": "Bananas",
+            "tr": null
+          },
+          "correct": false
+        }
+      ],
+      "sourceRule": "The first option in the HTML source is correct. The application may shuffle display order at runtime."
+    }
+  ]
+}

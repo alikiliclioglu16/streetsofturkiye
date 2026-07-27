@@ -1,0 +1,121 @@
+[
+  {
+    "id": "marmara",
+    "order": 1,
+    "name": {
+      "en": "Marmara",
+      "tr": null
+    },
+    "sourceRegionIndex": 0,
+    "sourceVisual": {
+      "color": "#1B7FA8",
+      "sky": [
+        "#8FD2F2",
+        "#CDEFFA"
+      ],
+      "ground": "#C9B27E"
+    }
+  },
+  {
+    "id": "aegean",
+    "order": 2,
+    "name": {
+      "en": "Aegean",
+      "tr": null
+    },
+    "sourceRegionIndex": 1,
+    "sourceVisual": {
+      "color": "#3EC6C9",
+      "sky": [
+        "#9FE0EE",
+        "#E3F7FB"
+      ],
+      "ground": "#D8C48C"
+    }
+  },
+  {
+    "id": "mediterranean",
+    "order": 3,
+    "name": {
+      "en": "Mediterranean",
+      "tr": null
+    },
+    "sourceRegionIndex": 2,
+    "sourceVisual": {
+      "color": "#F2B233",
+      "sky": [
+        "#A8E4F2",
+        "#EAF9FD"
+      ],
+      "ground": "#E2CD96"
+    }
+  },
+  {
+    "id": "central-anatolia",
+    "order": 4,
+    "name": {
+      "en": "Central Anatolia",
+      "tr": null
+    },
+    "sourceRegionIndex": 3,
+    "sourceVisual": {
+      "color": "#E0322F",
+      "sky": [
+        "#BDE3F5",
+        "#F2FAFD"
+      ],
+      "ground": "#D9C48A"
+    }
+  },
+  {
+    "id": "black-sea",
+    "order": 5,
+    "name": {
+      "en": "Black Sea",
+      "tr": null
+    },
+    "sourceRegionIndex": 4,
+    "sourceVisual": {
+      "color": "#4CAF7D",
+      "sky": [
+        "#B8DCE8",
+        "#E9F5EE"
+      ],
+      "ground": "#B9CC96"
+    }
+  },
+  {
+    "id": "eastern-anatolia",
+    "order": 6,
+    "name": {
+      "en": "Eastern Anatolia",
+      "tr": null
+    },
+    "sourceRegionIndex": 5,
+    "sourceVisual": {
+      "color": "#7A5FA0",
+      "sky": [
+        "#C4E2F2",
+        "#F0F9FD"
+      ],
+      "ground": "#D5C79E"
+    }
+  },
+  {
+    "id": "southeastern-anatolia",
+    "order": 7,
+    "name": {
+      "en": "Southeastern Anatolia",
+      "tr": null
+    },
+    "sourceRegionIndex": 6,
+    "sourceVisual": {
+      "color": "#C96A2B",
+      "sky": [
+        "#FFE0B8",
+        "#FFF3DE"
+      ],
+      "ground": "#E0BC7E"
+    }
+  }
+]

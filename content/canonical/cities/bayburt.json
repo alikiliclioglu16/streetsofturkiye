@@ -1,0 +1,168 @@
+{
+  "schemaVersion": "1.0",
+  "contentAuthority": "index-html-canonical",
+  "source": {
+    "file": "source/index.html",
+    "sha256": "ed74da639543bd1847d3e970f114e006ec9be8a8d441197a1968afca5a07f995",
+    "cityArray": "CITIES2",
+    "cityArrayIndex": 17
+  },
+  "id": "bayburt",
+  "order": 58,
+  "name": {
+    "en": "Bayburt",
+    "tr": null
+  },
+  "regionId": "black-sea",
+  "sourceRegionIndex": 4,
+  "coordinates": {
+    "longitude": 40.22,
+    "latitude": 40.26
+  },
+  "legacyGuideId": "keloglan",
+  "stops": [
+    {
+      "id": "bayburt-stop-01",
+      "order": 1,
+      "sourceTupleIndex": 0,
+      "legacyArt": {
+        "type": "kale",
+        "params": {}
+      },
+      "category": "history",
+      "title": {
+        "en": "Bayburt Fortress",
+        "tr": null
+      },
+      "description": {
+        "en": "One of Anatolia's biggest fortresses crowns Bayburt's hill, its long white walls glowing above the Çoruh river. Silk Road travelers — even Marco Polo, they say — passed below!",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🐎",
+        "label": {
+          "en": "a Silk Road horseshoe",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "Every traveler stops here — now it's your turn!",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    },
+    {
+      "id": "bayburt-stop-02",
+      "order": 2,
+      "sourceTupleIndex": 1,
+      "legacyArt": {
+        "type": "muze",
+        "params": {
+          "s": "BAKSI MUSEUM",
+          "modern": 1,
+          "f": "#7A5FA0"
+        }
+      },
+      "category": "craft",
+      "title": {
+        "en": "Baksı — Art on a Hilltop",
+        "tr": null
+      },
+      "description": {
+        "en": "On a lonely hill above the river stands the award-winning Baksı Museum, where village crafts and modern art live together. Art in the middle of nature!",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🖌️",
+        "label": {
+          "en": "a paintbrush pin",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "See? Türkiye is full of wonders!",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    },
+    {
+      "id": "bayburt-stop-03",
+      "order": 3,
+      "sourceTupleIndex": 2,
+      "legacyArt": {
+        "type": "tatli",
+        "params": {
+          "k": "helva",
+          "s": "TEL HELVA"
+        }
+      },
+      "category": "food",
+      "title": {
+        "en": "Lor Dolması & Tel Helva",
+        "tr": null
+      },
+      "description": {
+        "en": "Bayburt's kitchen is full of surprises like lor dolması and silky tel helva — grandma recipes kept alive in mountain kitchens.",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🥧",
+        "label": {
+          "en": "grandma's secret recipe",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "Careful, don't blink — you might miss something beautiful!",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    }
+  ],
+  "quiz": [
+    {
+      "id": "bayburt-quiz-01",
+      "order": 1,
+      "question": {
+        "en": "Which famous traveler is said to have passed by Bayburt?",
+        "tr": null
+      },
+      "options": [
+        {
+          "id": "bayburt-quiz-01-option-01",
+          "order": 1,
+          "text": {
+            "en": "Marco Polo",
+            "tr": null
+          },
+          "correct": true
+        },
+        {
+          "id": "bayburt-quiz-01-option-02",
+          "order": 2,
+          "text": {
+            "en": "Superman",
+            "tr": null
+          },
+          "correct": false
+        },
+        {
+          "id": "bayburt-quiz-01-option-03",
+          "order": 3,
+          "text": {
+            "en": "Captain Hook",
+            "tr": null
+          },
+          "correct": false
+        }
+      ],
+      "sourceRule": "The first option in the HTML source is correct. The application may shuffle display order at runtime."
+    }
+  ]
+}

@@ -4,7 +4,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { loadRegions, PILOT_CITY_IDS, PLAYABLE_CITY_IDS } from '@/content/loaders/loadCity';
 import { loadCityIndex, type CityIndexEntry } from '@/content/loaders/loadCityIndex';
-import type { Region } from '@/content/schemas/city';
+import type { CanonicalRegion as Region } from '@/content/schemas/canonical';
 import { t, ui } from '@/content/i18n';
 import { TurkiyeMap, type CityAvailability } from '@/components/map/TurkiyeMap';
 import { useSettingsStore } from '@/stores/useSettingsStore';

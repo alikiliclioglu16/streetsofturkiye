@@ -1,0 +1,169 @@
+{
+  "schemaVersion": "1.0",
+  "contentAuthority": "index-html-canonical",
+  "source": {
+    "file": "source/index.html",
+    "sha256": "ed74da639543bd1847d3e970f114e006ec9be8a8d441197a1968afca5a07f995",
+    "cityArray": "CITIES2",
+    "cityArrayIndex": 19
+  },
+  "id": "erzurum",
+  "order": 60,
+  "name": {
+    "en": "Erzurum",
+    "tr": null
+  },
+  "regionId": "eastern-anatolia",
+  "sourceRegionIndex": 5,
+  "coordinates": {
+    "longitude": 41.28,
+    "latitude": 39.9
+  },
+  "legacyGuideId": "keloglan",
+  "stops": [
+    {
+      "id": "erzurum-stop-01",
+      "order": 1,
+      "sourceTupleIndex": 0,
+      "legacyArt": {
+        "type": "cami",
+        "params": {
+          "double": 1
+        }
+      },
+      "category": "history",
+      "title": {
+        "en": "The Twin Minaret Madrasa",
+        "tr": null
+      },
+      "description": {
+        "en": "Erzurum's symbol is the 750-year-old Çifte Minareli Medrese — two tall fluted minarets of turquoise brick rise over a gate carved like stone lace, with a double-headed eagle hiding in the patterns!",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🦅",
+        "label": {
+          "en": "a double-headed eagle",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "Careful, don't blink — you might miss something beautiful!",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    },
+    {
+      "id": "erzurum-stop-02",
+      "order": 2,
+      "sourceTupleIndex": 1,
+      "legacyArt": {
+        "type": "dag",
+        "params": {
+          "ski": 1
+        }
+      },
+      "category": "nature",
+      "title": {
+        "en": "Palandöken",
+        "tr": null
+      },
+      "description": {
+        "en": "Palandöken has some of the longest, snowiest ski runs in Türkiye — snow can fall from November to May! Olympic athletes train here.",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "⛷️",
+        "label": {
+          "en": "a Palandöken snowball",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "Look at this — amazing, right?",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    },
+    {
+      "id": "erzurum-stop-03",
+      "order": 3,
+      "sourceTupleIndex": 2,
+      "legacyArt": {
+        "type": "craft",
+        "params": {
+          "kind": "oltu",
+          "s": "OLTU TAŞI",
+          "f": "#3E3022"
+        }
+      },
+      "category": "craft",
+      "title": {
+        "en": "Oltu Stone",
+        "tr": null
+      },
+      "description": {
+        "en": "Jet-black Oltu stone is found near Erzurum and polished into shiny beads and jewelry. Rub it — it can even pull little paper bits like a magnet!",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "📿",
+        "label": {
+          "en": "black Oltu beads",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "This is one of my favorite spots in all of Türkiye!",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    }
+  ],
+  "quiz": [
+    {
+      "id": "erzurum-quiz-01",
+      "order": 1,
+      "question": {
+        "en": "What is Erzurum's Palandöken famous for?",
+        "tr": null
+      },
+      "options": [
+        {
+          "id": "erzurum-quiz-01-option-01",
+          "order": 1,
+          "text": {
+            "en": "Long snowy ski runs",
+            "tr": null
+          },
+          "correct": true
+        },
+        {
+          "id": "erzurum-quiz-01-option-02",
+          "order": 2,
+          "text": {
+            "en": "Palm beaches",
+            "tr": null
+          },
+          "correct": false
+        },
+        {
+          "id": "erzurum-quiz-01-option-03",
+          "order": 3,
+          "text": {
+            "en": "Pineapple farms",
+            "tr": null
+          },
+          "correct": false
+        }
+      ],
+      "sourceRule": "The first option in the HTML source is correct. The application may shuffle display order at runtime."
+    }
+  ]
+}

@@ -1,0 +1,166 @@
+{
+  "schemaVersion": "1.0",
+  "contentAuthority": "index-html-canonical",
+  "source": {
+    "file": "source/index.html",
+    "sha256": "ed74da639543bd1847d3e970f114e006ec9be8a8d441197a1968afca5a07f995",
+    "cityArray": "CITIES1",
+    "cityArrayIndex": 22
+  },
+  "id": "mersin",
+  "order": 23,
+  "name": {
+    "en": "Mersin",
+    "tr": null
+  },
+  "regionId": "mediterranean",
+  "sourceRegionIndex": 2,
+  "coordinates": {
+    "longitude": 34.63,
+    "latitude": 36.8
+  },
+  "legacyGuideId": "nasreddin-hoca",
+  "stops": [
+    {
+      "id": "mersin-stop-01",
+      "order": 1,
+      "sourceTupleIndex": 0,
+      "legacyArt": {
+        "type": "kale",
+        "params": {
+          "sea": 1
+        }
+      },
+      "category": "history",
+      "title": {
+        "en": "Kızkalesi — the Maiden's Castle",
+        "tr": null
+      },
+      "description": {
+        "en": "A fairy-tale castle floats on a tiny island just off the beach! Legend says a king built it to keep his daughter safe. You can swim or take a boat right up to its walls.",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🏰",
+        "label": {
+          "en": "a sea-castle seashell",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "See? Türkiye is full of wonders!",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    },
+    {
+      "id": "mersin-stop-02",
+      "order": 2,
+      "sourceTupleIndex": 1,
+      "legacyArt": {
+        "type": "cave",
+        "params": {}
+      },
+      "category": "nature",
+      "title": {
+        "en": "Heaven & Hell Sinkholes",
+        "tr": null
+      },
+      "description": {
+        "en": "Near Mersin, two giant collapsed caves are called Cennet (Heaven) and Cehennem (Hell). Walk 450 steps down into 'Heaven' — it's green, cool and echoey!",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🕳️",
+        "label": {
+          "en": "an echo in a jar",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "Careful, don't blink — you might miss something beautiful!",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    },
+    {
+      "id": "mersin-stop-03",
+      "order": 3,
+      "sourceTupleIndex": 2,
+      "legacyArt": {
+        "type": "tatli",
+        "params": {
+          "k": "pestil",
+          "s": "CEZERYE"
+        }
+      },
+      "category": "food",
+      "title": {
+        "en": "Cezerye — the Carrot Sweet",
+        "tr": null
+      },
+      "description": {
+        "en": "Mersin's famous treat is cezerye, a chewy sweet made from CARROTS and nuts. Don't tell the kids it's a vegetable — it tastes like candy!",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🥕",
+        "label": {
+          "en": "a carrot candy",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "Look at this — amazing, right?",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    }
+  ],
+  "quiz": [
+    {
+      "id": "mersin-quiz-01",
+      "order": 1,
+      "question": {
+        "en": "What is Mersin's famous sweet cezerye made of?",
+        "tr": null
+      },
+      "options": [
+        {
+          "id": "mersin-quiz-01-option-01",
+          "order": 1,
+          "text": {
+            "en": "Carrots and nuts",
+            "tr": null
+          },
+          "correct": true
+        },
+        {
+          "id": "mersin-quiz-01-option-02",
+          "order": 2,
+          "text": {
+            "en": "Fish",
+            "tr": null
+          },
+          "correct": false
+        },
+        {
+          "id": "mersin-quiz-01-option-03",
+          "order": 3,
+          "text": {
+            "en": "Rocks",
+            "tr": null
+          },
+          "correct": false
+        }
+      ],
+      "sourceRule": "The first option in the HTML source is correct. The application may shuffle display order at runtime."
+    }
+  ]
+}

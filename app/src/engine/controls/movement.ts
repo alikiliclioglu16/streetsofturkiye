@@ -1,4 +1,4 @@
-import type { Vec3 } from '@/content/schemas/city';
+import type { Vec3 } from '@/content/schemas/scene';
 
 export interface Point2 {
   x: number;

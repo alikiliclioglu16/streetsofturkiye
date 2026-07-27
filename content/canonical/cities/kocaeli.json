@@ -1,0 +1,169 @@
+{
+  "schemaVersion": "1.0",
+  "contentAuthority": "index-html-canonical",
+  "source": {
+    "file": "source/index.html",
+    "sha256": "ed74da639543bd1847d3e970f114e006ec9be8a8d441197a1968afca5a07f995",
+    "cityArray": "CITIES1",
+    "cityArrayIndex": 8
+  },
+  "id": "kocaeli",
+  "order": 9,
+  "name": {
+    "en": "Kocaeli",
+    "tr": null
+  },
+  "regionId": "marmara",
+  "sourceRegionIndex": 0,
+  "coordinates": {
+    "longitude": 29.94,
+    "latitude": 40.77
+  },
+  "legacyGuideId": "nasreddin-hoca",
+  "stops": [
+    {
+      "id": "kocaeli-stop-01",
+      "order": 1,
+      "sourceTupleIndex": 0,
+      "legacyArt": {
+        "type": "muze",
+        "params": {
+          "s": "PAPER MUSEUM",
+          "icon": "scroll"
+        }
+      },
+      "category": "history",
+      "title": {
+        "en": "SEKA Paper Museum",
+        "tr": null
+      },
+      "description": {
+        "en": "Kocaeli's giant old paper factory is now a fun museum! You can see how paper is made from trees — and even make a sheet of paper yourself.",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "📄",
+        "label": {
+          "en": "handmade paper",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "We made it! Take a good look around.",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    },
+    {
+      "id": "kocaeli-stop-02",
+      "order": 2,
+      "sourceTupleIndex": 1,
+      "legacyArt": {
+        "type": "tatli",
+        "params": {
+          "k": "kaymak",
+          "s": "PİŞMANİYE"
+        }
+      },
+      "category": "food",
+      "title": {
+        "en": "Pişmaniye — Fairy Floss Halva",
+        "tr": null
+      },
+      "description": {
+        "en": "İzmit's famous sweet is pişmaniye: thousands of silky white sugar threads folded into a melt-in-your-mouth ball. It looks like a little cloud you can eat!",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "☁️",
+        "label": {
+          "en": "a cloud of pişmaniye",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "Every traveler stops here — now it's your turn!",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    },
+    {
+      "id": "kocaeli-stop-03",
+      "order": 3,
+      "sourceTupleIndex": 2,
+      "legacyArt": {
+        "type": "dag",
+        "params": {
+          "ski": 1
+        }
+      },
+      "category": "nature",
+      "title": {
+        "en": "Kartepe Mountain",
+        "tr": null
+      },
+      "description": {
+        "en": "In winter, Kartepe turns white and everyone goes sledding and skiing with a view of Sapanca Lake far below.",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🛷",
+        "label": {
+          "en": "a little sled",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "See? Türkiye is full of wonders!",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    }
+  ],
+  "quiz": [
+    {
+      "id": "kocaeli-quiz-01",
+      "order": 1,
+      "question": {
+        "en": "What does pişmaniye look like?",
+        "tr": null
+      },
+      "options": [
+        {
+          "id": "kocaeli-quiz-01-option-01",
+          "order": 1,
+          "text": {
+            "en": "A silky white cloud of sugar threads",
+            "tr": null
+          },
+          "correct": true
+        },
+        {
+          "id": "kocaeli-quiz-01-option-02",
+          "order": 2,
+          "text": {
+            "en": "A green cucumber",
+            "tr": null
+          },
+          "correct": false
+        },
+        {
+          "id": "kocaeli-quiz-01-option-03",
+          "order": 3,
+          "text": {
+            "en": "A stone",
+            "tr": null
+          },
+          "correct": false
+        }
+      ],
+      "sourceRule": "The first option in the HTML source is correct. The application may shuffle display order at runtime."
+    }
+  ]
+}

@@ -1,0 +1,167 @@
+{
+  "schemaVersion": "1.0",
+  "contentAuthority": "index-html-canonical",
+  "source": {
+    "file": "source/index.html",
+    "sha256": "ed74da639543bd1847d3e970f114e006ec9be8a8d441197a1968afca5a07f995",
+    "cityArray": "CITIES2",
+    "cityArrayIndex": 24
+  },
+  "id": "van",
+  "order": 65,
+  "name": {
+    "en": "Van",
+    "tr": null
+  },
+  "regionId": "eastern-anatolia",
+  "sourceRegionIndex": 5,
+  "coordinates": {
+    "longitude": 43.38,
+    "latitude": 38.5
+  },
+  "legacyGuideId": "nasreddin-hoca",
+  "stops": [
+    {
+      "id": "van-stop-01",
+      "order": 1,
+      "sourceTupleIndex": 0,
+      "legacyArt": {
+        "type": "vancat",
+        "params": {}
+      },
+      "category": "nature",
+      "title": {
+        "en": "The Swimming Van Cat",
+        "tr": null
+      },
+      "description": {
+        "en": "The snow-white Van cat is world famous: one eye can be BLUE and the other AMBER — and unlike most cats, it loves to SWIM! You can visit hundreds at the Van Cat House.",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🐱",
+        "label": {
+          "en": "a Van cat plush",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "See? Türkiye is full of wonders!",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    },
+    {
+      "id": "van-stop-02",
+      "order": 2,
+      "sourceTupleIndex": 1,
+      "legacyArt": {
+        "type": "gol",
+        "params": {
+          "island": 1
+        }
+      },
+      "category": "nature",
+      "title": {
+        "en": "Akdamar Island",
+        "tr": null
+      },
+      "description": {
+        "en": "Lake Van is Türkiye's largest lake — big as a sea! On Akdamar Island stands a 1,100-year-old church whose walls are carved with animals and Bible stories like a stone picture book.",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "⛵",
+        "label": {
+          "en": "an Akdamar boat ticket",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "Careful, don't blink — you might miss something beautiful!",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    },
+    {
+      "id": "van-stop-03",
+      "order": 3,
+      "sourceTupleIndex": 2,
+      "legacyArt": {
+        "type": "stall",
+        "params": {
+          "s": "VAN KAHVALTISI",
+          "d": "breakfast",
+          "c": "#C96A2B"
+        }
+      },
+      "category": "food",
+      "title": {
+        "en": "The World-Famous Van Breakfast",
+        "tr": null
+      },
+      "description": {
+        "en": "Van breakfast is legendary: herbed cheese, honey with clotted cream, murtuğa, kavut… so many little plates that they don't fit on the table!",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🍳",
+        "label": {
+          "en": "a breakfast plate",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "Look at this — amazing, right?",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    }
+  ],
+  "quiz": [
+    {
+      "id": "van-quiz-01",
+      "order": 1,
+      "question": {
+        "en": "What makes the Van cat special?",
+        "tr": null
+      },
+      "options": [
+        {
+          "id": "van-quiz-01-option-01",
+          "order": 1,
+          "text": {
+            "en": "Odd-colored eyes and it loves swimming",
+            "tr": null
+          },
+          "correct": true
+        },
+        {
+          "id": "van-quiz-01-option-02",
+          "order": 2,
+          "text": {
+            "en": "It can fly",
+            "tr": null
+          },
+          "correct": false
+        },
+        {
+          "id": "van-quiz-01-option-03",
+          "order": 3,
+          "text": {
+            "en": "It barks",
+            "tr": null
+          },
+          "correct": false
+        }
+      ],
+      "sourceRule": "The first option in the HTML source is correct. The application may shuffle display order at runtime."
+    }
+  ]
+}

@@ -1,0 +1,167 @@
+{
+  "schemaVersion": "1.0",
+  "contentAuthority": "index-html-canonical",
+  "source": {
+    "file": "source/index.html",
+    "sha256": "ed74da639543bd1847d3e970f114e006ec9be8a8d441197a1968afca5a07f995",
+    "cityArray": "CITIES2",
+    "cityArrayIndex": 18
+  },
+  "id": "erzincan",
+  "order": 59,
+  "name": {
+    "en": "Erzincan",
+    "tr": null
+  },
+  "regionId": "eastern-anatolia",
+  "sourceRegionIndex": 5,
+  "coordinates": {
+    "longitude": 39.49,
+    "latitude": 39.75
+  },
+  "legacyGuideId": "nasreddin-hoca",
+  "stops": [
+    {
+      "id": "erzincan-stop-01",
+      "order": 1,
+      "sourceTupleIndex": 0,
+      "legacyArt": {
+        "type": "kanyon",
+        "params": {}
+      },
+      "category": "nature",
+      "title": {
+        "en": "The Dark Canyon",
+        "tr": null
+      },
+      "description": {
+        "en": "Karanlık Kanyon's cliffs drop straight into the green Euphrates. Daredevils walk the old 'Stone Road' — a path carved by hand into the canyon wall, with tunnel windows over the water!",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🚧",
+        "label": {
+          "en": "a stone-road pebble",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "See? Türkiye is full of wonders!",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    },
+    {
+      "id": "erzincan-stop-02",
+      "order": 2,
+      "sourceTupleIndex": 1,
+      "legacyArt": {
+        "type": "stall",
+        "params": {
+          "s": "TULUM PEYNİRİ",
+          "d": "cheese",
+          "c": "#C96A2B"
+        }
+      },
+      "category": "food",
+      "title": {
+        "en": "Tulum Cheese",
+        "tr": null
+      },
+      "description": {
+        "en": "Erzincan's crumbly tulum cheese ripens inside goatskin bags in cool caves — sharp, salty and perfect with warm bread and honey.",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🧀",
+        "label": {
+          "en": "a piece of tulum",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "Careful, don't blink — you might miss something beautiful!",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    },
+    {
+      "id": "erzincan-stop-03",
+      "order": 3,
+      "sourceTupleIndex": 2,
+      "legacyArt": {
+        "type": "dag",
+        "params": {
+          "ski": 1
+        }
+      },
+      "category": "nature",
+      "title": {
+        "en": "Ergan Mountain",
+        "tr": null
+      },
+      "description": {
+        "en": "Ergan rises right next to the city: skiing in winter, paragliding over the Euphrates valley in summer!",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🎿",
+        "label": {
+          "en": "an Ergan snow patch",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "Look at this — amazing, right?",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    }
+  ],
+  "quiz": [
+    {
+      "id": "erzincan-quiz-01",
+      "order": 1,
+      "question": {
+        "en": "Where does Erzincan's tulum cheese ripen?",
+        "tr": null
+      },
+      "options": [
+        {
+          "id": "erzincan-quiz-01-option-01",
+          "order": 1,
+          "text": {
+            "en": "In goatskin bags in cool caves",
+            "tr": null
+          },
+          "correct": true
+        },
+        {
+          "id": "erzincan-quiz-01-option-02",
+          "order": 2,
+          "text": {
+            "en": "In a freezer truck",
+            "tr": null
+          },
+          "correct": false
+        },
+        {
+          "id": "erzincan-quiz-01-option-03",
+          "order": 3,
+          "text": {
+            "en": "On the beach",
+            "tr": null
+          },
+          "correct": false
+        }
+      ],
+      "sourceRule": "The first option in the HTML source is correct. The application may shuffle display order at runtime."
+    }
+  ]
+}

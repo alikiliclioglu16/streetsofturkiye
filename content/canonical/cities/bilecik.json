@@ -1,0 +1,166 @@
+{
+  "schemaVersion": "1.0",
+  "contentAuthority": "index-html-canonical",
+  "source": {
+    "file": "source/index.html",
+    "sha256": "ed74da639543bd1847d3e970f114e006ec9be8a8d441197a1968afca5a07f995",
+    "cityArray": "CITIES1",
+    "cityArrayIndex": 10
+  },
+  "id": "bilecik",
+  "order": 11,
+  "name": {
+    "en": "Bilecik",
+    "tr": null
+  },
+  "regionId": "marmara",
+  "sourceRegionIndex": 0,
+  "coordinates": {
+    "longitude": 29.98,
+    "latitude": 40.15
+  },
+  "legacyGuideId": "nasreddin-hoca",
+  "stops": [
+    {
+      "id": "bilecik-stop-01",
+      "order": 1,
+      "sourceTupleIndex": 0,
+      "legacyArt": {
+        "type": "kale",
+        "params": {}
+      },
+      "category": "history",
+      "title": {
+        "en": "Söğüt — Where an Empire Began",
+        "tr": null
+      },
+      "description": {
+        "en": "The mighty Ottoman Empire, which lasted 600 years, was born in the small town of Söğüt in Bilecik! It started as a tiny beylik under leader Osman Gazi.",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🚩",
+        "label": {
+          "en": "Osman Gazi's banner",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "See? Türkiye is full of wonders!",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    },
+    {
+      "id": "bilecik-stop-02",
+      "order": 2,
+      "sourceTupleIndex": 1,
+      "legacyArt": {
+        "type": "cami",
+        "params": {
+          "min": 1
+        }
+      },
+      "category": "history",
+      "title": {
+        "en": "Şeyh Edebali's Tomb",
+        "tr": null
+      },
+      "description": {
+        "en": "Wise teacher Şeyh Edebali guided young Osman Gazi with famous words of kindness: 'Let people live, so the state may live.' People still visit his hilltop tomb.",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "📜",
+        "label": {
+          "en": "words of wisdom",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "Careful, don't blink — you might miss something beautiful!",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    },
+    {
+      "id": "bilecik-stop-03",
+      "order": 3,
+      "sourceTupleIndex": 2,
+      "legacyArt": {
+        "type": "craft",
+        "params": {
+          "kind": "silk",
+          "s": "SILK WORKSHOP"
+        }
+      },
+      "category": "craft",
+      "title": {
+        "en": "Silk from Tiny Cocoons",
+        "tr": null
+      },
+      "description": {
+        "en": "Bilecik has raised silkworms for centuries. Each little cocoon unwinds into a shiny thread almost a kilometer long — that's how silk fabric is born!",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🧵",
+        "label": {
+          "en": "a silk cocoon",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "Look at this — amazing, right?",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    }
+  ],
+  "quiz": [
+    {
+      "id": "bilecik-quiz-01",
+      "order": 1,
+      "question": {
+        "en": "Which great empire was born in Söğüt, Bilecik?",
+        "tr": null
+      },
+      "options": [
+        {
+          "id": "bilecik-quiz-01-option-01",
+          "order": 1,
+          "text": {
+            "en": "The Ottoman Empire",
+            "tr": null
+          },
+          "correct": true
+        },
+        {
+          "id": "bilecik-quiz-01-option-02",
+          "order": 2,
+          "text": {
+            "en": "The Roman Empire",
+            "tr": null
+          },
+          "correct": false
+        },
+        {
+          "id": "bilecik-quiz-01-option-03",
+          "order": 3,
+          "text": {
+            "en": "The Lego Empire",
+            "tr": null
+          },
+          "correct": false
+        }
+      ],
+      "sourceRule": "The first option in the HTML source is correct. The application may shuffle display order at runtime."
+    }
+  ]
+}

@@ -1,0 +1,171 @@
+{
+  "schemaVersion": "1.0",
+  "contentAuthority": "index-html-canonical",
+  "source": {
+    "file": "source/index.html",
+    "sha256": "ed74da639543bd1847d3e970f114e006ec9be8a8d441197a1968afca5a07f995",
+    "cityArray": "CITIES1",
+    "cityArrayIndex": 37
+  },
+  "id": "karaman",
+  "order": 38,
+  "name": {
+    "en": "Karaman",
+    "tr": null
+  },
+  "regionId": "central-anatolia",
+  "sourceRegionIndex": 3,
+  "coordinates": {
+    "longitude": 33.22,
+    "latitude": 37.18
+  },
+  "legacyGuideId": "keloglan",
+  "stops": [
+    {
+      "id": "karaman-stop-01",
+      "order": 1,
+      "sourceTupleIndex": 0,
+      "legacyArt": {
+        "type": "muze",
+        "params": {
+          "s": "TURKISH LANGUAGE",
+          "icon": "scroll",
+          "f": "#B03A3A"
+        }
+      },
+      "category": "history",
+      "title": {
+        "en": "Where Turkish Became Official",
+        "tr": null
+      },
+      "description": {
+        "en": "In 1277, Karamanoğlu Mehmet Bey declared right here that Turkish would be the official language — everywhere, for everyone! Karaman celebrates the Turkish language every year.",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🗣️",
+        "label": {
+          "en": "the Turkish alphabet",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "This is one of my favorite spots in all of Türkiye!",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    },
+    {
+      "id": "karaman-stop-02",
+      "order": 2,
+      "sourceTupleIndex": 1,
+      "legacyArt": {
+        "type": "cave",
+        "params": {
+          "stalag": 1
+        }
+      },
+      "category": "history",
+      "title": {
+        "en": "Manazan Cliff Dwellings",
+        "tr": null
+      },
+      "description": {
+        "en": "The Manazan caves are a five-story apartment building — carved into a cliff 1,500 years ago! Whole villages once lived in its rock rooms.",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🏠",
+        "label": {
+          "en": "a cliff-house key",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "We made it! Take a good look around.",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    },
+    {
+      "id": "karaman-stop-03",
+      "order": 3,
+      "sourceTupleIndex": 2,
+      "legacyArt": {
+        "type": "stall",
+        "params": {
+          "s": "DİVLE OBRUK",
+          "d": "cheese",
+          "c": "#C96A2B"
+        }
+      },
+      "category": "food",
+      "title": {
+        "en": "Cheese Aged in a Sinkhole",
+        "tr": null
+      },
+      "description": {
+        "en": "Divle cheese ripens inside a cool natural sinkhole cave, wrapped in goatskin! Months underground give it a taste found nowhere else.",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🧀",
+        "label": {
+          "en": "sinkhole cheese",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "Every traveler stops here — now it's your turn!",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    }
+  ],
+  "quiz": [
+    {
+      "id": "karaman-quiz-01",
+      "order": 1,
+      "question": {
+        "en": "What did Karamanoğlu Mehmet Bey declare in 1277?",
+        "tr": null
+      },
+      "options": [
+        {
+          "id": "karaman-quiz-01-option-01",
+          "order": 1,
+          "text": {
+            "en": "Turkish as the official language",
+            "tr": null
+          },
+          "correct": true
+        },
+        {
+          "id": "karaman-quiz-01-option-02",
+          "order": 2,
+          "text": {
+            "en": "A national pizza day",
+            "tr": null
+          },
+          "correct": false
+        },
+        {
+          "id": "karaman-quiz-01-option-03",
+          "order": 3,
+          "text": {
+            "en": "A dragon holiday",
+            "tr": null
+          },
+          "correct": false
+        }
+      ],
+      "sourceRule": "The first option in the HTML source is correct. The application may shuffle display order at runtime."
+    }
+  ]
+}

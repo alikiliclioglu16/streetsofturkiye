@@ -2,7 +2,7 @@
 
 import { Modal } from '@/components/game-ui/Modal';
 import { t, ui, type Locale } from '@/content/i18n';
-import type { CityDefinition } from '@/content/schemas/city';
+import type { RuntimeCity as CityDefinition } from '@/content/compose';
 
 /** Arrival beat: title, one guide line, always skippable. */
 export function IntroPanel({

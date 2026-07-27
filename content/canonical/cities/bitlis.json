@@ -1,0 +1,169 @@
+{
+  "schemaVersion": "1.0",
+  "contentAuthority": "index-html-canonical",
+  "source": {
+    "file": "source/index.html",
+    "sha256": "ed74da639543bd1847d3e970f114e006ec9be8a8d441197a1968afca5a07f995",
+    "cityArray": "CITIES2",
+    "cityArrayIndex": 26
+  },
+  "id": "bitlis",
+  "order": 67,
+  "name": {
+    "en": "Bitlis",
+    "tr": null
+  },
+  "regionId": "eastern-anatolia",
+  "sourceRegionIndex": 5,
+  "coordinates": {
+    "longitude": 42.11,
+    "latitude": 38.4
+  },
+  "legacyGuideId": "nasreddin-hoca",
+  "stops": [
+    {
+      "id": "bitlis-stop-01",
+      "order": 1,
+      "sourceTupleIndex": 0,
+      "legacyArt": {
+        "type": "gol",
+        "params": {
+          "crater": 1
+        }
+      },
+      "category": "nature",
+      "title": {
+        "en": "Nemrut Crater Lake",
+        "tr": null
+      },
+      "description": {
+        "en": "On top of Nemrut volcano hides a secret world: a giant crater holding a cold blue lake AND a warm lake side by side! One of the biggest crater lakes on Earth.",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🌋",
+        "label": {
+          "en": "a crater lake photo",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "Look at this — amazing, right?",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    },
+    {
+      "id": "bitlis-stop-02",
+      "order": 2,
+      "sourceTupleIndex": 1,
+      "legacyArt": {
+        "type": "hoyuk",
+        "params": {
+          "stones": 1
+        }
+      },
+      "category": "history",
+      "title": {
+        "en": "The Giant Tombstones of Ahlat",
+        "tr": null
+      },
+      "description": {
+        "en": "At Ahlat, a field of carved stone monuments taller than grown-ups has stood for 800 years — each one decorated like lace, telling of Seljuk master carvers. UNESCO protects them!",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🪦",
+        "label": {
+          "en": "a carved stone pattern",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "This is one of my favorite spots in all of Türkiye!",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    },
+    {
+      "id": "bitlis-stop-03",
+      "order": 3,
+      "sourceTupleIndex": 2,
+      "legacyArt": {
+        "type": "stall",
+        "params": {
+          "s": "BÜRYAN",
+          "d": "buryan",
+          "c": "#8A4038"
+        }
+      },
+      "category": "food",
+      "title": {
+        "en": "Büryan from the Pit",
+        "tr": null
+      },
+      "description": {
+        "en": "Bitlis cooks büryan the ancient way: lamb slow-cooked in a deep stone pit until it melts. Locals eat it for BREAKFAST with fresh flatbread!",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🥩",
+        "label": {
+          "en": "a büryan breakfast token",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "We made it! Take a good look around.",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    }
+  ],
+  "quiz": [
+    {
+      "id": "bitlis-quiz-01",
+      "order": 1,
+      "question": {
+        "en": "What hides inside Nemrut volcano's crater?",
+        "tr": null
+      },
+      "options": [
+        {
+          "id": "bitlis-quiz-01-option-01",
+          "order": 1,
+          "text": {
+            "en": "A giant lake (actually two!)",
+            "tr": null
+          },
+          "correct": true
+        },
+        {
+          "id": "bitlis-quiz-01-option-02",
+          "order": 2,
+          "text": {
+            "en": "A football field",
+            "tr": null
+          },
+          "correct": false
+        },
+        {
+          "id": "bitlis-quiz-01-option-03",
+          "order": 3,
+          "text": {
+            "en": "A shopping mall",
+            "tr": null
+          },
+          "correct": false
+        }
+      ],
+      "sourceRule": "The first option in the HTML source is correct. The application may shuffle display order at runtime."
+    }
+  ]
+}

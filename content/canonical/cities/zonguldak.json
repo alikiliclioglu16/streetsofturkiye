@@ -1,0 +1,165 @@
+{
+  "schemaVersion": "1.0",
+  "contentAuthority": "index-html-canonical",
+  "source": {
+    "file": "source/index.html",
+    "sha256": "ed74da639543bd1847d3e970f114e006ec9be8a8d441197a1968afca5a07f995",
+    "cityArray": "CITIES2",
+    "cityArrayIndex": 2
+  },
+  "id": "zonguldak",
+  "order": 43,
+  "name": {
+    "en": "Zonguldak",
+    "tr": null
+  },
+  "regionId": "black-sea",
+  "sourceRegionIndex": 4,
+  "coordinates": {
+    "longitude": 31.79,
+    "latitude": 41.45
+  },
+  "legacyGuideId": "nasreddin-hoca",
+  "stops": [
+    {
+      "id": "zonguldak-stop-01",
+      "order": 1,
+      "sourceTupleIndex": 0,
+      "legacyArt": {
+        "type": "cave",
+        "params": {
+          "cart": 1
+        }
+      },
+      "category": "history",
+      "title": {
+        "en": "The Coal Mine Museum",
+        "tr": null
+      },
+      "description": {
+        "en": "Zonguldak is Türkiye's coal city! In the mine museum you ride into real tunnels, wear a miner's helmet and learn how brave miners work deep underground.",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "⛑️",
+        "label": {
+          "en": "a miner's lamp",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "Look at this — amazing, right?",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    },
+    {
+      "id": "zonguldak-stop-02",
+      "order": 2,
+      "sourceTupleIndex": 1,
+      "legacyArt": {
+        "type": "cave",
+        "params": {
+          "stalag": 1
+        }
+      },
+      "category": "nature",
+      "title": {
+        "en": "Gökgöl Cave",
+        "tr": null
+      },
+      "description": {
+        "en": "Gökgöl cave stretches over 3 kilometers under the mountains, decorated with shimmering stone curtains and columns grown drop by drop.",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "💎",
+        "label": {
+          "en": "a cave crystal",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "This is one of my favorite spots in all of Türkiye!",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    },
+    {
+      "id": "zonguldak-stop-03",
+      "order": 3,
+      "sourceTupleIndex": 2,
+      "legacyArt": {
+        "type": "sahil",
+        "params": {}
+      },
+      "category": "nature",
+      "title": {
+        "en": "Kapuz Beach",
+        "tr": null
+      },
+      "description": {
+        "en": "Squeezed between green cliffs, little Kapuz Beach is where Zonguldak's kids splash in the Black Sea all summer.",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🏖️",
+        "label": {
+          "en": "a Black Sea seashell",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "We made it! Take a good look around.",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    }
+  ],
+  "quiz": [
+    {
+      "id": "zonguldak-quiz-01",
+      "order": 1,
+      "question": {
+        "en": "What do you wear when visiting Zonguldak's mine museum?",
+        "tr": null
+      },
+      "options": [
+        {
+          "id": "zonguldak-quiz-01-option-01",
+          "order": 1,
+          "text": {
+            "en": "A miner's helmet",
+            "tr": null
+          },
+          "correct": true
+        },
+        {
+          "id": "zonguldak-quiz-01-option-02",
+          "order": 2,
+          "text": {
+            "en": "A swimsuit",
+            "tr": null
+          },
+          "correct": false
+        },
+        {
+          "id": "zonguldak-quiz-01-option-03",
+          "order": 3,
+          "text": {
+            "en": "A crown",
+            "tr": null
+          },
+          "correct": false
+        }
+      ],
+      "sourceRule": "The first option in the HTML source is correct. The application may shuffle display order at runtime."
+    }
+  ]
+}

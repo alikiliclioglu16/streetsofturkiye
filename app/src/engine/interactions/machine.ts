@@ -1,4 +1,5 @@
-import type { CityDefinition, HotspotDefinition, InteractionType } from '@/content/schemas/city';
+import type { RuntimeCity as CityDefinition, RuntimeHotspot as HotspotDefinition } from '@/content/compose';
+import type { InteractionType } from '@/content/schemas/scene';
 
 /**
  * Deterministic interaction state machine (TECHNICAL_ARCHITECTURE).

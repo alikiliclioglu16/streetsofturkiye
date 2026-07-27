@@ -1,0 +1,169 @@
+{
+  "schemaVersion": "1.0",
+  "contentAuthority": "index-html-canonical",
+  "source": {
+    "file": "source/index.html",
+    "sha256": "ed74da639543bd1847d3e970f114e006ec9be8a8d441197a1968afca5a07f995",
+    "cityArray": "CITIES1",
+    "cityArrayIndex": 39
+  },
+  "id": "sivas",
+  "order": 40,
+  "name": {
+    "en": "Sivas",
+    "tr": null
+  },
+  "regionId": "central-anatolia",
+  "sourceRegionIndex": 3,
+  "coordinates": {
+    "longitude": 37.02,
+    "latitude": 39.75
+  },
+  "legacyGuideId": "keloglan",
+  "stops": [
+    {
+      "id": "sivas-stop-01",
+      "order": 1,
+      "sourceTupleIndex": 0,
+      "legacyArt": {
+        "type": "cami",
+        "params": {
+          "ornate": 1,
+          "min": 2
+        }
+      },
+      "category": "history",
+      "title": {
+        "en": "Divriği's Magical Gate",
+        "tr": null
+      },
+      "description": {
+        "en": "The Great Mosque of Divriği is a UNESCO wonder: its stone gates are carved like frozen lace — flowers, stars and patterns so fine that no two are alike. Masters carved it 800 years ago!",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🌸",
+        "label": {
+          "en": "a stone-lace rubbing",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "Every traveler stops here — now it's your turn!",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    },
+    {
+      "id": "sivas-stop-02",
+      "order": 2,
+      "sourceTupleIndex": 1,
+      "legacyArt": {
+        "type": "hayvan",
+        "params": {
+          "kind": "dog"
+        }
+      },
+      "category": "nature",
+      "title": {
+        "en": "The Mighty Kangal",
+        "tr": null
+      },
+      "description": {
+        "en": "Sivas is home of the Kangal — the gentle giant sheepdog, one of the strongest and most loyal dogs in the world. A Kangal guards its flock like a hero but loves kids like a teddy bear!",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🐕",
+        "label": {
+          "en": "a Kangal puppy sticker",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "See? Türkiye is full of wonders!",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    },
+    {
+      "id": "sivas-stop-03",
+      "order": 3,
+      "sourceTupleIndex": 2,
+      "legacyArt": {
+        "type": "muze",
+        "params": {
+          "s": "CONGRESS MUSEUM",
+          "f": "#B03A3A"
+        }
+      },
+      "category": "history",
+      "title": {
+        "en": "The Sivas Congress",
+        "tr": null
+      },
+      "description": {
+        "en": "In 1919, Atatürk gathered leaders in Sivas to plan the country's independence — a giant step toward the Republic of Türkiye. The school building is now a museum.",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🖋️",
+        "label": {
+          "en": "a congress pen",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "Careful, don't blink — you might miss something beautiful!",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    }
+  ],
+  "quiz": [
+    {
+      "id": "sivas-quiz-01",
+      "order": 1,
+      "question": {
+        "en": "What is a Kangal?",
+        "tr": null
+      },
+      "options": [
+        {
+          "id": "sivas-quiz-01-option-01",
+          "order": 1,
+          "text": {
+            "en": "A giant loyal sheepdog",
+            "tr": null
+          },
+          "correct": true
+        },
+        {
+          "id": "sivas-quiz-01-option-02",
+          "order": 2,
+          "text": {
+            "en": "A tiny fish",
+            "tr": null
+          },
+          "correct": false
+        },
+        {
+          "id": "sivas-quiz-01-option-03",
+          "order": 3,
+          "text": {
+            "en": "A kind of hat",
+            "tr": null
+          },
+          "correct": false
+        }
+      ],
+      "sourceRule": "The first option in the HTML source is correct. The application may shuffle display order at runtime."
+    }
+  ]
+}

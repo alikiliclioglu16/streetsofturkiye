@@ -1,0 +1,166 @@
+{
+  "schemaVersion": "1.0",
+  "contentAuthority": "index-html-canonical",
+  "source": {
+    "file": "source/index.html",
+    "sha256": "ed74da639543bd1847d3e970f114e006ec9be8a8d441197a1968afca5a07f995",
+    "cityArray": "CITIES2",
+    "cityArrayIndex": 13
+  },
+  "id": "gumushane",
+  "order": 54,
+  "name": {
+    "en": "Gümüşhane",
+    "tr": null
+  },
+  "regionId": "black-sea",
+  "sourceRegionIndex": 4,
+  "coordinates": {
+    "longitude": 39.48,
+    "latitude": 40.46
+  },
+  "legacyGuideId": "keloglan",
+  "stops": [
+    {
+      "id": "gumushane-stop-01",
+      "order": 1,
+      "sourceTupleIndex": 0,
+      "legacyArt": {
+        "type": "cave",
+        "params": {
+          "stalag": 1
+        }
+      },
+      "category": "nature",
+      "title": {
+        "en": "Karaca Cave",
+        "tr": null
+      },
+      "description": {
+        "en": "Karaca Cave is a treasure chest of nature: curtains, terraces and 'popcorn' rocks in cream and honey colors, grown silently for 150 million years.",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🍯",
+        "label": {
+          "en": "a honey-colored crystal",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "Careful, don't blink — you might miss something beautiful!",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    },
+    {
+      "id": "gumushane-stop-02",
+      "order": 2,
+      "sourceTupleIndex": 1,
+      "legacyArt": {
+        "type": "tatli",
+        "params": {
+          "k": "pestil",
+          "s": "PESTİL & KÖME"
+        }
+      },
+      "category": "food",
+      "title": {
+        "en": "Pestil & Köme",
+        "tr": null
+      },
+      "description": {
+        "en": "Gümüşhane's famous snacks: pestil (fruit leather sheets) and köme (walnuts dipped in grape juice, dried into chewy sticks). Nature's own candy bars!",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🍇",
+        "label": {
+          "en": "a köme stick",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "Look at this — amazing, right?",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    },
+    {
+      "id": "gumushane-stop-03",
+      "order": 3,
+      "sourceTupleIndex": 2,
+      "legacyArt": {
+        "type": "dag",
+        "params": {}
+      },
+      "category": "nature",
+      "title": {
+        "en": "The Silver Mountains",
+        "tr": null
+      },
+      "description": {
+        "en": "Gümüşhane means 'Silver House' — silver was mined in these misty mountains for centuries, and old stone villages still dot the green valleys.",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🥈",
+        "label": {
+          "en": "a silver nugget",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "This is one of my favorite spots in all of Türkiye!",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    }
+  ],
+  "quiz": [
+    {
+      "id": "gumushane-quiz-01",
+      "order": 1,
+      "question": {
+        "en": "What does 'Gümüşhane' mean?",
+        "tr": null
+      },
+      "options": [
+        {
+          "id": "gumushane-quiz-01-option-01",
+          "order": 1,
+          "text": {
+            "en": "Silver House",
+            "tr": null
+          },
+          "correct": true
+        },
+        {
+          "id": "gumushane-quiz-01-option-02",
+          "order": 2,
+          "text": {
+            "en": "Golden Fish",
+            "tr": null
+          },
+          "correct": false
+        },
+        {
+          "id": "gumushane-quiz-01-option-03",
+          "order": 3,
+          "text": {
+            "en": "Red Cloud",
+            "tr": null
+          },
+          "correct": false
+        }
+      ],
+      "sourceRule": "The first option in the HTML source is correct. The application may shuffle display order at runtime."
+    }
+  ]
+}

@@ -1,0 +1,166 @@
+{
+  "schemaVersion": "1.0",
+  "contentAuthority": "index-html-canonical",
+  "source": {
+    "file": "source/index.html",
+    "sha256": "ed74da639543bd1847d3e970f114e006ec9be8a8d441197a1968afca5a07f995",
+    "cityArray": "CITIES2",
+    "cityArrayIndex": 16
+  },
+  "id": "artvin",
+  "order": 57,
+  "name": {
+    "en": "Artvin",
+    "tr": null
+  },
+  "regionId": "black-sea",
+  "sourceRegionIndex": 4,
+  "coordinates": {
+    "longitude": 41.82,
+    "latitude": 41.18
+  },
+  "legacyGuideId": "nasreddin-hoca",
+  "stops": [
+    {
+      "id": "artvin-stop-01",
+      "order": 1,
+      "sourceTupleIndex": 0,
+      "legacyArt": {
+        "type": "gol",
+        "params": {}
+      },
+      "category": "nature",
+      "title": {
+        "en": "Karagöl — the Mirror Lake",
+        "tr": null
+      },
+      "description": {
+        "en": "Forest-ringed Karagöl is so still it mirrors the mountains perfectly — is the world upside down? Autumn turns the reflection red and gold.",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🪞",
+        "label": {
+          "en": "a mirror-lake photo",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "We made it! Take a good look around.",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    },
+    {
+      "id": "artvin-stop-02",
+      "order": 2,
+      "sourceTupleIndex": 1,
+      "legacyArt": {
+        "type": "agac",
+        "params": {
+          "kind": "pistachio",
+          "s": "BAL"
+        }
+      },
+      "category": "food",
+      "title": {
+        "en": "The Purest Honey",
+        "tr": null
+      },
+      "description": {
+        "en": "Bees in Artvin's flower-filled Kaçkar valleys make some of the world's finest honey — including rare 'Macahel' honey from protected forests where nature is untouched.",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🐝",
+        "label": {
+          "en": "a jar of mountain honey",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "Every traveler stops here — now it's your turn!",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    },
+    {
+      "id": "artvin-stop-03",
+      "order": 3,
+      "sourceTupleIndex": 2,
+      "legacyArt": {
+        "type": "dag",
+        "params": {
+          "glacier": 1
+        }
+      },
+      "category": "nature",
+      "title": {
+        "en": "The Wild Kaçkars",
+        "tr": null
+      },
+      "description": {
+        "en": "Artvin is Türkiye's greenest, steepest corner: deep gorges, rushing rivers and cloud forests where brown bears still roam free.",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🐻",
+        "label": {
+          "en": "a friendly bear print",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "See? Türkiye is full of wonders!",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    }
+  ],
+  "quiz": [
+    {
+      "id": "artvin-quiz-01",
+      "order": 1,
+      "question": {
+        "en": "What does the still water of Karagöl do?",
+        "tr": null
+      },
+      "options": [
+        {
+          "id": "artvin-quiz-01-option-01",
+          "order": 1,
+          "text": {
+            "en": "Mirrors the mountains perfectly",
+            "tr": null
+          },
+          "correct": true
+        },
+        {
+          "id": "artvin-quiz-01-option-02",
+          "order": 2,
+          "text": {
+            "en": "Glows purple",
+            "tr": null
+          },
+          "correct": false
+        },
+        {
+          "id": "artvin-quiz-01-option-03",
+          "order": 3,
+          "text": {
+            "en": "Sings songs",
+            "tr": null
+          },
+          "correct": false
+        }
+      ],
+      "sourceRule": "The first option in the HTML source is correct. The application may shuffle display order at runtime."
+    }
+  ]
+}

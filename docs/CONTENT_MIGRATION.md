@@ -1,41 +1,42 @@
 # Content Migration
 
-## Source
+> **Status: superseded by canonical extraction (D-011, 27 Jul 2026).**
+> The migration approach below described converting legacy stops into merged
+> city files. That approach is retired. Content is no longer migrated per city
+> by the engineer; it is extracted once, deterministically, from the source HTML
+> into `content/canonical/`, which is read-only authority.
+> See `docs/CANONICAL_MIGRATION_REPORT.md`.
 
-`legacy/index.html` contains the original city arrays `CITIES1` and `CITIES2`. The package includes extracted versions so the production application does not need to execute or scrape the HTML at runtime.
+## Current model
 
-## Included datasets
+| Concern | Location | Editable by |
+|---|---|---|
+| Educational and cultural content | `content/canonical/` | Nobody. Regenerated from the source HTML with owner approval only. |
+| Technical 3D scenes | `content/scenes/` | Engineering, via `npm run content:scenes` or by hand |
+| Gameplay instruction copy | `scenes/*.json` → `interaction.gameplayCopy` | Engineering |
+| Translations | not yet built; separate locale layer keyed by canonical ids | Editorial |
 
-- `content/legacy/cities.raw.json`: direct structural extraction.
-- `content/legacy/cities.normalized.json`: typed-friendly normalized representation.
-- `content/regions.json`: seven region definitions.
-- `content/pilot/*.json`: new 3D experience specifications for the three-city vertical slice.
+### Adding a city
 
-## Migration principles
+1. Canonical content already exists for all 81 provinces — do not author it.
+2. Generate a scene: `npm run content:scenes -- <cityId>`.
+3. Map its stops to commissioned assets in `scripts/build-scenes.mjs`, or leave
+   the graybox stand-ins.
+4. Add the city to `PLAYABLE_CITY_IDS`.
+5. Run `npm run gate`.
 
-1. Preserve the original wording and choices during extraction.
-2. Do not treat extraction as factual verification.
-3. Add Turkish localization through explicit fields, not by replacing English.
-4. Replace emoji rewards with logical collectible IDs while retaining legacy references for traceability.
-5. Keep `legacyArt` only as a migration hint. It must not dictate the final 3D asset.
-6. Record editorial status per fact or city before nationwide publication.
+### Rules the validator enforces
 
-## Legacy-to-new mapping
+- Source SHA must match `content/canonical/manifest.json`.
+- 7 regions, 81 cities, 249 stops, 84 questions; 78 cities with one question and
+  3 with two.
+- Every canonical English string must match the integrity baseline.
+- Every scene `contentRef` must resolve.
+- No scene file may contain canonical prose.
+- `public/content/` must match the sources exactly, with no stale files.
 
-| Legacy element | New element |
-|---|---|
-| city object | `CityDefinition` |
-| stop array | hotspot definition |
-| SVG art key | asset concept hint |
-| stop text sheet | post-interaction fact card |
-| emoji reward | 3D/2D collectible asset |
-| quiz array | typed quiz with explicit correct IDs |
-| sequential city unlock | region-based progression rule |
-| local state object | progress repository |
+### Legacy art types
 
-## Scripts
-
-- `scripts/extract-legacy-content.mjs` can repeat the extraction if the original HTML changes.
-- `scripts/validate-content.mjs` performs basic schema-shape checks without requiring the final application.
-
-The application should use its own runtime schema validation rather than relying only on these scripts.
+The source uses 53 distinct art types across the 81 provinces; they are listed
+with usage counts in `content/canonical/taxonomy.json`. They are hints for
+briefing 3D assets, not asset ids.

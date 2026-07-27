@@ -1,0 +1,166 @@
+{
+  "schemaVersion": "1.0",
+  "contentAuthority": "index-html-canonical",
+  "source": {
+    "file": "source/index.html",
+    "sha256": "ed74da639543bd1847d3e970f114e006ec9be8a8d441197a1968afca5a07f995",
+    "cityArray": "CITIES1",
+    "cityArrayIndex": 19
+  },
+  "id": "burdur",
+  "order": 20,
+  "name": {
+    "en": "Burdur",
+    "tr": null
+  },
+  "regionId": "mediterranean",
+  "sourceRegionIndex": 2,
+  "coordinates": {
+    "longitude": 30.29,
+    "latitude": 37.72
+  },
+  "legacyGuideId": "keloglan",
+  "stops": [
+    {
+      "id": "burdur-stop-01",
+      "order": 1,
+      "sourceTupleIndex": 0,
+      "legacyArt": {
+        "type": "gol",
+        "params": {
+          "white": 1
+        }
+      },
+      "category": "nature",
+      "title": {
+        "en": "Lake Salda — Turkish Maldives",
+        "tr": null
+      },
+      "description": {
+        "en": "Lake Salda's water is so turquoise and its sand so white that people call it the 'Turkish Maldives'! Scientists say its minerals are like the ones found on MARS — NASA even studied it!",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🛸",
+        "label": {
+          "en": "a Mars-twin pebble",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "This is one of my favorite spots in all of Türkiye!",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    },
+    {
+      "id": "burdur-stop-02",
+      "order": 2,
+      "sourceTupleIndex": 1,
+      "legacyArt": {
+        "type": "antik",
+        "params": {}
+      },
+      "category": "history",
+      "title": {
+        "en": "Sagalassos in the Clouds",
+        "tr": null
+      },
+      "description": {
+        "en": "High in the mountains lies Sagalassos, a Roman city with a magnificent fountain that STILL flows with mountain water after 1,900 years. You can drink from it!",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "⛲",
+        "label": {
+          "en": "a sip of ancient water",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "We made it! Take a good look around.",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    },
+    {
+      "id": "burdur-stop-03",
+      "order": 3,
+      "sourceTupleIndex": 2,
+      "legacyArt": {
+        "type": "tatli",
+        "params": {
+          "k": "helva",
+          "s": "CEVİZ EZMESİ"
+        }
+      },
+      "category": "food",
+      "title": {
+        "en": "Walnut Delight",
+        "tr": null
+      },
+      "description": {
+        "en": "Burdur's sweet specialty is ceviz ezmesi — a soft walnut paste shaped like little walnuts. One bite and you'll ask for another!",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🌰",
+        "label": {
+          "en": "a walnut sweet",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "Every traveler stops here — now it's your turn!",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    }
+  ],
+  "quiz": [
+    {
+      "id": "burdur-quiz-01",
+      "order": 1,
+      "question": {
+        "en": "Why did NASA study Lake Salda?",
+        "tr": null
+      },
+      "options": [
+        {
+          "id": "burdur-quiz-01-option-01",
+          "order": 1,
+          "text": {
+            "en": "Its minerals are like the ones on Mars",
+            "tr": null
+          },
+          "correct": true
+        },
+        {
+          "id": "burdur-quiz-01-option-02",
+          "order": 2,
+          "text": {
+            "en": "Aliens swim there",
+            "tr": null
+          },
+          "correct": false
+        },
+        {
+          "id": "burdur-quiz-01-option-03",
+          "order": 3,
+          "text": {
+            "en": "It's made of lemonade",
+            "tr": null
+          },
+          "correct": false
+        }
+      ],
+      "sourceRule": "The first option in the HTML source is correct. The application may shuffle display order at runtime."
+    }
+  ]
+}

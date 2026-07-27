@@ -1,0 +1,168 @@
+{
+  "schemaVersion": "1.0",
+  "contentAuthority": "index-html-canonical",
+  "source": {
+    "file": "source/index.html",
+    "sha256": "ed74da639543bd1847d3e970f114e006ec9be8a8d441197a1968afca5a07f995",
+    "cityArray": "CITIES1",
+    "cityArrayIndex": 29
+  },
+  "id": "kirikkale",
+  "order": 30,
+  "name": {
+    "en": "Kırıkkale",
+    "tr": null
+  },
+  "regionId": "central-anatolia",
+  "sourceRegionIndex": 3,
+  "coordinates": {
+    "longitude": 33.51,
+    "latitude": 39.85
+  },
+  "legacyGuideId": "keloglan",
+  "stops": [
+    {
+      "id": "kirikkale-stop-01",
+      "order": 1,
+      "sourceTupleIndex": 0,
+      "legacyArt": {
+        "type": "kopru",
+        "params": {
+          "n": 4
+        }
+      },
+      "category": "history",
+      "title": {
+        "en": "Çeşnigir Bridge",
+        "tr": null
+      },
+      "description": {
+        "en": "The elegant stone Çeşnigir Bridge has arched over the Kızılırmak river since Seljuk times, 700 years ago — caravans of camels once clip-clopped across it!",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🐪",
+        "label": {
+          "en": "a caravan bell",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "Careful, don't blink — you might miss something beautiful!",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    },
+    {
+      "id": "kirikkale-stop-02",
+      "order": 2,
+      "sourceTupleIndex": 1,
+      "legacyArt": {
+        "type": "gol",
+        "params": {
+          "boat": 1
+        }
+      },
+      "category": "nature",
+      "title": {
+        "en": "The Red River",
+        "tr": null
+      },
+      "description": {
+        "en": "The mighty Kızılırmak — 'Red River' — is the LONGEST river flowing entirely inside Türkiye (1,355 km!). Its red-brown water gives it its name.",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🏞️",
+        "label": {
+          "en": "red river water drop",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "Look at this — amazing, right?",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    },
+    {
+      "id": "kirikkale-stop-03",
+      "order": 3,
+      "sourceTupleIndex": 2,
+      "legacyArt": {
+        "type": "craft",
+        "params": {
+          "kind": "knife",
+          "s": "METALWORK"
+        }
+      },
+      "category": "craft",
+      "title": {
+        "en": "City of Master Metalworkers",
+        "tr": null
+      },
+      "description": {
+        "en": "Kırıkkale is famous for its metal masters — from fine knives to machine parts, shaping steel is this young city's superpower.",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🔧",
+        "label": {
+          "en": "a shiny steel star",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "This is one of my favorite spots in all of Türkiye!",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    }
+  ],
+  "quiz": [
+    {
+      "id": "kirikkale-quiz-01",
+      "order": 1,
+      "question": {
+        "en": "What does 'Kızılırmak' mean?",
+        "tr": null
+      },
+      "options": [
+        {
+          "id": "kirikkale-quiz-01-option-01",
+          "order": 1,
+          "text": {
+            "en": "Red River",
+            "tr": null
+          },
+          "correct": true
+        },
+        {
+          "id": "kirikkale-quiz-01-option-02",
+          "order": 2,
+          "text": {
+            "en": "Green Mountain",
+            "tr": null
+          },
+          "correct": false
+        },
+        {
+          "id": "kirikkale-quiz-01-option-03",
+          "order": 3,
+          "text": {
+            "en": "Blue Cloud",
+            "tr": null
+          },
+          "correct": false
+        }
+      ],
+      "sourceRule": "The first option in the HTML source is correct. The application may shuffle display order at runtime."
+    }
+  ]
+}

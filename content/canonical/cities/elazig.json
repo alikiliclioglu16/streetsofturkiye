@@ -1,0 +1,168 @@
+{
+  "schemaVersion": "1.0",
+  "contentAuthority": "index-html-canonical",
+  "source": {
+    "file": "source/index.html",
+    "sha256": "ed74da639543bd1847d3e970f114e006ec9be8a8d441197a1968afca5a07f995",
+    "cityArray": "CITIES2",
+    "cityArrayIndex": 30
+  },
+  "id": "elazig",
+  "order": 71,
+  "name": {
+    "en": "Elazığ",
+    "tr": null
+  },
+  "regionId": "eastern-anatolia",
+  "sourceRegionIndex": 5,
+  "coordinates": {
+    "longitude": 39.22,
+    "latitude": 38.68
+  },
+  "legacyGuideId": "nasreddin-hoca",
+  "stops": [
+    {
+      "id": "elazig-stop-01",
+      "order": 1,
+      "sourceTupleIndex": 0,
+      "legacyArt": {
+        "type": "kale",
+        "params": {
+          "rock": 1
+        }
+      },
+      "category": "history",
+      "title": {
+        "en": "Harput — the City Above",
+        "tr": null
+      },
+      "description": {
+        "en": "Old Harput sits on a hill above modern Elazığ: a mighty castle, ancient mosques and stone lanes with a thousand years of stories. Legend tells of a castle built with milk instead of water!",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🥛",
+        "label": {
+          "en": "the milk-castle legend",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "See? Türkiye is full of wonders!",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    },
+    {
+      "id": "elazig-stop-02",
+      "order": 2,
+      "sourceTupleIndex": 1,
+      "legacyArt": {
+        "type": "gol",
+        "params": {
+          "island": 1
+        }
+      },
+      "category": "nature",
+      "title": {
+        "en": "Lake Hazar & the Sunken City",
+        "tr": null
+      },
+      "description": {
+        "en": "Divers found the ruins of an old sunken settlement beneath Lake Hazar's blue water! Swim at its beaches knowing a secret city sleeps below.",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🤿",
+        "label": {
+          "en": "a sunken-city bubble",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "Careful, don't blink — you might miss something beautiful!",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    },
+    {
+      "id": "elazig-stop-03",
+      "order": 3,
+      "sourceTupleIndex": 2,
+      "legacyArt": {
+        "type": "tatli",
+        "params": {
+          "k": "pestil",
+          "s": "ORCİK"
+        }
+      },
+      "category": "food",
+      "title": {
+        "en": "Orcik — Walnut Candy Strings",
+        "tr": null
+      },
+      "description": {
+        "en": "Elazığ's orcik is walnuts on a string, dipped again and again in thick grape juice until they become chewy candy necklaces. Wear it or eat it? Eat it!",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🍬",
+        "label": {
+          "en": "an orcik necklace",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "Look at this — amazing, right?",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    }
+  ],
+  "quiz": [
+    {
+      "id": "elazig-quiz-01",
+      "order": 1,
+      "question": {
+        "en": "What did divers find under Lake Hazar?",
+        "tr": null
+      },
+      "options": [
+        {
+          "id": "elazig-quiz-01-option-01",
+          "order": 1,
+          "text": {
+            "en": "Ruins of a sunken settlement",
+            "tr": null
+          },
+          "correct": true
+        },
+        {
+          "id": "elazig-quiz-01-option-02",
+          "order": 2,
+          "text": {
+            "en": "A pirate disco",
+            "tr": null
+          },
+          "correct": false
+        },
+        {
+          "id": "elazig-quiz-01-option-03",
+          "order": 3,
+          "text": {
+            "en": "A cheese factory",
+            "tr": null
+          },
+          "correct": false
+        }
+      ],
+      "sourceRule": "The first option in the HTML source is correct. The application may shuffle display order at runtime."
+    }
+  ]
+}

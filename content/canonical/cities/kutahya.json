@@ -1,0 +1,165 @@
+{
+  "schemaVersion": "1.0",
+  "contentAuthority": "index-html-canonical",
+  "source": {
+    "file": "source/index.html",
+    "sha256": "ed74da639543bd1847d3e970f114e006ec9be8a8d441197a1968afca5a07f995",
+    "cityArray": "CITIES1",
+    "cityArrayIndex": 17
+  },
+  "id": "kutahya",
+  "order": 18,
+  "name": {
+    "en": "Kütahya",
+    "tr": null
+  },
+  "regionId": "aegean",
+  "sourceRegionIndex": 1,
+  "coordinates": {
+    "longitude": 29.98,
+    "latitude": 39.42
+  },
+  "legacyGuideId": "keloglan",
+  "stops": [
+    {
+      "id": "kutahya-stop-01",
+      "order": 1,
+      "sourceTupleIndex": 0,
+      "legacyArt": {
+        "type": "craft",
+        "params": {
+          "kind": "tile",
+          "s": "ÇİNİ ATELIER",
+          "f": "#1B7FA8"
+        }
+      },
+      "category": "craft",
+      "title": {
+        "en": "Çini — the Art of Painted Tiles",
+        "tr": null
+      },
+      "description": {
+        "en": "Kütahya is the city of çini: masters paint tulips and carnations in cobalt blue, turquoise and coral red onto white tiles and plates. Each piece is painted by hand, dot by dot!",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🎨",
+        "label": {
+          "en": "a hand-painted tile",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "Careful, don't blink — you might miss something beautiful!",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    },
+    {
+      "id": "kutahya-stop-02",
+      "order": 2,
+      "sourceTupleIndex": 1,
+      "legacyArt": {
+        "type": "antik",
+        "params": {}
+      },
+      "category": "history",
+      "title": {
+        "en": "Aizanoi — Temple of Zeus",
+        "tr": null
+      },
+      "description": {
+        "en": "The ancient city of Aizanoi has one of the best-preserved Zeus temples in the world, plus a Roman 'stock market' building where prices were carved in stone!",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🏛️",
+        "label": {
+          "en": "a temple postcard",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "Look at this — amazing, right?",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    },
+    {
+      "id": "kutahya-stop-03",
+      "order": 3,
+      "sourceTupleIndex": 2,
+      "legacyArt": {
+        "type": "chimneys",
+        "params": {}
+      },
+      "category": "nature",
+      "title": {
+        "en": "The Phrygian Valley",
+        "tr": null
+      },
+      "description": {
+        "en": "Kütahya shares the magical Phrygian Valley, where ancient people carved homes and castles into soft tuff rocks 2,700 years ago — Cappadocia's little cousin!",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🪨",
+        "label": {
+          "en": "a Phrygian rock chip",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "This is one of my favorite spots in all of Türkiye!",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    }
+  ],
+  "quiz": [
+    {
+      "id": "kutahya-quiz-01",
+      "order": 1,
+      "question": {
+        "en": "What do Kütahya's masters paint on white tiles?",
+        "tr": null
+      },
+      "options": [
+        {
+          "id": "kutahya-quiz-01-option-01",
+          "order": 1,
+          "text": {
+            "en": "Tulips and carnations by hand",
+            "tr": null
+          },
+          "correct": true
+        },
+        {
+          "id": "kutahya-quiz-01-option-02",
+          "order": 2,
+          "text": {
+            "en": "Cars",
+            "tr": null
+          },
+          "correct": false
+        },
+        {
+          "id": "kutahya-quiz-01-option-03",
+          "order": 3,
+          "text": {
+            "en": "Spaceships",
+            "tr": null
+          },
+          "correct": false
+        }
+      ],
+      "sourceRule": "The first option in the HTML source is correct. The application may shuffle display order at runtime."
+    }
+  ]
+}

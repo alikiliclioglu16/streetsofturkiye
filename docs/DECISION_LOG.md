@@ -39,3 +39,21 @@ The user performs a meaningful action before receiving the concise fact and coll
 ## D-010 — Bilingual-ready architecture
 
 Content is structured for Turkish and English even when a translation is initially missing.
+
+## D-011 — Canonical content authority (27 Jul 2026)
+
+Uploaded HTML content is the sole canonical source. The former
+two-questions-per-city rule is retired.
+
+`content/canonical/`, extracted deterministically from `legacy/index.html`
+(SHA-256 `ed74da639543bd1847d3e970f114e006ec9be8a8d441197a1968afca5a07f995`),
+holds all educational and cultural content and is read-only. Technical 3D data
+moved to `content/scenes/` and references canonical records through
+`contentRef`. Quiz cardinality follows the source exactly: 78 cities with one
+question, 3 with two, 84 in total.
+
+Consequence: `content/pilot/` and the hand-authored pilot strings are retired.
+`REQUIRED_QUIZ_ITEMS` and `meetsQuizStandard()` are removed. A validator fails
+the build if the source SHA changes, counts drift, a canonical string is edited,
+a `contentRef` dangles, or a scene file duplicates canonical prose.
+

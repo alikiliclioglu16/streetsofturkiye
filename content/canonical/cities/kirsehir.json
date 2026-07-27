@@ -1,0 +1,170 @@
+{
+  "schemaVersion": "1.0",
+  "contentAuthority": "index-html-canonical",
+  "source": {
+    "file": "source/index.html",
+    "sha256": "ed74da639543bd1847d3e970f114e006ec9be8a8d441197a1968afca5a07f995",
+    "cityArray": "CITIES1",
+    "cityArrayIndex": 32
+  },
+  "id": "kirsehir",
+  "order": 33,
+  "name": {
+    "en": "Kırşehir",
+    "tr": null
+  },
+  "regionId": "central-anatolia",
+  "sourceRegionIndex": 3,
+  "coordinates": {
+    "longitude": 34.16,
+    "latitude": 39.14
+  },
+  "legacyGuideId": "nasreddin-hoca",
+  "stops": [
+    {
+      "id": "kirsehir-stop-01",
+      "order": 1,
+      "sourceTupleIndex": 0,
+      "legacyArt": {
+        "type": "craft",
+        "params": {
+          "kind": "copper",
+          "s": "AHİ WORKSHOP"
+        }
+      },
+      "category": "history",
+      "title": {
+        "en": "Ahi Evran — Father of Craftsmen",
+        "tr": null
+      },
+      "description": {
+        "en": "800 years ago, Ahi Evran founded a brotherhood of honest craftsmen in Kırşehir. Their golden rules — work hard, be fair, help others — still guide Turkish artisans today!",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🤝",
+        "label": {
+          "en": "the honest craftsman's badge",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "We made it! Take a good look around.",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    },
+    {
+      "id": "kirsehir-stop-02",
+      "order": 2,
+      "sourceTupleIndex": 1,
+      "legacyArt": {
+        "type": "muze",
+        "params": {
+          "s": "CACABEY OBSERVATORY",
+          "icon": "stars",
+          "f": "#5E4680"
+        }
+      },
+      "category": "history",
+      "title": {
+        "en": "A Medieval Star School",
+        "tr": null
+      },
+      "description": {
+        "en": "The 750-year-old Cacabey Madrasa was built as a school where students studied the STARS — one of the world's early observatories, with columns shaped like rockets!",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "⭐",
+        "label": {
+          "en": "a star chart",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "Every traveler stops here — now it's your turn!",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    },
+    {
+      "id": "kirsehir-stop-03",
+      "order": 3,
+      "sourceTupleIndex": 2,
+      "legacyArt": {
+        "type": "muzik",
+        "params": {
+          "kind": "saz"
+        }
+      },
+      "category": "craft",
+      "title": {
+        "en": "Land of the Bozlak",
+        "tr": null
+      },
+      "description": {
+        "en": "Kırşehir is the heart of Abdal music. Master Neşet Ertaş, the 'Nightingale of the Steppe', sang songs here that all of Türkiye knows by heart.",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🎵",
+        "label": {
+          "en": "a bağlama pick",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "See? Türkiye is full of wonders!",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    }
+  ],
+  "quiz": [
+    {
+      "id": "kirsehir-quiz-01",
+      "order": 1,
+      "question": {
+        "en": "What did students study at the Cacabey Madrasa?",
+        "tr": null
+      },
+      "options": [
+        {
+          "id": "kirsehir-quiz-01-option-01",
+          "order": 1,
+          "text": {
+            "en": "The stars",
+            "tr": null
+          },
+          "correct": true
+        },
+        {
+          "id": "kirsehir-quiz-01-option-02",
+          "order": 2,
+          "text": {
+            "en": "Pizza recipes",
+            "tr": null
+          },
+          "correct": false
+        },
+        {
+          "id": "kirsehir-quiz-01-option-03",
+          "order": 3,
+          "text": {
+            "en": "Video games",
+            "tr": null
+          },
+          "correct": false
+        }
+      ],
+      "sourceRule": "The first option in the HTML source is correct. The application may shuffle display order at runtime."
+    }
+  ]
+}

@@ -1,0 +1,168 @@
+{
+  "schemaVersion": "1.0",
+  "contentAuthority": "index-html-canonical",
+  "source": {
+    "file": "source/index.html",
+    "sha256": "ed74da639543bd1847d3e970f114e006ec9be8a8d441197a1968afca5a07f995",
+    "cityArray": "CITIES2",
+    "cityArrayIndex": 34
+  },
+  "id": "kilis",
+  "order": 75,
+  "name": {
+    "en": "Kilis",
+    "tr": null
+  },
+  "regionId": "southeastern-anatolia",
+  "sourceRegionIndex": 6,
+  "coordinates": {
+    "longitude": 37.12,
+    "latitude": 36.72
+  },
+  "legacyGuideId": "nasreddin-hoca",
+  "stops": [
+    {
+      "id": "kilis-stop-01",
+      "order": 1,
+      "sourceTupleIndex": 0,
+      "legacyArt": {
+        "type": "agac",
+        "params": {
+          "kind": "olive"
+        }
+      },
+      "category": "food",
+      "title": {
+        "en": "A Sea of Olive Trees",
+        "tr": null
+      },
+      "description": {
+        "en": "Little Kilis is hugged by olive groves — its special 'Kilis yağlık' olives make prize-winning golden oil pressed in old stone mills.",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🫒",
+        "label": {
+          "en": "golden Kilis oil",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "We made it! Take a good look around.",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    },
+    {
+      "id": "kilis-stop-02",
+      "order": 2,
+      "sourceTupleIndex": 1,
+      "legacyArt": {
+        "type": "kale",
+        "params": {
+          "rock": 1
+        }
+      },
+      "category": "history",
+      "title": {
+        "en": "Ravanda Castle",
+        "tr": null
+      },
+      "description": {
+        "en": "Ravanda Castle crowns a cone-shaped hill, watching caravan roads that connected great cities for a thousand years — climb up for a view over endless olive groves!",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🗝️",
+        "label": {
+          "en": "the castle's old key",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "Every traveler stops here — now it's your turn!",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    },
+    {
+      "id": "kilis-stop-03",
+      "order": 3,
+      "sourceTupleIndex": 2,
+      "legacyArt": {
+        "type": "tatli",
+        "params": {
+          "k": "kunefe",
+          "s": "KATMER"
+        }
+      },
+      "category": "food",
+      "title": {
+        "en": "Kilis Katmer",
+        "tr": null
+      },
+      "description": {
+        "en": "Kilis katmer is a paper-thin pastry folded around pistachios and clotted cream — flat, golden and gone in four bites!",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🥞",
+        "label": {
+          "en": "a pistachio katmer",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "See? Türkiye is full of wonders!",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    }
+  ],
+  "quiz": [
+    {
+      "id": "kilis-quiz-01",
+      "order": 1,
+      "question": {
+        "en": "What surrounds the city of Kilis like a green sea?",
+        "tr": null
+      },
+      "options": [
+        {
+          "id": "kilis-quiz-01-option-01",
+          "order": 1,
+          "text": {
+            "en": "Olive trees",
+            "tr": null
+          },
+          "correct": true
+        },
+        {
+          "id": "kilis-quiz-01-option-02",
+          "order": 2,
+          "text": {
+            "en": "Cactus",
+            "tr": null
+          },
+          "correct": false
+        },
+        {
+          "id": "kilis-quiz-01-option-03",
+          "order": 3,
+          "text": {
+            "en": "Bamboo",
+            "tr": null
+          },
+          "correct": false
+        }
+      ],
+      "sourceRule": "The first option in the HTML source is correct. The application may shuffle display order at runtime."
+    }
+  ]
+}

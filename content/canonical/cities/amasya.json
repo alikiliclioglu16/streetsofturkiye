@@ -1,0 +1,169 @@
+{
+  "schemaVersion": "1.0",
+  "contentAuthority": "index-html-canonical",
+  "source": {
+    "file": "source/index.html",
+    "sha256": "ed74da639543bd1847d3e970f114e006ec9be8a8d441197a1968afca5a07f995",
+    "cityArray": "CITIES2",
+    "cityArrayIndex": 8
+  },
+  "id": "amasya",
+  "order": 49,
+  "name": {
+    "en": "Amasya",
+    "tr": null
+  },
+  "regionId": "black-sea",
+  "sourceRegionIndex": 4,
+  "coordinates": {
+    "longitude": 35.83,
+    "latitude": 40.65
+  },
+  "legacyGuideId": "nasreddin-hoca",
+  "stops": [
+    {
+      "id": "amasya-stop-01",
+      "order": 1,
+      "sourceTupleIndex": 0,
+      "legacyArt": {
+        "type": "ev",
+        "params": {
+          "rocktombs": 1
+        }
+      },
+      "category": "history",
+      "title": {
+        "en": "Houses Under the Kings' Tombs",
+        "tr": null
+      },
+      "description": {
+        "en": "Amasya is a postcard: white Ottoman houses line the green river, and giant tombs of ancient kings are carved into the cliff above — glowing gold when lit at night!",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "👑",
+        "label": {
+          "en": "a rock-tomb postcard",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "Look at this — amazing, right?",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    },
+    {
+      "id": "amasya-stop-02",
+      "order": 2,
+      "sourceTupleIndex": 1,
+      "legacyArt": {
+        "type": "agac",
+        "params": {
+          "kind": "apple"
+        }
+      },
+      "category": "food",
+      "title": {
+        "en": "The Sweetest Apples",
+        "tr": null
+      },
+      "description": {
+        "en": "Amasya's small, rosy-cheeked apples are famous across Türkiye — crunchy, sweet-smelling and perfect for lunchboxes.",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🍎",
+        "label": {
+          "en": "a rosy Amasya apple",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "This is one of my favorite spots in all of Türkiye!",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    },
+    {
+      "id": "amasya-stop-03",
+      "order": 3,
+      "sourceTupleIndex": 2,
+      "legacyArt": {
+        "type": "muze",
+        "params": {
+          "s": "FERHAT & ŞİRİN",
+          "icon": "scroll",
+          "f": "#B03A6B"
+        }
+      },
+      "category": "history",
+      "title": {
+        "en": "The Legend of Ferhat",
+        "tr": null
+      },
+      "description": {
+        "en": "Legend says Ferhat loved Princess Şirin so much that he dug a tunnel through a whole MOUNTAIN to bring water to her city. Amasya's old water channels still carry his name!",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "⛏️",
+        "label": {
+          "en": "Ferhat's pickaxe",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "We made it! Take a good look around.",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    }
+  ],
+  "quiz": [
+    {
+      "id": "amasya-quiz-01",
+      "order": 1,
+      "question": {
+        "en": "What is carved into the cliffs above Amasya?",
+        "tr": null
+      },
+      "options": [
+        {
+          "id": "amasya-quiz-01-option-01",
+          "order": 1,
+          "text": {
+            "en": "Tombs of ancient kings",
+            "tr": null
+          },
+          "correct": true
+        },
+        {
+          "id": "amasya-quiz-01-option-02",
+          "order": 2,
+          "text": {
+            "en": "Giant ice cream cones",
+            "tr": null
+          },
+          "correct": false
+        },
+        {
+          "id": "amasya-quiz-01-option-03",
+          "order": 3,
+          "text": {
+            "en": "Spaceships",
+            "tr": null
+          },
+          "correct": false
+        }
+      ],
+      "sourceRule": "The first option in the HTML source is correct. The application may shuffle display order at runtime."
+    }
+  ]
+}

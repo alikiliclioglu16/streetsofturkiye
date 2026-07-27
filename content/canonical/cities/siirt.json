@@ -1,0 +1,165 @@
+{
+  "schemaVersion": "1.0",
+  "contentAuthority": "index-html-canonical",
+  "source": {
+    "file": "source/index.html",
+    "sha256": "ed74da639543bd1847d3e970f114e006ec9be8a8d441197a1968afca5a07f995",
+    "cityArray": "CITIES2",
+    "cityArrayIndex": 39
+  },
+  "id": "siirt",
+  "order": 80,
+  "name": {
+    "en": "Siirt",
+    "tr": null
+  },
+  "regionId": "southeastern-anatolia",
+  "sourceRegionIndex": 6,
+  "coordinates": {
+    "longitude": 41.94,
+    "latitude": 37.93
+  },
+  "legacyGuideId": "keloglan",
+  "stops": [
+    {
+      "id": "siirt-stop-01",
+      "order": 1,
+      "sourceTupleIndex": 0,
+      "legacyArt": {
+        "type": "stall",
+        "params": {
+          "s": "BÜRYAN",
+          "d": "buryan",
+          "c": "#8A4038"
+        }
+      },
+      "category": "food",
+      "title": {
+        "en": "Büryan Masters",
+        "tr": null
+      },
+      "description": {
+        "en": "In Siirt, büryan lamb slow-cooks in deep wells since dawn — by mid-morning the whole bazaar smells amazing and everyone lines up, plates ready!",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🍽️",
+        "label": {
+          "en": "a büryan lunch token",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "This is one of my favorite spots in all of Türkiye!",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    },
+    {
+      "id": "siirt-stop-02",
+      "order": 2,
+      "sourceTupleIndex": 1,
+      "legacyArt": {
+        "type": "loom",
+        "params": {}
+      },
+      "category": "craft",
+      "title": {
+        "en": "The Famous Siirt Blanket",
+        "tr": null
+      },
+      "description": {
+        "en": "Siirt's snow-white mohair blankets, woven from Angora goat wool, are so soft and warm that they're famous across the country — like sleeping under a cloud!",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "☁️",
+        "label": {
+          "en": "a mohair cloud blanket",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "We made it! Take a good look around.",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    },
+    {
+      "id": "siirt-stop-03",
+      "order": 3,
+      "sourceTupleIndex": 2,
+      "legacyArt": {
+        "type": "kanyon",
+        "params": {}
+      },
+      "category": "nature",
+      "title": {
+        "en": "Botan Valley",
+        "tr": null
+      },
+      "description": {
+        "en": "The wild Botan river carves a grand canyon through the mountains — a national park where eagles circle over turquoise water.",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🦅",
+        "label": {
+          "en": "a Botan eagle feather",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "Every traveler stops here — now it's your turn!",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    }
+  ],
+  "quiz": [
+    {
+      "id": "siirt-quiz-01",
+      "order": 1,
+      "question": {
+        "en": "What are Siirt's famous soft blankets made of?",
+        "tr": null
+      },
+      "options": [
+        {
+          "id": "siirt-quiz-01-option-01",
+          "order": 1,
+          "text": {
+            "en": "Angora goat mohair",
+            "tr": null
+          },
+          "correct": true
+        },
+        {
+          "id": "siirt-quiz-01-option-02",
+          "order": 2,
+          "text": {
+            "en": "Plastic",
+            "tr": null
+          },
+          "correct": false
+        },
+        {
+          "id": "siirt-quiz-01-option-03",
+          "order": 3,
+          "text": {
+            "en": "Seaweed",
+            "tr": null
+          },
+          "correct": false
+        }
+      ],
+      "sourceRule": "The first option in the HTML source is correct. The application may shuffle display order at runtime."
+    }
+  ]
+}

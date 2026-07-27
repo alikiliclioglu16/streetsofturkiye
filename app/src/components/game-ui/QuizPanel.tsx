@@ -1,9 +1,9 @@
 'use client';
 
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { Modal } from '@/components/game-ui/Modal';
 import { t, ui, type Locale } from '@/content/i18n';
-import type { QuizItem } from '@/content/schemas/city';
+import { shuffleOptions, type RuntimeQuizItem as QuizItem } from '@/content/compose';
 
 /** Quiz gate. Wrong answers retry without punishment. */
 export function QuizPanel({
@@ -20,6 +20,8 @@ export function QuizPanel({
   onCorrect: () => void;
 }) {
   const [wrongId, setWrongId] = useState<string | null>(null);
+  // The canonical source always lists the correct option first.
+  const options = useMemo(() => shuffleOptions(item.options, item.id), [item.options, item.id]);
 
   return (
     <Modal labelledBy="quiz-title">
@@ -30,7 +32,7 @@ export function QuizPanel({
         {t(item.question, locale)}
       </h2>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-        {item.options.map((option) => (
+        {options.map((option) => (
           <button
             key={option.id}
             type="button"

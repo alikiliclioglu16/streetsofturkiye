@@ -1,9 +1,6 @@
-import { readFileSync } from 'node:fs';
-import path from 'node:path';
 import { describe, expect, it, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { citySchema } from '@/content/schemas/city';
 import { Modal } from '@/components/game-ui/Modal';
 import { QuizPanel } from '@/components/game-ui/QuizPanel';
 import { FactCard } from '@/components/game-ui/FactCard';
@@ -17,11 +14,9 @@ import { CompletionPanel } from '@/components/game-ui/CompletionPanel';
 
 const escapeRegExp = (value: string) => value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 
-const city = citySchema.parse(
-  JSON.parse(
-    readFileSync(path.resolve(process.cwd(), '..', 'content/pilot/istanbul.json'), 'utf8'),
-  ),
-);
+import { loadComposedCity } from './helpers';
+
+const city = loadComposedCity('istanbul');
 
 describe('modal accessibility', () => {
   it('moves focus into the dialog on open', async () => {
@@ -109,11 +104,12 @@ describe('quiz gate', () => {
 });
 
 describe('fact card', () => {
-  it('flags content that has not passed editorial review', () => {
+  it('shows the canonical description and guide line as authored', () => {
     const hotspot = city.hotspots[0]!;
     render(<FactCard hotspot={hotspot} locale="tr" onContinue={vi.fn()} />);
-    expect(screen.getByText(/Editör onayı bekliyor/)).toBeInTheDocument();
     expect(screen.getByText(hotspot.fact.body.en!)).toBeInTheDocument();
+    expect(screen.getByText(hotspot.fact.guideLine.en!)).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: hotspot.fact.title.en! })).toBeInTheDocument();
   });
 
   it('falls back to English when Turkish is missing', () => {
@@ -132,12 +128,14 @@ describe('completion panel', () => {
     render(
       <CompletionPanel
         city={city}
-        collectedRewardIds={[city.rewards.collectibleIds[0]!]}
+        collectedRewardIds={[city.rewards.collectibleAssetIds[0]!]}
         locale="tr"
         onLeave={vi.fn()}
       />,
     );
     expect(screen.getByText('✓')).toBeInTheDocument();
-    expect(screen.getAllByText('—')).toHaveLength(city.rewards.collectibleIds.length - 1);
+    expect(screen.getAllByText('—')).toHaveLength(city.hotspots.length - 1);
+    // Collectible names come from canonical content, not from asset labels.
+    expect(screen.getByText(city.hotspots[0]!.reward.label.en!)).toBeInTheDocument();
   });
 });

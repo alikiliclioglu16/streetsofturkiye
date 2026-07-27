@@ -1,0 +1,45 @@
+{
+  "packageVersion": "1.0",
+  "authority": "The uploaded HTML is the sole canonical educational-content source.",
+  "sourceFile": "source/index.html",
+  "sourceSha256": "ed74da639543bd1847d3e970f114e006ec9be8a8d441197a1968afca5a07f995",
+  "sourceLanguage": "en",
+  "counts": {
+    "regions": 7,
+    "cities": 81,
+    "stops": 249,
+    "quizQuestions": 84,
+    "citiesWithOneQuestion": 78,
+    "citiesWithTwoQuestions": 3,
+    "explicitGuideLines": 15,
+    "guideLinesResolvedFromGlobalSAYS": 234,
+    "uniqueLegacyArtTypes": 53,
+    "categories": {
+      "craft": 27,
+      "food": 61,
+      "history": 85,
+      "nature": 76
+    }
+  },
+  "pilotCanonicalCounts": {
+    "istanbul": {
+      "stops": 5,
+      "quizQuestions": 2
+    },
+    "nevsehir": {
+      "stops": 5,
+      "quizQuestions": 2
+    },
+    "gaziantep": {
+      "stops": 3,
+      "quizQuestions": 1
+    }
+  },
+  "rules": [
+    "Do not rewrite, shorten, expand, translate, fact-check-edit, or invent canonical content without explicit project-owner approval.",
+    "The first quiz option in the source is correct. Display order may be shuffled.",
+    "Question count is variable and must match the source; do not force two questions per city.",
+    "3D scene data and gameplay instructions must be stored separately from canonical educational content.",
+    "Translations must be a separate locale layer keyed by canonical IDs."
+  ]
+}

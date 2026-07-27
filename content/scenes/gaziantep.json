@@ -1,0 +1,291 @@
+{
+  "schemaVersion": "2.0.0",
+  "id": "gaziantep",
+  "contentRef": {
+    "cityId": "gaziantep"
+  },
+  "canonicalSource": {
+    "sha256": "ed74da639543bd1847d3e970f114e006ec9be8a8d441197a1968afca5a07f995"
+  },
+  "environment": {
+    "kitId": "southeastern-yellow-stone-bazaar",
+    "timeOfDay": "midday",
+    "ambientAudioId": "ambient_southeastern_anatolia",
+    "skyPreset": [
+      "#FFE0B8",
+      "#FFF3DE"
+    ],
+    "groundColor": "#E0BC7E"
+  },
+  "guide": {
+    "assetId": "character_keloglan_base"
+  },
+  "spawn": {
+    "position": [
+      0,
+      0,
+      0
+    ],
+    "rotation": [
+      0,
+      3.141592653589793,
+      0
+    ],
+    "scale": [
+      1,
+      1,
+      1
+    ]
+  },
+  "route": {
+    "mode": "guided-loop",
+    "points": [
+      [
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        -2
+      ],
+      [
+        5.5,
+        0,
+        -16
+      ],
+      [
+        6.8,
+        0,
+        -30
+      ]
+    ],
+    "bounds": [
+      [
+        -20,
+        0,
+        10
+      ],
+      [
+        20,
+        0,
+        10
+      ],
+      [
+        20,
+        0,
+        -48
+      ],
+      [
+        -20,
+        0,
+        -48
+      ]
+    ]
+  },
+  "intro": {
+    "cameraSequenceId": null,
+    "skippable": true
+  },
+  "hotspots": [
+    {
+      "id": "gaziantep-hotspot-01",
+      "order": 1,
+      "contentRef": {
+        "stopId": "gaziantep-stop-01"
+      },
+      "sceneStatus": "ready",
+      "assetId": "city_gaziantep_zeugma_mosaic_panel",
+      "assetStatus": "commissioned",
+      "transform": {
+        "position": [
+          0,
+          0,
+          -8
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "triggerRadius": 4.5,
+      "camera": {
+        "position": [
+          3.2,
+          3,
+          -1.5
+        ],
+        "target": [
+          0,
+          1.4,
+          -8
+        ],
+        "durationMs": 900
+      },
+      "interaction": {
+        "type": "inspect-and-find",
+        "mechanics": {
+          "targetId": "gaziantep-stop-01-target",
+          "hintAfterAttempts": 2,
+          "decoyStopIds": [
+            "gaziantep-stop-02",
+            "gaziantep-stop-03"
+          ]
+        },
+        "gameplayCopy": {
+          "instruction": {
+            "en": "Find {reward}.",
+            "tr": null
+          }
+        }
+      },
+      "rewardAssetId": "collectible_gaziantep_mosaic_piece",
+      "audio": {
+        "onSuccessId": "sfx_reward_chime"
+      }
+    },
+    {
+      "id": "gaziantep-hotspot-02",
+      "order": 2,
+      "contentRef": {
+        "stopId": "gaziantep-stop-02"
+      },
+      "sceneStatus": "ready",
+      "assetId": "city_gaziantep_baklava_counter",
+      "assetStatus": "commissioned",
+      "transform": {
+        "position": [
+          5.5,
+          0,
+          -22
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "triggerRadius": 4.5,
+      "camera": {
+        "position": [
+          8.7,
+          3,
+          -15.5
+        ],
+        "target": [
+          5.5,
+          1.4,
+          -22
+        ],
+        "durationMs": 900
+      },
+      "interaction": {
+        "type": "sequence-select",
+        "mechanics": {
+          "targetId": "gaziantep-stop-02-target",
+          "hintAfterAttempts": 2,
+          "decoyStopIds": [
+            "gaziantep-stop-01",
+            "gaziantep-stop-03"
+          ]
+        },
+        "gameplayCopy": {
+          "instruction": {
+            "en": "Find {reward}.",
+            "tr": null
+          }
+        }
+      },
+      "rewardAssetId": "collectible_gaziantep_baklava",
+      "audio": {
+        "onSuccessId": "sfx_reward_chime"
+      }
+    },
+    {
+      "id": "gaziantep-hotspot-03",
+      "order": 3,
+      "contentRef": {
+        "stopId": "gaziantep-stop-03"
+      },
+      "sceneStatus": "ready",
+      "assetId": "city_gaziantep_coppersmith_workbench",
+      "assetStatus": "commissioned",
+      "transform": {
+        "position": [
+          6.8,
+          0,
+          -36
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "triggerRadius": 4.5,
+      "camera": {
+        "position": [
+          10,
+          3,
+          -29.5
+        ],
+        "target": [
+          6.8,
+          1.4,
+          -36
+        ],
+        "durationMs": 900
+      },
+      "interaction": {
+        "type": "inspect-and-find",
+        "mechanics": {
+          "targetId": "gaziantep-stop-03-target",
+          "hintAfterAttempts": 2,
+          "decoyStopIds": [
+            "gaziantep-stop-01",
+            "gaziantep-stop-02"
+          ]
+        },
+        "gameplayCopy": {
+          "instruction": {
+            "en": "Find {reward}.",
+            "tr": null
+          }
+        }
+      },
+      "rewardAssetId": "collectible_gaziantep_copper_pot",
+      "audio": {
+        "onSuccessId": "sfx_reward_chime"
+      }
+    }
+  ],
+  "quizPresentation": {
+    "shuffleOptions": true
+  },
+  "rewards": {
+    "cityStarId": "star_gaziantep",
+    "collectibleAssetIds": [
+      "collectible_gaziantep_mosaic_piece",
+      "collectible_gaziantep_baklava",
+      "collectible_gaziantep_copper_pot"
+    ]
+  },
+  "estimatedMinutes": 3
+}

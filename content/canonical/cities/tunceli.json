@@ -1,0 +1,163 @@
+{
+  "schemaVersion": "1.0",
+  "contentAuthority": "index-html-canonical",
+  "source": {
+    "file": "source/index.html",
+    "sha256": "ed74da639543bd1847d3e970f114e006ec9be8a8d441197a1968afca5a07f995",
+    "cityArray": "CITIES2",
+    "cityArrayIndex": 29
+  },
+  "id": "tunceli",
+  "order": 70,
+  "name": {
+    "en": "Tunceli",
+    "tr": null
+  },
+  "regionId": "eastern-anatolia",
+  "sourceRegionIndex": 5,
+  "coordinates": {
+    "longitude": 39.55,
+    "latitude": 39.11
+  },
+  "legacyGuideId": "keloglan",
+  "stops": [
+    {
+      "id": "tunceli-stop-01",
+      "order": 1,
+      "sourceTupleIndex": 0,
+      "legacyArt": {
+        "type": "kanyon",
+        "params": {}
+      },
+      "category": "nature",
+      "title": {
+        "en": "Munzur Valley National Park",
+        "tr": null
+      },
+      "description": {
+        "en": "The wild Munzur Valley is one of Türkiye's biggest national parks — rushing turquoise water, deep gorges and rare flowers that grow nowhere else on Earth.",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🌸",
+        "label": {
+          "en": "a rare Munzur flower",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "Every traveler stops here — now it's your turn!",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    },
+    {
+      "id": "tunceli-stop-02",
+      "order": 2,
+      "sourceTupleIndex": 1,
+      "legacyArt": {
+        "type": "selale",
+        "params": {}
+      },
+      "category": "nature",
+      "title": {
+        "en": "The Munzur Springs",
+        "tr": null
+      },
+      "description": {
+        "en": "At Ovacık, the Munzur river bursts straight out of the mountain in forty bubbling springs — icy cold, crystal clear, and wrapped in legends.",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "💦",
+        "label": {
+          "en": "spring water drops",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "See? Türkiye is full of wonders!",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    },
+    {
+      "id": "tunceli-stop-03",
+      "order": 3,
+      "sourceTupleIndex": 2,
+      "legacyArt": {
+        "type": "hayvan",
+        "params": {
+          "kind": "goat"
+        }
+      },
+      "category": "nature",
+      "title": {
+        "en": "Wild Mountain Goats",
+        "tr": null
+      },
+      "description": {
+        "en": "Sure-footed wild goats (bezoar ibex) leap along Munzur's cliffs like acrobats — spotting one on the rocks is a lucky moment!",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🐐",
+        "label": {
+          "en": "a mountain goat photo",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "Careful, don't blink — you might miss something beautiful!",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    }
+  ],
+  "quiz": [
+    {
+      "id": "tunceli-quiz-01",
+      "order": 1,
+      "question": {
+        "en": "How does the Munzur river begin at Ovacık?",
+        "tr": null
+      },
+      "options": [
+        {
+          "id": "tunceli-quiz-01-option-01",
+          "order": 1,
+          "text": {
+            "en": "It bursts from the mountain in forty springs",
+            "tr": null
+          },
+          "correct": true
+        },
+        {
+          "id": "tunceli-quiz-01-option-02",
+          "order": 2,
+          "text": {
+            "en": "It falls from a cloud",
+            "tr": null
+          },
+          "correct": false
+        },
+        {
+          "id": "tunceli-quiz-01-option-03",
+          "order": 3,
+          "text": {
+            "en": "A giant pours it",
+            "tr": null
+          },
+          "correct": false
+        }
+      ],
+      "sourceRule": "The first option in the HTML source is correct. The application may shuffle display order at runtime."
+    }
+  ]
+}

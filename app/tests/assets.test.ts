@@ -1,7 +1,7 @@
 import { readFileSync, readdirSync } from 'node:fs';
 import path from 'node:path';
 import { describe, expect, it } from 'vitest';
-import { citySchema } from '@/content/schemas/city';
+
 import {
   isModelAsset,
   kitAssetId,
@@ -10,6 +10,7 @@ import {
   resolveAsset,
 } from '@/engine/assets/registry';
 import { buildScene } from '@/engine/scene/buildScene';
+import { loadComposedCity } from './helpers';
 
 const ROOT = path.resolve(process.cwd(), '..');
 const MANIFEST = path.join(ROOT, 'asset-manifests/pilot-assets.csv');
@@ -24,13 +25,11 @@ function manifestIdsFromCsv(): string[] {
     .filter((id): id is string => Boolean(id));
 }
 
-const cityIds = readdirSync(path.join(ROOT, 'content/pilot'))
+const cityIds = readdirSync(path.join(ROOT, 'content/scenes'))
   .filter((file) => file.endsWith('.json'))
   .map((file) => file.replace('.json', ''));
 
-const cities = cityIds.map((id) =>
-  citySchema.parse(JSON.parse(readFileSync(path.join(ROOT, `content/pilot/${id}.json`), 'utf8'))),
-);
+const cities = cityIds.map(loadComposedCity);
 
 describe('asset registry alignment', () => {
   it('covers every row of the manifest', () => {
@@ -49,8 +48,8 @@ describe('asset registry alignment', () => {
       for (const hotspot of city.hotspots) {
         expect(resolveAsset(hotspot.assetId, 'medium').isUnknown, `${city.id}/${hotspot.assetId}`).toBe(false);
       }
-      for (const rewardId of city.rewards.collectibleIds) {
-        expect(resolveAsset(rewardId, 'medium').isUnknown, `${city.id}/${rewardId}`).toBe(false);
+      for (const assetId of city.rewards.collectibleAssetIds) {
+        expect(resolveAsset(assetId, 'medium').isUnknown, `${city.id}/${assetId}`).toBe(false);
       }
       const kit = resolveAsset(kitAssetId(city.environment.kitId), 'medium');
       expect(kit.isUnknown, `${city.id}/${city.environment.kitId}`).toBe(false);

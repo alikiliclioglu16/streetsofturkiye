@@ -1,0 +1,1383 @@
+{
+  "schemaVersion": "1.0",
+  "sourceSha256": "ed74da639543bd1847d3e970f114e006ec9be8a8d441197a1968afca5a07f995",
+  "cities": [
+    {
+      "id": "istanbul",
+      "order": 1,
+      "name": {
+        "en": "İstanbul",
+        "tr": null
+      },
+      "regionId": "marmara",
+      "coordinates": {
+        "longitude": 28.97,
+        "latitude": 41.01
+      },
+      "legacyGuideId": "nasreddin-hoca",
+      "stopCount": 5,
+      "quizQuestionCount": 2,
+      "path": "cities/istanbul.json"
+    },
+    {
+      "id": "tekirdag",
+      "order": 2,
+      "name": {
+        "en": "Tekirdağ",
+        "tr": null
+      },
+      "regionId": "marmara",
+      "coordinates": {
+        "longitude": 27.51,
+        "latitude": 40.98
+      },
+      "legacyGuideId": "keloglan",
+      "stopCount": 3,
+      "quizQuestionCount": 1,
+      "path": "cities/tekirdag.json"
+    },
+    {
+      "id": "kirklareli",
+      "order": 3,
+      "name": {
+        "en": "Kırklareli",
+        "tr": null
+      },
+      "regionId": "marmara",
+      "coordinates": {
+        "longitude": 27.22,
+        "latitude": 41.73
+      },
+      "legacyGuideId": "nasreddin-hoca",
+      "stopCount": 3,
+      "quizQuestionCount": 1,
+      "path": "cities/kirklareli.json"
+    },
+    {
+      "id": "edirne",
+      "order": 4,
+      "name": {
+        "en": "Edirne",
+        "tr": null
+      },
+      "regionId": "marmara",
+      "coordinates": {
+        "longitude": 26.56,
+        "latitude": 41.68
+      },
+      "legacyGuideId": "keloglan",
+      "stopCount": 3,
+      "quizQuestionCount": 1,
+      "path": "cities/edirne.json"
+    },
+    {
+      "id": "canakkale",
+      "order": 5,
+      "name": {
+        "en": "Çanakkale",
+        "tr": null
+      },
+      "regionId": "marmara",
+      "coordinates": {
+        "longitude": 26.41,
+        "latitude": 40.15
+      },
+      "legacyGuideId": "nasreddin-hoca",
+      "stopCount": 3,
+      "quizQuestionCount": 1,
+      "path": "cities/canakkale.json"
+    },
+    {
+      "id": "balikesir",
+      "order": 6,
+      "name": {
+        "en": "Balıkesir",
+        "tr": null
+      },
+      "regionId": "marmara",
+      "coordinates": {
+        "longitude": 27.89,
+        "latitude": 39.65
+      },
+      "legacyGuideId": "keloglan",
+      "stopCount": 3,
+      "quizQuestionCount": 1,
+      "path": "cities/balikesir.json"
+    },
+    {
+      "id": "bursa",
+      "order": 7,
+      "name": {
+        "en": "Bursa",
+        "tr": null
+      },
+      "regionId": "marmara",
+      "coordinates": {
+        "longitude": 29.06,
+        "latitude": 40.19
+      },
+      "legacyGuideId": "nasreddin-hoca",
+      "stopCount": 3,
+      "quizQuestionCount": 1,
+      "path": "cities/bursa.json"
+    },
+    {
+      "id": "yalova",
+      "order": 8,
+      "name": {
+        "en": "Yalova",
+        "tr": null
+      },
+      "regionId": "marmara",
+      "coordinates": {
+        "longitude": 29.28,
+        "latitude": 40.66
+      },
+      "legacyGuideId": "keloglan",
+      "stopCount": 3,
+      "quizQuestionCount": 1,
+      "path": "cities/yalova.json"
+    },
+    {
+      "id": "kocaeli",
+      "order": 9,
+      "name": {
+        "en": "Kocaeli",
+        "tr": null
+      },
+      "regionId": "marmara",
+      "coordinates": {
+        "longitude": 29.94,
+        "latitude": 40.77
+      },
+      "legacyGuideId": "nasreddin-hoca",
+      "stopCount": 3,
+      "quizQuestionCount": 1,
+      "path": "cities/kocaeli.json"
+    },
+    {
+      "id": "sakarya",
+      "order": 10,
+      "name": {
+        "en": "Sakarya",
+        "tr": null
+      },
+      "regionId": "marmara",
+      "coordinates": {
+        "longitude": 30.4,
+        "latitude": 40.77
+      },
+      "legacyGuideId": "keloglan",
+      "stopCount": 3,
+      "quizQuestionCount": 1,
+      "path": "cities/sakarya.json"
+    },
+    {
+      "id": "bilecik",
+      "order": 11,
+      "name": {
+        "en": "Bilecik",
+        "tr": null
+      },
+      "regionId": "marmara",
+      "coordinates": {
+        "longitude": 29.98,
+        "latitude": 40.15
+      },
+      "legacyGuideId": "nasreddin-hoca",
+      "stopCount": 3,
+      "quizQuestionCount": 1,
+      "path": "cities/bilecik.json"
+    },
+    {
+      "id": "izmir",
+      "order": 12,
+      "name": {
+        "en": "İzmir",
+        "tr": null
+      },
+      "regionId": "aegean",
+      "coordinates": {
+        "longitude": 27.14,
+        "latitude": 38.42
+      },
+      "legacyGuideId": "keloglan",
+      "stopCount": 5,
+      "quizQuestionCount": 2,
+      "path": "cities/izmir.json"
+    },
+    {
+      "id": "manisa",
+      "order": 13,
+      "name": {
+        "en": "Manisa",
+        "tr": null
+      },
+      "regionId": "aegean",
+      "coordinates": {
+        "longitude": 27.43,
+        "latitude": 38.61
+      },
+      "legacyGuideId": "nasreddin-hoca",
+      "stopCount": 3,
+      "quizQuestionCount": 1,
+      "path": "cities/manisa.json"
+    },
+    {
+      "id": "aydin",
+      "order": 14,
+      "name": {
+        "en": "Aydın",
+        "tr": null
+      },
+      "regionId": "aegean",
+      "coordinates": {
+        "longitude": 27.84,
+        "latitude": 37.85
+      },
+      "legacyGuideId": "keloglan",
+      "stopCount": 3,
+      "quizQuestionCount": 1,
+      "path": "cities/aydin.json"
+    },
+    {
+      "id": "mugla",
+      "order": 15,
+      "name": {
+        "en": "Muğla",
+        "tr": null
+      },
+      "regionId": "aegean",
+      "coordinates": {
+        "longitude": 28.36,
+        "latitude": 37.22
+      },
+      "legacyGuideId": "nasreddin-hoca",
+      "stopCount": 3,
+      "quizQuestionCount": 1,
+      "path": "cities/mugla.json"
+    },
+    {
+      "id": "denizli",
+      "order": 16,
+      "name": {
+        "en": "Denizli",
+        "tr": null
+      },
+      "regionId": "aegean",
+      "coordinates": {
+        "longitude": 29.09,
+        "latitude": 37.77
+      },
+      "legacyGuideId": "keloglan",
+      "stopCount": 3,
+      "quizQuestionCount": 1,
+      "path": "cities/denizli.json"
+    },
+    {
+      "id": "usak",
+      "order": 17,
+      "name": {
+        "en": "Uşak",
+        "tr": null
+      },
+      "regionId": "aegean",
+      "coordinates": {
+        "longitude": 29.41,
+        "latitude": 38.68
+      },
+      "legacyGuideId": "nasreddin-hoca",
+      "stopCount": 3,
+      "quizQuestionCount": 1,
+      "path": "cities/usak.json"
+    },
+    {
+      "id": "kutahya",
+      "order": 18,
+      "name": {
+        "en": "Kütahya",
+        "tr": null
+      },
+      "regionId": "aegean",
+      "coordinates": {
+        "longitude": 29.98,
+        "latitude": 39.42
+      },
+      "legacyGuideId": "keloglan",
+      "stopCount": 3,
+      "quizQuestionCount": 1,
+      "path": "cities/kutahya.json"
+    },
+    {
+      "id": "afyonkarahisar",
+      "order": 19,
+      "name": {
+        "en": "Afyonkarahisar",
+        "tr": null
+      },
+      "regionId": "aegean",
+      "coordinates": {
+        "longitude": 30.54,
+        "latitude": 38.76
+      },
+      "legacyGuideId": "nasreddin-hoca",
+      "stopCount": 3,
+      "quizQuestionCount": 1,
+      "path": "cities/afyonkarahisar.json"
+    },
+    {
+      "id": "burdur",
+      "order": 20,
+      "name": {
+        "en": "Burdur",
+        "tr": null
+      },
+      "regionId": "mediterranean",
+      "coordinates": {
+        "longitude": 30.29,
+        "latitude": 37.72
+      },
+      "legacyGuideId": "keloglan",
+      "stopCount": 3,
+      "quizQuestionCount": 1,
+      "path": "cities/burdur.json"
+    },
+    {
+      "id": "isparta",
+      "order": 21,
+      "name": {
+        "en": "Isparta",
+        "tr": null
+      },
+      "regionId": "mediterranean",
+      "coordinates": {
+        "longitude": 30.55,
+        "latitude": 37.76
+      },
+      "legacyGuideId": "nasreddin-hoca",
+      "stopCount": 3,
+      "quizQuestionCount": 1,
+      "path": "cities/isparta.json"
+    },
+    {
+      "id": "antalya",
+      "order": 22,
+      "name": {
+        "en": "Antalya",
+        "tr": null
+      },
+      "regionId": "mediterranean",
+      "coordinates": {
+        "longitude": 30.71,
+        "latitude": 36.89
+      },
+      "legacyGuideId": "keloglan",
+      "stopCount": 3,
+      "quizQuestionCount": 1,
+      "path": "cities/antalya.json"
+    },
+    {
+      "id": "mersin",
+      "order": 23,
+      "name": {
+        "en": "Mersin",
+        "tr": null
+      },
+      "regionId": "mediterranean",
+      "coordinates": {
+        "longitude": 34.63,
+        "latitude": 36.8
+      },
+      "legacyGuideId": "nasreddin-hoca",
+      "stopCount": 3,
+      "quizQuestionCount": 1,
+      "path": "cities/mersin.json"
+    },
+    {
+      "id": "adana",
+      "order": 24,
+      "name": {
+        "en": "Adana",
+        "tr": null
+      },
+      "regionId": "mediterranean",
+      "coordinates": {
+        "longitude": 35.32,
+        "latitude": 37.0
+      },
+      "legacyGuideId": "keloglan",
+      "stopCount": 3,
+      "quizQuestionCount": 1,
+      "path": "cities/adana.json"
+    },
+    {
+      "id": "osmaniye",
+      "order": 25,
+      "name": {
+        "en": "Osmaniye",
+        "tr": null
+      },
+      "regionId": "mediterranean",
+      "coordinates": {
+        "longitude": 36.25,
+        "latitude": 37.07
+      },
+      "legacyGuideId": "nasreddin-hoca",
+      "stopCount": 3,
+      "quizQuestionCount": 1,
+      "path": "cities/osmaniye.json"
+    },
+    {
+      "id": "hatay",
+      "order": 26,
+      "name": {
+        "en": "Hatay",
+        "tr": null
+      },
+      "regionId": "mediterranean",
+      "coordinates": {
+        "longitude": 36.16,
+        "latitude": 36.2
+      },
+      "legacyGuideId": "keloglan",
+      "stopCount": 3,
+      "quizQuestionCount": 1,
+      "path": "cities/hatay.json"
+    },
+    {
+      "id": "kahramanmaras",
+      "order": 27,
+      "name": {
+        "en": "Kahramanmaraş",
+        "tr": null
+      },
+      "regionId": "mediterranean",
+      "coordinates": {
+        "longitude": 36.93,
+        "latitude": 37.58
+      },
+      "legacyGuideId": "nasreddin-hoca",
+      "stopCount": 3,
+      "quizQuestionCount": 1,
+      "path": "cities/kahramanmaras.json"
+    },
+    {
+      "id": "eskisehir",
+      "order": 28,
+      "name": {
+        "en": "Eskişehir",
+        "tr": null
+      },
+      "regionId": "central-anatolia",
+      "coordinates": {
+        "longitude": 30.52,
+        "latitude": 39.78
+      },
+      "legacyGuideId": "keloglan",
+      "stopCount": 3,
+      "quizQuestionCount": 1,
+      "path": "cities/eskisehir.json"
+    },
+    {
+      "id": "ankara",
+      "order": 29,
+      "name": {
+        "en": "Ankara",
+        "tr": null
+      },
+      "regionId": "central-anatolia",
+      "coordinates": {
+        "longitude": 32.85,
+        "latitude": 39.93
+      },
+      "legacyGuideId": "nasreddin-hoca",
+      "stopCount": 3,
+      "quizQuestionCount": 1,
+      "path": "cities/ankara.json"
+    },
+    {
+      "id": "kirikkale",
+      "order": 30,
+      "name": {
+        "en": "Kırıkkale",
+        "tr": null
+      },
+      "regionId": "central-anatolia",
+      "coordinates": {
+        "longitude": 33.51,
+        "latitude": 39.85
+      },
+      "legacyGuideId": "keloglan",
+      "stopCount": 3,
+      "quizQuestionCount": 1,
+      "path": "cities/kirikkale.json"
+    },
+    {
+      "id": "cankiri",
+      "order": 31,
+      "name": {
+        "en": "Çankırı",
+        "tr": null
+      },
+      "regionId": "central-anatolia",
+      "coordinates": {
+        "longitude": 33.62,
+        "latitude": 40.6
+      },
+      "legacyGuideId": "nasreddin-hoca",
+      "stopCount": 3,
+      "quizQuestionCount": 1,
+      "path": "cities/cankiri.json"
+    },
+    {
+      "id": "yozgat",
+      "order": 32,
+      "name": {
+        "en": "Yozgat",
+        "tr": null
+      },
+      "regionId": "central-anatolia",
+      "coordinates": {
+        "longitude": 34.8,
+        "latitude": 39.82
+      },
+      "legacyGuideId": "keloglan",
+      "stopCount": 3,
+      "quizQuestionCount": 1,
+      "path": "cities/yozgat.json"
+    },
+    {
+      "id": "kirsehir",
+      "order": 33,
+      "name": {
+        "en": "Kırşehir",
+        "tr": null
+      },
+      "regionId": "central-anatolia",
+      "coordinates": {
+        "longitude": 34.16,
+        "latitude": 39.14
+      },
+      "legacyGuideId": "nasreddin-hoca",
+      "stopCount": 3,
+      "quizQuestionCount": 1,
+      "path": "cities/kirsehir.json"
+    },
+    {
+      "id": "nevsehir",
+      "order": 34,
+      "name": {
+        "en": "Nevşehir (Cappadocia)",
+        "tr": null
+      },
+      "regionId": "central-anatolia",
+      "coordinates": {
+        "longitude": 34.71,
+        "latitude": 38.62
+      },
+      "legacyGuideId": "keloglan",
+      "stopCount": 5,
+      "quizQuestionCount": 2,
+      "path": "cities/nevsehir.json"
+    },
+    {
+      "id": "aksaray",
+      "order": 35,
+      "name": {
+        "en": "Aksaray",
+        "tr": null
+      },
+      "regionId": "central-anatolia",
+      "coordinates": {
+        "longitude": 34.03,
+        "latitude": 38.37
+      },
+      "legacyGuideId": "nasreddin-hoca",
+      "stopCount": 3,
+      "quizQuestionCount": 1,
+      "path": "cities/aksaray.json"
+    },
+    {
+      "id": "nigde",
+      "order": 36,
+      "name": {
+        "en": "Niğde",
+        "tr": null
+      },
+      "regionId": "central-anatolia",
+      "coordinates": {
+        "longitude": 34.68,
+        "latitude": 37.97
+      },
+      "legacyGuideId": "keloglan",
+      "stopCount": 3,
+      "quizQuestionCount": 1,
+      "path": "cities/nigde.json"
+    },
+    {
+      "id": "konya",
+      "order": 37,
+      "name": {
+        "en": "Konya",
+        "tr": null
+      },
+      "regionId": "central-anatolia",
+      "coordinates": {
+        "longitude": 32.48,
+        "latitude": 37.87
+      },
+      "legacyGuideId": "nasreddin-hoca",
+      "stopCount": 3,
+      "quizQuestionCount": 1,
+      "path": "cities/konya.json"
+    },
+    {
+      "id": "karaman",
+      "order": 38,
+      "name": {
+        "en": "Karaman",
+        "tr": null
+      },
+      "regionId": "central-anatolia",
+      "coordinates": {
+        "longitude": 33.22,
+        "latitude": 37.18
+      },
+      "legacyGuideId": "keloglan",
+      "stopCount": 3,
+      "quizQuestionCount": 1,
+      "path": "cities/karaman.json"
+    },
+    {
+      "id": "kayseri",
+      "order": 39,
+      "name": {
+        "en": "Kayseri",
+        "tr": null
+      },
+      "regionId": "central-anatolia",
+      "coordinates": {
+        "longitude": 35.48,
+        "latitude": 38.72
+      },
+      "legacyGuideId": "nasreddin-hoca",
+      "stopCount": 3,
+      "quizQuestionCount": 1,
+      "path": "cities/kayseri.json"
+    },
+    {
+      "id": "sivas",
+      "order": 40,
+      "name": {
+        "en": "Sivas",
+        "tr": null
+      },
+      "regionId": "central-anatolia",
+      "coordinates": {
+        "longitude": 37.02,
+        "latitude": 39.75
+      },
+      "legacyGuideId": "keloglan",
+      "stopCount": 3,
+      "quizQuestionCount": 1,
+      "path": "cities/sivas.json"
+    },
+    {
+      "id": "duzce",
+      "order": 41,
+      "name": {
+        "en": "Düzce",
+        "tr": null
+      },
+      "regionId": "black-sea",
+      "coordinates": {
+        "longitude": 31.16,
+        "latitude": 40.84
+      },
+      "legacyGuideId": "nasreddin-hoca",
+      "stopCount": 3,
+      "quizQuestionCount": 1,
+      "path": "cities/duzce.json"
+    },
+    {
+      "id": "bolu",
+      "order": 42,
+      "name": {
+        "en": "Bolu",
+        "tr": null
+      },
+      "regionId": "black-sea",
+      "coordinates": {
+        "longitude": 31.61,
+        "latitude": 40.74
+      },
+      "legacyGuideId": "keloglan",
+      "stopCount": 3,
+      "quizQuestionCount": 1,
+      "path": "cities/bolu.json"
+    },
+    {
+      "id": "zonguldak",
+      "order": 43,
+      "name": {
+        "en": "Zonguldak",
+        "tr": null
+      },
+      "regionId": "black-sea",
+      "coordinates": {
+        "longitude": 31.79,
+        "latitude": 41.45
+      },
+      "legacyGuideId": "nasreddin-hoca",
+      "stopCount": 3,
+      "quizQuestionCount": 1,
+      "path": "cities/zonguldak.json"
+    },
+    {
+      "id": "bartin",
+      "order": 44,
+      "name": {
+        "en": "Bartın",
+        "tr": null
+      },
+      "regionId": "black-sea",
+      "coordinates": {
+        "longitude": 32.34,
+        "latitude": 41.64
+      },
+      "legacyGuideId": "keloglan",
+      "stopCount": 3,
+      "quizQuestionCount": 1,
+      "path": "cities/bartin.json"
+    },
+    {
+      "id": "karabuk",
+      "order": 45,
+      "name": {
+        "en": "Karabük",
+        "tr": null
+      },
+      "regionId": "black-sea",
+      "coordinates": {
+        "longitude": 32.62,
+        "latitude": 41.2
+      },
+      "legacyGuideId": "nasreddin-hoca",
+      "stopCount": 3,
+      "quizQuestionCount": 1,
+      "path": "cities/karabuk.json"
+    },
+    {
+      "id": "kastamonu",
+      "order": 46,
+      "name": {
+        "en": "Kastamonu",
+        "tr": null
+      },
+      "regionId": "black-sea",
+      "coordinates": {
+        "longitude": 33.78,
+        "latitude": 41.38
+      },
+      "legacyGuideId": "keloglan",
+      "stopCount": 3,
+      "quizQuestionCount": 1,
+      "path": "cities/kastamonu.json"
+    },
+    {
+      "id": "sinop",
+      "order": 47,
+      "name": {
+        "en": "Sinop",
+        "tr": null
+      },
+      "regionId": "black-sea",
+      "coordinates": {
+        "longitude": 35.15,
+        "latitude": 42.03
+      },
+      "legacyGuideId": "nasreddin-hoca",
+      "stopCount": 3,
+      "quizQuestionCount": 1,
+      "path": "cities/sinop.json"
+    },
+    {
+      "id": "corum",
+      "order": 48,
+      "name": {
+        "en": "Çorum",
+        "tr": null
+      },
+      "regionId": "black-sea",
+      "coordinates": {
+        "longitude": 34.95,
+        "latitude": 40.55
+      },
+      "legacyGuideId": "keloglan",
+      "stopCount": 3,
+      "quizQuestionCount": 1,
+      "path": "cities/corum.json"
+    },
+    {
+      "id": "amasya",
+      "order": 49,
+      "name": {
+        "en": "Amasya",
+        "tr": null
+      },
+      "regionId": "black-sea",
+      "coordinates": {
+        "longitude": 35.83,
+        "latitude": 40.65
+      },
+      "legacyGuideId": "nasreddin-hoca",
+      "stopCount": 3,
+      "quizQuestionCount": 1,
+      "path": "cities/amasya.json"
+    },
+    {
+      "id": "samsun",
+      "order": 50,
+      "name": {
+        "en": "Samsun",
+        "tr": null
+      },
+      "regionId": "black-sea",
+      "coordinates": {
+        "longitude": 36.33,
+        "latitude": 41.29
+      },
+      "legacyGuideId": "keloglan",
+      "stopCount": 3,
+      "quizQuestionCount": 1,
+      "path": "cities/samsun.json"
+    },
+    {
+      "id": "tokat",
+      "order": 51,
+      "name": {
+        "en": "Tokat",
+        "tr": null
+      },
+      "regionId": "black-sea",
+      "coordinates": {
+        "longitude": 36.55,
+        "latitude": 40.31
+      },
+      "legacyGuideId": "nasreddin-hoca",
+      "stopCount": 3,
+      "quizQuestionCount": 1,
+      "path": "cities/tokat.json"
+    },
+    {
+      "id": "ordu",
+      "order": 52,
+      "name": {
+        "en": "Ordu",
+        "tr": null
+      },
+      "regionId": "black-sea",
+      "coordinates": {
+        "longitude": 37.88,
+        "latitude": 40.98
+      },
+      "legacyGuideId": "keloglan",
+      "stopCount": 3,
+      "quizQuestionCount": 1,
+      "path": "cities/ordu.json"
+    },
+    {
+      "id": "giresun",
+      "order": 53,
+      "name": {
+        "en": "Giresun",
+        "tr": null
+      },
+      "regionId": "black-sea",
+      "coordinates": {
+        "longitude": 38.39,
+        "latitude": 40.91
+      },
+      "legacyGuideId": "nasreddin-hoca",
+      "stopCount": 3,
+      "quizQuestionCount": 1,
+      "path": "cities/giresun.json"
+    },
+    {
+      "id": "gumushane",
+      "order": 54,
+      "name": {
+        "en": "Gümüşhane",
+        "tr": null
+      },
+      "regionId": "black-sea",
+      "coordinates": {
+        "longitude": 39.48,
+        "latitude": 40.46
+      },
+      "legacyGuideId": "keloglan",
+      "stopCount": 3,
+      "quizQuestionCount": 1,
+      "path": "cities/gumushane.json"
+    },
+    {
+      "id": "trabzon",
+      "order": 55,
+      "name": {
+        "en": "Trabzon",
+        "tr": null
+      },
+      "regionId": "black-sea",
+      "coordinates": {
+        "longitude": 39.72,
+        "latitude": 41.0
+      },
+      "legacyGuideId": "nasreddin-hoca",
+      "stopCount": 3,
+      "quizQuestionCount": 1,
+      "path": "cities/trabzon.json"
+    },
+    {
+      "id": "rize",
+      "order": 56,
+      "name": {
+        "en": "Rize",
+        "tr": null
+      },
+      "regionId": "black-sea",
+      "coordinates": {
+        "longitude": 40.52,
+        "latitude": 41.02
+      },
+      "legacyGuideId": "keloglan",
+      "stopCount": 3,
+      "quizQuestionCount": 1,
+      "path": "cities/rize.json"
+    },
+    {
+      "id": "artvin",
+      "order": 57,
+      "name": {
+        "en": "Artvin",
+        "tr": null
+      },
+      "regionId": "black-sea",
+      "coordinates": {
+        "longitude": 41.82,
+        "latitude": 41.18
+      },
+      "legacyGuideId": "nasreddin-hoca",
+      "stopCount": 3,
+      "quizQuestionCount": 1,
+      "path": "cities/artvin.json"
+    },
+    {
+      "id": "bayburt",
+      "order": 58,
+      "name": {
+        "en": "Bayburt",
+        "tr": null
+      },
+      "regionId": "black-sea",
+      "coordinates": {
+        "longitude": 40.22,
+        "latitude": 40.26
+      },
+      "legacyGuideId": "keloglan",
+      "stopCount": 3,
+      "quizQuestionCount": 1,
+      "path": "cities/bayburt.json"
+    },
+    {
+      "id": "erzincan",
+      "order": 59,
+      "name": {
+        "en": "Erzincan",
+        "tr": null
+      },
+      "regionId": "eastern-anatolia",
+      "coordinates": {
+        "longitude": 39.49,
+        "latitude": 39.75
+      },
+      "legacyGuideId": "nasreddin-hoca",
+      "stopCount": 3,
+      "quizQuestionCount": 1,
+      "path": "cities/erzincan.json"
+    },
+    {
+      "id": "erzurum",
+      "order": 60,
+      "name": {
+        "en": "Erzurum",
+        "tr": null
+      },
+      "regionId": "eastern-anatolia",
+      "coordinates": {
+        "longitude": 41.28,
+        "latitude": 39.9
+      },
+      "legacyGuideId": "keloglan",
+      "stopCount": 3,
+      "quizQuestionCount": 1,
+      "path": "cities/erzurum.json"
+    },
+    {
+      "id": "ardahan",
+      "order": 61,
+      "name": {
+        "en": "Ardahan",
+        "tr": null
+      },
+      "regionId": "eastern-anatolia",
+      "coordinates": {
+        "longitude": 42.7,
+        "latitude": 41.11
+      },
+      "legacyGuideId": "nasreddin-hoca",
+      "stopCount": 3,
+      "quizQuestionCount": 1,
+      "path": "cities/ardahan.json"
+    },
+    {
+      "id": "kars",
+      "order": 62,
+      "name": {
+        "en": "Kars",
+        "tr": null
+      },
+      "regionId": "eastern-anatolia",
+      "coordinates": {
+        "longitude": 43.09,
+        "latitude": 40.6
+      },
+      "legacyGuideId": "keloglan",
+      "stopCount": 3,
+      "quizQuestionCount": 1,
+      "path": "cities/kars.json"
+    },
+    {
+      "id": "igdir",
+      "order": 63,
+      "name": {
+        "en": "Iğdır",
+        "tr": null
+      },
+      "regionId": "eastern-anatolia",
+      "coordinates": {
+        "longitude": 44.04,
+        "latitude": 39.92
+      },
+      "legacyGuideId": "nasreddin-hoca",
+      "stopCount": 3,
+      "quizQuestionCount": 1,
+      "path": "cities/igdir.json"
+    },
+    {
+      "id": "agri",
+      "order": 64,
+      "name": {
+        "en": "Ağrı",
+        "tr": null
+      },
+      "regionId": "eastern-anatolia",
+      "coordinates": {
+        "longitude": 43.05,
+        "latitude": 39.72
+      },
+      "legacyGuideId": "keloglan",
+      "stopCount": 3,
+      "quizQuestionCount": 1,
+      "path": "cities/agri.json"
+    },
+    {
+      "id": "van",
+      "order": 65,
+      "name": {
+        "en": "Van",
+        "tr": null
+      },
+      "regionId": "eastern-anatolia",
+      "coordinates": {
+        "longitude": 43.38,
+        "latitude": 38.5
+      },
+      "legacyGuideId": "nasreddin-hoca",
+      "stopCount": 3,
+      "quizQuestionCount": 1,
+      "path": "cities/van.json"
+    },
+    {
+      "id": "hakkari",
+      "order": 66,
+      "name": {
+        "en": "Hakkari",
+        "tr": null
+      },
+      "regionId": "eastern-anatolia",
+      "coordinates": {
+        "longitude": 43.74,
+        "latitude": 37.57
+      },
+      "legacyGuideId": "keloglan",
+      "stopCount": 3,
+      "quizQuestionCount": 1,
+      "path": "cities/hakkari.json"
+    },
+    {
+      "id": "bitlis",
+      "order": 67,
+      "name": {
+        "en": "Bitlis",
+        "tr": null
+      },
+      "regionId": "eastern-anatolia",
+      "coordinates": {
+        "longitude": 42.11,
+        "latitude": 38.4
+      },
+      "legacyGuideId": "nasreddin-hoca",
+      "stopCount": 3,
+      "quizQuestionCount": 1,
+      "path": "cities/bitlis.json"
+    },
+    {
+      "id": "mus",
+      "order": 68,
+      "name": {
+        "en": "Muş",
+        "tr": null
+      },
+      "regionId": "eastern-anatolia",
+      "coordinates": {
+        "longitude": 41.49,
+        "latitude": 38.73
+      },
+      "legacyGuideId": "keloglan",
+      "stopCount": 3,
+      "quizQuestionCount": 1,
+      "path": "cities/mus.json"
+    },
+    {
+      "id": "bingol",
+      "order": 69,
+      "name": {
+        "en": "Bingöl",
+        "tr": null
+      },
+      "regionId": "eastern-anatolia",
+      "coordinates": {
+        "longitude": 40.5,
+        "latitude": 38.88
+      },
+      "legacyGuideId": "nasreddin-hoca",
+      "stopCount": 3,
+      "quizQuestionCount": 1,
+      "path": "cities/bingol.json"
+    },
+    {
+      "id": "tunceli",
+      "order": 70,
+      "name": {
+        "en": "Tunceli",
+        "tr": null
+      },
+      "regionId": "eastern-anatolia",
+      "coordinates": {
+        "longitude": 39.55,
+        "latitude": 39.11
+      },
+      "legacyGuideId": "keloglan",
+      "stopCount": 3,
+      "quizQuestionCount": 1,
+      "path": "cities/tunceli.json"
+    },
+    {
+      "id": "elazig",
+      "order": 71,
+      "name": {
+        "en": "Elazığ",
+        "tr": null
+      },
+      "regionId": "eastern-anatolia",
+      "coordinates": {
+        "longitude": 39.22,
+        "latitude": 38.68
+      },
+      "legacyGuideId": "nasreddin-hoca",
+      "stopCount": 3,
+      "quizQuestionCount": 1,
+      "path": "cities/elazig.json"
+    },
+    {
+      "id": "malatya",
+      "order": 72,
+      "name": {
+        "en": "Malatya",
+        "tr": null
+      },
+      "regionId": "eastern-anatolia",
+      "coordinates": {
+        "longitude": 38.35,
+        "latitude": 38.35
+      },
+      "legacyGuideId": "keloglan",
+      "stopCount": 3,
+      "quizQuestionCount": 1,
+      "path": "cities/malatya.json"
+    },
+    {
+      "id": "adiyaman",
+      "order": 73,
+      "name": {
+        "en": "Adıyaman",
+        "tr": null
+      },
+      "regionId": "southeastern-anatolia",
+      "coordinates": {
+        "longitude": 38.28,
+        "latitude": 37.76
+      },
+      "legacyGuideId": "nasreddin-hoca",
+      "stopCount": 3,
+      "quizQuestionCount": 1,
+      "path": "cities/adiyaman.json"
+    },
+    {
+      "id": "gaziantep",
+      "order": 74,
+      "name": {
+        "en": "Gaziantep",
+        "tr": null
+      },
+      "regionId": "southeastern-anatolia",
+      "coordinates": {
+        "longitude": 37.38,
+        "latitude": 37.07
+      },
+      "legacyGuideId": "keloglan",
+      "stopCount": 3,
+      "quizQuestionCount": 1,
+      "path": "cities/gaziantep.json"
+    },
+    {
+      "id": "kilis",
+      "order": 75,
+      "name": {
+        "en": "Kilis",
+        "tr": null
+      },
+      "regionId": "southeastern-anatolia",
+      "coordinates": {
+        "longitude": 37.12,
+        "latitude": 36.72
+      },
+      "legacyGuideId": "nasreddin-hoca",
+      "stopCount": 3,
+      "quizQuestionCount": 1,
+      "path": "cities/kilis.json"
+    },
+    {
+      "id": "sanliurfa",
+      "order": 76,
+      "name": {
+        "en": "Şanlıurfa",
+        "tr": null
+      },
+      "regionId": "southeastern-anatolia",
+      "coordinates": {
+        "longitude": 38.79,
+        "latitude": 37.16
+      },
+      "legacyGuideId": "keloglan",
+      "stopCount": 3,
+      "quizQuestionCount": 1,
+      "path": "cities/sanliurfa.json"
+    },
+    {
+      "id": "diyarbakir",
+      "order": 77,
+      "name": {
+        "en": "Diyarbakır",
+        "tr": null
+      },
+      "regionId": "southeastern-anatolia",
+      "coordinates": {
+        "longitude": 40.22,
+        "latitude": 37.91
+      },
+      "legacyGuideId": "nasreddin-hoca",
+      "stopCount": 3,
+      "quizQuestionCount": 1,
+      "path": "cities/diyarbakir.json"
+    },
+    {
+      "id": "mardin",
+      "order": 78,
+      "name": {
+        "en": "Mardin",
+        "tr": null
+      },
+      "regionId": "southeastern-anatolia",
+      "coordinates": {
+        "longitude": 40.74,
+        "latitude": 37.31
+      },
+      "legacyGuideId": "keloglan",
+      "stopCount": 3,
+      "quizQuestionCount": 1,
+      "path": "cities/mardin.json"
+    },
+    {
+      "id": "batman",
+      "order": 79,
+      "name": {
+        "en": "Batman",
+        "tr": null
+      },
+      "regionId": "southeastern-anatolia",
+      "coordinates": {
+        "longitude": 41.13,
+        "latitude": 37.88
+      },
+      "legacyGuideId": "nasreddin-hoca",
+      "stopCount": 3,
+      "quizQuestionCount": 1,
+      "path": "cities/batman.json"
+    },
+    {
+      "id": "siirt",
+      "order": 80,
+      "name": {
+        "en": "Siirt",
+        "tr": null
+      },
+      "regionId": "southeastern-anatolia",
+      "coordinates": {
+        "longitude": 41.94,
+        "latitude": 37.93
+      },
+      "legacyGuideId": "keloglan",
+      "stopCount": 3,
+      "quizQuestionCount": 1,
+      "path": "cities/siirt.json"
+    },
+    {
+      "id": "sirnak",
+      "order": 81,
+      "name": {
+        "en": "Şırnak",
+        "tr": null
+      },
+      "regionId": "southeastern-anatolia",
+      "coordinates": {
+        "longitude": 42.46,
+        "latitude": 37.52
+      },
+      "legacyGuideId": "nasreddin-hoca",
+      "stopCount": 3,
+      "quizQuestionCount": 1,
+      "path": "cities/sirnak.json"
+    }
+  ]
+}

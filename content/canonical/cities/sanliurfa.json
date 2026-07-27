@@ -1,0 +1,165 @@
+{
+  "schemaVersion": "1.0",
+  "contentAuthority": "index-html-canonical",
+  "source": {
+    "file": "source/index.html",
+    "sha256": "ed74da639543bd1847d3e970f114e006ec9be8a8d441197a1968afca5a07f995",
+    "cityArray": "CITIES2",
+    "cityArrayIndex": 35
+  },
+  "id": "sanliurfa",
+  "order": 76,
+  "name": {
+    "en": "Şanlıurfa",
+    "tr": null
+  },
+  "regionId": "southeastern-anatolia",
+  "sourceRegionIndex": 6,
+  "coordinates": {
+    "longitude": 38.79,
+    "latitude": 37.16
+  },
+  "legacyGuideId": "keloglan",
+  "stops": [
+    {
+      "id": "sanliurfa-stop-01",
+      "order": 1,
+      "sourceTupleIndex": 0,
+      "legacyArt": {
+        "type": "hoyuk",
+        "params": {
+          "T": 1
+        }
+      },
+      "category": "history",
+      "title": {
+        "en": "Göbeklitepe — the World's First Temple",
+        "tr": null
+      },
+      "description": {
+        "en": "Göbeklitepe is about 12,000 years old — older than the pyramids by 7,000 years! Its giant T-shaped stones carved with foxes, birds and snakes changed what we know about the first humans. UNESCO wonder!",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🦊",
+        "label": {
+          "en": "a carved fox rubbing",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "Every traveler stops here — now it's your turn!",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    },
+    {
+      "id": "sanliurfa-stop-02",
+      "order": 2,
+      "sourceTupleIndex": 1,
+      "legacyArt": {
+        "type": "balikgol",
+        "params": {}
+      },
+      "category": "history",
+      "title": {
+        "en": "Balıklıgöl — the Sacred Fish Lake",
+        "tr": null
+      },
+      "description": {
+        "en": "Legend says a fire meant for Prophet Abraham turned into water, and the coals became fish! Thousands of sacred carp now swim in Balıklıgöl — everyone feeds them, no one may catch them.",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🐟",
+        "label": {
+          "en": "fish food pellets",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "See? Türkiye is full of wonders!",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    },
+    {
+      "id": "sanliurfa-stop-03",
+      "order": 3,
+      "sourceTupleIndex": 2,
+      "legacyArt": {
+        "type": "muzik",
+        "params": {
+          "kind": "saz"
+        }
+      },
+      "category": "craft",
+      "title": {
+        "en": "Sıra Gecesi Nights",
+        "tr": null
+      },
+      "description": {
+        "en": "On Urfa's sıra nights, friends sit in a circle, play the bağlama, sing burning folk songs and knead spicy çiğ köfte together — music, food and friendship in one!",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🎶",
+        "label": {
+          "en": "a sıra night song",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "Careful, don't blink — you might miss something beautiful!",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    }
+  ],
+  "quiz": [
+    {
+      "id": "sanliurfa-quiz-01",
+      "order": 1,
+      "question": {
+        "en": "How much older is Göbeklitepe than the Egyptian pyramids?",
+        "tr": null
+      },
+      "options": [
+        {
+          "id": "sanliurfa-quiz-01-option-01",
+          "order": 1,
+          "text": {
+            "en": "About 7,000 years older",
+            "tr": null
+          },
+          "correct": true
+        },
+        {
+          "id": "sanliurfa-quiz-01-option-02",
+          "order": 2,
+          "text": {
+            "en": "3 days older",
+            "tr": null
+          },
+          "correct": false
+        },
+        {
+          "id": "sanliurfa-quiz-01-option-03",
+          "order": 3,
+          "text": {
+            "en": "It's newer",
+            "tr": null
+          },
+          "correct": false
+        }
+      ],
+      "sourceRule": "The first option in the HTML source is correct. The application may shuffle display order at runtime."
+    }
+  ]
+}

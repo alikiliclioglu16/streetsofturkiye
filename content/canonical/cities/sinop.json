@@ -1,0 +1,166 @@
+{
+  "schemaVersion": "1.0",
+  "contentAuthority": "index-html-canonical",
+  "source": {
+    "file": "source/index.html",
+    "sha256": "ed74da639543bd1847d3e970f114e006ec9be8a8d441197a1968afca5a07f995",
+    "cityArray": "CITIES2",
+    "cityArrayIndex": 6
+  },
+  "id": "sinop",
+  "order": 47,
+  "name": {
+    "en": "Sinop",
+    "tr": null
+  },
+  "regionId": "black-sea",
+  "sourceRegionIndex": 4,
+  "coordinates": {
+    "longitude": 35.15,
+    "latitude": 42.03
+  },
+  "legacyGuideId": "nasreddin-hoca",
+  "stops": [
+    {
+      "id": "sinop-stop-01",
+      "order": 1,
+      "sourceTupleIndex": 0,
+      "legacyArt": {
+        "type": "fener",
+        "params": {}
+      },
+      "category": "nature",
+      "title": {
+        "en": "İnceburun — the Northernmost Point",
+        "tr": null
+      },
+      "description": {
+        "en": "The lighthouse at İnceburun stands on the NORTHERNMOST tip of Türkiye! Beyond it there's only the deep Black Sea. Sinop is also said to be one of the happiest cities in the country!",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🧭",
+        "label": {
+          "en": "a compass pointing north",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "See? Türkiye is full of wonders!",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    },
+    {
+      "id": "sinop-stop-02",
+      "order": 2,
+      "sourceTupleIndex": 1,
+      "legacyArt": {
+        "type": "kale",
+        "params": {
+          "sea": 1
+        }
+      },
+      "category": "history",
+      "title": {
+        "en": "Sinop Fortress",
+        "tr": null
+      },
+      "description": {
+        "en": "Sinop's mighty sea walls have guarded its natural harbor for 2,700 years. The famous funny philosopher Diogenes — who lived in a barrel! — was born here.",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🛢️",
+        "label": {
+          "en": "Diogenes' little barrel",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "Careful, don't blink — you might miss something beautiful!",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    },
+    {
+      "id": "sinop-stop-03",
+      "order": 3,
+      "sourceTupleIndex": 2,
+      "legacyArt": {
+        "type": "tatli",
+        "params": {
+          "k": "baklava",
+          "s": "NOKUL"
+        }
+      },
+      "category": "food",
+      "title": {
+        "en": "Nokul — the Sailor's Pastry",
+        "tr": null
+      },
+      "description": {
+        "en": "Sinop's swirly nokul pastry, stuffed with walnuts and raisins, was baked for sailors going on long Black Sea journeys. Still warm from the oven — all aboard!",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🌀",
+        "label": {
+          "en": "a swirly nokul",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "Look at this — amazing, right?",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    }
+  ],
+  "quiz": [
+    {
+      "id": "sinop-quiz-01",
+      "order": 1,
+      "question": {
+        "en": "What is at İnceburun, Sinop?",
+        "tr": null
+      },
+      "options": [
+        {
+          "id": "sinop-quiz-01-option-01",
+          "order": 1,
+          "text": {
+            "en": "Türkiye's northernmost point",
+            "tr": null
+          },
+          "correct": true
+        },
+        {
+          "id": "sinop-quiz-01-option-02",
+          "order": 2,
+          "text": {
+            "en": "The South Pole",
+            "tr": null
+          },
+          "correct": false
+        },
+        {
+          "id": "sinop-quiz-01-option-03",
+          "order": 3,
+          "text": {
+            "en": "A desert",
+            "tr": null
+          },
+          "correct": false
+        }
+      ],
+      "sourceRule": "The first option in the HTML source is correct. The application may shuffle display order at runtime."
+    }
+  ]
+}

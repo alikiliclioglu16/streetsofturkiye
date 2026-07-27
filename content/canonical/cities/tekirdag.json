@@ -1,0 +1,167 @@
+{
+  "schemaVersion": "1.0",
+  "contentAuthority": "index-html-canonical",
+  "source": {
+    "file": "source/index.html",
+    "sha256": "ed74da639543bd1847d3e970f114e006ec9be8a8d441197a1968afca5a07f995",
+    "cityArray": "CITIES1",
+    "cityArrayIndex": 1
+  },
+  "id": "tekirdag",
+  "order": 2,
+  "name": {
+    "en": "Tekirdağ",
+    "tr": null
+  },
+  "regionId": "marmara",
+  "sourceRegionIndex": 0,
+  "coordinates": {
+    "longitude": 27.51,
+    "latitude": 40.98
+  },
+  "legacyGuideId": "keloglan",
+  "stops": [
+    {
+      "id": "tekirdag-stop-01",
+      "order": 1,
+      "sourceTupleIndex": 0,
+      "legacyArt": {
+        "type": "flower",
+        "params": {
+          "kind": "sunflower"
+        }
+      },
+      "category": "nature",
+      "title": {
+        "en": "Golden Sunflower Fields",
+        "tr": null
+      },
+      "description": {
+        "en": "In summer, the hills of Tekirdağ turn into a golden sea of sunflowers! Millions of big yellow flowers all turn their faces to follow the sun across the sky.",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🌻",
+        "label": {
+          "en": "a sunflower",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "This is one of my favorite spots in all of Türkiye!",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    },
+    {
+      "id": "tekirdag-stop-02",
+      "order": 2,
+      "sourceTupleIndex": 1,
+      "legacyArt": {
+        "type": "stall",
+        "params": {
+          "s": "KÖFTE",
+          "d": "kofte",
+          "c": "#8A4038"
+        }
+      },
+      "category": "food",
+      "title": {
+        "en": "Famous Tekirdağ Köfte",
+        "tr": null
+      },
+      "description": {
+        "en": "Tekirdağ's little grilled meatballs are famous all over Türkiye! Travelers stop here just to eat a plate of köfte with bread and a glass of cool ayran.",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🍖",
+        "label": {
+          "en": "a köfte recipe card",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "We made it! Take a good look around.",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    },
+    {
+      "id": "tekirdag-stop-03",
+      "order": 3,
+      "sourceTupleIndex": 2,
+      "legacyArt": {
+        "type": "ev",
+        "params": {}
+      },
+      "category": "history",
+      "title": {
+        "en": "Old Houses by the Sea",
+        "tr": null
+      },
+      "description": {
+        "en": "Tekirdağ sits on the calm Sea of Marmara. Its old timber-framed houses watched sailing ships come and go for hundreds of years. Cherries love it here too — there's a cherry festival every June!",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🍒",
+        "label": {
+          "en": "a festival cherry",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "Every traveler stops here — now it's your turn!",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    }
+  ],
+  "quiz": [
+    {
+      "id": "tekirdag-quiz-01",
+      "order": 1,
+      "question": {
+        "en": "What do Tekirdağ's summer fields look like?",
+        "tr": null
+      },
+      "options": [
+        {
+          "id": "tekirdag-quiz-01-option-01",
+          "order": 1,
+          "text": {
+            "en": "A golden sea of sunflowers",
+            "tr": null
+          },
+          "correct": true
+        },
+        {
+          "id": "tekirdag-quiz-01-option-02",
+          "order": 2,
+          "text": {
+            "en": "A snowy desert",
+            "tr": null
+          },
+          "correct": false
+        },
+        {
+          "id": "tekirdag-quiz-01-option-03",
+          "order": 3,
+          "text": {
+            "en": "A purple jungle",
+            "tr": null
+          },
+          "correct": false
+        }
+      ],
+      "sourceRule": "The first option in the HTML source is correct. The application may shuffle display order at runtime."
+    }
+  ]
+}

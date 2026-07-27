@@ -1,0 +1,167 @@
+{
+  "schemaVersion": "1.0",
+  "contentAuthority": "index-html-canonical",
+  "source": {
+    "file": "source/index.html",
+    "sha256": "ed74da639543bd1847d3e970f114e006ec9be8a8d441197a1968afca5a07f995",
+    "cityArray": "CITIES1",
+    "cityArrayIndex": 6
+  },
+  "id": "bursa",
+  "order": 7,
+  "name": {
+    "en": "Bursa",
+    "tr": null
+  },
+  "regionId": "marmara",
+  "sourceRegionIndex": 0,
+  "coordinates": {
+    "longitude": 29.06,
+    "latitude": 40.19
+  },
+  "legacyGuideId": "nasreddin-hoca",
+  "stops": [
+    {
+      "id": "bursa-stop-01",
+      "order": 1,
+      "sourceTupleIndex": 0,
+      "legacyArt": {
+        "type": "cami",
+        "params": {
+          "green": 1
+        }
+      },
+      "category": "history",
+      "title": {
+        "en": "The Green City of Sultans",
+        "tr": null
+      },
+      "description": {
+        "en": "Bursa was the FIRST capital of the Ottoman Empire! With its Green Tomb, Grand Mosque and mighty Uludağ mountain, everyone calls it 'Green Bursa'. In winter, kids ski on Uludağ!",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🏔️",
+        "label": {
+          "en": "a snowy Uludağ magnet",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "Look at this — amazing, right?",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    },
+    {
+      "id": "bursa-stop-02",
+      "order": 2,
+      "sourceTupleIndex": 1,
+      "legacyArt": {
+        "type": "karagoz",
+        "params": {}
+      },
+      "category": "craft",
+      "title": {
+        "en": "Karagöz & Hacivat Shadow Play",
+        "tr": null
+      },
+      "description": {
+        "en": "The funny heroes of Turkish shadow theatre, Karagöz and Hacivat, come from Bursa! Colorful puppets made of camel leather dance behind a lit screen and make everyone laugh.",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🎭",
+        "label": {
+          "en": "a shadow puppet",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "This is one of my favorite spots in all of Türkiye!",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    },
+    {
+      "id": "bursa-stop-03",
+      "order": 3,
+      "sourceTupleIndex": 2,
+      "legacyArt": {
+        "type": "stall",
+        "params": {
+          "s": "İSKENDER",
+          "d": "kebap",
+          "c": "#8A4038"
+        }
+      },
+      "category": "food",
+      "title": {
+        "en": "İskender Kebab",
+        "tr": null
+      },
+      "description": {
+        "en": "The world-famous İskender kebab was invented right here in Bursa! And for dessert: candied chestnuts from Uludağ's forests. Yum!",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🌰",
+        "label": {
+          "en": "a candied chestnut",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "We made it! Take a good look around.",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    }
+  ],
+  "quiz": [
+    {
+      "id": "bursa-quiz-01",
+      "order": 1,
+      "question": {
+        "en": "What are Karagöz and Hacivat?",
+        "tr": null
+      },
+      "options": [
+        {
+          "id": "bursa-quiz-01-option-01",
+          "order": 1,
+          "text": {
+            "en": "Shadow theatre puppets",
+            "tr": null
+          },
+          "correct": true
+        },
+        {
+          "id": "bursa-quiz-01-option-02",
+          "order": 2,
+          "text": {
+            "en": "Video game robots",
+            "tr": null
+          },
+          "correct": false
+        },
+        {
+          "id": "bursa-quiz-01-option-03",
+          "order": 3,
+          "text": {
+            "en": "Two mountains",
+            "tr": null
+          },
+          "correct": false
+        }
+      ],
+      "sourceRule": "The first option in the HTML source is correct. The application may shuffle display order at runtime."
+    }
+  ]
+}

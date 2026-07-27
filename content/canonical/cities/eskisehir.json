@@ -1,0 +1,170 @@
+{
+  "schemaVersion": "1.0",
+  "contentAuthority": "index-html-canonical",
+  "source": {
+    "file": "source/index.html",
+    "sha256": "ed74da639543bd1847d3e970f114e006ec9be8a8d441197a1968afca5a07f995",
+    "cityArray": "CITIES1",
+    "cityArrayIndex": 27
+  },
+  "id": "eskisehir",
+  "order": 28,
+  "name": {
+    "en": "Eskişehir",
+    "tr": null
+  },
+  "regionId": "central-anatolia",
+  "sourceRegionIndex": 3,
+  "coordinates": {
+    "longitude": 30.52,
+    "latitude": 39.78
+  },
+  "legacyGuideId": "keloglan",
+  "stops": [
+    {
+      "id": "eskisehir-stop-01",
+      "order": 1,
+      "sourceTupleIndex": 0,
+      "legacyArt": {
+        "type": "ev",
+        "params": {
+          "c": "#F9E0E6",
+          "c2": "#DFF2FA"
+        }
+      },
+      "category": "history",
+      "title": {
+        "en": "Colorful Odunpazarı Houses",
+        "tr": null
+      },
+      "description": {
+        "en": "Odunpazarı's crooked timber houses are painted pink, blue and yellow like candy! The old town also has a shiny modern art museum — old and new side by side.",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🏘️",
+        "label": {
+          "en": "a candy-colored house pin",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "Every traveler stops here — now it's your turn!",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    },
+    {
+      "id": "eskisehir-stop-02",
+      "order": 2,
+      "sourceTupleIndex": 1,
+      "legacyArt": {
+        "type": "craft",
+        "params": {
+          "kind": "meerschaum",
+          "s": "LÜLETAŞI",
+          "f": "#8A9BA8"
+        }
+      },
+      "category": "craft",
+      "title": {
+        "en": "Meerschaum — the White Gold",
+        "tr": null
+      },
+      "description": {
+        "en": "Deep under Eskişehir hides lületaşı (meerschaum), a soft white stone found almost nowhere else on Earth. Masters carve it into delicate pipes, beads and figures!",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🤍",
+        "label": {
+          "en": "a carved white stone",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "See? Türkiye is full of wonders!",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    },
+    {
+      "id": "eskisehir-stop-03",
+      "order": 3,
+      "sourceTupleIndex": 2,
+      "legacyArt": {
+        "type": "gol",
+        "params": {
+          "boat": 1
+        }
+      },
+      "category": "nature",
+      "title": {
+        "en": "Gondolas on the Porsuk",
+        "tr": null
+      },
+      "description": {
+        "en": "Yes, gondolas — in the middle of Anatolia! Colorful boats glide down the Porsuk River between flower-lined banks, just like a mini Venice.",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🚤",
+        "label": {
+          "en": "a gondola ride token",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "Careful, don't blink — you might miss something beautiful!",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    }
+  ],
+  "quiz": [
+    {
+      "id": "eskisehir-quiz-01",
+      "order": 1,
+      "question": {
+        "en": "What is lületaşı (meerschaum)?",
+        "tr": null
+      },
+      "options": [
+        {
+          "id": "eskisehir-quiz-01-option-01",
+          "order": 1,
+          "text": {
+            "en": "A rare soft white stone for carving",
+            "tr": null
+          },
+          "correct": true
+        },
+        {
+          "id": "eskisehir-quiz-01-option-02",
+          "order": 2,
+          "text": {
+            "en": "A kind of pasta",
+            "tr": null
+          },
+          "correct": false
+        },
+        {
+          "id": "eskisehir-quiz-01-option-03",
+          "order": 3,
+          "text": {
+            "en": "A blue bird",
+            "tr": null
+          },
+          "correct": false
+        }
+      ],
+      "sourceRule": "The first option in the HTML source is correct. The application may shuffle display order at runtime."
+    }
+  ]
+}

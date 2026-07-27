@@ -1,0 +1,167 @@
+{
+  "schemaVersion": "1.0",
+  "contentAuthority": "index-html-canonical",
+  "source": {
+    "file": "source/index.html",
+    "sha256": "ed74da639543bd1847d3e970f114e006ec9be8a8d441197a1968afca5a07f995",
+    "cityArray": "CITIES2",
+    "cityArrayIndex": 22
+  },
+  "id": "igdir",
+  "order": 63,
+  "name": {
+    "en": "Iğdır",
+    "tr": null
+  },
+  "regionId": "eastern-anatolia",
+  "sourceRegionIndex": 5,
+  "coordinates": {
+    "longitude": 44.04,
+    "latitude": 39.92
+  },
+  "legacyGuideId": "nasreddin-hoca",
+  "stops": [
+    {
+      "id": "igdir-stop-01",
+      "order": 1,
+      "sourceTupleIndex": 0,
+      "legacyArt": {
+        "type": "dag",
+        "params": {
+          "ararat": 1
+        }
+      },
+      "category": "nature",
+      "title": {
+        "en": "Face to Face with Ararat",
+        "tr": null
+      },
+      "description": {
+        "en": "From Iğdır's warm plain you get the most amazing view of Mount Ararat — Türkiye's tallest mountain (5,137 m) — rising like a giant white pyramid into the sky!",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🏔️",
+        "label": {
+          "en": "an Ararat postcard",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "We made it! Take a good look around.",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    },
+    {
+      "id": "igdir-stop-02",
+      "order": 2,
+      "sourceTupleIndex": 1,
+      "legacyArt": {
+        "type": "agac",
+        "params": {
+          "kind": "apricot"
+        }
+      },
+      "category": "food",
+      "title": {
+        "en": "The Warm Oasis",
+        "tr": null
+      },
+      "description": {
+        "en": "Thanks to its special microclimate, Iğdır is a warm garden between cold mountains: apricot orchards bloom pink-white every spring like popcorn trees!",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🌸",
+        "label": {
+          "en": "an apricot blossom",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "Every traveler stops here — now it's your turn!",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    },
+    {
+      "id": "igdir-stop-03",
+      "order": 3,
+      "sourceTupleIndex": 2,
+      "legacyArt": {
+        "type": "cave",
+        "params": {
+          "salt": 1
+        }
+      },
+      "category": "history",
+      "title": {
+        "en": "Tuzluca Salt Caves",
+        "tr": null
+      },
+      "description": {
+        "en": "At Tuzluca, people have carved salt from mountain caves for thousands of years — the glittering white tunnels now even host salt-air therapy rooms.",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🧂",
+        "label": {
+          "en": "a salt lamp",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "See? Türkiye is full of wonders!",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    }
+  ],
+  "quiz": [
+    {
+      "id": "igdir-quiz-01",
+      "order": 1,
+      "question": {
+        "en": "How tall is Mount Ararat, Türkiye's highest peak?",
+        "tr": null
+      },
+      "options": [
+        {
+          "id": "igdir-quiz-01-option-01",
+          "order": 1,
+          "text": {
+            "en": "5,137 meters",
+            "tr": null
+          },
+          "correct": true
+        },
+        {
+          "id": "igdir-quiz-01-option-02",
+          "order": 2,
+          "text": {
+            "en": "51 meters",
+            "tr": null
+          },
+          "correct": false
+        },
+        {
+          "id": "igdir-quiz-01-option-03",
+          "order": 3,
+          "text": {
+            "en": "5 kilometers underground",
+            "tr": null
+          },
+          "correct": false
+        }
+      ],
+      "sourceRule": "The first option in the HTML source is correct. The application may shuffle display order at runtime."
+    }
+  ]
+}

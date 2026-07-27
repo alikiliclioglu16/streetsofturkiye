@@ -1,0 +1,165 @@
+{
+  "schemaVersion": "1.0",
+  "contentAuthority": "index-html-canonical",
+  "source": {
+    "file": "source/index.html",
+    "sha256": "ed74da639543bd1847d3e970f114e006ec9be8a8d441197a1968afca5a07f995",
+    "cityArray": "CITIES1",
+    "cityArrayIndex": 13
+  },
+  "id": "aydin",
+  "order": 14,
+  "name": {
+    "en": "Aydın",
+    "tr": null
+  },
+  "regionId": "aegean",
+  "sourceRegionIndex": 1,
+  "coordinates": {
+    "longitude": 27.84,
+    "latitude": 37.85
+  },
+  "legacyGuideId": "keloglan",
+  "stops": [
+    {
+      "id": "aydin-stop-01",
+      "order": 1,
+      "sourceTupleIndex": 0,
+      "legacyArt": {
+        "type": "antik",
+        "params": {}
+      },
+      "category": "history",
+      "title": {
+        "en": "Aphrodisias",
+        "tr": null
+      },
+      "description": {
+        "en": "Aphrodisias was an ancient city of sculptors — its marble artists were famous across the Roman world! Its stadium had room for 30,000 people, one of the best preserved anywhere.",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🗿",
+        "label": {
+          "en": "a marble chip",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "This is one of my favorite spots in all of Türkiye!",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    },
+    {
+      "id": "aydin-stop-02",
+      "order": 2,
+      "sourceTupleIndex": 1,
+      "legacyArt": {
+        "type": "agac",
+        "params": {
+          "kind": "fig"
+        }
+      },
+      "category": "food",
+      "title": {
+        "en": "The Fig Capital of the World",
+        "tr": null
+      },
+      "description": {
+        "en": "More figs grow in Aydın than anywhere on Earth! Sweet, honey-soft figs dry in the sun before travelling to fruit bowls all over the world — maybe even to Houston!",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🍯",
+        "label": {
+          "en": "a dried fig",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "We made it! Take a good look around.",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    },
+    {
+      "id": "aydin-stop-03",
+      "order": 3,
+      "sourceTupleIndex": 2,
+      "legacyArt": {
+        "type": "muzik",
+        "params": {
+          "kind": "davul"
+        }
+      },
+      "category": "craft",
+      "title": {
+        "en": "The Zeybek Dance",
+        "tr": null
+      },
+      "description": {
+        "en": "The proud zeybek is the Aegean's slow, eagle-like dance. Dancers spread their arms like wings and kneel to the ground while davul drums boom!",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🦅",
+        "label": {
+          "en": "an efe dancer's scarf",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "Every traveler stops here — now it's your turn!",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    }
+  ],
+  "quiz": [
+    {
+      "id": "aydin-quiz-01",
+      "order": 1,
+      "question": {
+        "en": "Which fruit makes Aydın world champion?",
+        "tr": null
+      },
+      "options": [
+        {
+          "id": "aydin-quiz-01-option-01",
+          "order": 1,
+          "text": {
+            "en": "Figs",
+            "tr": null
+          },
+          "correct": true
+        },
+        {
+          "id": "aydin-quiz-01-option-02",
+          "order": 2,
+          "text": {
+            "en": "Coconuts",
+            "tr": null
+          },
+          "correct": false
+        },
+        {
+          "id": "aydin-quiz-01-option-03",
+          "order": 3,
+          "text": {
+            "en": "Pineapples",
+            "tr": null
+          },
+          "correct": false
+        }
+      ],
+      "sourceRule": "The first option in the HTML source is correct. The application may shuffle display order at runtime."
+    }
+  ]
+}

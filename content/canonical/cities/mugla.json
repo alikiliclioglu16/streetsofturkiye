@@ -1,0 +1,167 @@
+{
+  "schemaVersion": "1.0",
+  "contentAuthority": "index-html-canonical",
+  "source": {
+    "file": "source/index.html",
+    "sha256": "ed74da639543bd1847d3e970f114e006ec9be8a8d441197a1968afca5a07f995",
+    "cityArray": "CITIES1",
+    "cityArrayIndex": 14
+  },
+  "id": "mugla",
+  "order": 15,
+  "name": {
+    "en": "Muğla",
+    "tr": null
+  },
+  "regionId": "aegean",
+  "sourceRegionIndex": 1,
+  "coordinates": {
+    "longitude": 28.36,
+    "latitude": 37.22
+  },
+  "legacyGuideId": "nasreddin-hoca",
+  "stops": [
+    {
+      "id": "mugla-stop-01",
+      "order": 1,
+      "sourceTupleIndex": 0,
+      "legacyArt": {
+        "type": "kale",
+        "params": {
+          "sea": 1
+        }
+      },
+      "category": "history",
+      "title": {
+        "en": "Bodrum Castle",
+        "tr": null
+      },
+      "description": {
+        "en": "The Castle of St. Peter stands right on Bodrum's harbor, guarding turquoise waters. Inside is an amazing museum of ancient shipwrecks found under the sea!",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "⚓",
+        "label": {
+          "en": "a shipwreck treasure coin",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "We made it! Take a good look around.",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    },
+    {
+      "id": "mugla-stop-02",
+      "order": 2,
+      "sourceTupleIndex": 1,
+      "legacyArt": {
+        "type": "sahil",
+        "params": {
+          "paraglider": 1
+        }
+      },
+      "category": "nature",
+      "title": {
+        "en": "Ölüdeniz Blue Lagoon",
+        "tr": null
+      },
+      "description": {
+        "en": "Ölüdeniz is one of the most photographed beaches on Earth — a calm turquoise lagoon beside a white sandy spit. Brave flyers paraglide down from Babadağ mountain to land on the beach!",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🪂",
+        "label": {
+          "en": "a paraglider pin",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "Every traveler stops here — now it's your turn!",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    },
+    {
+      "id": "mugla-stop-03",
+      "order": 3,
+      "sourceTupleIndex": 2,
+      "legacyArt": {
+        "type": "hayvan",
+        "params": {
+          "kind": "turtle"
+        }
+      },
+      "category": "nature",
+      "title": {
+        "en": "Caretta Turtles of Dalyan",
+        "tr": null
+      },
+      "description": {
+        "en": "On İztuzu Beach, gentle giant sea turtles called caretta caretta crawl ashore at night to lay their eggs — just as they have for millions of years. The beach is protected just for them!",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🐢",
+        "label": {
+          "en": "a baby turtle sticker",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "See? Türkiye is full of wonders!",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    }
+  ],
+  "quiz": [
+    {
+      "id": "mugla-quiz-01",
+      "order": 1,
+      "question": {
+        "en": "Who lays eggs on Dalyan's protected İztuzu Beach?",
+        "tr": null
+      },
+      "options": [
+        {
+          "id": "mugla-quiz-01-option-01",
+          "order": 1,
+          "text": {
+            "en": "Caretta caretta sea turtles",
+            "tr": null
+          },
+          "correct": true
+        },
+        {
+          "id": "mugla-quiz-01-option-02",
+          "order": 2,
+          "text": {
+            "en": "Penguins",
+            "tr": null
+          },
+          "correct": false
+        },
+        {
+          "id": "mugla-quiz-01-option-03",
+          "order": 3,
+          "text": {
+            "en": "Dragons",
+            "tr": null
+          },
+          "correct": false
+        }
+      ],
+      "sourceRule": "The first option in the HTML source is correct. The application may shuffle display order at runtime."
+    }
+  ]
+}

@@ -1,0 +1,168 @@
+{
+  "schemaVersion": "1.0",
+  "contentAuthority": "index-html-canonical",
+  "source": {
+    "file": "source/index.html",
+    "sha256": "ed74da639543bd1847d3e970f114e006ec9be8a8d441197a1968afca5a07f995",
+    "cityArray": "CITIES2",
+    "cityArrayIndex": 12
+  },
+  "id": "giresun",
+  "order": 53,
+  "name": {
+    "en": "Giresun",
+    "tr": null
+  },
+  "regionId": "black-sea",
+  "sourceRegionIndex": 4,
+  "coordinates": {
+    "longitude": 38.39,
+    "latitude": 40.91
+  },
+  "legacyGuideId": "nasreddin-hoca",
+  "stops": [
+    {
+      "id": "giresun-stop-01",
+      "order": 1,
+      "sourceTupleIndex": 0,
+      "legacyArt": {
+        "type": "agac",
+        "params": {
+          "kind": "cherry"
+        }
+      },
+      "category": "history",
+      "title": {
+        "en": "Where Cherries Got Their Name",
+        "tr": null
+      },
+      "description": {
+        "en": "Cherries spread to the whole world FROM Giresun! A Roman general took cherry trees from here 2,000 years ago — the ancient city's name 'Cerasus' became the word 'cherry'!",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🍒",
+        "label": {
+          "en": "the original cherry",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "See? Türkiye is full of wonders!",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    },
+    {
+      "id": "giresun-stop-02",
+      "order": 2,
+      "sourceTupleIndex": 1,
+      "legacyArt": {
+        "type": "gol",
+        "params": {
+          "island": 1
+        }
+      },
+      "category": "nature",
+      "title": {
+        "en": "Giresun Island",
+        "tr": null
+      },
+      "description": {
+        "en": "Just offshore floats Giresun Island — the Black Sea's only big island on the Turkish coast, wrapped in seabird cries and old legends of Amazon warriors.",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🏝️",
+        "label": {
+          "en": "an island legend scroll",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "Careful, don't blink — you might miss something beautiful!",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    },
+    {
+      "id": "giresun-stop-03",
+      "order": 3,
+      "sourceTupleIndex": 2,
+      "legacyArt": {
+        "type": "fruit",
+        "params": {
+          "kind": "hazelnut",
+          "s": "FINDIK"
+        }
+      },
+      "category": "food",
+      "title": {
+        "en": "Tombul Hazelnuts",
+        "tr": null
+      },
+      "description": {
+        "en": "Giresun's round 'tombul' hazelnuts are considered the tastiest in the world — chocolate makers everywhere ask for them by name!",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🌰",
+        "label": {
+          "en": "a tombul hazelnut",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "Look at this — amazing, right?",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    }
+  ],
+  "quiz": [
+    {
+      "id": "giresun-quiz-01",
+      "order": 1,
+      "question": {
+        "en": "Which fruit's name comes from Giresun's ancient name Cerasus?",
+        "tr": null
+      },
+      "options": [
+        {
+          "id": "giresun-quiz-01-option-01",
+          "order": 1,
+          "text": {
+            "en": "Cherry",
+            "tr": null
+          },
+          "correct": true
+        },
+        {
+          "id": "giresun-quiz-01-option-02",
+          "order": 2,
+          "text": {
+            "en": "Banana",
+            "tr": null
+          },
+          "correct": false
+        },
+        {
+          "id": "giresun-quiz-01-option-03",
+          "order": 3,
+          "text": {
+            "en": "Mango",
+            "tr": null
+          },
+          "correct": false
+        }
+      ],
+      "sourceRule": "The first option in the HTML source is correct. The application may shuffle display order at runtime."
+    }
+  ]
+}

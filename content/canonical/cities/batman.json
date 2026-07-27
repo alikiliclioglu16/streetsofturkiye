@@ -1,0 +1,170 @@
+{
+  "schemaVersion": "1.0",
+  "contentAuthority": "index-html-canonical",
+  "source": {
+    "file": "source/index.html",
+    "sha256": "ed74da639543bd1847d3e970f114e006ec9be8a8d441197a1968afca5a07f995",
+    "cityArray": "CITIES2",
+    "cityArrayIndex": 38
+  },
+  "id": "batman",
+  "order": 79,
+  "name": {
+    "en": "Batman",
+    "tr": null
+  },
+  "regionId": "southeastern-anatolia",
+  "sourceRegionIndex": 6,
+  "coordinates": {
+    "longitude": 41.13,
+    "latitude": 37.88
+  },
+  "legacyGuideId": "nasreddin-hoca",
+  "stops": [
+    {
+      "id": "batman-stop-01",
+      "order": 1,
+      "sourceTupleIndex": 0,
+      "legacyArt": {
+        "type": "kale",
+        "params": {
+          "rock": 1,
+          "sea": 1
+        }
+      },
+      "category": "history",
+      "title": {
+        "en": "Hasankeyf on the Tigris",
+        "tr": null
+      },
+      "description": {
+        "en": "Ancient Hasankeyf lived on the banks of the Tigris for 12,000 years — cave homes, a great bridge and minarets. Its historic monuments were carefully MOVED uphill piece by piece when the valley became a lake!",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🏛️",
+        "label": {
+          "en": "a rescued monument pin",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "Look at this — amazing, right?",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    },
+    {
+      "id": "batman-stop-02",
+      "order": 2,
+      "sourceTupleIndex": 1,
+      "legacyArt": {
+        "type": "kopru",
+        "params": {
+          "n": 1
+        }
+      },
+      "category": "history",
+      "title": {
+        "en": "Malabadi — the Giant Arch",
+        "tr": null
+      },
+      "description": {
+        "en": "The 900-year-old Malabadi Bridge has one of the widest stone arches ever built — so big that Hagia Sophia's dome could fit through it! Rooms inside the bridge sheltered travelers.",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🌉",
+        "label": {
+          "en": "a giant-arch badge",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "This is one of my favorite spots in all of Türkiye!",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    },
+    {
+      "id": "batman-stop-03",
+      "order": 3,
+      "sourceTupleIndex": 2,
+      "legacyArt": {
+        "type": "craft",
+        "params": {
+          "kind": "soap",
+          "s": "BITTIM SABUNU",
+          "f": "#5C6E3C"
+        }
+      },
+      "category": "craft",
+      "title": {
+        "en": "Bıttım Soap",
+        "tr": null
+      },
+      "description": {
+        "en": "Batman's famous green bıttım soap is made from wild pistachio tree oil — grandmas swear it's the secret to shiny hair!",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🧼",
+        "label": {
+          "en": "a bar of bıttım soap",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "We made it! Take a good look around.",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    }
+  ],
+  "quiz": [
+    {
+      "id": "batman-quiz-01",
+      "order": 1,
+      "question": {
+        "en": "What is special about the Malabadi Bridge?",
+        "tr": null
+      },
+      "options": [
+        {
+          "id": "batman-quiz-01-option-01",
+          "order": 1,
+          "text": {
+            "en": "One of the widest stone arches ever built",
+            "tr": null
+          },
+          "correct": true
+        },
+        {
+          "id": "batman-quiz-01-option-02",
+          "order": 2,
+          "text": {
+            "en": "It's invisible",
+            "tr": null
+          },
+          "correct": false
+        },
+        {
+          "id": "batman-quiz-01-option-03",
+          "order": 3,
+          "text": {
+            "en": "It's made of rubber",
+            "tr": null
+          },
+          "correct": false
+        }
+      ],
+      "sourceRule": "The first option in the HTML source is correct. The application may shuffle display order at runtime."
+    }
+  ]
+}

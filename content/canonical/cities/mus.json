@@ -1,0 +1,169 @@
+{
+  "schemaVersion": "1.0",
+  "contentAuthority": "index-html-canonical",
+  "source": {
+    "file": "source/index.html",
+    "sha256": "ed74da639543bd1847d3e970f114e006ec9be8a8d441197a1968afca5a07f995",
+    "cityArray": "CITIES2",
+    "cityArrayIndex": 27
+  },
+  "id": "mus",
+  "order": 68,
+  "name": {
+    "en": "Muş",
+    "tr": null
+  },
+  "regionId": "eastern-anatolia",
+  "sourceRegionIndex": 5,
+  "coordinates": {
+    "longitude": 41.49,
+    "latitude": 38.73
+  },
+  "legacyGuideId": "keloglan",
+  "stops": [
+    {
+      "id": "mus-stop-01",
+      "order": 1,
+      "sourceTupleIndex": 0,
+      "legacyArt": {
+        "type": "flower",
+        "params": {
+          "kind": "tulip"
+        }
+      },
+      "category": "nature",
+      "title": {
+        "en": "The Wild Tulips of Muş",
+        "tr": null
+      },
+      "description": {
+        "en": "Every spring, the Muş plain blushes red with wild tulips — a special kind that grows here. Long before tulips became famous in gardens, they bloomed free on these meadows!",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🌷",
+        "label": {
+          "en": "a wild tulip",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "This is one of my favorite spots in all of Türkiye!",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    },
+    {
+      "id": "mus-stop-02",
+      "order": 2,
+      "sourceTupleIndex": 1,
+      "legacyArt": {
+        "type": "kopru",
+        "params": {
+          "n": 3
+        }
+      },
+      "category": "nature",
+      "title": {
+        "en": "The Murat River Plain",
+        "tr": null
+      },
+      "description": {
+        "en": "The wide Murat river waters one of Türkiye's biggest plains — a green sea of wheat and pasture ringed by snowy mountains.",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🌾",
+        "label": {
+          "en": "a wheat stalk",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "We made it! Take a good look around.",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    },
+    {
+      "id": "mus-stop-03",
+      "order": 3,
+      "sourceTupleIndex": 2,
+      "legacyArt": {
+        "type": "stall",
+        "params": {
+          "s": "TANDIR EKMEĞİ",
+          "d": "pide",
+          "c": "#C96A2B"
+        }
+      },
+      "category": "food",
+      "title": {
+        "en": "Bread from the Tandır",
+        "tr": null
+      },
+      "description": {
+        "en": "In village courtyards, dough is slapped onto the hot walls of clay tandır ovens — minutes later, out comes bubbly, smoky flatbread. Best eaten immediately!",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🫓",
+        "label": {
+          "en": "warm tandır bread",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "Every traveler stops here — now it's your turn!",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    }
+  ],
+  "quiz": [
+    {
+      "id": "mus-quiz-01",
+      "order": 1,
+      "question": {
+        "en": "What turns the Muş plain red every spring?",
+        "tr": null
+      },
+      "options": [
+        {
+          "id": "mus-quiz-01-option-01",
+          "order": 1,
+          "text": {
+            "en": "Wild tulips",
+            "tr": null
+          },
+          "correct": true
+        },
+        {
+          "id": "mus-quiz-01-option-02",
+          "order": 2,
+          "text": {
+            "en": "Red paint",
+            "tr": null
+          },
+          "correct": false
+        },
+        {
+          "id": "mus-quiz-01-option-03",
+          "order": 3,
+          "text": {
+            "en": "Ladybugs",
+            "tr": null
+          },
+          "correct": false
+        }
+      ],
+      "sourceRule": "The first option in the HTML source is correct. The application may shuffle display order at runtime."
+    }
+  ]
+}

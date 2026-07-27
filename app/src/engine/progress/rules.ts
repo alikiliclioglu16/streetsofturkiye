@@ -1,4 +1,4 @@
-import type { CityDefinition } from '@/content/schemas/city';
+import type { RuntimeCity as CityDefinition } from '@/content/compose';
 import type { CityProgress, PlayerProfile } from '@/engine/progress/types';
 
 /**

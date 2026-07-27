@@ -1,0 +1,169 @@
+{
+  "schemaVersion": "1.0",
+  "contentAuthority": "index-html-canonical",
+  "source": {
+    "file": "source/index.html",
+    "sha256": "ed74da639543bd1847d3e970f114e006ec9be8a8d441197a1968afca5a07f995",
+    "cityArray": "CITIES1",
+    "cityArrayIndex": 23
+  },
+  "id": "adana",
+  "order": 24,
+  "name": {
+    "en": "Adana",
+    "tr": null
+  },
+  "regionId": "mediterranean",
+  "sourceRegionIndex": 2,
+  "coordinates": {
+    "longitude": 35.32,
+    "latitude": 37.0
+  },
+  "legacyGuideId": "keloglan",
+  "stops": [
+    {
+      "id": "adana-stop-01",
+      "order": 1,
+      "sourceTupleIndex": 0,
+      "legacyArt": {
+        "type": "kopru",
+        "params": {
+          "n": 5
+        }
+      },
+      "category": "history",
+      "title": {
+        "en": "Taşköprü — the Stone Bridge",
+        "tr": null
+      },
+      "description": {
+        "en": "Adana's Taşköprü has crossed the Seyhan River for about 1,800 years — one of the oldest bridges in the world that people STILL walk over every day!",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🌉",
+        "label": {
+          "en": "a bridge stone",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "Careful, don't blink — you might miss something beautiful!",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    },
+    {
+      "id": "adana-stop-02",
+      "order": 2,
+      "sourceTupleIndex": 1,
+      "legacyArt": {
+        "type": "stall",
+        "params": {
+          "s": "ADANA KEBAP",
+          "d": "kebap",
+          "c": "#8A4038"
+        }
+      },
+      "category": "food",
+      "title": {
+        "en": "The Legendary Adana Kebab",
+        "tr": null
+      },
+      "description": {
+        "en": "Spicy, smoky Adana kebab is grilled on wide metal skewers over glowing coals, served with purple şalgam juice. On hot days, kids cool off with icy 'bici bici' dessert!",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🍢",
+        "label": {
+          "en": "a mini kebab skewer",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "Look at this — amazing, right?",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    },
+    {
+      "id": "adana-stop-03",
+      "order": 3,
+      "sourceTupleIndex": 2,
+      "legacyArt": {
+        "type": "flower",
+        "params": {
+          "kind": "tulip"
+        }
+      },
+      "category": "nature",
+      "title": {
+        "en": "Orange Blossom Carnival",
+        "tr": null
+      },
+      "description": {
+        "en": "Every April, Adana smells of orange blossoms and throws a giant carnival! Costumes, music, dancing in the streets — the whole city becomes one big party.",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🎉",
+        "label": {
+          "en": "carnival confetti",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "This is one of my favorite spots in all of Türkiye!",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    }
+  ],
+  "quiz": [
+    {
+      "id": "adana-quiz-01",
+      "order": 1,
+      "question": {
+        "en": "How old is Adana's stone bridge, Taşköprü?",
+        "tr": null
+      },
+      "options": [
+        {
+          "id": "adana-quiz-01-option-01",
+          "order": 1,
+          "text": {
+            "en": "About 1,800 years old",
+            "tr": null
+          },
+          "correct": true
+        },
+        {
+          "id": "adana-quiz-01-option-02",
+          "order": 2,
+          "text": {
+            "en": "18 years old",
+            "tr": null
+          },
+          "correct": false
+        },
+        {
+          "id": "adana-quiz-01-option-03",
+          "order": 3,
+          "text": {
+            "en": "3 days old",
+            "tr": null
+          },
+          "correct": false
+        }
+      ],
+      "sourceRule": "The first option in the HTML source is correct. The application may shuffle display order at runtime."
+    }
+  ]
+}

@@ -1,0 +1,163 @@
+{
+  "schemaVersion": "1.0",
+  "contentAuthority": "index-html-canonical",
+  "source": {
+    "file": "source/index.html",
+    "sha256": "ed74da639543bd1847d3e970f114e006ec9be8a8d441197a1968afca5a07f995",
+    "cityArray": "CITIES1",
+    "cityArrayIndex": 21
+  },
+  "id": "antalya",
+  "order": 22,
+  "name": {
+    "en": "Antalya",
+    "tr": null
+  },
+  "regionId": "mediterranean",
+  "sourceRegionIndex": 2,
+  "coordinates": {
+    "longitude": 30.71,
+    "latitude": 36.89
+  },
+  "legacyGuideId": "keloglan",
+  "stops": [
+    {
+      "id": "antalya-stop-01",
+      "order": 1,
+      "sourceTupleIndex": 0,
+      "legacyArt": {
+        "type": "theatre",
+        "params": {}
+      },
+      "category": "history",
+      "title": {
+        "en": "Aspendos Theatre",
+        "tr": null
+      },
+      "description": {
+        "en": "Aspendos is a 2,000-year-old open-air theatre so cleverly built that even a whisper on stage reaches the top row — 15,000 seats and concerts still happen today!",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🎶",
+        "label": {
+          "en": "a concert ticket",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "Every traveler stops here — now it's your turn!",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    },
+    {
+      "id": "antalya-stop-02",
+      "order": 2,
+      "sourceTupleIndex": 1,
+      "legacyArt": {
+        "type": "selale",
+        "params": {}
+      },
+      "category": "nature",
+      "title": {
+        "en": "Düden Waterfalls",
+        "tr": null
+      },
+      "description": {
+        "en": "The Düden waterfalls tumble through the city and one of them leaps straight off a cliff INTO the Mediterranean Sea! Rainbows dance in the spray on sunny days.",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🌈",
+        "label": {
+          "en": "a rainbow in the spray",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "See? Türkiye is full of wonders!",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    },
+    {
+      "id": "antalya-stop-03",
+      "order": 3,
+      "sourceTupleIndex": 2,
+      "legacyArt": {
+        "type": "agac",
+        "params": {
+          "kind": "orange"
+        }
+      },
+      "category": "food",
+      "title": {
+        "en": "Orange Groves",
+        "tr": null
+      },
+      "description": {
+        "en": "Antalya is Türkiye's sunny holiday capital, full of orange trees. Even its famous film festival gives a 'Golden Orange' award! Fresh-squeezed orange juice, anyone?",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🍊",
+        "label": {
+          "en": "a golden orange",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "Careful, don't blink — you might miss something beautiful!",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    }
+  ],
+  "quiz": [
+    {
+      "id": "antalya-quiz-01",
+      "order": 1,
+      "question": {
+        "en": "What is special about the Aspendos theatre?",
+        "tr": null
+      },
+      "options": [
+        {
+          "id": "antalya-quiz-01-option-01",
+          "order": 1,
+          "text": {
+            "en": "A whisper on stage is heard at the top row",
+            "tr": null
+          },
+          "correct": true
+        },
+        {
+          "id": "antalya-quiz-01-option-02",
+          "order": 2,
+          "text": {
+            "en": "It floats on water",
+            "tr": null
+          },
+          "correct": false
+        },
+        {
+          "id": "antalya-quiz-01-option-03",
+          "order": 3,
+          "text": {
+            "en": "It's made of chocolate",
+            "tr": null
+          },
+          "correct": false
+        }
+      ],
+      "sourceRule": "The first option in the HTML source is correct. The application may shuffle display order at runtime."
+    }
+  ]
+}

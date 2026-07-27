@@ -1,0 +1,168 @@
+{
+  "schemaVersion": "1.0",
+  "contentAuthority": "index-html-canonical",
+  "source": {
+    "file": "source/index.html",
+    "sha256": "ed74da639543bd1847d3e970f114e006ec9be8a8d441197a1968afca5a07f995",
+    "cityArray": "CITIES2",
+    "cityArrayIndex": 32
+  },
+  "id": "adiyaman",
+  "order": 73,
+  "name": {
+    "en": "Adıyaman",
+    "tr": null
+  },
+  "regionId": "southeastern-anatolia",
+  "sourceRegionIndex": 6,
+  "coordinates": {
+    "longitude": 38.28,
+    "latitude": 37.76
+  },
+  "legacyGuideId": "nasreddin-hoca",
+  "stops": [
+    {
+      "id": "adiyaman-stop-01",
+      "order": 1,
+      "sourceTupleIndex": 0,
+      "legacyArt": {
+        "type": "nemrut",
+        "params": {}
+      },
+      "category": "history",
+      "title": {
+        "en": "The Giant Heads of Nemrut",
+        "tr": null
+      },
+      "description": {
+        "en": "On top of Mount Nemrut, giant stone heads have watched the sunrise for 2,000 years! King Antiochus built himself a mountain-top monument with statues bigger than cars. Sunrise here is unforgettable!",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🗿",
+        "label": {
+          "en": "a giant head figurine",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "Look at this — amazing, right?",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    },
+    {
+      "id": "adiyaman-stop-02",
+      "order": 2,
+      "sourceTupleIndex": 1,
+      "legacyArt": {
+        "type": "kopru",
+        "params": {
+          "n": 1,
+          "flat": 0
+        }
+      },
+      "category": "history",
+      "title": {
+        "en": "Cendere — the Roman Bridge",
+        "tr": null
+      },
+      "description": {
+        "en": "The elegant single-arched Cendere Bridge was built by Roman soldiers 1,800 years ago — and cars crossed it until recently! Now it belongs to walkers and photographers.",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "📸",
+        "label": {
+          "en": "a bridge photo",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "This is one of my favorite spots in all of Türkiye!",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    },
+    {
+      "id": "adiyaman-stop-03",
+      "order": 3,
+      "sourceTupleIndex": 2,
+      "legacyArt": {
+        "type": "stall",
+        "params": {
+          "s": "ÇİĞ KÖFTE",
+          "d": "cig",
+          "c": "#8A4038"
+        }
+      },
+      "category": "food",
+      "title": {
+        "en": "Çiğ Köfte Party",
+        "tr": null
+      },
+      "description": {
+        "en": "Making çiğ köfte is a show: bulgur, pepper paste and spices are kneaded for hours (no meat in today's version!) then wrapped in crisp lettuce with a squeeze of lemon. Spicy!",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🥬",
+        "label": {
+          "en": "a lettuce wrap",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "We made it! Take a good look around.",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    }
+  ],
+  "quiz": [
+    {
+      "id": "adiyaman-quiz-01",
+      "order": 1,
+      "question": {
+        "en": "What has watched the sunrise from Mount Nemrut for 2,000 years?",
+        "tr": null
+      },
+      "options": [
+        {
+          "id": "adiyaman-quiz-01-option-01",
+          "order": 1,
+          "text": {
+            "en": "Giant stone heads",
+            "tr": null
+          },
+          "correct": true
+        },
+        {
+          "id": "adiyaman-quiz-01-option-02",
+          "order": 2,
+          "text": {
+            "en": "Robot dinosaurs",
+            "tr": null
+          },
+          "correct": false
+        },
+        {
+          "id": "adiyaman-quiz-01-option-03",
+          "order": 3,
+          "text": {
+            "en": "Snowmen",
+            "tr": null
+          },
+          "correct": false
+        }
+      ],
+      "sourceRule": "The first option in the HTML source is correct. The application may shuffle display order at runtime."
+    }
+  ]
+}

@@ -1,0 +1,166 @@
+{
+  "schemaVersion": "1.0",
+  "contentAuthority": "index-html-canonical",
+  "source": {
+    "file": "source/index.html",
+    "sha256": "ed74da639543bd1847d3e970f114e006ec9be8a8d441197a1968afca5a07f995",
+    "cityArray": "CITIES1",
+    "cityArrayIndex": 20
+  },
+  "id": "isparta",
+  "order": 21,
+  "name": {
+    "en": "Isparta",
+    "tr": null
+  },
+  "regionId": "mediterranean",
+  "sourceRegionIndex": 2,
+  "coordinates": {
+    "longitude": 30.55,
+    "latitude": 37.76
+  },
+  "legacyGuideId": "nasreddin-hoca",
+  "stops": [
+    {
+      "id": "isparta-stop-01",
+      "order": 1,
+      "sourceTupleIndex": 0,
+      "legacyArt": {
+        "type": "flower",
+        "params": {
+          "kind": "rose"
+        }
+      },
+      "category": "nature",
+      "title": {
+        "en": "The City of Roses",
+        "tr": null
+      },
+      "description": {
+        "en": "Every May and June, Isparta's fields turn pink with millions of roses! Pickers gather the petals at sunrise, and the whole city smells like perfume. Rose water, rose jam, rose delight — roses everywhere!",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🌹",
+        "label": {
+          "en": "a bottle of rose water",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "We made it! Take a good look around.",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    },
+    {
+      "id": "isparta-stop-02",
+      "order": 2,
+      "sourceTupleIndex": 1,
+      "legacyArt": {
+        "type": "gol",
+        "params": {
+          "boat": 1,
+          "island": 1
+        }
+      },
+      "category": "nature",
+      "title": {
+        "en": "Lake Eğirdir",
+        "tr": null
+      },
+      "description": {
+        "en": "Beautiful Lake Eğirdir shines in seven shades of blue. A tiny green island sits in it, connected to town by a thin causeway — like walking on water!",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "💙",
+        "label": {
+          "en": "seven shades of blue",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "Every traveler stops here — now it's your turn!",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    },
+    {
+      "id": "isparta-stop-03",
+      "order": 3,
+      "sourceTupleIndex": 2,
+      "legacyArt": {
+        "type": "loom",
+        "params": {}
+      },
+      "category": "craft",
+      "title": {
+        "en": "Isparta Carpets",
+        "tr": null
+      },
+      "description": {
+        "en": "Isparta's weavers are famous for soft, rose-patterned carpets. Of course the flowers on them are roses!",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🌸",
+        "label": {
+          "en": "a rose-pattern coaster",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "See? Türkiye is full of wonders!",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    }
+  ],
+  "quiz": [
+    {
+      "id": "isparta-quiz-01",
+      "order": 1,
+      "question": {
+        "en": "What makes Isparta smell like perfume in June?",
+        "tr": null
+      },
+      "options": [
+        {
+          "id": "isparta-quiz-01-option-01",
+          "order": 1,
+          "text": {
+            "en": "Millions of roses",
+            "tr": null
+          },
+          "correct": true
+        },
+        {
+          "id": "isparta-quiz-01-option-02",
+          "order": 2,
+          "text": {
+            "en": "Pizza ovens",
+            "tr": null
+          },
+          "correct": false
+        },
+        {
+          "id": "isparta-quiz-01-option-03",
+          "order": 3,
+          "text": {
+            "en": "Paint factories",
+            "tr": null
+          },
+          "correct": false
+        }
+      ],
+      "sourceRule": "The first option in the HTML source is correct. The application may shuffle display order at runtime."
+    }
+  ]
+}

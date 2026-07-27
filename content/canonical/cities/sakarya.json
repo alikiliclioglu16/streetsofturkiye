@@ -1,0 +1,169 @@
+{
+  "schemaVersion": "1.0",
+  "contentAuthority": "index-html-canonical",
+  "source": {
+    "file": "source/index.html",
+    "sha256": "ed74da639543bd1847d3e970f114e006ec9be8a8d441197a1968afca5a07f995",
+    "cityArray": "CITIES1",
+    "cityArrayIndex": 9
+  },
+  "id": "sakarya",
+  "order": 10,
+  "name": {
+    "en": "Sakarya",
+    "tr": null
+  },
+  "regionId": "marmara",
+  "sourceRegionIndex": 0,
+  "coordinates": {
+    "longitude": 30.4,
+    "latitude": 40.77
+  },
+  "legacyGuideId": "keloglan",
+  "stops": [
+    {
+      "id": "sakarya-stop-01",
+      "order": 1,
+      "sourceTupleIndex": 0,
+      "legacyArt": {
+        "type": "gol",
+        "params": {
+          "boat": 1
+        }
+      },
+      "category": "nature",
+      "title": {
+        "en": "Lake Sapanca",
+        "tr": null
+      },
+      "description": {
+        "en": "Lake Sapanca is a calm blue lake ringed by green hills. Families bike around it, row boats and have picnics under the trees.",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🚣",
+        "label": {
+          "en": "a rowboat ticket",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "Every traveler stops here — now it's your turn!",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    },
+    {
+      "id": "sakarya-stop-02",
+      "order": 2,
+      "sourceTupleIndex": 1,
+      "legacyArt": {
+        "type": "ev",
+        "params": {
+          "c": "#F4E7CC"
+        }
+      },
+      "category": "history",
+      "title": {
+        "en": "Taraklı's Timber Houses",
+        "tr": null
+      },
+      "description": {
+        "en": "In the sleepy town of Taraklı, wooden Ottoman houses lean over narrow stone lanes, just like 200 years ago. Craftsmen still carve wooden spoons here!",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🥄",
+        "label": {
+          "en": "a carved wooden spoon",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "See? Türkiye is full of wonders!",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    },
+    {
+      "id": "sakarya-stop-03",
+      "order": 3,
+      "sourceTupleIndex": 2,
+      "legacyArt": {
+        "type": "stall",
+        "params": {
+          "s": "ISLAMA KÖFTE",
+          "d": "kofte",
+          "c": "#8A4038"
+        }
+      },
+      "category": "food",
+      "title": {
+        "en": "Islama Köfte",
+        "tr": null
+      },
+      "description": {
+        "en": "Sakarya's special dish is 'wet köfte' — toasted bread dipped in hot broth, served with juicy meatballs. Crunchy AND juicy at the same time!",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🍞",
+        "label": {
+          "en": "toasty dipped bread",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "Careful, don't blink — you might miss something beautiful!",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    }
+  ],
+  "quiz": [
+    {
+      "id": "sakarya-quiz-01",
+      "order": 1,
+      "question": {
+        "en": "What do craftsmen still carve in Taraklı?",
+        "tr": null
+      },
+      "options": [
+        {
+          "id": "sakarya-quiz-01-option-01",
+          "order": 1,
+          "text": {
+            "en": "Wooden spoons",
+            "tr": null
+          },
+          "correct": true
+        },
+        {
+          "id": "sakarya-quiz-01-option-02",
+          "order": 2,
+          "text": {
+            "en": "Ice sculptures",
+            "tr": null
+          },
+          "correct": false
+        },
+        {
+          "id": "sakarya-quiz-01-option-03",
+          "order": 3,
+          "text": {
+            "en": "Robots",
+            "tr": null
+          },
+          "correct": false
+        }
+      ],
+      "sourceRule": "The first option in the HTML source is correct. The application may shuffle display order at runtime."
+    }
+  ]
+}

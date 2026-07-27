@@ -1,0 +1,263 @@
+{
+  "schemaVersion": "1.0",
+  "contentAuthority": "index-html-canonical",
+  "source": {
+    "file": "source/index.html",
+    "sha256": "ed74da639543bd1847d3e970f114e006ec9be8a8d441197a1968afca5a07f995",
+    "cityArray": "CITIES1",
+    "cityArrayIndex": 11
+  },
+  "id": "izmir",
+  "order": 12,
+  "name": {
+    "en": "İzmir",
+    "tr": null
+  },
+  "regionId": "aegean",
+  "sourceRegionIndex": 1,
+  "coordinates": {
+    "longitude": 27.14,
+    "latitude": 38.42
+  },
+  "legacyGuideId": "keloglan",
+  "stops": [
+    {
+      "id": "izmir-stop-01",
+      "order": 1,
+      "sourceTupleIndex": 0,
+      "legacyArt": {
+        "type": "celsus",
+        "params": {}
+      },
+      "category": "history",
+      "title": {
+        "en": "Ephesus — the Celsus Library",
+        "tr": null
+      },
+      "description": {
+        "en": "Ephesus is a 2,000-year-old city where you can still walk the marble streets! This is its most famous building: the two-story Celsus Library, which once held 12,000 scrolls.",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "📜",
+        "label": {
+          "en": "an ancient scroll",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "Imagine — kids just like you walked this very street 2,000 years ago!",
+          "tr": null
+        },
+        "source": "explicit-city-stop"
+      }
+    },
+    {
+      "id": "izmir-stop-02",
+      "order": 2,
+      "sourceTupleIndex": 1,
+      "legacyArt": {
+        "type": "theatre",
+        "params": {}
+      },
+      "category": "history",
+      "title": {
+        "en": "The Great Theatre of Ephesus",
+        "tr": null
+      },
+      "description": {
+        "en": "This huge stone theatre could seat 24,000 people on its curved rows! It was built so cleverly that even a whisper on the stage can be heard at the very top. Concerts still happen here!",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🎭",
+        "label": {
+          "en": "a theatre mask",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "Stand on the stage and whisper 'Merhaba!' — I'll hear it from the top row!",
+          "tr": null
+        },
+        "source": "explicit-city-stop"
+      }
+    },
+    {
+      "id": "izmir-stop-03",
+      "order": 3,
+      "sourceTupleIndex": 2,
+      "legacyArt": {
+        "type": "clock",
+        "params": {}
+      },
+      "category": "history",
+      "title": {
+        "en": "The Clock Tower of Konak Square",
+        "tr": null
+      },
+      "description": {
+        "en": "This elegant white marble tower from 1901 is the symbol of İzmir. The square around it is full of friendly pigeons — hold out some seeds and they might land right on your arm!",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🕊️",
+        "label": {
+          "en": "a pigeon feather",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "Quick, what time is it? The tower never lies!",
+          "tr": null
+        },
+        "source": "explicit-city-stop"
+      }
+    },
+    {
+      "id": "izmir-stop-04",
+      "order": 4,
+      "sourceTupleIndex": 3,
+      "legacyArt": {
+        "type": "nazar",
+        "params": {}
+      },
+      "category": "craft",
+      "title": {
+        "en": "Nazarköy — the Evil Eye Village",
+        "tr": null
+      },
+      "description": {
+        "en": "In this little village, glass masters melt glass over a fire and shape the famous blue evil eye beads — 'nazar boncuğu'. They even hang on trees! People believe the friendly blue eye protects you from bad luck.",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🧿",
+        "label": {
+          "en": "an evil eye bead",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "Pick a bead from the wishing tree! Blue like the Aegean Sea.",
+          "tr": null
+        },
+        "source": "explicit-city-stop"
+      }
+    },
+    {
+      "id": "izmir-stop-05",
+      "order": 5,
+      "sourceTupleIndex": 4,
+      "legacyArt": {
+        "type": "bakery",
+        "params": {}
+      },
+      "category": "food",
+      "title": {
+        "en": "Boyoz Bakery on the Kordon",
+        "tr": null
+      },
+      "description": {
+        "en": "İzmir kids start the day with boyoz — a flaky, swirly pastry — best eaten by the sea on the Kordon, where everyone walks, bikes and watches the waves. Afiyet olsun — enjoy!",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🥐",
+        "label": {
+          "en": "a warm boyoz",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "One for you, one for me… and a crumb for the seagull!",
+          "tr": null
+        },
+        "source": "explicit-city-stop"
+      }
+    }
+  ],
+  "quiz": [
+    {
+      "id": "izmir-quiz-01",
+      "order": 1,
+      "question": {
+        "en": "What do people believe the blue evil eye bead (nazar) does?",
+        "tr": null
+      },
+      "options": [
+        {
+          "id": "izmir-quiz-01-option-01",
+          "order": 1,
+          "text": {
+            "en": "Protects you from bad luck",
+            "tr": null
+          },
+          "correct": true
+        },
+        {
+          "id": "izmir-quiz-01-option-02",
+          "order": 2,
+          "text": {
+            "en": "Makes you invisible",
+            "tr": null
+          },
+          "correct": false
+        },
+        {
+          "id": "izmir-quiz-01-option-03",
+          "order": 3,
+          "text": {
+            "en": "Turns you into a fish",
+            "tr": null
+          },
+          "correct": false
+        }
+      ],
+      "sourceRule": "The first option in the HTML source is correct. The application may shuffle display order at runtime."
+    },
+    {
+      "id": "izmir-quiz-02",
+      "order": 2,
+      "question": {
+        "en": "How old is the ancient city of Ephesus?",
+        "tr": null
+      },
+      "options": [
+        {
+          "id": "izmir-quiz-02-option-01",
+          "order": 1,
+          "text": {
+            "en": "About 2,000 years old",
+            "tr": null
+          },
+          "correct": true
+        },
+        {
+          "id": "izmir-quiz-02-option-02",
+          "order": 2,
+          "text": {
+            "en": "20 years old",
+            "tr": null
+          },
+          "correct": false
+        },
+        {
+          "id": "izmir-quiz-02-option-03",
+          "order": 3,
+          "text": {
+            "en": "200 years old",
+            "tr": null
+          },
+          "correct": false
+        }
+      ],
+      "sourceRule": "The first option in the HTML source is correct. The application may shuffle display order at runtime."
+    }
+  ]
+}

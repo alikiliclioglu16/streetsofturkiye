@@ -1,0 +1,166 @@
+{
+  "schemaVersion": "1.0",
+  "contentAuthority": "index-html-canonical",
+  "source": {
+    "file": "source/index.html",
+    "sha256": "ed74da639543bd1847d3e970f114e006ec9be8a8d441197a1968afca5a07f995",
+    "cityArray": "CITIES2",
+    "cityArrayIndex": 7
+  },
+  "id": "corum",
+  "order": 48,
+  "name": {
+    "en": "Çorum",
+    "tr": null
+  },
+  "regionId": "black-sea",
+  "sourceRegionIndex": 4,
+  "coordinates": {
+    "longitude": 34.95,
+    "latitude": 40.55
+  },
+  "legacyGuideId": "keloglan",
+  "stops": [
+    {
+      "id": "corum-stop-01",
+      "order": 1,
+      "sourceTupleIndex": 0,
+      "legacyArt": {
+        "type": "hoyuk",
+        "params": {
+          "lion": 1
+        }
+      },
+      "category": "history",
+      "title": {
+        "en": "Hattusha — Capital of the Hittites",
+        "tr": null
+      },
+      "description": {
+        "en": "Hattusha was the capital of the mighty Hittite Empire 3,500 years ago! Walk through its Lion Gate, guarded by two stone lions, and see the world's oldest known peace treaty's home.",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🦁",
+        "label": {
+          "en": "a Hittite lion stamp",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "Careful, don't blink — you might miss something beautiful!",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    },
+    {
+      "id": "corum-stop-02",
+      "order": 2,
+      "sourceTupleIndex": 1,
+      "legacyArt": {
+        "type": "fruit",
+        "params": {
+          "kind": "hazelnut",
+          "s": "LEBLEBİ"
+        }
+      },
+      "category": "food",
+      "title": {
+        "en": "Leblebi — the Crunchy Snack",
+        "tr": null
+      },
+      "description": {
+        "en": "Çorum is the leblebi capital: chickpeas roasted until they turn into crunchy, nutty little snacks. Plain, sugared or spicy — Turkish kids munch them at the movies!",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🍿",
+        "label": {
+          "en": "a bag of leblebi",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "Look at this — amazing, right?",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    },
+    {
+      "id": "corum-stop-03",
+      "order": 3,
+      "sourceTupleIndex": 2,
+      "legacyArt": {
+        "type": "saatkule",
+        "params": {}
+      },
+      "category": "history",
+      "title": {
+        "en": "The Clock Tower",
+        "tr": null
+      },
+      "description": {
+        "en": "Çorum's elegant 19th-century clock tower rises above the bazaar, chiming over shops that have sold leblebi for generations.",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🕰️",
+        "label": {
+          "en": "a chime bell",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "This is one of my favorite spots in all of Türkiye!",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    }
+  ],
+  "quiz": [
+    {
+      "id": "corum-quiz-01",
+      "order": 1,
+      "question": {
+        "en": "Which mighty empire had its capital at Hattusha?",
+        "tr": null
+      },
+      "options": [
+        {
+          "id": "corum-quiz-01-option-01",
+          "order": 1,
+          "text": {
+            "en": "The Hittites",
+            "tr": null
+          },
+          "correct": true
+        },
+        {
+          "id": "corum-quiz-01-option-02",
+          "order": 2,
+          "text": {
+            "en": "The Vikings",
+            "tr": null
+          },
+          "correct": false
+        },
+        {
+          "id": "corum-quiz-01-option-03",
+          "order": 3,
+          "text": {
+            "en": "The Aztecs",
+            "tr": null
+          },
+          "correct": false
+        }
+      ],
+      "sourceRule": "The first option in the HTML source is correct. The application may shuffle display order at runtime."
+    }
+  ]
+}

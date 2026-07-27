@@ -1,4 +1,4 @@
-import type { Vec3 } from '@/content/schemas/city';
+import type { Vec3 } from '@/content/schemas/scene';
 
 export const MIN_PITCH = -0.35;
 export const MAX_PITCH = 0.45;

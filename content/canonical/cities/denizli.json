@@ -1,0 +1,163 @@
+{
+  "schemaVersion": "1.0",
+  "contentAuthority": "index-html-canonical",
+  "source": {
+    "file": "source/index.html",
+    "sha256": "ed74da639543bd1847d3e970f114e006ec9be8a8d441197a1968afca5a07f995",
+    "cityArray": "CITIES1",
+    "cityArrayIndex": 15
+  },
+  "id": "denizli",
+  "order": 16,
+  "name": {
+    "en": "Denizli",
+    "tr": null
+  },
+  "regionId": "aegean",
+  "sourceRegionIndex": 1,
+  "coordinates": {
+    "longitude": 29.09,
+    "latitude": 37.77
+  },
+  "legacyGuideId": "keloglan",
+  "stops": [
+    {
+      "id": "denizli-stop-01",
+      "order": 1,
+      "sourceTupleIndex": 0,
+      "legacyArt": {
+        "type": "pamukkale",
+        "params": {}
+      },
+      "category": "nature",
+      "title": {
+        "en": "Pamukkale — the Cotton Castle",
+        "tr": null
+      },
+      "description": {
+        "en": "Pamukkale means 'Cotton Castle' — and it really looks like one! Warm mineral water flows down the hill, building snow-white stone terraces filled with turquoise pools. There's nothing else like it on Earth!",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🤍",
+        "label": {
+          "en": "a white travertine pebble",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "Every traveler stops here — now it's your turn!",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    },
+    {
+      "id": "denizli-stop-02",
+      "order": 2,
+      "sourceTupleIndex": 1,
+      "legacyArt": {
+        "type": "antik",
+        "params": {}
+      },
+      "category": "history",
+      "title": {
+        "en": "Ancient Hierapolis",
+        "tr": null
+      },
+      "description": {
+        "en": "On top of the white terraces sits the Roman spa city of Hierapolis. Its people swam in the warm pools 2,000 years ago — in the Antique Pool you can still swim over fallen marble columns!",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🏛️",
+        "label": {
+          "en": "a Roman bath token",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "See? Türkiye is full of wonders!",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    },
+    {
+      "id": "denizli-stop-03",
+      "order": 3,
+      "sourceTupleIndex": 2,
+      "legacyArt": {
+        "type": "hayvan",
+        "params": {
+          "kind": "rooster"
+        }
+      },
+      "category": "nature",
+      "title": {
+        "en": "The Singing Rooster of Denizli",
+        "tr": null
+      },
+      "description": {
+        "en": "Denizli's famous rooster is a champion singer — its long, musical crow can last many seconds! It's the proud symbol of the city.",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🐓",
+        "label": {
+          "en": "a rooster whistle",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "Careful, don't blink — you might miss something beautiful!",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    }
+  ],
+  "quiz": [
+    {
+      "id": "denizli-quiz-01",
+      "order": 1,
+      "question": {
+        "en": "What does 'Pamukkale' mean?",
+        "tr": null
+      },
+      "options": [
+        {
+          "id": "denizli-quiz-01-option-01",
+          "order": 1,
+          "text": {
+            "en": "Cotton Castle",
+            "tr": null
+          },
+          "correct": true
+        },
+        {
+          "id": "denizli-quiz-01-option-02",
+          "order": 2,
+          "text": {
+            "en": "Chocolate Mountain",
+            "tr": null
+          },
+          "correct": false
+        },
+        {
+          "id": "denizli-quiz-01-option-03",
+          "order": 3,
+          "text": {
+            "en": "Rainy River",
+            "tr": null
+          },
+          "correct": false
+        }
+      ],
+      "sourceRule": "The first option in the HTML source is correct. The application may shuffle display order at runtime."
+    }
+  ]
+}

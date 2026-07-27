@@ -1,0 +1,169 @@
+{
+  "schemaVersion": "1.0",
+  "contentAuthority": "index-html-canonical",
+  "source": {
+    "file": "source/index.html",
+    "sha256": "ed74da639543bd1847d3e970f114e006ec9be8a8d441197a1968afca5a07f995",
+    "cityArray": "CITIES2",
+    "cityArrayIndex": 36
+  },
+  "id": "diyarbakir",
+  "order": 77,
+  "name": {
+    "en": "Diyarbakır",
+    "tr": null
+  },
+  "regionId": "southeastern-anatolia",
+  "sourceRegionIndex": 6,
+  "coordinates": {
+    "longitude": 40.22,
+    "latitude": 37.91
+  },
+  "legacyGuideId": "nasreddin-hoca",
+  "stops": [
+    {
+      "id": "diyarbakir-stop-01",
+      "order": 1,
+      "sourceTupleIndex": 0,
+      "legacyArt": {
+        "type": "kale",
+        "params": {
+          "c": "#4A4A55",
+          "cd": "#2E2E38"
+        }
+      },
+      "category": "history",
+      "title": {
+        "en": "The Great Black Walls",
+        "tr": null
+      },
+      "description": {
+        "en": "Diyarbakır is wrapped in mighty black basalt walls almost 6 km long — among the longest ancient city walls on Earth, guarding the city for over 1,500 years. UNESCO protects them!",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🖤",
+        "label": {
+          "en": "a black basalt chip",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "See? Türkiye is full of wonders!",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    },
+    {
+      "id": "diyarbakir-stop-02",
+      "order": 2,
+      "sourceTupleIndex": 1,
+      "legacyArt": {
+        "type": "kopru",
+        "params": {
+          "n": 5
+        }
+      },
+      "category": "history",
+      "title": {
+        "en": "The Ten-Eyed Bridge",
+        "tr": null
+      },
+      "description": {
+        "en": "The thousand-year-old On Gözlü Köprü ('Ten-Eyed Bridge') crosses the mighty Tigris on ten stone arches — sunset behind its 'eyes' is Diyarbakır's favorite picture.",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🌉",
+        "label": {
+          "en": "a ten-eyed sunset",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "Careful, don't blink — you might miss something beautiful!",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    },
+    {
+      "id": "diyarbakir-stop-03",
+      "order": 3,
+      "sourceTupleIndex": 2,
+      "legacyArt": {
+        "type": "fruit",
+        "params": {
+          "kind": "watermelon",
+          "s": "KARPUZ"
+        }
+      },
+      "category": "food",
+      "title": {
+        "en": "Giant Watermelons",
+        "tr": null
+      },
+      "description": {
+        "en": "Diyarbakır's watermelons are LEGENDARY — growing by the warm Tigris, some get so huge that one melon can weigh as much as a seven-year-old kid! There's even a watermelon festival.",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🍉",
+        "label": {
+          "en": "a giant watermelon slice",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "Look at this — amazing, right?",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    }
+  ],
+  "quiz": [
+    {
+      "id": "diyarbakir-quiz-01",
+      "order": 1,
+      "question": {
+        "en": "What are Diyarbakır's famous ancient walls made of?",
+        "tr": null
+      },
+      "options": [
+        {
+          "id": "diyarbakir-quiz-01-option-01",
+          "order": 1,
+          "text": {
+            "en": "Black basalt stone",
+            "tr": null
+          },
+          "correct": true
+        },
+        {
+          "id": "diyarbakir-quiz-01-option-02",
+          "order": 2,
+          "text": {
+            "en": "Chocolate",
+            "tr": null
+          },
+          "correct": false
+        },
+        {
+          "id": "diyarbakir-quiz-01-option-03",
+          "order": 3,
+          "text": {
+            "en": "Paper",
+            "tr": null
+          },
+          "correct": false
+        }
+      ],
+      "sourceRule": "The first option in the HTML source is correct. The application may shuffle display order at runtime."
+    }
+  ]
+}

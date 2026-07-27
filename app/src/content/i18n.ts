@@ -1,4 +1,4 @@
-import type { LocalizedText } from '@/content/schemas/city';
+import type { LocalizedText } from '@/content/schemas/canonical';
 
 /**
  * Bilingual-ready per DECISION_LOG D-010.

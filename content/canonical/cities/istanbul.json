@@ -1,0 +1,263 @@
+{
+  "schemaVersion": "1.0",
+  "contentAuthority": "index-html-canonical",
+  "source": {
+    "file": "source/index.html",
+    "sha256": "ed74da639543bd1847d3e970f114e006ec9be8a8d441197a1968afca5a07f995",
+    "cityArray": "CITIES1",
+    "cityArrayIndex": 0
+  },
+  "id": "istanbul",
+  "order": 1,
+  "name": {
+    "en": "İstanbul",
+    "tr": null
+  },
+  "regionId": "marmara",
+  "sourceRegionIndex": 0,
+  "coordinates": {
+    "longitude": 28.97,
+    "latitude": 41.01
+  },
+  "legacyGuideId": "nasreddin-hoca",
+  "stops": [
+    {
+      "id": "istanbul-stop-01",
+      "order": 1,
+      "sourceTupleIndex": 0,
+      "legacyArt": {
+        "type": "mosque",
+        "params": {}
+      },
+      "category": "history",
+      "title": {
+        "en": "Hagia Sophia & the Blue Mosque",
+        "tr": null
+      },
+      "description": {
+        "en": "Hagia Sophia is more than 1,500 years old! Next door stands the Blue Mosque with its six minarets — it got its name from more than 20,000 shiny blue İznik tiles inside.",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "💠",
+        "label": {
+          "en": "a blue İznik tile",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "Look up, way up! Isn't that dome enormous?",
+          "tr": null
+        },
+        "source": "explicit-city-stop"
+      }
+    },
+    {
+      "id": "istanbul-stop-02",
+      "order": 2,
+      "sourceTupleIndex": 1,
+      "legacyArt": {
+        "type": "galata",
+        "params": {}
+      },
+      "category": "history",
+      "title": {
+        "en": "Galata Tower",
+        "tr": null
+      },
+      "description": {
+        "en": "From the top of this 700-year-old stone tower you can see all of İstanbul! A legend says a man named Hezarfen strapped on wooden wings and flew from here across the Bosphorus!",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🪁",
+        "label": {
+          "en": "a pair of legend wings",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "Ready to climb to the top gallery? Race you!",
+          "tr": null
+        },
+        "source": "explicit-city-stop"
+      }
+    },
+    {
+      "id": "istanbul-stop-03",
+      "order": 3,
+      "sourceTupleIndex": 2,
+      "legacyArt": {
+        "type": "bazaar",
+        "params": {}
+      },
+      "category": "craft",
+      "title": {
+        "en": "The Grand Bazaar",
+        "tr": null
+      },
+      "description": {
+        "en": "One of the oldest and biggest covered markets in the world — about 4,000 shops under one roof! Colorful mosaic lamps, carpets, sweets… you could explore it for days.",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🪔",
+        "label": {
+          "en": "a mosaic lamp",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "Hold my hand — it's easy to get lost in 4,000 shops!",
+          "tr": null
+        },
+        "source": "explicit-city-stop"
+      }
+    },
+    {
+      "id": "istanbul-stop-04",
+      "order": 4,
+      "sourceTupleIndex": 3,
+      "legacyArt": {
+        "type": "simit",
+        "params": {}
+      },
+      "category": "food",
+      "title": {
+        "en": "The Simit Cart",
+        "tr": null
+      },
+      "description": {
+        "en": "Simit is a crunchy bread ring covered in sesame seeds — İstanbul's favorite snack! Kids buy a warm simit from red street carts like this one and share pieces with the seagulls.",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🥨",
+        "label": {
+          "en": "a warm simit",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "Mmm, smell that? Fresh from the oven!",
+          "tr": null
+        },
+        "source": "explicit-city-stop"
+      }
+    },
+    {
+      "id": "istanbul-stop-05",
+      "order": 5,
+      "sourceTupleIndex": 4,
+      "legacyArt": {
+        "type": "ferry",
+        "params": {}
+      },
+      "category": "nature",
+      "title": {
+        "en": "Ferry on the Bosphorus",
+        "tr": null
+      },
+      "description": {
+        "en": "İstanbul is the only city in the world built on TWO continents: Europe and Asia! Hop on a white city ferry, sail under the great bridge, and watch for dolphins on the way.",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🐬",
+        "label": {
+          "en": "a dolphin sticker",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "All aboard! Wave to Asia on one side and Europe on the other!",
+          "tr": null
+        },
+        "source": "explicit-city-stop"
+      }
+    }
+  ],
+  "quiz": [
+    {
+      "id": "istanbul-quiz-01",
+      "order": 1,
+      "question": {
+        "en": "İstanbul is the only city in the world built on…",
+        "tr": null
+      },
+      "options": [
+        {
+          "id": "istanbul-quiz-01-option-01",
+          "order": 1,
+          "text": {
+            "en": "Two continents: Europe and Asia",
+            "tr": null
+          },
+          "correct": true
+        },
+        {
+          "id": "istanbul-quiz-01-option-02",
+          "order": 2,
+          "text": {
+            "en": "The Moon",
+            "tr": null
+          },
+          "correct": false
+        },
+        {
+          "id": "istanbul-quiz-01-option-03",
+          "order": 3,
+          "text": {
+            "en": "Two islands",
+            "tr": null
+          },
+          "correct": false
+        }
+      ],
+      "sourceRule": "The first option in the HTML source is correct. The application may shuffle display order at runtime."
+    },
+    {
+      "id": "istanbul-quiz-02",
+      "order": 2,
+      "question": {
+        "en": "What is a simit?",
+        "tr": null
+      },
+      "options": [
+        {
+          "id": "istanbul-quiz-02-option-01",
+          "order": 1,
+          "text": {
+            "en": "A crunchy sesame bread ring",
+            "tr": null
+          },
+          "correct": true
+        },
+        {
+          "id": "istanbul-quiz-02-option-02",
+          "order": 2,
+          "text": {
+            "en": "A kind of fish",
+            "tr": null
+          },
+          "correct": false
+        },
+        {
+          "id": "istanbul-quiz-02-option-03",
+          "order": 3,
+          "text": {
+            "en": "A toy boat",
+            "tr": null
+          },
+          "correct": false
+        }
+      ],
+      "sourceRule": "The first option in the HTML source is correct. The application may shuffle display order at runtime."
+    }
+  ]
+}

@@ -1,4 +1,11 @@
-import { citySchema, regionsSchema, type CityDefinition, type Region } from '@/content/schemas/city';
+import {
+  canonicalCitySchema,
+  canonicalRegionsSchema,
+  type CanonicalCity,
+  type CanonicalRegion,
+} from '@/content/schemas/canonical';
+import { sceneSchema, type SceneDefinition } from '@/content/schemas/scene';
+import { composeCity, type RuntimeCity } from '@/content/compose';
 
 export class ContentError extends Error {
   readonly cityId: string;
@@ -12,48 +19,78 @@ export class ContentError extends Error {
   }
 }
 
-/** Content lives under /public/content so cities are added without touching the engine. */
-const CITY_PATH = (cityId: string) => `/content/pilot/${cityId}.json`;
-const REGIONS_PATH = '/content/regions.json';
+/** Canonical content and technical scenes are served from separate trees. */
+const CANONICAL_CITY = (cityId: string) => `/content/canonical/cities/${cityId}.json`;
+const SCENE = (cityId: string) => `/content/scenes/${cityId}.json`;
+const REGIONS = '/content/canonical/regions.json';
 
-/** Cities shipped in the pilot. Phase 01 exposes İstanbul only. */
-export const PILOT_CITY_IDS = ['istanbul', 'nevsehir', 'gaziantep'] as const;
+/** Cities that have a technical scene. Canonical content exists for all 81. */
 export const PLAYABLE_CITY_IDS = ['istanbul'] as const;
+export const PILOT_CITY_IDS = ['istanbul', 'nevsehir', 'gaziantep'] as const;
 
 async function fetchJson(path: string, signal?: AbortSignal): Promise<unknown> {
   const response = await fetch(path, { signal });
-  if (!response.ok) {
-    throw new Error(`${response.status} ${response.statusText}`);
-  }
+  if (!response.ok) throw new Error(`${response.status} ${response.statusText}`);
   return response.json();
 }
 
-export async function loadCity(cityId: string, signal?: AbortSignal): Promise<CityDefinition> {
-  let raw: unknown;
-  try {
-    raw = await fetchJson(CITY_PATH(cityId), signal);
-  } catch (error) {
-    throw new ContentError(cityId, `City definition unavailable: ${(error as Error).message}`);
-  }
-
-  const parsed = citySchema.safeParse(raw);
+export async function loadCanonicalCity(
+  cityId: string,
+  signal?: AbortSignal,
+): Promise<CanonicalCity> {
+  const raw = await fetchJson(CANONICAL_CITY(cityId), signal);
+  const parsed = canonicalCitySchema.safeParse(raw);
   if (!parsed.success) {
-    const issues = parsed.error.issues.map((issue) => `${issue.path.join('.')}: ${issue.message}`);
-    throw new ContentError(cityId, 'City definition failed validation', issues);
+    throw new ContentError(
+      cityId,
+      'Canonical content failed validation',
+      parsed.error.issues.map((issue) => `${issue.path.join('.')}: ${issue.message}`),
+    );
   }
-
-  if (parsed.data.id !== cityId) {
-    throw new ContentError(cityId, `City id mismatch: file declares "${parsed.data.id}"`);
-  }
-
   return parsed.data;
 }
 
-export async function loadRegions(signal?: AbortSignal): Promise<Region[]> {
-  const raw = await fetchJson(REGIONS_PATH, signal);
-  const parsed = regionsSchema.safeParse(raw);
+export async function loadScene(cityId: string, signal?: AbortSignal): Promise<SceneDefinition> {
+  const raw = await fetchJson(SCENE(cityId), signal);
+  const parsed = sceneSchema.safeParse(raw);
   if (!parsed.success) {
-    throw new ContentError('regions', 'Region list failed validation');
+    throw new ContentError(
+      cityId,
+      'Scene definition failed validation',
+      parsed.error.issues.map((issue) => `${issue.path.join('.')}: ${issue.message}`),
+    );
   }
+  return parsed.data;
+}
+
+/**
+ * Loads both halves and joins them. A city is only playable when canonical
+ * content and a scene both exist and every `contentRef` resolves.
+ */
+export async function loadCity(cityId: string, signal?: AbortSignal): Promise<RuntimeCity> {
+  let canonical: CanonicalCity;
+  let scene: SceneDefinition;
+
+  try {
+    [canonical, scene] = await Promise.all([
+      loadCanonicalCity(cityId, signal),
+      loadScene(cityId, signal),
+    ]);
+  } catch (error) {
+    if (error instanceof ContentError) throw error;
+    throw new ContentError(cityId, `City content unavailable: ${(error as Error).message}`);
+  }
+
+  try {
+    return composeCity(canonical, scene);
+  } catch (error) {
+    throw new ContentError(cityId, (error as Error).message);
+  }
+}
+
+export async function loadRegions(signal?: AbortSignal): Promise<CanonicalRegion[]> {
+  const raw = await fetchJson(REGIONS, signal);
+  const parsed = canonicalRegionsSchema.safeParse(raw);
+  if (!parsed.success) throw new ContentError('regions', 'Region list failed validation');
   return parsed.data;
 }

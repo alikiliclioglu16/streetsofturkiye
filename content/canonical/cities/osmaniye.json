@@ -1,0 +1,164 @@
+{
+  "schemaVersion": "1.0",
+  "contentAuthority": "index-html-canonical",
+  "source": {
+    "file": "source/index.html",
+    "sha256": "ed74da639543bd1847d3e970f114e006ec9be8a8d441197a1968afca5a07f995",
+    "cityArray": "CITIES1",
+    "cityArrayIndex": 24
+  },
+  "id": "osmaniye",
+  "order": 25,
+  "name": {
+    "en": "Osmaniye",
+    "tr": null
+  },
+  "regionId": "mediterranean",
+  "sourceRegionIndex": 2,
+  "coordinates": {
+    "longitude": 36.25,
+    "latitude": 37.07
+  },
+  "legacyGuideId": "nasreddin-hoca",
+  "stops": [
+    {
+      "id": "osmaniye-stop-01",
+      "order": 1,
+      "sourceTupleIndex": 0,
+      "legacyArt": {
+        "type": "hoyuk",
+        "params": {}
+      },
+      "category": "history",
+      "title": {
+        "en": "Karatepe — the Hittite Open-Air Museum",
+        "tr": null
+      },
+      "description": {
+        "en": "At Karatepe, a Hittite king built a fortress 2,700 years ago. Its stone walls are carved with lions, warriors and feasts — an ancient picture book in the forest!",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🦁",
+        "label": {
+          "en": "a stone lion rubbing",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "Look at this — amazing, right?",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    },
+    {
+      "id": "osmaniye-stop-02",
+      "order": 2,
+      "sourceTupleIndex": 1,
+      "legacyArt": {
+        "type": "fruit",
+        "params": {
+          "kind": "peanut",
+          "s": "YER FISTIĞI"
+        }
+      },
+      "category": "food",
+      "title": {
+        "en": "Peanut Country",
+        "tr": null
+      },
+      "description": {
+        "en": "Osmaniye is Türkiye's peanut capital! Most of the country's peanuts grow in its warm fields — roasted, salted or turned into sweets.",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🥜",
+        "label": {
+          "en": "a bag of roasted peanuts",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "This is one of my favorite spots in all of Türkiye!",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    },
+    {
+      "id": "osmaniye-stop-03",
+      "order": 3,
+      "sourceTupleIndex": 2,
+      "legacyArt": {
+        "type": "dag",
+        "params": {}
+      },
+      "category": "nature",
+      "title": {
+        "en": "Zorkun Highland",
+        "tr": null
+      },
+      "description": {
+        "en": "In summer, families escape the heat up to Zorkun Yaylası — a cool pine-forest highland with hammocks, picnics and starry nights.",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "⛺",
+        "label": {
+          "en": "a highland pinecone",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "We made it! Take a good look around.",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    }
+  ],
+  "quiz": [
+    {
+      "id": "osmaniye-quiz-01",
+      "order": 1,
+      "question": {
+        "en": "Which crop makes Osmaniye famous?",
+        "tr": null
+      },
+      "options": [
+        {
+          "id": "osmaniye-quiz-01-option-01",
+          "order": 1,
+          "text": {
+            "en": "Peanuts",
+            "tr": null
+          },
+          "correct": true
+        },
+        {
+          "id": "osmaniye-quiz-01-option-02",
+          "order": 2,
+          "text": {
+            "en": "Bananas",
+            "tr": null
+          },
+          "correct": false
+        },
+        {
+          "id": "osmaniye-quiz-01-option-03",
+          "order": 3,
+          "text": {
+            "en": "Ice cubes",
+            "tr": null
+          },
+          "correct": false
+        }
+      ],
+      "sourceRule": "The first option in the HTML source is correct. The application may shuffle display order at runtime."
+    }
+  ]
+}

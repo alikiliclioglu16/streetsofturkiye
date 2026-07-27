@@ -1,0 +1,167 @@
+{
+  "schemaVersion": "1.0",
+  "contentAuthority": "index-html-canonical",
+  "source": {
+    "file": "source/index.html",
+    "sha256": "ed74da639543bd1847d3e970f114e006ec9be8a8d441197a1968afca5a07f995",
+    "cityArray": "CITIES2",
+    "cityArrayIndex": 20
+  },
+  "id": "ardahan",
+  "order": 61,
+  "name": {
+    "en": "Ardahan",
+    "tr": null
+  },
+  "regionId": "eastern-anatolia",
+  "sourceRegionIndex": 5,
+  "coordinates": {
+    "longitude": 42.7,
+    "latitude": 41.11
+  },
+  "legacyGuideId": "nasreddin-hoca",
+  "stops": [
+    {
+      "id": "ardahan-stop-01",
+      "order": 1,
+      "sourceTupleIndex": 0,
+      "legacyArt": {
+        "type": "gol",
+        "params": {
+          "frozen": 1
+        }
+      },
+      "category": "nature",
+      "title": {
+        "en": "Sleighs on Frozen Lake Çıldır",
+        "tr": null
+      },
+      "description": {
+        "en": "In winter, Lake Çıldır freezes so thick that HORSE SLEIGHS glide across it! Fishermen cut holes in the ice to catch fish, Eskimo-style. A magical white world!",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🐴",
+        "label": {
+          "en": "a sleigh ride ticket",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "Look at this — amazing, right?",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    },
+    {
+      "id": "ardahan-stop-02",
+      "order": 2,
+      "sourceTupleIndex": 1,
+      "legacyArt": {
+        "type": "kale",
+        "params": {}
+      },
+      "category": "history",
+      "title": {
+        "en": "Ardahan Fortress",
+        "tr": null
+      },
+      "description": {
+        "en": "Ardahan's stone fortress has watched over the Kura river for centuries, on the high green plateau where Türkiye meets the Caucasus.",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🏰",
+        "label": {
+          "en": "a fortress key",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "This is one of my favorite spots in all of Türkiye!",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    },
+    {
+      "id": "ardahan-stop-03",
+      "order": 3,
+      "sourceTupleIndex": 2,
+      "legacyArt": {
+        "type": "stall",
+        "params": {
+          "s": "KAŞAR & BAL",
+          "d": "cheese",
+          "c": "#C96A2B"
+        }
+      },
+      "category": "food",
+      "title": {
+        "en": "Golden Kaşar & Honey",
+        "tr": null
+      },
+      "description": {
+        "en": "Ardahan's happy cows graze flower meadows all summer — their milk becomes golden kaşar cheese, best friends with local honey at breakfast.",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🍯",
+        "label": {
+          "en": "cheese & honey duo",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "We made it! Take a good look around.",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    }
+  ],
+  "quiz": [
+    {
+      "id": "ardahan-quiz-01",
+      "order": 1,
+      "question": {
+        "en": "What glides across frozen Lake Çıldır in winter?",
+        "tr": null
+      },
+      "options": [
+        {
+          "id": "ardahan-quiz-01-option-01",
+          "order": 1,
+          "text": {
+            "en": "Horse sleighs",
+            "tr": null
+          },
+          "correct": true
+        },
+        {
+          "id": "ardahan-quiz-01-option-02",
+          "order": 2,
+          "text": {
+            "en": "Submarines",
+            "tr": null
+          },
+          "correct": false
+        },
+        {
+          "id": "ardahan-quiz-01-option-03",
+          "order": 3,
+          "text": {
+            "en": "Rollercoasters",
+            "tr": null
+          },
+          "correct": false
+        }
+      ],
+      "sourceRule": "The first option in the HTML source is correct. The application may shuffle display order at runtime."
+    }
+  ]
+}

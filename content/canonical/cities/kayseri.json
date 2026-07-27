@@ -1,0 +1,170 @@
+{
+  "schemaVersion": "1.0",
+  "contentAuthority": "index-html-canonical",
+  "source": {
+    "file": "source/index.html",
+    "sha256": "ed74da639543bd1847d3e970f114e006ec9be8a8d441197a1968afca5a07f995",
+    "cityArray": "CITIES1",
+    "cityArrayIndex": 38
+  },
+  "id": "kayseri",
+  "order": 39,
+  "name": {
+    "en": "Kayseri",
+    "tr": null
+  },
+  "regionId": "central-anatolia",
+  "sourceRegionIndex": 3,
+  "coordinates": {
+    "longitude": 35.48,
+    "latitude": 38.72
+  },
+  "legacyGuideId": "nasreddin-hoca",
+  "stops": [
+    {
+      "id": "kayseri-stop-01",
+      "order": 1,
+      "sourceTupleIndex": 0,
+      "legacyArt": {
+        "type": "dag",
+        "params": {
+          "ski": 1,
+          "volcano": 1
+        }
+      },
+      "category": "nature",
+      "title": {
+        "en": "Mount Erciyes",
+        "tr": null
+      },
+      "description": {
+        "en": "Snowy Erciyes is a sleeping volcano 3,917 meters tall — and one of Türkiye's biggest ski resorts! Its snow sparkles over Kayseri almost all year.",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "⛷️",
+        "label": {
+          "en": "an Erciyes lift pass",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "We made it! Take a good look around.",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    },
+    {
+      "id": "kayseri-stop-02",
+      "order": 2,
+      "sourceTupleIndex": 1,
+      "legacyArt": {
+        "type": "stall",
+        "params": {
+          "s": "MANTI",
+          "d": "manti",
+          "c": "#8A4038"
+        }
+      },
+      "category": "food",
+      "title": {
+        "en": "Mantı — 40 on One Spoon",
+        "tr": null
+      },
+      "description": {
+        "en": "Kayseri's mantı are teeny-tiny dumplings with yogurt and red butter sauce. They say a good cook makes them so small that 40 fit on one spoon — count them!",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🥟",
+        "label": {
+          "en": "a spoonful of 40 mantı",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "Every traveler stops here — now it's your turn!",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    },
+    {
+      "id": "kayseri-stop-03",
+      "order": 3,
+      "sourceTupleIndex": 2,
+      "legacyArt": {
+        "type": "hoyuk",
+        "params": {
+          "tablet": 1
+        }
+      },
+      "category": "history",
+      "title": {
+        "en": "Kültepe's Clay Letters",
+        "tr": null
+      },
+      "description": {
+        "en": "At Kültepe, archaeologists found thousands of 4,000-year-old clay tablets — Anatolia's OLDEST written documents! Ancient merchants wrote letters, bills and even complaints on clay.",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "📝",
+        "label": {
+          "en": "a clay tablet cookie",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "See? Türkiye is full of wonders!",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    }
+  ],
+  "quiz": [
+    {
+      "id": "kayseri-quiz-01",
+      "order": 1,
+      "question": {
+        "en": "How many tiny mantı fit on one spoon in Kayseri?",
+        "tr": null
+      },
+      "options": [
+        {
+          "id": "kayseri-quiz-01-option-01",
+          "order": 1,
+          "text": {
+            "en": "Forty",
+            "tr": null
+          },
+          "correct": true
+        },
+        {
+          "id": "kayseri-quiz-01-option-02",
+          "order": 2,
+          "text": {
+            "en": "Two",
+            "tr": null
+          },
+          "correct": false
+        },
+        {
+          "id": "kayseri-quiz-01-option-03",
+          "order": 3,
+          "text": {
+            "en": "One million",
+            "tr": null
+          },
+          "correct": false
+        }
+      ],
+      "sourceRule": "The first option in the HTML source is correct. The application may shuffle display order at runtime."
+    }
+  ]
+}

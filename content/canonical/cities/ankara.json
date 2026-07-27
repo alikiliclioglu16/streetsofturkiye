@@ -1,0 +1,167 @@
+{
+  "schemaVersion": "1.0",
+  "contentAuthority": "index-html-canonical",
+  "source": {
+    "file": "source/index.html",
+    "sha256": "ed74da639543bd1847d3e970f114e006ec9be8a8d441197a1968afca5a07f995",
+    "cityArray": "CITIES1",
+    "cityArrayIndex": 28
+  },
+  "id": "ankara",
+  "order": 29,
+  "name": {
+    "en": "Ankara",
+    "tr": null
+  },
+  "regionId": "central-anatolia",
+  "sourceRegionIndex": 3,
+  "coordinates": {
+    "longitude": 32.85,
+    "latitude": 39.93
+  },
+  "legacyGuideId": "nasreddin-hoca",
+  "stops": [
+    {
+      "id": "ankara-stop-01",
+      "order": 1,
+      "sourceTupleIndex": 0,
+      "legacyArt": {
+        "type": "anitkabir",
+        "params": {}
+      },
+      "category": "history",
+      "title": {
+        "en": "Anıtkabir",
+        "tr": null
+      },
+      "description": {
+        "en": "Ankara is the CAPITAL of Türkiye! Anıtkabir is the grand memorial of Atatürk, founder of the Republic. Guards stand perfectly still, and the changing of the guard is amazing to watch.",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🇹🇷",
+        "label": {
+          "en": "a memorial flag",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "See? Türkiye is full of wonders!",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    },
+    {
+      "id": "ankara-stop-02",
+      "order": 2,
+      "sourceTupleIndex": 1,
+      "legacyArt": {
+        "type": "muze",
+        "params": {
+          "s": "ANATOLIAN CIVILIZATIONS",
+          "icon": "sun",
+          "f": "#C98F1E"
+        }
+      },
+      "category": "history",
+      "title": {
+        "en": "Museum of Anatolian Civilizations",
+        "tr": null
+      },
+      "description": {
+        "en": "This museum is a time machine: Hittite sun discs, 9,000-year-old toys and tablets from the world's first cities — all found in Anatolian soil!",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "☀️",
+        "label": {
+          "en": "a Hittite sun disc",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "Careful, don't blink — you might miss something beautiful!",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    },
+    {
+      "id": "ankara-stop-03",
+      "order": 3,
+      "sourceTupleIndex": 2,
+      "legacyArt": {
+        "type": "hayvan",
+        "params": {
+          "kind": "goat"
+        }
+      },
+      "category": "nature",
+      "title": {
+        "en": "The Angora Goat & Cat",
+        "tr": null
+      },
+      "description": {
+        "en": "Ankara's snow-white Angora goats grow silky mohair wool, and the blue-eyed Angora cat is one of the oldest cat breeds in the world. Both are named after the city!",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🐐",
+        "label": {
+          "en": "a ball of mohair",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "Look at this — amazing, right?",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    }
+  ],
+  "quiz": [
+    {
+      "id": "ankara-quiz-01",
+      "order": 1,
+      "question": {
+        "en": "Which city is the capital of Türkiye?",
+        "tr": null
+      },
+      "options": [
+        {
+          "id": "ankara-quiz-01-option-01",
+          "order": 1,
+          "text": {
+            "en": "Ankara",
+            "tr": null
+          },
+          "correct": true
+        },
+        {
+          "id": "ankara-quiz-01-option-02",
+          "order": 2,
+          "text": {
+            "en": "İstanbul",
+            "tr": null
+          },
+          "correct": false
+        },
+        {
+          "id": "ankara-quiz-01-option-03",
+          "order": 3,
+          "text": {
+            "en": "İzmir",
+            "tr": null
+          },
+          "correct": false
+        }
+      ],
+      "sourceRule": "The first option in the HTML source is correct. The application may shuffle display order at runtime."
+    }
+  ]
+}

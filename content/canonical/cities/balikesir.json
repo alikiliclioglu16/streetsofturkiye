@@ -1,0 +1,166 @@
+{
+  "schemaVersion": "1.0",
+  "contentAuthority": "index-html-canonical",
+  "source": {
+    "file": "source/index.html",
+    "sha256": "ed74da639543bd1847d3e970f114e006ec9be8a8d441197a1968afca5a07f995",
+    "cityArray": "CITIES1",
+    "cityArrayIndex": 5
+  },
+  "id": "balikesir",
+  "order": 6,
+  "name": {
+    "en": "Balıkesir",
+    "tr": null
+  },
+  "regionId": "marmara",
+  "sourceRegionIndex": 0,
+  "coordinates": {
+    "longitude": 27.89,
+    "latitude": 39.65
+  },
+  "legacyGuideId": "keloglan",
+  "stops": [
+    {
+      "id": "balikesir-stop-01",
+      "order": 1,
+      "sourceTupleIndex": 0,
+      "legacyArt": {
+        "type": "dag",
+        "params": {}
+      },
+      "category": "nature",
+      "title": {
+        "en": "Mount Ida (Kaz Dağları)",
+        "tr": null
+      },
+      "description": {
+        "en": "Kaz Dağları is a green mountain full of legends — ancient people believed gods watched the Trojan War from its peaks! Its air is so fresh and full of oxygen that people come just to breathe.",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🌲",
+        "label": {
+          "en": "a pine cone",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "Careful, don't blink — you might miss something beautiful!",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    },
+    {
+      "id": "balikesir-stop-02",
+      "order": 2,
+      "sourceTupleIndex": 1,
+      "legacyArt": {
+        "type": "agac",
+        "params": {
+          "kind": "olive"
+        }
+      },
+      "category": "food",
+      "title": {
+        "en": "Ayvalık Olive Groves",
+        "tr": null
+      },
+      "description": {
+        "en": "Around Ayvalık grow millions of silvery olive trees, some hundreds of years old. Their olives make some of the best olive oil in the world — kids dip warm bread in it!",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🫒",
+        "label": {
+          "en": "a bottle of olive oil",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "Look at this — amazing, right?",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    },
+    {
+      "id": "balikesir-stop-03",
+      "order": 3,
+      "sourceTupleIndex": 2,
+      "legacyArt": {
+        "type": "tatli",
+        "params": {
+          "k": "kaymak",
+          "s": "HÖŞMERİM"
+        }
+      },
+      "category": "food",
+      "title": {
+        "en": "Höşmerim Dessert",
+        "tr": null
+      },
+      "description": {
+        "en": "Balıkesir's special dessert is höşmerim, made from fresh cheese — soft, warm and sweet. Its creamy dairy farms are famous across Türkiye.",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🧀",
+        "label": {
+          "en": "a höşmerim cup",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "This is one of my favorite spots in all of Türkiye!",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    }
+  ],
+  "quiz": [
+    {
+      "id": "balikesir-quiz-01",
+      "order": 1,
+      "question": {
+        "en": "What makes Ayvalık famous?",
+        "tr": null
+      },
+      "options": [
+        {
+          "id": "balikesir-quiz-01-option-01",
+          "order": 1,
+          "text": {
+            "en": "Millions of olive trees and olive oil",
+            "tr": null
+          },
+          "correct": true
+        },
+        {
+          "id": "balikesir-quiz-01-option-02",
+          "order": 2,
+          "text": {
+            "en": "Ice mountains",
+            "tr": null
+          },
+          "correct": false
+        },
+        {
+          "id": "balikesir-quiz-01-option-03",
+          "order": 3,
+          "text": {
+            "en": "Banana forests",
+            "tr": null
+          },
+          "correct": false
+        }
+      ],
+      "sourceRule": "The first option in the HTML source is correct. The application may shuffle display order at runtime."
+    }
+  ]
+}

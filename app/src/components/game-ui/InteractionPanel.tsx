@@ -1,7 +1,10 @@
 'use client';
 
+import { useMemo } from 'react';
 import { t, ui, type Locale } from '@/content/i18n';
-import type { ChoiceOption, HotspotDefinition, InteractionType } from '@/content/schemas/city';
+import { shuffleOptions } from '@/content/compose';
+import type { RuntimeChoice as ChoiceOption, RuntimeHotspot as HotspotDefinition } from '@/content/compose';
+import type { InteractionType } from '@/content/schemas/scene';
 
 interface InteractionPanelProps {
   hotspot: HotspotDefinition;
@@ -26,11 +29,13 @@ export function InteractionPanel({
   onAnswer,
   onRotate,
 }: InteractionPanelProps) {
-  const config = hotspot.interaction.config;
-  const instruction = t(config.instruction ?? config.question, locale);
-  const showHint = attempts >= (config.hintAfterAttempts ?? 2);
-
-  const options: ChoiceOption[] = config.options ?? [];
+  const interaction = hotspot.interaction;
+  // Instruction is gameplay copy; the options are canonical reward labels.
+  const instruction = t(interaction.instruction, locale);
+  const showHint = attempts >= interaction.hintAfterAttempts;
+  const options: ChoiceOption[] = interaction.options;
+  // Canonical order always puts the correct answer first, so never show it raw.
+  const displayOptions = useMemo(() => shuffleOptions(options, hotspot.id), [options, hotspot.id]);
 
   return (
     <section
@@ -63,23 +68,24 @@ export function InteractionPanel({
               {locale === 'tr' ? 'Çevir, sonra doğru motife dokun' : 'Turn it, then tap the right motif'}
             </p>
           </div>
-          {/* Keyboard-equivalent path: the same choice without pointer targeting. */}
+          {/* Keyboard-equivalent path: the same canonical choices, no pointer aiming. */}
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
-            <button type="button" className="btn" onClick={() => onAnswer(true)}>
-              {locale === 'tr' ? 'Lale motifi' : 'Tulip motif'}
-            </button>
-            <button type="button" className="btn btn--ghost" onClick={() => onAnswer(false)}>
-              {locale === 'tr' ? 'Kare desen' : 'Square pattern'}
-            </button>
-            <button type="button" className="btn btn--ghost" onClick={() => onAnswer(false)}>
-              {locale === 'tr' ? 'Yuvarlak nokta' : 'Round dot'}
-            </button>
+            {displayOptions.map((option) => (
+              <button
+                key={option.id}
+                type="button"
+                className={option.correct ? 'btn' : 'btn btn--ghost'}
+                onClick={() => onAnswer(option.correct)}
+              >
+                {t(option.text, locale)}
+              </button>
+            ))}
           </div>
         </>
       ) : (
         <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-          {options.length > 0 ? (
-            options.map((option) => (
+          {displayOptions.length > 0 ? (
+            displayOptions.map((option) => (
               <button
                 key={option.id}
                 type="button"
@@ -100,10 +106,7 @@ export function InteractionPanel({
 
       {showHint ? (
         <p style={{ margin: '12px 0 0', fontSize: 14, color: 'var(--cini-blue)', fontWeight: 600 }}>
-          {ui('hint', locale)}:{' '}
-          {locale === 'tr'
-            ? 'Uzun, sivri uçlu olanı ara.'
-            : 'Look for the tall, pointed one.'}
+          {ui('hint', locale)}: {t(hotspot.fact.guideLine, locale)}
         </p>
       ) : null}
 

@@ -1,4 +1,5 @@
-import type { CityDefinition, Vec3 } from '@/content/schemas/city';
+import type { RuntimeCity as CityDefinition } from '@/content/compose';
+import type { Vec3 } from '@/content/schemas/scene';
 import { kitAssetId, resolveAsset, type QualityTier, type ResolvedAsset } from '@/engine/assets/registry';
 import { orderedHotspots } from '@/engine/interactions/machine';
 
@@ -71,7 +72,7 @@ export function buildScene(city: CityDefinition, quality: QualityTier): SceneDes
   const kit = resolveAsset(kitAssetId(city.environment.kitId), quality);
   const guide = resolveAsset(guideAssetId, quality);
   const routeMarker = resolveAsset('shared_route_marker', quality);
-  const rewards = city.rewards.collectibleIds.map((rewardId) => resolveAsset(rewardId, quality));
+  const rewards = city.rewards.collectibleAssetIds.map((assetId: string) => resolveAsset(assetId, quality));
 
   // Every asset the city touches is checked, not just the hotspot models.
   const unknownAssetIds = [...hotspots.map((h) => h.asset), kit, guide, routeMarker, ...rewards]

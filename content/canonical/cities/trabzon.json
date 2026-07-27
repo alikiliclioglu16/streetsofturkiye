@@ -1,0 +1,167 @@
+{
+  "schemaVersion": "1.0",
+  "contentAuthority": "index-html-canonical",
+  "source": {
+    "file": "source/index.html",
+    "sha256": "ed74da639543bd1847d3e970f114e006ec9be8a8d441197a1968afca5a07f995",
+    "cityArray": "CITIES2",
+    "cityArrayIndex": 14
+  },
+  "id": "trabzon",
+  "order": 55,
+  "name": {
+    "en": "Trabzon",
+    "tr": null
+  },
+  "regionId": "black-sea",
+  "sourceRegionIndex": 4,
+  "coordinates": {
+    "longitude": 39.72,
+    "latitude": 41.0
+  },
+  "legacyGuideId": "nasreddin-hoca",
+  "stops": [
+    {
+      "id": "trabzon-stop-01",
+      "order": 1,
+      "sourceTupleIndex": 0,
+      "legacyArt": {
+        "type": "manastir",
+        "params": {}
+      },
+      "category": "history",
+      "title": {
+        "en": "Sümela Monastery",
+        "tr": null
+      },
+      "description": {
+        "en": "Sümela clings to a sheer cliff face 300 meters above the forest — built into the rock 1,600 years ago! Looking up from the valley you'll ask: how did they build THAT?",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🧗",
+        "label": {
+          "en": "a cliff-monastery photo",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "Look at this — amazing, right?",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    },
+    {
+      "id": "trabzon-stop-02",
+      "order": 2,
+      "sourceTupleIndex": 1,
+      "legacyArt": {
+        "type": "muzik",
+        "params": {
+          "kind": "kemence"
+        }
+      },
+      "category": "craft",
+      "title": {
+        "en": "Horon & the Kemençe",
+        "tr": null
+      },
+      "description": {
+        "en": "When the little kemençe fiddle starts to sing, everyone joins hands for the horon — the Black Sea's super-fast shoulder-shaking dance! Faster… faster… faster!",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "💃",
+        "label": {
+          "en": "a horon dance ribbon",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "This is one of my favorite spots in all of Türkiye!",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    },
+    {
+      "id": "trabzon-stop-03",
+      "order": 3,
+      "sourceTupleIndex": 2,
+      "legacyArt": {
+        "type": "stall",
+        "params": {
+          "s": "HAMSİ & KUYMAK",
+          "d": "bowl",
+          "c": "#3E5F72"
+        }
+      },
+      "category": "food",
+      "title": {
+        "en": "Hamsi & Stretchy Kuymak",
+        "tr": null
+      },
+      "description": {
+        "en": "Trabzon loves hamsi (little anchovies) a hundred ways — even in bread! And kuymak is a cheesy cornmeal dish that stretches longer than your arm when you lift the spoon.",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🐟",
+        "label": {
+          "en": "a lucky hamsi",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "We made it! Take a good look around.",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    }
+  ],
+  "quiz": [
+    {
+      "id": "trabzon-quiz-01",
+      "order": 1,
+      "question": {
+        "en": "Where is Sümela Monastery built?",
+        "tr": null
+      },
+      "options": [
+        {
+          "id": "trabzon-quiz-01-option-01",
+          "order": 1,
+          "text": {
+            "en": "Into a sheer cliff face",
+            "tr": null
+          },
+          "correct": true
+        },
+        {
+          "id": "trabzon-quiz-01-option-02",
+          "order": 2,
+          "text": {
+            "en": "On a sandy beach",
+            "tr": null
+          },
+          "correct": false
+        },
+        {
+          "id": "trabzon-quiz-01-option-03",
+          "order": 3,
+          "text": {
+            "en": "On a cloud",
+            "tr": null
+          },
+          "correct": false
+        }
+      ],
+      "sourceRule": "The first option in the HTML source is correct. The application may shuffle display order at runtime."
+    }
+  ]
+}

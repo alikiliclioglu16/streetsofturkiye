@@ -1,0 +1,161 @@
+{
+  "schemaVersion": "1.0",
+  "contentAuthority": "index-html-canonical",
+  "source": {
+    "file": "source/index.html",
+    "sha256": "ed74da639543bd1847d3e970f114e006ec9be8a8d441197a1968afca5a07f995",
+    "cityArray": "CITIES1",
+    "cityArrayIndex": 7
+  },
+  "id": "yalova",
+  "order": 8,
+  "name": {
+    "en": "Yalova",
+    "tr": null
+  },
+  "regionId": "marmara",
+  "sourceRegionIndex": 0,
+  "coordinates": {
+    "longitude": 29.28,
+    "latitude": 40.66
+  },
+  "legacyGuideId": "keloglan",
+  "stops": [
+    {
+      "id": "yalova-stop-01",
+      "order": 1,
+      "sourceTupleIndex": 0,
+      "legacyArt": {
+        "type": "kaplica",
+        "params": {}
+      },
+      "category": "nature",
+      "title": {
+        "en": "Termal Hot Springs",
+        "tr": null
+      },
+      "description": {
+        "en": "Warm mineral water bubbles up from deep underground in Yalova! People have bathed in these steamy pools since Roman times — nature's own warm bathtub.",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "♨️",
+        "label": {
+          "en": "a steamy towel",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "This is one of my favorite spots in all of Türkiye!",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    },
+    {
+      "id": "yalova-stop-02",
+      "order": 2,
+      "sourceTupleIndex": 1,
+      "legacyArt": {
+        "type": "selale",
+        "params": {}
+      },
+      "category": "nature",
+      "title": {
+        "en": "Sudüşen Waterfall",
+        "tr": null
+      },
+      "description": {
+        "en": "Hidden in green forest, the Sudüşen waterfall tumbles down mossy rocks. The walk there is full of birdsong and butterflies.",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🦋",
+        "label": {
+          "en": "a butterfly sticker",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "We made it! Take a good look around.",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    },
+    {
+      "id": "yalova-stop-03",
+      "order": 3,
+      "sourceTupleIndex": 2,
+      "legacyArt": {
+        "type": "ev",
+        "params": {}
+      },
+      "category": "history",
+      "title": {
+        "en": "The Walking Mansion",
+        "tr": null
+      },
+      "description": {
+        "en": "Atatürk loved a big plane tree so much that when its branch leaned on his mansion, he didn't cut the tree — he had the whole HOUSE moved on rails instead! It's called the Walking Mansion.",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🌳",
+        "label": {
+          "en": "a plane tree leaf",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "Every traveler stops here — now it's your turn!",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    }
+  ],
+  "quiz": [
+    {
+      "id": "yalova-quiz-01",
+      "order": 1,
+      "question": {
+        "en": "Why was Atatürk's mansion moved on rails?",
+        "tr": null
+      },
+      "options": [
+        {
+          "id": "yalova-quiz-01-option-01",
+          "order": 1,
+          "text": {
+            "en": "To save a beloved old tree",
+            "tr": null
+          },
+          "correct": true
+        },
+        {
+          "id": "yalova-quiz-01-option-02",
+          "order": 2,
+          "text": {
+            "en": "It was bored",
+            "tr": null
+          },
+          "correct": false
+        },
+        {
+          "id": "yalova-quiz-01-option-03",
+          "order": 3,
+          "text": {
+            "en": "To race other houses",
+            "tr": null
+          },
+          "correct": false
+        }
+      ],
+      "sourceRule": "The first option in the HTML source is correct. The application may shuffle display order at runtime."
+    }
+  ]
+}

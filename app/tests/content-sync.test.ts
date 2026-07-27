@@ -1,5 +1,5 @@
 import { execFileSync } from 'node:child_process';
-import { readFileSync, writeFileSync } from 'node:fs';
+import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 import { describe, expect, it } from 'vitest';
 
@@ -18,16 +18,25 @@ describe('content source of truth', () => {
     ).not.toThrow();
   });
 
-  it('serves byte-identical city files', () => {
+  it('serves byte-identical canonical and scene files', () => {
     for (const cityId of ['istanbul', 'nevsehir', 'gaziantep']) {
-      const source = readFileSync(path.join(ROOT, `content/pilot/${cityId}.json`), 'utf8');
-      const served = readFileSync(path.resolve(`public/content/pilot/${cityId}.json`), 'utf8');
-      expect(served, cityId).toBe(source);
+      for (const [source, served] of [
+        [`content/canonical/cities/${cityId}.json`, `public/content/canonical/cities/${cityId}.json`],
+        [`content/scenes/${cityId}.json`, `public/content/scenes/${cityId}.json`],
+      ] as const) {
+        expect(readFileSync(path.resolve(served), 'utf8'), served).toBe(
+          readFileSync(path.join(ROOT, source), 'utf8'),
+        );
+      }
     }
   });
 
+  it('never publishes the 366 KB combined canonical file to the browser', () => {
+    expect(existsSync(path.resolve('public/content/canonical/cities.all.json'))).toBe(false);
+  });
+
   it('detects drift when a served copy is edited', () => {
-    const served = path.resolve('public/content/regions.json');
+    const served = path.resolve('public/content/canonical/regions.json');
     const original = readFileSync(served, 'utf8');
     try {
       writeFileSync(served, original.replace('Marmara', 'Marmaraa'));

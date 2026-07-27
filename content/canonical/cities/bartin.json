@@ -1,0 +1,167 @@
+{
+  "schemaVersion": "1.0",
+  "contentAuthority": "index-html-canonical",
+  "source": {
+    "file": "source/index.html",
+    "sha256": "ed74da639543bd1847d3e970f114e006ec9be8a8d441197a1968afca5a07f995",
+    "cityArray": "CITIES2",
+    "cityArrayIndex": 3
+  },
+  "id": "bartin",
+  "order": 44,
+  "name": {
+    "en": "Bartın",
+    "tr": null
+  },
+  "regionId": "black-sea",
+  "sourceRegionIndex": 4,
+  "coordinates": {
+    "longitude": 32.34,
+    "latitude": 41.64
+  },
+  "legacyGuideId": "keloglan",
+  "stops": [
+    {
+      "id": "bartin-stop-01",
+      "order": 1,
+      "sourceTupleIndex": 0,
+      "legacyArt": {
+        "type": "kale",
+        "params": {
+          "sea": 1
+        }
+      },
+      "category": "history",
+      "title": {
+        "en": "Amasra — the Jewel of the Black Sea",
+        "tr": null
+      },
+      "description": {
+        "en": "The castle town of Amasra sits on a tiny peninsula between two blue bays. Sailors, Romans and Ottomans all loved it — one sultan called it 'the eye of the world'!",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "👁️",
+        "label": {
+          "en": "the eye-of-the-world pin",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "This is one of my favorite spots in all of Türkiye!",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    },
+    {
+      "id": "bartin-stop-02",
+      "order": 2,
+      "sourceTupleIndex": 1,
+      "legacyArt": {
+        "type": "gemi",
+        "params": {}
+      },
+      "category": "craft",
+      "title": {
+        "en": "Wooden Boat Builders",
+        "tr": null
+      },
+      "description": {
+        "en": "On the Bartın river, masters still build wooden boats plank by plank, just like their grandfathers — the smell of fresh timber fills the boatyards.",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🚣",
+        "label": {
+          "en": "a model wooden boat",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "We made it! Take a good look around.",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    },
+    {
+      "id": "bartin-stop-03",
+      "order": 3,
+      "sourceTupleIndex": 2,
+      "legacyArt": {
+        "type": "craft",
+        "params": {
+          "kind": "lace",
+          "s": "TEL KIRMA",
+          "f": "#B03A6B"
+        }
+      },
+      "category": "craft",
+      "title": {
+        "en": "Tel Kırma Embroidery",
+        "tr": null
+      },
+      "description": {
+        "en": "Bartın's grandmothers stitch shiny silver wire onto fabric in a special art called 'tel kırma' — scarves sparkle like starlight!",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "✨",
+        "label": {
+          "en": "a sparkly stitched star",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "Every traveler stops here — now it's your turn!",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    }
+  ],
+  "quiz": [
+    {
+      "id": "bartin-quiz-01",
+      "order": 1,
+      "question": {
+        "en": "Where does the castle town of Amasra sit?",
+        "tr": null
+      },
+      "options": [
+        {
+          "id": "bartin-quiz-01-option-01",
+          "order": 1,
+          "text": {
+            "en": "On a tiny peninsula between two bays",
+            "tr": null
+          },
+          "correct": true
+        },
+        {
+          "id": "bartin-quiz-01-option-02",
+          "order": 2,
+          "text": {
+            "en": "On top of a volcano",
+            "tr": null
+          },
+          "correct": false
+        },
+        {
+          "id": "bartin-quiz-01-option-03",
+          "order": 3,
+          "text": {
+            "en": "Underground",
+            "tr": null
+          },
+          "correct": false
+        }
+      ],
+      "sourceRule": "The first option in the HTML source is correct. The application may shuffle display order at runtime."
+    }
+  ]
+}

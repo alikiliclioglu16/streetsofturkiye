@@ -1,0 +1,163 @@
+{
+  "schemaVersion": "1.0",
+  "contentAuthority": "index-html-canonical",
+  "source": {
+    "file": "source/index.html",
+    "sha256": "ed74da639543bd1847d3e970f114e006ec9be8a8d441197a1968afca5a07f995",
+    "cityArray": "CITIES1",
+    "cityArrayIndex": 34
+  },
+  "id": "aksaray",
+  "order": 35,
+  "name": {
+    "en": "Aksaray",
+    "tr": null
+  },
+  "regionId": "central-anatolia",
+  "sourceRegionIndex": 3,
+  "coordinates": {
+    "longitude": 34.03,
+    "latitude": 38.37
+  },
+  "legacyGuideId": "nasreddin-hoca",
+  "stops": [
+    {
+      "id": "aksaray-stop-01",
+      "order": 1,
+      "sourceTupleIndex": 0,
+      "legacyArt": {
+        "type": "kanyon",
+        "params": {}
+      },
+      "category": "nature",
+      "title": {
+        "en": "Ihlara Valley",
+        "tr": null
+      },
+      "description": {
+        "en": "Ihlara is a deep green canyon with a river singing at the bottom and ancient churches carved into its walls — more than a hundred of them, painted with colorful frescoes!",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "⛪",
+        "label": {
+          "en": "a fresco postcard",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "See? Türkiye is full of wonders!",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    },
+    {
+      "id": "aksaray-stop-02",
+      "order": 2,
+      "sourceTupleIndex": 1,
+      "legacyArt": {
+        "type": "kale",
+        "params": {}
+      },
+      "category": "history",
+      "title": {
+        "en": "Sultanhanı Caravanserai",
+        "tr": null
+      },
+      "description": {
+        "en": "Sultanhanı is a giant stone 'hotel' from 800 years ago, built for Silk Road camel caravans. Merchants, camels and treasures all rested safely behind its castle-like walls!",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🐫",
+        "label": {
+          "en": "a Silk Road map",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "Careful, don't blink — you might miss something beautiful!",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    },
+    {
+      "id": "aksaray-stop-03",
+      "order": 3,
+      "sourceTupleIndex": 2,
+      "legacyArt": {
+        "type": "dag",
+        "params": {
+          "volcano": 1
+        }
+      },
+      "category": "nature",
+      "title": {
+        "en": "Mount Hasan",
+        "tr": null
+      },
+      "description": {
+        "en": "The snow-capped volcano Hasan Dağı watches over Aksaray. Long, long ago its eruptions made the soft rock that became Cappadocia's fairy chimneys!",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🌋",
+        "label": {
+          "en": "volcano dust",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "Look at this — amazing, right?",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    }
+  ],
+  "quiz": [
+    {
+      "id": "aksaray-quiz-01",
+      "order": 1,
+      "question": {
+        "en": "What was the Sultanhanı caravanserai built for?",
+        "tr": null
+      },
+      "options": [
+        {
+          "id": "aksaray-quiz-01-option-01",
+          "order": 1,
+          "text": {
+            "en": "A safe stone hotel for camel caravans",
+            "tr": null
+          },
+          "correct": true
+        },
+        {
+          "id": "aksaray-quiz-01-option-02",
+          "order": 2,
+          "text": {
+            "en": "A swimming pool",
+            "tr": null
+          },
+          "correct": false
+        },
+        {
+          "id": "aksaray-quiz-01-option-03",
+          "order": 3,
+          "text": {
+            "en": "A football stadium",
+            "tr": null
+          },
+          "correct": false
+        }
+      ],
+      "sourceRule": "The first option in the HTML source is correct. The application may shuffle display order at runtime."
+    }
+  ]
+}

@@ -1,0 +1,168 @@
+{
+  "schemaVersion": "1.0",
+  "contentAuthority": "index-html-canonical",
+  "source": {
+    "file": "source/index.html",
+    "sha256": "ed74da639543bd1847d3e970f114e006ec9be8a8d441197a1968afca5a07f995",
+    "cityArray": "CITIES1",
+    "cityArrayIndex": 26
+  },
+  "id": "kahramanmaras",
+  "order": 27,
+  "name": {
+    "en": "Kahramanmaraş",
+    "tr": null
+  },
+  "regionId": "mediterranean",
+  "sourceRegionIndex": 2,
+  "coordinates": {
+    "longitude": 36.93,
+    "latitude": 37.58
+  },
+  "legacyGuideId": "nasreddin-hoca",
+  "stops": [
+    {
+      "id": "kahramanmaras-stop-01",
+      "order": 1,
+      "sourceTupleIndex": 0,
+      "legacyArt": {
+        "type": "stall",
+        "params": {
+          "s": "DONDURMA",
+          "d": "dondurma",
+          "c": "#1B7FA8"
+        }
+      },
+      "category": "food",
+      "title": {
+        "en": "The Famous Stretchy Ice Cream",
+        "tr": null
+      },
+      "description": {
+        "en": "Maraş dondurma is ice cream you can JUMP ROPE with — so stretchy and chewy that sellers in red vests play tricks, flipping the cone away just as you reach for it!",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🍦",
+        "label": {
+          "en": "a trick ice cream cone",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "We made it! Take a good look around.",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    },
+    {
+      "id": "kahramanmaras-stop-02",
+      "order": 2,
+      "sourceTupleIndex": 1,
+      "legacyArt": {
+        "type": "kale",
+        "params": {}
+      },
+      "category": "history",
+      "title": {
+        "en": "The Hero City's Castle",
+        "tr": null
+      },
+      "description": {
+        "en": "Kahramanmaraş means 'Heroic Maraş' — the city earned the title 'Kahraman' (Hero) for its bravery during the War of Independence. Its old castle watches over the rooftops.",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🎖️",
+        "label": {
+          "en": "a hero's star",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "Every traveler stops here — now it's your turn!",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    },
+    {
+      "id": "kahramanmaras-stop-03",
+      "order": 3,
+      "sourceTupleIndex": 2,
+      "legacyArt": {
+        "type": "fruit",
+        "params": {
+          "kind": "pepper",
+          "s": "KIRMIZI BİBER"
+        }
+      },
+      "category": "food",
+      "title": {
+        "en": "Red Pepper Strings",
+        "tr": null
+      },
+      "description": {
+        "en": "In autumn, bright red pepper strings dry on sunny walls all over Maraş — the city makes Türkiye's most famous red pepper flakes!",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🌶️",
+        "label": {
+          "en": "a string of red peppers",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "See? Türkiye is full of wonders!",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    }
+  ],
+  "quiz": [
+    {
+      "id": "kahramanmaras-quiz-01",
+      "order": 1,
+      "question": {
+        "en": "What is special about Maraş ice cream?",
+        "tr": null
+      },
+      "options": [
+        {
+          "id": "kahramanmaras-quiz-01-option-01",
+          "order": 1,
+          "text": {
+            "en": "It's stretchy and chewy",
+            "tr": null
+          },
+          "correct": true
+        },
+        {
+          "id": "kahramanmaras-quiz-01-option-02",
+          "order": 2,
+          "text": {
+            "en": "It's served frozen in cubes",
+            "tr": null
+          },
+          "correct": false
+        },
+        {
+          "id": "kahramanmaras-quiz-01-option-03",
+          "order": 3,
+          "text": {
+            "en": "It's blue",
+            "tr": null
+          },
+          "correct": false
+        }
+      ],
+      "sourceRule": "The first option in the HTML source is correct. The application may shuffle display order at runtime."
+    }
+  ]
+}

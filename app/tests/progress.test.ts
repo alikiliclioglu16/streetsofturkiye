@@ -1,7 +1,5 @@
-import { readFileSync } from 'node:fs';
-import path from 'node:path';
 import { describe, expect, it } from 'vitest';
-import { citySchema } from '@/content/schemas/city';
+import { loadComposedCity } from './helpers';
 import { emptyCityProgress, emptyProfile } from '@/engine/progress/types';
 import {
   allHotspotsComplete,
@@ -13,36 +11,34 @@ import {
   recordVisit,
 } from '@/engine/progress/rules';
 
-const city = citySchema.parse(
-  JSON.parse(readFileSync(path.resolve(process.cwd(), 'public/content/pilot/istanbul.json'), 'utf8')),
-);
+const city = loadComposedCity('istanbul');
 
 const completeAll = () =>
   city.hotspots.reduce(
-    (progress, hotspot) => completeHotspot(progress, hotspot.id, hotspot.rewardId),
+    (progress, hotspot) => completeHotspot(progress, hotspot.id, hotspot.reward.assetId),
     emptyCityProgress(city.id),
   );
 
 describe('progress rules', () => {
   it('records a hotspot and its reward once', () => {
     const first = city.hotspots[0]!;
-    const once = completeHotspot(emptyCityProgress(city.id), first.id, first.rewardId);
+    const once = completeHotspot(emptyCityProgress(city.id), first.id, first.reward.assetId);
     expect(once.completedHotspotIds).toEqual([first.id]);
-    expect(once.collectedRewardIds).toEqual([first.rewardId]);
+    expect(once.collectedRewardIds).toEqual([first.reward.assetId]);
   });
 
   it('does not duplicate rewards when a hotspot is re-entered', () => {
     const first = city.hotspots[0]!;
-    let progress = completeHotspot(emptyCityProgress(city.id), first.id, first.rewardId);
-    progress = completeHotspot(progress, first.id, first.rewardId);
-    progress = completeHotspot(progress, first.id, first.rewardId);
+    let progress = completeHotspot(emptyCityProgress(city.id), first.id, first.reward.assetId);
+    progress = completeHotspot(progress, first.id, first.reward.assetId);
+    progress = completeHotspot(progress, first.id, first.reward.assetId);
     expect(progress.completedHotspotIds).toHaveLength(1);
     expect(progress.collectedRewardIds).toHaveLength(1);
   });
 
   it('keeps the quiz locked until every hotspot is performed', () => {
     const first = city.hotspots[0]!;
-    const partial = completeHotspot(emptyCityProgress(city.id), first.id, first.rewardId);
+    const partial = completeHotspot(emptyCityProgress(city.id), first.id, first.reward.assetId);
     expect(quizUnlocked(city, partial)).toBe(false);
     expect(completeQuiz(city, partial).quizCompleted).toBe(false);
   });

@@ -1,0 +1,168 @@
+{
+  "schemaVersion": "1.0",
+  "contentAuthority": "index-html-canonical",
+  "source": {
+    "file": "source/index.html",
+    "sha256": "ed74da639543bd1847d3e970f114e006ec9be8a8d441197a1968afca5a07f995",
+    "cityArray": "CITIES2",
+    "cityArrayIndex": 9
+  },
+  "id": "samsun",
+  "order": 50,
+  "name": {
+    "en": "Samsun",
+    "tr": null
+  },
+  "regionId": "black-sea",
+  "sourceRegionIndex": 4,
+  "coordinates": {
+    "longitude": 36.33,
+    "latitude": 41.29
+  },
+  "legacyGuideId": "keloglan",
+  "stops": [
+    {
+      "id": "samsun-stop-01",
+      "order": 1,
+      "sourceTupleIndex": 0,
+      "legacyArt": {
+        "type": "gemi",
+        "params": {}
+      },
+      "category": "history",
+      "title": {
+        "en": "The Bandırma Ferry",
+        "tr": null
+      },
+      "description": {
+        "en": "On 19 May 1919, Atatürk sailed to Samsun on the little ship Bandırma and took the first step of the War of Independence! You can board a copy of the ship and stand at its wheel.",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🚢",
+        "label": {
+          "en": "the ship's wheel pin",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "This is one of my favorite spots in all of Türkiye!",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    },
+    {
+      "id": "samsun-stop-02",
+      "order": 2,
+      "sourceTupleIndex": 1,
+      "legacyArt": {
+        "type": "muze",
+        "params": {
+          "s": "19 MAYIS",
+          "f": "#B03A3A"
+        }
+      },
+      "category": "history",
+      "title": {
+        "en": "The Youth Holiday City",
+        "tr": null
+      },
+      "description": {
+        "en": "May 19th became the Youth and Sports Holiday — Atatürk gifted it to the young people of Türkiye! Samsun celebrates with parades, flags and stadium shows every year.",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🎌",
+        "label": {
+          "en": "a festival flag",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "We made it! Take a good look around.",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    },
+    {
+      "id": "samsun-stop-03",
+      "order": 3,
+      "sourceTupleIndex": 2,
+      "legacyArt": {
+        "type": "stall",
+        "params": {
+          "s": "SAMSUN PİDESİ",
+          "d": "pide",
+          "c": "#8A4038"
+        }
+      },
+      "category": "food",
+      "title": {
+        "en": "Samsun Pide",
+        "tr": null
+      },
+      "description": {
+        "en": "Samsun's closed pide comes out of stone ovens golden and crispy, rolled long like a delicious log. Careful — it's hot!",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🫓",
+        "label": {
+          "en": "a slice of pide",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "Every traveler stops here — now it's your turn!",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    }
+  ],
+  "quiz": [
+    {
+      "id": "samsun-quiz-01",
+      "order": 1,
+      "question": {
+        "en": "What happened in Samsun on 19 May 1919?",
+        "tr": null
+      },
+      "options": [
+        {
+          "id": "samsun-quiz-01-option-01",
+          "order": 1,
+          "text": {
+            "en": "Atatürk landed and began the independence journey",
+            "tr": null
+          },
+          "correct": true
+        },
+        {
+          "id": "samsun-quiz-01-option-02",
+          "order": 2,
+          "text": {
+            "en": "The first television was invented",
+            "tr": null
+          },
+          "correct": false
+        },
+        {
+          "id": "samsun-quiz-01-option-03",
+          "order": 3,
+          "text": {
+            "en": "A dragon visited",
+            "tr": null
+          },
+          "correct": false
+        }
+      ],
+      "sourceRule": "The first option in the HTML source is correct. The application may shuffle display order at runtime."
+    }
+  ]
+}

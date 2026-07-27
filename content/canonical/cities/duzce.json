@@ -1,0 +1,163 @@
+{
+  "schemaVersion": "1.0",
+  "contentAuthority": "index-html-canonical",
+  "source": {
+    "file": "source/index.html",
+    "sha256": "ed74da639543bd1847d3e970f114e006ec9be8a8d441197a1968afca5a07f995",
+    "cityArray": "CITIES2",
+    "cityArrayIndex": 0
+  },
+  "id": "duzce",
+  "order": 41,
+  "name": {
+    "en": "Düzce",
+    "tr": null
+  },
+  "regionId": "black-sea",
+  "sourceRegionIndex": 4,
+  "coordinates": {
+    "longitude": 31.16,
+    "latitude": 40.84
+  },
+  "legacyGuideId": "nasreddin-hoca",
+  "stops": [
+    {
+      "id": "duzce-stop-01",
+      "order": 1,
+      "sourceTupleIndex": 0,
+      "legacyArt": {
+        "type": "gol",
+        "params": {
+          "birds": 1
+        }
+      },
+      "category": "nature",
+      "title": {
+        "en": "Efteni Lake Bird Paradise",
+        "tr": null
+      },
+      "description": {
+        "en": "Lake Efteni is a rest stop for thousands of travelling birds — herons, storks and ducks land here on their long journeys. Bring binoculars and count the species!",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🦆",
+        "label": {
+          "en": "a birdwatcher's badge",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "See? Türkiye is full of wonders!",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    },
+    {
+      "id": "duzce-stop-02",
+      "order": 2,
+      "sourceTupleIndex": 1,
+      "legacyArt": {
+        "type": "theatre",
+        "params": {}
+      },
+      "category": "history",
+      "title": {
+        "en": "Konuralp — the Hidden Ancient City",
+        "tr": null
+      },
+      "description": {
+        "en": "Under the town of Konuralp sleeps the Roman city of Prusias! Its ancient theatre, carved into the hillside, is nicknamed 'the forty stairs' by locals.",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🎫",
+        "label": {
+          "en": "an ancient theatre coin",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "Careful, don't blink — you might miss something beautiful!",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    },
+    {
+      "id": "duzce-stop-03",
+      "order": 3,
+      "sourceTupleIndex": 2,
+      "legacyArt": {
+        "type": "selale",
+        "params": {}
+      },
+      "category": "nature",
+      "title": {
+        "en": "Güzeldere Waterfall",
+        "tr": null
+      },
+      "description": {
+        "en": "Deep in Düzce's beech forests, the Güzeldere waterfall drops from high rocks into a misty green pool — the walk there smells of rain and moss.",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "💧",
+        "label": {
+          "en": "a drop of waterfall mist",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "Look at this — amazing, right?",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    }
+  ],
+  "quiz": [
+    {
+      "id": "duzce-quiz-01",
+      "order": 1,
+      "question": {
+        "en": "Who rests at Lake Efteni on long journeys?",
+        "tr": null
+      },
+      "options": [
+        {
+          "id": "duzce-quiz-01-option-01",
+          "order": 1,
+          "text": {
+            "en": "Thousands of travelling birds",
+            "tr": null
+          },
+          "correct": true
+        },
+        {
+          "id": "duzce-quiz-01-option-02",
+          "order": 2,
+          "text": {
+            "en": "Submarines",
+            "tr": null
+          },
+          "correct": false
+        },
+        {
+          "id": "duzce-quiz-01-option-03",
+          "order": 3,
+          "text": {
+            "en": "Camels",
+            "tr": null
+          },
+          "correct": false
+        }
+      ],
+      "sourceRule": "The first option in the HTML source is correct. The application may shuffle display order at runtime."
+    }
+  ]
+}

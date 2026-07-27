@@ -1,0 +1,171 @@
+{
+  "schemaVersion": "1.0",
+  "contentAuthority": "index-html-canonical",
+  "source": {
+    "file": "source/index.html",
+    "sha256": "ed74da639543bd1847d3e970f114e006ec9be8a8d441197a1968afca5a07f995",
+    "cityArray": "CITIES2",
+    "cityArrayIndex": 10
+  },
+  "id": "tokat",
+  "order": 51,
+  "name": {
+    "en": "Tokat",
+    "tr": null
+  },
+  "regionId": "black-sea",
+  "sourceRegionIndex": 4,
+  "coordinates": {
+    "longitude": 36.55,
+    "latitude": 40.31
+  },
+  "legacyGuideId": "nasreddin-hoca",
+  "stops": [
+    {
+      "id": "tokat-stop-01",
+      "order": 1,
+      "sourceTupleIndex": 0,
+      "legacyArt": {
+        "type": "cave",
+        "params": {
+          "stalag": 1
+        }
+      },
+      "category": "nature",
+      "title": {
+        "en": "Ballıca Cave",
+        "tr": null
+      },
+      "description": {
+        "en": "Ballıca is one of Türkiye's most beautiful caves — millions of years old, with 'onion' stalactites and sparkling pools. Its clean air is even said to be good for you!",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🕳️",
+        "label": {
+          "en": "an onion stalactite pin",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "We made it! Take a good look around.",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    },
+    {
+      "id": "tokat-stop-02",
+      "order": 2,
+      "sourceTupleIndex": 1,
+      "legacyArt": {
+        "type": "craft",
+        "params": {
+          "kind": "yazma",
+          "s": "YAZMA PRINT",
+          "f": "#B03A6B"
+        }
+      },
+      "category": "craft",
+      "title": {
+        "en": "Yazma — Woodblock Printing",
+        "tr": null
+      },
+      "description": {
+        "en": "Tokat's masters carve patterns into wooden blocks, dip them in dye, and stamp cheerful flowers onto white scarves. Stamp, stamp, stamp — you can print your own!",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🌼",
+        "label": {
+          "en": "a hand-printed scarf",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "Every traveler stops here — now it's your turn!",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    },
+    {
+      "id": "tokat-stop-03",
+      "order": 3,
+      "sourceTupleIndex": 2,
+      "legacyArt": {
+        "type": "stall",
+        "params": {
+          "s": "TOKAT KEBABI",
+          "d": "kebap",
+          "c": "#8A4038"
+        }
+      },
+      "category": "food",
+      "title": {
+        "en": "Tokat Kebab",
+        "tr": null
+      },
+      "description": {
+        "en": "Tokat kebab is special: lamb, potatoes, eggplants and garlic all bake TOGETHER hanging in a stone oven, dripping deliciousness onto flatbread below.",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🍆",
+        "label": {
+          "en": "a roasted eggplant",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "See? Türkiye is full of wonders!",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    }
+  ],
+  "quiz": [
+    {
+      "id": "tokat-quiz-01",
+      "order": 1,
+      "question": {
+        "en": "How do Tokat masters decorate scarves?",
+        "tr": null
+      },
+      "options": [
+        {
+          "id": "tokat-quiz-01-option-01",
+          "order": 1,
+          "text": {
+            "en": "Stamping with carved wooden blocks",
+            "tr": null
+          },
+          "correct": true
+        },
+        {
+          "id": "tokat-quiz-01-option-02",
+          "order": 2,
+          "text": {
+            "en": "Spraying with ketchup",
+            "tr": null
+          },
+          "correct": false
+        },
+        {
+          "id": "tokat-quiz-01-option-03",
+          "order": 3,
+          "text": {
+            "en": "Using laser robots",
+            "tr": null
+          },
+          "correct": false
+        }
+      ],
+      "sourceRule": "The first option in the HTML source is correct. The application may shuffle display order at runtime."
+    }
+  ]
+}

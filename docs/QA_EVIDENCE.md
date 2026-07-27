@@ -1,7 +1,7 @@
 # QA Evidence — Faz 01 / Kapı A
 
 **Tarih:** 27 Temmuz 2026
-**Kapsam:** PROMPT 01B — A-01, A-02, A-03, A-04 ve içerik kaynak bütünlüğü düzeltmeleri
+**Kapsam:** PROMPT 01B (A-01…A-04) ve İçerik Kanonikleştirme C0
 **Karar talebi:** A-01, A-02, A-03 ve içerik güvencesi için tam kanıt sunuluyor. **A-04 kısmen karşılandı**; nedeni ve tam çalıştırma komutları aşağıda.
 
 ---
@@ -22,16 +22,16 @@
 
 | Komut | Sonuç |
 |---|---|
-| `npm run content:check` | ✅ `Content in sync (5 files).` |
+| `npm run content:check` | ✅ `81 cities, 249 stops, 84 questions (78 with one, 3 with two); 1413 strings match baseline` + `Content in sync (88 files).` |
 | `npm run lint` | ✅ hatasız |
 | `npm run typecheck` | ✅ hatasız (strict, `any` yok) |
-| `npm test` | ✅ **7 dosya / 57 test geçti** |
+| `npm test` | ✅ **8 dosya / 69 test geçti** |
 | `npm run build` | ✅ 4 rota derlendi |
-| `npm start` + HTTP kontrolü | ✅ `/map` 200, `/city/istanbul` 200, `/content/pilot/istanbul.json` 200, `/content/city-index.json` 200 |
+| `npm start` + HTTP kontrolü | ✅ `/map` 200, `/city/istanbul` 200, `/content/canonical/cities/istanbul.json` 200, `/content/scenes/istanbul.json` 200 (5 hotspot), `/content/canonical/city-index.json` 200 |
 | `npx playwright install chromium` | ❌ **indirilemedi** — `Download failure, code=1` (ağ engeli) |
 | `npm run test:e2e` | ⛔ tarayıcı binary'si olmadığı için çalıştırılamadı |
 
-### Test dağılımı (57)
+### Test dağılımı (69)
 
 | Dosya | Test | Kapsam |
 |---|---:|---|
@@ -42,6 +42,7 @@
 | `tests/interaction.test.ts` | 6 | Etkileşim durum makinesi |
 | `tests/content-sync.test.ts` | 3 | Kök içerik ↔ servis edilen kopya |
 | `tests/ui-flow.test.tsx` | 10 | Gerçek DOM: odak, Escape, klavye, quiz akışı |
+| `tests/canonical.test.ts` | 18 | C0: kanonik yetke, sahne ayrımı, birleştirme |
 
 ---
 
@@ -209,6 +210,19 @@ docs/IMPLEMENTATION_STATUS.md
 **Silinen:** `app/scripts/build-city-index.mjs` (görevi `sync-content.mjs` devraldı)
 
 ---
+
+## 8b. C0 kanonik içerik kanıtı
+
+Doğrulayıcının her kuralı negatif testle denendi; ayrıntı ve tablo için
+`docs/CANONICAL_MIGRATION_REPORT.md` bölüm 5. En önemlisi: İstanbul sahnesine
+kanonik bir cümle yapıştırıldığında `content:check` hata verdi ve derleme
+durdu — yani "sahne dosyası kanonik metni çoğaltamaz" kuralı gerçekten
+uygulanıyor, yalnız belgede yazmıyor.
+
+**Bir uyarı.** Ara bir çalıştırmada vitest "59 test geçti" dedi; oysa UI test
+dosyası worker başlatamadığı için hiç çalışmamıştı ve bu hata sayılmıyordu.
+Bağımlılıklar düzgün kurulunca aynı dosya iki gerçek hata verdi. Yeşil bir test
+raporunda dosya sayısını da kontrol etmek gerekiyor.
 
 ## 9. Bilinen sınırlar
 

@@ -1,0 +1,166 @@
+{
+  "schemaVersion": "1.0",
+  "contentAuthority": "index-html-canonical",
+  "source": {
+    "file": "source/index.html",
+    "sha256": "ed74da639543bd1847d3e970f114e006ec9be8a8d441197a1968afca5a07f995",
+    "cityArray": "CITIES1",
+    "cityArrayIndex": 18
+  },
+  "id": "afyonkarahisar",
+  "order": 19,
+  "name": {
+    "en": "Afyonkarahisar",
+    "tr": null
+  },
+  "regionId": "aegean",
+  "sourceRegionIndex": 1,
+  "coordinates": {
+    "longitude": 30.54,
+    "latitude": 38.76
+  },
+  "legacyGuideId": "nasreddin-hoca",
+  "stops": [
+    {
+      "id": "afyonkarahisar-stop-01",
+      "order": 1,
+      "sourceTupleIndex": 0,
+      "legacyArt": {
+        "type": "kale",
+        "params": {
+          "rock": 1
+        }
+      },
+      "category": "history",
+      "title": {
+        "en": "The Black Fortress",
+        "tr": null
+      },
+      "description": {
+        "en": "Afyon's castle sits on a giant dark volcanic rock 226 meters high, right in the middle of the city! Its name means 'Opium Black Fortress'. Climb the steps for a knight's-eye view!",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🏰",
+        "label": {
+          "en": "a fortress flag",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "Look at this — amazing, right?",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    },
+    {
+      "id": "afyonkarahisar-stop-02",
+      "order": 2,
+      "sourceTupleIndex": 1,
+      "legacyArt": {
+        "type": "tatli",
+        "params": {
+          "k": "kaymak",
+          "s": "KAYMAK & LOKUM"
+        }
+      },
+      "category": "food",
+      "title": {
+        "en": "Kaymak — Silky Clotted Cream",
+        "tr": null
+      },
+      "description": {
+        "en": "Afyon makes Türkiye's dreamiest kaymak (clotted cream) — eaten with honey on warm bread, or hiding inside soft Turkish delight. Breakfast of champions!",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🍯",
+        "label": {
+          "en": "bread, honey & kaymak",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "This is one of my favorite spots in all of Türkiye!",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    },
+    {
+      "id": "afyonkarahisar-stop-03",
+      "order": 3,
+      "sourceTupleIndex": 2,
+      "legacyArt": {
+        "type": "kaplica",
+        "params": {}
+      },
+      "category": "nature",
+      "title": {
+        "en": "Steamy Thermal Springs",
+        "tr": null
+      },
+      "description": {
+        "en": "Afyon bubbles with natural hot springs! Its warm healing waters have made it one of Türkiye's most famous spa cities.",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "♨️",
+        "label": {
+          "en": "a rubber ducky",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "We made it! Take a good look around.",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    }
+  ],
+  "quiz": [
+    {
+      "id": "afyonkarahisar-quiz-01",
+      "order": 1,
+      "question": {
+        "en": "Where does Afyon's castle sit?",
+        "tr": null
+      },
+      "options": [
+        {
+          "id": "afyonkarahisar-quiz-01-option-01",
+          "order": 1,
+          "text": {
+            "en": "On a giant volcanic rock in the city center",
+            "tr": null
+          },
+          "correct": true
+        },
+        {
+          "id": "afyonkarahisar-quiz-01-option-02",
+          "order": 2,
+          "text": {
+            "en": "On a cloud",
+            "tr": null
+          },
+          "correct": false
+        },
+        {
+          "id": "afyonkarahisar-quiz-01-option-03",
+          "order": 3,
+          "text": {
+            "en": "Under the sea",
+            "tr": null
+          },
+          "correct": false
+        }
+      ],
+      "sourceRule": "The first option in the HTML source is correct. The application may shuffle display order at runtime."
+    }
+  ]
+}

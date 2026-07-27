@@ -1,0 +1,169 @@
+{
+  "schemaVersion": "1.0",
+  "contentAuthority": "index-html-canonical",
+  "source": {
+    "file": "source/index.html",
+    "sha256": "ed74da639543bd1847d3e970f114e006ec9be8a8d441197a1968afca5a07f995",
+    "cityArray": "CITIES2",
+    "cityArrayIndex": 23
+  },
+  "id": "agri",
+  "order": 64,
+  "name": {
+    "en": "Ağrı",
+    "tr": null
+  },
+  "regionId": "eastern-anatolia",
+  "sourceRegionIndex": 5,
+  "coordinates": {
+    "longitude": 43.05,
+    "latitude": 39.72
+  },
+  "legacyGuideId": "keloglan",
+  "stops": [
+    {
+      "id": "agri-stop-01",
+      "order": 1,
+      "sourceTupleIndex": 0,
+      "legacyArt": {
+        "type": "kale",
+        "params": {
+          "palace": 1
+        }
+      },
+      "category": "history",
+      "title": {
+        "en": "İshak Pasha Palace",
+        "tr": null
+      },
+      "description": {
+        "en": "On a golden cliff stands İshak Pasha Palace — a 350-year-old fairy-tale palace with carved gates, a mosque, and 366 rooms! Sunset turns its stones to honey.",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🏯",
+        "label": {
+          "en": "a palace gate carving",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "Every traveler stops here — now it's your turn!",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    },
+    {
+      "id": "agri-stop-02",
+      "order": 2,
+      "sourceTupleIndex": 1,
+      "legacyArt": {
+        "type": "dag",
+        "params": {
+          "ararat": 1
+        }
+      },
+      "category": "nature",
+      "title": {
+        "en": "Mount Ararat",
+        "tr": null
+      },
+      "description": {
+        "en": "Mighty Ağrı Dağı (Ararat) is Türkiye's rooftop at 5,137 m. Old stories say Noah's Ark came to rest on its slopes — climbers still dream of its icy summit.",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "⛰️",
+        "label": {
+          "en": "a summit flag",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "See? Türkiye is full of wonders!",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    },
+    {
+      "id": "agri-stop-03",
+      "order": 3,
+      "sourceTupleIndex": 2,
+      "legacyArt": {
+        "type": "stall",
+        "params": {
+          "s": "ABDİGÖR KÖFTE",
+          "d": "kofte",
+          "c": "#8A4038"
+        }
+      },
+      "category": "food",
+      "title": {
+        "en": "Abdigör Köfte",
+        "tr": null
+      },
+      "description": {
+        "en": "Ağrı's special abdigör köfte is beaten by hand until fluffy, then boiled — a mountain dish that warms you after snowy adventures.",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🍲",
+        "label": {
+          "en": "a warm köfte bowl",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "Careful, don't blink — you might miss something beautiful!",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    }
+  ],
+  "quiz": [
+    {
+      "id": "agri-quiz-01",
+      "order": 1,
+      "question": {
+        "en": "Which famous ship do old stories connect with Mount Ararat?",
+        "tr": null
+      },
+      "options": [
+        {
+          "id": "agri-quiz-01-option-01",
+          "order": 1,
+          "text": {
+            "en": "Noah's Ark",
+            "tr": null
+          },
+          "correct": true
+        },
+        {
+          "id": "agri-quiz-01-option-02",
+          "order": 2,
+          "text": {
+            "en": "The Titanic",
+            "tr": null
+          },
+          "correct": false
+        },
+        {
+          "id": "agri-quiz-01-option-03",
+          "order": 3,
+          "text": {
+            "en": "A pirate ship",
+            "tr": null
+          },
+          "correct": false
+        }
+      ],
+      "sourceRule": "The first option in the HTML source is correct. The application may shuffle display order at runtime."
+    }
+  ]
+}

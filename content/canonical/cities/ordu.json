@@ -1,0 +1,164 @@
+{
+  "schemaVersion": "1.0",
+  "contentAuthority": "index-html-canonical",
+  "source": {
+    "file": "source/index.html",
+    "sha256": "ed74da639543bd1847d3e970f114e006ec9be8a8d441197a1968afca5a07f995",
+    "cityArray": "CITIES2",
+    "cityArrayIndex": 11
+  },
+  "id": "ordu",
+  "order": 52,
+  "name": {
+    "en": "Ordu",
+    "tr": null
+  },
+  "regionId": "black-sea",
+  "sourceRegionIndex": 4,
+  "coordinates": {
+    "longitude": 37.88,
+    "latitude": 40.98
+  },
+  "legacyGuideId": "keloglan",
+  "stops": [
+    {
+      "id": "ordu-stop-01",
+      "order": 1,
+      "sourceTupleIndex": 0,
+      "legacyArt": {
+        "type": "fruit",
+        "params": {
+          "kind": "hazelnut",
+          "s": "FINDIK"
+        }
+      },
+      "category": "food",
+      "title": {
+        "en": "Hazelnut Champion of the World",
+        "tr": null
+      },
+      "description": {
+        "en": "More hazelnuts grow around Ordu than anywhere on the planet! The chocolate spread on your toast probably started life on a green Ordu hillside.",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🍫",
+        "label": {
+          "en": "a hazelnut-chocolate jar",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "Every traveler stops here — now it's your turn!",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    },
+    {
+      "id": "ordu-stop-02",
+      "order": 2,
+      "sourceTupleIndex": 1,
+      "legacyArt": {
+        "type": "teleferik",
+        "params": {}
+      },
+      "category": "nature",
+      "title": {
+        "en": "Cable Car to Boztepe",
+        "tr": null
+      },
+      "description": {
+        "en": "Ordu's red cable cars glide from the seaside up to Boztepe hill — the Black Sea sparkles below your feet! At the top: tea gardens and the best city view.",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🚠",
+        "label": {
+          "en": "a cable car ticket",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "See? Türkiye is full of wonders!",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    },
+    {
+      "id": "ordu-stop-03",
+      "order": 3,
+      "sourceTupleIndex": 2,
+      "legacyArt": {
+        "type": "sahil",
+        "params": {}
+      },
+      "category": "nature",
+      "title": {
+        "en": "Blue-Flag Beaches",
+        "tr": null
+      },
+      "description": {
+        "en": "Surprise — the Black Sea has sandy beaches! Ordu's clean shores fly the Blue Flag, and locals say its sunsets paint the sea orange.",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🌅",
+        "label": {
+          "en": "an orange sunset photo",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "Careful, don't blink — you might miss something beautiful!",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    }
+  ],
+  "quiz": [
+    {
+      "id": "ordu-quiz-01",
+      "order": 1,
+      "question": {
+        "en": "Which nut makes Ordu a world champion?",
+        "tr": null
+      },
+      "options": [
+        {
+          "id": "ordu-quiz-01-option-01",
+          "order": 1,
+          "text": {
+            "en": "Hazelnuts",
+            "tr": null
+          },
+          "correct": true
+        },
+        {
+          "id": "ordu-quiz-01-option-02",
+          "order": 2,
+          "text": {
+            "en": "Coconuts",
+            "tr": null
+          },
+          "correct": false
+        },
+        {
+          "id": "ordu-quiz-01-option-03",
+          "order": 3,
+          "text": {
+            "en": "Acorns",
+            "tr": null
+          },
+          "correct": false
+        }
+      ],
+      "sourceRule": "The first option in the HTML source is correct. The application may shuffle display order at runtime."
+    }
+  ]
+}

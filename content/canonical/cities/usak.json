@@ -1,0 +1,169 @@
+{
+  "schemaVersion": "1.0",
+  "contentAuthority": "index-html-canonical",
+  "source": {
+    "file": "source/index.html",
+    "sha256": "ed74da639543bd1847d3e970f114e006ec9be8a8d441197a1968afca5a07f995",
+    "cityArray": "CITIES1",
+    "cityArrayIndex": 16
+  },
+  "id": "usak",
+  "order": 17,
+  "name": {
+    "en": "Uşak",
+    "tr": null
+  },
+  "regionId": "aegean",
+  "sourceRegionIndex": 1,
+  "coordinates": {
+    "longitude": 29.41,
+    "latitude": 38.68
+  },
+  "legacyGuideId": "nasreddin-hoca",
+  "stops": [
+    {
+      "id": "usak-stop-01",
+      "order": 1,
+      "sourceTupleIndex": 0,
+      "legacyArt": {
+        "type": "kanyon",
+        "params": {}
+      },
+      "category": "nature",
+      "title": {
+        "en": "Ulubey Canyon",
+        "tr": null
+      },
+      "description": {
+        "en": "Ulubey is one of the longest canyons in the world! You can stand on a glass terrace hanging over the edge and look waaay down — don't worry, it's super safe.",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "😲",
+        "label": {
+          "en": "a brave explorer badge",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "See? Türkiye is full of wonders!",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    },
+    {
+      "id": "usak-stop-02",
+      "order": 2,
+      "sourceTupleIndex": 1,
+      "legacyArt": {
+        "type": "muze",
+        "params": {
+          "s": "KARUN TREASURE",
+          "icon": "sun",
+          "f": "#C98F1E"
+        }
+      },
+      "category": "history",
+      "title": {
+        "en": "The Treasure of Karun",
+        "tr": null
+      },
+      "description": {
+        "en": "Uşak's museum guards the glittering 2,600-year-old Karun Treasure — golden brooches, bowls and jewels of the rich Lydian kings. Real treasure, found right here!",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "👑",
+        "label": {
+          "en": "a golden brooch",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "Careful, don't blink — you might miss something beautiful!",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    },
+    {
+      "id": "usak-stop-03",
+      "order": 3,
+      "sourceTupleIndex": 2,
+      "legacyArt": {
+        "type": "stall",
+        "params": {
+          "s": "TARHANA",
+          "d": "bowl",
+          "c": "#C96A2B"
+        }
+      },
+      "category": "food",
+      "title": {
+        "en": "Tarhana Soup",
+        "tr": null
+      },
+      "description": {
+        "en": "Uşak's cozy tarhana soup is made from dried yogurt and tomato flakes that grandmas prepare every summer to warm up every winter.",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🥣",
+        "label": {
+          "en": "a bowl of tarhana",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "Look at this — amazing, right?",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    }
+  ],
+  "quiz": [
+    {
+      "id": "usak-quiz-01",
+      "order": 1,
+      "question": {
+        "en": "What can you stand on above Ulubey Canyon?",
+        "tr": null
+      },
+      "options": [
+        {
+          "id": "usak-quiz-01-option-01",
+          "order": 1,
+          "text": {
+            "en": "A glass terrace",
+            "tr": null
+          },
+          "correct": true
+        },
+        {
+          "id": "usak-quiz-01-option-02",
+          "order": 2,
+          "text": {
+            "en": "A cloud",
+            "tr": null
+          },
+          "correct": false
+        },
+        {
+          "id": "usak-quiz-01-option-03",
+          "order": 3,
+          "text": {
+            "en": "A trampoline",
+            "tr": null
+          },
+          "correct": false
+        }
+      ],
+      "sourceRule": "The first option in the HTML source is correct. The application may shuffle display order at runtime."
+    }
+  ]
+}

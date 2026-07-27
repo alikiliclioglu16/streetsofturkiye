@@ -1,0 +1,169 @@
+{
+  "schemaVersion": "1.0",
+  "contentAuthority": "index-html-canonical",
+  "source": {
+    "file": "source/index.html",
+    "sha256": "ed74da639543bd1847d3e970f114e006ec9be8a8d441197a1968afca5a07f995",
+    "cityArray": "CITIES2",
+    "cityArrayIndex": 1
+  },
+  "id": "bolu",
+  "order": 42,
+  "name": {
+    "en": "Bolu",
+    "tr": null
+  },
+  "regionId": "black-sea",
+  "sourceRegionIndex": 4,
+  "coordinates": {
+    "longitude": 31.61,
+    "latitude": 40.74
+  },
+  "legacyGuideId": "keloglan",
+  "stops": [
+    {
+      "id": "bolu-stop-01",
+      "order": 1,
+      "sourceTupleIndex": 0,
+      "legacyArt": {
+        "type": "gol",
+        "params": {
+          "boat": 1
+        }
+      },
+      "category": "nature",
+      "title": {
+        "en": "Yedigöller — the Seven Lakes",
+        "tr": null
+      },
+      "description": {
+        "en": "Yedigöller means 'Seven Lakes' — seven forest lakes linked like a necklace! In autumn the trees turn red, orange and gold, and the lakes become giant mirrors.",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🍁",
+        "label": {
+          "en": "a golden autumn leaf",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "Careful, don't blink — you might miss something beautiful!",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    },
+    {
+      "id": "bolu-stop-02",
+      "order": 2,
+      "sourceTupleIndex": 1,
+      "legacyArt": {
+        "type": "stall",
+        "params": {
+          "s": "MENGEN CHEFS",
+          "d": "bowl",
+          "c": "#C96A2B"
+        }
+      },
+      "category": "food",
+      "title": {
+        "en": "Mengen — Town of Master Chefs",
+        "tr": null
+      },
+      "description": {
+        "en": "Little Mengen is famous for one thing: CHEFS! For generations its cooks have run the kitchens of palaces and hotels across Türkiye. There's even a chef school and a cooking festival!",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "👨‍🍳",
+        "label": {
+          "en": "a tiny chef's hat",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "Look at this — amazing, right?",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    },
+    {
+      "id": "bolu-stop-03",
+      "order": 3,
+      "sourceTupleIndex": 2,
+      "legacyArt": {
+        "type": "dag",
+        "params": {
+          "ski": 1
+        }
+      },
+      "category": "nature",
+      "title": {
+        "en": "Kartalkaya Ski Resort",
+        "tr": null
+      },
+      "description": {
+        "en": "'Eagle Rock' mountain gets piles of fluffy snow every winter — perfect for young skiers and snowboarders taking their very first ride.",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🏂",
+        "label": {
+          "en": "a snowboard sticker",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "This is one of my favorite spots in all of Türkiye!",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    }
+  ],
+  "quiz": [
+    {
+      "id": "bolu-quiz-01",
+      "order": 1,
+      "question": {
+        "en": "What is the town of Mengen famous for?",
+        "tr": null
+      },
+      "options": [
+        {
+          "id": "bolu-quiz-01-option-01",
+          "order": 1,
+          "text": {
+            "en": "Master chefs",
+            "tr": null
+          },
+          "correct": true
+        },
+        {
+          "id": "bolu-quiz-01-option-02",
+          "order": 2,
+          "text": {
+            "en": "Racing cars",
+            "tr": null
+          },
+          "correct": false
+        },
+        {
+          "id": "bolu-quiz-01-option-03",
+          "order": 3,
+          "text": {
+            "en": "Pirates",
+            "tr": null
+          },
+          "correct": false
+        }
+      ],
+      "sourceRule": "The first option in the HTML source is correct. The application may shuffle display order at runtime."
+    }
+  ]
+}

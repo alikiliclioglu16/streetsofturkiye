@@ -1,7 +1,7 @@
 'use client';
 
 import { create } from 'zustand';
-import type { CityDefinition } from '@/content/schemas/city';
+import type { RuntimeCity as CityDefinition } from '@/content/compose';
 import { ContentError, loadCity } from '@/content/loaders/loadCity';
 import {
   initialInteractionContext,
@@ -131,7 +131,7 @@ export const useGameStore = create<GameState>((set, get) => ({
     const hotspot = city.hotspots.find((item) => item.id === interaction.hotspotId);
     if (!hotspot) return;
 
-    const nextProgress = completeHotspot(progress, hotspot.id, hotspot.rewardId);
+    const nextProgress = completeHotspot(progress, hotspot.id, hotspot.reward.assetId);
     set({
       progress: nextProgress,
       interaction: interactionReducer(interaction, { type: 'CLAIM_REWARD' }),

@@ -1,0 +1,279 @@
+{
+  "schemaVersion": "1.0",
+  "categories": [
+    {
+      "id": "craft",
+      "usageCount": 27
+    },
+    {
+      "id": "food",
+      "usageCount": 61
+    },
+    {
+      "id": "history",
+      "usageCount": 85
+    },
+    {
+      "id": "nature",
+      "usageCount": 76
+    }
+  ],
+  "legacyArtTypes": [
+    {
+      "id": "agac",
+      "usageCount": 11
+    },
+    {
+      "id": "anitkabir",
+      "usageCount": 1
+    },
+    {
+      "id": "antik",
+      "usageCount": 6
+    },
+    {
+      "id": "bakery",
+      "usageCount": 1
+    },
+    {
+      "id": "balikgol",
+      "usageCount": 1
+    },
+    {
+      "id": "balloon",
+      "usageCount": 1
+    },
+    {
+      "id": "bazaar",
+      "usageCount": 1
+    },
+    {
+      "id": "cami",
+      "usageCount": 7
+    },
+    {
+      "id": "cave",
+      "usageCount": 12
+    },
+    {
+      "id": "cay",
+      "usageCount": 1
+    },
+    {
+      "id": "celsus",
+      "usageCount": 1
+    },
+    {
+      "id": "chimneys",
+      "usageCount": 2
+    },
+    {
+      "id": "clock",
+      "usageCount": 1
+    },
+    {
+      "id": "craft",
+      "usageCount": 11
+    },
+    {
+      "id": "dag",
+      "usageCount": 18
+    },
+    {
+      "id": "ev",
+      "usageCount": 7
+    },
+    {
+      "id": "fener",
+      "usageCount": 1
+    },
+    {
+      "id": "ferry",
+      "usageCount": 1
+    },
+    {
+      "id": "flower",
+      "usageCount": 5
+    },
+    {
+      "id": "fruit",
+      "usageCount": 7
+    },
+    {
+      "id": "galata",
+      "usageCount": 1
+    },
+    {
+      "id": "gemi",
+      "usageCount": 2
+    },
+    {
+      "id": "gol",
+      "usageCount": 16
+    },
+    {
+      "id": "hayvan",
+      "usageCount": 5
+    },
+    {
+      "id": "hoyuk",
+      "usageCount": 6
+    },
+    {
+      "id": "kale",
+      "usageCount": 17
+    },
+    {
+      "id": "kanyon",
+      "usageCount": 8
+    },
+    {
+      "id": "kaplica",
+      "usageCount": 2
+    },
+    {
+      "id": "karagoz",
+      "usageCount": 1
+    },
+    {
+      "id": "kopru",
+      "usageCount": 6
+    },
+    {
+      "id": "loom",
+      "usageCount": 5
+    },
+    {
+      "id": "manastir",
+      "usageCount": 1
+    },
+    {
+      "id": "mevlana",
+      "usageCount": 1
+    },
+    {
+      "id": "mosque",
+      "usageCount": 1
+    },
+    {
+      "id": "muze",
+      "usageCount": 11
+    },
+    {
+      "id": "muzik",
+      "usageCount": 5
+    },
+    {
+      "id": "nazar",
+      "usageCount": 1
+    },
+    {
+      "id": "nemrut",
+      "usageCount": 1
+    },
+    {
+      "id": "pamukkale",
+      "usageCount": 1
+    },
+    {
+      "id": "pehlivan",
+      "usageCount": 1
+    },
+    {
+      "id": "pottery",
+      "usageCount": 1
+    },
+    {
+      "id": "saatkule",
+      "usageCount": 2
+    },
+    {
+      "id": "sahil",
+      "usageCount": 3
+    },
+    {
+      "id": "selale",
+      "usageCount": 4
+    },
+    {
+      "id": "semazen",
+      "usageCount": 1
+    },
+    {
+      "id": "simit",
+      "usageCount": 1
+    },
+    {
+      "id": "stall",
+      "usageCount": 26
+    },
+    {
+      "id": "tatli",
+      "usageCount": 16
+    },
+    {
+      "id": "teleferik",
+      "usageCount": 1
+    },
+    {
+      "id": "theatre",
+      "usageCount": 3
+    },
+    {
+      "id": "tren",
+      "usageCount": 1
+    },
+    {
+      "id": "truva",
+      "usageCount": 1
+    },
+    {
+      "id": "vancat",
+      "usageCount": 1
+    }
+  ],
+  "globalFallbackGuideLines": [
+    {
+      "order": 1,
+      "text": {
+        "en": "Look at this — amazing, right?",
+        "tr": null
+      }
+    },
+    {
+      "order": 2,
+      "text": {
+        "en": "This is one of my favorite spots in all of Türkiye!",
+        "tr": null
+      }
+    },
+    {
+      "order": 3,
+      "text": {
+        "en": "We made it! Take a good look around.",
+        "tr": null
+      }
+    },
+    {
+      "order": 4,
+      "text": {
+        "en": "Every traveler stops here — now it's your turn!",
+        "tr": null
+      }
+    },
+    {
+      "order": 5,
+      "text": {
+        "en": "See? Türkiye is full of wonders!",
+        "tr": null
+      }
+    },
+    {
+      "order": 6,
+      "text": {
+        "en": "Careful, don't blink — you might miss something beautiful!",
+        "tr": null
+      }
+    }
+  ]
+}

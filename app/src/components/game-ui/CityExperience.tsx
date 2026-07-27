@@ -178,10 +178,9 @@ export function CityExperience({ cityId }: { cityId: string }) {
             ['active', 'retry'].includes(interaction.state)
               ? {
                   hotspotId: activeHotspot.id,
-                  targetId: activeHotspot.interaction.config.targetId ?? 'target',
+                  targetId: activeHotspot.interaction.targetId,
                   spin,
-                  onPick: (pickedId) =>
-                    onAnswer(pickedId === (activeHotspot.interaction.config.targetId ?? 'target')),
+                  onPick: (pickedId) => onAnswer(pickedId === activeHotspot.interaction.targetId),
                 }
               : null
           }
@@ -233,7 +232,7 @@ export function CityExperience({ cityId }: { cityId: string }) {
 
       {phase === 'explore' && activeHotspot && interaction.state === 'reward' ? (
         <RewardPanel
-          rewardId={activeHotspot.rewardId}
+          rewardId={activeHotspot.reward.assetId}
           locale={locale}
           quality={quality}
           onContinue={() => dispatchInteraction({ type: 'DISMISS' })}

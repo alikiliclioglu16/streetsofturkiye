@@ -1,0 +1,167 @@
+{
+  "schemaVersion": "1.0",
+  "contentAuthority": "index-html-canonical",
+  "source": {
+    "file": "source/index.html",
+    "sha256": "ed74da639543bd1847d3e970f114e006ec9be8a8d441197a1968afca5a07f995",
+    "cityArray": "CITIES1",
+    "cityArrayIndex": 3
+  },
+  "id": "edirne",
+  "order": 4,
+  "name": {
+    "en": "Edirne",
+    "tr": null
+  },
+  "regionId": "marmara",
+  "sourceRegionIndex": 0,
+  "coordinates": {
+    "longitude": 26.56,
+    "latitude": 41.68
+  },
+  "legacyGuideId": "keloglan",
+  "stops": [
+    {
+      "id": "edirne-stop-01",
+      "order": 1,
+      "sourceTupleIndex": 0,
+      "legacyArt": {
+        "type": "cami",
+        "params": {
+          "min": 2,
+          "double": 1
+        }
+      },
+      "category": "history",
+      "title": {
+        "en": "Selimiye Mosque",
+        "tr": null
+      },
+      "description": {
+        "en": "Selimiye is the masterpiece of Mimar Sinan, the greatest Ottoman architect. Its giant dome and four pencil-thin minarets can be seen from far away — it's on the UNESCO World Heritage list!",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🕌",
+        "label": {
+          "en": "a tiny Selimiye model",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "Every traveler stops here — now it's your turn!",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    },
+    {
+      "id": "edirne-stop-02",
+      "order": 2,
+      "sourceTupleIndex": 1,
+      "legacyArt": {
+        "type": "pehlivan",
+        "params": {}
+      },
+      "category": "history",
+      "title": {
+        "en": "Kırkpınar Oil Wrestling",
+        "tr": null
+      },
+      "description": {
+        "en": "Every summer, Edirne hosts Kırkpınar — one of the oldest sporting events on Earth, more than 650 years old! Strong wrestlers covered in olive oil try to lift each other while drums play.",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🥇",
+        "label": {
+          "en": "a golden wrestling belt",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "See? Türkiye is full of wonders!",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    },
+    {
+      "id": "edirne-stop-03",
+      "order": 3,
+      "sourceTupleIndex": 2,
+      "legacyArt": {
+        "type": "tatli",
+        "params": {
+          "k": "helva",
+          "s": "BADEM EZMESİ"
+        }
+      },
+      "category": "food",
+      "title": {
+        "en": "Marzipan & Fried Liver",
+        "tr": null
+      },
+      "description": {
+        "en": "Edirne is famous for its soft almond marzipan — and grown-ups line up for crispy fried liver! The old bazaar smells of almonds and fresh bread.",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🥜",
+        "label": {
+          "en": "almond marzipan",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "Careful, don't blink — you might miss something beautiful!",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    }
+  ],
+  "quiz": [
+    {
+      "id": "edirne-quiz-01",
+      "order": 1,
+      "question": {
+        "en": "Who built the magnificent Selimiye Mosque?",
+        "tr": null
+      },
+      "options": [
+        {
+          "id": "edirne-quiz-01-option-01",
+          "order": 1,
+          "text": {
+            "en": "Mimar Sinan, the great architect",
+            "tr": null
+          },
+          "correct": true
+        },
+        {
+          "id": "edirne-quiz-01-option-02",
+          "order": 2,
+          "text": {
+            "en": "A robot",
+            "tr": null
+          },
+          "correct": false
+        },
+        {
+          "id": "edirne-quiz-01-option-03",
+          "order": 3,
+          "text": {
+            "en": "A pirate captain",
+            "tr": null
+          },
+          "correct": false
+        }
+      ],
+      "sourceRule": "The first option in the HTML source is correct. The application may shuffle display order at runtime."
+    }
+  ]
+}

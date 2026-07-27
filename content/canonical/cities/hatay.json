@@ -1,0 +1,168 @@
+{
+  "schemaVersion": "1.0",
+  "contentAuthority": "index-html-canonical",
+  "source": {
+    "file": "source/index.html",
+    "sha256": "ed74da639543bd1847d3e970f114e006ec9be8a8d441197a1968afca5a07f995",
+    "cityArray": "CITIES1",
+    "cityArrayIndex": 25
+  },
+  "id": "hatay",
+  "order": 26,
+  "name": {
+    "en": "Hatay",
+    "tr": null
+  },
+  "regionId": "mediterranean",
+  "sourceRegionIndex": 2,
+  "coordinates": {
+    "longitude": 36.16,
+    "latitude": 36.2
+  },
+  "legacyGuideId": "keloglan",
+  "stops": [
+    {
+      "id": "hatay-stop-01",
+      "order": 1,
+      "sourceTupleIndex": 0,
+      "legacyArt": {
+        "type": "cave",
+        "params": {}
+      },
+      "category": "history",
+      "title": {
+        "en": "St. Pierre — the Cave Church",
+        "tr": null
+      },
+      "description": {
+        "en": "Carved into a mountainside, St. Pierre's is one of the oldest churches in the world — early believers met secretly in this cave nearly 2,000 years ago!",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🕯️",
+        "label": {
+          "en": "a cave candle",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "This is one of my favorite spots in all of Türkiye!",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    },
+    {
+      "id": "hatay-stop-02",
+      "order": 2,
+      "sourceTupleIndex": 1,
+      "legacyArt": {
+        "type": "muze",
+        "params": {
+          "s": "MOSAIC MUSEUM",
+          "icon": "mosaic",
+          "f": "#C96A2B"
+        }
+      },
+      "category": "history",
+      "title": {
+        "en": "A City of Mosaics",
+        "tr": null
+      },
+      "description": {
+        "en": "Antakya's museum holds one of the greatest mosaic collections on Earth — floors made of millions of tiny colored stones, picturing lions, birds and ancient stories.",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🖼️",
+        "label": {
+          "en": "a mosaic tile",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "We made it! Take a good look around.",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    },
+    {
+      "id": "hatay-stop-03",
+      "order": 3,
+      "sourceTupleIndex": 2,
+      "legacyArt": {
+        "type": "tatli",
+        "params": {
+          "k": "kunefe",
+          "s": "KÜNEFE"
+        }
+      },
+      "category": "food",
+      "title": {
+        "en": "Künefe — the Cheese Dessert",
+        "tr": null
+      },
+      "description": {
+        "en": "Hatay is the home of künefe: crispy golden shredded pastry with melty cheese inside, served hot with pistachios. Stretchy, sweet, unforgettable!",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🧀",
+        "label": {
+          "en": "stretchy hot künefe",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "Every traveler stops here — now it's your turn!",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    }
+  ],
+  "quiz": [
+    {
+      "id": "hatay-quiz-01",
+      "order": 1,
+      "question": {
+        "en": "What is inside a hot künefe?",
+        "tr": null
+      },
+      "options": [
+        {
+          "id": "hatay-quiz-01-option-01",
+          "order": 1,
+          "text": {
+            "en": "Melty stretchy cheese",
+            "tr": null
+          },
+          "correct": true
+        },
+        {
+          "id": "hatay-quiz-01-option-02",
+          "order": 2,
+          "text": {
+            "en": "Ice cubes",
+            "tr": null
+          },
+          "correct": false
+        },
+        {
+          "id": "hatay-quiz-01-option-03",
+          "order": 3,
+          "text": {
+            "en": "Popcorn",
+            "tr": null
+          },
+          "correct": false
+        }
+      ],
+      "sourceRule": "The first option in the HTML source is correct. The application may shuffle display order at runtime."
+    }
+  ]
+}

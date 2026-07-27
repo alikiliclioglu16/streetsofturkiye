@@ -1,0 +1,163 @@
+{
+  "schemaVersion": "1.0",
+  "contentAuthority": "index-html-canonical",
+  "source": {
+    "file": "source/index.html",
+    "sha256": "ed74da639543bd1847d3e970f114e006ec9be8a8d441197a1968afca5a07f995",
+    "cityArray": "CITIES2",
+    "cityArrayIndex": 40
+  },
+  "id": "sirnak",
+  "order": 81,
+  "name": {
+    "en": "Şırnak",
+    "tr": null
+  },
+  "regionId": "southeastern-anatolia",
+  "sourceRegionIndex": 6,
+  "coordinates": {
+    "longitude": 42.46,
+    "latitude": 37.52
+  },
+  "legacyGuideId": "nasreddin-hoca",
+  "stops": [
+    {
+      "id": "sirnak-stop-01",
+      "order": 1,
+      "sourceTupleIndex": 0,
+      "legacyArt": {
+        "type": "dag",
+        "params": {}
+      },
+      "category": "nature",
+      "title": {
+        "en": "Mount Cudi of Legends",
+        "tr": null
+      },
+      "description": {
+        "en": "Mighty Mount Cudi rises over Şırnak — in many old traditions, it's named as a resting place of Noah's Ark. A mountain wrapped in stories thousands of years old!",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "⛰️",
+        "label": {
+          "en": "a Cudi legend scroll",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "We made it! Take a good look around.",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    },
+    {
+      "id": "sirnak-stop-02",
+      "order": 2,
+      "sourceTupleIndex": 1,
+      "legacyArt": {
+        "type": "kanyon",
+        "params": {
+          "goats": 1
+        }
+      },
+      "category": "nature",
+      "title": {
+        "en": "Goats of the Kasrik Gorge",
+        "tr": null
+      },
+      "description": {
+        "en": "In the steep Kasrik gorge, herds of shaggy goats perform circus tricks on impossible cliffs — travelers stop just to watch the show!",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🐐",
+        "label": {
+          "en": "an acrobat goat photo",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "Every traveler stops here — now it's your turn!",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    },
+    {
+      "id": "sirnak-stop-03",
+      "order": 3,
+      "sourceTupleIndex": 2,
+      "legacyArt": {
+        "type": "loom",
+        "params": {}
+      },
+      "category": "craft",
+      "title": {
+        "en": "Şal-Şapik Weaving",
+        "tr": null
+      },
+      "description": {
+        "en": "Şırnak's weavers make 'şal-şapik' — a traditional striped fabric of goat hair, woven on hand looms and sewn into proud local costumes worn at festivals.",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🧵",
+        "label": {
+          "en": "a striped şal ribbon",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "See? Türkiye is full of wonders!",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    }
+  ],
+  "quiz": [
+    {
+      "id": "sirnak-quiz-01",
+      "order": 1,
+      "question": {
+        "en": "Which famous ship is Mount Cudi connected with in old traditions?",
+        "tr": null
+      },
+      "options": [
+        {
+          "id": "sirnak-quiz-01-option-01",
+          "order": 1,
+          "text": {
+            "en": "Noah's Ark",
+            "tr": null
+          },
+          "correct": true
+        },
+        {
+          "id": "sirnak-quiz-01-option-02",
+          "order": 2,
+          "text": {
+            "en": "A spaceship",
+            "tr": null
+          },
+          "correct": false
+        },
+        {
+          "id": "sirnak-quiz-01-option-03",
+          "order": 3,
+          "text": {
+            "en": "A submarine",
+            "tr": null
+          },
+          "correct": false
+        }
+      ],
+      "sourceRule": "The first option in the HTML source is correct. The application may shuffle display order at runtime."
+    }
+  ]
+}

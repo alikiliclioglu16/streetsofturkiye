@@ -1,0 +1,168 @@
+{
+  "schemaVersion": "1.0",
+  "contentAuthority": "index-html-canonical",
+  "source": {
+    "file": "source/index.html",
+    "sha256": "ed74da639543bd1847d3e970f114e006ec9be8a8d441197a1968afca5a07f995",
+    "cityArray": "CITIES1",
+    "cityArrayIndex": 12
+  },
+  "id": "manisa",
+  "order": 13,
+  "name": {
+    "en": "Manisa",
+    "tr": null
+  },
+  "regionId": "aegean",
+  "sourceRegionIndex": 1,
+  "coordinates": {
+    "longitude": 27.43,
+    "latitude": 38.61
+  },
+  "legacyGuideId": "nasreddin-hoca",
+  "stops": [
+    {
+      "id": "manisa-stop-01",
+      "order": 1,
+      "sourceTupleIndex": 0,
+      "legacyArt": {
+        "type": "stall",
+        "params": {
+          "s": "MESİR MACUNU",
+          "d": "drink",
+          "c": "#7A5FA0"
+        }
+      },
+      "category": "history",
+      "title": {
+        "en": "Mesir Paste Festival",
+        "tr": null
+      },
+      "description": {
+        "en": "Every spring, a special paste made of 41 spices is wrapped in shiny paper and TOSSED from the mosque roof to cheering crowds below! This 500-year-old festival is on UNESCO's list.",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🍬",
+        "label": {
+          "en": "a wrapped mesir candy",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "Look at this — amazing, right?",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    },
+    {
+      "id": "manisa-stop-02",
+      "order": 2,
+      "sourceTupleIndex": 1,
+      "legacyArt": {
+        "type": "antik",
+        "params": {}
+      },
+      "category": "history",
+      "title": {
+        "en": "Ancient Sardis",
+        "tr": null
+      },
+      "description": {
+        "en": "In Sardis, one of the world's first coins was made almost 2,700 years ago — before that, people just swapped things! You can see its giant temple columns today.",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🪙",
+        "label": {
+          "en": "an ancient coin",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "This is one of my favorite spots in all of Türkiye!",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    },
+    {
+      "id": "manisa-stop-03",
+      "order": 3,
+      "sourceTupleIndex": 2,
+      "legacyArt": {
+        "type": "fruit",
+        "params": {
+          "kind": "grapes",
+          "s": "SULTANİYE"
+        }
+      },
+      "category": "food",
+      "title": {
+        "en": "Sultana Grape Vineyards",
+        "tr": null
+      },
+      "description": {
+        "en": "Manisa's sunny vineyards grow the famous seedless sultana grapes. Dried in the sun, they become the sweet raisins in your cookies!",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🍇",
+        "label": {
+          "en": "sweet sultana raisins",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "We made it! Take a good look around.",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    }
+  ],
+  "quiz": [
+    {
+      "id": "manisa-quiz-01",
+      "order": 1,
+      "question": {
+        "en": "What is thrown from the mosque roof at the Mesir Festival?",
+        "tr": null
+      },
+      "options": [
+        {
+          "id": "manisa-quiz-01-option-01",
+          "order": 1,
+          "text": {
+            "en": "Candy paste made of 41 spices",
+            "tr": null
+          },
+          "correct": true
+        },
+        {
+          "id": "manisa-quiz-01-option-02",
+          "order": 2,
+          "text": {
+            "en": "Snowballs",
+            "tr": null
+          },
+          "correct": false
+        },
+        {
+          "id": "manisa-quiz-01-option-03",
+          "order": 3,
+          "text": {
+            "en": "Pillows",
+            "tr": null
+          },
+          "correct": false
+        }
+      ],
+      "sourceRule": "The first option in the HTML source is correct. The application may shuffle display order at runtime."
+    }
+  ]
+}

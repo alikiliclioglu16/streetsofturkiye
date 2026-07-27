@@ -1,0 +1,263 @@
+{
+  "schemaVersion": "1.0",
+  "contentAuthority": "index-html-canonical",
+  "source": {
+    "file": "source/index.html",
+    "sha256": "ed74da639543bd1847d3e970f114e006ec9be8a8d441197a1968afca5a07f995",
+    "cityArray": "CITIES1",
+    "cityArrayIndex": 33
+  },
+  "id": "nevsehir",
+  "order": 34,
+  "name": {
+    "en": "Nevşehir (Cappadocia)",
+    "tr": null
+  },
+  "regionId": "central-anatolia",
+  "sourceRegionIndex": 3,
+  "coordinates": {
+    "longitude": 34.71,
+    "latitude": 38.62
+  },
+  "legacyGuideId": "keloglan",
+  "stops": [
+    {
+      "id": "nevsehir-stop-01",
+      "order": 1,
+      "sourceTupleIndex": 0,
+      "legacyArt": {
+        "type": "chimneys",
+        "params": {}
+      },
+      "category": "nature",
+      "title": {
+        "en": "The Fairy Chimneys",
+        "tr": null
+      },
+      "description": {
+        "en": "These tall rock towers with stone 'hats' are called fairy chimneys! Nobody built them — wind and rain carved them out of soft rock over millions of years. People even carved homes inside!",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🪨",
+        "label": {
+          "en": "a fairy chimney magnet",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "Do you think fairies really lived here? Let's peek inside!",
+          "tr": null
+        },
+        "source": "explicit-city-stop"
+      }
+    },
+    {
+      "id": "nevsehir-stop-02",
+      "order": 2,
+      "sourceTupleIndex": 1,
+      "legacyArt": {
+        "type": "balloon",
+        "params": {}
+      },
+      "category": "nature",
+      "title": {
+        "en": "Hot Air Balloon Ride",
+        "tr": null
+      },
+      "description": {
+        "en": "Every morning at sunrise, hundreds of giant striped balloons float over Cappadocia. From the wicker basket, the valleys below look like a painting! One of the most magical sights on Earth.",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🎈",
+        "label": {
+          "en": "a mini balloon",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "Hop in the basket and hold on tight — up, up and awaaay!",
+          "tr": null
+        },
+        "source": "explicit-city-stop"
+      }
+    },
+    {
+      "id": "nevsehir-stop-03",
+      "order": 3,
+      "sourceTupleIndex": 2,
+      "legacyArt": {
+        "type": "cave",
+        "params": {}
+      },
+      "category": "history",
+      "title": {
+        "en": "Derinkuyu Underground City",
+        "tr": null
+      },
+      "description": {
+        "en": "Long ago, people dug a secret city UNDER the ground — 8 floors deep! It had bedrooms, kitchens, stables and giant rolling stone doors. Thousands of people could hide inside!",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🕯️",
+        "label": {
+          "en": "an explorer's lantern",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "Shhh… take this lantern. It's dark and mysterious down here!",
+          "tr": null
+        },
+        "source": "explicit-city-stop"
+      }
+    },
+    {
+      "id": "nevsehir-stop-04",
+      "order": 4,
+      "sourceTupleIndex": 3,
+      "legacyArt": {
+        "type": "pottery",
+        "params": {}
+      },
+      "category": "craft",
+      "title": {
+        "en": "Pottery Workshop in Avanos",
+        "tr": null
+      },
+      "description": {
+        "en": "In Avanos, masters shape red clay from the Kızılırmak river on spinning wheels — just like their grandparents did! You can sit at the wheel and make your own little pot.",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🏺",
+        "label": {
+          "en": "a tiny clay pot",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "Push the pedal, wet your hands… look, you're a potter now!",
+          "tr": null
+        },
+        "source": "explicit-city-stop"
+      }
+    },
+    {
+      "id": "nevsehir-stop-05",
+      "order": 5,
+      "sourceTupleIndex": 4,
+      "legacyArt": {
+        "type": "loom",
+        "params": {}
+      },
+      "category": "craft",
+      "title": {
+        "en": "Turkish Carpet Weavers",
+        "tr": null
+      },
+      "description": {
+        "en": "Watch the weavers tie thousands of tiny knots of colorful wool on tall wooden looms. Knot by knot, a Turkish carpet appears — some take a whole year! Every pattern tells a story.",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🧶",
+        "label": {
+          "en": "a ball of rainbow wool",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "Look how fast her fingers fly! Can you count the knots? Impossible!",
+          "tr": null
+        },
+        "source": "explicit-city-stop"
+      }
+    }
+  ],
+  "quiz": [
+    {
+      "id": "nevsehir-quiz-01",
+      "order": 1,
+      "question": {
+        "en": "Who carved the fairy chimneys?",
+        "tr": null
+      },
+      "options": [
+        {
+          "id": "nevsehir-quiz-01-option-01",
+          "order": 1,
+          "text": {
+            "en": "Wind and rain, over millions of years",
+            "tr": null
+          },
+          "correct": true
+        },
+        {
+          "id": "nevsehir-quiz-01-option-02",
+          "order": 2,
+          "text": {
+            "en": "Giant robots",
+            "tr": null
+          },
+          "correct": false
+        },
+        {
+          "id": "nevsehir-quiz-01-option-03",
+          "order": 3,
+          "text": {
+            "en": "Dragons",
+            "tr": null
+          },
+          "correct": false
+        }
+      ],
+      "sourceRule": "The first option in the HTML source is correct. The application may shuffle display order at runtime."
+    },
+    {
+      "id": "nevsehir-quiz-02",
+      "order": 2,
+      "question": {
+        "en": "What fills the sky of Cappadocia at sunrise?",
+        "tr": null
+      },
+      "options": [
+        {
+          "id": "nevsehir-quiz-02-option-01",
+          "order": 1,
+          "text": {
+            "en": "Hundreds of hot air balloons",
+            "tr": null
+          },
+          "correct": true
+        },
+        {
+          "id": "nevsehir-quiz-02-option-02",
+          "order": 2,
+          "text": {
+            "en": "Flying carpets",
+            "tr": null
+          },
+          "correct": false
+        },
+        {
+          "id": "nevsehir-quiz-02-option-03",
+          "order": 3,
+          "text": {
+            "en": "Airplanes",
+            "tr": null
+          },
+          "correct": false
+        }
+      ],
+      "sourceRule": "The first option in the HTML source is correct. The application may shuffle display order at runtime."
+    }
+  ]
+}

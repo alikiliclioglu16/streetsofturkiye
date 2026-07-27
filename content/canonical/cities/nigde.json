@@ -1,0 +1,165 @@
+{
+  "schemaVersion": "1.0",
+  "contentAuthority": "index-html-canonical",
+  "source": {
+    "file": "source/index.html",
+    "sha256": "ed74da639543bd1847d3e970f114e006ec9be8a8d441197a1968afca5a07f995",
+    "cityArray": "CITIES1",
+    "cityArrayIndex": 35
+  },
+  "id": "nigde",
+  "order": 36,
+  "name": {
+    "en": "Niğde",
+    "tr": null
+  },
+  "regionId": "central-anatolia",
+  "sourceRegionIndex": 3,
+  "coordinates": {
+    "longitude": 34.68,
+    "latitude": 37.97
+  },
+  "legacyGuideId": "keloglan",
+  "stops": [
+    {
+      "id": "nigde-stop-01",
+      "order": 1,
+      "sourceTupleIndex": 0,
+      "legacyArt": {
+        "type": "dag",
+        "params": {
+          "glacier": 1
+        }
+      },
+      "category": "nature",
+      "title": {
+        "en": "The Aladağlar Peaks",
+        "tr": null
+      },
+      "description": {
+        "en": "The mighty Aladağlar are Türkiye's Alps — sharp granite peaks, glacier lakes and mountain goats. Climbers from all over the world come to test their courage here!",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🧗",
+        "label": {
+          "en": "a climber's carabiner",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "Careful, don't blink — you might miss something beautiful!",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    },
+    {
+      "id": "nigde-stop-02",
+      "order": 2,
+      "sourceTupleIndex": 1,
+      "legacyArt": {
+        "type": "cave",
+        "params": {}
+      },
+      "category": "history",
+      "title": {
+        "en": "Gümüşler Monastery",
+        "tr": null
+      },
+      "description": {
+        "en": "Carved completely into rock, Gümüşler Monastery hides wall paintings — including a rare picture famous as the 'smiling angel' fresco. Can you find the smile?",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "😊",
+        "label": {
+          "en": "a smiling fresco magnet",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "Look at this — amazing, right?",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    },
+    {
+      "id": "nigde-stop-03",
+      "order": 3,
+      "sourceTupleIndex": 2,
+      "legacyArt": {
+        "type": "agac",
+        "params": {
+          "kind": "apple"
+        }
+      },
+      "category": "food",
+      "title": {
+        "en": "Crunchy Apples & Potatoes",
+        "tr": null
+      },
+      "description": {
+        "en": "Niğde's cool mountain air grows Türkiye's crunchiest apples and best potatoes. An apple a day — Niğde style!",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🍎",
+        "label": {
+          "en": "a mountain apple",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "This is one of my favorite spots in all of Türkiye!",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    }
+  ],
+  "quiz": [
+    {
+      "id": "nigde-quiz-01",
+      "order": 1,
+      "question": {
+        "en": "What are the Aladağlar called?",
+        "tr": null
+      },
+      "options": [
+        {
+          "id": "nigde-quiz-01-option-01",
+          "order": 1,
+          "text": {
+            "en": "Türkiye's Alps",
+            "tr": null
+          },
+          "correct": true
+        },
+        {
+          "id": "nigde-quiz-01-option-02",
+          "order": 2,
+          "text": {
+            "en": "The Sea Mountains",
+            "tr": null
+          },
+          "correct": false
+        },
+        {
+          "id": "nigde-quiz-01-option-03",
+          "order": 3,
+          "text": {
+            "en": "The Sand Hills",
+            "tr": null
+          },
+          "correct": false
+        }
+      ],
+      "sourceRule": "The first option in the HTML source is correct. The application may shuffle display order at runtime."
+    }
+  ]
+}

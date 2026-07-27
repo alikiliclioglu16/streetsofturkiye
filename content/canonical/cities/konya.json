@@ -1,0 +1,165 @@
+{
+  "schemaVersion": "1.0",
+  "contentAuthority": "index-html-canonical",
+  "source": {
+    "file": "source/index.html",
+    "sha256": "ed74da639543bd1847d3e970f114e006ec9be8a8d441197a1968afca5a07f995",
+    "cityArray": "CITIES1",
+    "cityArrayIndex": 36
+  },
+  "id": "konya",
+  "order": 37,
+  "name": {
+    "en": "Konya",
+    "tr": null
+  },
+  "regionId": "central-anatolia",
+  "sourceRegionIndex": 3,
+  "coordinates": {
+    "longitude": 32.48,
+    "latitude": 37.87
+  },
+  "legacyGuideId": "nasreddin-hoca",
+  "stops": [
+    {
+      "id": "konya-stop-01",
+      "order": 1,
+      "sourceTupleIndex": 0,
+      "legacyArt": {
+        "type": "mevlana",
+        "params": {}
+      },
+      "category": "history",
+      "title": {
+        "en": "Mevlâna's Green Dome",
+        "tr": null
+      },
+      "description": {
+        "en": "Konya is the city of Mevlâna Rumi, the poet of love and kindness whose words are read all over the world: 'Come, come, whoever you are.' His museum's turquoise-green dome is Konya's heart.",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "💚",
+        "label": {
+          "en": "a turquoise dome pin",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "Look at this — amazing, right?",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    },
+    {
+      "id": "konya-stop-02",
+      "order": 2,
+      "sourceTupleIndex": 1,
+      "legacyArt": {
+        "type": "semazen",
+        "params": {}
+      },
+      "category": "craft",
+      "title": {
+        "en": "The Whirling Dervishes",
+        "tr": null
+      },
+      "description": {
+        "en": "In snow-white robes and tall hats, semazens whirl round and round like planets, one hand to the sky, one to the earth. It's a 750-year-old ceremony of peace — and UNESCO protects it!",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🌀",
+        "label": {
+          "en": "a whirling dervish figure",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "This is one of my favorite spots in all of Türkiye!",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    },
+    {
+      "id": "konya-stop-03",
+      "order": 3,
+      "sourceTupleIndex": 2,
+      "legacyArt": {
+        "type": "stall",
+        "params": {
+          "s": "ETLİ EKMEK",
+          "d": "pide",
+          "c": "#8A4038"
+        }
+      },
+      "category": "food",
+      "title": {
+        "en": "Etli Ekmek — the Meter-Long Flatbread",
+        "tr": null
+      },
+      "description": {
+        "en": "Konya's etli ekmek is a super-thin, super-LONG crispy flatbread with minced meat — some are longer than your dad is tall! Watch it slide out of the wood oven.",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "📏",
+        "label": {
+          "en": "a meter of etli ekmek",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "We made it! Take a good look around.",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    }
+  ],
+  "quiz": [
+    {
+      "id": "konya-quiz-01",
+      "order": 1,
+      "question": {
+        "en": "What do the semazen dervishes do?",
+        "tr": null
+      },
+      "options": [
+        {
+          "id": "konya-quiz-01-option-01",
+          "order": 1,
+          "text": {
+            "en": "Whirl round and round like planets",
+            "tr": null
+          },
+          "correct": true
+        },
+        {
+          "id": "konya-quiz-01-option-02",
+          "order": 2,
+          "text": {
+            "en": "Jump on trampolines",
+            "tr": null
+          },
+          "correct": false
+        },
+        {
+          "id": "konya-quiz-01-option-03",
+          "order": 3,
+          "text": {
+            "en": "Swim in circles",
+            "tr": null
+          },
+          "correct": false
+        }
+      ],
+      "sourceRule": "The first option in the HTML source is correct. The application may shuffle display order at runtime."
+    }
+  ]
+}

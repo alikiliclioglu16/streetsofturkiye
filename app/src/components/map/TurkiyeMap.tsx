@@ -4,7 +4,7 @@ import { useMemo } from 'react';
 import type { Locale } from '@/content/i18n';
 import { t } from '@/content/i18n';
 import type { CityIndexEntry } from '@/content/loaders/loadCityIndex';
-import type { Region } from '@/content/schemas/city';
+import type { CanonicalRegion as Region } from '@/content/schemas/canonical';
 
 const VIEW_WIDTH = 1000;
 const VIEW_HEIGHT = 420;
@@ -44,7 +44,7 @@ export function TurkiyeMap({
   onSelect,
 }: TurkiyeMapProps) {
   const regionColor = useMemo(() => {
-    const map = new Map(regions.map((region) => [region.id, region.color]));
+    const map = new Map(regions.map((region) => [region.id, region.sourceVisual.color]));
     return (regionId: string) => map.get(regionId) ?? '#16324F';
   }, [regions]);
 

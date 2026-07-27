@@ -1,0 +1,163 @@
+{
+  "schemaVersion": "1.0",
+  "contentAuthority": "index-html-canonical",
+  "source": {
+    "file": "source/index.html",
+    "sha256": "ed74da639543bd1847d3e970f114e006ec9be8a8d441197a1968afca5a07f995",
+    "cityArray": "CITIES2",
+    "cityArrayIndex": 25
+  },
+  "id": "hakkari",
+  "order": 66,
+  "name": {
+    "en": "Hakkari",
+    "tr": null
+  },
+  "regionId": "eastern-anatolia",
+  "sourceRegionIndex": 5,
+  "coordinates": {
+    "longitude": 43.74,
+    "latitude": 37.57
+  },
+  "legacyGuideId": "keloglan",
+  "stops": [
+    {
+      "id": "hakkari-stop-01",
+      "order": 1,
+      "sourceTupleIndex": 0,
+      "legacyArt": {
+        "type": "dag",
+        "params": {
+          "glacier": 1
+        }
+      },
+      "category": "nature",
+      "title": {
+        "en": "Cilo's Glaciers",
+        "tr": null
+      },
+      "description": {
+        "en": "The jagged Cilo-Sat mountains hide real GLACIERS — rivers of ancient ice — and turquoise glacier lakes. Türkiye's wildest, most dramatic peaks!",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🧊",
+        "label": {
+          "en": "a piece of glacier ice",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "Careful, don't blink — you might miss something beautiful!",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    },
+    {
+      "id": "hakkari-stop-02",
+      "order": 2,
+      "sourceTupleIndex": 1,
+      "legacyArt": {
+        "type": "kanyon",
+        "params": {}
+      },
+      "category": "nature",
+      "title": {
+        "en": "Rafting the Zap",
+        "tr": null
+      },
+      "description": {
+        "en": "The wild green Zap river rushes through deep gorges — in summer, brave rafters bounce down its foamy rapids. Splash!",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🛶",
+        "label": {
+          "en": "a rafting splash badge",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "Look at this — amazing, right?",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    },
+    {
+      "id": "hakkari-stop-03",
+      "order": 3,
+      "sourceTupleIndex": 2,
+      "legacyArt": {
+        "type": "loom",
+        "params": {}
+      },
+      "category": "craft",
+      "title": {
+        "en": "Herb Cheese & Mountain Kilims",
+        "tr": null
+      },
+      "description": {
+        "en": "Hakkari's shepherds weave bold-patterned kilims in mountain villages, and its famous otlu peynir cheese is flavored with wild herbs picked from high meadows.",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🌿",
+        "label": {
+          "en": "a wild mountain herb",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "This is one of my favorite spots in all of Türkiye!",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    }
+  ],
+  "quiz": [
+    {
+      "id": "hakkari-quiz-01",
+      "order": 1,
+      "question": {
+        "en": "What hides in Hakkari's Cilo mountains?",
+        "tr": null
+      },
+      "options": [
+        {
+          "id": "hakkari-quiz-01-option-01",
+          "order": 1,
+          "text": {
+            "en": "Real glaciers",
+            "tr": null
+          },
+          "correct": true
+        },
+        {
+          "id": "hakkari-quiz-01-option-02",
+          "order": 2,
+          "text": {
+            "en": "A chocolate factory",
+            "tr": null
+          },
+          "correct": false
+        },
+        {
+          "id": "hakkari-quiz-01-option-03",
+          "order": 3,
+          "text": {
+            "en": "Palm trees",
+            "tr": null
+          },
+          "correct": false
+        }
+      ],
+      "sourceRule": "The first option in the HTML source is correct. The application may shuffle display order at runtime."
+    }
+  ]
+}

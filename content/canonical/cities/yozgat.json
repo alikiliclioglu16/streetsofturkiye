@@ -1,0 +1,167 @@
+{
+  "schemaVersion": "1.0",
+  "contentAuthority": "index-html-canonical",
+  "source": {
+    "file": "source/index.html",
+    "sha256": "ed74da639543bd1847d3e970f114e006ec9be8a8d441197a1968afca5a07f995",
+    "cityArray": "CITIES1",
+    "cityArrayIndex": 31
+  },
+  "id": "yozgat",
+  "order": 32,
+  "name": {
+    "en": "Yozgat",
+    "tr": null
+  },
+  "regionId": "central-anatolia",
+  "sourceRegionIndex": 3,
+  "coordinates": {
+    "longitude": 34.8,
+    "latitude": 39.82
+  },
+  "legacyGuideId": "keloglan",
+  "stops": [
+    {
+      "id": "yozgat-stop-01",
+      "order": 1,
+      "sourceTupleIndex": 0,
+      "legacyArt": {
+        "type": "gol",
+        "params": {
+          "birds": 1
+        }
+      },
+      "category": "nature",
+      "title": {
+        "en": "Çamlık — Türkiye's First National Park",
+        "tr": null
+      },
+      "description": {
+        "en": "Yozgat Çamlık became Türkiye's very FIRST national park in 1958! Its cool pine forest is full of squirrels, birds and picnic spots.",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🐿️",
+        "label": {
+          "en": "a park squirrel",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "This is one of my favorite spots in all of Türkiye!",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    },
+    {
+      "id": "yozgat-stop-02",
+      "order": 2,
+      "sourceTupleIndex": 1,
+      "legacyArt": {
+        "type": "stall",
+        "params": {
+          "s": "ARABAŞI",
+          "d": "bowl",
+          "c": "#C96A2B"
+        }
+      },
+      "category": "food",
+      "title": {
+        "en": "Arabaşı Soup Night",
+        "tr": null
+      },
+      "description": {
+        "en": "On snowy nights, Yozgat families gather for arabaşı: peppery hot chicken soup eaten with slippery jelly-like dough pieces. Catching the dough with your spoon is half the fun!",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🥄",
+        "label": {
+          "en": "a slippery dough cube",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "We made it! Take a good look around.",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    },
+    {
+      "id": "yozgat-stop-03",
+      "order": 3,
+      "sourceTupleIndex": 2,
+      "legacyArt": {
+        "type": "saatkule",
+        "params": {}
+      },
+      "category": "history",
+      "title": {
+        "en": "The Clock Tower",
+        "tr": null
+      },
+      "description": {
+        "en": "Yozgat's stone clock tower has told the town the time for over a century, watching the bazaars below.",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🕰️",
+        "label": {
+          "en": "a tick-tock souvenir",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "Every traveler stops here — now it's your turn!",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    }
+  ],
+  "quiz": [
+    {
+      "id": "yozgat-quiz-01",
+      "order": 1,
+      "question": {
+        "en": "What was Yozgat Çamlık's big first in 1958?",
+        "tr": null
+      },
+      "options": [
+        {
+          "id": "yozgat-quiz-01-option-01",
+          "order": 1,
+          "text": {
+            "en": "Türkiye's first national park",
+            "tr": null
+          },
+          "correct": true
+        },
+        {
+          "id": "yozgat-quiz-01-option-02",
+          "order": 2,
+          "text": {
+            "en": "First pizza place",
+            "tr": null
+          },
+          "correct": false
+        },
+        {
+          "id": "yozgat-quiz-01-option-03",
+          "order": 3,
+          "text": {
+            "en": "First rocket launch",
+            "tr": null
+          },
+          "correct": false
+        }
+      ],
+      "sourceRule": "The first option in the HTML source is correct. The application may shuffle display order at runtime."
+    }
+  ]
+}

@@ -1,0 +1,167 @@
+{
+  "schemaVersion": "1.0",
+  "contentAuthority": "index-html-canonical",
+  "source": {
+    "file": "source/index.html",
+    "sha256": "ed74da639543bd1847d3e970f114e006ec9be8a8d441197a1968afca5a07f995",
+    "cityArray": "CITIES1",
+    "cityArrayIndex": 30
+  },
+  "id": "cankiri",
+  "order": 31,
+  "name": {
+    "en": "Çankırı",
+    "tr": null
+  },
+  "regionId": "central-anatolia",
+  "sourceRegionIndex": 3,
+  "coordinates": {
+    "longitude": 33.62,
+    "latitude": 40.6
+  },
+  "legacyGuideId": "nasreddin-hoca",
+  "stops": [
+    {
+      "id": "cankiri-stop-01",
+      "order": 1,
+      "sourceTupleIndex": 0,
+      "legacyArt": {
+        "type": "cave",
+        "params": {
+          "salt": 1
+        }
+      },
+      "category": "nature",
+      "title": {
+        "en": "The Great Salt Cave",
+        "tr": null
+      },
+      "description": {
+        "en": "Under Çankırı lies a glittering salt mine used for 5,000 years! Walk through halls of pink-white salt crystal — there's even a salt therapy room and sculptures made of salt.",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🧂",
+        "label": {
+          "en": "a salt crystal",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "Look at this — amazing, right?",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    },
+    {
+      "id": "cankiri-stop-02",
+      "order": 2,
+      "sourceTupleIndex": 1,
+      "legacyArt": {
+        "type": "dag",
+        "params": {
+          "ski": 1
+        }
+      },
+      "category": "nature",
+      "title": {
+        "en": "Ilgaz Mountain",
+        "tr": null
+      },
+      "description": {
+        "en": "Ilgaz's pine forests are green paradise in summer and a snowy ski playground in winter. A famous Turkish song is written about this mountain!",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🎿",
+        "label": {
+          "en": "an Ilgaz snowflake",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "This is one of my favorite spots in all of Türkiye!",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    },
+    {
+      "id": "cankiri-stop-03",
+      "order": 3,
+      "sourceTupleIndex": 2,
+      "legacyArt": {
+        "type": "muzik",
+        "params": {
+          "kind": "saz"
+        }
+      },
+      "category": "craft",
+      "title": {
+        "en": "The Yaran Gatherings",
+        "tr": null
+      },
+      "description": {
+        "en": "On winter nights, Çankırı friends gather for 'Yaran' evenings — centuries-old meetings with music, games and stories that teach kindness and respect.",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🎶",
+        "label": {
+          "en": "a friendship song",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "We made it! Take a good look around.",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    }
+  ],
+  "quiz": [
+    {
+      "id": "cankiri-quiz-01",
+      "order": 1,
+      "question": {
+        "en": "What has been mined under Çankırı for 5,000 years?",
+        "tr": null
+      },
+      "options": [
+        {
+          "id": "cankiri-quiz-01-option-01",
+          "order": 1,
+          "text": {
+            "en": "Salt",
+            "tr": null
+          },
+          "correct": true
+        },
+        {
+          "id": "cankiri-quiz-01-option-02",
+          "order": 2,
+          "text": {
+            "en": "Diamonds",
+            "tr": null
+          },
+          "correct": false
+        },
+        {
+          "id": "cankiri-quiz-01-option-03",
+          "order": 3,
+          "text": {
+            "en": "Cheese",
+            "tr": null
+          },
+          "correct": false
+        }
+      ],
+      "sourceRule": "The first option in the HTML source is correct. The application may shuffle display order at runtime."
+    }
+  ]
+}

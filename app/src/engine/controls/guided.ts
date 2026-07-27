@@ -1,4 +1,4 @@
-import type { Vec3 } from '@/content/schemas/city';
+import type { Vec3 } from '@/content/schemas/scene';
 import { distance2, toPoint2, type Point2 } from '@/engine/controls/movement';
 
 export interface GuidedState {

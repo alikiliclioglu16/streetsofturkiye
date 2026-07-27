@@ -1,0 +1,168 @@
+{
+  "schemaVersion": "1.0",
+  "contentAuthority": "index-html-canonical",
+  "source": {
+    "file": "source/index.html",
+    "sha256": "ed74da639543bd1847d3e970f114e006ec9be8a8d441197a1968afca5a07f995",
+    "cityArray": "CITIES2",
+    "cityArrayIndex": 28
+  },
+  "id": "bingol",
+  "order": 69,
+  "name": {
+    "en": "Bingöl",
+    "tr": null
+  },
+  "regionId": "eastern-anatolia",
+  "sourceRegionIndex": 5,
+  "coordinates": {
+    "longitude": 40.5,
+    "latitude": 38.88
+  },
+  "legacyGuideId": "nasreddin-hoca",
+  "stops": [
+    {
+      "id": "bingol-stop-01",
+      "order": 1,
+      "sourceTupleIndex": 0,
+      "legacyArt": {
+        "type": "gol",
+        "params": {
+          "float": 1
+        }
+      },
+      "category": "nature",
+      "title": {
+        "en": "The Floating Islands",
+        "tr": null
+      },
+      "description": {
+        "en": "At Solhan, little green islands FLOAT on a lake and drift with the wind — you might see one sail past! One of nature's rarest tricks.",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🏝️",
+        "label": {
+          "en": "a floating island sketch",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "We made it! Take a good look around.",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    },
+    {
+      "id": "bingol-stop-02",
+      "order": 2,
+      "sourceTupleIndex": 1,
+      "legacyArt": {
+        "type": "dag",
+        "params": {
+          "glacier": 1
+        }
+      },
+      "category": "nature",
+      "title": {
+        "en": "A Thousand Lakes",
+        "tr": null
+      },
+      "description": {
+        "en": "Bingöl means 'a thousand lakes' — its high mountains cradle countless sparkling glacier lakes. Watching sunrise from Kalecik hill is a local tradition!",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🌄",
+        "label": {
+          "en": "a mountain sunrise",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "Every traveler stops here — now it's your turn!",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    },
+    {
+      "id": "bingol-stop-03",
+      "order": 3,
+      "sourceTupleIndex": 2,
+      "legacyArt": {
+        "type": "agac",
+        "params": {
+          "kind": "pistachio",
+          "s": "BİNGÖL BALI"
+        }
+      },
+      "category": "food",
+      "title": {
+        "en": "Mountain Honey",
+        "tr": null
+      },
+      "description": {
+        "en": "Bees roam Bingöl's untouched flower meadows to make prize-winning honey — thick, golden and smelling of a thousand blossoms.",
+        "tr": null
+      },
+      "reward": {
+        "emoji": "🍯",
+        "label": {
+          "en": "golden Bingöl honey",
+          "tr": null
+        }
+      },
+      "guideLine": {
+        "text": {
+          "en": "See? Türkiye is full of wonders!",
+          "tr": null
+        },
+        "source": "global-fallback-SAYS"
+      }
+    }
+  ],
+  "quiz": [
+    {
+      "id": "bingol-quiz-01",
+      "order": 1,
+      "question": {
+        "en": "What is amazing about the islands at Solhan?",
+        "tr": null
+      },
+      "options": [
+        {
+          "id": "bingol-quiz-01-option-01",
+          "order": 1,
+          "text": {
+            "en": "They float and drift with the wind",
+            "tr": null
+          },
+          "correct": true
+        },
+        {
+          "id": "bingol-quiz-01-option-02",
+          "order": 2,
+          "text": {
+            "en": "They are made of candy",
+            "tr": null
+          },
+          "correct": false
+        },
+        {
+          "id": "bingol-quiz-01-option-03",
+          "order": 3,
+          "text": {
+            "en": "They fly",
+            "tr": null
+          },
+          "correct": false
+        }
+      ],
+      "sourceRule": "The first option in the HTML source is correct. The application may shuffle display order at runtime."
+    }
+  ]
+}

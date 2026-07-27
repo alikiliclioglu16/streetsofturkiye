@@ -1,0 +1,427 @@
+{
+  "schemaVersion": "2.0.0",
+  "id": "istanbul",
+  "contentRef": {
+    "cityId": "istanbul"
+  },
+  "canonicalSource": {
+    "sha256": "ed74da639543bd1847d3e970f114e006ec9be8a8d441197a1968afca5a07f995"
+  },
+  "environment": {
+    "kitId": "marmara-urban-coastal",
+    "timeOfDay": "midday",
+    "ambientAudioId": "ambient_marmara",
+    "skyPreset": [
+      "#8FD2F2",
+      "#CDEFFA"
+    ],
+    "groundColor": "#C9B27E"
+  },
+  "guide": {
+    "assetId": "character_nasreddin_hoca_base"
+  },
+  "spawn": {
+    "position": [
+      0,
+      0,
+      0
+    ],
+    "rotation": [
+      0,
+      3.141592653589793,
+      0
+    ],
+    "scale": [
+      1,
+      1,
+      1
+    ]
+  },
+  "route": {
+    "mode": "guided-loop",
+    "points": [
+      [
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        -2
+      ],
+      [
+        5.5,
+        0,
+        -16
+      ],
+      [
+        6.8,
+        0,
+        -30
+      ],
+      [
+        3,
+        0,
+        -44
+      ],
+      [
+        -3.1,
+        0,
+        -58
+      ]
+    ],
+    "bounds": [
+      [
+        -20,
+        0,
+        10
+      ],
+      [
+        20,
+        0,
+        10
+      ],
+      [
+        20,
+        0,
+        -76
+      ],
+      [
+        -20,
+        0,
+        -76
+      ]
+    ]
+  },
+  "intro": {
+    "cameraSequenceId": null,
+    "skippable": true
+  },
+  "hotspots": [
+    {
+      "id": "istanbul-hotspot-01",
+      "order": 1,
+      "contentRef": {
+        "stopId": "istanbul-stop-01"
+      },
+      "sceneStatus": "ready",
+      "assetId": "city_istanbul_iznik_tile_panel",
+      "assetStatus": "commissioned",
+      "transform": {
+        "position": [
+          0,
+          0,
+          -8
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "triggerRadius": 4.5,
+      "camera": {
+        "position": [
+          3.2,
+          3,
+          -1.5
+        ],
+        "target": [
+          0,
+          1.4,
+          -8
+        ],
+        "durationMs": 900
+      },
+      "interaction": {
+        "type": "inspect-and-find",
+        "mechanics": {
+          "targetId": "istanbul-stop-01-target",
+          "hintAfterAttempts": 2,
+          "decoyStopIds": [
+            "istanbul-stop-02",
+            "istanbul-stop-03"
+          ]
+        },
+        "gameplayCopy": {
+          "instruction": {
+            "en": "Find {reward}.",
+            "tr": null
+          }
+        }
+      },
+      "rewardAssetId": "collectible_istanbul_iznik_tile",
+      "audio": {
+        "onSuccessId": "sfx_reward_chime"
+      }
+    },
+    {
+      "id": "istanbul-hotspot-02",
+      "order": 2,
+      "contentRef": {
+        "stopId": "istanbul-stop-02"
+      },
+      "sceneStatus": "ready",
+      "assetId": "city_istanbul_galata_tower",
+      "assetStatus": "commissioned",
+      "transform": {
+        "position": [
+          5.5,
+          0,
+          -22
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "triggerRadius": 4.5,
+      "camera": {
+        "position": [
+          8.7,
+          3,
+          -15.5
+        ],
+        "target": [
+          5.5,
+          1.4,
+          -22
+        ],
+        "durationMs": 900
+      },
+      "interaction": {
+        "type": "inspect-and-find",
+        "mechanics": {
+          "targetId": "istanbul-stop-02-target",
+          "hintAfterAttempts": 2,
+          "decoyStopIds": [
+            "istanbul-stop-01",
+            "istanbul-stop-03"
+          ]
+        },
+        "gameplayCopy": {
+          "instruction": {
+            "en": "Find {reward}.",
+            "tr": null
+          }
+        }
+      },
+      "rewardAssetId": "collectible_istanbul_legend_wings",
+      "audio": {
+        "onSuccessId": "sfx_reward_chime"
+      }
+    },
+    {
+      "id": "istanbul-hotspot-03",
+      "order": 3,
+      "contentRef": {
+        "stopId": "istanbul-stop-03"
+      },
+      "sceneStatus": "ready",
+      "assetId": "graybox_bazaar",
+      "assetStatus": "graybox",
+      "transform": {
+        "position": [
+          6.8,
+          0,
+          -36
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "triggerRadius": 4.5,
+      "camera": {
+        "position": [
+          10,
+          3,
+          -29.5
+        ],
+        "target": [
+          6.8,
+          1.4,
+          -36
+        ],
+        "durationMs": 900
+      },
+      "interaction": {
+        "type": "inspect-and-find",
+        "mechanics": {
+          "targetId": "istanbul-stop-03-target",
+          "hintAfterAttempts": 2,
+          "decoyStopIds": [
+            "istanbul-stop-01",
+            "istanbul-stop-02"
+          ]
+        },
+        "gameplayCopy": {
+          "instruction": {
+            "en": "Find {reward}.",
+            "tr": null
+          }
+        }
+      },
+      "rewardAssetId": "collectible_istanbul_3",
+      "audio": {
+        "onSuccessId": "sfx_reward_chime"
+      }
+    },
+    {
+      "id": "istanbul-hotspot-04",
+      "order": 4,
+      "contentRef": {
+        "stopId": "istanbul-stop-04"
+      },
+      "sceneStatus": "ready",
+      "assetId": "graybox_simit",
+      "assetStatus": "graybox",
+      "transform": {
+        "position": [
+          3,
+          0,
+          -50
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "triggerRadius": 4.5,
+      "camera": {
+        "position": [
+          6.2,
+          3,
+          -43.5
+        ],
+        "target": [
+          3,
+          1.4,
+          -50
+        ],
+        "durationMs": 900
+      },
+      "interaction": {
+        "type": "sequence-select",
+        "mechanics": {
+          "targetId": "istanbul-stop-04-target",
+          "hintAfterAttempts": 2,
+          "decoyStopIds": [
+            "istanbul-stop-01",
+            "istanbul-stop-02"
+          ]
+        },
+        "gameplayCopy": {
+          "instruction": {
+            "en": "Find {reward}.",
+            "tr": null
+          }
+        }
+      },
+      "rewardAssetId": "collectible_istanbul_4",
+      "audio": {
+        "onSuccessId": "sfx_reward_chime"
+      }
+    },
+    {
+      "id": "istanbul-hotspot-05",
+      "order": 5,
+      "contentRef": {
+        "stopId": "istanbul-stop-05"
+      },
+      "sceneStatus": "ready",
+      "assetId": "city_istanbul_ferry",
+      "assetStatus": "commissioned",
+      "transform": {
+        "position": [
+          -3.1,
+          0,
+          -64
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "triggerRadius": 4.5,
+      "camera": {
+        "position": [
+          0.10000000000000009,
+          3,
+          -57.5
+        ],
+        "target": [
+          -3.1,
+          1.4,
+          -64
+        ],
+        "durationMs": 900
+      },
+      "interaction": {
+        "type": "observe-and-answer",
+        "mechanics": {
+          "targetId": "istanbul-stop-05-target",
+          "hintAfterAttempts": 2,
+          "decoyStopIds": [
+            "istanbul-stop-01",
+            "istanbul-stop-02"
+          ]
+        },
+        "gameplayCopy": {
+          "instruction": {
+            "en": "Find {reward}.",
+            "tr": null
+          }
+        }
+      },
+      "rewardAssetId": "collectible_istanbul_ferry_token",
+      "audio": {
+        "onSuccessId": "sfx_reward_chime"
+      }
+    }
+  ],
+  "quizPresentation": {
+    "shuffleOptions": true
+  },
+  "rewards": {
+    "cityStarId": "star_istanbul",
+    "collectibleAssetIds": [
+      "collectible_istanbul_iznik_tile",
+      "collectible_istanbul_legend_wings",
+      "collectible_istanbul_3",
+      "collectible_istanbul_4",
+      "collectible_istanbul_ferry_token"
+    ]
+  },
+  "estimatedMinutes": 5
+}
