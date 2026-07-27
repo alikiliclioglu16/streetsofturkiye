@@ -10,73 +10,12 @@
  */
 import fs from 'node:fs';
 import path from 'node:path';
-
-const source = process.argv[2] ?? '../asset-manifests/pilot-assets.csv';
-const target = path.resolve('src/engine/assets/generated-manifest.ts');
-
-/** Minimal RFC-4180 reader: the manifest has quoted fields containing commas. */
-function parseCsv(text) {
-  const rows = [];
-  let row = [];
-  let field = '';
-  let quoted = false;
-
-  for (let i = 0; i < text.length; i += 1) {
-    const char = text[i];
-    if (quoted) {
-      if (char === '"') {
-        if (text[i + 1] === '"') {
-          field += '"';
-          i += 1;
-        } else {
-          quoted = false;
-        }
-      } else {
-        field += char;
-      }
-      continue;
-    }
-    if (char === '"') {
-      quoted = true;
-    } else if (char === ',') {
-      row.push(field);
-      field = '';
-    } else if (char === '\n') {
-      row.push(field);
-      rows.push(row);
-      row = [];
-      field = '';
-    } else if (char !== '\r') {
-      field += char;
-    }
-  }
-  if (field.length > 0 || row.length > 0) {
-    row.push(field);
-    rows.push(row);
-  }
-  return rows.filter((entry) => entry.some((cell) => cell.trim().length > 0));
-}
+import { parseCsv, parseDimensions } from './lib/manifest.mjs';
 
 const SHAPES = new Set(['box', 'cylinder', 'sphere', 'plane']);
 
-/**
- * The manifest states dimensions as width x depth x height in metres.
- * The engine works in Three.js order (x, y, z) = width, height, depth.
- */
-function parseDimensions(value, fallbackShape) {
-  const parts = value.trim().toLowerCase().split('x');
-  if (parts.length !== 3) {
-    // "modular" kits have no single footprint; use a neutral module block.
-    return [2, 2, 2];
-  }
-  const [width, depth, height] = parts.map((part) => Number.parseFloat(part));
-  if ([width, depth, height].some((n) => !Number.isFinite(n))) {
-    return [2, 2, 2];
-  }
-  // A plane fallback is a thin panel standing upright.
-  if (fallbackShape === 'plane') return [width, height, Math.max(depth, 0.05)];
-  return [width, height, depth];
-}
+const source = process.argv[2] ?? '../asset-manifests/pilot-assets.csv';
+const target = path.resolve('src/engine/assets/generated-manifest.ts');
 
 const raw = fs.readFileSync(path.resolve(source), 'utf8').replace(/^\uFEFF/, '');
 const [header, ...rows] = parseCsv(raw);

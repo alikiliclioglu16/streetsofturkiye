@@ -42,6 +42,15 @@ export const sceneHotspotSchema = z.object({
   assetId: z.string(),
   assetStatus: z.enum(['commissioned', 'graybox']),
   transform: transformSchema,
+  /**
+   * Solid footprint on the ground plane, half-extents in metres. The player
+   * walks around it. Derived from the asset manifest, so a stop's collider
+   * always matches whatever will eventually stand there.
+   */
+  collider: z.object({
+    halfWidth: z.number().positive(),
+    halfDepth: z.number().positive(),
+  }),
   triggerRadius: z.number().positive(),
   camera: z.object({
     position: vec3Schema,

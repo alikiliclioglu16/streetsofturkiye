@@ -80,3 +80,83 @@ export function stepPosition(
 export function distance2(a: Point2, b: Point2): number {
   return Math.hypot(a.x - b.x, a.z - b.z);
 }
+
+/** Axis-aligned solid footprint on the ground plane. */
+export interface RectCollider {
+  readonly x: number;
+  readonly z: number;
+  readonly halfWidth: number;
+  readonly halfDepth: number;
+}
+
+/** Roughly the guide's shoulder width, so he stops at a wall rather than in it. */
+export const PLAYER_RADIUS = 0.45;
+
+export function isInsideCollider(point: Point2, collider: RectCollider, padding = PLAYER_RADIUS): boolean {
+  return (
+    Math.abs(point.x - collider.x) <= collider.halfWidth + padding &&
+    Math.abs(point.z - collider.z) <= collider.halfDepth + padding
+  );
+}
+
+export function blockedBy(
+  point: Point2,
+  colliders: readonly RectCollider[],
+  padding = PLAYER_RADIUS,
+): RectCollider | null {
+  for (const collider of colliders) {
+    if (isInsideCollider(point, collider, padding)) return collider;
+  }
+  return null;
+}
+
+/**
+ * Gentle collision, as the product brief asks for: the player never passes
+ * through a building, but never gets stuck on one either. A blocked move is
+ * retried one axis at a time so walking into a wall slides along it.
+ */
+export function resolveMovement(
+  from: Point2,
+  to: Point2,
+  bounds: readonly Vec3[],
+  colliders: readonly RectCollider[],
+): Point2 {
+  const legal = (candidate: Point2) =>
+    isInsideBounds(candidate, bounds) && blockedBy(candidate, colliders) === null;
+
+  if (legal(to)) return to;
+
+  const slideX = { x: to.x, z: from.z };
+  if (legal(slideX)) return slideX;
+
+  const slideZ = { x: from.x, z: to.z };
+  if (legal(slideZ)) return slideZ;
+
+  return from;
+}
+
+/** Manual movement with both the play-area boundary and solid objects applied. */
+export function stepWithCollision(
+  position: Point2,
+  input: MoveInput,
+  heading: number,
+  delta: number,
+  bounds: readonly Vec3[],
+  colliders: readonly RectCollider[],
+): Point2 {
+  const magnitude = Math.hypot(input.forward, input.strafe);
+  if (magnitude < 0.001) return position;
+
+  const forward = input.forward / magnitude;
+  const strafe = input.strafe / magnitude;
+  const distance = MOVE_SPEED * delta;
+  const sin = Math.sin(heading);
+  const cos = Math.cos(heading);
+
+  const target: Point2 = {
+    x: position.x + (forward * sin + strafe * cos) * distance,
+    z: position.z + (forward * cos - strafe * sin) * distance,
+  };
+
+  return resolveMovement(position, target, bounds, colliders);
+}

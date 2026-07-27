@@ -41,6 +41,7 @@ export interface RuntimeHotspot {
   assetStatus: 'commissioned' | 'graybox';
   transform: Transform;
   triggerRadius: number;
+  collider: { halfWidth: number; halfDepth: number };
   camera: { position: Vec3; target: Vec3; durationMs: number };
   interaction: {
     type: InteractionType;
@@ -131,6 +132,7 @@ function composeHotspot(
     assetStatus: hotspot.assetStatus,
     transform: hotspot.transform,
     triggerRadius: hotspot.triggerRadius,
+    collider: hotspot.collider,
     camera: hotspot.camera,
     interaction: {
       type: hotspot.interaction.type,

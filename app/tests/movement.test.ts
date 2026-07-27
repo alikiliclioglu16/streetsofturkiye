@@ -1,6 +1,13 @@
 import { describe, expect, it } from 'vitest';
 import { loadComposedCity } from './helpers';
-import { clampToBounds, distance2, isInsideBounds, stepPosition } from '@/engine/controls/movement';
+import {
+  blockedBy,
+  clampToBounds,
+  distance2,
+  isInsideBounds,
+  stepPosition,
+  stepWithCollision,
+} from '@/engine/controls/movement';
 import { advanceGuided, createGuidedState, guidedPauseHotspot } from '@/engine/controls/guided';
 import { buildScene } from '@/engine/scene/buildScene';
 import { resolveAsset } from '@/engine/assets/registry';
@@ -192,5 +199,86 @@ describe('guided mode stop behaviour', () => {
       state = advanceGuided(state, city.route.points, 1 / 60, blocked !== null);
     }
     expect(state.finished).toBe(true);
+  });
+});
+
+describe('solid objects', () => {
+  const scene = loadComposedCity('istanbul');
+  const colliders = scene.hotspots.map((hotspot) => ({
+    x: hotspot.transform.position[0],
+    z: hotspot.transform.position[2],
+    halfWidth: hotspot.collider.halfWidth,
+    halfDepth: hotspot.collider.halfDepth,
+  }));
+
+  it('gives every stop a footprint', () => {
+    for (const hotspot of scene.hotspots) {
+      expect(hotspot.collider.halfWidth, `${hotspot.id} width`).toBeGreaterThan(0);
+      expect(hotspot.collider.halfDepth, `${hotspot.id} depth`).toBeGreaterThan(0);
+    }
+  });
+
+  it('refuses to place the player inside an object', () => {
+    for (const collider of colliders) {
+      expect(blockedBy({ x: collider.x, z: collider.z }, colliders)).not.toBeNull();
+    }
+  });
+
+  it('cannot be walked through, however long the player pushes', () => {
+    // Aim straight at Galata Tower and hold forward.
+    const galata = colliders[1]!;
+    let position = { x: galata.x, z: galata.z + 14 };
+    for (let frame = 0; frame < 600; frame += 1) {
+      position = stepWithCollision(position, { forward: 1, strafe: 0 }, 0, 1 / 60, scene.route.bounds, colliders);
+      expect(blockedBy(position, colliders), `entered a solid object at frame ${frame}`).toBeNull();
+    }
+    // Stopped in front of it rather than passing through.
+    expect(position.z).toBeGreaterThan(galata.z);
+  });
+
+  it('slides along a wall instead of sticking to it', () => {
+    const galata = colliders[1]!;
+    const start = { x: galata.x, z: galata.z + galata.halfDepth + 0.6 };
+    // Pushing diagonally into the face should still make lateral progress.
+    let position = start;
+    for (let frame = 0; frame < 120; frame += 1) {
+      position = stepWithCollision(
+        position,
+        { forward: 1, strafe: 1 },
+        0,
+        1 / 60,
+        scene.route.bounds,
+        colliders,
+      );
+    }
+    expect(Math.abs(position.x - start.x)).toBeGreaterThan(1);
+    expect(blockedBy(position, colliders)).toBeNull();
+  });
+
+  it('keeps every guided waypoint outside the objects', () => {
+    for (const point of scene.route.points) {
+      expect(blockedBy({ x: point[0], z: point[2] }, colliders), `waypoint ${point}`).toBeNull();
+    }
+  });
+
+  it('leaves room to stand inside every trigger ring', () => {
+    for (const hotspot of scene.hotspots) {
+      const reach = Math.max(hotspot.collider.halfWidth, hotspot.collider.halfDepth);
+      expect(hotspot.triggerRadius, hotspot.id).toBeGreaterThan(reach);
+    }
+  });
+
+  it('never lets two trigger rings claim the same ground', () => {
+    for (let i = 0; i < scene.hotspots.length; i += 1) {
+      for (let j = i + 1; j < scene.hotspots.length; j += 1) {
+        const a = scene.hotspots[i]!;
+        const b = scene.hotspots[j]!;
+        const gap = Math.hypot(
+          a.transform.position[0] - b.transform.position[0],
+          a.transform.position[2] - b.transform.position[2],
+        );
+        expect(gap, `${a.id} / ${b.id}`).toBeGreaterThanOrEqual(a.triggerRadius + b.triggerRadius);
+      }
+    }
   });
 });

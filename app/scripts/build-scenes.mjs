@@ -11,8 +11,17 @@
  */
 import fs from 'node:fs';
 import path from 'node:path';
+import {
+  DEFAULT_GRAYBOX_DIMENSIONS,
+  GRAYBOX_DIMENSIONS,
+  readManifest,
+} from './lib/manifest.mjs';
+
 
 const ROOT = path.resolve('..');
+const manifestById = new Map(
+  readManifest(path.join(ROOT, 'asset-manifests/pilot-assets.csv')).map((entry) => [entry.id, entry]),
+);
 const CANONICAL = path.join(ROOT, 'content/canonical');
 const OUT = path.join(ROOT, 'content/scenes');
 
@@ -70,27 +79,57 @@ const INTERACTION_BY_CATEGORY = {
   nature: 'observe-and-answer',
 };
 
-const TRIGGER_RADIUS = 4.5;
-
 /**
- * How far in front of a stop the guided walk parks.
+ * Geometry is derived per object rather than from one global number.
  *
- * This MUST stay inside `TRIGGER_RADIUS`. It used to be 6 m, which happened to
- * work for every stop except the last one: the walk passed within range of the
- * intermediate stops on its way to the *next* waypoint, but the final waypoint
- * has no next leg, so the route ended 6 m short and the last stop of every city
- * could never be reached in guided mode.
+ * A 9 m wide tower and a 1.6 m tile panel cannot share an approach distance:
+ * park 3 m from the tower's centre and you are standing inside it. So the
+ * collider comes from the manifest footprint, the guided walk parks just
+ * outside that collider, and the trigger ring sits outside the parking spot.
+ *
+ *   collider halfDepth ──> approach = halfDepth + CLEARANCE
+ *                      ──> trigger  = approach + TRIGGER_MARGIN
  */
-const APPROACH_OFFSET = 3;
+const CLEARANCE = 1.5;
+const TRIGGER_MARGIN = 2.5;
+const STOP_SPACING = 18;
+
+/** Footprint of whatever will stand at this stop, in metres. */
+function footprintFor(assetId, artType) {
+  const manifest = manifestById.get(assetId);
+  if (manifest) return manifest.dimensions;
+  return GRAYBOX_DIMENSIONS[artType] ?? DEFAULT_GRAYBOX_DIMENSIONS;
+}
+
+function geometryFor(assetId, artType) {
+  const [width, , depth] = footprintFor(assetId, artType);
+  const halfWidth = Math.max(width, 0.4) / 2;
+  const halfDepth = Math.max(depth, 0.4) / 2;
+
+  // Approached from the front, so parking distance follows the depth.
+  const approach = Math.round((halfDepth + CLEARANCE) * 100) / 100;
+
+  /**
+   * The ring must clear the widest side, not just the depth. The 20 m Bosphorus
+   * ferry was the case that exposed this: sized on depth alone its trigger ring
+   * sat entirely inside the hull, so the player could never stand in it.
+   */
+  const reach = Math.max(halfWidth, halfDepth);
+  const triggerRadius = Math.round((Math.max(reach, approach) + TRIGGER_MARGIN) * 100) / 100;
+  return { halfWidth, halfDepth, approach, triggerRadius };
+}
 
 /** Deterministic S-curve layout; the same city always lays out identically. */
-function layout(stopCount) {
-  const spacing = 14;
+function layout(stopCount, approaches) {
+  const spacing = STOP_SPACING;
   const stopPositions = [];
   for (let i = 0; i < stopCount; i += 1) {
     stopPositions.push([Math.round(Math.sin(i * 0.9) * 7 * 10) / 10, 0, -8 - i * spacing]);
   }
-  const route = [[0, 0, 0], ...stopPositions.map(([x, , z]) => [x, 0, z + APPROACH_OFFSET])];
+  const route = [
+    [0, 0, 0],
+    ...stopPositions.map(([x, , z], i) => [x, 0, Math.round((z + approaches[i]) * 100) / 100]),
+  ];
   const minZ = -8 - (stopCount - 1) * spacing - 12;
   return {
     stopPositions,
@@ -108,13 +147,22 @@ function buildScene(canonical) {
   const region = regions.find((entry) => entry.id === canonical.regionId);
   if (!region) throw new Error(`${canonical.id}: unknown region ${canonical.regionId}`);
 
-  const { stopPositions, route, bounds } = layout(canonical.stops.length);
+  const geometry = canonical.stops.map((stop) => {
+    const artType = stop.legacyArt.type;
+    const assetId = COMMISSIONED_ASSETS[`${canonical.id}:${artType}`] ?? `graybox_${artType}`;
+    return geometryFor(assetId, artType);
+  });
+  const { stopPositions, route, bounds } = layout(
+    canonical.stops.length,
+    geometry.map((entry) => entry.approach),
+  );
 
   const hotspots = canonical.stops.map((stop, index) => {
     const artType = stop.legacyArt.type;
     const assetId = COMMISSIONED_ASSETS[`${canonical.id}:${artType}`] ?? `graybox_${artType}`;
     const rewardAssetId = COMMISSIONED_REWARDS[stop.id] ?? `collectible_${canonical.id}_${stop.order}`;
     const position = stopPositions[index];
+    const { halfWidth, halfDepth, triggerRadius } = geometry[index];
 
     // Decoys are referenced by canonical stop id; their labels are resolved at
     // runtime so no canonical string is copied into this file.
@@ -135,7 +183,9 @@ function buildScene(canonical) {
       assetId,
       assetStatus: COMMISSIONED_ASSETS[`${canonical.id}:${artType}`] ? 'commissioned' : 'graybox',
       transform: { position, rotation: [0, 0, 0], scale: [1, 1, 1] },
-      triggerRadius: TRIGGER_RADIUS,
+      /** Solid footprint. The player walks around this, not through it. */
+      collider: { halfWidth, halfDepth },
+      triggerRadius,
       camera: {
         position: [position[0] + 3.2, 3.0, position[2] + 6.5],
         target: [position[0], 1.4, position[2]],

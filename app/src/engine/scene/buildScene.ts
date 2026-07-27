@@ -2,6 +2,7 @@ import type { RuntimeCity as CityDefinition } from '@/content/compose';
 import type { Vec3 } from '@/content/schemas/scene';
 import { kitAssetId, resolveAsset, type QualityTier, type ResolvedAsset } from '@/engine/assets/registry';
 import { orderedHotspots } from '@/engine/interactions/machine';
+import type { RectCollider } from '@/engine/controls/movement';
 
 export interface SceneHotspot {
   readonly id: string;
@@ -11,6 +12,7 @@ export interface SceneHotspot {
   readonly rotation: Vec3;
   readonly scale: Vec3;
   readonly triggerRadius: number;
+  readonly collider: { halfWidth: number; halfDepth: number };
   readonly camera: { position: Vec3; target: Vec3; durationMs: number };
 }
 
@@ -23,6 +25,7 @@ export interface SceneGround {
 
 export interface SceneDescription {
   readonly cityId: string;
+  readonly colliders: readonly RectCollider[];
   readonly hotspots: readonly SceneHotspot[];
   readonly routePoints: readonly Vec3[];
   readonly bounds: readonly Vec3[];
@@ -58,6 +61,7 @@ export function buildScene(city: CityDefinition, quality: QualityTier): SceneDes
     rotation: hotspot.transform.rotation,
     scale: hotspot.transform.scale,
     triggerRadius: hotspot.triggerRadius,
+    collider: hotspot.collider,
     camera: hotspot.camera,
   }));
 
@@ -79,8 +83,16 @@ export function buildScene(city: CityDefinition, quality: QualityTier): SceneDes
     .filter((asset) => asset.isUnknown)
     .map((asset) => asset.entry.id);
 
+  const colliders: RectCollider[] = hotspots.map((hotspot) => ({
+    x: hotspot.position[0],
+    z: hotspot.position[2],
+    halfWidth: hotspot.collider.halfWidth,
+    halfDepth: hotspot.collider.halfDepth,
+  }));
+
   return {
     cityId: city.id,
+    colliders,
     hotspots,
     routePoints: city.route.points,
     bounds: city.route.bounds,

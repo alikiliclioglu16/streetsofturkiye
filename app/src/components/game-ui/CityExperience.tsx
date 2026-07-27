@@ -145,13 +145,25 @@ export function CityExperience({ cityId }: { cityId: string }) {
 
   const onNearestChange = useCallback(
     (hotspotId: string | null) => {
-      dispatchInteraction(
-        hotspotId
-          ? { type: 'HOTSPOT_IN_RANGE', hotspotId }
-          : { type: 'HOTSPOT_OUT_OF_RANGE' },
-      );
+      if (!hotspotId) {
+        dispatchInteraction({ type: 'HOTSPOT_OUT_OF_RANGE' });
+        return;
+      }
+      dispatchInteraction({ type: 'HOTSPOT_IN_RANGE', hotspotId });
+      /**
+       * Arriving at an unfinished stop starts it.
+       *
+       * A six-year-old should not have to notice a button for the world to
+       * respond to walking up to something. Reaching the ring freezes movement,
+       * moves the camera onto the object and opens the panel. Finished stops do
+       * not re-trigger; the prompt button is still there if they want another
+       * look.
+       */
+      if (!progress.completedHotspotIds.includes(hotspotId)) {
+        dispatchInteraction({ type: 'BEGIN' });
+      }
     },
-    [dispatchInteraction],
+    [dispatchInteraction, progress.completedHotspotIds],
   );
 
   /**

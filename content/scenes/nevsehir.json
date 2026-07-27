@@ -48,27 +48,27 @@
       [
         0,
         0,
-        -5
+        -1.5
       ],
       [
         5.5,
         0,
-        -19
+        -21.5
       ],
       [
         6.8,
         0,
-        -33
+        -42.25
       ],
       [
         3,
         0,
-        -47
+        -59.9
       ],
       [
         -3.1,
         0,
-        -61
+        -77.9
       ]
     ],
     "bounds": [
@@ -85,12 +85,12 @@
       [
         20,
         0,
-        -76
+        -92
       ],
       [
         -20,
         0,
-        -76
+        -92
       ]
     ]
   },
@@ -125,7 +125,11 @@
           1
         ]
       },
-      "triggerRadius": 4.5,
+      "collider": {
+        "halfWidth": 6,
+        "halfDepth": 5
+      },
+      "triggerRadius": 9,
       "camera": {
         "position": [
           3.2,
@@ -174,7 +178,7 @@
         "position": [
           5.5,
           0,
-          -22
+          -26
         ],
         "rotation": [
           0,
@@ -187,17 +191,21 @@
           1
         ]
       },
-      "triggerRadius": 4.5,
+      "collider": {
+        "halfWidth": 3,
+        "halfDepth": 3
+      },
+      "triggerRadius": 7,
       "camera": {
         "position": [
           8.7,
           3,
-          -15.5
+          -19.5
         ],
         "target": [
           5.5,
           1.4,
-          -22
+          -26
         ],
         "durationMs": 900
       },
@@ -236,7 +244,7 @@
         "position": [
           6.8,
           0,
-          -36
+          -44
         ],
         "rotation": [
           0,
@@ -249,17 +257,21 @@
           1
         ]
       },
-      "triggerRadius": 4.5,
+      "collider": {
+        "halfWidth": 1.1,
+        "halfDepth": 0.25
+      },
+      "triggerRadius": 4.25,
       "camera": {
         "position": [
           10,
           3,
-          -29.5
+          -37.5
         ],
         "target": [
           6.8,
           1.4,
-          -36
+          -44
         ],
         "durationMs": 900
       },
@@ -298,7 +310,7 @@
         "position": [
           3,
           0,
-          -50
+          -62
         ],
         "rotation": [
           0,
@@ -311,17 +323,21 @@
           1
         ]
       },
-      "triggerRadius": 4.5,
+      "collider": {
+        "halfWidth": 0.6,
+        "halfDepth": 0.6
+      },
+      "triggerRadius": 4.6,
       "camera": {
         "position": [
           6.2,
           3,
-          -43.5
+          -55.5
         ],
         "target": [
           3,
           1.4,
-          -50
+          -62
         ],
         "durationMs": 900
       },
@@ -360,7 +376,7 @@
         "position": [
           -3.1,
           0,
-          -64
+          -80
         ],
         "rotation": [
           0,
@@ -373,17 +389,21 @@
           1
         ]
       },
-      "triggerRadius": 4.5,
+      "collider": {
+        "halfWidth": 1.1,
+        "halfDepth": 0.6
+      },
+      "triggerRadius": 4.6,
       "camera": {
         "position": [
           0.10000000000000009,
           3,
-          -57.5
+          -73.5
         ],
         "target": [
           -3.1,
           1.4,
-          -64
+          -80
         ],
         "durationMs": 900
       },

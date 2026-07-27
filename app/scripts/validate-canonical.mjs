@@ -223,6 +223,43 @@ if (!fs.existsSync(SCENES)) {
       }
     }
 
+    /**
+     * Geometry sanity: the parking spot must be outside the object, the
+     * trigger ring must reach the parking spot, and two stops must not share
+     * a ring or the player is claimed by whichever is checked first.
+     */
+    const points = scene.route?.points ?? [];
+    for (const [index, hotspot] of (scene.hotspots ?? []).entries()) {
+      const [hx, , hz] = hotspot.transform.position;
+      const collider = hotspot.collider ?? { halfWidth: 0, halfDepth: 0 };
+      const reach = Math.max(collider.halfWidth, collider.halfDepth);
+      if (hotspot.triggerRadius <= reach) {
+        fail(
+          `${label}: hotspot ${hotspot.id} has a trigger radius of ${hotspot.triggerRadius} m ` +
+            `inside its own ${reach} m collider — the player can never stand in it`,
+        );
+      }
+      const waypoint = points[index + 1];
+      if (waypoint) {
+        const insideCollider =
+          Math.abs(waypoint[0] - hx) <= collider.halfWidth + 0.45 &&
+          Math.abs(waypoint[2] - hz) <= collider.halfDepth + 0.45;
+        if (insideCollider) {
+          fail(`${label}: guided waypoint for ${hotspot.id} sits inside the object's collider`);
+        }
+      }
+      for (const other of (scene.hotspots ?? []).slice(index + 1)) {
+        const [ox, , oz] = other.transform.position;
+        const gap = Math.hypot(ox - hx, oz - hz);
+        if (gap < hotspot.triggerRadius + other.triggerRadius) {
+          fail(
+            `${label}: trigger rings of ${hotspot.id} and ${other.id} overlap ` +
+              `(${gap.toFixed(2)} m apart, radii ${hotspot.triggerRadius} + ${other.triggerRadius})`,
+          );
+        }
+      }
+    }
+
     for (const sentence of prose) {
       if (rawScene.includes(sentence)) {
         fail(

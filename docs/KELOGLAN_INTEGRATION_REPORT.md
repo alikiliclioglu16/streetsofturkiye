@@ -184,6 +184,60 @@ Yani hata İstanbul'a özel değildi; **her şehrin son durağı** rehberli modd
 
 Bu, benim ilk turda kaçırdığım bir hataydı: rehberli mod testlerim "duraklarda duruyor mu" ve "tamamlanınca devam ediyor mu" sorularını soruyordu, ama "her durağa ulaşılabiliyor mu" sorusunu hiç sormuyordu. Şimdi soruyor.
 
+## 10b. İkinci tur: çarpışma yoktu, duraklarda durulmuyordu
+
+Testinde bildirdiğin iki şey de doğruydu ve ikisi de bendeki eksikti.
+
+### Nesnelerin içinden geçme
+
+**Neydi:** Çarpışma sistemi hiç yoktu. Yalnızca oyun alanının dış sınır poligonu vardı; Galata Kulesi, vapur, çarşı — hepsi görsel objeydi, katı değildi. `PRODUCT_REQUIREMENTS` "gentle collision and curated boundaries" diyor, ben yalnız ikincisini yapmışım.
+
+**Yapılan:** Her durak varlık manifestindeki ayak izinden türetilen dikdörtgen bir çarpışma hacmi taşıyor. Hareket önce hedefi deniyor, engellenirse tek eksende kaydırmayı deniyor — böylece duvara yürüyünce takılıp kalmıyor, boyunca kayıyor. Hem elle keşifte hem rehberli modda uygulanıyor.
+
+### Duraklarda durmama
+
+**Neydi:** Durma yalnız rehberli modda vardı ve orada da yalnız yürüyüşü duduruyordu; etkileşimi başlatmak için "İncele" düğmesine basmak gerekiyordu. Elle keşifte hiçbir şey oyuncuyu durdurmuyordu — halkanın içinden geçip gidiyordu.
+
+**Yapılan:** Tamamlanmamış bir durağın halkasına girmek etkileşimi **kendiliğinden başlatıyor**. Hareket donuyor, kamera nesneye dönüyor, panel açılıyor. Altı yaşındaki bir çocuğun, dünyanın kendisine tepki vermesi için bir düğme fark etmesi gerekmemeli. Tamamlanmış duraklar yeniden tetiklenmiyor; tekrar bakmak isteyen için istem düğmesi duruyor.
+
+### Geometri artık nesne başına hesaplanıyor
+
+Tek bir global yaklaşma mesafesi ve tetik yarıçapı kullanmak baştan yanlıştı. 9 metrelik bir kule ile 1,6 metrelik bir çini paneli aynı sayıyı paylaşamaz: kulenin merkezine 3 metre yaklaşmak, kulenin içinde durmak demek.
+
+Şimdi manifest ayak izinden türetiliyor:
+
+```
+çarpışma yarı-derinliği ──> park mesafesi = yarı-derinlik + 1,5 m
+                        ──> tetik yarıçapı = max(yarı-genişlik, yarı-derinlik) + 2,5 m
+```
+
+Bu formülün ilk hali yine yanlıştı ve **doğrulayıcı kendi hatamı yakaladı**: tetik yarıçapını yalnız derinlikten hesaplıyordum, 20 metre genişliğindeki Boğaz vapurunun halkası tamamen gövdenin içinde kalıyordu. Yarıçap artık en geniş kenardan hesaplanıyor.
+
+İstanbul'un son hâli:
+
+| Durak | Ayak izi (yarı) | Tetik yarıçapı |
+|---|---|---|
+| İznik çini paneli | 0,80 × 0,20 | 4,20 |
+| Galata Kulesi | 4,50 × 4,50 | 8,50 |
+| Kapalıçarşı | 4,00 × 4,00 | 8,00 |
+| Simit arabası | 0,80 × 0,45 | 4,45 |
+| Vapur | 10,00 × 3,00 | 12,50 |
+
+Duraklar arası mesafe 14 metreden 18 metreye çıkarıldı, çünkü vapurun 12,5 metrelik halkası komşusuyla çakışıyordu.
+
+### Eklenen bekçiler
+
+`npm run content:check` artık şunlarda derlemeyi durduruyor, hepsi negatif testle denendi:
+
+| Kural | Deneme sonucu |
+|---|---|
+| Durak rota menzilinde değilse | ✔ hata verdi |
+| Tetik halkası kendi çarpışma hacminin içindeyse | ✔ hata verdi |
+| Rehberli park noktası nesnenin içindeyse | ✔ kural yerinde |
+| İki tetik halkası çakışıyorsa | ✔ hata verdi |
+
+Test tarafında yedi yeni test: her durağın ayak izi var mı, oyuncu nesnenin içine konabiliyor mu, 600 kare boyunca kuleye yürünce içine girebiliyor mu, duvara çapraz basınca kayıyor mu, rota noktaları nesnelerin dışında mı, her halkanın içinde durulacak yer var mı, halkalar çakışıyor mu.
+
 ## 11. Sıradaki tek ve kesin görev
 
 Keloğlan'ı tarayıcıda doğrula. Sorun yoksa Nasreddin Hoca üretimi başlar — şartname `docs/MESHY_BRIEF_NASREDDIN_HOCA.md` içinde, teslim edilen Keloğlan ölçülerek yazıldı.

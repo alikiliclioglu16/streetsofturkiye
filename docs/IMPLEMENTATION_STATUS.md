@@ -114,7 +114,7 @@ app/src/
 npm run lint       → temiz
 npm run typecheck  → temiz (strict, noUncheckedIndexedAccess, `any` yok)
 npm run content:check → 81 il, 249 durak, 84 soru; 1413 kanonik dizgi baseline ile eşleşti
-npm test           → 9 dosya / 111 test geçti (logic + jsdom ui)
+npm test           → 9 dosya / 118 test geçti (logic + jsdom ui)
 npm run build      → başarılı, 4 rota
 npm start          → /map ve /city/istanbul 200
 ```
@@ -218,6 +218,9 @@ Teslim edilen animasyonlu GLB, dosya adı değiştirilmeden `app/public/assets/h
 | Yükleme durumu | ✅ "Keloğlan hazırlanıyor…" |
 | **Tarayıcıda görsel doğrulama** | ⚠️ bu ortamda yapılamadı |
 | Son durak ulaşılabilirliği | ✅ düzeltildi — her şehrin son durağı rehberli modda ulaşılamıyordu |
+| Nesne çarpışması | ✅ eklendi — daha önce hiç yoktu, oyuncu binaların içinden geçiyordu |
+| Durakta durma | ✅ halkaya girmek etkileşimi kendiliğinden başlatıyor |
+| Sahne geometrisi | ✅ nesne başına ayak izinden türetiliyor, dört doğrulayıcı kuralı |
 
 **Test için:** `/city/istanbul?guide=keloglan` — kanonik rehber atamasına dokunmayan QA parametresi.
 

@@ -9,7 +9,7 @@ import { HeroCharacter, type HeroStatus } from '@/components/three/HeroCharacter
 import { heroForGuide } from '@/engine/heroes/registry';
 import type { QualityProfile } from '@/engine/heroes/policy';
 import { inputState } from '@/engine/controls/inputState';
-import { distance2, stepPosition, type Point2 } from '@/engine/controls/movement';
+import { distance2, resolveMovement, stepWithCollision, type Point2 } from '@/engine/controls/movement';
 import {
   advanceGuided,
   createGuidedState,
@@ -165,16 +165,20 @@ export function PlayerRig({
       if (distance2(before, after) > 0.0005) {
         heading.current = headingTowards(before, after);
       }
-      position.current = after;
+      // The authored route should never clip a building, but if a scene is
+      // edited by hand the guide still walks around rather than through.
+      position.current = resolveMovement(before, after, scene.bounds, scene.colliders);
+      guidedState.current = { ...guidedState.current, position: position.current };
     } else if (!frozen) {
       heading.current -= inputState.yawDelta * delta * 2.2;
       inputState.yawDelta = 0;
-      position.current = stepPosition(
+      position.current = stepWithCollision(
         position.current,
         { forward: inputState.forward, strafe: inputState.strafe },
         heading.current,
         delta,
         scene.bounds,
+        scene.colliders,
       );
     }
 
