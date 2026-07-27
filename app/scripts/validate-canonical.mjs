@@ -195,6 +195,34 @@ if (!fs.existsSync(SCENES)) {
       }
     }
 
+    /**
+     * Every stop must be reachable by the guided walk.
+     *
+     * Guided mode only stops where the route actually passes within a
+     * hotspot's trigger radius. A route that ends short of its last stop leaves
+     * that stop permanently unreachable, which is exactly what shipped once.
+     */
+    for (const hotspot of scene.hotspots ?? []) {
+      const [hx, , hz] = hotspot.transform.position;
+      const points = scene.route?.points ?? [];
+      let closest = Infinity;
+      for (let i = 0; i < points.length - 1; i += 1) {
+        const [ax, , az] = points[i];
+        const [bx, , bz] = points[i + 1];
+        const dx = bx - ax;
+        const dz = bz - az;
+        const lengthSq = dx * dx + dz * dz;
+        const t = lengthSq === 0 ? 0 : Math.max(0, Math.min(1, ((hx - ax) * dx + (hz - az) * dz) / lengthSq));
+        closest = Math.min(closest, Math.hypot(ax + t * dx - hx, az + t * dz - hz));
+      }
+      if (closest > hotspot.triggerRadius) {
+        fail(
+          `${label}: hotspot ${hotspot.id} is ${closest.toFixed(2)} m from the guided route ` +
+            `but its trigger radius is ${hotspot.triggerRadius} m — guided mode can never reach it`,
+        );
+      }
+    }
+
     for (const sentence of prose) {
       if (rawScene.includes(sentence)) {
         fail(

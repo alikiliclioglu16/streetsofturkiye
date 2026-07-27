@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { loadComposedCity } from './helpers';
-import { clampToBounds, isInsideBounds, stepPosition } from '@/engine/controls/movement';
+import { clampToBounds, distance2, isInsideBounds, stepPosition } from '@/engine/controls/movement';
 import { advanceGuided, createGuidedState, guidedPauseHotspot } from '@/engine/controls/guided';
 import { buildScene } from '@/engine/scene/buildScene';
 import { resolveAsset } from '@/engine/assets/registry';
@@ -74,6 +74,73 @@ describe('scene building', () => {
     expect(resolved.isUnknown).toBe(true);
     expect(resolved.modelUrl).toBeNull();
     expect(resolved.entry.label).toContain('city_atlantis_lighthouse');
+  });
+});
+
+describe('guided route reachability', () => {
+  /** Closest approach of the route polyline to a point, on the ground plane. */
+  const closestApproach = (
+    target: { x: number; z: number },
+    points: readonly (readonly [number, number, number])[],
+  ) => {
+    let closest = Infinity;
+    for (let i = 0; i < points.length - 1; i += 1) {
+      const a = points[i]!;
+      const b = points[i + 1]!;
+      const dx = b[0] - a[0];
+      const dz = b[2] - a[2];
+      const lengthSq = dx * dx + dz * dz;
+      const t =
+        lengthSq === 0
+          ? 0
+          : Math.max(0, Math.min(1, ((target.x - a[0]) * dx + (target.z - a[2]) * dz) / lengthSq));
+      closest = Math.min(closest, Math.hypot(a[0] + t * dx - target.x, a[2] + t * dz - target.z));
+    }
+    return closest;
+  };
+
+  it('passes within trigger range of every stop, including the last one', () => {
+    for (const cityId of ['istanbul', 'nevsehir', 'gaziantep']) {
+      const scene = loadComposedCity(cityId);
+      for (const hotspot of scene.hotspots) {
+        const target = { x: hotspot.transform.position[0], z: hotspot.transform.position[2] };
+        const distance = closestApproach(target, scene.route.points);
+        expect(
+          distance,
+          `${cityId} stop ${hotspot.order} sits ${distance.toFixed(2)} m from the route`,
+        ).toBeLessThanOrEqual(hotspot.triggerRadius);
+      }
+    }
+  });
+
+  it('reaches the final stop when the walk runs to the end of the route', () => {
+    const scene = loadComposedCity('istanbul');
+    const last = scene.hotspots[scene.hotspots.length - 1]!;
+    let state = createGuidedState(scene.route.points);
+    const stops = scene.hotspots.map((hotspot) => ({
+      id: hotspot.id,
+      position: { x: hotspot.transform.position[0], z: hotspot.transform.position[2] },
+      triggerRadius: hotspot.triggerRadius,
+      order: hotspot.order,
+    }));
+    // Everything already done, so nothing pauses the walk.
+    const completed = stops.map((stop) => stop.id);
+
+    let reachedLast = false;
+    for (let frame = 0; frame < 4000 && !state.finished; frame += 1) {
+      state = advanceGuided(state, scene.route.points, 1 / 60, false);
+      if (
+        distance2(state.position, {
+          x: last.transform.position[0],
+          z: last.transform.position[2],
+        }) <= last.triggerRadius
+      ) {
+        reachedLast = true;
+      }
+      expect(guidedPauseHotspot(state.position, stops, completed)).toBeNull();
+    }
+    expect(state.finished).toBe(true);
+    expect(reachedLast, 'guided walk never entered the final stop trigger').toBe(true);
   });
 });
 

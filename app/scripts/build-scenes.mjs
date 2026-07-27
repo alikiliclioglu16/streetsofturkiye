@@ -70,6 +70,19 @@ const INTERACTION_BY_CATEGORY = {
   nature: 'observe-and-answer',
 };
 
+const TRIGGER_RADIUS = 4.5;
+
+/**
+ * How far in front of a stop the guided walk parks.
+ *
+ * This MUST stay inside `TRIGGER_RADIUS`. It used to be 6 m, which happened to
+ * work for every stop except the last one: the walk passed within range of the
+ * intermediate stops on its way to the *next* waypoint, but the final waypoint
+ * has no next leg, so the route ended 6 m short and the last stop of every city
+ * could never be reached in guided mode.
+ */
+const APPROACH_OFFSET = 3;
+
 /** Deterministic S-curve layout; the same city always lays out identically. */
 function layout(stopCount) {
   const spacing = 14;
@@ -77,7 +90,7 @@ function layout(stopCount) {
   for (let i = 0; i < stopCount; i += 1) {
     stopPositions.push([Math.round(Math.sin(i * 0.9) * 7 * 10) / 10, 0, -8 - i * spacing]);
   }
-  const route = [[0, 0, 0], ...stopPositions.map(([x, , z]) => [x, 0, z + 6])];
+  const route = [[0, 0, 0], ...stopPositions.map(([x, , z]) => [x, 0, z + APPROACH_OFFSET])];
   const minZ = -8 - (stopCount - 1) * spacing - 12;
   return {
     stopPositions,
@@ -122,7 +135,7 @@ function buildScene(canonical) {
       assetId,
       assetStatus: COMMISSIONED_ASSETS[`${canonical.id}:${artType}`] ? 'commissioned' : 'graybox',
       transform: { position, rotation: [0, 0, 0], scale: [1, 1, 1] },
-      triggerRadius: 4.5,
+      triggerRadius: TRIGGER_RADIUS,
       camera: {
         position: [position[0] + 3.2, 3.0, position[2] + 6.5],
         target: [position[0], 1.4, position[2]],

@@ -157,6 +157,33 @@ Telemetri katmanı bunları okuyabilmen için hazır: aktif hero, klip adı, ü�
 
 **Bir de dürüst bir sınır:** klip adlarını dosyadan okudum ve motorun aradığı adlarla eşleştiğini testle doğruladım, ama kliplerin *içeriğinin* adına uyduğunu göremedim. `Walking` klibinin gerçekten yürüme animasyonu olduğunu ancak sen bakınca bileceğiz.
 
-## 10. Sıradaki tek ve kesin görev
+## 10. Entegrasyondan sonra bulunan hata — son durak ulaşılamıyordu
+
+Test sırasında bildirdiğin "5. durağa geçmiyor" doğruydu ve nedeni sahne yerleşimindeydi.
+
+**Neydi:** Rehberli yürüyüşün ara noktaları her durağın **6 metre** önüne konuyordu, tetik yarıçapı ise 4,5 metre. Ara duraklar yine de tetikleniyordu, çünkü yürüyüş bir sonraki noktaya giderken onların yanından geçiyor ve o sırada menzile giriyordu. Son durağın "sonraki noktası" olmadığı için yürüyüş orada, 6 metre uzakta bitiyordu — halka görünüyor ama menzile hiç girilmiyordu.
+
+Ölçülen mesafeler (düzeltme öncesi):
+
+| Şehir | Durak | Rotaya en yakın mesafe | Yarıçap | Sonuç |
+|---|---|---|---|---|
+| İstanbul | 1–4 | 0,55 – 2,40 m | 4,5 | tetikleniyor |
+| İstanbul | **5** | **6,00 m** | 4,5 | **ulaşılmıyor** |
+| Nevşehir | **5** | **6,00 m** | 4,5 | **ulaşılmıyor** |
+| Gaziantep | **3** | **6,00 m** | 4,5 | **ulaşılmıyor** |
+
+Yani hata İstanbul'a özel değildi; **her şehrin son durağı** rehberli modda ulaşılamazdı. Elle keşifte oyuncu oraya yürüyebildiği için sorun görünmüyordu.
+
+**Düzeltme:** yaklaşma mesafesi 6 metreden 3 metreye indirildi ve tetik yarıçapıyla aynı sabitten türetildi, böylece ikisi birbirinden bağımsız kayamaz. Düzeltme sonrası en uzak durak 3,00 m, yani menzilin rahatça içinde.
+
+**Tekrarlamaması için iki bekçi eklendi:**
+
+1. `npm run content:check` artık her durağın rota poligonuna olan en kısa mesafesini ölçüyor ve tetik yarıçapını aşarsa derlemeyi durduruyor. Eski yerleşimi geri koyarak denedim, doğrulayıcı beklendiği gibi hata verdi:
+   `hotspot gaziantep-hotspot-03 is 6.00 m from the guided route but its trigger radius is 4.5 m`
+2. İki test: her durağın rota menzilinde olduğunu doğrulayan invaryant testi, ve rehberli yürüyüşün son durağın tetiğine gerçekten girdiğini simüle eden test.
+
+Bu, benim ilk turda kaçırdığım bir hataydı: rehberli mod testlerim "duraklarda duruyor mu" ve "tamamlanınca devam ediyor mu" sorularını soruyordu, ama "her durağa ulaşılabiliyor mu" sorusunu hiç sormuyordu. Şimdi soruyor.
+
+## 11. Sıradaki tek ve kesin görev
 
 Keloğlan'ı tarayıcıda doğrula. Sorun yoksa Nasreddin Hoca üretimi başlar — şartname `docs/MESHY_BRIEF_NASREDDIN_HOCA.md` içinde, teslim edilen Keloğlan ölçülerek yazıldı.
