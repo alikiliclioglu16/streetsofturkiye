@@ -18,6 +18,8 @@ interface SettingsState {
   hydrated: boolean;
   setLocale: (locale: Locale) => void;
   setQuality: (profile: QualityProfileId) => void;
+  /** Engine-initiated downgrade; leaves `qualityAuto` on so it can step again. */
+  setQualityAutomatically: (profile: QualityProfileId) => void;
   setReducedMotion: (value: boolean) => void;
   toggleAudio: (channel: 'ambient' | 'ui' | 'guide') => void;
   togglePerfOverlay: () => void;
@@ -68,6 +70,10 @@ export const useSettingsStore = create<SettingsState>((set, get) => ({
   },
   setQuality: (quality) => {
     set({ quality, qualityAuto: false });
+    persist(get());
+  },
+  setQualityAutomatically: (quality) => {
+    set({ quality });
     persist(get());
   },
   setReducedMotion: (reducedMotion) => {

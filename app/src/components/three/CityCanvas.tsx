@@ -65,6 +65,7 @@ export function CityCanvas({ quality, skyColor, children, onPerfSample }: CityCa
       }}
     >
       {children}
+      {/* Always sampling: adaptive quality depends on it, not just the overlay. */}
       {onPerfSample ? <PerfProbe onSample={onPerfSample} /> : null}
     </Canvas>
   );

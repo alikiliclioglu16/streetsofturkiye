@@ -47,6 +47,30 @@ pays; see the ladder below.
 Auto-selection: desktop with 8+ cores and 8 GB+ → `high`; other desktops →
 `balanced`; touch devices → `safe`, or `balanced` on 8-core/6 GB+ hardware.
 
+## Measured, 27 Jul 2026 — first real reading
+
+Deployed build, desktop laptop, `high` profile, İstanbul completion screen:
+
+| | |
+|---|---|
+| fps | **19** |
+| draw calls | 69 |
+| triangles on screen | 593,714 |
+| hero triangles | 197,482 |
+| geometries / textures | 48 / 6 |
+| measured hero height | 1.700 m |
+
+Total triangles come to **3.0× the hero mesh**, so the guide is drawn about three
+times per frame — camera pass, shadow pass, and a third the reading cannot
+attribute. The graybox environment accounts for roughly 1,500 triangles: it is
+free.
+
+This inverts the assumption the ladder below was written on. Post-processing was
+already off, and decoration density is worth about 288 triangles — the first two
+rungs buy nothing on a hero-dominated scene. The levers that matter here are
+device pixel ratio and the hero's shadow, and the ladder should be read with
+that in mind until a second reading confirms it.
+
 ## Degradation ladder
 
 When frames regress, quality is surrendered in this order:
@@ -59,6 +83,21 @@ When frames regress, quality is surrendered in this order:
 6. distant environment assets
 
 The hero mesh and its animation are not on this list, by design.
+
+### Adaptive stepping
+
+Detection guesses from cores and memory, and it guessed `high` for a machine
+that delivered 19 fps. The engine now measures: six consecutive samples below
+**28 fps** step the profile down one notch, with an eight-sample cooldown so the
+new profile gets a fair reading. It only ever steps down — stepping back up on a
+good patch produces visible oscillation — and it never overrides a profile the
+player chose by hand.
+
+### Hero shadow
+
+A real shadow costs a second full pass of a 197k-triangle character. Below the
+top profile the guide gets a blob shadow instead: two triangles, and he still
+reads as standing on the ground.
 
 ## Loading rules
 

@@ -235,6 +235,17 @@ function HeroModel({
   return (
     <group ref={group}>
       <primitive object={model} />
+      {/*
+        A real shadow costs a second full pass of a 197k-triangle character.
+        Below the top profile the guide gets a soft blob instead: two triangles,
+        and it still reads as standing on the ground rather than floating.
+      */}
+      {profile.heroShadow ? null : (
+        <mesh position={[0, 0.02, 0]} rotation={[-Math.PI / 2, 0, 0]} renderOrder={-1}>
+          <circleGeometry args={[0.42, 20]} />
+          <meshBasicMaterial color="#2A2418" transparent opacity={0.28} depthWrite={false} />
+        </mesh>
+      )}
     </group>
   );
 }

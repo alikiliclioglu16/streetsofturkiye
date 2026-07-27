@@ -18,6 +18,7 @@ export function PerfOverlay({
   interactionState,
   celebrationState,
   heroHeightMeters,
+  autoSteps,
 }: {
   sample: PerfSample | null;
   profile: QualityProfile;
@@ -26,6 +27,8 @@ export function PerfOverlay({
   celebrationState?: string;
   /** Rendered height before scaling; a wildly small value means a broken bind. */
   heroHeightMeters?: number | null;
+  /** Profiles the engine stepped down to on its own. */
+  autoSteps?: readonly string[];
 }) {
   const cache = heroCacheSnapshot();
   const definition = hero ? heroById(hero.heroId) : null;
@@ -62,7 +65,7 @@ export function PerfOverlay({
       }}
     >
       {row('fps', String(sample?.fps ?? '—'))}
-      {row('profile', profile.id)}
+      {row('profile', autoSteps && autoSteps.length > 0 ? `${profile.id} (auto ↓${autoSteps.length})` : profile.id)}
       {row('dpr cap', String(profile.maxDpr))}
       {row('draw calls', String(sample?.drawCalls ?? '—'))}
       {row('triangles', sample?.triangles?.toLocaleString('en-US') ?? '—')}

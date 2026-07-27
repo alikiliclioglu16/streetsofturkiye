@@ -127,3 +127,17 @@ development-only, which meant its numbers could never be read from the site
 where they actually matter. It reveals nothing about the player and changes no
 behaviour.
 
+## D-018 — Quality adapts to measured frames (27 Jul 2026)
+
+The first field reading was 19 fps on the `high` profile, which detection had
+chosen from core count. Detection stays, but it is now a starting guess rather
+than a verdict: sustained frames below 28 step the profile down.
+
+The same reading showed the guide accounts for roughly three quarters of the
+triangles on screen and the graybox environment for about 1,500. The ladder's
+first two rungs therefore buy nothing here; device pixel ratio and the hero's
+shadow are the real levers. Below the top profile the hero's real shadow is
+replaced with a blob shadow, which costs two triangles and keeps him grounded.
+
+The hero mesh is still never reduced.
+

@@ -4,6 +4,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useGameStore } from '@/stores/useGameStore';
 import { useSettingsStore } from '@/stores/useSettingsStore';
+import { considerSample, initialAdaptiveState, type AdaptiveState } from '@/engine/heroes/adaptive';
 import { buildScene } from '@/engine/scene/buildScene';
 import { assetTierForProfile, qualityProfile } from '@/engine/quality/quality';
 import type { HeroStatus } from '@/components/three/HeroCharacter';
@@ -47,6 +48,8 @@ export function CityExperience({ cityId }: { cityId: string }) {
   const hydrate = useSettingsStore((state) => state.hydrate);
   const locale = useSettingsStore((state) => state.locale);
   const quality = useSettingsStore((state) => state.quality);
+  const qualityAuto = useSettingsStore((state) => state.qualityAuto);
+  const setQualityAutomatically = useSettingsStore((state) => state.setQualityAutomatically);
   const reducedMotion = useSettingsStore((state) => state.reducedMotion);
 
   const status = useGameStore((state) => state.status);
@@ -70,6 +73,7 @@ export function CityExperience({ cityId }: { cityId: string }) {
 
   const [spin, setSpin] = useState(0);
   const [perf, setPerf] = useState<PerfSample | null>(null);
+  const [adaptive, setAdaptive] = useState<AdaptiveState>(initialAdaptiveState);
   const [retryToken, setRetryToken] = useState(0);
   const devOverlay = useSettingsStore((state) => state.showPerfOverlay);
   /**
@@ -285,6 +289,22 @@ export function CityExperience({ cityId }: { cityId: string }) {
     return () => window.clearTimeout(timer);
   }, [successPending, successBeat]);
 
+  /**
+   * Every sample feeds two things: the overlay, and the decision about whether
+   * the profile this device was given is one it can actually run.
+   */
+  const onPerfSample = useCallback(
+    (sample: PerfSample) => {
+      setPerf(sample);
+      setAdaptive((state) => {
+        const decision = considerSample(state, sample.fps, quality, qualityAuto);
+        if (decision.nextProfile) setQualityAutomatically(decision.nextProfile);
+        return decision.state;
+      });
+    },
+    [quality, qualityAuto, setQualityAutomatically],
+  );
+
   const onFocusSettled = useCallback(() => {
     dispatchInteraction({ type: 'CAMERA_SETTLED' });
   }, [dispatchInteraction]);
@@ -335,11 +355,7 @@ export function CityExperience({ cityId }: { cityId: string }) {
 
   return (
     <main style={{ position: 'relative', width: '100%', height: '100dvh', overflow: 'hidden' }}>
-      <CityCanvas
-        quality={settings}
-        skyColor={scene.sky.top}
-        onPerfSample={showPerfOverlay ? setPerf : undefined}
-      >
+      <CityCanvas quality={settings} skyColor={scene.sky.top} onPerfSample={onPerfSample}>
         <CityScene
           scene={scene}
           quality={settings}
@@ -403,6 +419,7 @@ export function CityExperience({ cityId }: { cityId: string }) {
           interactionState={interaction.state}
           celebrationState={celebration.state}
           heroHeightMeters={heroHeight}
+          autoSteps={adaptive.steps}
         />
       ) : null}
 
