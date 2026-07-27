@@ -50,7 +50,7 @@ export function CompletionPanel({
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10 }}>
         {onAnotherDance ? (
           <button type="button" className="btn" onClick={onAnotherDance}>
-            {locale === 'tr' ? 'Başka bir kutlama dansı' : 'Another celebration dance'}
+            {ui('anotherDance', locale)}
           </button>
         ) : null}
         <button type="button" className="btn btn--gold" onClick={onLeave}>

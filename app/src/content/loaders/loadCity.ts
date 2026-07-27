@@ -24,7 +24,14 @@ const CANONICAL_CITY = (cityId: string) => `/content/canonical/cities/${cityId}.
 const SCENE = (cityId: string) => `/content/scenes/${cityId}.json`;
 const REGIONS = '/content/canonical/regions.json';
 
-/** Cities that have a technical scene. Canonical content exists for all 81. */
+/**
+ * Cities open to the player.
+ *
+ * İstanbul is being finished end to end before any other city opens, so that a
+ * single province proves the whole experience. Nevşehir and Gaziantep already
+ * have canonical content and validated scenes — the tests keep checking them —
+ * but they stay closed until İstanbul is done (owner decision, 27 Jul 2026).
+ */
 export const PLAYABLE_CITY_IDS = ['istanbul'] as const;
 export const PILOT_CITY_IDS = ['istanbul', 'nevsehir', 'gaziantep'] as const;
 

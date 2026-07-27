@@ -24,28 +24,6 @@ export function SettingsPanel() {
       </h2>
 
       <div style={rowStyle}>
-        <span>{locale === 'tr' ? 'Dil' : 'Language'}</span>
-        <div style={{ display: 'flex', gap: 8 }}>
-          <button
-            type="button"
-            className={locale === 'tr' ? 'btn' : 'btn btn--ghost'}
-            aria-pressed={locale === 'tr'}
-            onClick={() => settings.setLocale('tr')}
-          >
-            Türkçe
-          </button>
-          <button
-            type="button"
-            className={locale === 'en' ? 'btn' : 'btn btn--ghost'}
-            aria-pressed={locale === 'en'}
-            onClick={() => settings.setLocale('en')}
-          >
-            English
-          </button>
-        </div>
-      </div>
-
-      <div style={rowStyle}>
         <span>{ui('guidedMode', locale)}</span>
         <button
           type="button"
@@ -82,7 +60,7 @@ export function SettingsPanel() {
           aria-pressed={settings.reducedMotion}
           onClick={() => settings.setReducedMotion(!settings.reducedMotion)}
         >
-          {settings.reducedMotion ? (locale === 'tr' ? 'Açık' : 'On') : locale === 'tr' ? 'Kapalı' : 'Off'}
+          {settings.reducedMotion ? ui('on', locale) : ui('off', locale)}
         </button>
       </div>
 
@@ -91,9 +69,9 @@ export function SettingsPanel() {
         <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginTop: 8 }}>
           {(
             [
-              ['ambient', settings.muteAmbient, locale === 'tr' ? 'Ortam' : 'Ambient'],
-              ['ui', settings.muteUi, locale === 'tr' ? 'Arayüz' : 'Interface'],
-              ['guide', settings.muteGuide, locale === 'tr' ? 'Rehber' : 'Guide'],
+              ['ambient', settings.muteAmbient, ui('audioAmbient', locale)],
+              ['ui', settings.muteUi, ui('audioInterface', locale)],
+              ['guide', settings.muteGuide, ui('audioGuide', locale)],
             ] as const
           ).map(([channel, muted, label]) => (
             <button
@@ -103,7 +81,7 @@ export function SettingsPanel() {
               aria-pressed={!muted}
               onClick={() => settings.toggleAudio(channel)}
             >
-              {label}: {muted ? (locale === 'tr' ? 'kapalı' : 'off') : locale === 'tr' ? 'açık' : 'on'}
+              {label}: {muted ? ui('off', locale).toLowerCase() : ui('on', locale).toLowerCase()}
             </button>
           ))}
         </div>

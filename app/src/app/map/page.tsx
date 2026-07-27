@@ -113,9 +113,9 @@ export default function MapPage() {
               onSelect={(cityId) => router.push(`/city/${cityId}`)}
             />
             <p style={{ fontSize: 13, opacity: 0.72, margin: '10px 2px 0' }}>
-              {locale === 'tr'
-                ? `${cities.length} il haritada. Bu sürümde ${PLAYABLE_CITY_IDS.length} şehir oynanabilir; diğerleri içerik olarak hazır, sahneleri sırada.`
-                : `${cities.length} provinces plotted. ${PLAYABLE_CITY_IDS.length} city is playable in this build; the rest have content ready and scenes pending.`}
+              {`All ${cities.length} provinces are on the map. ${PLAYABLE_CITY_IDS.length} of them ` +
+                `${PLAYABLE_CITY_IDS.length === 1 ? 'is' : 'are'} open to explore so far — ` +
+                `the rest already have their stories written and are waiting for their streets.`}
             </p>
           </>
         )}
@@ -146,8 +146,8 @@ export default function MapPage() {
                 {done
                   ? `★ ${ui('cityComplete', locale)}`
                   : visited
-                    ? `• ${locale === 'tr' ? 'Başlandı' : 'In progress'}`
-                    : `${city.stopCount} ${locale === 'tr' ? 'eski durak içerikten aktarılacak' : 'legacy stops to migrate'}`}
+                    ? `• ${ui('inProgress', locale)}`
+                    : `${city.stopCount} ${ui('playableNote', locale)}`}
               </p>
               {state === 'playable' ? (
                 <button type="button" className="btn" onClick={() => router.push(`/city/${city.id}`)}>
@@ -155,7 +155,7 @@ export default function MapPage() {
                 </button>
               ) : (
                 <button type="button" className="btn btn--ghost" disabled style={{ opacity: 0.55 }}>
-                  {locale === 'tr' ? 'Faz 02’de açılıyor' : 'Opens in Phase 02'}
+                  {ui('notOpenYet', locale)}
                 </button>
               )}
             </article>

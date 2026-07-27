@@ -21,10 +21,19 @@ export interface SceneGround {
   readonly centerZ: number;
   readonly width: number;
   readonly depth: number;
+  /** Region ground tone, straight from the canonical region record. */
+  readonly color: string;
+}
+
+export interface SceneSky {
+  /** Zenith and horizon colours; the canonical source authored both. */
+  readonly top: string;
+  readonly horizon: string;
 }
 
 export interface SceneDescription {
   readonly cityId: string;
+  readonly sky: SceneSky;
   readonly colliders: readonly RectCollider[];
   readonly hotspots: readonly SceneHotspot[];
   readonly routePoints: readonly Vec3[];
@@ -101,6 +110,11 @@ export function buildScene(city: CityDefinition, quality: QualityTier): SceneDes
       centerZ: (minZ + maxZ) / 2,
       width: maxX - minX + 4,
       depth: maxZ - minZ + 4,
+      color: city.environment.groundColor ?? '#D9CFBC',
+    },
+    sky: {
+      top: city.environment.skyPreset?.[0] ?? '#BFE4F2',
+      horizon: city.environment.skyPreset?.[1] ?? city.environment.skyPreset?.[0] ?? '#DCF1FA',
     },
     spawn: city.spawn.position,
     spawnHeading: city.spawn.rotation[1],

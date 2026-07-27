@@ -51,7 +51,7 @@ export function TouchControls() {
     <div
       ref={baseRef}
       role="application"
-      aria-label="Yürüme kolu"
+      aria-label="Walking stick"
       onPointerDown={(event) => {
         pointerId.current = event.pointerId;
         event.currentTarget.setPointerCapture(event.pointerId);

@@ -114,7 +114,7 @@ app/src/
 npm run lint       → temiz
 npm run typecheck  → temiz (strict, noUncheckedIndexedAccess, `any` yok)
 npm run content:check → 81 il, 249 durak, 84 soru; 1413 kanonik dizgi baseline ile eşleşti
-npm test           → 9 dosya / 139 test geçti (logic + jsdom ui)
+npm test           → 11 dosya / 160 test geçti (logic + jsdom ui)
 npm run build      → başarılı, 4 rota
 npm start          → /map ve /city/istanbul 200
 ```
@@ -246,7 +246,7 @@ Ayrıntı: `docs/HERO_RENDER_BUGFIX_REPORT.md`.
 3. **Playwright yok.** Faz 01 uçtan uca testleri Vitest'teki saf mantık testleriyle karşılandı. Gerçek tarayıcı akış testi Faz 02'de eklenmeli.
 4. **Nevşehir ve Gaziantep haritada kilitli.** İçerikleri geçerli, sahneleri Faz 02'de açılacak.
 5. **`inspect-and-find` fare hedefi basit.** Panel üzerindeki üç motif primitif şekil; gerçek çini paneli gelince hedefler modelin kendi parçalarına bağlanmalı.
-6. **Kanonik içeriğin tamamı İngilizce.** Arayüz Türkçe, içerik İngilizce. Çeviri katmanı kararı bekliyor; `tr` alanları kasıtlı olarak `null`.
+6. **Ürün İngilizce (D-014).** Arayüz de içerik de İngilizce; dil seçici kaldırıldı. `tr` alanları ileride bir Türkçe sürüm için duruyor.
 7. **İstanbul ve Nevşehir'de ikişer durak graybox varlıkla çiziliyor** (Kapalıçarşı, simit arabası, balon, halı tezgâhı). Meshy brief'i gerekiyor.
 8. **Her iki hero da teslim edildi ve entegre edildi.** Keloğlan 222.150 üçgen, Nasreddin Hoca 197.482 üçgen. İstanbul'un kanonik rehberi Hoca olduğu için varsayılan açılışta o görünür.
 8b. **Keloğlan tarayıcıda görsel olarak doğrulanmadı.** Klip adları dosyadan okundu ve eşleşme testli, ama kliplerin içeriği görülmedi.

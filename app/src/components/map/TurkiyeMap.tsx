@@ -2,7 +2,7 @@
 
 import { useMemo } from 'react';
 import type { Locale } from '@/content/i18n';
-import { t } from '@/content/i18n';
+import { t, ui } from '@/content/i18n';
 import type { CityIndexEntry } from '@/content/loaders/loadCityIndex';
 import type { CanonicalRegion as Region } from '@/content/schemas/canonical';
 
@@ -54,7 +54,7 @@ export function TurkiyeMap({
     <svg
       viewBox={`0 0 ${VIEW_WIDTH} ${VIEW_HEIGHT}`}
       role="group"
-      aria-label={locale === 'tr' ? 'Türkiye il haritası' : 'Province map of Türkiye'}
+      aria-label="Province map of Türkiye" 
       style={{ width: '100%', height: 'auto', display: 'block' }}
     >
       {cities.map((city) => {
@@ -83,11 +83,7 @@ export function TurkiyeMap({
             key={city.id}
             role="button"
             tabIndex={0}
-            aria-label={
-              state === 'playable'
-                ? `${label} — ${locale === 'tr' ? 'oynanabilir' : 'playable'}`
-                : `${label} — ${locale === 'tr' ? 'yakında' : 'coming soon'}`
-            }
+            aria-label={`${label} — ${state === 'playable' ? 'playable' : ui('comingSoon', locale)}`}
             aria-disabled={state === 'pilot'}
             style={{ cursor: state === 'playable' ? 'pointer' : 'not-allowed' }}
             onClick={() => state === 'playable' && onSelect(city.id)}

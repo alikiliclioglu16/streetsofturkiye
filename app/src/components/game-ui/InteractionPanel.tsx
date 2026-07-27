@@ -58,14 +58,14 @@ export function InteractionPanel({
       {resolvedType === 'inspect-and-find' ? (
         <>
           <div style={{ display: 'flex', gap: 10, marginBottom: 12 }}>
-            <button type="button" className="btn btn--ghost" onClick={() => onRotate(-1)} aria-label={locale === 'tr' ? 'Sola çevir' : 'Turn left'}>
+            <button type="button" className="btn btn--ghost" onClick={() => onRotate(-1)} aria-label={ui('turnLeft', locale)}>
               ←
             </button>
-            <button type="button" className="btn btn--ghost" onClick={() => onRotate(1)} aria-label={locale === 'tr' ? 'Sağa çevir' : 'Turn right'}>
+            <button type="button" className="btn btn--ghost" onClick={() => onRotate(1)} aria-label={ui('turnRight', locale)}>
               →
             </button>
             <p style={{ margin: 'auto 0', fontSize: 13, opacity: 0.75 }}>
-              {locale === 'tr' ? 'Çevir, sonra doğru motife dokun' : 'Turn it, then tap the right motif'}
+              {ui('inspectHint', locale)}
             </p>
           </div>
           {/* Keyboard-equivalent path: the same canonical choices, no pointer aiming. */}
@@ -112,9 +112,7 @@ export function InteractionPanel({
 
       {degraded ? (
         <p style={{ margin: '10px 0 0', fontSize: 12, opacity: 0.6 }}>
-          {locale === 'tr'
-            ? `Bu durak “${hotspot.interaction.type}” etkileşimi bekliyor; şimdilik basit seçim gösteriliyor.`
-            : `This stop awaits its “${hotspot.interaction.type}” interaction; showing the simple choice for now.`}
+          {`This stop awaits its “${hotspot.interaction.type}” interaction; showing the simple choice for now.`}
         </p>
       ) : null}
     </section>

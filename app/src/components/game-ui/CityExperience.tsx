@@ -314,7 +314,11 @@ export function CityExperience({ cityId }: { cityId: string }) {
 
   return (
     <main style={{ position: 'relative', width: '100%', height: '100dvh', overflow: 'hidden' }}>
-      <CityCanvas quality={settings} onPerfSample={showPerfOverlay ? setPerf : undefined}>
+      <CityCanvas
+        quality={settings}
+        skyColor={scene.sky.top}
+        onPerfSample={showPerfOverlay ? setPerf : undefined}
+      >
         <CityScene
           scene={scene}
           quality={settings}
@@ -484,7 +488,7 @@ export function CityExperience({ cityId }: { cityId: string }) {
             fontWeight: 600,
           }}
         >
-          {activeHero.displayName} hazırlanıyor…
+          {activeHero.displayName} {ui('preparingGuide', locale)}…
         </p>
       ) : null}
 

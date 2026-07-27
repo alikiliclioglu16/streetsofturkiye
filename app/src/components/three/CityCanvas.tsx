@@ -47,11 +47,13 @@ function PerfProbe({ onSample }: PerfProbeProps) {
 
 interface CityCanvasProps {
   quality: QualityProfile;
+  /** Zenith colour for this region; the scene adds matching haze. */
+  skyColor: string;
   children: ReactNode;
   onPerfSample?: (sample: PerfSample) => void;
 }
 
-export function CityCanvas({ quality, children, onPerfSample }: CityCanvasProps) {
+export function CityCanvas({ quality, skyColor, children, onPerfSample }: CityCanvasProps) {
   return (
     <Canvas
       shadows={quality.heroShadow || quality.shadowMapSize > 512}
@@ -59,7 +61,7 @@ export function CityCanvas({ quality, children, onPerfSample }: CityCanvasProps)
       camera={{ fov: 55, near: 0.1, far: 220, position: [0, 4, 16] }}
       gl={{ antialias: quality.id !== 'safe', powerPreference: 'high-performance' }}
       onCreated={({ gl }) => {
-        gl.setClearColor('#BFE4F2');
+        gl.setClearColor(skyColor);
       }}
     >
       {children}

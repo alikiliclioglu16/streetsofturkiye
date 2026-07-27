@@ -88,7 +88,9 @@ export function CityScene({
 
   return (
     <>
-      <hemisphereLight args={['#BFE4F2', '#7C6A55', 1.0]} />
+      {/* Region atmosphere. Haze also hides the edge of the ground plate. */}
+      <fog attach="fog" args={[scene.sky.horizon, 40, 190]} />
+      <hemisphereLight args={[scene.sky.top, scene.ground.color, 1.0]} />
       <directionalLight
         position={[18, 24, 12]}
         intensity={1.35}
@@ -108,7 +110,7 @@ export function CityScene({
         receiveShadow
       >
         <planeGeometry args={[scene.ground.width, scene.ground.depth]} />
-        <meshStandardMaterial color="#D9CFBC" roughness={0.95} />
+        <meshStandardMaterial color={scene.ground.color} roughness={0.95} />
       </mesh>
 
       {/* Boundary posts: the play area is visible rather than an invisible wall.

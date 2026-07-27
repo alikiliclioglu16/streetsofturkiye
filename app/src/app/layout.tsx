@@ -2,9 +2,9 @@ import type { Metadata, Viewport } from 'next';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'Türkiye Sokakları — Küçük Kâşifler, Koca Türkiye',
+  title: 'Streets of Türkiye — Little Explorers, Big Türkiye',
   description:
-    'Türkiye’nin illerini kısa, keşif odaklı 3B sokaklarda gezen çocuk dostu öğrenme deneyimi.',
+    'A friendly 3D walk through the provinces of Türkiye, made for children discovering the country for the first time.',
 };
 
 export const viewport: Viewport = {
@@ -16,7 +16,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="tr">
+    <html lang="en">
       <body>{children}</body>
     </html>
   );

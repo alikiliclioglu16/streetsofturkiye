@@ -90,3 +90,21 @@ the completion panel back for 17 s. It is capped at 4 s through
 `maxDurationSeconds` in the registry. Removing that entry restores the full
 clip.
 
+## D-014 — The product ships in English (27 Jul 2026)
+
+The audience is American children being introduced to Türkiye. The canonical
+content is English throughout, so the interface is English too. The previous
+mix — Turkish buttons wrapped around English fact cards — was the worst of both
+and is retired. The language toggle is removed.
+
+The locale layer stays: canonical records keep their `tr` field, `t()` still
+runs the fallback chain, and `LOCALES` still lists both. A Turkish edition
+therefore remains a content project rather than a rewrite.
+
+## D-015 — İstanbul is finished before any other city opens (27 Jul 2026)
+
+Phase 02 is not started. `PLAYABLE_CITY_IDS` holds İstanbul alone. Nevşehir and
+Gaziantep keep their canonical content and validated scenes, and the test suite
+keeps checking both, but they stay closed until one province proves the whole
+experience end to end.
+
