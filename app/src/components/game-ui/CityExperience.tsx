@@ -5,7 +5,9 @@ import { useRouter } from 'next/navigation';
 import { useGameStore } from '@/stores/useGameStore';
 import { useSettingsStore } from '@/stores/useSettingsStore';
 import { buildScene } from '@/engine/scene/buildScene';
-import { qualitySettings } from '@/engine/quality/quality';
+import { assetTierForProfile, qualityProfile } from '@/engine/quality/quality';
+import type { HeroStatus } from '@/components/three/HeroCharacter';
+import { onCityUnmount } from '@/engine/heroes/heroCache';
 import { useClientEnvironment } from '@/engine/quality/useEnvironment';
 import { hotspotById, resolveInteractionType } from '@/engine/interactions/machine';
 import { useKeyboardControls } from '@/engine/controls/inputState';
@@ -68,11 +70,15 @@ export function CityExperience({ cityId }: { cityId: string }) {
     return () => {
       controller.abort();
       leaveCity();
+      // Deliberately keeps the active hero resident; see engine/heroes/heroCache.
+      onCityUnmount();
     };
   }, [cityId, enterCity, leaveCity, retryToken]);
 
-  const settings = useMemo(() => qualitySettings(quality), [quality]);
-  const scene = useMemo(() => (city ? buildScene(city, quality) : null), [city, quality]);
+  const settings = useMemo(() => qualityProfile(quality), [quality]);
+  const assetTier = useMemo(() => assetTierForProfile(quality), [quality]);
+  const scene = useMemo(() => (city ? buildScene(city, assetTier) : null), [city, assetTier]);
+  const [heroStatus, setHeroStatus] = useState<HeroStatus | null>(null);
 
   const activeHotspot = useMemo(
     () => (city && interaction.hotspotId ? hotspotById(city, interaction.hotspotId) : undefined),
@@ -164,6 +170,11 @@ export function CityExperience({ cityId }: { cityId: string }) {
         <CityScene
           scene={scene}
           quality={settings}
+          guideId={city.guideId}
+          heroReady={status === 'ready' && phase !== 'intro'}
+          interacting={['active', 'retry', 'success'].includes(interaction.state)}
+          celebrating={phase === 'complete' || interaction.state === 'reward'}
+          onHeroStatus={setHeroStatus}
           reducedMotion={reducedMotion}
           guided={controlMode === 'guided'}
           frozen={panelOpen}
@@ -208,7 +219,9 @@ export function CityExperience({ cityId }: { cityId: string }) {
         <TouchControls />
       ) : null}
 
-      {showPerfOverlay ? <PerfOverlay sample={perf} quality={settings.tier} /> : null}
+      {showPerfOverlay ? (
+        <PerfOverlay sample={perf} profile={settings} hero={heroStatus} />
+      ) : null}
 
       {phase === 'intro' && city.intro ? (
         <IntroPanel city={city} locale={locale} onStart={skipIntro} />
@@ -234,7 +247,7 @@ export function CityExperience({ cityId }: { cityId: string }) {
         <RewardPanel
           rewardId={activeHotspot.reward.assetId}
           locale={locale}
-          quality={quality}
+          quality={assetTier}
           onContinue={() => dispatchInteraction({ type: 'DISMISS' })}
         />
       ) : null}

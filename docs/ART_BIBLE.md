@@ -94,3 +94,23 @@ Do not ask Meshy to create an entire city street as one model. Build scenes from
 - a small number of city identity assets;
 - a hero landmark where justified;
 - distant low-cost skyline or terrain.
+
+## Hero characters (D-012)
+
+Keloğlan and Nasreddin Hodja are the project's two hero characters and are held
+to a different standard from every other asset. They carry the brand and the
+child's attachment to the experience, so visual quality outranks file size for
+these two models alone.
+
+- Approved mesh budget: ~180,000–250,000 triangles each.
+- Both characters must sit in the same technical and stylistic class; one must
+  not look markedly cheaper than the other.
+- Textures up to 2048 px.
+- The full-quality mesh is used on every device. There is no automatic low-poly
+  variant, and none may be produced without separate owner approval.
+- Only one guide appears in a normal city scene.
+- Map and collection screens use 2D portraits, never the live model.
+
+Everything else in this document — palette, silhouette rules, proportions —
+still applies to the heroes.
+

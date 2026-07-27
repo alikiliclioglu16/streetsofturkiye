@@ -1,8 +1,8 @@
 # Implementation Status
 
-**Son güncelleme:** 27 Temmuz 2026 — İçerik Kanonikleştirme C0 dahil
-**Tamamlanan fazlar:** Faz 00 (Denetim), Faz 01 (Motor Graybox), Faz 01B (Kapı A düzeltmeleri), C0 (İçerik Kanonikleştirme)
-**Kanıt belgeleri:** `docs/QA_EVIDENCE.md`, `docs/CANONICAL_MIGRATION_REPORT.md`
+**Son güncelleme:** 27 Temmuz 2026 — Hero karakter mimarisi (D-012) dahil
+**Tamamlanan fazlar:** Faz 00, Faz 01, Faz 01B (Kapı A), C0 (İçerik Kanonikleştirme), Hero Karakter Mimarisi
+**Kanıt belgeleri:** `docs/QA_EVIDENCE.md`, `docs/CANONICAL_MIGRATION_REPORT.md`, `docs/HERO_CHARACTER_REPORT.md`
 **Faz 02 başlatılmadı.**
 **Uygulama konumu:** `app/` (kaynak paket dosyalarına dokunulmadı)
 
@@ -114,7 +114,7 @@ app/src/
 npm run lint       → temiz
 npm run typecheck  → temiz (strict, noUncheckedIndexedAccess, `any` yok)
 npm run content:check → 81 il, 249 durak, 84 soru; 1413 kanonik dizgi baseline ile eşleşti
-npm test           → 8 dosya / 69 test geçti (logic + jsdom ui)
+npm test           → 9 dosya / 93 test geçti (logic + jsdom ui)
 npm run build      → başarılı, 4 rota
 npm start          → /map ve /city/istanbul 200
 ```
@@ -181,6 +181,27 @@ Kanonik içerik `content/canonical/` altında salt okunur yetke olarak duruyor; 
 
 Ayrıntı: `docs/CANONICAL_MIGRATION_REPORT.md`.
 
+## 4d. Hero karakter mimarisi (D-012)
+
+Kalite sistemi `safe / balanced / high` profillerine geçti; üç profilde de hero mesh'i birebir aynı, farklılaşan tek şey çevre maliyeti. Normal şehirde tek hero yükleniyor, pasif hero hiç istenmiyor, harita 2B portre kullanıyor.
+
+| Konu | Durum |
+|---|---|
+| Tek aktif hero | ✅ testli |
+| Pasif hero yüklenmiyor | ✅ testli |
+| Tembel yükleme, şehir kabuğundan sonra | ✅ |
+| Şehirler arası önbellek | ✅ `onCityUnmount()` bilinçli no-op |
+| Mesh üç profilde de tam | ✅ merdivende karakter maddesi yok, testli |
+| Tek AnimationMixer | ✅ kaynak taramalı test |
+| Tekrarsız dans torbası | ✅ 200 çekimde tekrar yok |
+| İki hero modu varsayılan kapalı | ✅ |
+| GLB hatasında placeholder | ✅ testli |
+| Telemetri katmanı | ✅ 11 alan |
+| **Gerçek GLB ile doğrulama** | ⚠️ model henüz teslim edilmedi |
+| **FPS ölçümü** | ⚠️ bu ortamda alınamadı, GPU yok |
+
+Ayrıntı: `docs/HERO_CHARACTER_REPORT.md`.
+
 ## 5. Bilinen sınırlar
 
 1. **Ses yok.** Ayar kanalları (ortam / arayüz / rehber) ve durumları var, çalan bir ses yok. Faz 02'de `ambientAudioId` bağlanacak.
@@ -190,7 +211,9 @@ Ayrıntı: `docs/CANONICAL_MIGRATION_REPORT.md`.
 5. **`inspect-and-find` fare hedefi basit.** Panel üzerindeki üç motif primitif şekil; gerçek çini paneli gelince hedefler modelin kendi parçalarına bağlanmalı.
 6. **Kanonik içeriğin tamamı İngilizce.** Arayüz Türkçe, içerik İngilizce. Çeviri katmanı kararı bekliyor; `tr` alanları kasıtlı olarak `null`.
 7. **İstanbul ve Nevşehir'de ikişer durak graybox varlıkla çiziliyor** (Kapalıçarşı, simit arabası, balon, halı tezgâhı). Meshy brief'i gerekiyor.
-8. **Su, deniz, gökyüzü yok.** `skyPreset` ve `environment.qualityNotes` okunuyor ama görsel karşılığı Faz 02'de.
+8. **Hero GLB'leri teslim edilmedi.** İki karakter de placeholder silindirle çiziliyor; yükleme yolu gerçek dosyayla denenmedi.
+9. **Gerçek cihaz FPS ölçümü yok.** Telemetri katmanı hazır, ölçüm bekliyor.
+10. **Su, deniz, gökyüzü yok.** `skyPreset` ve `environment.qualityNotes` okunuyor ama görsel karşılığı Faz 02'de.
 
 ---
 

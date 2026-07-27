@@ -1,23 +1,26 @@
 import type { QualityTier } from '@/engine/assets/registry';
+import {
+  QUALITY_PROFILES,
+  detectProfile,
+  type QualityProfile,
+  type QualityProfileId,
+} from '@/engine/heroes/policy';
 
-export interface QualitySettings {
-  readonly tier: QualityTier;
-  readonly maxDpr: number;
-  readonly shadows: boolean;
-  readonly shadowMapSize: number;
-  readonly backgroundPropDensity: number;
-  readonly postProcessing: boolean;
+export type { QualityProfile, QualityProfileId } from '@/engine/heroes/policy';
+export { QUALITY_PROFILES, detectProfile, environmentConcessions, stepDown } from '@/engine/heroes/policy';
+
+export function qualityProfile(id: QualityProfileId): QualityProfile {
+  return QUALITY_PROFILES[id];
 }
 
-/** Values follow the tier table in docs/PERFORMANCE_BUDGET.md. */
-const SETTINGS: Record<QualityTier, QualitySettings> = {
-  low: { tier: 'low', maxDpr: 1.0, shadows: false, shadowMapSize: 512, backgroundPropDensity: 0.35, postProcessing: false },
-  medium: { tier: 'medium', maxDpr: 1.5, shadows: true, shadowMapSize: 1024, backgroundPropDensity: 0.7, postProcessing: false },
-  high: { tier: 'high', maxDpr: 2.0, shadows: true, shadowMapSize: 2048, backgroundPropDensity: 1, postProcessing: true },
-};
-
-export function qualitySettings(tier: QualityTier): QualitySettings {
-  return SETTINGS[tier];
+/**
+ * Which model variant to fetch for ordinary props. Hero characters ignore this
+ * entirely: they always use the full-quality mesh (policy rule 4).
+ */
+export function assetTierForProfile(id: QualityProfileId): QualityTier {
+  if (id === 'high') return 'high';
+  if (id === 'balanced') return 'medium';
+  return 'low';
 }
 
 export interface DeviceHints {
@@ -27,23 +30,8 @@ export interface DeviceHints {
   viewportWidth: number;
 }
 
-/** Automatic tier selection; the user can always override it in settings. */
-export function detectQualityTier(hints: DeviceHints): QualityTier {
-  const cores = hints.hardwareConcurrency ?? 4;
-  const memory = hints.deviceMemory ?? 4;
-
-  if (hints.coarsePointer || hints.viewportWidth < 768) {
-    return cores >= 8 && memory >= 6 ? 'medium' : 'low';
-  }
-  if (cores >= 8 && memory >= 8) return 'high';
-  if (cores >= 4) return 'medium';
-  return 'low';
-}
-
 export function readDeviceHints(): DeviceHints {
-  if (typeof window === 'undefined') {
-    return { coarsePointer: false, viewportWidth: 1280 };
-  }
+  if (typeof window === 'undefined') return { coarsePointer: false, viewportWidth: 1280 };
   const nav = window.navigator as Navigator & { deviceMemory?: number };
   return {
     hardwareConcurrency: nav.hardwareConcurrency,
@@ -51,6 +39,10 @@ export function readDeviceHints(): DeviceHints {
     coarsePointer: window.matchMedia('(pointer: coarse)').matches,
     viewportWidth: window.innerWidth,
   };
+}
+
+export function detectQualityProfile(): QualityProfileId {
+  return detectProfile(readDeviceHints());
 }
 
 export function prefersReducedMotion(): boolean {

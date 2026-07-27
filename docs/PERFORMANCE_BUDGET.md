@@ -1,61 +1,80 @@
 # Performance Budget
 
-These are project production targets, not universal platform limits.
+> Revised 27 Jul 2026 for the hero character policy (D-012).
 
-## Runtime targets
+## Hero characters — exempt from the prop budget
 
-| Measure | Mobile target | Desktop target |
-|---|---:|---:|
-| Frame rate | stable 30 FPS | 60 FPS where practical |
-| Initial map interaction | under 3 s on a normal connection after shell load | under 2 s |
-| Critical city bundle | ideally 8–12 MB compressed | ideally under 18 MB compressed |
-| Active scene triangles | ideally under 250k | ideally under 600k |
-| Draw calls | preferably under 150 | preferably under 250 |
-| Device pixel ratio | capped approximately 1.0–1.5 | capped approximately 2.0 |
+| Item | Budget |
+|---|---|
+| Hero mesh, per character | ~180,000–250,000 triangles |
+| Approved Keloğlan GLB | ~222,150 triangles, ~16.7 MB |
+| Active heroes in a normal city | **1** |
+| Inactive hero | not downloaded, not mounted |
+| Hero mesh across quality profiles | identical in all three |
 
-## Asset targets
+A hero is never decimated automatically. If frames regress, the environment
+pays; see the ladder below.
 
-| Asset | Triangle guidance | Texture guidance |
-|---|---:|---:|
-| Guide character | 20k–45k | up to 2K atlas |
-| Hero landmark | 15k–40k | 1K–2K |
-| Midground prop | 3k–12k | 512–1K |
-| Small prop | 500–4k | 256–1K |
-| Collectible | 3k–12k | up to 1K |
-| Background object | 100–2k | shared atlas preferred |
+## Everything else
 
-## Quality tiers
+| Ölçüt | Hedef |
+|---|---|
+| İlk şehir yüklemesi, hero hariç | 8–12 MB altında |
+| Hero GLB, ayrı ve tembel yüklenir | ~17 MB'a kadar kabul |
+| Ekrandaki toplam üçgen, hero hariç | 250.000 altında |
+| Hero yapı (Galata gibi) | 15.000–35.000 üçgen |
+| Orta boy obje | 3.000–10.000 üçgen |
+| Küçük prop | 500–3.000 üçgen |
+| Standart tekstür | 1024 px |
+| Hero karakter tekstürü | 2048 px |
+| Draw call | 200 altında |
+| Mobil | stabil 30 FPS |
+| Masaüstü | 50–60 FPS |
 
-### Low
+## Quality profiles
 
-- no optional post-processing;
-- reduced shadow resolution or baked-only shadows;
-- lower DPR;
-- fewer background props and particles;
-- low LOD models;
-- reduced vegetation density.
+| | high | balanced | safe |
+|---|---|---|---|
+| Hero mesh | full | full | full |
+| Hero animation | on | on | on |
+| Hero shadow | on | on | **off** |
+| DPR cap | 2.0 | 1.5 | 1.0 |
+| Shadow map | 2048 | 1024 | 512 |
+| Post-processing | on | off | off |
+| Environment density | 1.0 | 0.65 | 0.35 |
+| Distant asset cutoff | 220 m | 140 m | 90 m |
 
-### Medium
+Auto-selection: desktop with 8+ cores and 8 GB+ → `high`; other desktops →
+`balanced`; touch devices → `safe`, or `balanced` on 8-core/6 GB+ hardware.
 
-- default mobile/standard laptop profile;
-- limited real-time shadows;
-- medium LOD;
-- restrained effects.
+## Degradation ladder
 
-### High
+When frames regress, quality is surrendered in this order:
 
-- higher DPR within cap;
-- higher LOD;
-- improved shadow quality;
-- optional lightweight post-processing.
+1. post-processing
+2. environment decoration density
+3. shadow-map resolution
+4. nonessential shadows
+5. device pixel ratio
+6. distant environment assets
+
+The hero mesh and its animation are not on this list, by design.
+
+## Loading rules
+
+- The map route downloads no 3D hero; it shows 2D portraits.
+- The hero GLB is requested only after the city shell, canonical content and
+  graybox scene are ready.
+- The active hero stays cached across cities while the same guide is selected.
+- `useGLTF.clear()` runs on a guide switch or explicit memory pressure — never
+  on ordinary city unmount.
+- A failed hero load falls back to the placeholder; the city stays playable.
 
 ## Engineering checks
 
-- Do not update React state every animation frame.
-- Reuse geometry and materials.
-- Instance repeated props.
-- Dispose assets when a city unloads unless intentionally cached.
-- Avoid loading all city content and GLBs on the map route.
-- Measure before adding post-processing.
-- Use compressed textures and geometry where the build pipeline supports them.
-- Provide a simple debug overlay showing FPS, draw calls, triangles and loaded asset MB in development.
+- No per-frame React state updates.
+- One AnimationMixer per active hero, updated only while mounted.
+- Scene, hotspot and hero systems dispose on city change.
+- Development overlay reports fps, draw calls, triangles, textures, DPR,
+  profile, active hero, active clip, hero shadow state and the exact
+  environment concessions in force.

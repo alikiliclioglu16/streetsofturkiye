@@ -2,7 +2,7 @@
 
 import { useRef, type ReactNode } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
-import type { QualitySettings } from '@/engine/quality/quality';
+import type { QualityProfile } from '@/engine/quality/quality';
 
 export interface PerfSample {
   fps: number;
@@ -46,7 +46,7 @@ function PerfProbe({ onSample }: PerfProbeProps) {
 }
 
 interface CityCanvasProps {
-  quality: QualitySettings;
+  quality: QualityProfile;
   children: ReactNode;
   onPerfSample?: (sample: PerfSample) => void;
 }
@@ -54,10 +54,10 @@ interface CityCanvasProps {
 export function CityCanvas({ quality, children, onPerfSample }: CityCanvasProps) {
   return (
     <Canvas
-      shadows={quality.shadows}
+      shadows={quality.heroShadow || quality.shadowMapSize > 512}
       dpr={[1, quality.maxDpr]}
       camera={{ fov: 55, near: 0.1, far: 220, position: [0, 4, 16] }}
-      gl={{ antialias: quality.tier !== 'low', powerPreference: 'high-performance' }}
+      gl={{ antialias: quality.id !== 'safe', powerPreference: 'high-performance' }}
       onCreated={({ gl }) => {
         gl.setClearColor('#BFE4F2');
       }}

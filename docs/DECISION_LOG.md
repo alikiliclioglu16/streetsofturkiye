@@ -57,3 +57,20 @@ Consequence: `content/pilot/` and the hand-authored pilot strings are retired.
 the build if the source SHA changes, counts drift, a canonical string is edited,
 a `contentRef` dangles, or a scene file duplicates canonical prose.
 
+## D-012 — Hero characters (27 Jul 2026)
+
+Keloğlan and Nasreddin Hodja are production hero characters. Their approved mesh
+budget is approximately 180k–250k triangles each. The engine loads one hero by
+default and adapts environment quality before reducing character quality.
+
+The former 35k-triangle character budget is retired for these two assets only.
+The Keloğlan merged-animation GLB (~222,150 triangles, ~16.7 MB) is approved for
+production, subject to runtime QA. No low-poly hero variant may be produced
+without separate project-owner approval.
+
+Consequence: quality settings became `high` / `balanced` / `safe` profiles that
+differ in environment cost alone. The degradation ladder — post-processing,
+decoration density, shadow-map resolution, nonessential shadows, device pixel
+ratio, distant assets — deliberately contains no character entry. Map and
+collection routes use 2D portraits. `allowTwoHeroScene` defaults to false.
+

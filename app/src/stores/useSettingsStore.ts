@@ -1,8 +1,8 @@
 'use client';
 
 import { create } from 'zustand';
-import type { QualityTier } from '@/engine/assets/registry';
-import { detectQualityTier, prefersReducedMotion, readDeviceHints } from '@/engine/quality/quality';
+import type { QualityProfileId } from '@/engine/heroes/policy';
+import { detectQualityProfile, prefersReducedMotion } from '@/engine/quality/quality';
 import { DEFAULT_LOCALE, type Locale } from '@/content/i18n';
 
 export type ControlMode = 'explore' | 'guided';
@@ -10,7 +10,7 @@ export type ControlMode = 'explore' | 'guided';
 interface SettingsState {
   locale: Locale;
   controlMode: ControlMode;
-  quality: QualityTier;
+  quality: QualityProfileId;
   qualityAuto: boolean;
   reducedMotion: boolean;
   reducedMotionAuto: boolean;
@@ -21,7 +21,7 @@ interface SettingsState {
   hydrated: boolean;
   setLocale: (locale: Locale) => void;
   setControlMode: (mode: ControlMode) => void;
-  setQuality: (tier: QualityTier) => void;
+  setQuality: (profile: QualityProfileId) => void;
   setReducedMotion: (value: boolean) => void;
   toggleAudio: (channel: 'ambient' | 'ui' | 'guide') => void;
   togglePerfOverlay: () => void;
@@ -58,7 +58,7 @@ function persist(state: SettingsState): void {
 export const useSettingsStore = create<SettingsState>((set, get) => ({
   locale: DEFAULT_LOCALE,
   controlMode: 'explore',
-  quality: 'medium',
+  quality: 'balanced',
   qualityAuto: true,
   reducedMotion: false,
   reducedMotionAuto: true,
@@ -111,7 +111,7 @@ export const useSettingsStore = create<SettingsState>((set, get) => ({
 
     set({
       ...stored,
-      quality: qualityAuto ? detectQualityTier(readDeviceHints()) : (stored.quality ?? 'medium'),
+      quality: qualityAuto ? detectQualityProfile() : (stored.quality ?? 'balanced'),
       qualityAuto,
       reducedMotion: reducedMotionAuto ? prefersReducedMotion() : (stored.reducedMotion ?? false),
       reducedMotionAuto,

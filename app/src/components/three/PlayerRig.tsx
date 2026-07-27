@@ -1,11 +1,13 @@
 'use client';
 
-import { useEffect, useMemo, useRef } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { useFrame, useThree } from '@react-three/fiber';
 import type { Group } from 'three';
 import { Vector3 } from 'three';
 import type { SceneDescription } from '@/engine/scene/buildScene';
-import { AssetInstance } from '@/components/three/AssetInstance';
+import { HeroCharacter, type HeroStatus } from '@/components/three/HeroCharacter';
+import { heroForGuide } from '@/engine/heroes/registry';
+import type { QualityProfile } from '@/engine/heroes/policy';
 import { inputState } from '@/engine/controls/inputState';
 import { distance2, stepPosition, type Point2 } from '@/engine/controls/movement';
 import {
@@ -28,6 +30,14 @@ interface PlayerRigProps {
   focus: { position: [number, number, number]; target: [number, number, number]; durationMs: number } | null;
   /** Stops already performed; guided mode no longer halts at these. */
   completedHotspotIds: readonly string[];
+  /** Canonical guide id for this city; selects which hero is mounted. */
+  guideId: string;
+  profile: QualityProfile;
+  /** The hero GLB is requested only once the city is otherwise playable. */
+  heroReady: boolean;
+  interacting: boolean;
+  celebrating: boolean;
+  onHeroStatus?: (status: HeroStatus) => void;
   onFocusSettled: () => void;
   onNearestChange: (hotspotId: string | null) => void;
 }
@@ -39,6 +49,12 @@ export function PlayerRig({
   reducedMotion,
   focus,
   completedHotspotIds,
+  guideId,
+  profile,
+  heroReady,
+  interacting,
+  celebrating,
+  onHeroStatus,
   onFocusSettled,
   onNearestChange,
 }: PlayerRigProps) {
@@ -50,8 +66,15 @@ export function PlayerRig({
   const pitch = useRef<number>(0.08);
   const guidedState = useRef<GuidedState>(createGuidedState(scene.routePoints));
   const nearestId = useRef<string | null>(null);
+  const previousPosition = useRef<Point2>({ x: scene.spawn[0], z: scene.spawn[2] });
   const settledFor = useRef<string | null>(null);
   const lookTarget = useRef(new Vector3());
+  const hero = useMemo(() => heroForGuide(guideId), [guideId]);
+
+  // Ground speed feeds the animation state; it is sampled, never React state.
+  const [speed, setSpeed] = useState(0);
+  const speedRef = useRef(0);
+  const speedSampledAt = useRef(0);
 
   const stops = useMemo<GuidedStop[]>(
     () =>
@@ -149,6 +172,16 @@ export function PlayerRig({
       bodyRef.current.rotation.y = heading.current;
     }
 
+    // Publish speed at 10 Hz so the clip selector reacts without per-frame renders.
+    speedRef.current = delta > 0 ? distance2(previousPosition.current, position.current) / delta : 0;
+    previousPosition.current = { ...position.current };
+    speedSampledAt.current += delta;
+    if (speedSampledAt.current >= 0.1) {
+      speedSampledAt.current = 0;
+      const rounded = Math.round(speedRef.current * 10) / 10;
+      setSpeed((current) => (current === rounded ? current : rounded));
+    }
+
     // Camera: authored anchor while focused, follow rig otherwise.
     if (focus) {
       const factor = smoothing(delta, focus.durationMs, reducedMotion);
@@ -192,7 +225,13 @@ export function PlayerRig({
 
   return (
     <group ref={bodyRef}>
-      <AssetInstance asset={scene.guide} />
+      <HeroCharacter
+        hero={hero}
+        profile={profile}
+        ready={heroReady}
+        motion={{ speed, interacting, celebrating }}
+        onStatusChange={onHeroStatus}
+      />
       {/* Facing indicator: direction is readable without relying on colour. */}
       <mesh position={[0, 0.06, 0.55]} rotation={[-Math.PI / 2, 0, 0]}>
         <coneGeometry args={[0.22, 0.5, 3]} />

@@ -13,11 +13,18 @@ const config = [
     rules: {
       '@typescript-eslint/no-explicit-any': 'error',
       '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
+    },
+  },
+  {
+    // Model paths belong in the asset and hero registries. Components resolve
+    // assets through those registries and never name a file (CLAUDE.md rule 4).
+    files: ['src/components/**/*.{ts,tsx}', 'src/app/**/*.{ts,tsx}'],
+    rules: {
       'no-restricted-syntax': [
         'error',
         {
           selector: "Literal[value=/\\.glb$/]",
-          message: 'Asset paths belong in the asset registry, not in components (CLAUDE.md rule 4).',
+          message: 'Asset paths belong in the asset or hero registry, not in components.',
         },
       ],
     },

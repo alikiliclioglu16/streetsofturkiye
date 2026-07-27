@@ -1,7 +1,7 @@
 # QA Evidence — Faz 01 / Kapı A
 
 **Tarih:** 27 Temmuz 2026
-**Kapsam:** PROMPT 01B (A-01…A-04) ve İçerik Kanonikleştirme C0
+**Kapsam:** PROMPT 01B (A-01…A-04), İçerik Kanonikleştirme C0, Hero Karakter Mimarisi (D-012)
 **Karar talebi:** A-01, A-02, A-03 ve içerik güvencesi için tam kanıt sunuluyor. **A-04 kısmen karşılandı**; nedeni ve tam çalıştırma komutları aşağıda.
 
 ---
@@ -25,13 +25,13 @@
 | `npm run content:check` | ✅ `81 cities, 249 stops, 84 questions (78 with one, 3 with two); 1413 strings match baseline` + `Content in sync (88 files).` |
 | `npm run lint` | ✅ hatasız |
 | `npm run typecheck` | ✅ hatasız (strict, `any` yok) |
-| `npm test` | ✅ **8 dosya / 69 test geçti** |
+| `npm test` | ✅ **9 dosya / 93 test geçti** |
 | `npm run build` | ✅ 4 rota derlendi |
 | `npm start` + HTTP kontrolü | ✅ `/map` 200, `/city/istanbul` 200, `/content/canonical/cities/istanbul.json` 200, `/content/scenes/istanbul.json` 200 (5 hotspot), `/content/canonical/city-index.json` 200 |
 | `npx playwright install chromium` | ❌ **indirilemedi** — `Download failure, code=1` (ağ engeli) |
 | `npm run test:e2e` | ⛔ tarayıcı binary'si olmadığı için çalıştırılamadı |
 
-### Test dağılımı (69)
+### Test dağılımı (93)
 
 | Dosya | Test | Kapsam |
 |---|---:|---|
@@ -43,6 +43,7 @@
 | `tests/content-sync.test.ts` | 3 | Kök içerik ↔ servis edilen kopya |
 | `tests/ui-flow.test.tsx` | 10 | Gerçek DOM: odak, Escape, klavye, quiz akışı |
 | `tests/canonical.test.ts` | 18 | C0: kanonik yetke, sahne ayrımı, birleştirme |
+| `tests/heroes.test.ts` | 24 | D-012: tek hero, önbellek, profiller, mixer, dans torbası |
 
 ---
 
@@ -223,6 +224,22 @@ uygulanıyor, yalnız belgede yazmıyor.
 dosyası worker başlatamadığı için hiç çalışmamıştı ve bu hata sayılmıyordu.
 Bağımlılıklar düzgün kurulunca aynı dosya iki gerçek hata verdi. Yeşil bir test
 raporunda dosya sayısını da kontrol etmek gerekiyor.
+
+## 8c. Hero karakter kanıtı
+
+Politika kurallarının kod karşılığı ve safe profilinde verilen tavizlerin tam
+listesi `docs/HERO_CHARACTER_REPORT.md` bölüm 2 ve 4'te.
+
+**Ölçüm alınamadı.** Konteynerde GPU yok; canlı siteye Chrome'dan baktığımda
+otomasyon sekmesi arka planda olduğu için `requestAnimationFrame` 1,5 saniyede
+**0 kare** verdi — render döngüsü tamamen duruyor, FPS ölçmenin anlamı yok.
+Telemetri katmanı hazır ve 11 alanı raporluyor; ölçüm sekme önde `npm run dev`
+ile alınmalı.
+
+**Gerçek GLB ile denenmedi.** İki hero da henüz teslim edilmedi. Kod içinde
+düşük poligonlu varyant veya otomatik model değiştirme yolu bulunmuyor; bir
+test, düşürme merdiveninde "character", "hero" ve "mesh" kelimelerinin
+geçmediğini doğruluyor.
 
 ## 9. Bilinen sınırlar
 

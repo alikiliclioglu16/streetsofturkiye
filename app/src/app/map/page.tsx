@@ -10,6 +10,7 @@ import { TurkiyeMap, type CityAvailability } from '@/components/map/TurkiyeMap';
 import { useSettingsStore } from '@/stores/useSettingsStore';
 import { useGameStore } from '@/stores/useGameStore';
 import { SettingsPanel } from '@/components/game-ui/SettingsPanel';
+import { GuidePortrait } from '@/components/map/GuidePortrait';
 
 export default function MapPage() {
   const router = useRouter();
@@ -131,8 +132,12 @@ export default function MapPage() {
               className="panel"
               style={{ padding: 20, display: 'flex', flexDirection: 'column', gap: 10 }}
             >
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', gap: 8 }}>
-                <h2 style={{ fontSize: '1.5rem' }}>{t(city.name, locale)}</h2>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 8 }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                  {/* 2D portrait only — the map route never loads a 3D hero. */}
+                  <GuidePortrait guideId={city.legacyGuideId} />
+                  <h2 style={{ fontSize: '1.5rem' }}>{t(city.name, locale)}</h2>
+                </div>
                 <span style={{ fontSize: 12, fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', opacity: 0.7 }}>
                   {regionName(city.regionId)}
                 </span>
