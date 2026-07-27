@@ -53,9 +53,6 @@ export const MOVE_SPEED = 4.2;
 /** Shift. Kept clearly above the walk speed so the run clip actually plays. */
 export const RUN_SPEED = 7.4;
 
-/** A hop, not a platforming jump: high enough to feel, low enough to be safe. */
-export const JUMP_SPEED = 4.6;
-export const GRAVITY = 12.5;
 
 /** Frame-rate independent step. Diagonal input is normalised. */
 export function stepPosition(

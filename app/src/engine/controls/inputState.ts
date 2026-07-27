@@ -15,8 +15,6 @@ export interface InputState {
   interactPressed: boolean;
   /** Shift: the guide breaks into a run. */
   running: boolean;
-  /** Space: a hop, consumed by the rig on the frame it is read. */
-  jumpRequested: boolean;
 }
 
 export const inputState: InputState = {
@@ -26,7 +24,6 @@ export const inputState: InputState = {
   pitchDelta: 0,
   interactPressed: false,
   running: false,
-  jumpRequested: false,
 };
 
 export function resetInput(): void {
@@ -36,7 +33,6 @@ export function resetInput(): void {
   inputState.pitchDelta = 0;
   inputState.interactPressed = false;
   inputState.running = false;
-  inputState.jumpRequested = false;
 }
 
 const FORWARD_KEYS = new Set(['w', 'W', 'ArrowUp']);
@@ -76,10 +72,6 @@ export function useKeyboardControls(enabled: boolean): void {
         inputState.interactPressed = true;
       }
       if (event.key === 'Shift') inputState.running = true;
-      if (event.key === ' ' || event.key === 'Spacebar') {
-        event.preventDefault();
-        inputState.jumpRequested = true;
-      }
       if (
         FORWARD_KEYS.has(event.key) ||
         BACK_KEYS.has(event.key) ||

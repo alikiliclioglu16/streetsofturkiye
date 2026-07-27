@@ -3,9 +3,7 @@ import { loadComposedCity } from './helpers';
 import {
   blockedBy,
   clampToBounds,
-  GRAVITY,
   isInsideBounds,
-  JUMP_SPEED,
   RUN_SPEED,
   stepPosition,
   stepWithCollision,
@@ -211,22 +209,4 @@ describe('controls', () => {
     expect(clipForState({ speed: runDistance, interacting: false, performing: null })).toBe('run');
   });
 
-  it('keeps a hop from turning into flight', () => {
-    // A hop is a fixed arc: up, then back to the ground, and it cannot stack.
-    let height = 0;
-    let vertical = JUMP_SPEED;
-    let peak = 0;
-    for (let frame = 0; frame < 600; frame += 1) {
-      vertical -= GRAVITY / 60;
-      height += vertical / 60;
-      if (height <= 0) {
-        height = 0;
-        vertical = 0;
-      }
-      peak = Math.max(peak, height);
-    }
-    expect(peak).toBeGreaterThan(0.5);
-    expect(peak).toBeLessThan(1.5);
-    expect(height).toBe(0);
-  });
 });

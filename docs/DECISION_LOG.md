@@ -178,3 +178,10 @@ outlined, which told the child the answer before they read it. Every option now
 renders identically. This is a rule, not a fix: no interaction may distinguish
 the correct option by colour, weight, order or position.
 
+## D-022 — No jumping (27 Jul 2026)
+
+Jumping is removed. Neither delivered hero has a jump clip, so a hop played the
+walk or run animation in mid-air, which looked wrong. Movement is walking and
+running only. If a jump is wanted later it needs a `Jump` clip in the Meshy
+export first, not a physics change.
+
