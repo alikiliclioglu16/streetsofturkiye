@@ -15,8 +15,12 @@ export type HeroClip = 'idle' | 'walk' | 'run' | 'talk' | 'dance';
 export interface HeroAnimationManifest {
   /** Engine clip name → clip name inside the GLB. */
   readonly clips: Readonly<Partial<Record<HeroClip, string>>>;
-  /** Celebration clips drawn from a non-repeating shuffle bag. */
+  /** Approved celebration clips, drawn from a non-repeating shuffle bag. */
   readonly danceClips: readonly string[];
+  /** Clips present in the GLB but withheld from production, with the reason. */
+  readonly excludedClips: Readonly<Record<string, string>>;
+  /** Every clip the delivered file actually contains, for traceability. */
+  readonly deliveredClips: readonly string[];
 }
 
 export interface HeroDefinition {
@@ -31,6 +35,12 @@ export interface HeroDefinition {
   readonly triangles: number | null;
   readonly transferBytes: number | null;
   readonly animation: HeroAnimationManifest;
+  /**
+   * Measured height of the rendered model, in metres. The scene scales to the
+   * manifest height using this, so a model delivered in different units lands
+   * at the right size without editing the file.
+   */
+  readonly measuredHeightMeters: number | null;
   /** 2D portrait used on the map and collection routes. Never a 3D mount. */
   readonly portraitUrl: string | null;
   readonly portraitColor: string;
@@ -41,15 +51,50 @@ const HEROES: Readonly<Record<HeroId, HeroDefinition>> = {
     id: 'keloglan',
     assetId: 'character_keloglan_base',
     displayName: 'Keloğlan',
-    // Approved production model. Set when the GLB lands in /public/assets.
-    modelUrl: null,
-    checksum: null,
-    triangles: null,
-    transferBytes: null,
+    /**
+     * Approved production model, delivered 27 Jul 2026. The Meshy filename is
+     * kept verbatim so the file in the repository can be traced back to the
+     * delivery without a rename in between.
+     */
+    modelUrl: '/assets/heroes/Meshy_AI_Little_Adventurer_biped_Meshy_AI_Meshy_Merged_Animations.glb',
+    checksum: '41f8f1fa2f0bac36085d2dc903fd34ab46577aa338e436a727359d1a9fa13f68',
+    triangles: 222_150,
+    transferBytes: 16_722_860,
     animation: {
-      clips: { idle: 'Idle', walk: 'Walk', run: 'Run', talk: 'Talk' },
-      danceClips: ['Dance_01', 'Dance_02', 'Dance_03'],
+      clips: {
+        idle: 'Idle_11',
+        walk: 'Walking',
+        run: 'Running',
+        talk: 'Talk_Passionately',
+      },
+      danceClips: [
+        'FunnyDancing_01',
+        'FunnyDancing_03',
+        'Hip_Hop_Dance',
+        'Joyful_Dance_with_Hand_Sway',
+      ],
+      excludedClips: {
+        Love_You_Pop_Dance: 'romantic theme is outside project art direction',
+        ymca_dance: 'outside Turkish cultural art direction',
+        Breakdance_1990: 'clip is 0.50 s long and reads as incomplete',
+        Step_Hip_Hop_Dance: 'measured 0.83 m forward root displacement',
+      },
+      deliveredClips: [
+        'Breakdance_1990',
+        'FunnyDancing_01',
+        'FunnyDancing_03',
+        'Hip_Hop_Dance',
+        'Idle_11',
+        'Joyful_Dance_with_Hand_Sway',
+        'Love_You_Pop_Dance',
+        'Running',
+        'Step_Hip_Hop_Dance',
+        'Talk_Passionately',
+        'Walking',
+        'ymca_dance',
+      ],
     },
+    measuredHeightMeters: 1.7,
     portraitUrl: null,
     portraitColor: '#E0322F',
   },
@@ -62,9 +107,19 @@ const HEROES: Readonly<Record<HeroId, HeroDefinition>> = {
     triangles: null,
     transferBytes: null,
     animation: {
-      clips: { idle: 'Idle', walk: 'Walk', run: 'Run', talk: 'Talk' },
-      danceClips: ['Dance_01', 'Dance_02'],
+      // Not yet produced. Mirrors the Keloğlan clip contract so the same
+      // Meshy brief can be reused, per the hero technical-class rule.
+      clips: {
+        idle: 'Idle_11',
+        walk: 'Walking',
+        run: 'Running',
+        talk: 'Talk_Passionately',
+      },
+      danceClips: [],
+      excludedClips: {},
+      deliveredClips: [],
     },
+    measuredHeightMeters: null,
     portraitUrl: null,
     portraitColor: '#F2B233',
   },
@@ -80,6 +135,20 @@ export function heroForGuide(guideId: string): HeroDefinition {
 
 export function heroById(heroId: HeroId): HeroDefinition {
   return HEROES[heroId];
+}
+
+/** True when the hero has a delivered GLB rather than a placeholder. */
+export function isDelivered(hero: HeroDefinition): boolean {
+  return hero.modelUrl !== null;
+}
+
+/**
+ * Guards the celebration pool. An excluded clip must never reach the player,
+ * including through the "another dance" button.
+ */
+export function isApprovedDance(hero: HeroDefinition, clipName: string): boolean {
+  if (clipName in hero.animation.excludedClips) return false;
+  return hero.animation.danceClips.includes(clipName);
 }
 
 export function allHeroes(): readonly HeroDefinition[] {

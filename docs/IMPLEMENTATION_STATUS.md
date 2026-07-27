@@ -1,8 +1,8 @@
 # Implementation Status
 
-**Son güncelleme:** 27 Temmuz 2026 — Hero karakter mimarisi (D-012) dahil
-**Tamamlanan fazlar:** Faz 00, Faz 01, Faz 01B (Kapı A), C0 (İçerik Kanonikleştirme), Hero Karakter Mimarisi
-**Kanıt belgeleri:** `docs/QA_EVIDENCE.md`, `docs/CANONICAL_MIGRATION_REPORT.md`, `docs/HERO_CHARACTER_REPORT.md`
+**Son güncelleme:** 27 Temmuz 2026 — Keloğlan hero entegrasyonu (M0-K1) dahil
+**Tamamlanan fazlar:** Faz 00, Faz 01, Faz 01B (Kapı A), C0, Hero Karakter Mimarisi, M0-K1 Keloğlan
+**Kanıt belgeleri:** `docs/QA_EVIDENCE.md`, `docs/CANONICAL_MIGRATION_REPORT.md`, `docs/HERO_CHARACTER_REPORT.md`, `docs/KELOGLAN_INTEGRATION_REPORT.md`
 **Faz 02 başlatılmadı.**
 **Uygulama konumu:** `app/` (kaynak paket dosyalarına dokunulmadı)
 
@@ -114,7 +114,7 @@ app/src/
 npm run lint       → temiz
 npm run typecheck  → temiz (strict, noUncheckedIndexedAccess, `any` yok)
 npm run content:check → 81 il, 249 durak, 84 soru; 1413 kanonik dizgi baseline ile eşleşti
-npm test           → 9 dosya / 93 test geçti (logic + jsdom ui)
+npm test           → 9 dosya / 109 test geçti (logic + jsdom ui)
 npm run build      → başarılı, 4 rota
 npm start          → /map ve /city/istanbul 200
 ```
@@ -197,10 +197,30 @@ Kalite sistemi `safe / balanced / high` profillerine geçti; üç profilde de he
 | İki hero modu varsayılan kapalı | ✅ |
 | GLB hatasında placeholder | ✅ testli |
 | Telemetri katmanı | ✅ 11 alan |
-| **Gerçek GLB ile doğrulama** | ⚠️ model henüz teslim edilmedi |
+| **Gerçek GLB ile doğrulama** | ✅ Keloğlan entegre edildi, 222.150 üçgen, 12 klip |
 | **FPS ölçümü** | ⚠️ bu ortamda alınamadı, GPU yok |
 
 Ayrıntı: `docs/HERO_CHARACTER_REPORT.md`.
+
+## 4e. M0-K1 — Keloğlan entegrasyonu
+
+Teslim edilen animasyonlu GLB, dosya adı değiştirilmeden `app/public/assets/heroes/` altına kondu ve registry'ye ölçülen değerleriyle işlendi: 222.150 üçgen, 16.722.860 bayt, SHA-256 kayıtlı, 12 klip envanteri çıkarıldı.
+
+| Konu | Durum |
+|---|---|
+| Model küçültülmedi | ✅ decimation yolu yok |
+| Dört durum klibi eşleşti | ✅ `Idle_11` / `Walking` / `Running` / `Talk_Passionately` |
+| Dört onaylı dans | ✅ dışlananlar seçilemiyor, testli |
+| Kök hareketi güvenliği | ✅ `FunnyDancing_01` 0,21 m kayması sabitleniyor |
+| Kutlama koreografisi | ✅ ilerleme dans öncesi kaydediliyor |
+| "Başka bir kutlama dansı" | ✅ |
+| Reduced motion | ✅ dans atlanıyor, ödül veriliyor |
+| Yükleme durumu | ✅ "Keloğlan hazırlanıyor…" |
+| **Tarayıcıda görsel doğrulama** | ⚠️ bu ortamda yapılamadı |
+
+**Test için:** `/city/istanbul?guide=keloglan` — kanonik rehber atamasına dokunmayan QA parametresi.
+
+Ayrıntı: `docs/KELOGLAN_INTEGRATION_REPORT.md`.
 
 ## 5. Bilinen sınırlar
 
@@ -211,7 +231,8 @@ Ayrıntı: `docs/HERO_CHARACTER_REPORT.md`.
 5. **`inspect-and-find` fare hedefi basit.** Panel üzerindeki üç motif primitif şekil; gerçek çini paneli gelince hedefler modelin kendi parçalarına bağlanmalı.
 6. **Kanonik içeriğin tamamı İngilizce.** Arayüz Türkçe, içerik İngilizce. Çeviri katmanı kararı bekliyor; `tr` alanları kasıtlı olarak `null`.
 7. **İstanbul ve Nevşehir'de ikişer durak graybox varlıkla çiziliyor** (Kapalıçarşı, simit arabası, balon, halı tezgâhı). Meshy brief'i gerekiyor.
-8. **Hero GLB'leri teslim edilmedi.** İki karakter de placeholder silindirle çiziliyor; yükleme yolu gerçek dosyayla denenmedi.
+8. **Nasreddin Hoca modeli üretilmedi.** İstanbul'un kanonik rehberi o olduğu için, parametresiz açılışta placeholder görünüyor. Şartname: `docs/MESHY_BRIEF_NASREDDIN_HOCA.md`.
+8b. **Keloğlan tarayıcıda görsel olarak doğrulanmadı.** Klip adları dosyadan okundu ve eşleşme testli, ama kliplerin içeriği görülmedi.
 9. **Gerçek cihaz FPS ölçümü yok.** Telemetri katmanı hazır, ölçüm bekliyor.
 10. **Su, deniz, gökyüzü yok.** `skyPreset` ve `environment.qualityNotes` okunuyor ama görsel karşılığı Faz 02'de.
 

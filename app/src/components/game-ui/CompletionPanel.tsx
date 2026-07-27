@@ -11,11 +11,14 @@ export function CompletionPanel({
   collectedRewardIds,
   locale,
   onLeave,
+  onAnotherDance,
 }: {
   city: CityDefinition;
   collectedRewardIds: readonly string[];
   locale: Locale;
   onLeave: () => void;
+  /** Absent when the guide has no approved dances or reduced motion is on. */
+  onAnotherDance?: () => void;
 }) {
   // Labels come from canonical content, not from the asset registry.
   const collectibles = city.hotspots.map((hotspot) => hotspot.reward);
@@ -44,9 +47,16 @@ export function CompletionPanel({
         })}
       </ul>
 
-      <button type="button" className="btn btn--gold" onClick={onLeave}>
-        {ui('backToMap', locale)}
-      </button>
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10 }}>
+        {onAnotherDance ? (
+          <button type="button" className="btn" onClick={onAnotherDance}>
+            {locale === 'tr' ? 'Başka bir kutlama dansı' : 'Another celebration dance'}
+          </button>
+        ) : null}
+        <button type="button" className="btn btn--gold" onClick={onLeave}>
+          {ui('backToMap', locale)}
+        </button>
+      </div>
     </Modal>
   );
 }

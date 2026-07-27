@@ -19,6 +19,7 @@ import {
   type GuidedStop,
 } from '@/engine/controls/guided';
 import { clampPitch, followCameraPosition, smoothing } from '@/engine/camera/anchors';
+import { celebrationCamera } from '@/engine/heroes/celebration';
 
 interface PlayerRigProps {
   scene: SceneDescription;
@@ -37,6 +38,11 @@ interface PlayerRigProps {
   heroReady: boolean;
   interacting: boolean;
   celebrating: boolean;
+  /** True while the camera should frame the guide for a celebration. */
+  framingCelebration: boolean;
+  onCelebrationFramed?: () => void;
+  onDanceFinished?: () => void;
+  danceToken?: number;
   onHeroStatus?: (status: HeroStatus) => void;
   onFocusSettled: () => void;
   onNearestChange: (hotspotId: string | null) => void;
@@ -54,6 +60,10 @@ export function PlayerRig({
   heroReady,
   interacting,
   celebrating,
+  framingCelebration,
+  onCelebrationFramed,
+  onDanceFinished,
+  danceToken = 0,
   onHeroStatus,
   onFocusSettled,
   onNearestChange,
@@ -69,6 +79,7 @@ export function PlayerRig({
   const previousPosition = useRef<Point2>({ x: scene.spawn[0], z: scene.spawn[2] });
   const settledFor = useRef<string | null>(null);
   const lookTarget = useRef(new Vector3());
+  const framedRef = useRef(false);
   const hero = useMemo(() => heroForGuide(guideId), [guideId]);
 
   // Ground speed feeds the animation state; it is sampled, never React state.
@@ -182,6 +193,21 @@ export function PlayerRig({
       setSpeed((current) => (current === rounded ? current : rounded));
     }
 
+    // Celebration framing wins over everything: the guide is the subject.
+    if (framingCelebration) {
+      const anchor = celebrationCamera([position.current.x, 0, position.current.z]);
+      const factor = smoothing(delta, anchor.durationMs, reducedMotion);
+      camera.position.lerp(new Vector3(...anchor.position), factor);
+      lookTarget.current.lerp(new Vector3(...anchor.target), factor);
+      camera.lookAt(lookTarget.current);
+      if (camera.position.distanceTo(new Vector3(...anchor.position)) < 0.4 && !framedRef.current) {
+        framedRef.current = true;
+        onCelebrationFramed?.();
+      }
+      return;
+    }
+    framedRef.current = false;
+
     // Camera: authored anchor while focused, follow rig otherwise.
     if (focus) {
       const factor = smoothing(delta, focus.durationMs, reducedMotion);
@@ -230,6 +256,8 @@ export function PlayerRig({
         profile={profile}
         ready={heroReady}
         motion={{ speed, interacting, celebrating }}
+        danceToken={danceToken}
+        onDanceFinished={onDanceFinished}
         onStatusChange={onHeroStatus}
       />
       {/* Facing indicator: direction is readable without relying on colour. */}

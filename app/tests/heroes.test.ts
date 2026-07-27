@@ -17,6 +17,8 @@ import {
   heroById,
   heroForGuide,
   inactiveHeroes,
+  isApprovedDance,
+  isDelivered,
 } from '@/engine/heroes/registry';
 import {
   activeHeroId,
@@ -30,6 +32,11 @@ import {
   resetHeroCache,
 } from '@/engine/heroes/heroCache';
 import { createShuffleBag, draw } from '@/engine/heroes/danceBag';
+import {
+  celebrationCamera,
+  celebrationReducer,
+  initialCelebration,
+} from '@/engine/heroes/celebration';
 import { clipForState } from '@/engine/heroes/animation';
 import { assetTierForProfile } from '@/engine/quality/quality';
 import { loadComposedCity } from './helpers';
@@ -221,10 +228,17 @@ describe('failure behaviour', () => {
     expect(heroRenderMode({ ready: false, failed: false, modelUrl: url })).toBe('placeholder');
   });
 
-  it('leaves both heroes on the placeholder path until a GLB is delivered', () => {
+  it('renders the model for delivered heroes and the placeholder for the rest', () => {
     for (const hero of allHeroes()) {
-      expect(heroRenderMode({ ready: true, failed: false, modelUrl: hero.modelUrl })).toBe('placeholder');
+      const expected = hero.modelUrl ? 'model' : 'placeholder';
+      expect(
+        heroRenderMode({ ready: true, failed: false, modelUrl: hero.modelUrl }),
+        hero.id,
+      ).toBe(expected);
     }
+    // Keloğlan is delivered; Nasreddin Hodja is not yet.
+    expect(heroById('keloglan').modelUrl).not.toBeNull();
+    expect(heroById('nasreddin-hoca').modelUrl).toBeNull();
   });
 });
 
@@ -251,5 +265,157 @@ describe('mixer ownership', () => {
     expect(mapPage).not.toContain('HeroCharacter');
     // The map uses a 2D portrait instead.
     expect(mapPage).toContain('GuidePortrait');
+  });
+});
+
+describe('delivered Keloğlan model', () => {
+  const keloglan = heroById('keloglan');
+
+  it('is registered with the delivered file, checksum and measurements', () => {
+    expect(keloglan.modelUrl).toBe(
+      '/assets/heroes/Meshy_AI_Little_Adventurer_biped_Meshy_AI_Meshy_Merged_Animations.glb',
+    );
+    expect(keloglan.checksum).toHaveLength(64);
+    expect(keloglan.triangles).toBe(222_150);
+    expect(keloglan.transferBytes).toBe(16_722_860);
+    expect(keloglan.measuredHeightMeters).toBe(1.7);
+  });
+
+  it('keeps the delivered filename so the file traces back to the delivery', () => {
+    expect(keloglan.modelUrl).toContain('Meshy_AI_Little_Adventurer_biped');
+  });
+
+  it('sits inside the approved hero triangle range without decimation', () => {
+    const check = checkHeroBudget(keloglan);
+    expect(check.withinBudget).toBe(true);
+    expect(check.triangles).toBe(222_150);
+  });
+
+  it('maps the four state clips to names that exist in the file', () => {
+    const { clips, deliveredClips } = keloglan.animation;
+    expect(clips).toEqual({
+      idle: 'Idle_11',
+      walk: 'Walking',
+      run: 'Running',
+      talk: 'Talk_Passionately',
+    });
+    for (const name of Object.values(clips)) {
+      expect(deliveredClips, `${name} missing from the GLB`).toContain(name);
+    }
+  });
+
+  it('records all twelve delivered clips', () => {
+    expect(keloglan.animation.deliveredClips).toHaveLength(12);
+  });
+
+  it('approves exactly the four agreed celebration clips', () => {
+    expect(keloglan.animation.danceClips).toEqual([
+      'FunnyDancing_01',
+      'FunnyDancing_03',
+      'Hip_Hop_Dance',
+      'Joyful_Dance_with_Hand_Sway',
+    ]);
+  });
+
+  it('never selects an excluded clip, and records why each is excluded', () => {
+    const excluded = ['Love_You_Pop_Dance', 'ymca_dance', 'Breakdance_1990', 'Step_Hip_Hop_Dance'];
+    for (const clip of excluded) {
+      expect(keloglan.animation.deliveredClips, clip).toContain(clip);
+      expect(keloglan.animation.danceClips, clip).not.toContain(clip);
+      expect(isApprovedDance(keloglan, clip), clip).toBe(false);
+      expect(keloglan.animation.excludedClips[clip], `${clip} needs a reason`).toBeTruthy();
+    }
+  });
+
+  it('only ever draws approved clips from the bag', () => {
+    let bag = createShuffleBag(keloglan.animation.danceClips);
+    for (let i = 0; i < 100; i += 1) {
+      const result = draw(bag, i * 104_729);
+      bag = result.bag;
+      expect(isApprovedDance(keloglan, result.clip!), result.clip ?? '').toBe(true);
+    }
+  });
+
+  it('reports Nasreddin Hodja as not yet delivered', () => {
+    expect(isDelivered(keloglan)).toBe(true);
+    expect(isDelivered(heroById('nasreddin-hoca'))).toBe(false);
+  });
+});
+
+describe('completion choreography', () => {
+  const opts = { reducedMotion: false, hasDanceClips: true };
+  const run = (events: Parameters<typeof celebrationReducer>[1][], options = opts) =>
+    events.reduce((ctx, event) => celebrationReducer(ctx, event, options), initialCelebration);
+
+  it('saves progress before any dancing starts', () => {
+    const afterComplete = run([{ type: 'CITY_COMPLETED' }]);
+    expect(afterComplete.state).toBe('saving');
+    expect(afterComplete.inputLocked).toBe(true);
+    // Dancing cannot be reached without the save step.
+    expect(celebrationReducer(afterComplete, { type: 'CAMERA_FRAMED' }, opts).state).toBe('saving');
+  });
+
+  it('walks frame → dance → summary', () => {
+    const done = run([
+      { type: 'CITY_COMPLETED' },
+      { type: 'PROGRESS_SAVED' },
+      { type: 'CAMERA_FRAMED' },
+      { type: 'DANCE_FINISHED' },
+    ]);
+    expect(done.state).toBe('summary');
+    expect(done.dancesPlayed).toBe(1);
+  });
+
+  it('locks input for the whole sequence', () => {
+    const states = ['saving', 'framing', 'dancing', 'summary'];
+    let ctx = initialCelebration;
+    const events: Parameters<typeof celebrationReducer>[1][] = [
+      { type: 'CITY_COMPLETED' },
+      { type: 'PROGRESS_SAVED' },
+      { type: 'CAMERA_FRAMED' },
+      { type: 'DANCE_FINISHED' },
+    ];
+    for (const [index, event] of events.entries()) {
+      ctx = celebrationReducer(ctx, event, opts);
+      expect(ctx.state).toBe(states[index]);
+      expect(ctx.inputLocked).toBe(true);
+    }
+  });
+
+  it('plays another dance on request', () => {
+    const summary = run([
+      { type: 'CITY_COMPLETED' },
+      { type: 'PROGRESS_SAVED' },
+      { type: 'CAMERA_FRAMED' },
+      { type: 'DANCE_FINISHED' },
+    ]);
+    const again = celebrationReducer(summary, { type: 'ANOTHER_DANCE' }, opts);
+    expect(again.state).toBe('dancing');
+    const finished = celebrationReducer(again, { type: 'DANCE_FINISHED' }, opts);
+    expect(finished.dancesPlayed).toBe(2);
+  });
+
+  it('skips the dance under reduced motion and still shows the summary', () => {
+    const reduced = { reducedMotion: true, hasDanceClips: true };
+    const done = run([{ type: 'CITY_COMPLETED' }, { type: 'PROGRESS_SAVED' }], reduced);
+    expect(done.state).toBe('summary');
+    expect(done.dancesPlayed).toBe(0);
+    // The replay button must not resurrect the dance.
+    expect(celebrationReducer(done, { type: 'ANOTHER_DANCE' }, reduced).state).toBe('summary');
+  });
+
+  it('skips the dance for a guide with no approved clips', () => {
+    const noClips = { reducedMotion: false, hasDanceClips: false };
+    const done = run([{ type: 'CITY_COMPLETED' }, { type: 'PROGRESS_SAVED' }], noClips);
+    expect(done.state).toBe('summary');
+  });
+
+  it('frames the guide from a medium distance rather than overhead', () => {
+    const camera = celebrationCamera([4, 0, -22]);
+    expect(camera.target).toEqual([4, 1.0, -22]);
+    const horizontal = Math.hypot(camera.position[0] - 4, camera.position[2] - -22);
+    expect(horizontal).toBeGreaterThan(3);
+    expect(horizontal).toBeLessThan(8);
+    expect(camera.position[1]).toBeLessThan(3);
   });
 });

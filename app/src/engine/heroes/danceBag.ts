@@ -55,3 +55,51 @@ export function draw(bag: ShuffleBag, seed: number = Math.floor(Math.random() * 
   if (clip === undefined) return { bag, clip: null };
   return { bag: { pool: bag.pool, remaining: rest, lastDrawn: clip }, clip };
 }
+
+/**
+ * Persistence.
+ *
+ * The bag survives reloads, so closing the tab after a celebration does not
+ * hand the child the same dance again next time (integration policy:
+ * `persistBagLocally`).
+ */
+const STORAGE_KEY = (heroId: string) => `sot.dancebag.${heroId}.v1`;
+
+interface StoredBag {
+  remaining: string[];
+  lastDrawn: string | null;
+  pool: string[];
+}
+
+export function loadShuffleBag(heroId: string, pool: readonly string[]): ShuffleBag {
+  const fresh = createShuffleBag(pool);
+  if (typeof window === 'undefined') return fresh;
+  try {
+    const raw = window.localStorage.getItem(STORAGE_KEY(heroId));
+    if (!raw) return fresh;
+    const stored = JSON.parse(raw) as StoredBag;
+    // A changed approved pool invalidates the stored bag.
+    if (stored.pool.join('|') !== [...pool].join('|')) return fresh;
+    return {
+      pool: [...pool],
+      remaining: stored.remaining.filter((clip) => pool.includes(clip)),
+      lastDrawn: stored.lastDrawn,
+    };
+  } catch {
+    return fresh;
+  }
+}
+
+export function saveShuffleBag(heroId: string, bag: ShuffleBag): void {
+  if (typeof window === 'undefined') return;
+  try {
+    const payload: StoredBag = {
+      remaining: [...bag.remaining],
+      lastDrawn: bag.lastDrawn,
+      pool: [...bag.pool],
+    };
+    window.localStorage.setItem(STORAGE_KEY(heroId), JSON.stringify(payload));
+  } catch {
+    // Celebration variety is not worth breaking a session over.
+  }
+}

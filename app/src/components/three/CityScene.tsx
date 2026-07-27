@@ -23,6 +23,10 @@ interface CitySceneProps {
   heroReady: boolean;
   interacting: boolean;
   celebrating: boolean;
+  framingCelebration: boolean;
+  onCelebrationFramed?: () => void;
+  onDanceFinished?: () => void;
+  danceToken?: number;
   onHeroStatus?: (status: HeroStatus) => void;
 }
 
@@ -46,6 +50,10 @@ export function CityScene({
   heroReady,
   interacting,
   celebrating,
+  framingCelebration,
+  onCelebrationFramed,
+  onDanceFinished,
+  danceToken,
   onHeroStatus,
 }: CitySceneProps) {
   const completed = useMemo(() => new Set(completedHotspotIds), [completedHotspotIds]);
@@ -159,6 +167,10 @@ export function CityScene({
         heroReady={heroReady}
         interacting={interacting}
         celebrating={celebrating}
+        framingCelebration={framingCelebration}
+        onCelebrationFramed={onCelebrationFramed}
+        onDanceFinished={onDanceFinished}
+        danceToken={danceToken}
         onHeroStatus={onHeroStatus}
         focus={focus}
         onFocusSettled={onFocusSettled}

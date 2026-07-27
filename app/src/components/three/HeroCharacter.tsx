@@ -1,14 +1,14 @@
 'use client';
 
 import React, { Suspense, useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
-import { useAnimations, useGLTF } from '@react-three/drei';
+import { useGLTF } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
-import type { AnimationAction, Group } from 'three';
-import { Box3, Vector3 } from 'three';
+import type { AnimationAction, AnimationClip, Group } from 'three';
+import { AnimationMixer, Box3, LoopOnce, LoopRepeat, Vector3 } from 'three';
 import { resolveAsset } from '@/engine/assets/registry';
 import { PlaceholderAsset } from '@/components/three/PlaceholderAsset';
 import { clipForState, transitionDuration, type HeroMotionState } from '@/engine/heroes/animation';
-import { createShuffleBag, draw, type ShuffleBag } from '@/engine/heroes/danceBag';
+import { draw, loadShuffleBag, saveShuffleBag, type ShuffleBag } from '@/engine/heroes/danceBag';
 import { requestHero } from '@/engine/heroes/heroCache';
 import type { HeroClip, HeroDefinition, HeroId } from '@/engine/heroes/registry';
 import type { QualityProfile } from '@/engine/heroes/policy';
@@ -28,19 +28,49 @@ interface HeroModelProps {
   profile: QualityProfile;
   motion: HeroMotionState;
   onClipChange: (clip: HeroClip, clipName: string | null) => void;
+  onDanceFinished?: () => void;
+  /** Bumping this replays the celebration with the next clip from the bag. */
+  danceToken: number;
 }
 
-function HeroModel({ hero, url, profile, motion, onClipChange }: HeroModelProps) {
+function HeroModel({
+  hero,
+  url,
+  profile,
+  motion,
+  onClipChange,
+  onDanceFinished,
+  danceToken,
+}: HeroModelProps) {
   const group = useRef<Group>(null);
   const { scene, animations } = useGLTF(url);
 
   // Clone so the cached source stays pristine for the next city.
   const model = useMemo(() => scene.clone(true), [scene]);
-  const { actions, mixer } = useAnimations(animations, group);
+
+  /**
+   * The mixer is created here rather than taken from `useAnimations` so the
+   * actions belong to this component and their loop mode can be configured.
+   * It is also the only mixer in the app, and it only exists while mounted.
+   */
+  const mixer = useMemo(() => new AnimationMixer(model), [model]);
+  const clipsByName = useMemo(
+    () => new Map<string, AnimationClip>(animations.map((clip) => [clip.name, clip])),
+    [animations],
+  );
+
+  useEffect(
+    () => () => {
+      mixer.stopAllAction();
+    },
+    [mixer],
+  );
 
   const currentClip = useRef<HeroClip | null>(null);
   const currentAction = useRef<AnimationAction | null>(null);
-  const bag = useRef<ShuffleBag>(createShuffleBag(hero.animation.danceClips));
+  const bag = useRef<ShuffleBag>(loadShuffleBag(hero.id, hero.animation.danceClips));
+  const restPosition = useRef(new Vector3());
+  const restQuaternion = useRef<[number, number, number, number]>([0, 0, 0, 1]);
 
   // Shadows follow the profile; the mesh does not.
   useEffect(() => {
@@ -53,38 +83,62 @@ function HeroModel({ hero, url, profile, motion, onClipChange }: HeroModelProps)
     });
   }, [model, profile.heroShadow]);
 
-  // Normalise gross scale mismatches against the manifest footprint.
+  /**
+   * Scale to the briefed height.
+   *
+   * The delivered model measures 1.70 m while the asset manifest briefs
+   * Keloğlan at 1.45 m — he is a child in the tales, and standing him at adult
+   * height next to a 32 m Galata Tower reads wrong. The measured height is
+   * recorded in the registry so this is a stated correction, not a guess.
+   */
   useEffect(() => {
     const node = group.current;
     if (!node) return;
     const target = resolveAsset(hero.assetId, 'medium').entry.dimensions[1];
-    const size = new Box3().setFromObject(model).getSize(new Vector3());
-    if (size.y > 0.0001 && target > 0) {
-      const factor = target / size.y;
-      if (factor < 0.5 || factor > 2) node.scale.setScalar(factor);
+    const measured =
+      hero.measuredHeightMeters ?? new Box3().setFromObject(model).getSize(new Vector3()).y;
+    if (measured > 0.0001 && target > 0) {
+      node.scale.setScalar(target / measured);
     }
-  }, [model, hero.assetId]);
+    restPosition.current.copy(node.position);
+    restQuaternion.current = [node.quaternion.x, node.quaternion.y, node.quaternion.z, node.quaternion.w];
+  }, [model, hero.assetId, hero.measuredHeightMeters]);
 
   const desiredClip = clipForState(motion);
 
   useEffect(() => {
-    if (desiredClip === currentClip.current) return;
+    // A dance replay repeats the same state, so the token forces a re-run.
+    if (desiredClip === currentClip.current && desiredClip !== 'dance') return;
 
-    let clipName: string | null;
-    if (desiredClip === 'dance') {
-      const result = draw(bag.current);
-      bag.current = result.bag;
-      clipName = result.clip;
-    } else {
-      clipName = hero.animation.clips[desiredClip] ?? null;
-    }
+    const clipName = ((): string | null => {
+      if (desiredClip === 'dance') {
+        const result = draw(bag.current);
+        bag.current = result.bag;
+        saveShuffleBag(hero.id, result.bag);
+        return result.clip;
+      }
+      const mapped = hero.animation.clips[desiredClip];
+      if (mapped) return mapped;
+      // Documented fallbacks: missing run uses walk, missing walk or talk holds
+      // idle. Movement still translates the rig either way.
+      if (desiredClip === 'run') return hero.animation.clips.walk ?? hero.animation.clips.idle ?? null;
+      return hero.animation.clips.idle ?? null;
+    })();
 
-    const next = clipName ? (actions[clipName] ?? null) : null;
+    const clip = clipName ? clipsByName.get(clipName) : undefined;
+    const next: AnimationAction | null = clip ? mixer.clipAction(clip) : null;
     const previous = currentAction.current;
     const fade = transitionDuration(currentClip.current, desiredClip);
 
     if (next) {
       next.reset().fadeIn(fade).play();
+      if (desiredClip === 'dance') {
+        // One pass, then hand control back to the choreography.
+        next.setLoop(LoopOnce, 1);
+        next.clampWhenFinished = true;
+      } else {
+        next.setLoop(LoopRepeat, Infinity);
+      }
       if (previous && previous !== next) previous.fadeOut(fade);
       currentAction.current = next;
     } else if (previous) {
@@ -94,11 +148,39 @@ function HeroModel({ hero, url, profile, motion, onClipChange }: HeroModelProps)
 
     currentClip.current = desiredClip;
     onClipChange(desiredClip, clipName);
-  }, [desiredClip, actions, hero.animation.clips, onClipChange]);
+  }, [desiredClip, danceToken, clipsByName, mixer, hero.animation.clips, hero.id, onClipChange]);
+
+  // Celebration clips end; movement clips loop.
+  useEffect(() => {
+    const onFinished = () => {
+      if (currentClip.current === 'dance') onDanceFinished?.();
+    };
+    mixer.addEventListener('finished', onFinished);
+    return () => mixer.removeEventListener('finished', onFinished);
+  }, [mixer, onDanceFinished]);
 
   // Drive the single mixer manually so it can never run while unmounted.
   useFrame((_, delta) => {
     mixer.update(delta);
+
+    /**
+     * Root-motion safety.
+     *
+     * Two approved dances drift: FunnyDancing_01 travels 0.21 m sideways and
+     * several move vertically. The guide must stay on his celebration mark, so
+     * horizontal root translation is cancelled every frame and the rest pose is
+     * restored exactly when the clip ends.
+     */
+    const node = group.current;
+    if (!node) return;
+    if (currentClip.current === 'dance') {
+      node.position.x = restPosition.current.x;
+      node.position.z = restPosition.current.z;
+    } else {
+      node.position.copy(restPosition.current);
+      const [x, y, z, w] = restQuaternion.current;
+      node.quaternion.set(x, y, z, w);
+    }
   });
 
   return (
@@ -149,6 +231,9 @@ export interface HeroCharacterProps {
   /** False until the city shell and canonical content are ready (policy rule 2). */
   ready: boolean;
   onStatusChange?: (status: HeroStatus) => void;
+  onDanceFinished?: () => void;
+  /** Incremented to replay the celebration with the next clip from the bag. */
+  danceToken?: number;
 }
 
 export interface HeroStatus {
@@ -159,7 +244,15 @@ export interface HeroStatus {
   shadow: boolean;
 }
 
-export function HeroCharacter({ hero, profile, motion, ready, onStatusChange }: HeroCharacterProps) {
+export function HeroCharacter({
+  hero,
+  profile,
+  motion,
+  ready,
+  onStatusChange,
+  onDanceFinished,
+  danceToken = 0,
+}: HeroCharacterProps) {
   const [failed, setFailed] = useState(false);
   const placeholderAsset = useMemo(() => resolveAsset(hero.assetId, 'medium'), [hero.assetId]);
   const placeholder = <PlaceholderAsset asset={placeholderAsset} />;
@@ -201,6 +294,8 @@ export function HeroCharacter({ hero, profile, motion, ready, onStatusChange }: 
           url={url}
           profile={profile}
           motion={motion}
+          danceToken={danceToken}
+          onDanceFinished={onDanceFinished}
           onClipChange={(clip, clipName) => report({ state: 'ready', clip, clipName })}
         />
       </Suspense>

@@ -25,7 +25,7 @@
 | `npm run content:check` | ✅ `81 cities, 249 stops, 84 questions (78 with one, 3 with two); 1413 strings match baseline` + `Content in sync (88 files).` |
 | `npm run lint` | ✅ hatasız |
 | `npm run typecheck` | ✅ hatasız (strict, `any` yok) |
-| `npm test` | ✅ **9 dosya / 93 test geçti** |
+| `npm test` | ✅ **9 dosya / 109 test geçti** |
 | `npm run build` | ✅ 4 rota derlendi |
 | `npm start` + HTTP kontrolü | ✅ `/map` 200, `/city/istanbul` 200, `/content/canonical/cities/istanbul.json` 200, `/content/scenes/istanbul.json` 200 (5 hotspot), `/content/canonical/city-index.json` 200 |
 | `npx playwright install chromium` | ❌ **indirilemedi** — `Download failure, code=1` (ağ engeli) |
@@ -43,7 +43,7 @@
 | `tests/content-sync.test.ts` | 3 | Kök içerik ↔ servis edilen kopya |
 | `tests/ui-flow.test.tsx` | 10 | Gerçek DOM: odak, Escape, klavye, quiz akışı |
 | `tests/canonical.test.ts` | 18 | C0: kanonik yetke, sahne ayrımı, birleştirme |
-| `tests/heroes.test.ts` | 24 | D-012: tek hero, önbellek, profiller, mixer, dans torbası |
+| `tests/heroes.test.ts` | 40 | D-012 + M0-K1: tek hero, önbellek, profiller, mixer, dans torbası, teslim edilen model, koreografi |
 
 ---
 

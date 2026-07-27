@@ -1,13 +1,19 @@
 'use client';
 
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useGameStore } from '@/stores/useGameStore';
 import { useSettingsStore } from '@/stores/useSettingsStore';
 import { buildScene } from '@/engine/scene/buildScene';
 import { assetTierForProfile, qualityProfile } from '@/engine/quality/quality';
 import type { HeroStatus } from '@/components/three/HeroCharacter';
 import { onCityUnmount } from '@/engine/heroes/heroCache';
+import { heroForGuide, isDelivered, type HeroId } from '@/engine/heroes/registry';
+import {
+  celebrationReducer,
+  initialCelebration,
+  type CelebrationContext,
+} from '@/engine/heroes/celebration';
 import { useClientEnvironment } from '@/engine/quality/useEnvironment';
 import { hotspotById, resolveInteractionType } from '@/engine/interactions/machine';
 import { useKeyboardControls } from '@/engine/controls/inputState';
@@ -28,6 +34,7 @@ import { ErrorScreen, LoadingScreen, NoWebglScreen } from '@/components/game-ui/
 
 export function CityExperience({ cityId }: { cityId: string }) {
   const router = useRouter();
+  const searchParams = useSearchParams();
 
   const hydrate = useSettingsStore((state) => state.hydrate);
   const locale = useSettingsStore((state) => state.locale);
@@ -79,6 +86,32 @@ export function CityExperience({ cityId }: { cityId: string }) {
   const assetTier = useMemo(() => assetTierForProfile(quality), [quality]);
   const scene = useMemo(() => (city ? buildScene(city, assetTier) : null), [city, assetTier]);
   const [heroStatus, setHeroStatus] = useState<HeroStatus | null>(null);
+  const [celebration, setCelebration] = useState<CelebrationContext>(initialCelebration);
+  const [danceToken, setDanceToken] = useState(0);
+
+  /**
+   * QA-only guide override: `/city/istanbul?guide=keloglan`.
+   *
+   * Canonical content decides which guide a city really has, and that order is
+   * not touched. This exists so a delivered hero can be inspected in any scene
+   * before its own city has one, and it is ignored for unknown values.
+   */
+  const guideOverride = searchParams.get('guide');
+  const effectiveGuideId =
+    guideOverride === 'keloglan' || guideOverride === 'nasreddin-hoca'
+      ? (guideOverride as HeroId)
+      : city?.guideId ?? 'nasreddin-hoca';
+  const activeHero = heroForGuide(effectiveGuideId);
+
+  const hasDanceClips = activeHero.animation.danceClips.length > 0;
+  const dispatchCelebration = useCallback(
+    (event: Parameters<typeof celebrationReducer>[1]) => {
+      setCelebration((current) =>
+        celebrationReducer(current, event, { reducedMotion, hasDanceClips }),
+      );
+    },
+    [reducedMotion, hasDanceClips],
+  );
 
   const activeHotspot = useMemo(
     () => (city && interaction.hotspotId ? hotspotById(city, interaction.hotspotId) : undefined),
@@ -89,7 +122,11 @@ export function CityExperience({ cityId }: { cityId: string }) {
     ? resolveInteractionType(activeHotspot.interaction.type)
     : null;
 
+  // The celebration owns the screen: movement and hotspot input are locked.
+  const celebrating = celebration.state !== 'idle';
+
   const panelOpen =
+    celebration.inputLocked ||
     phase !== 'explore' ||
     settingsOpen ||
     ['entering', 'active', 'retry', 'success', 'reward'].includes(interaction.state);
@@ -116,6 +153,19 @@ export function CityExperience({ cityId }: { cityId: string }) {
     },
     [dispatchInteraction],
   );
+
+  /**
+   * The last correct answer both completes the city and starts the
+   * celebration. Progress is written first and awaited, so a dance that never
+   * finishes cannot cost the child the province star.
+   */
+  const finishQuizAnswer = useCallback(async () => {
+    const wasLast = quizIndex + 1 >= (city?.quiz.length ?? 0);
+    await answerQuiz(true);
+    if (!wasLast) return;
+    dispatchCelebration({ type: 'CITY_COMPLETED' });
+    dispatchCelebration({ type: 'PROGRESS_SAVED' });
+  }, [answerQuiz, city?.quiz.length, quizIndex, dispatchCelebration]);
 
   const onFocusSettled = useCallback(() => {
     dispatchInteraction({ type: 'CAMERA_SETTLED' });
@@ -163,6 +213,9 @@ export function CityExperience({ cityId }: { cityId: string }) {
   }
 
   const quizItem = city.quiz[quizIndex];
+  // A real progress state, so the player never stares at an empty canvas.
+  const heroLoading =
+    isDelivered(activeHero) && status === 'ready' && phase !== 'intro' && heroStatus?.state !== 'ready';
 
   return (
     <main style={{ position: 'relative', width: '100%', height: '100dvh', overflow: 'hidden' }}>
@@ -170,10 +223,14 @@ export function CityExperience({ cityId }: { cityId: string }) {
         <CityScene
           scene={scene}
           quality={settings}
-          guideId={city.guideId}
+          guideId={effectiveGuideId}
           heroReady={status === 'ready' && phase !== 'intro'}
           interacting={['active', 'retry', 'success'].includes(interaction.state)}
-          celebrating={phase === 'complete' || interaction.state === 'reward'}
+          celebrating={celebration.state === 'dancing'}
+          framingCelebration={celebration.state === 'framing'}
+          onCelebrationFramed={() => dispatchCelebration({ type: 'CAMERA_FRAMED' })}
+          onDanceFinished={() => dispatchCelebration({ type: 'DANCE_FINISHED' })}
+          danceToken={danceToken}
           onHeroStatus={setHeroStatus}
           reducedMotion={reducedMotion}
           guided={controlMode === 'guided'}
@@ -259,17 +316,66 @@ export function CityExperience({ cityId }: { cityId: string }) {
           index={quizIndex}
           total={city.quiz.length}
           locale={locale}
-          onCorrect={() => void answerQuiz(true)}
+          onCorrect={() => void finishQuizAnswer()}
         />
       ) : null}
 
-      {phase === 'complete' ? (
+      {/* `idle` covers re-entering an already finished city: summary, no dance. */}
+      {phase === 'complete' && (celebration.state === 'summary' || celebration.state === 'idle') ? (
         <CompletionPanel
           city={city}
           collectedRewardIds={progress.collectedRewardIds}
           locale={locale}
           onLeave={() => router.push('/map')}
+          onAnotherDance={
+            hasDanceClips && !reducedMotion
+              ? () => {
+                  setDanceToken((token) => token + 1);
+                  dispatchCelebration({ type: 'ANOTHER_DANCE' });
+                }
+              : undefined
+          }
         />
+      ) : null}
+
+      {celebrating && celebration.state !== 'summary' ? (
+        <p
+          role="status"
+          style={{
+            position: 'absolute',
+            bottom: 'clamp(18px, 5vh, 44px)',
+            left: '50%',
+            transform: 'translateX(-50%)',
+            margin: 0,
+            padding: '10px 18px',
+            borderRadius: 999,
+            background: 'var(--surface)',
+            fontWeight: 650,
+          }}
+        >
+          {ui('cityComplete', locale)} ★
+        </p>
+      ) : null}
+
+      {heroLoading ? (
+        <p
+          role="status"
+          aria-live="polite"
+          style={{
+            position: 'absolute',
+            left: '50%',
+            bottom: 'clamp(60px, 12vh, 110px)',
+            transform: 'translateX(-50%)',
+            margin: 0,
+            padding: '8px 16px',
+            borderRadius: 999,
+            background: 'var(--surface)',
+            fontSize: 14,
+            fontWeight: 600,
+          }}
+        >
+          {activeHero.displayName} hazırlanıyor…
+        </p>
       ) : null}
 
       {settingsOpen ? <SettingsPanel /> : null}
