@@ -1,0 +1,42 @@
+You are the lead software architect and implementation engineer for “Streets of Türkiye.”
+
+The complete project specification is in this directory. Before writing code, read these files in order:
+
+1. CLAUDE.md
+2. docs/PROJECT_CHARTER.md
+3. docs/PRODUCT_REQUIREMENTS.md
+4. docs/TECHNICAL_ARCHITECTURE.md
+5. docs/EXPERIENCE_DESIGN.md
+6. docs/ART_BIBLE.md
+7. docs/PERFORMANCE_BUDGET.md
+8. docs/CONTENT_MIGRATION.md
+9. tasks/PHASE_00_AUDIT.md
+10. tasks/PHASE_01_ENGINE_GRAYBOX.md
+
+Treat `legacy/index.html` as a read-only source and behavioral reference. Do not continue building the production application inside that HTML file.
+
+Your assignment for this run is only Phase 00 and Phase 01:
+
+- audit the supplied files and record assumptions;
+- create the new maintainable application architecture;
+- implement a data-driven 3D city engine;
+- load the İstanbul pilot definition from JSON;
+- build an end-to-end graybox İstanbul experience using placeholder geometry;
+- implement desktop and mobile controls, guided mode, camera boundaries, hotspots, one interactive task, reward collection, quiz gate, save/resume, loading/error states and reduced-motion handling;
+- preserve a clear adapter path for the 81-city legacy dataset;
+- run lint, typecheck, tests and production build;
+- write `docs/IMPLEMENTATION_STATUS.md` with completed work, commands, known limitations and the next exact task.
+
+Non-negotiable constraints:
+
+- Do not attempt all 81 cities.
+- Do not invent a different product concept.
+- Do not hardcode İstanbul content inside React components.
+- Do not block on missing Meshy GLB assets; use placeholders behind an asset loader/fallback system.
+- Do not remove or overwrite the source package files.
+- Prefer current stable versions of Next.js, React, TypeScript, Three.js, React Three Fiber, Drei, Zustand and the selected test stack.
+- The application must remain deployable to Vercel.
+- Target a stable 30 FPS on a representative mid-range mobile device and 60 FPS on desktop where possible.
+- Keep the UI child-friendly, culturally respectful, readable and keyboard accessible.
+
+Work autonomously. Make conservative, documented assumptions rather than stopping for minor questions. Stop after Phase 01 acceptance criteria are met and present a concise completion report.

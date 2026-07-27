@@ -1,0 +1,331 @@
+{
+  "schemaVersion": "1.0",
+  "id": "nevsehir",
+  "name": {
+    "en": "Nevşehir (Cappadocia)",
+    "tr": "Nevşehir (Kapadokya)"
+  },
+  "regionId": "central-anatolia",
+  "guideId": "keloglan",
+  "estimatedMinutes": 5,
+  "coordinates": {
+    "longitude": 34.71,
+    "latitude": 38.62
+  },
+  "environment": {
+    "kitId": "central-anatolia-cappadocia",
+    "timeOfDay": "sunrise",
+    "ambientAudioId": "amb_nevsehir_valley_wind",
+    "skyPreset": "cappadocia-sunrise",
+    "qualityNotes": [
+      "Balloon count scales by quality tier",
+      "Use baked terrain lighting when possible"
+    ]
+  },
+  "spawn": {
+    "position": [
+      0,
+      0,
+      7
+    ],
+    "rotation": [
+      0,
+      3.14159,
+      0
+    ],
+    "scale": [
+      1,
+      1,
+      1
+    ]
+  },
+  "route": {
+    "mode": "curated-path",
+    "points": [
+      [
+        0,
+        0,
+        7
+      ],
+      [
+        1,
+        0,
+        0
+      ],
+      [
+        8,
+        0,
+        -5
+      ],
+      [
+        16,
+        -1,
+        -7
+      ],
+      [
+        24,
+        0,
+        -2
+      ]
+    ],
+    "bounds": [
+      [
+        -6,
+        0,
+        12
+      ],
+      [
+        29,
+        0,
+        12
+      ],
+      [
+        29,
+        0,
+        -15
+      ],
+      [
+        -6,
+        0,
+        -15
+      ]
+    ]
+  },
+  "intro": {
+    "title": {
+      "en": "A Valley Shaped by Wind and Rain",
+      "tr": "Rüzgâr ve Yağmurun Şekillendirdiği Vadi"
+    },
+    "guideLine": {
+      "en": "Watch the rocks and the sky. Both tell the story.",
+      "tr": "Kayalara ve gökyüzüne bak. İkisi de hikâyeyi anlatıyor."
+    },
+    "cameraSequenceId": "intro_nevsehir_sunrise",
+    "skippable": true
+  },
+  "hotspots": [
+    {
+      "id": "nevsehir-fairy-chimney",
+      "order": 1,
+      "assetId": "city_nevsehir_fairy_chimney_cluster",
+      "transform": {
+        "position": [
+          4,
+          0,
+          -1
+        ],
+        "rotation": [
+          0,
+          0.2,
+          0
+        ],
+        "scale": [
+          1.1,
+          1.1,
+          1.1
+        ]
+      },
+      "triggerRadius": 4,
+      "camera": {
+        "position": [
+          0,
+          3,
+          4
+        ],
+        "target": [
+          4,
+          4,
+          -1
+        ],
+        "durationMs": 1000
+      },
+      "interaction": {
+        "type": "inspect-and-find",
+        "config": {
+          "targetId": "stone-cap",
+          "instruction": {
+            "en": "Find the hard stone cap protecting the softer rock.",
+            "tr": "Yumuşak kayayı koruyan sert taş başlığı bul."
+          },
+          "hintAfterAttempts": 2
+        }
+      },
+      "fact": {
+        "title": {
+          "en": "Fairy Chimneys",
+          "tr": "Peri Bacaları"
+        },
+        "body": {
+          "en": "Wind and rain slowly shaped soft volcanic rock, while harder caps protected parts below.",
+          "tr": "Rüzgâr ve yağmur yumuşak volkanik kayayı aşındırdı; sert başlıklar altındaki bölümü korudu."
+        },
+        "editorialStatus": "legacy-unverified"
+      },
+      "rewardId": "collectible_nevsehir_fairy_chimney"
+    },
+    {
+      "id": "nevsehir-pottery",
+      "order": 2,
+      "assetId": "city_nevsehir_pottery_wheel",
+      "transform": {
+        "position": [
+          12,
+          0,
+          -6
+        ],
+        "rotation": [
+          0,
+          -0.3,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "triggerRadius": 3,
+      "camera": {
+        "position": [
+          10,
+          2,
+          0
+        ],
+        "target": [
+          12,
+          1,
+          -6
+        ],
+        "durationMs": 800
+      },
+      "interaction": {
+        "type": "assemble",
+        "config": {
+          "instruction": {
+            "en": "Place the three motifs on the clay pot.",
+            "tr": "Üç motifi kil çömleğin üzerine yerleştir."
+          },
+          "pieceIds": [
+            "wave",
+            "tulip",
+            "sun"
+          ],
+          "snapTolerance": 0.25
+        }
+      },
+      "fact": {
+        "title": {
+          "en": "Avanos Pottery",
+          "tr": "Avanos Çömlekçiliği"
+        },
+        "body": {
+          "en": "Potters shape local clay on a turning wheel and decorate it by hand.",
+          "tr": "Çömlek ustaları yerel kili dönen çarkta biçimlendirir ve elle süsler."
+        },
+        "editorialStatus": "legacy-unverified"
+      },
+      "rewardId": "collectible_nevsehir_clay_pot"
+    },
+    {
+      "id": "nevsehir-underground",
+      "order": 3,
+      "assetId": "city_nevsehir_underground_stone_door",
+      "transform": {
+        "position": [
+          22,
+          -1,
+          -5
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1.2,
+          1.2,
+          1.2
+        ]
+      },
+      "triggerRadius": 4,
+      "camera": {
+        "position": [
+          18,
+          1,
+          1
+        ],
+        "target": [
+          22,
+          0,
+          -5
+        ],
+        "durationMs": 900
+      },
+      "interaction": {
+        "type": "observe-and-answer",
+        "config": {
+          "question": {
+            "en": "Why is the stone door round?",
+            "tr": "Taş kapı neden yuvarlaktır?"
+          },
+          "targetId": "rolling-door-path"
+        }
+      },
+      "fact": {
+        "title": {
+          "en": "Underground City Door",
+          "tr": "Yeraltı Şehri Kapısı"
+        },
+        "body": {
+          "en": "Large round stone doors could roll across narrow passages to close them.",
+          "tr": "Büyük yuvarlak taş kapılar dar geçitleri kapatmak için yuvarlanabiliyordu."
+        },
+        "editorialStatus": "legacy-unverified"
+      },
+      "rewardId": "collectible_nevsehir_lantern"
+    }
+  ],
+  "quiz": [
+    {
+      "id": "nevsehir-quiz-01",
+      "question": {
+        "en": "What helped shape the fairy chimneys?",
+        "tr": "Peri bacalarının şekillenmesine ne yardım etti?"
+      },
+      "options": [
+        {
+          "id": "wind-rain",
+          "text": {
+            "en": "Wind and rain",
+            "tr": "Rüzgâr ve yağmur"
+          },
+          "correct": true
+        },
+        {
+          "id": "robots",
+          "text": {
+            "en": "Robots",
+            "tr": "Robotlar"
+          },
+          "correct": false
+        },
+        {
+          "id": "paint",
+          "text": {
+            "en": "Paint",
+            "tr": "Boya"
+          },
+          "correct": false
+        }
+      ]
+    }
+  ],
+  "rewards": {
+    "cityStarId": "star_nevsehir",
+    "collectibleIds": [
+      "collectible_nevsehir_fairy_chimney",
+      "collectible_nevsehir_clay_pot",
+      "collectible_nevsehir_lantern"
+    ]
+  }
+}

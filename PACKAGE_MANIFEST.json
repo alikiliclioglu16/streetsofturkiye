@@ -1,0 +1,16 @@
+{
+  "packageVersion": "1.0",
+  "sourceFile": "legacy/index.html",
+  "legacyCounts": {
+    "cities": 81,
+    "stops": 249,
+    "quizQuestions": 84,
+    "legacyArtTypes": 53
+  },
+  "pilotCities": [
+    "istanbul",
+    "nevsehir",
+    "gaziantep"
+  ],
+  "firstPrompt": "PROMPT_01_FIRST_RUN.txt"
+}

@@ -1,0 +1,13 @@
+Continue the “Streets of Türkiye” project using the existing repository and all specification files.
+
+First read:
+- CLAUDE.md
+- docs/IMPLEMENTATION_STATUS.md
+- tasks/PHASE_02_PILOT_VERTICAL_SLICE.md
+- content/pilot/istanbul.json
+- content/pilot/nevsehir.json
+- content/pilot/gaziantep.json
+- asset-manifests/pilot-assets.csv
+- prompts/meshy/README.md
+
+Implement Phase 02 only. Convert the graybox engine into a polished three-city vertical slice while preserving fallbacks for missing assets. Do not expand beyond İstanbul, Nevşehir and Gaziantep. Run the full quality gate and update `docs/IMPLEMENTATION_STATUS.md` when complete.

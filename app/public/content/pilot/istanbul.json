@@ -1,0 +1,376 @@
+{
+  "schemaVersion": "1.0",
+  "id": "istanbul",
+  "name": {
+    "en": "İstanbul",
+    "tr": "İstanbul"
+  },
+  "regionId": "marmara",
+  "guideId": "nasreddin-hoca",
+  "estimatedMinutes": 5,
+  "coordinates": {
+    "longitude": 28.97,
+    "latitude": 41.01
+  },
+  "environment": {
+    "kitId": "marmara-urban-coastal",
+    "timeOfDay": "bright-morning",
+    "ambientAudioId": "amb_istanbul_bosphorus",
+    "skyPreset": "bosphorus-blue",
+    "qualityNotes": [
+      "Ferry and birds reduce by quality tier",
+      "Water reflection must have low-cost fallback"
+    ]
+  },
+  "spawn": {
+    "position": [
+      0,
+      0,
+      8
+    ],
+    "rotation": [
+      0,
+      3.14159,
+      0
+    ],
+    "scale": [
+      1,
+      1,
+      1
+    ]
+  },
+  "route": {
+    "mode": "curated-path",
+    "points": [
+      [
+        0,
+        0,
+        8
+      ],
+      [
+        0,
+        0,
+        1
+      ],
+      [
+        7,
+        0,
+        -4
+      ],
+      [
+        15,
+        0,
+        -6
+      ],
+      [
+        23,
+        0,
+        -2
+      ]
+    ],
+    "bounds": [
+      [
+        -5,
+        0,
+        12
+      ],
+      [
+        28,
+        0,
+        12
+      ],
+      [
+        28,
+        0,
+        -14
+      ],
+      [
+        -5,
+        0,
+        -14
+      ]
+    ]
+  },
+  "intro": {
+    "title": {
+      "en": "Where Two Continents Meet",
+      "tr": "İki Kıtanın Buluştuğu Şehir"
+    },
+    "guideLine": {
+      "en": "Follow the blue route. We will look closely, not rush.",
+      "tr": "Mavi rotayı takip et. Acele etmeden ayrıntılara bakacağız."
+    },
+    "cameraSequenceId": "intro_istanbul_bosphorus",
+    "skippable": true
+  },
+  "hotspots": [
+    {
+      "id": "istanbul-iznik-tile",
+      "order": 1,
+      "assetId": "city_istanbul_iznik_tile_panel",
+      "transform": {
+        "position": [
+          3,
+          1.2,
+          0
+        ],
+        "rotation": [
+          0,
+          -1.2,
+          0
+        ],
+        "scale": [
+          1.5,
+          1.5,
+          1.5
+        ]
+      },
+      "triggerRadius": 3,
+      "camera": {
+        "position": [
+          1.5,
+          2.1,
+          3.5
+        ],
+        "target": [
+          3,
+          1.4,
+          0
+        ],
+        "durationMs": 900
+      },
+      "interaction": {
+        "type": "inspect-and-find",
+        "config": {
+          "targetId": "tulip-motif",
+          "instruction": {
+            "en": "Rotate the tile and find the tulip motif.",
+            "tr": "Çiniyi döndür ve lale motifini bul."
+          },
+          "hintAfterAttempts": 2
+        }
+      },
+      "fact": {
+        "title": {
+          "en": "İznik Tile",
+          "tr": "İznik Çinisi"
+        },
+        "body": {
+          "en": "Blue İznik tiles are an important part of Ottoman decorative art.",
+          "tr": "Mavi İznik çinileri Osmanlı süsleme sanatının önemli bir parçasıdır."
+        },
+        "editorialStatus": "legacy-unverified"
+      },
+      "rewardId": "collectible_istanbul_iznik_tile"
+    },
+    {
+      "id": "istanbul-galata",
+      "order": 2,
+      "assetId": "city_istanbul_galata_tower",
+      "transform": {
+        "position": [
+          11,
+          0,
+          -5
+        ],
+        "rotation": [
+          0,
+          0.35,
+          0
+        ],
+        "scale": [
+          0.7,
+          0.7,
+          0.7
+        ]
+      },
+      "triggerRadius": 4,
+      "camera": {
+        "position": [
+          8,
+          4,
+          1
+        ],
+        "target": [
+          11,
+          5,
+          -5
+        ],
+        "durationMs": 1100
+      },
+      "interaction": {
+        "type": "observe-and-answer",
+        "config": {
+          "question": {
+            "en": "Which part is the viewing gallery?",
+            "tr": "Seyir galerisi hangi bölümdür?"
+          },
+          "targetId": "upper-gallery"
+        }
+      },
+      "fact": {
+        "title": {
+          "en": "Galata Tower",
+          "tr": "Galata Kulesi"
+        },
+        "body": {
+          "en": "The tower has watched over İstanbul for centuries and offers a wide city view.",
+          "tr": "Kule yüzyıllardır İstanbul'u izler ve geniş bir şehir manzarası sunar."
+        },
+        "editorialStatus": "legacy-unverified"
+      },
+      "rewardId": "collectible_istanbul_legend_wings"
+    },
+    {
+      "id": "istanbul-bosphorus",
+      "order": 3,
+      "assetId": "city_istanbul_ferry",
+      "transform": {
+        "position": [
+          22,
+          0,
+          -5
+        ],
+        "rotation": [
+          0,
+          -1.57,
+          0
+        ],
+        "scale": [
+          0.9,
+          0.9,
+          0.9
+        ]
+      },
+      "triggerRadius": 4,
+      "camera": {
+        "position": [
+          18,
+          3,
+          2
+        ],
+        "target": [
+          22,
+          1,
+          -5
+        ],
+        "durationMs": 900
+      },
+      "interaction": {
+        "type": "simple-choice",
+        "config": {
+          "question": {
+            "en": "The Bosphorus connects which two sides of İstanbul?",
+            "tr": "Boğaz İstanbul'un hangi iki yakasını birleştirir?"
+          },
+          "options": [
+            {
+              "id": "europe-asia",
+              "text": {
+                "en": "Europe and Asia",
+                "tr": "Avrupa ve Asya"
+              },
+              "correct": true
+            },
+            {
+              "id": "north-south",
+              "text": {
+                "en": "North and South America",
+                "tr": "Kuzey ve Güney Amerika"
+              },
+              "correct": false
+            }
+          ]
+        }
+      },
+      "fact": {
+        "title": {
+          "en": "The Bosphorus",
+          "tr": "İstanbul Boğazı"
+        },
+        "body": {
+          "en": "İstanbul extends across Europe and Asia, linked by ferries and bridges.",
+          "tr": "İstanbul Avrupa ve Asya'ya yayılır; vapurlar ve köprülerle birbirine bağlanır."
+        },
+        "editorialStatus": "legacy-unverified"
+      },
+      "rewardId": "collectible_istanbul_ferry_token"
+    }
+  ],
+  "quiz": [
+    {
+      "id": "istanbul-quiz-01",
+      "question": {
+        "en": "Which detail did you find on the İznik tile?",
+        "tr": "İznik çinisinde hangi ayrıntıyı buldun?"
+      },
+      "options": [
+        {
+          "id": "tulip",
+          "text": {
+            "en": "A tulip motif",
+            "tr": "Lale motifi"
+          },
+          "correct": true
+        },
+        {
+          "id": "airplane",
+          "text": {
+            "en": "An airplane",
+            "tr": "Uçak"
+          },
+          "correct": false
+        },
+        {
+          "id": "snowman",
+          "text": {
+            "en": "A snowman",
+            "tr": "Kardan adam"
+          },
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "istanbul-quiz-02",
+      "question": {
+        "en": "The Bosphorus links İstanbul's two sides. Which two continents are they?",
+        "tr": "Boğaz İstanbul'un iki yakasını bağlar. Bunlar hangi iki kıtadır?"
+      },
+      "options": [
+        {
+          "id": "europe-asia",
+          "text": {
+            "en": "Europe and Asia",
+            "tr": "Avrupa ve Asya"
+          },
+          "correct": true
+        },
+        {
+          "id": "asia-africa",
+          "text": {
+            "en": "Asia and Africa",
+            "tr": "Asya ve Afrika"
+          },
+          "correct": false
+        },
+        {
+          "id": "europe-africa",
+          "text": {
+            "en": "Europe and Africa",
+            "tr": "Avrupa ve Afrika"
+          },
+          "correct": false
+        }
+      ]
+    }
+  ],
+  "rewards": {
+    "cityStarId": "star_istanbul",
+    "collectibleIds": [
+      "collectible_istanbul_iznik_tile",
+      "collectible_istanbul_legend_wings",
+      "collectible_istanbul_ferry_token"
+    ]
+  }
+}

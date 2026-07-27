@@ -1,0 +1,69 @@
+'use client';
+
+import { useRef, type ReactNode } from 'react';
+import { Canvas, useFrame, useThree } from '@react-three/fiber';
+import type { QualitySettings } from '@/engine/quality/quality';
+
+export interface PerfSample {
+  fps: number;
+  drawCalls: number;
+  triangles: number;
+  geometries: number;
+  textures: number;
+}
+
+interface PerfProbeProps {
+  onSample: (sample: PerfSample) => void;
+}
+
+/**
+ * Samples renderer statistics twice per second. React state is updated at that
+ * rate rather than per frame (PERFORMANCE_BUDGET, engineering checks).
+ */
+function PerfProbe({ onSample }: PerfProbeProps) {
+  const { gl } = useThree();
+  const frames = useRef(0);
+  const elapsed = useRef(0);
+
+  useFrame((_, delta) => {
+    frames.current += 1;
+    elapsed.current += delta;
+    if (elapsed.current < 0.5) return;
+
+    const info = gl.info;
+    onSample({
+      fps: Math.round(frames.current / elapsed.current),
+      drawCalls: info.render.calls,
+      triangles: info.render.triangles,
+      geometries: info.memory.geometries,
+      textures: info.memory.textures,
+    });
+    frames.current = 0;
+    elapsed.current = 0;
+  });
+
+  return null;
+}
+
+interface CityCanvasProps {
+  quality: QualitySettings;
+  children: ReactNode;
+  onPerfSample?: (sample: PerfSample) => void;
+}
+
+export function CityCanvas({ quality, children, onPerfSample }: CityCanvasProps) {
+  return (
+    <Canvas
+      shadows={quality.shadows}
+      dpr={[1, quality.maxDpr]}
+      camera={{ fov: 55, near: 0.1, far: 220, position: [0, 4, 16] }}
+      gl={{ antialias: quality.tier !== 'low', powerPreference: 'high-performance' }}
+      onCreated={({ gl }) => {
+        gl.setClearColor('#BFE4F2');
+      }}
+    >
+      {children}
+      {onPerfSample ? <PerfProbe onSample={onPerfSample} /> : null}
+    </Canvas>
+  );
+}

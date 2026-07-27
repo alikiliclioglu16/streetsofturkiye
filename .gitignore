@@ -1,0 +1,31 @@
+# Dependencies
+node_modules/
+app/node_modules/
+
+# Next.js / Vercel build output
+.next/
+app/.next/
+out/
+.vercel/
+app/.vercel/
+
+# TypeScript caches
+*.tsbuildinfo
+
+# Test output
+playwright-report/
+app/playwright-report/
+test-results/
+app/test-results/
+blob-report/
+app/blob-report/
+coverage/
+app/coverage/
+
+# Logs and local environment
+*.log
+.env
+.env.*
+!.env.example
+.DS_Store
+Thumbs.db

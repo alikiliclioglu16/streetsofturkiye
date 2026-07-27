@@ -1,0 +1,26 @@
+﻿asset_id,kind,tier,status,dimensions_m,triangle_budget,texture_budget,fallback,notes
+character_nasreddin_hoca_base,model,hero,briefed,1.0x0.55x1.65,40000,2K atlas,cylinder,"Rigged humanoid; idle, walk, wave, point, talk, collect, celebrate"
+character_keloglan_base,model,hero,briefed,0.85x0.50x1.45,35000,2K atlas,cylinder,Rigged humanoid; same animation contract
+shared_route_marker,model,system,placeholder,0.40x0.05x0.40,500,256,cylinder,"Accessible route marker, not color-only"
+shared_interaction_highlight,model,system,placeholder,1.0x1.0x1.0,0,none,sphere,"Engine effect or outline, no final GLB required"
+kit_marmara_urban_coastal,model,background,briefed,modular,60000,shared 1K atlases,box,"Modular pavement, facades, rail, waterfront props"
+city_istanbul_iznik_tile_panel,model,midground,briefed,1.6x0.12x1.6,8000,1K,plane,Separate selectable tulip motif mesh
+city_istanbul_galata_tower,model,hero,briefed,9x9x32,35000,2K,cylinder,Preserve silhouette; no invented text
+city_istanbul_ferry,model,midground,briefed,20x6x6,18000,1K,box,Simplified city ferry with moving route
+collectible_istanbul_iznik_tile,model,collectible,briefed,0.25x0.04x0.25,5000,1K,plane,Turntable-ready
+collectible_istanbul_legend_wings,model,collectible,briefed,0.35x0.12x0.22,5000,1K,box,"Wooden stylized wings, explicitly legendary"
+collectible_istanbul_ferry_token,model,collectible,briefed,0.20x0.04x0.20,3000,512,cylinder,Bosphorus ferry token
+kit_central_anatolia_cappadocia,model,background,briefed,modular,80000,shared 1K atlases,box,Terrain chunks and rock modules
+city_nevsehir_fairy_chimney_cluster,model,hero,briefed,12x10x16,40000,2K,cylinder,Separate hard cap target mesh
+city_nevsehir_pottery_wheel,model,midground,briefed,1.2x1.2x1.1,9000,1K,cylinder,Pot and wheel separable for interaction
+city_nevsehir_underground_stone_door,model,midground,briefed,2.2x0.5x2.2,8000,1K,cylinder,Round rolling stone and passage guide
+collectible_nevsehir_fairy_chimney,model,collectible,briefed,0.18x0.18x0.30,4000,1K,cylinder,Miniature magnet
+collectible_nevsehir_clay_pot,model,collectible,briefed,0.22x0.22x0.28,6000,1K,cylinder,Decorated red-clay pot
+collectible_nevsehir_lantern,model,collectible,briefed,0.18x0.18x0.28,5000,1K,box,Warm explorer lantern
+kit_southeastern_yellow_stone_bazaar,model,background,briefed,modular,70000,shared 1K atlases,box,"Yellow-stone facades, arches and market modules"
+city_gaziantep_zeugma_mosaic_panel,model,midground,briefed,1.8x0.08x1.6,10000,2K,plane,Use approved non-infringing reference recreation; selectable tessera
+city_gaziantep_baklava_counter,model,midground,briefed,2.0x0.8x1.1,12000,1K,box,Separate ingredient objects for sequence interaction
+city_gaziantep_coppersmith_workbench,model,midground,briefed,2.4x1.0x1.6,15000,1K,box,Hammer and copper surface separate for rhythm response
+collectible_gaziantep_mosaic_piece,model,collectible,briefed,0.18x0.04x0.18,3000,1K,plane,Single decorative mosaic tile
+collectible_gaziantep_baklava,model,collectible,briefed,0.16x0.16x0.08,5000,1K,box,Clean layered cross-section
+collectible_gaziantep_copper_pot,model,collectible,briefed,0.20x0.20x0.22,6000,1K,cylinder,Hammered copper surface

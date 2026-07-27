@@ -1,0 +1,377 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://streetsofturkiye.local/schemas/city.schema.json",
+  "title": "Streets of Türkiye City Definition",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "id",
+    "name",
+    "regionId",
+    "guideId",
+    "estimatedMinutes",
+    "environment",
+    "spawn",
+    "route",
+    "hotspots",
+    "quiz",
+    "rewards"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "type": "string"
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9-]+$"
+    },
+    "name": {
+      "$ref": "#/$defs/localized"
+    },
+    "regionId": {
+      "type": "string"
+    },
+    "guideId": {
+      "enum": [
+        "nasreddin-hoca",
+        "keloglan"
+      ]
+    },
+    "estimatedMinutes": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 10
+    },
+    "coordinates": {
+      "type": "object",
+      "properties": {
+        "longitude": {
+          "type": "number"
+        },
+        "latitude": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "longitude",
+        "latitude"
+      ],
+      "additionalProperties": false
+    },
+    "environment": {
+      "type": "object",
+      "required": [
+        "kitId",
+        "timeOfDay",
+        "ambientAudioId"
+      ],
+      "properties": {
+        "kitId": {
+          "type": "string"
+        },
+        "timeOfDay": {
+          "type": "string"
+        },
+        "ambientAudioId": {
+          "type": "string"
+        },
+        "skyPreset": {
+          "type": "string"
+        },
+        "qualityNotes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "spawn": {
+      "$ref": "#/$defs/transform"
+    },
+    "route": {
+      "type": "object",
+      "required": [
+        "mode",
+        "points",
+        "bounds"
+      ],
+      "properties": {
+        "mode": {
+          "enum": [
+            "curated-path"
+          ]
+        },
+        "points": {
+          "type": "array",
+          "minItems": 2,
+          "items": {
+            "$ref": "#/$defs/vector3"
+          }
+        },
+        "bounds": {
+          "type": "array",
+          "minItems": 3,
+          "items": {
+            "$ref": "#/$defs/vector3"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "intro": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "$ref": "#/$defs/localized"
+        },
+        "guideLine": {
+          "$ref": "#/$defs/localized"
+        },
+        "cameraSequenceId": {
+          "type": "string"
+        },
+        "skippable": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false
+    },
+    "hotspots": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/hotspot"
+      }
+    },
+    "quiz": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/quiz"
+      }
+    },
+    "rewards": {
+      "type": "object",
+      "required": [
+        "cityStarId",
+        "collectibleIds"
+      ],
+      "properties": {
+        "cityStarId": {
+          "type": "string"
+        },
+        "collectibleIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "$defs": {
+    "localized": {
+      "type": "object",
+      "required": [
+        "en"
+      ],
+      "properties": {
+        "en": {
+          "type": "string"
+        },
+        "tr": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "vector3": {
+      "type": "array",
+      "prefixItems": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "number"
+        },
+        {
+          "type": "number"
+        }
+      ],
+      "minItems": 3,
+      "maxItems": 3
+    },
+    "transform": {
+      "type": "object",
+      "required": [
+        "position",
+        "rotation",
+        "scale"
+      ],
+      "properties": {
+        "position": {
+          "$ref": "#/$defs/vector3"
+        },
+        "rotation": {
+          "$ref": "#/$defs/vector3"
+        },
+        "scale": {
+          "$ref": "#/$defs/vector3"
+        }
+      },
+      "additionalProperties": false
+    },
+    "cameraAnchor": {
+      "type": "object",
+      "required": [
+        "position",
+        "target"
+      ],
+      "properties": {
+        "position": {
+          "$ref": "#/$defs/vector3"
+        },
+        "target": {
+          "$ref": "#/$defs/vector3"
+        },
+        "durationMs": {
+          "type": "integer",
+          "minimum": 0
+        }
+      },
+      "additionalProperties": false
+    },
+    "hotspot": {
+      "type": "object",
+      "required": [
+        "id",
+        "order",
+        "assetId",
+        "transform",
+        "interaction",
+        "fact",
+        "rewardId"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "order": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "assetId": {
+          "type": "string"
+        },
+        "transform": {
+          "$ref": "#/$defs/transform"
+        },
+        "triggerRadius": {
+          "type": "number",
+          "minimum": 0.5
+        },
+        "camera": {
+          "$ref": "#/$defs/cameraAnchor"
+        },
+        "interaction": {
+          "type": "object",
+          "required": [
+            "type",
+            "config"
+          ],
+          "properties": {
+            "type": {
+              "enum": [
+                "inspect-and-find",
+                "sequence-select",
+                "rhythm-repeat",
+                "assemble",
+                "observe-and-answer",
+                "simple-choice"
+              ]
+            },
+            "config": {
+              "type": "object"
+            }
+          },
+          "additionalProperties": false
+        },
+        "fact": {
+          "type": "object",
+          "required": [
+            "title",
+            "body"
+          ],
+          "properties": {
+            "title": {
+              "$ref": "#/$defs/localized"
+            },
+            "body": {
+              "$ref": "#/$defs/localized"
+            },
+            "editorialStatus": {
+              "enum": [
+                "legacy-unverified",
+                "reviewed",
+                "approved"
+              ]
+            }
+          },
+          "additionalProperties": false
+        },
+        "rewardId": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "quiz": {
+      "type": "object",
+      "required": [
+        "id",
+        "question",
+        "options"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "question": {
+          "$ref": "#/$defs/localized"
+        },
+        "options": {
+          "type": "array",
+          "minItems": 2,
+          "items": {
+            "type": "object",
+            "required": [
+              "id",
+              "text",
+              "correct"
+            ],
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "text": {
+                "$ref": "#/$defs/localized"
+              },
+              "correct": {
+                "type": "boolean"
+              }
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

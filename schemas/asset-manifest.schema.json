@@ -1,0 +1,99 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://streetsofturkiye.local/schemas/asset-manifest.schema.json",
+  "title": "Asset Manifest Entry",
+  "type": "object",
+  "required": [
+    "id",
+    "kind",
+    "tier",
+    "status",
+    "fallback"
+  ],
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "kind": {
+      "enum": [
+        "model",
+        "texture",
+        "audio",
+        "animation",
+        "image"
+      ]
+    },
+    "tier": {
+      "enum": [
+        "hero",
+        "midground",
+        "background",
+        "collectible",
+        "system"
+      ]
+    },
+    "status": {
+      "enum": [
+        "briefed",
+        "generated",
+        "art-review",
+        "revision",
+        "approved-source",
+        "optimized",
+        "integrated",
+        "qa-passed",
+        "placeholder"
+      ]
+    },
+    "paths": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "fallback": {
+      "type": "object",
+      "required": [
+        "type"
+      ],
+      "properties": {
+        "type": {
+          "enum": [
+            "box",
+            "cylinder",
+            "sphere",
+            "plane",
+            "silhouette",
+            "none"
+          ]
+        },
+        "label": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "dimensionsMeters": {
+      "type": "array",
+      "items": {
+        "type": "number"
+      },
+      "minItems": 3,
+      "maxItems": 3
+    },
+    "triangleBudget": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "textureBudget": {
+      "type": "string"
+    },
+    "notes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "additionalProperties": false
+}

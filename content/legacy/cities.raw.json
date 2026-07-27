@@ -1,0 +1,4596 @@
+[
+  {
+    "i": "istanbul",
+    "n": "İstanbul",
+    "lon": 28.97,
+    "lat": 41.01,
+    "R": 0,
+    "s": [
+      [
+        "mosque",
+        "history",
+        "Hagia Sophia & the Blue Mosque",
+        "Hagia Sophia is more than 1,500 years old! Next door stands the Blue Mosque with its six minarets — it got its name from more than 20,000 shiny blue İznik tiles inside.",
+        "💠",
+        "a blue İznik tile",
+        "Look up, way up! Isn't that dome enormous?"
+      ],
+      [
+        "galata",
+        "history",
+        "Galata Tower",
+        "From the top of this 700-year-old stone tower you can see all of İstanbul! A legend says a man named Hezarfen strapped on wooden wings and flew from here across the Bosphorus!",
+        "🪁",
+        "a pair of legend wings",
+        "Ready to climb to the top gallery? Race you!"
+      ],
+      [
+        "bazaar",
+        "craft",
+        "The Grand Bazaar",
+        "One of the oldest and biggest covered markets in the world — about 4,000 shops under one roof! Colorful mosaic lamps, carpets, sweets… you could explore it for days.",
+        "🪔",
+        "a mosaic lamp",
+        "Hold my hand — it's easy to get lost in 4,000 shops!"
+      ],
+      [
+        "simit",
+        "food",
+        "The Simit Cart",
+        "Simit is a crunchy bread ring covered in sesame seeds — İstanbul's favorite snack! Kids buy a warm simit from red street carts like this one and share pieces with the seagulls.",
+        "🥨",
+        "a warm simit",
+        "Mmm, smell that? Fresh from the oven!"
+      ],
+      [
+        "ferry",
+        "nature",
+        "Ferry on the Bosphorus",
+        "İstanbul is the only city in the world built on TWO continents: Europe and Asia! Hop on a white city ferry, sail under the great bridge, and watch for dolphins on the way.",
+        "🐬",
+        "a dolphin sticker",
+        "All aboard! Wave to Asia on one side and Europe on the other!"
+      ]
+    ],
+    "q": [
+      [
+        "İstanbul is the only city in the world built on…",
+        [
+          "Two continents: Europe and Asia",
+          "The Moon",
+          "Two islands"
+        ]
+      ],
+      [
+        "What is a simit?",
+        [
+          "A crunchy sesame bread ring",
+          "A kind of fish",
+          "A toy boat"
+        ]
+      ]
+    ]
+  },
+  {
+    "i": "tekirdag",
+    "n": "Tekirdağ",
+    "lon": 27.51,
+    "lat": 40.98,
+    "R": 0,
+    "s": [
+      [
+        [
+          "flower",
+          {
+            "kind": "sunflower"
+          }
+        ],
+        "nature",
+        "Golden Sunflower Fields",
+        "In summer, the hills of Tekirdağ turn into a golden sea of sunflowers! Millions of big yellow flowers all turn their faces to follow the sun across the sky.",
+        "🌻",
+        "a sunflower"
+      ],
+      [
+        [
+          "stall",
+          {
+            "s": "KÖFTE",
+            "d": "kofte",
+            "c": "#8A4038"
+          }
+        ],
+        "food",
+        "Famous Tekirdağ Köfte",
+        "Tekirdağ's little grilled meatballs are famous all over Türkiye! Travelers stop here just to eat a plate of köfte with bread and a glass of cool ayran.",
+        "🍖",
+        "a köfte recipe card"
+      ],
+      [
+        [
+          "ev",
+          {}
+        ],
+        "history",
+        "Old Houses by the Sea",
+        "Tekirdağ sits on the calm Sea of Marmara. Its old timber-framed houses watched sailing ships come and go for hundreds of years. Cherries love it here too — there's a cherry festival every June!",
+        "🍒",
+        "a festival cherry"
+      ]
+    ],
+    "q": [
+      [
+        "What do Tekirdağ's summer fields look like?",
+        [
+          "A golden sea of sunflowers",
+          "A snowy desert",
+          "A purple jungle"
+        ]
+      ]
+    ]
+  },
+  {
+    "i": "kirklareli",
+    "n": "Kırklareli",
+    "lon": 27.22,
+    "lat": 41.73,
+    "R": 0,
+    "s": [
+      [
+        [
+          "cave",
+          {
+            "stalag": 1
+          }
+        ],
+        "nature",
+        "Dupnisa Cave",
+        "Dupnisa is a huge cave with sparkling stone icicles that took thousands of years to grow, drop by drop. Bats sleep in the quiet dark parts — shhh!",
+        "🦇",
+        "a friendly bat sticker"
+      ],
+      [
+        [
+          "gol",
+          {
+            "birds": 1
+          }
+        ],
+        "nature",
+        "İğneada Floodplain Forests",
+        "Near İğneada, rare 'longoz' forests grow right in the water! Trees stand in shallow lakes where frogs, herons and turtles all live together — like a real-life fairy-tale forest.",
+        "🐸",
+        "a happy frog"
+      ],
+      [
+        [
+          "stall",
+          {
+            "s": "HARDALİYE",
+            "d": "drink",
+            "c": "#7A3A5E"
+          }
+        ],
+        "food",
+        "Hardaliye — the Grape Drink",
+        "Kırklareli's special drink is hardaliye, made from dark grapes. People here have been making it for hundreds of years — fizzy-sweet and purple!",
+        "🍇",
+        "a bunch of grapes"
+      ]
+    ],
+    "q": [
+      [
+        "What grows drop by drop inside Dupnisa Cave?",
+        [
+          "Sparkling stone icicles",
+          "Chocolate bars",
+          "Flowers"
+        ]
+      ]
+    ]
+  },
+  {
+    "i": "edirne",
+    "n": "Edirne",
+    "lon": 26.56,
+    "lat": 41.68,
+    "R": 0,
+    "s": [
+      [
+        [
+          "cami",
+          {
+            "min": 2,
+            "double": 1
+          }
+        ],
+        "history",
+        "Selimiye Mosque",
+        "Selimiye is the masterpiece of Mimar Sinan, the greatest Ottoman architect. Its giant dome and four pencil-thin minarets can be seen from far away — it's on the UNESCO World Heritage list!",
+        "🕌",
+        "a tiny Selimiye model"
+      ],
+      [
+        "pehlivan",
+        "history",
+        "Kırkpınar Oil Wrestling",
+        "Every summer, Edirne hosts Kırkpınar — one of the oldest sporting events on Earth, more than 650 years old! Strong wrestlers covered in olive oil try to lift each other while drums play.",
+        "🥇",
+        "a golden wrestling belt"
+      ],
+      [
+        [
+          "tatli",
+          {
+            "k": "helva",
+            "s": "BADEM EZMESİ"
+          }
+        ],
+        "food",
+        "Marzipan & Fried Liver",
+        "Edirne is famous for its soft almond marzipan — and grown-ups line up for crispy fried liver! The old bazaar smells of almonds and fresh bread.",
+        "🥜",
+        "almond marzipan"
+      ]
+    ],
+    "q": [
+      [
+        "Who built the magnificent Selimiye Mosque?",
+        [
+          "Mimar Sinan, the great architect",
+          "A robot",
+          "A pirate captain"
+        ]
+      ]
+    ]
+  },
+  {
+    "i": "canakkale",
+    "n": "Çanakkale",
+    "lon": 26.41,
+    "lat": 40.15,
+    "R": 0,
+    "s": [
+      [
+        "truva",
+        "history",
+        "The Trojan Horse",
+        "Three thousand years ago, soldiers hid inside a giant wooden horse to sneak into the city of Troy! The legendary city is real, and you can visit a huge wooden horse in Çanakkale.",
+        "🐴",
+        "a wooden horse toy"
+      ],
+      [
+        [
+          "kale",
+          {
+            "sea": 1
+          }
+        ],
+        "history",
+        "Gallipoli & the Sea Castles",
+        "Old stone fortresses guard the narrow Dardanelles strait. On the Gallipoli Peninsula, we remember the brave soldiers of 1915 — a very important place for Türkiye.",
+        "🎖️",
+        "a hero's medal"
+      ],
+      [
+        [
+          "tatli",
+          {
+            "k": "helva",
+            "s": "PEYNİR HELVASI"
+          }
+        ],
+        "food",
+        "Cheese Halva",
+        "Çanakkale's sweetest surprise is peynir helvası — a warm dessert made with cheese that tastes magically sweet! Its juicy tomatoes are famous too.",
+        "🍮",
+        "warm cheese halva"
+      ]
+    ],
+    "q": [
+      [
+        "Why was the giant wooden horse of Troy built?",
+        [
+          "Soldiers hid inside it to enter the city",
+          "It was a merry-go-round",
+          "Horses needed a house"
+        ]
+      ]
+    ]
+  },
+  {
+    "i": "balikesir",
+    "n": "Balıkesir",
+    "lon": 27.89,
+    "lat": 39.65,
+    "R": 0,
+    "s": [
+      [
+        [
+          "dag",
+          {}
+        ],
+        "nature",
+        "Mount Ida (Kaz Dağları)",
+        "Kaz Dağları is a green mountain full of legends — ancient people believed gods watched the Trojan War from its peaks! Its air is so fresh and full of oxygen that people come just to breathe.",
+        "🌲",
+        "a pine cone"
+      ],
+      [
+        [
+          "agac",
+          {
+            "kind": "olive"
+          }
+        ],
+        "food",
+        "Ayvalık Olive Groves",
+        "Around Ayvalık grow millions of silvery olive trees, some hundreds of years old. Their olives make some of the best olive oil in the world — kids dip warm bread in it!",
+        "🫒",
+        "a bottle of olive oil"
+      ],
+      [
+        [
+          "tatli",
+          {
+            "k": "kaymak",
+            "s": "HÖŞMERİM"
+          }
+        ],
+        "food",
+        "Höşmerim Dessert",
+        "Balıkesir's special dessert is höşmerim, made from fresh cheese — soft, warm and sweet. Its creamy dairy farms are famous across Türkiye.",
+        "🧀",
+        "a höşmerim cup"
+      ]
+    ],
+    "q": [
+      [
+        "What makes Ayvalık famous?",
+        [
+          "Millions of olive trees and olive oil",
+          "Ice mountains",
+          "Banana forests"
+        ]
+      ]
+    ]
+  },
+  {
+    "i": "bursa",
+    "n": "Bursa",
+    "lon": 29.06,
+    "lat": 40.19,
+    "R": 0,
+    "s": [
+      [
+        [
+          "cami",
+          {
+            "green": 1
+          }
+        ],
+        "history",
+        "The Green City of Sultans",
+        "Bursa was the FIRST capital of the Ottoman Empire! With its Green Tomb, Grand Mosque and mighty Uludağ mountain, everyone calls it 'Green Bursa'. In winter, kids ski on Uludağ!",
+        "🏔️",
+        "a snowy Uludağ magnet"
+      ],
+      [
+        "karagoz",
+        "craft",
+        "Karagöz & Hacivat Shadow Play",
+        "The funny heroes of Turkish shadow theatre, Karagöz and Hacivat, come from Bursa! Colorful puppets made of camel leather dance behind a lit screen and make everyone laugh.",
+        "🎭",
+        "a shadow puppet"
+      ],
+      [
+        [
+          "stall",
+          {
+            "s": "İSKENDER",
+            "d": "kebap",
+            "c": "#8A4038"
+          }
+        ],
+        "food",
+        "İskender Kebab",
+        "The world-famous İskender kebab was invented right here in Bursa! And for dessert: candied chestnuts from Uludağ's forests. Yum!",
+        "🌰",
+        "a candied chestnut"
+      ]
+    ],
+    "q": [
+      [
+        "What are Karagöz and Hacivat?",
+        [
+          "Shadow theatre puppets",
+          "Video game robots",
+          "Two mountains"
+        ]
+      ]
+    ]
+  },
+  {
+    "i": "yalova",
+    "n": "Yalova",
+    "lon": 29.28,
+    "lat": 40.66,
+    "R": 0,
+    "s": [
+      [
+        "kaplica",
+        "nature",
+        "Termal Hot Springs",
+        "Warm mineral water bubbles up from deep underground in Yalova! People have bathed in these steamy pools since Roman times — nature's own warm bathtub.",
+        "♨️",
+        "a steamy towel"
+      ],
+      [
+        "selale",
+        "nature",
+        "Sudüşen Waterfall",
+        "Hidden in green forest, the Sudüşen waterfall tumbles down mossy rocks. The walk there is full of birdsong and butterflies.",
+        "🦋",
+        "a butterfly sticker"
+      ],
+      [
+        [
+          "ev",
+          {}
+        ],
+        "history",
+        "The Walking Mansion",
+        "Atatürk loved a big plane tree so much that when its branch leaned on his mansion, he didn't cut the tree — he had the whole HOUSE moved on rails instead! It's called the Walking Mansion.",
+        "🌳",
+        "a plane tree leaf"
+      ]
+    ],
+    "q": [
+      [
+        "Why was Atatürk's mansion moved on rails?",
+        [
+          "To save a beloved old tree",
+          "It was bored",
+          "To race other houses"
+        ]
+      ]
+    ]
+  },
+  {
+    "i": "kocaeli",
+    "n": "Kocaeli",
+    "lon": 29.94,
+    "lat": 40.77,
+    "R": 0,
+    "s": [
+      [
+        [
+          "muze",
+          {
+            "s": "PAPER MUSEUM",
+            "icon": "scroll"
+          }
+        ],
+        "history",
+        "SEKA Paper Museum",
+        "Kocaeli's giant old paper factory is now a fun museum! You can see how paper is made from trees — and even make a sheet of paper yourself.",
+        "📄",
+        "handmade paper"
+      ],
+      [
+        [
+          "tatli",
+          {
+            "k": "kaymak",
+            "s": "PİŞMANİYE"
+          }
+        ],
+        "food",
+        "Pişmaniye — Fairy Floss Halva",
+        "İzmit's famous sweet is pişmaniye: thousands of silky white sugar threads folded into a melt-in-your-mouth ball. It looks like a little cloud you can eat!",
+        "☁️",
+        "a cloud of pişmaniye"
+      ],
+      [
+        [
+          "dag",
+          {
+            "ski": 1
+          }
+        ],
+        "nature",
+        "Kartepe Mountain",
+        "In winter, Kartepe turns white and everyone goes sledding and skiing with a view of Sapanca Lake far below.",
+        "🛷",
+        "a little sled"
+      ]
+    ],
+    "q": [
+      [
+        "What does pişmaniye look like?",
+        [
+          "A silky white cloud of sugar threads",
+          "A green cucumber",
+          "A stone"
+        ]
+      ]
+    ]
+  },
+  {
+    "i": "sakarya",
+    "n": "Sakarya",
+    "lon": 30.4,
+    "lat": 40.77,
+    "R": 0,
+    "s": [
+      [
+        [
+          "gol",
+          {
+            "boat": 1
+          }
+        ],
+        "nature",
+        "Lake Sapanca",
+        "Lake Sapanca is a calm blue lake ringed by green hills. Families bike around it, row boats and have picnics under the trees.",
+        "🚣",
+        "a rowboat ticket"
+      ],
+      [
+        [
+          "ev",
+          {
+            "c": "#F4E7CC"
+          }
+        ],
+        "history",
+        "Taraklı's Timber Houses",
+        "In the sleepy town of Taraklı, wooden Ottoman houses lean over narrow stone lanes, just like 200 years ago. Craftsmen still carve wooden spoons here!",
+        "🥄",
+        "a carved wooden spoon"
+      ],
+      [
+        [
+          "stall",
+          {
+            "s": "ISLAMA KÖFTE",
+            "d": "kofte",
+            "c": "#8A4038"
+          }
+        ],
+        "food",
+        "Islama Köfte",
+        "Sakarya's special dish is 'wet köfte' — toasted bread dipped in hot broth, served with juicy meatballs. Crunchy AND juicy at the same time!",
+        "🍞",
+        "toasty dipped bread"
+      ]
+    ],
+    "q": [
+      [
+        "What do craftsmen still carve in Taraklı?",
+        [
+          "Wooden spoons",
+          "Ice sculptures",
+          "Robots"
+        ]
+      ]
+    ]
+  },
+  {
+    "i": "bilecik",
+    "n": "Bilecik",
+    "lon": 29.98,
+    "lat": 40.15,
+    "R": 0,
+    "s": [
+      [
+        [
+          "kale",
+          {}
+        ],
+        "history",
+        "Söğüt — Where an Empire Began",
+        "The mighty Ottoman Empire, which lasted 600 years, was born in the small town of Söğüt in Bilecik! It started as a tiny beylik under leader Osman Gazi.",
+        "🚩",
+        "Osman Gazi's banner"
+      ],
+      [
+        [
+          "cami",
+          {
+            "min": 1
+          }
+        ],
+        "history",
+        "Şeyh Edebali's Tomb",
+        "Wise teacher Şeyh Edebali guided young Osman Gazi with famous words of kindness: 'Let people live, so the state may live.' People still visit his hilltop tomb.",
+        "📜",
+        "words of wisdom"
+      ],
+      [
+        [
+          "craft",
+          {
+            "kind": "silk",
+            "s": "SILK WORKSHOP"
+          }
+        ],
+        "craft",
+        "Silk from Tiny Cocoons",
+        "Bilecik has raised silkworms for centuries. Each little cocoon unwinds into a shiny thread almost a kilometer long — that's how silk fabric is born!",
+        "🧵",
+        "a silk cocoon"
+      ]
+    ],
+    "q": [
+      [
+        "Which great empire was born in Söğüt, Bilecik?",
+        [
+          "The Ottoman Empire",
+          "The Roman Empire",
+          "The Lego Empire"
+        ]
+      ]
+    ]
+  },
+  {
+    "i": "izmir",
+    "n": "İzmir",
+    "lon": 27.14,
+    "lat": 38.42,
+    "R": 1,
+    "s": [
+      [
+        "celsus",
+        "history",
+        "Ephesus — the Celsus Library",
+        "Ephesus is a 2,000-year-old city where you can still walk the marble streets! This is its most famous building: the two-story Celsus Library, which once held 12,000 scrolls.",
+        "📜",
+        "an ancient scroll",
+        "Imagine — kids just like you walked this very street 2,000 years ago!"
+      ],
+      [
+        "theatre",
+        "history",
+        "The Great Theatre of Ephesus",
+        "This huge stone theatre could seat 24,000 people on its curved rows! It was built so cleverly that even a whisper on the stage can be heard at the very top. Concerts still happen here!",
+        "🎭",
+        "a theatre mask",
+        "Stand on the stage and whisper 'Merhaba!' — I'll hear it from the top row!"
+      ],
+      [
+        "clock",
+        "history",
+        "The Clock Tower of Konak Square",
+        "This elegant white marble tower from 1901 is the symbol of İzmir. The square around it is full of friendly pigeons — hold out some seeds and they might land right on your arm!",
+        "🕊️",
+        "a pigeon feather",
+        "Quick, what time is it? The tower never lies!"
+      ],
+      [
+        "nazar",
+        "craft",
+        "Nazarköy — the Evil Eye Village",
+        "In this little village, glass masters melt glass over a fire and shape the famous blue evil eye beads — 'nazar boncuğu'. They even hang on trees! People believe the friendly blue eye protects you from bad luck.",
+        "🧿",
+        "an evil eye bead",
+        "Pick a bead from the wishing tree! Blue like the Aegean Sea."
+      ],
+      [
+        "bakery",
+        "food",
+        "Boyoz Bakery on the Kordon",
+        "İzmir kids start the day with boyoz — a flaky, swirly pastry — best eaten by the sea on the Kordon, where everyone walks, bikes and watches the waves. Afiyet olsun — enjoy!",
+        "🥐",
+        "a warm boyoz",
+        "One for you, one for me… and a crumb for the seagull!"
+      ]
+    ],
+    "q": [
+      [
+        "What do people believe the blue evil eye bead (nazar) does?",
+        [
+          "Protects you from bad luck",
+          "Makes you invisible",
+          "Turns you into a fish"
+        ]
+      ],
+      [
+        "How old is the ancient city of Ephesus?",
+        [
+          "About 2,000 years old",
+          "20 years old",
+          "200 years old"
+        ]
+      ]
+    ]
+  },
+  {
+    "i": "manisa",
+    "n": "Manisa",
+    "lon": 27.43,
+    "lat": 38.61,
+    "R": 1,
+    "s": [
+      [
+        [
+          "stall",
+          {
+            "s": "MESİR MACUNU",
+            "d": "drink",
+            "c": "#7A5FA0"
+          }
+        ],
+        "history",
+        "Mesir Paste Festival",
+        "Every spring, a special paste made of 41 spices is wrapped in shiny paper and TOSSED from the mosque roof to cheering crowds below! This 500-year-old festival is on UNESCO's list.",
+        "🍬",
+        "a wrapped mesir candy"
+      ],
+      [
+        "antik",
+        "history",
+        "Ancient Sardis",
+        "In Sardis, one of the world's first coins was made almost 2,700 years ago — before that, people just swapped things! You can see its giant temple columns today.",
+        "🪙",
+        "an ancient coin"
+      ],
+      [
+        [
+          "fruit",
+          {
+            "kind": "grapes",
+            "s": "SULTANİYE"
+          }
+        ],
+        "food",
+        "Sultana Grape Vineyards",
+        "Manisa's sunny vineyards grow the famous seedless sultana grapes. Dried in the sun, they become the sweet raisins in your cookies!",
+        "🍇",
+        "sweet sultana raisins"
+      ]
+    ],
+    "q": [
+      [
+        "What is thrown from the mosque roof at the Mesir Festival?",
+        [
+          "Candy paste made of 41 spices",
+          "Snowballs",
+          "Pillows"
+        ]
+      ]
+    ]
+  },
+  {
+    "i": "aydin",
+    "n": "Aydın",
+    "lon": 27.84,
+    "lat": 37.85,
+    "R": 1,
+    "s": [
+      [
+        "antik",
+        "history",
+        "Aphrodisias",
+        "Aphrodisias was an ancient city of sculptors — its marble artists were famous across the Roman world! Its stadium had room for 30,000 people, one of the best preserved anywhere.",
+        "🗿",
+        "a marble chip"
+      ],
+      [
+        [
+          "agac",
+          {
+            "kind": "fig"
+          }
+        ],
+        "food",
+        "The Fig Capital of the World",
+        "More figs grow in Aydın than anywhere on Earth! Sweet, honey-soft figs dry in the sun before travelling to fruit bowls all over the world — maybe even to Houston!",
+        "🍯",
+        "a dried fig"
+      ],
+      [
+        [
+          "muzik",
+          {
+            "kind": "davul"
+          }
+        ],
+        "craft",
+        "The Zeybek Dance",
+        "The proud zeybek is the Aegean's slow, eagle-like dance. Dancers spread their arms like wings and kneel to the ground while davul drums boom!",
+        "🦅",
+        "an efe dancer's scarf"
+      ]
+    ],
+    "q": [
+      [
+        "Which fruit makes Aydın world champion?",
+        [
+          "Figs",
+          "Coconuts",
+          "Pineapples"
+        ]
+      ]
+    ]
+  },
+  {
+    "i": "mugla",
+    "n": "Muğla",
+    "lon": 28.36,
+    "lat": 37.22,
+    "R": 1,
+    "s": [
+      [
+        [
+          "kale",
+          {
+            "sea": 1
+          }
+        ],
+        "history",
+        "Bodrum Castle",
+        "The Castle of St. Peter stands right on Bodrum's harbor, guarding turquoise waters. Inside is an amazing museum of ancient shipwrecks found under the sea!",
+        "⚓",
+        "a shipwreck treasure coin"
+      ],
+      [
+        [
+          "sahil",
+          {
+            "paraglider": 1
+          }
+        ],
+        "nature",
+        "Ölüdeniz Blue Lagoon",
+        "Ölüdeniz is one of the most photographed beaches on Earth — a calm turquoise lagoon beside a white sandy spit. Brave flyers paraglide down from Babadağ mountain to land on the beach!",
+        "🪂",
+        "a paraglider pin"
+      ],
+      [
+        [
+          "hayvan",
+          {
+            "kind": "turtle"
+          }
+        ],
+        "nature",
+        "Caretta Turtles of Dalyan",
+        "On İztuzu Beach, gentle giant sea turtles called caretta caretta crawl ashore at night to lay their eggs — just as they have for millions of years. The beach is protected just for them!",
+        "🐢",
+        "a baby turtle sticker"
+      ]
+    ],
+    "q": [
+      [
+        "Who lays eggs on Dalyan's protected İztuzu Beach?",
+        [
+          "Caretta caretta sea turtles",
+          "Penguins",
+          "Dragons"
+        ]
+      ]
+    ]
+  },
+  {
+    "i": "denizli",
+    "n": "Denizli",
+    "lon": 29.09,
+    "lat": 37.77,
+    "R": 1,
+    "s": [
+      [
+        "pamukkale",
+        "nature",
+        "Pamukkale — the Cotton Castle",
+        "Pamukkale means 'Cotton Castle' — and it really looks like one! Warm mineral water flows down the hill, building snow-white stone terraces filled with turquoise pools. There's nothing else like it on Earth!",
+        "🤍",
+        "a white travertine pebble"
+      ],
+      [
+        "antik",
+        "history",
+        "Ancient Hierapolis",
+        "On top of the white terraces sits the Roman spa city of Hierapolis. Its people swam in the warm pools 2,000 years ago — in the Antique Pool you can still swim over fallen marble columns!",
+        "🏛️",
+        "a Roman bath token"
+      ],
+      [
+        [
+          "hayvan",
+          {
+            "kind": "rooster"
+          }
+        ],
+        "nature",
+        "The Singing Rooster of Denizli",
+        "Denizli's famous rooster is a champion singer — its long, musical crow can last many seconds! It's the proud symbol of the city.",
+        "🐓",
+        "a rooster whistle"
+      ]
+    ],
+    "q": [
+      [
+        "What does 'Pamukkale' mean?",
+        [
+          "Cotton Castle",
+          "Chocolate Mountain",
+          "Rainy River"
+        ]
+      ]
+    ]
+  },
+  {
+    "i": "usak",
+    "n": "Uşak",
+    "lon": 29.41,
+    "lat": 38.68,
+    "R": 1,
+    "s": [
+      [
+        "kanyon",
+        "nature",
+        "Ulubey Canyon",
+        "Ulubey is one of the longest canyons in the world! You can stand on a glass terrace hanging over the edge and look waaay down — don't worry, it's super safe.",
+        "😲",
+        "a brave explorer badge"
+      ],
+      [
+        [
+          "muze",
+          {
+            "s": "KARUN TREASURE",
+            "icon": "sun",
+            "f": "#C98F1E"
+          }
+        ],
+        "history",
+        "The Treasure of Karun",
+        "Uşak's museum guards the glittering 2,600-year-old Karun Treasure — golden brooches, bowls and jewels of the rich Lydian kings. Real treasure, found right here!",
+        "👑",
+        "a golden brooch"
+      ],
+      [
+        [
+          "stall",
+          {
+            "s": "TARHANA",
+            "d": "bowl",
+            "c": "#C96A2B"
+          }
+        ],
+        "food",
+        "Tarhana Soup",
+        "Uşak's cozy tarhana soup is made from dried yogurt and tomato flakes that grandmas prepare every summer to warm up every winter.",
+        "🥣",
+        "a bowl of tarhana"
+      ]
+    ],
+    "q": [
+      [
+        "What can you stand on above Ulubey Canyon?",
+        [
+          "A glass terrace",
+          "A cloud",
+          "A trampoline"
+        ]
+      ]
+    ]
+  },
+  {
+    "i": "kutahya",
+    "n": "Kütahya",
+    "lon": 29.98,
+    "lat": 39.42,
+    "R": 1,
+    "s": [
+      [
+        [
+          "craft",
+          {
+            "kind": "tile",
+            "s": "ÇİNİ ATELIER",
+            "f": "#1B7FA8"
+          }
+        ],
+        "craft",
+        "Çini — the Art of Painted Tiles",
+        "Kütahya is the city of çini: masters paint tulips and carnations in cobalt blue, turquoise and coral red onto white tiles and plates. Each piece is painted by hand, dot by dot!",
+        "🎨",
+        "a hand-painted tile"
+      ],
+      [
+        "antik",
+        "history",
+        "Aizanoi — Temple of Zeus",
+        "The ancient city of Aizanoi has one of the best-preserved Zeus temples in the world, plus a Roman 'stock market' building where prices were carved in stone!",
+        "🏛️",
+        "a temple postcard"
+      ],
+      [
+        "chimneys",
+        "nature",
+        "The Phrygian Valley",
+        "Kütahya shares the magical Phrygian Valley, where ancient people carved homes and castles into soft tuff rocks 2,700 years ago — Cappadocia's little cousin!",
+        "🪨",
+        "a Phrygian rock chip"
+      ]
+    ],
+    "q": [
+      [
+        "What do Kütahya's masters paint on white tiles?",
+        [
+          "Tulips and carnations by hand",
+          "Cars",
+          "Spaceships"
+        ]
+      ]
+    ]
+  },
+  {
+    "i": "afyonkarahisar",
+    "n": "Afyonkarahisar",
+    "lon": 30.54,
+    "lat": 38.76,
+    "R": 1,
+    "s": [
+      [
+        [
+          "kale",
+          {
+            "rock": 1
+          }
+        ],
+        "history",
+        "The Black Fortress",
+        "Afyon's castle sits on a giant dark volcanic rock 226 meters high, right in the middle of the city! Its name means 'Opium Black Fortress'. Climb the steps for a knight's-eye view!",
+        "🏰",
+        "a fortress flag"
+      ],
+      [
+        [
+          "tatli",
+          {
+            "k": "kaymak",
+            "s": "KAYMAK & LOKUM"
+          }
+        ],
+        "food",
+        "Kaymak — Silky Clotted Cream",
+        "Afyon makes Türkiye's dreamiest kaymak (clotted cream) — eaten with honey on warm bread, or hiding inside soft Turkish delight. Breakfast of champions!",
+        "🍯",
+        "bread, honey & kaymak"
+      ],
+      [
+        "kaplica",
+        "nature",
+        "Steamy Thermal Springs",
+        "Afyon bubbles with natural hot springs! Its warm healing waters have made it one of Türkiye's most famous spa cities.",
+        "♨️",
+        "a rubber ducky"
+      ]
+    ],
+    "q": [
+      [
+        "Where does Afyon's castle sit?",
+        [
+          "On a giant volcanic rock in the city center",
+          "On a cloud",
+          "Under the sea"
+        ]
+      ]
+    ]
+  },
+  {
+    "i": "burdur",
+    "n": "Burdur",
+    "lon": 30.29,
+    "lat": 37.72,
+    "R": 2,
+    "s": [
+      [
+        [
+          "gol",
+          {
+            "white": 1
+          }
+        ],
+        "nature",
+        "Lake Salda — Turkish Maldives",
+        "Lake Salda's water is so turquoise and its sand so white that people call it the 'Turkish Maldives'! Scientists say its minerals are like the ones found on MARS — NASA even studied it!",
+        "🛸",
+        "a Mars-twin pebble"
+      ],
+      [
+        "antik",
+        "history",
+        "Sagalassos in the Clouds",
+        "High in the mountains lies Sagalassos, a Roman city with a magnificent fountain that STILL flows with mountain water after 1,900 years. You can drink from it!",
+        "⛲",
+        "a sip of ancient water"
+      ],
+      [
+        [
+          "tatli",
+          {
+            "k": "helva",
+            "s": "CEVİZ EZMESİ"
+          }
+        ],
+        "food",
+        "Walnut Delight",
+        "Burdur's sweet specialty is ceviz ezmesi — a soft walnut paste shaped like little walnuts. One bite and you'll ask for another!",
+        "🌰",
+        "a walnut sweet"
+      ]
+    ],
+    "q": [
+      [
+        "Why did NASA study Lake Salda?",
+        [
+          "Its minerals are like the ones on Mars",
+          "Aliens swim there",
+          "It's made of lemonade"
+        ]
+      ]
+    ]
+  },
+  {
+    "i": "isparta",
+    "n": "Isparta",
+    "lon": 30.55,
+    "lat": 37.76,
+    "R": 2,
+    "s": [
+      [
+        [
+          "flower",
+          {
+            "kind": "rose"
+          }
+        ],
+        "nature",
+        "The City of Roses",
+        "Every May and June, Isparta's fields turn pink with millions of roses! Pickers gather the petals at sunrise, and the whole city smells like perfume. Rose water, rose jam, rose delight — roses everywhere!",
+        "🌹",
+        "a bottle of rose water"
+      ],
+      [
+        [
+          "gol",
+          {
+            "boat": 1,
+            "island": 1
+          }
+        ],
+        "nature",
+        "Lake Eğirdir",
+        "Beautiful Lake Eğirdir shines in seven shades of blue. A tiny green island sits in it, connected to town by a thin causeway — like walking on water!",
+        "💙",
+        "seven shades of blue"
+      ],
+      [
+        "loom",
+        "craft",
+        "Isparta Carpets",
+        "Isparta's weavers are famous for soft, rose-patterned carpets. Of course the flowers on them are roses!",
+        "🌸",
+        "a rose-pattern coaster"
+      ]
+    ],
+    "q": [
+      [
+        "What makes Isparta smell like perfume in June?",
+        [
+          "Millions of roses",
+          "Pizza ovens",
+          "Paint factories"
+        ]
+      ]
+    ]
+  },
+  {
+    "i": "antalya",
+    "n": "Antalya",
+    "lon": 30.71,
+    "lat": 36.89,
+    "R": 2,
+    "s": [
+      [
+        "theatre",
+        "history",
+        "Aspendos Theatre",
+        "Aspendos is a 2,000-year-old open-air theatre so cleverly built that even a whisper on stage reaches the top row — 15,000 seats and concerts still happen today!",
+        "🎶",
+        "a concert ticket"
+      ],
+      [
+        "selale",
+        "nature",
+        "Düden Waterfalls",
+        "The Düden waterfalls tumble through the city and one of them leaps straight off a cliff INTO the Mediterranean Sea! Rainbows dance in the spray on sunny days.",
+        "🌈",
+        "a rainbow in the spray"
+      ],
+      [
+        [
+          "agac",
+          {
+            "kind": "orange"
+          }
+        ],
+        "food",
+        "Orange Groves",
+        "Antalya is Türkiye's sunny holiday capital, full of orange trees. Even its famous film festival gives a 'Golden Orange' award! Fresh-squeezed orange juice, anyone?",
+        "🍊",
+        "a golden orange"
+      ]
+    ],
+    "q": [
+      [
+        "What is special about the Aspendos theatre?",
+        [
+          "A whisper on stage is heard at the top row",
+          "It floats on water",
+          "It's made of chocolate"
+        ]
+      ]
+    ]
+  },
+  {
+    "i": "mersin",
+    "n": "Mersin",
+    "lon": 34.63,
+    "lat": 36.8,
+    "R": 2,
+    "s": [
+      [
+        [
+          "kale",
+          {
+            "sea": 1
+          }
+        ],
+        "history",
+        "Kızkalesi — the Maiden's Castle",
+        "A fairy-tale castle floats on a tiny island just off the beach! Legend says a king built it to keep his daughter safe. You can swim or take a boat right up to its walls.",
+        "🏰",
+        "a sea-castle seashell"
+      ],
+      [
+        "cave",
+        "nature",
+        "Heaven & Hell Sinkholes",
+        "Near Mersin, two giant collapsed caves are called Cennet (Heaven) and Cehennem (Hell). Walk 450 steps down into 'Heaven' — it's green, cool and echoey!",
+        "🕳️",
+        "an echo in a jar"
+      ],
+      [
+        [
+          "tatli",
+          {
+            "k": "pestil",
+            "s": "CEZERYE"
+          }
+        ],
+        "food",
+        "Cezerye — the Carrot Sweet",
+        "Mersin's famous treat is cezerye, a chewy sweet made from CARROTS and nuts. Don't tell the kids it's a vegetable — it tastes like candy!",
+        "🥕",
+        "a carrot candy"
+      ]
+    ],
+    "q": [
+      [
+        "What is Mersin's famous sweet cezerye made of?",
+        [
+          "Carrots and nuts",
+          "Fish",
+          "Rocks"
+        ]
+      ]
+    ]
+  },
+  {
+    "i": "adana",
+    "n": "Adana",
+    "lon": 35.32,
+    "lat": 37,
+    "R": 2,
+    "s": [
+      [
+        [
+          "kopru",
+          {
+            "n": 5
+          }
+        ],
+        "history",
+        "Taşköprü — the Stone Bridge",
+        "Adana's Taşköprü has crossed the Seyhan River for about 1,800 years — one of the oldest bridges in the world that people STILL walk over every day!",
+        "🌉",
+        "a bridge stone"
+      ],
+      [
+        [
+          "stall",
+          {
+            "s": "ADANA KEBAP",
+            "d": "kebap",
+            "c": "#8A4038"
+          }
+        ],
+        "food",
+        "The Legendary Adana Kebab",
+        "Spicy, smoky Adana kebab is grilled on wide metal skewers over glowing coals, served with purple şalgam juice. On hot days, kids cool off with icy 'bici bici' dessert!",
+        "🍢",
+        "a mini kebab skewer"
+      ],
+      [
+        [
+          "flower",
+          {
+            "kind": "tulip"
+          }
+        ],
+        "nature",
+        "Orange Blossom Carnival",
+        "Every April, Adana smells of orange blossoms and throws a giant carnival! Costumes, music, dancing in the streets — the whole city becomes one big party.",
+        "🎉",
+        "carnival confetti"
+      ]
+    ],
+    "q": [
+      [
+        "How old is Adana's stone bridge, Taşköprü?",
+        [
+          "About 1,800 years old",
+          "18 years old",
+          "3 days old"
+        ]
+      ]
+    ]
+  },
+  {
+    "i": "osmaniye",
+    "n": "Osmaniye",
+    "lon": 36.25,
+    "lat": 37.07,
+    "R": 2,
+    "s": [
+      [
+        [
+          "hoyuk",
+          {}
+        ],
+        "history",
+        "Karatepe — the Hittite Open-Air Museum",
+        "At Karatepe, a Hittite king built a fortress 2,700 years ago. Its stone walls are carved with lions, warriors and feasts — an ancient picture book in the forest!",
+        "🦁",
+        "a stone lion rubbing"
+      ],
+      [
+        [
+          "fruit",
+          {
+            "kind": "peanut",
+            "s": "YER FISTIĞI"
+          }
+        ],
+        "food",
+        "Peanut Country",
+        "Osmaniye is Türkiye's peanut capital! Most of the country's peanuts grow in its warm fields — roasted, salted or turned into sweets.",
+        "🥜",
+        "a bag of roasted peanuts"
+      ],
+      [
+        [
+          "dag",
+          {}
+        ],
+        "nature",
+        "Zorkun Highland",
+        "In summer, families escape the heat up to Zorkun Yaylası — a cool pine-forest highland with hammocks, picnics and starry nights.",
+        "⛺",
+        "a highland pinecone"
+      ]
+    ],
+    "q": [
+      [
+        "Which crop makes Osmaniye famous?",
+        [
+          "Peanuts",
+          "Bananas",
+          "Ice cubes"
+        ]
+      ]
+    ]
+  },
+  {
+    "i": "hatay",
+    "n": "Hatay",
+    "lon": 36.16,
+    "lat": 36.2,
+    "R": 2,
+    "s": [
+      [
+        [
+          "cave",
+          {}
+        ],
+        "history",
+        "St. Pierre — the Cave Church",
+        "Carved into a mountainside, St. Pierre's is one of the oldest churches in the world — early believers met secretly in this cave nearly 2,000 years ago!",
+        "🕯️",
+        "a cave candle"
+      ],
+      [
+        [
+          "muze",
+          {
+            "s": "MOSAIC MUSEUM",
+            "icon": "mosaic",
+            "f": "#C96A2B"
+          }
+        ],
+        "history",
+        "A City of Mosaics",
+        "Antakya's museum holds one of the greatest mosaic collections on Earth — floors made of millions of tiny colored stones, picturing lions, birds and ancient stories.",
+        "🖼️",
+        "a mosaic tile"
+      ],
+      [
+        [
+          "tatli",
+          {
+            "k": "kunefe",
+            "s": "KÜNEFE"
+          }
+        ],
+        "food",
+        "Künefe — the Cheese Dessert",
+        "Hatay is the home of künefe: crispy golden shredded pastry with melty cheese inside, served hot with pistachios. Stretchy, sweet, unforgettable!",
+        "🧀",
+        "stretchy hot künefe"
+      ]
+    ],
+    "q": [
+      [
+        "What is inside a hot künefe?",
+        [
+          "Melty stretchy cheese",
+          "Ice cubes",
+          "Popcorn"
+        ]
+      ]
+    ]
+  },
+  {
+    "i": "kahramanmaras",
+    "n": "Kahramanmaraş",
+    "lon": 36.93,
+    "lat": 37.58,
+    "R": 2,
+    "s": [
+      [
+        [
+          "stall",
+          {
+            "s": "DONDURMA",
+            "d": "dondurma",
+            "c": "#1B7FA8"
+          }
+        ],
+        "food",
+        "The Famous Stretchy Ice Cream",
+        "Maraş dondurma is ice cream you can JUMP ROPE with — so stretchy and chewy that sellers in red vests play tricks, flipping the cone away just as you reach for it!",
+        "🍦",
+        "a trick ice cream cone"
+      ],
+      [
+        [
+          "kale",
+          {}
+        ],
+        "history",
+        "The Hero City's Castle",
+        "Kahramanmaraş means 'Heroic Maraş' — the city earned the title 'Kahraman' (Hero) for its bravery during the War of Independence. Its old castle watches over the rooftops.",
+        "🎖️",
+        "a hero's star"
+      ],
+      [
+        [
+          "fruit",
+          {
+            "kind": "pepper",
+            "s": "KIRMIZI BİBER"
+          }
+        ],
+        "food",
+        "Red Pepper Strings",
+        "In autumn, bright red pepper strings dry on sunny walls all over Maraş — the city makes Türkiye's most famous red pepper flakes!",
+        "🌶️",
+        "a string of red peppers"
+      ]
+    ],
+    "q": [
+      [
+        "What is special about Maraş ice cream?",
+        [
+          "It's stretchy and chewy",
+          "It's served frozen in cubes",
+          "It's blue"
+        ]
+      ]
+    ]
+  },
+  {
+    "i": "eskisehir",
+    "n": "Eskişehir",
+    "lon": 30.52,
+    "lat": 39.78,
+    "R": 3,
+    "s": [
+      [
+        [
+          "ev",
+          {
+            "c": "#F9E0E6",
+            "c2": "#DFF2FA"
+          }
+        ],
+        "history",
+        "Colorful Odunpazarı Houses",
+        "Odunpazarı's crooked timber houses are painted pink, blue and yellow like candy! The old town also has a shiny modern art museum — old and new side by side.",
+        "🏘️",
+        "a candy-colored house pin"
+      ],
+      [
+        [
+          "craft",
+          {
+            "kind": "meerschaum",
+            "s": "LÜLETAŞI",
+            "f": "#8A9BA8"
+          }
+        ],
+        "craft",
+        "Meerschaum — the White Gold",
+        "Deep under Eskişehir hides lületaşı (meerschaum), a soft white stone found almost nowhere else on Earth. Masters carve it into delicate pipes, beads and figures!",
+        "🤍",
+        "a carved white stone"
+      ],
+      [
+        [
+          "gol",
+          {
+            "boat": 1
+          }
+        ],
+        "nature",
+        "Gondolas on the Porsuk",
+        "Yes, gondolas — in the middle of Anatolia! Colorful boats glide down the Porsuk River between flower-lined banks, just like a mini Venice.",
+        "🚤",
+        "a gondola ride token"
+      ]
+    ],
+    "q": [
+      [
+        "What is lületaşı (meerschaum)?",
+        [
+          "A rare soft white stone for carving",
+          "A kind of pasta",
+          "A blue bird"
+        ]
+      ]
+    ]
+  },
+  {
+    "i": "ankara",
+    "n": "Ankara",
+    "lon": 32.85,
+    "lat": 39.93,
+    "R": 3,
+    "s": [
+      [
+        "anitkabir",
+        "history",
+        "Anıtkabir",
+        "Ankara is the CAPITAL of Türkiye! Anıtkabir is the grand memorial of Atatürk, founder of the Republic. Guards stand perfectly still, and the changing of the guard is amazing to watch.",
+        "🇹🇷",
+        "a memorial flag"
+      ],
+      [
+        [
+          "muze",
+          {
+            "s": "ANATOLIAN CIVILIZATIONS",
+            "icon": "sun",
+            "f": "#C98F1E"
+          }
+        ],
+        "history",
+        "Museum of Anatolian Civilizations",
+        "This museum is a time machine: Hittite sun discs, 9,000-year-old toys and tablets from the world's first cities — all found in Anatolian soil!",
+        "☀️",
+        "a Hittite sun disc"
+      ],
+      [
+        [
+          "hayvan",
+          {
+            "kind": "goat"
+          }
+        ],
+        "nature",
+        "The Angora Goat & Cat",
+        "Ankara's snow-white Angora goats grow silky mohair wool, and the blue-eyed Angora cat is one of the oldest cat breeds in the world. Both are named after the city!",
+        "🐐",
+        "a ball of mohair"
+      ]
+    ],
+    "q": [
+      [
+        "Which city is the capital of Türkiye?",
+        [
+          "Ankara",
+          "İstanbul",
+          "İzmir"
+        ]
+      ]
+    ]
+  },
+  {
+    "i": "kirikkale",
+    "n": "Kırıkkale",
+    "lon": 33.51,
+    "lat": 39.85,
+    "R": 3,
+    "s": [
+      [
+        [
+          "kopru",
+          {
+            "n": 4
+          }
+        ],
+        "history",
+        "Çeşnigir Bridge",
+        "The elegant stone Çeşnigir Bridge has arched over the Kızılırmak river since Seljuk times, 700 years ago — caravans of camels once clip-clopped across it!",
+        "🐪",
+        "a caravan bell"
+      ],
+      [
+        [
+          "gol",
+          {
+            "boat": 1
+          }
+        ],
+        "nature",
+        "The Red River",
+        "The mighty Kızılırmak — 'Red River' — is the LONGEST river flowing entirely inside Türkiye (1,355 km!). Its red-brown water gives it its name.",
+        "🏞️",
+        "red river water drop"
+      ],
+      [
+        [
+          "craft",
+          {
+            "kind": "knife",
+            "s": "METALWORK"
+          }
+        ],
+        "craft",
+        "City of Master Metalworkers",
+        "Kırıkkale is famous for its metal masters — from fine knives to machine parts, shaping steel is this young city's superpower.",
+        "🔧",
+        "a shiny steel star"
+      ]
+    ],
+    "q": [
+      [
+        "What does 'Kızılırmak' mean?",
+        [
+          "Red River",
+          "Green Mountain",
+          "Blue Cloud"
+        ]
+      ]
+    ]
+  },
+  {
+    "i": "cankiri",
+    "n": "Çankırı",
+    "lon": 33.62,
+    "lat": 40.6,
+    "R": 3,
+    "s": [
+      [
+        [
+          "cave",
+          {
+            "salt": 1
+          }
+        ],
+        "nature",
+        "The Great Salt Cave",
+        "Under Çankırı lies a glittering salt mine used for 5,000 years! Walk through halls of pink-white salt crystal — there's even a salt therapy room and sculptures made of salt.",
+        "🧂",
+        "a salt crystal"
+      ],
+      [
+        [
+          "dag",
+          {
+            "ski": 1
+          }
+        ],
+        "nature",
+        "Ilgaz Mountain",
+        "Ilgaz's pine forests are green paradise in summer and a snowy ski playground in winter. A famous Turkish song is written about this mountain!",
+        "🎿",
+        "an Ilgaz snowflake"
+      ],
+      [
+        [
+          "muzik",
+          {
+            "kind": "saz"
+          }
+        ],
+        "craft",
+        "The Yaran Gatherings",
+        "On winter nights, Çankırı friends gather for 'Yaran' evenings — centuries-old meetings with music, games and stories that teach kindness and respect.",
+        "🎶",
+        "a friendship song"
+      ]
+    ],
+    "q": [
+      [
+        "What has been mined under Çankırı for 5,000 years?",
+        [
+          "Salt",
+          "Diamonds",
+          "Cheese"
+        ]
+      ]
+    ]
+  },
+  {
+    "i": "yozgat",
+    "n": "Yozgat",
+    "lon": 34.8,
+    "lat": 39.82,
+    "R": 3,
+    "s": [
+      [
+        [
+          "gol",
+          {
+            "birds": 1
+          }
+        ],
+        "nature",
+        "Çamlık — Türkiye's First National Park",
+        "Yozgat Çamlık became Türkiye's very FIRST national park in 1958! Its cool pine forest is full of squirrels, birds and picnic spots.",
+        "🐿️",
+        "a park squirrel"
+      ],
+      [
+        [
+          "stall",
+          {
+            "s": "ARABAŞI",
+            "d": "bowl",
+            "c": "#C96A2B"
+          }
+        ],
+        "food",
+        "Arabaşı Soup Night",
+        "On snowy nights, Yozgat families gather for arabaşı: peppery hot chicken soup eaten with slippery jelly-like dough pieces. Catching the dough with your spoon is half the fun!",
+        "🥄",
+        "a slippery dough cube"
+      ],
+      [
+        "saatkule",
+        "history",
+        "The Clock Tower",
+        "Yozgat's stone clock tower has told the town the time for over a century, watching the bazaars below.",
+        "🕰️",
+        "a tick-tock souvenir"
+      ]
+    ],
+    "q": [
+      [
+        "What was Yozgat Çamlık's big first in 1958?",
+        [
+          "Türkiye's first national park",
+          "First pizza place",
+          "First rocket launch"
+        ]
+      ]
+    ]
+  },
+  {
+    "i": "kirsehir",
+    "n": "Kırşehir",
+    "lon": 34.16,
+    "lat": 39.14,
+    "R": 3,
+    "s": [
+      [
+        [
+          "craft",
+          {
+            "kind": "copper",
+            "s": "AHİ WORKSHOP"
+          }
+        ],
+        "history",
+        "Ahi Evran — Father of Craftsmen",
+        "800 years ago, Ahi Evran founded a brotherhood of honest craftsmen in Kırşehir. Their golden rules — work hard, be fair, help others — still guide Turkish artisans today!",
+        "🤝",
+        "the honest craftsman's badge"
+      ],
+      [
+        [
+          "muze",
+          {
+            "s": "CACABEY OBSERVATORY",
+            "icon": "stars",
+            "f": "#5E4680"
+          }
+        ],
+        "history",
+        "A Medieval Star School",
+        "The 750-year-old Cacabey Madrasa was built as a school where students studied the STARS — one of the world's early observatories, with columns shaped like rockets!",
+        "⭐",
+        "a star chart"
+      ],
+      [
+        [
+          "muzik",
+          {
+            "kind": "saz"
+          }
+        ],
+        "craft",
+        "Land of the Bozlak",
+        "Kırşehir is the heart of Abdal music. Master Neşet Ertaş, the 'Nightingale of the Steppe', sang songs here that all of Türkiye knows by heart.",
+        "🎵",
+        "a bağlama pick"
+      ]
+    ],
+    "q": [
+      [
+        "What did students study at the Cacabey Madrasa?",
+        [
+          "The stars",
+          "Pizza recipes",
+          "Video games"
+        ]
+      ]
+    ]
+  },
+  {
+    "i": "nevsehir",
+    "n": "Nevşehir (Cappadocia)",
+    "lon": 34.71,
+    "lat": 38.62,
+    "R": 3,
+    "s": [
+      [
+        "chimneys",
+        "nature",
+        "The Fairy Chimneys",
+        "These tall rock towers with stone 'hats' are called fairy chimneys! Nobody built them — wind and rain carved them out of soft rock over millions of years. People even carved homes inside!",
+        "🪨",
+        "a fairy chimney magnet",
+        "Do you think fairies really lived here? Let's peek inside!"
+      ],
+      [
+        "balloon",
+        "nature",
+        "Hot Air Balloon Ride",
+        "Every morning at sunrise, hundreds of giant striped balloons float over Cappadocia. From the wicker basket, the valleys below look like a painting! One of the most magical sights on Earth.",
+        "🎈",
+        "a mini balloon",
+        "Hop in the basket and hold on tight — up, up and awaaay!"
+      ],
+      [
+        "cave",
+        "history",
+        "Derinkuyu Underground City",
+        "Long ago, people dug a secret city UNDER the ground — 8 floors deep! It had bedrooms, kitchens, stables and giant rolling stone doors. Thousands of people could hide inside!",
+        "🕯️",
+        "an explorer's lantern",
+        "Shhh… take this lantern. It's dark and mysterious down here!"
+      ],
+      [
+        "pottery",
+        "craft",
+        "Pottery Workshop in Avanos",
+        "In Avanos, masters shape red clay from the Kızılırmak river on spinning wheels — just like their grandparents did! You can sit at the wheel and make your own little pot.",
+        "🏺",
+        "a tiny clay pot",
+        "Push the pedal, wet your hands… look, you're a potter now!"
+      ],
+      [
+        "loom",
+        "craft",
+        "Turkish Carpet Weavers",
+        "Watch the weavers tie thousands of tiny knots of colorful wool on tall wooden looms. Knot by knot, a Turkish carpet appears — some take a whole year! Every pattern tells a story.",
+        "🧶",
+        "a ball of rainbow wool",
+        "Look how fast her fingers fly! Can you count the knots? Impossible!"
+      ]
+    ],
+    "q": [
+      [
+        "Who carved the fairy chimneys?",
+        [
+          "Wind and rain, over millions of years",
+          "Giant robots",
+          "Dragons"
+        ]
+      ],
+      [
+        "What fills the sky of Cappadocia at sunrise?",
+        [
+          "Hundreds of hot air balloons",
+          "Flying carpets",
+          "Airplanes"
+        ]
+      ]
+    ]
+  },
+  {
+    "i": "aksaray",
+    "n": "Aksaray",
+    "lon": 34.03,
+    "lat": 38.37,
+    "R": 3,
+    "s": [
+      [
+        "kanyon",
+        "nature",
+        "Ihlara Valley",
+        "Ihlara is a deep green canyon with a river singing at the bottom and ancient churches carved into its walls — more than a hundred of them, painted with colorful frescoes!",
+        "⛪",
+        "a fresco postcard"
+      ],
+      [
+        [
+          "kale",
+          {}
+        ],
+        "history",
+        "Sultanhanı Caravanserai",
+        "Sultanhanı is a giant stone 'hotel' from 800 years ago, built for Silk Road camel caravans. Merchants, camels and treasures all rested safely behind its castle-like walls!",
+        "🐫",
+        "a Silk Road map"
+      ],
+      [
+        [
+          "dag",
+          {
+            "volcano": 1
+          }
+        ],
+        "nature",
+        "Mount Hasan",
+        "The snow-capped volcano Hasan Dağı watches over Aksaray. Long, long ago its eruptions made the soft rock that became Cappadocia's fairy chimneys!",
+        "🌋",
+        "volcano dust"
+      ]
+    ],
+    "q": [
+      [
+        "What was the Sultanhanı caravanserai built for?",
+        [
+          "A safe stone hotel for camel caravans",
+          "A swimming pool",
+          "A football stadium"
+        ]
+      ]
+    ]
+  },
+  {
+    "i": "nigde",
+    "n": "Niğde",
+    "lon": 34.68,
+    "lat": 37.97,
+    "R": 3,
+    "s": [
+      [
+        [
+          "dag",
+          {
+            "glacier": 1
+          }
+        ],
+        "nature",
+        "The Aladağlar Peaks",
+        "The mighty Aladağlar are Türkiye's Alps — sharp granite peaks, glacier lakes and mountain goats. Climbers from all over the world come to test their courage here!",
+        "🧗",
+        "a climber's carabiner"
+      ],
+      [
+        [
+          "cave",
+          {}
+        ],
+        "history",
+        "Gümüşler Monastery",
+        "Carved completely into rock, Gümüşler Monastery hides wall paintings — including a rare picture famous as the 'smiling angel' fresco. Can you find the smile?",
+        "😊",
+        "a smiling fresco magnet"
+      ],
+      [
+        [
+          "agac",
+          {
+            "kind": "apple"
+          }
+        ],
+        "food",
+        "Crunchy Apples & Potatoes",
+        "Niğde's cool mountain air grows Türkiye's crunchiest apples and best potatoes. An apple a day — Niğde style!",
+        "🍎",
+        "a mountain apple"
+      ]
+    ],
+    "q": [
+      [
+        "What are the Aladağlar called?",
+        [
+          "Türkiye's Alps",
+          "The Sea Mountains",
+          "The Sand Hills"
+        ]
+      ]
+    ]
+  },
+  {
+    "i": "konya",
+    "n": "Konya",
+    "lon": 32.48,
+    "lat": 37.87,
+    "R": 3,
+    "s": [
+      [
+        "mevlana",
+        "history",
+        "Mevlâna's Green Dome",
+        "Konya is the city of Mevlâna Rumi, the poet of love and kindness whose words are read all over the world: 'Come, come, whoever you are.' His museum's turquoise-green dome is Konya's heart.",
+        "💚",
+        "a turquoise dome pin"
+      ],
+      [
+        "semazen",
+        "craft",
+        "The Whirling Dervishes",
+        "In snow-white robes and tall hats, semazens whirl round and round like planets, one hand to the sky, one to the earth. It's a 750-year-old ceremony of peace — and UNESCO protects it!",
+        "🌀",
+        "a whirling dervish figure"
+      ],
+      [
+        [
+          "stall",
+          {
+            "s": "ETLİ EKMEK",
+            "d": "pide",
+            "c": "#8A4038"
+          }
+        ],
+        "food",
+        "Etli Ekmek — the Meter-Long Flatbread",
+        "Konya's etli ekmek is a super-thin, super-LONG crispy flatbread with minced meat — some are longer than your dad is tall! Watch it slide out of the wood oven.",
+        "📏",
+        "a meter of etli ekmek"
+      ]
+    ],
+    "q": [
+      [
+        "What do the semazen dervishes do?",
+        [
+          "Whirl round and round like planets",
+          "Jump on trampolines",
+          "Swim in circles"
+        ]
+      ]
+    ]
+  },
+  {
+    "i": "karaman",
+    "n": "Karaman",
+    "lon": 33.22,
+    "lat": 37.18,
+    "R": 3,
+    "s": [
+      [
+        [
+          "muze",
+          {
+            "s": "TURKISH LANGUAGE",
+            "icon": "scroll",
+            "f": "#B03A3A"
+          }
+        ],
+        "history",
+        "Where Turkish Became Official",
+        "In 1277, Karamanoğlu Mehmet Bey declared right here that Turkish would be the official language — everywhere, for everyone! Karaman celebrates the Turkish language every year.",
+        "🗣️",
+        "the Turkish alphabet"
+      ],
+      [
+        [
+          "cave",
+          {
+            "stalag": 1
+          }
+        ],
+        "history",
+        "Manazan Cliff Dwellings",
+        "The Manazan caves are a five-story apartment building — carved into a cliff 1,500 years ago! Whole villages once lived in its rock rooms.",
+        "🏠",
+        "a cliff-house key"
+      ],
+      [
+        [
+          "stall",
+          {
+            "s": "DİVLE OBRUK",
+            "d": "cheese",
+            "c": "#C96A2B"
+          }
+        ],
+        "food",
+        "Cheese Aged in a Sinkhole",
+        "Divle cheese ripens inside a cool natural sinkhole cave, wrapped in goatskin! Months underground give it a taste found nowhere else.",
+        "🧀",
+        "sinkhole cheese"
+      ]
+    ],
+    "q": [
+      [
+        "What did Karamanoğlu Mehmet Bey declare in 1277?",
+        [
+          "Turkish as the official language",
+          "A national pizza day",
+          "A dragon holiday"
+        ]
+      ]
+    ]
+  },
+  {
+    "i": "kayseri",
+    "n": "Kayseri",
+    "lon": 35.48,
+    "lat": 38.72,
+    "R": 3,
+    "s": [
+      [
+        [
+          "dag",
+          {
+            "ski": 1,
+            "volcano": 1
+          }
+        ],
+        "nature",
+        "Mount Erciyes",
+        "Snowy Erciyes is a sleeping volcano 3,917 meters tall — and one of Türkiye's biggest ski resorts! Its snow sparkles over Kayseri almost all year.",
+        "⛷️",
+        "an Erciyes lift pass"
+      ],
+      [
+        [
+          "stall",
+          {
+            "s": "MANTI",
+            "d": "manti",
+            "c": "#8A4038"
+          }
+        ],
+        "food",
+        "Mantı — 40 on One Spoon",
+        "Kayseri's mantı are teeny-tiny dumplings with yogurt and red butter sauce. They say a good cook makes them so small that 40 fit on one spoon — count them!",
+        "🥟",
+        "a spoonful of 40 mantı"
+      ],
+      [
+        [
+          "hoyuk",
+          {
+            "tablet": 1
+          }
+        ],
+        "history",
+        "Kültepe's Clay Letters",
+        "At Kültepe, archaeologists found thousands of 4,000-year-old clay tablets — Anatolia's OLDEST written documents! Ancient merchants wrote letters, bills and even complaints on clay.",
+        "📝",
+        "a clay tablet cookie"
+      ]
+    ],
+    "q": [
+      [
+        "How many tiny mantı fit on one spoon in Kayseri?",
+        [
+          "Forty",
+          "Two",
+          "One million"
+        ]
+      ]
+    ]
+  },
+  {
+    "i": "sivas",
+    "n": "Sivas",
+    "lon": 37.02,
+    "lat": 39.75,
+    "R": 3,
+    "s": [
+      [
+        [
+          "cami",
+          {
+            "ornate": 1,
+            "min": 2
+          }
+        ],
+        "history",
+        "Divriği's Magical Gate",
+        "The Great Mosque of Divriği is a UNESCO wonder: its stone gates are carved like frozen lace — flowers, stars and patterns so fine that no two are alike. Masters carved it 800 years ago!",
+        "🌸",
+        "a stone-lace rubbing"
+      ],
+      [
+        [
+          "hayvan",
+          {
+            "kind": "dog"
+          }
+        ],
+        "nature",
+        "The Mighty Kangal",
+        "Sivas is home of the Kangal — the gentle giant sheepdog, one of the strongest and most loyal dogs in the world. A Kangal guards its flock like a hero but loves kids like a teddy bear!",
+        "🐕",
+        "a Kangal puppy sticker"
+      ],
+      [
+        [
+          "muze",
+          {
+            "s": "CONGRESS MUSEUM",
+            "f": "#B03A3A"
+          }
+        ],
+        "history",
+        "The Sivas Congress",
+        "In 1919, Atatürk gathered leaders in Sivas to plan the country's independence — a giant step toward the Republic of Türkiye. The school building is now a museum.",
+        "🖋️",
+        "a congress pen"
+      ]
+    ],
+    "q": [
+      [
+        "What is a Kangal?",
+        [
+          "A giant loyal sheepdog",
+          "A tiny fish",
+          "A kind of hat"
+        ]
+      ]
+    ]
+  },
+  {
+    "i": "duzce",
+    "n": "Düzce",
+    "lon": 31.16,
+    "lat": 40.84,
+    "R": 4,
+    "s": [
+      [
+        [
+          "gol",
+          {
+            "birds": 1
+          }
+        ],
+        "nature",
+        "Efteni Lake Bird Paradise",
+        "Lake Efteni is a rest stop for thousands of travelling birds — herons, storks and ducks land here on their long journeys. Bring binoculars and count the species!",
+        "🦆",
+        "a birdwatcher's badge"
+      ],
+      [
+        "theatre",
+        "history",
+        "Konuralp — the Hidden Ancient City",
+        "Under the town of Konuralp sleeps the Roman city of Prusias! Its ancient theatre, carved into the hillside, is nicknamed 'the forty stairs' by locals.",
+        "🎫",
+        "an ancient theatre coin"
+      ],
+      [
+        "selale",
+        "nature",
+        "Güzeldere Waterfall",
+        "Deep in Düzce's beech forests, the Güzeldere waterfall drops from high rocks into a misty green pool — the walk there smells of rain and moss.",
+        "💧",
+        "a drop of waterfall mist"
+      ]
+    ],
+    "q": [
+      [
+        "Who rests at Lake Efteni on long journeys?",
+        [
+          "Thousands of travelling birds",
+          "Submarines",
+          "Camels"
+        ]
+      ]
+    ]
+  },
+  {
+    "i": "bolu",
+    "n": "Bolu",
+    "lon": 31.61,
+    "lat": 40.74,
+    "R": 4,
+    "s": [
+      [
+        [
+          "gol",
+          {
+            "boat": 1
+          }
+        ],
+        "nature",
+        "Yedigöller — the Seven Lakes",
+        "Yedigöller means 'Seven Lakes' — seven forest lakes linked like a necklace! In autumn the trees turn red, orange and gold, and the lakes become giant mirrors.",
+        "🍁",
+        "a golden autumn leaf"
+      ],
+      [
+        [
+          "stall",
+          {
+            "s": "MENGEN CHEFS",
+            "d": "bowl",
+            "c": "#C96A2B"
+          }
+        ],
+        "food",
+        "Mengen — Town of Master Chefs",
+        "Little Mengen is famous for one thing: CHEFS! For generations its cooks have run the kitchens of palaces and hotels across Türkiye. There's even a chef school and a cooking festival!",
+        "👨‍🍳",
+        "a tiny chef's hat"
+      ],
+      [
+        [
+          "dag",
+          {
+            "ski": 1
+          }
+        ],
+        "nature",
+        "Kartalkaya Ski Resort",
+        "'Eagle Rock' mountain gets piles of fluffy snow every winter — perfect for young skiers and snowboarders taking their very first ride.",
+        "🏂",
+        "a snowboard sticker"
+      ]
+    ],
+    "q": [
+      [
+        "What is the town of Mengen famous for?",
+        [
+          "Master chefs",
+          "Racing cars",
+          "Pirates"
+        ]
+      ]
+    ]
+  },
+  {
+    "i": "zonguldak",
+    "n": "Zonguldak",
+    "lon": 31.79,
+    "lat": 41.45,
+    "R": 4,
+    "s": [
+      [
+        [
+          "cave",
+          {
+            "cart": 1
+          }
+        ],
+        "history",
+        "The Coal Mine Museum",
+        "Zonguldak is Türkiye's coal city! In the mine museum you ride into real tunnels, wear a miner's helmet and learn how brave miners work deep underground.",
+        "⛑️",
+        "a miner's lamp"
+      ],
+      [
+        [
+          "cave",
+          {
+            "stalag": 1
+          }
+        ],
+        "nature",
+        "Gökgöl Cave",
+        "Gökgöl cave stretches over 3 kilometers under the mountains, decorated with shimmering stone curtains and columns grown drop by drop.",
+        "💎",
+        "a cave crystal"
+      ],
+      [
+        "sahil",
+        "nature",
+        "Kapuz Beach",
+        "Squeezed between green cliffs, little Kapuz Beach is where Zonguldak's kids splash in the Black Sea all summer.",
+        "🏖️",
+        "a Black Sea seashell"
+      ]
+    ],
+    "q": [
+      [
+        "What do you wear when visiting Zonguldak's mine museum?",
+        [
+          "A miner's helmet",
+          "A swimsuit",
+          "A crown"
+        ]
+      ]
+    ]
+  },
+  {
+    "i": "bartin",
+    "n": "Bartın",
+    "lon": 32.34,
+    "lat": 41.64,
+    "R": 4,
+    "s": [
+      [
+        [
+          "kale",
+          {
+            "sea": 1
+          }
+        ],
+        "history",
+        "Amasra — the Jewel of the Black Sea",
+        "The castle town of Amasra sits on a tiny peninsula between two blue bays. Sailors, Romans and Ottomans all loved it — one sultan called it 'the eye of the world'!",
+        "👁️",
+        "the eye-of-the-world pin"
+      ],
+      [
+        "gemi",
+        "craft",
+        "Wooden Boat Builders",
+        "On the Bartın river, masters still build wooden boats plank by plank, just like their grandfathers — the smell of fresh timber fills the boatyards.",
+        "🚣",
+        "a model wooden boat"
+      ],
+      [
+        [
+          "craft",
+          {
+            "kind": "lace",
+            "s": "TEL KIRMA",
+            "f": "#B03A6B"
+          }
+        ],
+        "craft",
+        "Tel Kırma Embroidery",
+        "Bartın's grandmothers stitch shiny silver wire onto fabric in a special art called 'tel kırma' — scarves sparkle like starlight!",
+        "✨",
+        "a sparkly stitched star"
+      ]
+    ],
+    "q": [
+      [
+        "Where does the castle town of Amasra sit?",
+        [
+          "On a tiny peninsula between two bays",
+          "On top of a volcano",
+          "Underground"
+        ]
+      ]
+    ]
+  },
+  {
+    "i": "karabuk",
+    "n": "Karabük",
+    "lon": 32.62,
+    "lat": 41.2,
+    "R": 4,
+    "s": [
+      [
+        [
+          "ev",
+          {}
+        ],
+        "history",
+        "Safranbolu — the Time-Machine Town",
+        "Safranbolu is a whole town of perfect white Ottoman houses with red roofs — so well kept that UNESCO protects every street! Walking here feels like travelling 300 years back in time.",
+        "🏡",
+        "a Safranbolu house magnet"
+      ],
+      [
+        [
+          "flower",
+          {
+            "kind": "saffron"
+          }
+        ],
+        "nature",
+        "Saffron — More Precious than Gold",
+        "Safranbolu is named after saffron, the purple crocus flower whose tiny red threads are the world's most expensive spice — picked gently by hand at dawn!",
+        "💜",
+        "three saffron threads"
+      ],
+      [
+        [
+          "tatli",
+          {
+            "k": "lokum",
+            "s": "SAFRANBOLU LOKUMU"
+          }
+        ],
+        "food",
+        "Turkish Delight of Safranbolu",
+        "Soft, powdery Safranbolu lokum melts in your mouth — rose, walnut, even saffron flavored. Shops let you taste before you choose!",
+        "🍬",
+        "a box of lokum"
+      ]
+    ],
+    "q": [
+      [
+        "Why is saffron so precious?",
+        [
+          "Its tiny threads are picked by hand and very rare",
+          "It glows in the dark",
+          "It can talk"
+        ]
+      ]
+    ]
+  },
+  {
+    "i": "kastamonu",
+    "n": "Kastamonu",
+    "lon": 33.78,
+    "lat": 41.38,
+    "R": 4,
+    "s": [
+      [
+        [
+          "cami",
+          {
+            "wood": 1,
+            "min": 1
+          }
+        ],
+        "history",
+        "The Nail-Free Wooden Mosque",
+        "The 700-year-old Mahmut Bey Mosque is built of carved, painted wood — held together WITHOUT A SINGLE NAIL! Its rainbow-painted ceiling is a masterpiece of Anatolian carpenters.",
+        "🔨",
+        "a (not needed!) nail"
+      ],
+      [
+        "kanyon",
+        "nature",
+        "Valla Canyon",
+        "In Küre Mountains National Park, the wild Valla Canyon plunges deeper than three Eiffel Towers stacked! Its cliffs are home to eagles and wild goats.",
+        "🦅",
+        "an eagle feather"
+      ],
+      [
+        [
+          "tatli",
+          {
+            "k": "helva",
+            "s": "ÇEKME HELVA"
+          }
+        ],
+        "food",
+        "Pulled Halva",
+        "Kastamonu's çekme helva is stretched and folded by strong hands until it becomes crispy silky layers that crumble like snowflakes on your tongue.",
+        "🍥",
+        "crispy pulled halva"
+      ]
+    ],
+    "q": [
+      [
+        "What is amazing about the Mahmut Bey Mosque?",
+        [
+          "It's built of wood without a single nail",
+          "It floats on a lake",
+          "It's made of glass"
+        ]
+      ]
+    ]
+  },
+  {
+    "i": "sinop",
+    "n": "Sinop",
+    "lon": 35.15,
+    "lat": 42.03,
+    "R": 4,
+    "s": [
+      [
+        "fener",
+        "nature",
+        "İnceburun — the Northernmost Point",
+        "The lighthouse at İnceburun stands on the NORTHERNMOST tip of Türkiye! Beyond it there's only the deep Black Sea. Sinop is also said to be one of the happiest cities in the country!",
+        "🧭",
+        "a compass pointing north"
+      ],
+      [
+        [
+          "kale",
+          {
+            "sea": 1
+          }
+        ],
+        "history",
+        "Sinop Fortress",
+        "Sinop's mighty sea walls have guarded its natural harbor for 2,700 years. The famous funny philosopher Diogenes — who lived in a barrel! — was born here.",
+        "🛢️",
+        "Diogenes' little barrel"
+      ],
+      [
+        [
+          "tatli",
+          {
+            "k": "baklava",
+            "s": "NOKUL"
+          }
+        ],
+        "food",
+        "Nokul — the Sailor's Pastry",
+        "Sinop's swirly nokul pastry, stuffed with walnuts and raisins, was baked for sailors going on long Black Sea journeys. Still warm from the oven — all aboard!",
+        "🌀",
+        "a swirly nokul"
+      ]
+    ],
+    "q": [
+      [
+        "What is at İnceburun, Sinop?",
+        [
+          "Türkiye's northernmost point",
+          "The South Pole",
+          "A desert"
+        ]
+      ]
+    ]
+  },
+  {
+    "i": "corum",
+    "n": "Çorum",
+    "lon": 34.95,
+    "lat": 40.55,
+    "R": 4,
+    "s": [
+      [
+        [
+          "hoyuk",
+          {
+            "lion": 1
+          }
+        ],
+        "history",
+        "Hattusha — Capital of the Hittites",
+        "Hattusha was the capital of the mighty Hittite Empire 3,500 years ago! Walk through its Lion Gate, guarded by two stone lions, and see the world's oldest known peace treaty's home.",
+        "🦁",
+        "a Hittite lion stamp"
+      ],
+      [
+        [
+          "fruit",
+          {
+            "kind": "hazelnut",
+            "s": "LEBLEBİ"
+          }
+        ],
+        "food",
+        "Leblebi — the Crunchy Snack",
+        "Çorum is the leblebi capital: chickpeas roasted until they turn into crunchy, nutty little snacks. Plain, sugared or spicy — Turkish kids munch them at the movies!",
+        "🍿",
+        "a bag of leblebi"
+      ],
+      [
+        "saatkule",
+        "history",
+        "The Clock Tower",
+        "Çorum's elegant 19th-century clock tower rises above the bazaar, chiming over shops that have sold leblebi for generations.",
+        "🕰️",
+        "a chime bell"
+      ]
+    ],
+    "q": [
+      [
+        "Which mighty empire had its capital at Hattusha?",
+        [
+          "The Hittites",
+          "The Vikings",
+          "The Aztecs"
+        ]
+      ]
+    ]
+  },
+  {
+    "i": "amasya",
+    "n": "Amasya",
+    "lon": 35.83,
+    "lat": 40.65,
+    "R": 4,
+    "s": [
+      [
+        [
+          "ev",
+          {
+            "rocktombs": 1
+          }
+        ],
+        "history",
+        "Houses Under the Kings' Tombs",
+        "Amasya is a postcard: white Ottoman houses line the green river, and giant tombs of ancient kings are carved into the cliff above — glowing gold when lit at night!",
+        "👑",
+        "a rock-tomb postcard"
+      ],
+      [
+        [
+          "agac",
+          {
+            "kind": "apple"
+          }
+        ],
+        "food",
+        "The Sweetest Apples",
+        "Amasya's small, rosy-cheeked apples are famous across Türkiye — crunchy, sweet-smelling and perfect for lunchboxes.",
+        "🍎",
+        "a rosy Amasya apple"
+      ],
+      [
+        [
+          "muze",
+          {
+            "s": "FERHAT & ŞİRİN",
+            "icon": "scroll",
+            "f": "#B03A6B"
+          }
+        ],
+        "history",
+        "The Legend of Ferhat",
+        "Legend says Ferhat loved Princess Şirin so much that he dug a tunnel through a whole MOUNTAIN to bring water to her city. Amasya's old water channels still carry his name!",
+        "⛏️",
+        "Ferhat's pickaxe"
+      ]
+    ],
+    "q": [
+      [
+        "What is carved into the cliffs above Amasya?",
+        [
+          "Tombs of ancient kings",
+          "Giant ice cream cones",
+          "Spaceships"
+        ]
+      ]
+    ]
+  },
+  {
+    "i": "samsun",
+    "n": "Samsun",
+    "lon": 36.33,
+    "lat": 41.29,
+    "R": 4,
+    "s": [
+      [
+        "gemi",
+        "history",
+        "The Bandırma Ferry",
+        "On 19 May 1919, Atatürk sailed to Samsun on the little ship Bandırma and took the first step of the War of Independence! You can board a copy of the ship and stand at its wheel.",
+        "🚢",
+        "the ship's wheel pin"
+      ],
+      [
+        [
+          "muze",
+          {
+            "s": "19 MAYIS",
+            "f": "#B03A3A"
+          }
+        ],
+        "history",
+        "The Youth Holiday City",
+        "May 19th became the Youth and Sports Holiday — Atatürk gifted it to the young people of Türkiye! Samsun celebrates with parades, flags and stadium shows every year.",
+        "🎌",
+        "a festival flag"
+      ],
+      [
+        [
+          "stall",
+          {
+            "s": "SAMSUN PİDESİ",
+            "d": "pide",
+            "c": "#8A4038"
+          }
+        ],
+        "food",
+        "Samsun Pide",
+        "Samsun's closed pide comes out of stone ovens golden and crispy, rolled long like a delicious log. Careful — it's hot!",
+        "🫓",
+        "a slice of pide"
+      ]
+    ],
+    "q": [
+      [
+        "What happened in Samsun on 19 May 1919?",
+        [
+          "Atatürk landed and began the independence journey",
+          "The first television was invented",
+          "A dragon visited"
+        ]
+      ]
+    ]
+  },
+  {
+    "i": "tokat",
+    "n": "Tokat",
+    "lon": 36.55,
+    "lat": 40.31,
+    "R": 4,
+    "s": [
+      [
+        [
+          "cave",
+          {
+            "stalag": 1
+          }
+        ],
+        "nature",
+        "Ballıca Cave",
+        "Ballıca is one of Türkiye's most beautiful caves — millions of years old, with 'onion' stalactites and sparkling pools. Its clean air is even said to be good for you!",
+        "🕳️",
+        "an onion stalactite pin"
+      ],
+      [
+        [
+          "craft",
+          {
+            "kind": "yazma",
+            "s": "YAZMA PRINT",
+            "f": "#B03A6B"
+          }
+        ],
+        "craft",
+        "Yazma — Woodblock Printing",
+        "Tokat's masters carve patterns into wooden blocks, dip them in dye, and stamp cheerful flowers onto white scarves. Stamp, stamp, stamp — you can print your own!",
+        "🌼",
+        "a hand-printed scarf"
+      ],
+      [
+        [
+          "stall",
+          {
+            "s": "TOKAT KEBABI",
+            "d": "kebap",
+            "c": "#8A4038"
+          }
+        ],
+        "food",
+        "Tokat Kebab",
+        "Tokat kebab is special: lamb, potatoes, eggplants and garlic all bake TOGETHER hanging in a stone oven, dripping deliciousness onto flatbread below.",
+        "🍆",
+        "a roasted eggplant"
+      ]
+    ],
+    "q": [
+      [
+        "How do Tokat masters decorate scarves?",
+        [
+          "Stamping with carved wooden blocks",
+          "Spraying with ketchup",
+          "Using laser robots"
+        ]
+      ]
+    ]
+  },
+  {
+    "i": "ordu",
+    "n": "Ordu",
+    "lon": 37.88,
+    "lat": 40.98,
+    "R": 4,
+    "s": [
+      [
+        [
+          "fruit",
+          {
+            "kind": "hazelnut",
+            "s": "FINDIK"
+          }
+        ],
+        "food",
+        "Hazelnut Champion of the World",
+        "More hazelnuts grow around Ordu than anywhere on the planet! The chocolate spread on your toast probably started life on a green Ordu hillside.",
+        "🍫",
+        "a hazelnut-chocolate jar"
+      ],
+      [
+        "teleferik",
+        "nature",
+        "Cable Car to Boztepe",
+        "Ordu's red cable cars glide from the seaside up to Boztepe hill — the Black Sea sparkles below your feet! At the top: tea gardens and the best city view.",
+        "🚠",
+        "a cable car ticket"
+      ],
+      [
+        "sahil",
+        "nature",
+        "Blue-Flag Beaches",
+        "Surprise — the Black Sea has sandy beaches! Ordu's clean shores fly the Blue Flag, and locals say its sunsets paint the sea orange.",
+        "🌅",
+        "an orange sunset photo"
+      ]
+    ],
+    "q": [
+      [
+        "Which nut makes Ordu a world champion?",
+        [
+          "Hazelnuts",
+          "Coconuts",
+          "Acorns"
+        ]
+      ]
+    ]
+  },
+  {
+    "i": "giresun",
+    "n": "Giresun",
+    "lon": 38.39,
+    "lat": 40.91,
+    "R": 4,
+    "s": [
+      [
+        [
+          "agac",
+          {
+            "kind": "cherry"
+          }
+        ],
+        "history",
+        "Where Cherries Got Their Name",
+        "Cherries spread to the whole world FROM Giresun! A Roman general took cherry trees from here 2,000 years ago — the ancient city's name 'Cerasus' became the word 'cherry'!",
+        "🍒",
+        "the original cherry"
+      ],
+      [
+        [
+          "gol",
+          {
+            "island": 1
+          }
+        ],
+        "nature",
+        "Giresun Island",
+        "Just offshore floats Giresun Island — the Black Sea's only big island on the Turkish coast, wrapped in seabird cries and old legends of Amazon warriors.",
+        "🏝️",
+        "an island legend scroll"
+      ],
+      [
+        [
+          "fruit",
+          {
+            "kind": "hazelnut",
+            "s": "FINDIK"
+          }
+        ],
+        "food",
+        "Tombul Hazelnuts",
+        "Giresun's round 'tombul' hazelnuts are considered the tastiest in the world — chocolate makers everywhere ask for them by name!",
+        "🌰",
+        "a tombul hazelnut"
+      ]
+    ],
+    "q": [
+      [
+        "Which fruit's name comes from Giresun's ancient name Cerasus?",
+        [
+          "Cherry",
+          "Banana",
+          "Mango"
+        ]
+      ]
+    ]
+  },
+  {
+    "i": "gumushane",
+    "n": "Gümüşhane",
+    "lon": 39.48,
+    "lat": 40.46,
+    "R": 4,
+    "s": [
+      [
+        [
+          "cave",
+          {
+            "stalag": 1
+          }
+        ],
+        "nature",
+        "Karaca Cave",
+        "Karaca Cave is a treasure chest of nature: curtains, terraces and 'popcorn' rocks in cream and honey colors, grown silently for 150 million years.",
+        "🍯",
+        "a honey-colored crystal"
+      ],
+      [
+        [
+          "tatli",
+          {
+            "k": "pestil",
+            "s": "PESTİL & KÖME"
+          }
+        ],
+        "food",
+        "Pestil & Köme",
+        "Gümüşhane's famous snacks: pestil (fruit leather sheets) and köme (walnuts dipped in grape juice, dried into chewy sticks). Nature's own candy bars!",
+        "🍇",
+        "a köme stick"
+      ],
+      [
+        [
+          "dag",
+          {}
+        ],
+        "nature",
+        "The Silver Mountains",
+        "Gümüşhane means 'Silver House' — silver was mined in these misty mountains for centuries, and old stone villages still dot the green valleys.",
+        "🥈",
+        "a silver nugget"
+      ]
+    ],
+    "q": [
+      [
+        "What does 'Gümüşhane' mean?",
+        [
+          "Silver House",
+          "Golden Fish",
+          "Red Cloud"
+        ]
+      ]
+    ]
+  },
+  {
+    "i": "trabzon",
+    "n": "Trabzon",
+    "lon": 39.72,
+    "lat": 41,
+    "R": 4,
+    "s": [
+      [
+        "manastir",
+        "history",
+        "Sümela Monastery",
+        "Sümela clings to a sheer cliff face 300 meters above the forest — built into the rock 1,600 years ago! Looking up from the valley you'll ask: how did they build THAT?",
+        "🧗",
+        "a cliff-monastery photo"
+      ],
+      [
+        [
+          "muzik",
+          {
+            "kind": "kemence"
+          }
+        ],
+        "craft",
+        "Horon & the Kemençe",
+        "When the little kemençe fiddle starts to sing, everyone joins hands for the horon — the Black Sea's super-fast shoulder-shaking dance! Faster… faster… faster!",
+        "💃",
+        "a horon dance ribbon"
+      ],
+      [
+        [
+          "stall",
+          {
+            "s": "HAMSİ & KUYMAK",
+            "d": "bowl",
+            "c": "#3E5F72"
+          }
+        ],
+        "food",
+        "Hamsi & Stretchy Kuymak",
+        "Trabzon loves hamsi (little anchovies) a hundred ways — even in bread! And kuymak is a cheesy cornmeal dish that stretches longer than your arm when you lift the spoon.",
+        "🐟",
+        "a lucky hamsi"
+      ]
+    ],
+    "q": [
+      [
+        "Where is Sümela Monastery built?",
+        [
+          "Into a sheer cliff face",
+          "On a sandy beach",
+          "On a cloud"
+        ]
+      ]
+    ]
+  },
+  {
+    "i": "rize",
+    "n": "Rize",
+    "lon": 40.52,
+    "lat": 41.02,
+    "R": 4,
+    "s": [
+      [
+        "cay",
+        "food",
+        "The Tea Capital",
+        "Rize's emerald hills are covered in tea bushes — almost all of Türkiye's tea grows here! Pickers with baskets gather the top leaves, and every Turkish home serves Rize tea in tulip glasses.",
+        "🫖",
+        "a tulip tea glass"
+      ],
+      [
+        [
+          "kale",
+          {
+            "rock": 1
+          }
+        ],
+        "history",
+        "Zilkale in the Mists",
+        "Deep in the Fırtına Valley, the stone castle of Zilkale rises out of the fog like a storybook picture, guarding an ancient mountain road.",
+        "🌫️",
+        "a misty castle photo"
+      ],
+      [
+        [
+          "dag",
+          {}
+        ],
+        "nature",
+        "Ayder Highland",
+        "Up in Ayder Yaylası, wooden chalets sit in flower meadows under the Kaçkar peaks. Waterfalls, hot springs, grazing cows with bells — pure mountain happiness!",
+        "🐄",
+        "a tiny cow bell"
+      ]
+    ],
+    "q": [
+      [
+        "What grows on Rize's emerald hills?",
+        [
+          "Tea",
+          "Cactus",
+          "Bananas"
+        ]
+      ]
+    ]
+  },
+  {
+    "i": "artvin",
+    "n": "Artvin",
+    "lon": 41.82,
+    "lat": 41.18,
+    "R": 4,
+    "s": [
+      [
+        [
+          "gol",
+          {}
+        ],
+        "nature",
+        "Karagöl — the Mirror Lake",
+        "Forest-ringed Karagöl is so still it mirrors the mountains perfectly — is the world upside down? Autumn turns the reflection red and gold.",
+        "🪞",
+        "a mirror-lake photo"
+      ],
+      [
+        [
+          "agac",
+          {
+            "kind": "pistachio",
+            "s": "BAL"
+          }
+        ],
+        "food",
+        "The Purest Honey",
+        "Bees in Artvin's flower-filled Kaçkar valleys make some of the world's finest honey — including rare 'Macahel' honey from protected forests where nature is untouched.",
+        "🐝",
+        "a jar of mountain honey"
+      ],
+      [
+        [
+          "dag",
+          {
+            "glacier": 1
+          }
+        ],
+        "nature",
+        "The Wild Kaçkars",
+        "Artvin is Türkiye's greenest, steepest corner: deep gorges, rushing rivers and cloud forests where brown bears still roam free.",
+        "🐻",
+        "a friendly bear print"
+      ]
+    ],
+    "q": [
+      [
+        "What does the still water of Karagöl do?",
+        [
+          "Mirrors the mountains perfectly",
+          "Glows purple",
+          "Sings songs"
+        ]
+      ]
+    ]
+  },
+  {
+    "i": "bayburt",
+    "n": "Bayburt",
+    "lon": 40.22,
+    "lat": 40.26,
+    "R": 4,
+    "s": [
+      [
+        [
+          "kale",
+          {}
+        ],
+        "history",
+        "Bayburt Fortress",
+        "One of Anatolia's biggest fortresses crowns Bayburt's hill, its long white walls glowing above the Çoruh river. Silk Road travelers — even Marco Polo, they say — passed below!",
+        "🐎",
+        "a Silk Road horseshoe"
+      ],
+      [
+        [
+          "muze",
+          {
+            "s": "BAKSI MUSEUM",
+            "modern": 1,
+            "f": "#7A5FA0"
+          }
+        ],
+        "craft",
+        "Baksı — Art on a Hilltop",
+        "On a lonely hill above the river stands the award-winning Baksı Museum, where village crafts and modern art live together. Art in the middle of nature!",
+        "🖌️",
+        "a paintbrush pin"
+      ],
+      [
+        [
+          "tatli",
+          {
+            "k": "helva",
+            "s": "TEL HELVA"
+          }
+        ],
+        "food",
+        "Lor Dolması & Tel Helva",
+        "Bayburt's kitchen is full of surprises like lor dolması and silky tel helva — grandma recipes kept alive in mountain kitchens.",
+        "🥧",
+        "grandma's secret recipe"
+      ]
+    ],
+    "q": [
+      [
+        "Which famous traveler is said to have passed by Bayburt?",
+        [
+          "Marco Polo",
+          "Superman",
+          "Captain Hook"
+        ]
+      ]
+    ]
+  },
+  {
+    "i": "erzincan",
+    "n": "Erzincan",
+    "lon": 39.49,
+    "lat": 39.75,
+    "R": 5,
+    "s": [
+      [
+        "kanyon",
+        "nature",
+        "The Dark Canyon",
+        "Karanlık Kanyon's cliffs drop straight into the green Euphrates. Daredevils walk the old 'Stone Road' — a path carved by hand into the canyon wall, with tunnel windows over the water!",
+        "🚧",
+        "a stone-road pebble"
+      ],
+      [
+        [
+          "stall",
+          {
+            "s": "TULUM PEYNİRİ",
+            "d": "cheese",
+            "c": "#C96A2B"
+          }
+        ],
+        "food",
+        "Tulum Cheese",
+        "Erzincan's crumbly tulum cheese ripens inside goatskin bags in cool caves — sharp, salty and perfect with warm bread and honey.",
+        "🧀",
+        "a piece of tulum"
+      ],
+      [
+        [
+          "dag",
+          {
+            "ski": 1
+          }
+        ],
+        "nature",
+        "Ergan Mountain",
+        "Ergan rises right next to the city: skiing in winter, paragliding over the Euphrates valley in summer!",
+        "🎿",
+        "an Ergan snow patch"
+      ]
+    ],
+    "q": [
+      [
+        "Where does Erzincan's tulum cheese ripen?",
+        [
+          "In goatskin bags in cool caves",
+          "In a freezer truck",
+          "On the beach"
+        ]
+      ]
+    ]
+  },
+  {
+    "i": "erzurum",
+    "n": "Erzurum",
+    "lon": 41.28,
+    "lat": 39.9,
+    "R": 5,
+    "s": [
+      [
+        [
+          "cami",
+          {
+            "double": 1
+          }
+        ],
+        "history",
+        "The Twin Minaret Madrasa",
+        "Erzurum's symbol is the 750-year-old Çifte Minareli Medrese — two tall fluted minarets of turquoise brick rise over a gate carved like stone lace, with a double-headed eagle hiding in the patterns!",
+        "🦅",
+        "a double-headed eagle"
+      ],
+      [
+        [
+          "dag",
+          {
+            "ski": 1
+          }
+        ],
+        "nature",
+        "Palandöken",
+        "Palandöken has some of the longest, snowiest ski runs in Türkiye — snow can fall from November to May! Olympic athletes train here.",
+        "⛷️",
+        "a Palandöken snowball"
+      ],
+      [
+        [
+          "craft",
+          {
+            "kind": "oltu",
+            "s": "OLTU TAŞI",
+            "f": "#3E3022"
+          }
+        ],
+        "craft",
+        "Oltu Stone",
+        "Jet-black Oltu stone is found near Erzurum and polished into shiny beads and jewelry. Rub it — it can even pull little paper bits like a magnet!",
+        "📿",
+        "black Oltu beads"
+      ]
+    ],
+    "q": [
+      [
+        "What is Erzurum's Palandöken famous for?",
+        [
+          "Long snowy ski runs",
+          "Palm beaches",
+          "Pineapple farms"
+        ]
+      ]
+    ]
+  },
+  {
+    "i": "ardahan",
+    "n": "Ardahan",
+    "lon": 42.7,
+    "lat": 41.11,
+    "R": 5,
+    "s": [
+      [
+        [
+          "gol",
+          {
+            "frozen": 1
+          }
+        ],
+        "nature",
+        "Sleighs on Frozen Lake Çıldır",
+        "In winter, Lake Çıldır freezes so thick that HORSE SLEIGHS glide across it! Fishermen cut holes in the ice to catch fish, Eskimo-style. A magical white world!",
+        "🐴",
+        "a sleigh ride ticket"
+      ],
+      [
+        [
+          "kale",
+          {}
+        ],
+        "history",
+        "Ardahan Fortress",
+        "Ardahan's stone fortress has watched over the Kura river for centuries, on the high green plateau where Türkiye meets the Caucasus.",
+        "🏰",
+        "a fortress key"
+      ],
+      [
+        [
+          "stall",
+          {
+            "s": "KAŞAR & BAL",
+            "d": "cheese",
+            "c": "#C96A2B"
+          }
+        ],
+        "food",
+        "Golden Kaşar & Honey",
+        "Ardahan's happy cows graze flower meadows all summer — their milk becomes golden kaşar cheese, best friends with local honey at breakfast.",
+        "🍯",
+        "cheese & honey duo"
+      ]
+    ],
+    "q": [
+      [
+        "What glides across frozen Lake Çıldır in winter?",
+        [
+          "Horse sleighs",
+          "Submarines",
+          "Rollercoasters"
+        ]
+      ]
+    ]
+  },
+  {
+    "i": "kars",
+    "n": "Kars",
+    "lon": 43.09,
+    "lat": 40.6,
+    "R": 5,
+    "s": [
+      [
+        [
+          "antik",
+          {
+            "church": 1
+          }
+        ],
+        "history",
+        "The Ghost City of Ani",
+        "On the very edge of Türkiye stand the ruins of Ani — once a glorious Silk Road capital called 'the city of a thousand and one churches'. Wind now whistles through its beautiful stone shells.",
+        "🏚️",
+        "an Ani stone rubbing"
+      ],
+      [
+        "tren",
+        "history",
+        "The Eastern Express",
+        "The famous Doğu Ekspresi train chugs across snowy plains all the way from Ankara to Kars — travelers press their noses to frosty windows to watch the white world go by!",
+        "🚂",
+        "an Eastern Express ticket"
+      ],
+      [
+        [
+          "stall",
+          {
+            "s": "KARS GRAVYERİ",
+            "d": "cheese",
+            "c": "#C96A2B"
+          }
+        ],
+        "food",
+        "Giant Gruyère Wheels",
+        "Kars makes huge wheels of gravyer cheese — some heavier than YOU! Aged in mountain dairies, it's nutty, golden and full of holes.",
+        "🧀",
+        "a wedge of gravyer"
+      ]
+    ],
+    "q": [
+      [
+        "What was the ruined city of Ani called?",
+        [
+          "The city of a thousand and one churches",
+          "The city of robots",
+          "The candy city"
+        ]
+      ]
+    ]
+  },
+  {
+    "i": "igdir",
+    "n": "Iğdır",
+    "lon": 44.04,
+    "lat": 39.92,
+    "R": 5,
+    "s": [
+      [
+        [
+          "dag",
+          {
+            "ararat": 1
+          }
+        ],
+        "nature",
+        "Face to Face with Ararat",
+        "From Iğdır's warm plain you get the most amazing view of Mount Ararat — Türkiye's tallest mountain (5,137 m) — rising like a giant white pyramid into the sky!",
+        "🏔️",
+        "an Ararat postcard"
+      ],
+      [
+        [
+          "agac",
+          {
+            "kind": "apricot"
+          }
+        ],
+        "food",
+        "The Warm Oasis",
+        "Thanks to its special microclimate, Iğdır is a warm garden between cold mountains: apricot orchards bloom pink-white every spring like popcorn trees!",
+        "🌸",
+        "an apricot blossom"
+      ],
+      [
+        [
+          "cave",
+          {
+            "salt": 1
+          }
+        ],
+        "history",
+        "Tuzluca Salt Caves",
+        "At Tuzluca, people have carved salt from mountain caves for thousands of years — the glittering white tunnels now even host salt-air therapy rooms.",
+        "🧂",
+        "a salt lamp"
+      ]
+    ],
+    "q": [
+      [
+        "How tall is Mount Ararat, Türkiye's highest peak?",
+        [
+          "5,137 meters",
+          "51 meters",
+          "5 kilometers underground"
+        ]
+      ]
+    ]
+  },
+  {
+    "i": "agri",
+    "n": "Ağrı",
+    "lon": 43.05,
+    "lat": 39.72,
+    "R": 5,
+    "s": [
+      [
+        [
+          "kale",
+          {
+            "palace": 1
+          }
+        ],
+        "history",
+        "İshak Pasha Palace",
+        "On a golden cliff stands İshak Pasha Palace — a 350-year-old fairy-tale palace with carved gates, a mosque, and 366 rooms! Sunset turns its stones to honey.",
+        "🏯",
+        "a palace gate carving"
+      ],
+      [
+        [
+          "dag",
+          {
+            "ararat": 1
+          }
+        ],
+        "nature",
+        "Mount Ararat",
+        "Mighty Ağrı Dağı (Ararat) is Türkiye's rooftop at 5,137 m. Old stories say Noah's Ark came to rest on its slopes — climbers still dream of its icy summit.",
+        "⛰️",
+        "a summit flag"
+      ],
+      [
+        [
+          "stall",
+          {
+            "s": "ABDİGÖR KÖFTE",
+            "d": "kofte",
+            "c": "#8A4038"
+          }
+        ],
+        "food",
+        "Abdigör Köfte",
+        "Ağrı's special abdigör köfte is beaten by hand until fluffy, then boiled — a mountain dish that warms you after snowy adventures.",
+        "🍲",
+        "a warm köfte bowl"
+      ]
+    ],
+    "q": [
+      [
+        "Which famous ship do old stories connect with Mount Ararat?",
+        [
+          "Noah's Ark",
+          "The Titanic",
+          "A pirate ship"
+        ]
+      ]
+    ]
+  },
+  {
+    "i": "van",
+    "n": "Van",
+    "lon": 43.38,
+    "lat": 38.5,
+    "R": 5,
+    "s": [
+      [
+        "vancat",
+        "nature",
+        "The Swimming Van Cat",
+        "The snow-white Van cat is world famous: one eye can be BLUE and the other AMBER — and unlike most cats, it loves to SWIM! You can visit hundreds at the Van Cat House.",
+        "🐱",
+        "a Van cat plush"
+      ],
+      [
+        [
+          "gol",
+          {
+            "island": 1
+          }
+        ],
+        "nature",
+        "Akdamar Island",
+        "Lake Van is Türkiye's largest lake — big as a sea! On Akdamar Island stands a 1,100-year-old church whose walls are carved with animals and Bible stories like a stone picture book.",
+        "⛵",
+        "an Akdamar boat ticket"
+      ],
+      [
+        [
+          "stall",
+          {
+            "s": "VAN KAHVALTISI",
+            "d": "breakfast",
+            "c": "#C96A2B"
+          }
+        ],
+        "food",
+        "The World-Famous Van Breakfast",
+        "Van breakfast is legendary: herbed cheese, honey with clotted cream, murtuğa, kavut… so many little plates that they don't fit on the table!",
+        "🍳",
+        "a breakfast plate"
+      ]
+    ],
+    "q": [
+      [
+        "What makes the Van cat special?",
+        [
+          "Odd-colored eyes and it loves swimming",
+          "It can fly",
+          "It barks"
+        ]
+      ]
+    ]
+  },
+  {
+    "i": "hakkari",
+    "n": "Hakkari",
+    "lon": 43.74,
+    "lat": 37.57,
+    "R": 5,
+    "s": [
+      [
+        [
+          "dag",
+          {
+            "glacier": 1
+          }
+        ],
+        "nature",
+        "Cilo's Glaciers",
+        "The jagged Cilo-Sat mountains hide real GLACIERS — rivers of ancient ice — and turquoise glacier lakes. Türkiye's wildest, most dramatic peaks!",
+        "🧊",
+        "a piece of glacier ice"
+      ],
+      [
+        "kanyon",
+        "nature",
+        "Rafting the Zap",
+        "The wild green Zap river rushes through deep gorges — in summer, brave rafters bounce down its foamy rapids. Splash!",
+        "🛶",
+        "a rafting splash badge"
+      ],
+      [
+        "loom",
+        "craft",
+        "Herb Cheese & Mountain Kilims",
+        "Hakkari's shepherds weave bold-patterned kilims in mountain villages, and its famous otlu peynir cheese is flavored with wild herbs picked from high meadows.",
+        "🌿",
+        "a wild mountain herb"
+      ]
+    ],
+    "q": [
+      [
+        "What hides in Hakkari's Cilo mountains?",
+        [
+          "Real glaciers",
+          "A chocolate factory",
+          "Palm trees"
+        ]
+      ]
+    ]
+  },
+  {
+    "i": "bitlis",
+    "n": "Bitlis",
+    "lon": 42.11,
+    "lat": 38.4,
+    "R": 5,
+    "s": [
+      [
+        [
+          "gol",
+          {
+            "crater": 1
+          }
+        ],
+        "nature",
+        "Nemrut Crater Lake",
+        "On top of Nemrut volcano hides a secret world: a giant crater holding a cold blue lake AND a warm lake side by side! One of the biggest crater lakes on Earth.",
+        "🌋",
+        "a crater lake photo"
+      ],
+      [
+        [
+          "hoyuk",
+          {
+            "stones": 1
+          }
+        ],
+        "history",
+        "The Giant Tombstones of Ahlat",
+        "At Ahlat, a field of carved stone monuments taller than grown-ups has stood for 800 years — each one decorated like lace, telling of Seljuk master carvers. UNESCO protects them!",
+        "🪦",
+        "a carved stone pattern"
+      ],
+      [
+        [
+          "stall",
+          {
+            "s": "BÜRYAN",
+            "d": "buryan",
+            "c": "#8A4038"
+          }
+        ],
+        "food",
+        "Büryan from the Pit",
+        "Bitlis cooks büryan the ancient way: lamb slow-cooked in a deep stone pit until it melts. Locals eat it for BREAKFAST with fresh flatbread!",
+        "🥩",
+        "a büryan breakfast token"
+      ]
+    ],
+    "q": [
+      [
+        "What hides inside Nemrut volcano's crater?",
+        [
+          "A giant lake (actually two!)",
+          "A football field",
+          "A shopping mall"
+        ]
+      ]
+    ]
+  },
+  {
+    "i": "mus",
+    "n": "Muş",
+    "lon": 41.49,
+    "lat": 38.73,
+    "R": 5,
+    "s": [
+      [
+        [
+          "flower",
+          {
+            "kind": "tulip"
+          }
+        ],
+        "nature",
+        "The Wild Tulips of Muş",
+        "Every spring, the Muş plain blushes red with wild tulips — a special kind that grows here. Long before tulips became famous in gardens, they bloomed free on these meadows!",
+        "🌷",
+        "a wild tulip"
+      ],
+      [
+        [
+          "kopru",
+          {
+            "n": 3
+          }
+        ],
+        "nature",
+        "The Murat River Plain",
+        "The wide Murat river waters one of Türkiye's biggest plains — a green sea of wheat and pasture ringed by snowy mountains.",
+        "🌾",
+        "a wheat stalk"
+      ],
+      [
+        [
+          "stall",
+          {
+            "s": "TANDIR EKMEĞİ",
+            "d": "pide",
+            "c": "#C96A2B"
+          }
+        ],
+        "food",
+        "Bread from the Tandır",
+        "In village courtyards, dough is slapped onto the hot walls of clay tandır ovens — minutes later, out comes bubbly, smoky flatbread. Best eaten immediately!",
+        "🫓",
+        "warm tandır bread"
+      ]
+    ],
+    "q": [
+      [
+        "What turns the Muş plain red every spring?",
+        [
+          "Wild tulips",
+          "Red paint",
+          "Ladybugs"
+        ]
+      ]
+    ]
+  },
+  {
+    "i": "bingol",
+    "n": "Bingöl",
+    "lon": 40.5,
+    "lat": 38.88,
+    "R": 5,
+    "s": [
+      [
+        [
+          "gol",
+          {
+            "float": 1
+          }
+        ],
+        "nature",
+        "The Floating Islands",
+        "At Solhan, little green islands FLOAT on a lake and drift with the wind — you might see one sail past! One of nature's rarest tricks.",
+        "🏝️",
+        "a floating island sketch"
+      ],
+      [
+        [
+          "dag",
+          {
+            "glacier": 1
+          }
+        ],
+        "nature",
+        "A Thousand Lakes",
+        "Bingöl means 'a thousand lakes' — its high mountains cradle countless sparkling glacier lakes. Watching sunrise from Kalecik hill is a local tradition!",
+        "🌄",
+        "a mountain sunrise"
+      ],
+      [
+        [
+          "agac",
+          {
+            "kind": "pistachio",
+            "s": "BİNGÖL BALI"
+          }
+        ],
+        "food",
+        "Mountain Honey",
+        "Bees roam Bingöl's untouched flower meadows to make prize-winning honey — thick, golden and smelling of a thousand blossoms.",
+        "🍯",
+        "golden Bingöl honey"
+      ]
+    ],
+    "q": [
+      [
+        "What is amazing about the islands at Solhan?",
+        [
+          "They float and drift with the wind",
+          "They are made of candy",
+          "They fly"
+        ]
+      ]
+    ]
+  },
+  {
+    "i": "tunceli",
+    "n": "Tunceli",
+    "lon": 39.55,
+    "lat": 39.11,
+    "R": 5,
+    "s": [
+      [
+        "kanyon",
+        "nature",
+        "Munzur Valley National Park",
+        "The wild Munzur Valley is one of Türkiye's biggest national parks — rushing turquoise water, deep gorges and rare flowers that grow nowhere else on Earth.",
+        "🌸",
+        "a rare Munzur flower"
+      ],
+      [
+        "selale",
+        "nature",
+        "The Munzur Springs",
+        "At Ovacık, the Munzur river bursts straight out of the mountain in forty bubbling springs — icy cold, crystal clear, and wrapped in legends.",
+        "💦",
+        "spring water drops"
+      ],
+      [
+        [
+          "hayvan",
+          {
+            "kind": "goat"
+          }
+        ],
+        "nature",
+        "Wild Mountain Goats",
+        "Sure-footed wild goats (bezoar ibex) leap along Munzur's cliffs like acrobats — spotting one on the rocks is a lucky moment!",
+        "🐐",
+        "a mountain goat photo"
+      ]
+    ],
+    "q": [
+      [
+        "How does the Munzur river begin at Ovacık?",
+        [
+          "It bursts from the mountain in forty springs",
+          "It falls from a cloud",
+          "A giant pours it"
+        ]
+      ]
+    ]
+  },
+  {
+    "i": "elazig",
+    "n": "Elazığ",
+    "lon": 39.22,
+    "lat": 38.68,
+    "R": 5,
+    "s": [
+      [
+        [
+          "kale",
+          {
+            "rock": 1
+          }
+        ],
+        "history",
+        "Harput — the City Above",
+        "Old Harput sits on a hill above modern Elazığ: a mighty castle, ancient mosques and stone lanes with a thousand years of stories. Legend tells of a castle built with milk instead of water!",
+        "🥛",
+        "the milk-castle legend"
+      ],
+      [
+        [
+          "gol",
+          {
+            "island": 1
+          }
+        ],
+        "nature",
+        "Lake Hazar & the Sunken City",
+        "Divers found the ruins of an old sunken settlement beneath Lake Hazar's blue water! Swim at its beaches knowing a secret city sleeps below.",
+        "🤿",
+        "a sunken-city bubble"
+      ],
+      [
+        [
+          "tatli",
+          {
+            "k": "pestil",
+            "s": "ORCİK"
+          }
+        ],
+        "food",
+        "Orcik — Walnut Candy Strings",
+        "Elazığ's orcik is walnuts on a string, dipped again and again in thick grape juice until they become chewy candy necklaces. Wear it or eat it? Eat it!",
+        "🍬",
+        "an orcik necklace"
+      ]
+    ],
+    "q": [
+      [
+        "What did divers find under Lake Hazar?",
+        [
+          "Ruins of a sunken settlement",
+          "A pirate disco",
+          "A cheese factory"
+        ]
+      ]
+    ]
+  },
+  {
+    "i": "malatya",
+    "n": "Malatya",
+    "lon": 38.35,
+    "lat": 38.35,
+    "R": 5,
+    "s": [
+      [
+        [
+          "agac",
+          {
+            "kind": "apricot"
+          }
+        ],
+        "food",
+        "Apricot Capital of the World",
+        "Most of the WORLD's dried apricots come from Malatya! In summer, millions of orange apricots dry under the sun on rooftops and fields — the whole city smells sweet.",
+        "🧡",
+        "a sun-dried apricot"
+      ],
+      [
+        [
+          "hoyuk",
+          {
+            "lion": 1
+          }
+        ],
+        "history",
+        "Aslantepe — the Lion Hill",
+        "At Aslantepe (Lion Hill), archaeologists uncovered a mud-brick palace 5,500 years old — with some of the earliest swords ever made and stone lions guarding its gate. It's a UNESCO site!",
+        "🗡️",
+        "an ancient sword sticker"
+      ],
+      [
+        [
+          "stall",
+          {
+            "s": "KAĞIT KEBABI",
+            "d": "kebap",
+            "c": "#8A4038"
+          }
+        ],
+        "food",
+        "Paper Kebab",
+        "Malatya's kağıt kebabı is baked wrapped in paper, sealing all the delicious juices inside — unwrap it like a present at the table!",
+        "🎁",
+        "a kebab 'present'"
+      ]
+    ],
+    "q": [
+      [
+        "Which fruit makes Malatya world champion?",
+        [
+          "Apricots",
+          "Watermelons",
+          "Lemons"
+        ]
+      ]
+    ]
+  },
+  {
+    "i": "adiyaman",
+    "n": "Adıyaman",
+    "lon": 38.28,
+    "lat": 37.76,
+    "R": 6,
+    "s": [
+      [
+        "nemrut",
+        "history",
+        "The Giant Heads of Nemrut",
+        "On top of Mount Nemrut, giant stone heads have watched the sunrise for 2,000 years! King Antiochus built himself a mountain-top monument with statues bigger than cars. Sunrise here is unforgettable!",
+        "🗿",
+        "a giant head figurine"
+      ],
+      [
+        [
+          "kopru",
+          {
+            "n": 1,
+            "flat": 0
+          }
+        ],
+        "history",
+        "Cendere — the Roman Bridge",
+        "The elegant single-arched Cendere Bridge was built by Roman soldiers 1,800 years ago — and cars crossed it until recently! Now it belongs to walkers and photographers.",
+        "📸",
+        "a bridge photo"
+      ],
+      [
+        [
+          "stall",
+          {
+            "s": "ÇİĞ KÖFTE",
+            "d": "cig",
+            "c": "#8A4038"
+          }
+        ],
+        "food",
+        "Çiğ Köfte Party",
+        "Making çiğ köfte is a show: bulgur, pepper paste and spices are kneaded for hours (no meat in today's version!) then wrapped in crisp lettuce with a squeeze of lemon. Spicy!",
+        "🥬",
+        "a lettuce wrap"
+      ]
+    ],
+    "q": [
+      [
+        "What has watched the sunrise from Mount Nemrut for 2,000 years?",
+        [
+          "Giant stone heads",
+          "Robot dinosaurs",
+          "Snowmen"
+        ]
+      ]
+    ]
+  },
+  {
+    "i": "gaziantep",
+    "n": "Gaziantep",
+    "lon": 37.38,
+    "lat": 37.07,
+    "R": 6,
+    "s": [
+      [
+        [
+          "muze",
+          {
+            "s": "ZEUGMA MOSAICS",
+            "icon": "mosaic",
+            "f": "#C96A2B"
+          }
+        ],
+        "history",
+        "Zeugma & the Gypsy Girl",
+        "Zeugma Museum is one of the biggest mosaic museums on Earth. Its star is the 'Gypsy Girl' — a mosaic face whose mysterious eyes follow you around the room. Try to escape her gaze!",
+        "👀",
+        "the Gypsy Girl's gaze"
+      ],
+      [
+        [
+          "tatli",
+          {
+            "k": "baklava",
+            "s": "BAKLAVA"
+          }
+        ],
+        "food",
+        "Baklava Heaven",
+        "The world's most famous baklava is born in Gaziantep: forty paper-thin layers, golden syrup and bright green Antep pistachios. Masters say you should hear it CRUNCH!",
+        "🥧",
+        "a crunchy baklava square"
+      ],
+      [
+        [
+          "craft",
+          {
+            "kind": "copper",
+            "s": "BAKIRCILAR"
+          }
+        ],
+        "craft",
+        "The Coppersmiths' Bazaar",
+        "Tin-tin-tin! In Gaziantep's old bazaar, coppersmiths hammer shiny pots, trays and coffee pots just like their great-grandfathers — the sound is the city's heartbeat.",
+        "🥣",
+        "a tiny copper pot"
+      ]
+    ],
+    "q": [
+      [
+        "What is the famous green treasure inside Gaziantep baklava?",
+        [
+          "Antep pistachios",
+          "Green peas",
+          "Mint gum"
+        ]
+      ]
+    ]
+  },
+  {
+    "i": "kilis",
+    "n": "Kilis",
+    "lon": 37.12,
+    "lat": 36.72,
+    "R": 6,
+    "s": [
+      [
+        [
+          "agac",
+          {
+            "kind": "olive"
+          }
+        ],
+        "food",
+        "A Sea of Olive Trees",
+        "Little Kilis is hugged by olive groves — its special 'Kilis yağlık' olives make prize-winning golden oil pressed in old stone mills.",
+        "🫒",
+        "golden Kilis oil"
+      ],
+      [
+        [
+          "kale",
+          {
+            "rock": 1
+          }
+        ],
+        "history",
+        "Ravanda Castle",
+        "Ravanda Castle crowns a cone-shaped hill, watching caravan roads that connected great cities for a thousand years — climb up for a view over endless olive groves!",
+        "🗝️",
+        "the castle's old key"
+      ],
+      [
+        [
+          "tatli",
+          {
+            "k": "kunefe",
+            "s": "KATMER"
+          }
+        ],
+        "food",
+        "Kilis Katmer",
+        "Kilis katmer is a paper-thin pastry folded around pistachios and clotted cream — flat, golden and gone in four bites!",
+        "🥞",
+        "a pistachio katmer"
+      ]
+    ],
+    "q": [
+      [
+        "What surrounds the city of Kilis like a green sea?",
+        [
+          "Olive trees",
+          "Cactus",
+          "Bamboo"
+        ]
+      ]
+    ]
+  },
+  {
+    "i": "sanliurfa",
+    "n": "Şanlıurfa",
+    "lon": 38.79,
+    "lat": 37.16,
+    "R": 6,
+    "s": [
+      [
+        [
+          "hoyuk",
+          {
+            "T": 1
+          }
+        ],
+        "history",
+        "Göbeklitepe — the World's First Temple",
+        "Göbeklitepe is about 12,000 years old — older than the pyramids by 7,000 years! Its giant T-shaped stones carved with foxes, birds and snakes changed what we know about the first humans. UNESCO wonder!",
+        "🦊",
+        "a carved fox rubbing"
+      ],
+      [
+        "balikgol",
+        "history",
+        "Balıklıgöl — the Sacred Fish Lake",
+        "Legend says a fire meant for Prophet Abraham turned into water, and the coals became fish! Thousands of sacred carp now swim in Balıklıgöl — everyone feeds them, no one may catch them.",
+        "🐟",
+        "fish food pellets"
+      ],
+      [
+        [
+          "muzik",
+          {
+            "kind": "saz"
+          }
+        ],
+        "craft",
+        "Sıra Gecesi Nights",
+        "On Urfa's sıra nights, friends sit in a circle, play the bağlama, sing burning folk songs and knead spicy çiğ köfte together — music, food and friendship in one!",
+        "🎶",
+        "a sıra night song"
+      ]
+    ],
+    "q": [
+      [
+        "How much older is Göbeklitepe than the Egyptian pyramids?",
+        [
+          "About 7,000 years older",
+          "3 days older",
+          "It's newer"
+        ]
+      ]
+    ]
+  },
+  {
+    "i": "diyarbakir",
+    "n": "Diyarbakır",
+    "lon": 40.22,
+    "lat": 37.91,
+    "R": 6,
+    "s": [
+      [
+        [
+          "kale",
+          {
+            "c": "#4A4A55",
+            "cd": "#2E2E38"
+          }
+        ],
+        "history",
+        "The Great Black Walls",
+        "Diyarbakır is wrapped in mighty black basalt walls almost 6 km long — among the longest ancient city walls on Earth, guarding the city for over 1,500 years. UNESCO protects them!",
+        "🖤",
+        "a black basalt chip"
+      ],
+      [
+        [
+          "kopru",
+          {
+            "n": 5
+          }
+        ],
+        "history",
+        "The Ten-Eyed Bridge",
+        "The thousand-year-old On Gözlü Köprü ('Ten-Eyed Bridge') crosses the mighty Tigris on ten stone arches — sunset behind its 'eyes' is Diyarbakır's favorite picture.",
+        "🌉",
+        "a ten-eyed sunset"
+      ],
+      [
+        [
+          "fruit",
+          {
+            "kind": "watermelon",
+            "s": "KARPUZ"
+          }
+        ],
+        "food",
+        "Giant Watermelons",
+        "Diyarbakır's watermelons are LEGENDARY — growing by the warm Tigris, some get so huge that one melon can weigh as much as a seven-year-old kid! There's even a watermelon festival.",
+        "🍉",
+        "a giant watermelon slice"
+      ]
+    ],
+    "q": [
+      [
+        "What are Diyarbakır's famous ancient walls made of?",
+        [
+          "Black basalt stone",
+          "Chocolate",
+          "Paper"
+        ]
+      ]
+    ]
+  },
+  {
+    "i": "mardin",
+    "n": "Mardin",
+    "lon": 40.74,
+    "lat": 37.31,
+    "R": 6,
+    "s": [
+      [
+        [
+          "ev",
+          {
+            "stone": 1
+          }
+        ],
+        "history",
+        "The Stone Fairy-Tale City",
+        "Mardin's honey-colored stone houses climb the hillside like steps, looking over the endless Mesopotamian plain. At night the city glows like a golden crown!",
+        "🌇",
+        "a golden city photo"
+      ],
+      [
+        [
+          "craft",
+          {
+            "kind": "silver",
+            "s": "TELKÂRİ",
+            "f": "#5F7482"
+          }
+        ],
+        "craft",
+        "Telkâri — Silver Lace",
+        "Mardin's masters twist silver wire thinner than spaghetti into 'telkâri' — jewelry that looks like frozen lace. Butterflies, flowers, stars… all from silver threads!",
+        "🦋",
+        "a silver filigree butterfly"
+      ],
+      [
+        [
+          "cami",
+          {
+            "min": 1
+          }
+        ],
+        "history",
+        "City of Many Faiths",
+        "In Mardin, mosques, churches and the ancient Deyrulzafaran (Saffron) Monastery have stood side by side for centuries — different bells and calls to prayer sharing the same golden sky.",
+        "🕊️",
+        "a peace dove"
+      ]
+    ],
+    "q": [
+      [
+        "What is Mardin's telkâri art made from?",
+        [
+          "Twisted silver wire",
+          "Spaghetti",
+          "Grass"
+        ]
+      ]
+    ]
+  },
+  {
+    "i": "batman",
+    "n": "Batman",
+    "lon": 41.13,
+    "lat": 37.88,
+    "R": 6,
+    "s": [
+      [
+        [
+          "kale",
+          {
+            "rock": 1,
+            "sea": 1
+          }
+        ],
+        "history",
+        "Hasankeyf on the Tigris",
+        "Ancient Hasankeyf lived on the banks of the Tigris for 12,000 years — cave homes, a great bridge and minarets. Its historic monuments were carefully MOVED uphill piece by piece when the valley became a lake!",
+        "🏛️",
+        "a rescued monument pin"
+      ],
+      [
+        [
+          "kopru",
+          {
+            "n": 1
+          }
+        ],
+        "history",
+        "Malabadi — the Giant Arch",
+        "The 900-year-old Malabadi Bridge has one of the widest stone arches ever built — so big that Hagia Sophia's dome could fit through it! Rooms inside the bridge sheltered travelers.",
+        "🌉",
+        "a giant-arch badge"
+      ],
+      [
+        [
+          "craft",
+          {
+            "kind": "soap",
+            "s": "BITTIM SABUNU",
+            "f": "#5C6E3C"
+          }
+        ],
+        "craft",
+        "Bıttım Soap",
+        "Batman's famous green bıttım soap is made from wild pistachio tree oil — grandmas swear it's the secret to shiny hair!",
+        "🧼",
+        "a bar of bıttım soap"
+      ]
+    ],
+    "q": [
+      [
+        "What is special about the Malabadi Bridge?",
+        [
+          "One of the widest stone arches ever built",
+          "It's invisible",
+          "It's made of rubber"
+        ]
+      ]
+    ]
+  },
+  {
+    "i": "siirt",
+    "n": "Siirt",
+    "lon": 41.94,
+    "lat": 37.93,
+    "R": 6,
+    "s": [
+      [
+        [
+          "stall",
+          {
+            "s": "BÜRYAN",
+            "d": "buryan",
+            "c": "#8A4038"
+          }
+        ],
+        "food",
+        "Büryan Masters",
+        "In Siirt, büryan lamb slow-cooks in deep wells since dawn — by mid-morning the whole bazaar smells amazing and everyone lines up, plates ready!",
+        "🍽️",
+        "a büryan lunch token"
+      ],
+      [
+        "loom",
+        "craft",
+        "The Famous Siirt Blanket",
+        "Siirt's snow-white mohair blankets, woven from Angora goat wool, are so soft and warm that they're famous across the country — like sleeping under a cloud!",
+        "☁️",
+        "a mohair cloud blanket"
+      ],
+      [
+        "kanyon",
+        "nature",
+        "Botan Valley",
+        "The wild Botan river carves a grand canyon through the mountains — a national park where eagles circle over turquoise water.",
+        "🦅",
+        "a Botan eagle feather"
+      ]
+    ],
+    "q": [
+      [
+        "What are Siirt's famous soft blankets made of?",
+        [
+          "Angora goat mohair",
+          "Plastic",
+          "Seaweed"
+        ]
+      ]
+    ]
+  },
+  {
+    "i": "sirnak",
+    "n": "Şırnak",
+    "lon": 42.46,
+    "lat": 37.52,
+    "R": 6,
+    "s": [
+      [
+        [
+          "dag",
+          {}
+        ],
+        "nature",
+        "Mount Cudi of Legends",
+        "Mighty Mount Cudi rises over Şırnak — in many old traditions, it's named as a resting place of Noah's Ark. A mountain wrapped in stories thousands of years old!",
+        "⛰️",
+        "a Cudi legend scroll"
+      ],
+      [
+        [
+          "kanyon",
+          {
+            "goats": 1
+          }
+        ],
+        "nature",
+        "Goats of the Kasrik Gorge",
+        "In the steep Kasrik gorge, herds of shaggy goats perform circus tricks on impossible cliffs — travelers stop just to watch the show!",
+        "🐐",
+        "an acrobat goat photo"
+      ],
+      [
+        "loom",
+        "craft",
+        "Şal-Şapik Weaving",
+        "Şırnak's weavers make 'şal-şapik' — a traditional striped fabric of goat hair, woven on hand looms and sewn into proud local costumes worn at festivals.",
+        "🧵",
+        "a striped şal ribbon"
+      ]
+    ],
+    "q": [
+      [
+        "Which famous ship is Mount Cudi connected with in old traditions?",
+        [
+          "Noah's Ark",
+          "A spaceship",
+          "A submarine"
+        ]
+      ]
+    ]
+  }
+]
