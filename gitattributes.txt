@@ -1,0 +1,17 @@
+# Line endings
+#
+# The canonical content system hashes files byte for byte:
+#   - legacy/index.html is checked against the SHA-256 recorded in
+#     content/canonical/manifest.json (ed74da63…a07f995)
+#   - content/canonical/** is hashed into content/canonical-integrity.json
+#
+# On Windows Git defaults to converting LF to CRLF on checkout, which changes
+# those hashes and makes `npm run content:check` fail with
+# "Source SHA changed without migration". Nothing below may be converted.
+
+* text=auto eol=lf
+
+legacy/index.html       -text
+content/**              -text
+asset-manifests/*.csv   -text
+schemas/*.json          -text
