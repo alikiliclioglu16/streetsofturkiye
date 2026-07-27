@@ -15,6 +15,8 @@ import { CompletionPanel } from '@/components/game-ui/CompletionPanel';
  * exercise focus, keyboard and panel flow in jsdom on every `npm test`.
  */
 
+const escapeRegExp = (value: string) => value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+
 const city = citySchema.parse(
   JSON.parse(
     readFileSync(path.resolve(process.cwd(), '..', 'content/pilot/istanbul.json'), 'utf8'),
@@ -84,13 +86,14 @@ describe('quiz gate', () => {
     const item = city.quiz[0]!;
     render(<QuizPanel item={item} index={0} total={2} locale="tr" onCorrect={onCorrect} />);
 
+    // Migrated content is English-only, so the UI shows the fallback locale.
     const wrong = item.options.find((option) => !option.correct)!;
-    await userEvent.click(screen.getByRole('button', { name: new RegExp(wrong.text.tr!) }));
+    await userEvent.click(screen.getByRole('button', { name: new RegExp(escapeRegExp(wrong.text.en!)) }));
     expect(onCorrect).not.toHaveBeenCalled();
     expect(screen.getByText(/Tekrar dene/)).toBeInTheDocument();
 
     const right = item.options.find((option) => option.correct)!;
-    await userEvent.click(screen.getByRole('button', { name: new RegExp(right.text.tr!) }));
+    await userEvent.click(screen.getByRole('button', { name: new RegExp(escapeRegExp(right.text.en!)) }));
     expect(onCorrect).toHaveBeenCalledTimes(1);
   });
 
@@ -110,7 +113,7 @@ describe('fact card', () => {
     const hotspot = city.hotspots[0]!;
     render(<FactCard hotspot={hotspot} locale="tr" onContinue={vi.fn()} />);
     expect(screen.getByText(/Editör onayı bekliyor/)).toBeInTheDocument();
-    expect(screen.getByText(hotspot.fact.body.tr!)).toBeInTheDocument();
+    expect(screen.getByText(hotspot.fact.body.en!)).toBeInTheDocument();
   });
 
   it('falls back to English when Turkish is missing', () => {

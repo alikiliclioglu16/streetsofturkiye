@@ -14,7 +14,9 @@
     "content:sync": "node scripts/sync-content.mjs",
     "content:check": "node scripts/sync-content.mjs --check",
     "assets:registry": "node scripts/build-asset-registry.mjs ../asset-manifests/pilot-assets.csv",
-    "gate": "npm run content:check && npm run lint && npm run typecheck && npm test && npm run build"
+    "gate": "npm run content:check && npm run lint && npm run typecheck && npm test && npm run build",
+    "content:migrate": "node scripts/migrate-legacy.mjs",
+    "content:migrate:report": "node scripts/migrate-legacy.mjs --all --report"
   },
   "keywords": [],
   "author": "",

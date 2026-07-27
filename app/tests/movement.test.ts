@@ -65,7 +65,10 @@ describe('guided route follower', () => {
 describe('scene building', () => {
   it('orders hotspots and resolves every asset without throwing', () => {
     const scene = buildScene(city, 'medium');
-    expect(scene.hotspots.map((hotspot) => hotspot.order)).toEqual([1, 2, 3]);
+    // İstanbul carries five stops in the prototype; order is 1..n, contiguous.
+    expect(scene.hotspots.map((hotspot) => hotspot.order)).toEqual(
+      city.hotspots.map((_, index) => index + 1),
+    );
     expect(scene.unknownAssetIds).toEqual([]);
     expect(scene.hotspots.every((hotspot) => hotspot.asset.isPlaceholder)).toBe(true);
   });

@@ -112,6 +112,60 @@ export interface ResolvedAsset {
   readonly isUnknown: boolean;
 }
 
+/**
+ * Graybox stand-ins for migrated content.
+ *
+ * The prototype has 53 distinct art types across 81 provinces; the Meshy
+ * manifest only commissions art for the three pilot cities. Rather than let
+ * every other stop resolve as "unknown" — which would bury real content bugs
+ * in noise — migrated stops resolve to a documented stand-in. These are NOT
+ * commissioned art: `docs/MIGRATION_GAPS.md` lists every one that still needs
+ * a brief.
+ */
+const GRAYBOX_SHAPES: Readonly<Record<string, { shape: PlaceholderShape; dimensions: readonly [number, number, number] }>> = {
+  bazaar: { shape: 'box', dimensions: [8, 5, 8] },
+  simit: { shape: 'box', dimensions: [1.6, 1.4, 0.9] },
+  balloon: { shape: 'sphere', dimensions: [6, 8, 6] },
+  loom: { shape: 'box', dimensions: [2.2, 1.8, 1.2] },
+  chimneys: { shape: 'cylinder', dimensions: [10, 14, 10] },
+  cave: { shape: 'cylinder', dimensions: [2.4, 2.4, 0.6] },
+  mosque: { shape: 'box', dimensions: [12, 14, 12] },
+  theatre: { shape: 'cylinder', dimensions: [14, 5, 14] },
+  gol: { shape: 'box', dimensions: [16, 0.2, 16] },
+  selale: { shape: 'box', dimensions: [6, 10, 3] },
+};
+
+const DEFAULT_GRAYBOX = { shape: 'box' as PlaceholderShape, dimensions: [2.4, 2.4, 2.4] as const };
+
+function grayboxEntry(id: string): AssetEntry {
+  const key = id.replace(/^graybox_/, '');
+  const shape = GRAYBOX_SHAPES[key] ?? DEFAULT_GRAYBOX;
+  const isCollectible = id.startsWith('collectible_');
+  return {
+    id,
+    placeholder: isCollectible ? 'box' : shape.shape,
+    dimensions: isCollectible ? [0.22, 0.22, 0.22] : shape.dimensions,
+    color: isCollectible ? '#F2B233' : '#A89880',
+    label: key.replace(/_/g, ' '),
+    manifest: {
+      id,
+      kind: 'model',
+      tier: isCollectible ? 'collectible' : 'midground',
+      status: 'graybox',
+      dimensions: isCollectible ? [0.22, 0.22, 0.22] : shape.dimensions,
+      triangleBudget: null,
+      textureBudget: null,
+      fallbackShape: isCollectible ? 'box' : shape.shape,
+      notes: 'Graybox stand-in for migrated content; needs a Meshy brief.',
+    },
+  };
+}
+
+/** True when an id resolves to a stand-in rather than commissioned art. */
+export function isGraybox(assetId: string): boolean {
+  return assetId.startsWith('graybox_') || assetId.startsWith('collectible_');
+}
+
 function unknownEntry(id: string): AssetEntry {
   return {
     id,
@@ -141,6 +195,9 @@ function unknownEntry(id: string): AssetEntry {
 export function resolveAsset(assetId: string, quality: QualityTier): ResolvedAsset {
   const entry = BY_ID.get(assetId);
   if (!entry) {
+    if (isGraybox(assetId)) {
+      return { entry: grayboxEntry(assetId), modelUrl: null, isPlaceholder: true, isUnknown: false };
+    }
     return { entry: unknownEntry(assetId), modelUrl: null, isPlaceholder: true, isUnknown: true };
   }
   const modelUrl = entry.models?.[quality] ?? entry.models?.medium ?? entry.models?.low ?? null;

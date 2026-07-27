@@ -44,12 +44,34 @@ describe('city content', () => {
     expect(new Set(city.quiz.map((item) => item.id)).size).toBe(city.quiz.length);
   });
 
-  it('reports cities that still fall short of the two-question standard', () => {
-    for (const cityId of ['nevsehir', 'gaziantep']) {
-      const city = citySchema.parse(readJson(`public/content/pilot/${cityId}.json`));
-      // Phase 02 content work: these are authored but not yet at standard.
-      expect(meetsQuizStandard(city)).toBe(false);
-    }
+  it('carries the prototype quiz counts, and flags the one city below standard', () => {
+    // Straight from the prototype: İstanbul and Nevşehir have two questions,
+    // Gaziantep has one. The shortfall is content work, not a code defect.
+    const counts = Object.fromEntries(
+      ['istanbul', 'nevsehir', 'gaziantep'].map((cityId) => [
+        cityId,
+        citySchema.parse(readJson(`public/content/pilot/${cityId}.json`)).quiz.length,
+      ]),
+    );
+    expect(counts).toEqual({ istanbul: 2, nevsehir: 2, gaziantep: 1 });
+
+    const gaziantep = citySchema.parse(readJson('public/content/pilot/gaziantep.json'));
+    expect(meetsQuizStandard(gaziantep)).toBe(false);
+  });
+
+  it('migrates prototype facts verbatim and marks them unverified', () => {
+    const city = citySchema.parse(readJson('public/content/pilot/istanbul.json'));
+    expect(city.hotspots).toHaveLength(5);
+    expect(city.hotspots.map((hotspot) => hotspot.fact.title.en)).toEqual([
+      'Hagia Sophia & the Blue Mosque',
+      'Galata Tower',
+      'The Grand Bazaar',
+      'The Simit Cart',
+      'Ferry on the Bosphorus',
+    ]);
+    expect(
+      city.hotspots.every((hotspot) => hotspot.fact.editorialStatus === 'legacy-unverified'),
+    ).toBe(true);
   });
 
   it('rejects a quiz item with no correct option', () => {

@@ -1,9 +1,9 @@
 {
-  "schemaVersion": "1.0",
+  "schemaVersion": "1.0.0",
   "id": "istanbul",
   "name": {
     "en": "İstanbul",
-    "tr": "İstanbul"
+    "tr": null
   },
   "regionId": "marmara",
   "guideId": "nasreddin-hoca",
@@ -14,23 +14,20 @@
   },
   "environment": {
     "kitId": "marmara-urban-coastal",
-    "timeOfDay": "bright-morning",
-    "ambientAudioId": "amb_istanbul_bosphorus",
-    "skyPreset": "bosphorus-blue",
+    "timeOfDay": "midday",
     "qualityNotes": [
-      "Ferry and birds reduce by quality tier",
-      "Water reflection must have low-cost fallback"
+      "Migrated from prototype; 5 stops"
     ]
   },
   "spawn": {
     "position": [
       0,
       0,
-      8
+      0
     ],
     "rotation": [
       0,
-      3.14159,
+      3.141592653589793,
       0
     ],
     "scale": [
@@ -40,243 +37,140 @@
     ]
   },
   "route": {
-    "mode": "curated-path",
+    "mode": "guided-loop",
     "points": [
       [
         0,
         0,
-        8
+        0
       ],
       [
         0,
-        0,
-        1
-      ],
-      [
-        7,
-        0,
-        -4
-      ],
-      [
-        15,
-        0,
-        -6
-      ],
-      [
-        23,
         0,
         -2
+      ],
+      [
+        5.5,
+        0,
+        -16
+      ],
+      [
+        6.8,
+        0,
+        -30
+      ],
+      [
+        3,
+        0,
+        -44
+      ],
+      [
+        -3.1,
+        0,
+        -58
       ]
     ],
     "bounds": [
       [
-        -5,
+        -20,
         0,
-        12
+        10
       ],
       [
-        28,
+        20,
         0,
-        12
+        10
       ],
       [
-        28,
+        20,
         0,
-        -14
+        -76
       ],
       [
-        -5,
+        -20,
         0,
-        -14
+        -76
       ]
     ]
   },
   "intro": {
     "title": {
-      "en": "Where Two Continents Meet",
-      "tr": "İki Kıtanın Buluştuğu Şehir"
+      "en": "İstanbul",
+      "tr": null
     },
     "guideLine": {
-      "en": "Follow the blue route. We will look closely, not rush.",
-      "tr": "Mavi rotayı takip et. Acele etmeden ayrıntılara bakacağız."
+      "en": "Look up, way up! Isn't that dome enormous?",
+      "tr": null
     },
-    "cameraSequenceId": "intro_istanbul_bosphorus",
     "skippable": true
   },
   "hotspots": [
     {
-      "id": "istanbul-iznik-tile",
+      "id": "istanbul-stop-1",
       "order": 1,
       "assetId": "city_istanbul_iznik_tile_panel",
       "transform": {
         "position": [
-          3,
-          1.2,
-          0
+          0,
+          0,
+          -8
         ],
         "rotation": [
           0,
-          -1.2,
+          0,
           0
         ],
         "scale": [
-          1.5,
-          1.5,
-          1.5
+          1,
+          1,
+          1
         ]
       },
-      "triggerRadius": 3,
+      "triggerRadius": 4.5,
       "camera": {
         "position": [
-          1.5,
-          2.1,
-          3.5
+          3.2,
+          3,
+          -1.5
         ],
         "target": [
-          3,
+          0,
           1.4,
-          0
+          -8
         ],
         "durationMs": 900
       },
       "interaction": {
         "type": "inspect-and-find",
         "config": {
-          "targetId": "tulip-motif",
+          "targetId": "istanbul-stop-1-target",
           "instruction": {
-            "en": "Rotate the tile and find the tulip motif.",
-            "tr": "Çiniyi döndür ve lale motifini bul."
+            "en": "Find a blue İznik tile at Hagia Sophia & the Blue Mosque.",
+            "tr": null
           },
-          "hintAfterAttempts": 2
-        }
-      },
-      "fact": {
-        "title": {
-          "en": "İznik Tile",
-          "tr": "İznik Çinisi"
-        },
-        "body": {
-          "en": "Blue İznik tiles are an important part of Ottoman decorative art.",
-          "tr": "Mavi İznik çinileri Osmanlı süsleme sanatının önemli bir parçasıdır."
-        },
-        "editorialStatus": "legacy-unverified"
-      },
-      "rewardId": "collectible_istanbul_iznik_tile"
-    },
-    {
-      "id": "istanbul-galata",
-      "order": 2,
-      "assetId": "city_istanbul_galata_tower",
-      "transform": {
-        "position": [
-          11,
-          0,
-          -5
-        ],
-        "rotation": [
-          0,
-          0.35,
-          0
-        ],
-        "scale": [
-          0.7,
-          0.7,
-          0.7
-        ]
-      },
-      "triggerRadius": 4,
-      "camera": {
-        "position": [
-          8,
-          4,
-          1
-        ],
-        "target": [
-          11,
-          5,
-          -5
-        ],
-        "durationMs": 1100
-      },
-      "interaction": {
-        "type": "observe-and-answer",
-        "config": {
-          "question": {
-            "en": "Which part is the viewing gallery?",
-            "tr": "Seyir galerisi hangi bölümdür?"
-          },
-          "targetId": "upper-gallery"
-        }
-      },
-      "fact": {
-        "title": {
-          "en": "Galata Tower",
-          "tr": "Galata Kulesi"
-        },
-        "body": {
-          "en": "The tower has watched over İstanbul for centuries and offers a wide city view.",
-          "tr": "Kule yüzyıllardır İstanbul'u izler ve geniş bir şehir manzarası sunar."
-        },
-        "editorialStatus": "legacy-unverified"
-      },
-      "rewardId": "collectible_istanbul_legend_wings"
-    },
-    {
-      "id": "istanbul-bosphorus",
-      "order": 3,
-      "assetId": "city_istanbul_ferry",
-      "transform": {
-        "position": [
-          22,
-          0,
-          -5
-        ],
-        "rotation": [
-          0,
-          -1.57,
-          0
-        ],
-        "scale": [
-          0.9,
-          0.9,
-          0.9
-        ]
-      },
-      "triggerRadius": 4,
-      "camera": {
-        "position": [
-          18,
-          3,
-          2
-        ],
-        "target": [
-          22,
-          1,
-          -5
-        ],
-        "durationMs": 900
-      },
-      "interaction": {
-        "type": "simple-choice",
-        "config": {
-          "question": {
-            "en": "The Bosphorus connects which two sides of İstanbul?",
-            "tr": "Boğaz İstanbul'un hangi iki yakasını birleştirir?"
-          },
+          "hintAfterAttempts": 2,
           "options": [
             {
-              "id": "europe-asia",
+              "id": "correct",
               "text": {
-                "en": "Europe and Asia",
-                "tr": "Avrupa ve Asya"
+                "en": "a blue İznik tile",
+                "tr": null
               },
               "correct": true
             },
             {
-              "id": "north-south",
+              "id": "decoy-0",
               "text": {
-                "en": "North and South America",
-                "tr": "Kuzey ve Güney Amerika"
+                "en": "a pair of legend wings",
+                "tr": null
+              },
+              "correct": false
+            },
+            {
+              "id": "decoy-1",
+              "text": {
+                "en": "a mosaic lamp",
+                "tr": null
               },
               "correct": false
             }
@@ -285,12 +179,352 @@
       },
       "fact": {
         "title": {
-          "en": "The Bosphorus",
-          "tr": "İstanbul Boğazı"
+          "en": "Hagia Sophia & the Blue Mosque",
+          "tr": null
         },
         "body": {
-          "en": "İstanbul extends across Europe and Asia, linked by ferries and bridges.",
-          "tr": "İstanbul Avrupa ve Asya'ya yayılır; vapurlar ve köprülerle birbirine bağlanır."
+          "en": "Hagia Sophia is more than 1,500 years old! Next door stands the Blue Mosque with its six minarets — it got its name from more than 20,000 shiny blue İznik tiles inside.",
+          "tr": null
+        },
+        "editorialStatus": "legacy-unverified"
+      },
+      "rewardId": "collectible_istanbul_iznik_tile"
+    },
+    {
+      "id": "istanbul-stop-2",
+      "order": 2,
+      "assetId": "city_istanbul_galata_tower",
+      "transform": {
+        "position": [
+          5.5,
+          0,
+          -22
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "triggerRadius": 4.5,
+      "camera": {
+        "position": [
+          8.7,
+          3,
+          -15.5
+        ],
+        "target": [
+          5.5,
+          1.4,
+          -22
+        ],
+        "durationMs": 900
+      },
+      "interaction": {
+        "type": "inspect-and-find",
+        "config": {
+          "targetId": "istanbul-stop-2-target",
+          "instruction": {
+            "en": "Find a pair of legend wings at Galata Tower.",
+            "tr": null
+          },
+          "hintAfterAttempts": 2,
+          "options": [
+            {
+              "id": "correct",
+              "text": {
+                "en": "a pair of legend wings",
+                "tr": null
+              },
+              "correct": true
+            },
+            {
+              "id": "decoy-0",
+              "text": {
+                "en": "a blue İznik tile",
+                "tr": null
+              },
+              "correct": false
+            },
+            {
+              "id": "decoy-1",
+              "text": {
+                "en": "a mosaic lamp",
+                "tr": null
+              },
+              "correct": false
+            }
+          ]
+        }
+      },
+      "fact": {
+        "title": {
+          "en": "Galata Tower",
+          "tr": null
+        },
+        "body": {
+          "en": "From the top of this 700-year-old stone tower you can see all of İstanbul! A legend says a man named Hezarfen strapped on wooden wings and flew from here across the Bosphorus!",
+          "tr": null
+        },
+        "editorialStatus": "legacy-unverified"
+      },
+      "rewardId": "collectible_istanbul_legend_wings"
+    },
+    {
+      "id": "istanbul-stop-3",
+      "order": 3,
+      "assetId": "graybox_bazaar",
+      "transform": {
+        "position": [
+          6.8,
+          0,
+          -36
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "triggerRadius": 4.5,
+      "camera": {
+        "position": [
+          10,
+          3,
+          -29.5
+        ],
+        "target": [
+          6.8,
+          1.4,
+          -36
+        ],
+        "durationMs": 900
+      },
+      "interaction": {
+        "type": "inspect-and-find",
+        "config": {
+          "targetId": "istanbul-stop-3-target",
+          "instruction": {
+            "en": "Find a mosaic lamp at The Grand Bazaar.",
+            "tr": null
+          },
+          "hintAfterAttempts": 2,
+          "options": [
+            {
+              "id": "correct",
+              "text": {
+                "en": "a mosaic lamp",
+                "tr": null
+              },
+              "correct": true
+            },
+            {
+              "id": "decoy-0",
+              "text": {
+                "en": "a blue İznik tile",
+                "tr": null
+              },
+              "correct": false
+            },
+            {
+              "id": "decoy-1",
+              "text": {
+                "en": "a pair of legend wings",
+                "tr": null
+              },
+              "correct": false
+            }
+          ]
+        }
+      },
+      "fact": {
+        "title": {
+          "en": "The Grand Bazaar",
+          "tr": null
+        },
+        "body": {
+          "en": "One of the oldest and biggest covered markets in the world — about 4,000 shops under one roof! Colorful mosaic lamps, carpets, sweets… you could explore it for days.",
+          "tr": null
+        },
+        "editorialStatus": "legacy-unverified"
+      },
+      "rewardId": "collectible_istanbul_a_mosaic_lamp"
+    },
+    {
+      "id": "istanbul-stop-4",
+      "order": 4,
+      "assetId": "graybox_simit",
+      "transform": {
+        "position": [
+          3,
+          0,
+          -50
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "triggerRadius": 4.5,
+      "camera": {
+        "position": [
+          6.2,
+          3,
+          -43.5
+        ],
+        "target": [
+          3,
+          1.4,
+          -50
+        ],
+        "durationMs": 900
+      },
+      "interaction": {
+        "type": "sequence-select",
+        "config": {
+          "targetId": "istanbul-stop-4-target",
+          "instruction": {
+            "en": "Find a warm simit at The Simit Cart.",
+            "tr": null
+          },
+          "hintAfterAttempts": 2,
+          "options": [
+            {
+              "id": "correct",
+              "text": {
+                "en": "a warm simit",
+                "tr": null
+              },
+              "correct": true
+            },
+            {
+              "id": "decoy-0",
+              "text": {
+                "en": "a blue İznik tile",
+                "tr": null
+              },
+              "correct": false
+            },
+            {
+              "id": "decoy-1",
+              "text": {
+                "en": "a pair of legend wings",
+                "tr": null
+              },
+              "correct": false
+            }
+          ]
+        }
+      },
+      "fact": {
+        "title": {
+          "en": "The Simit Cart",
+          "tr": null
+        },
+        "body": {
+          "en": "Simit is a crunchy bread ring covered in sesame seeds — İstanbul's favorite snack! Kids buy a warm simit from red street carts like this one and share pieces with the seagulls.",
+          "tr": null
+        },
+        "editorialStatus": "legacy-unverified"
+      },
+      "rewardId": "collectible_istanbul_a_warm_simit"
+    },
+    {
+      "id": "istanbul-stop-5",
+      "order": 5,
+      "assetId": "city_istanbul_ferry",
+      "transform": {
+        "position": [
+          -3.1,
+          0,
+          -64
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "triggerRadius": 4.5,
+      "camera": {
+        "position": [
+          0.10000000000000009,
+          3,
+          -57.5
+        ],
+        "target": [
+          -3.1,
+          1.4,
+          -64
+        ],
+        "durationMs": 900
+      },
+      "interaction": {
+        "type": "observe-and-answer",
+        "config": {
+          "targetId": "istanbul-stop-5-target",
+          "instruction": {
+            "en": "Find a dolphin sticker at Ferry on the Bosphorus.",
+            "tr": null
+          },
+          "hintAfterAttempts": 2,
+          "options": [
+            {
+              "id": "correct",
+              "text": {
+                "en": "a dolphin sticker",
+                "tr": null
+              },
+              "correct": true
+            },
+            {
+              "id": "decoy-0",
+              "text": {
+                "en": "a blue İznik tile",
+                "tr": null
+              },
+              "correct": false
+            },
+            {
+              "id": "decoy-1",
+              "text": {
+                "en": "a pair of legend wings",
+                "tr": null
+              },
+              "correct": false
+            }
+          ]
+        }
+      },
+      "fact": {
+        "title": {
+          "en": "Ferry on the Bosphorus",
+          "tr": null
+        },
+        "body": {
+          "en": "İstanbul is the only city in the world built on TWO continents: Europe and Asia! Hop on a white city ferry, sail under the great bridge, and watch for dolphins on the way.",
+          "tr": null
         },
         "editorialStatus": "legacy-unverified"
       },
@@ -301,31 +535,31 @@
     {
       "id": "istanbul-quiz-01",
       "question": {
-        "en": "Which detail did you find on the İznik tile?",
-        "tr": "İznik çinisinde hangi ayrıntıyı buldun?"
+        "en": "İstanbul is the only city in the world built on…",
+        "tr": null
       },
       "options": [
         {
-          "id": "tulip",
+          "id": "option-1",
           "text": {
-            "en": "A tulip motif",
-            "tr": "Lale motifi"
+            "en": "Two continents: Europe and Asia",
+            "tr": null
           },
           "correct": true
         },
         {
-          "id": "airplane",
+          "id": "option-2",
           "text": {
-            "en": "An airplane",
-            "tr": "Uçak"
+            "en": "The Moon",
+            "tr": null
           },
           "correct": false
         },
         {
-          "id": "snowman",
+          "id": "option-3",
           "text": {
-            "en": "A snowman",
-            "tr": "Kardan adam"
+            "en": "Two islands",
+            "tr": null
           },
           "correct": false
         }
@@ -334,31 +568,31 @@
     {
       "id": "istanbul-quiz-02",
       "question": {
-        "en": "The Bosphorus links İstanbul's two sides. Which two continents are they?",
-        "tr": "Boğaz İstanbul'un iki yakasını bağlar. Bunlar hangi iki kıtadır?"
+        "en": "What is a simit?",
+        "tr": null
       },
       "options": [
         {
-          "id": "europe-asia",
+          "id": "option-1",
           "text": {
-            "en": "Europe and Asia",
-            "tr": "Avrupa ve Asya"
+            "en": "A crunchy sesame bread ring",
+            "tr": null
           },
           "correct": true
         },
         {
-          "id": "asia-africa",
+          "id": "option-2",
           "text": {
-            "en": "Asia and Africa",
-            "tr": "Asya ve Afrika"
+            "en": "A kind of fish",
+            "tr": null
           },
           "correct": false
         },
         {
-          "id": "europe-africa",
+          "id": "option-3",
           "text": {
-            "en": "Europe and Africa",
-            "tr": "Avrupa ve Afrika"
+            "en": "A toy boat",
+            "tr": null
           },
           "correct": false
         }
@@ -370,6 +604,8 @@
     "collectibleIds": [
       "collectible_istanbul_iznik_tile",
       "collectible_istanbul_legend_wings",
+      "collectible_istanbul_a_mosaic_lamp",
+      "collectible_istanbul_a_warm_simit",
       "collectible_istanbul_ferry_token"
     ]
   }

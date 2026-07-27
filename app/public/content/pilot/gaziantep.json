@@ -1,36 +1,33 @@
 {
-  "schemaVersion": "1.0",
+  "schemaVersion": "1.0.0",
   "id": "gaziantep",
   "name": {
     "en": "Gaziantep",
-    "tr": "Gaziantep"
+    "tr": null
   },
   "regionId": "southeastern-anatolia",
-  "guideId": "nasreddin-hoca",
-  "estimatedMinutes": 5,
+  "guideId": "keloglan",
+  "estimatedMinutes": 3,
   "coordinates": {
     "longitude": 37.38,
     "latitude": 37.07
   },
   "environment": {
     "kitId": "southeastern-yellow-stone-bazaar",
-    "timeOfDay": "warm-afternoon",
-    "ambientAudioId": "amb_gaziantep_bazaar",
-    "skyPreset": "warm-clear",
+    "timeOfDay": "midday",
     "qualityNotes": [
-      "Background shoppers use low-cost animation or cards",
-      "Copper reflections must remain lightweight"
+      "Migrated from prototype; 3 stops"
     ]
   },
   "spawn": {
     "position": [
       0,
       0,
-      7
+      0
     ],
     "rotation": [
       0,
-      3.14159,
+      3.141592653589793,
       0
     ],
     "scale": [
@@ -40,142 +37,162 @@
     ]
   },
   "route": {
-    "mode": "curated-path",
+    "mode": "guided-loop",
     "points": [
       [
         0,
         0,
-        7
-      ],
-      [
-        1,
-        0,
         0
       ],
       [
-        8,
         0,
-        -5
-      ],
-      [
-        16,
-        0,
-        -6
-      ],
-      [
-        24,
         0,
         -2
+      ],
+      [
+        5.5,
+        0,
+        -16
+      ],
+      [
+        6.8,
+        0,
+        -30
       ]
     ],
     "bounds": [
       [
-        -5,
+        -20,
         0,
-        12
+        10
       ],
       [
-        29,
+        20,
         0,
-        12
+        10
       ],
       [
-        29,
+        20,
         0,
-        -14
+        -48
       ],
       [
-        -5,
+        -20,
         0,
-        -14
+        -48
       ]
     ]
   },
   "intro": {
     "title": {
-      "en": "Mosaics, Pistachios and Copper",
-      "tr": "Mozaik, Fıstık ve Bakır"
+      "en": "Gaziantep",
+      "tr": null
     },
     "guideLine": {
-      "en": "Listen carefully. This bazaar has its own rhythm.",
-      "tr": "Dikkatle dinle. Bu çarşının kendine özgü bir ritmi var."
+      "en": "Welcome to Gaziantep! Follow me.",
+      "tr": null
     },
-    "cameraSequenceId": "intro_gaziantep_bazaar",
     "skippable": true
   },
   "hotspots": [
     {
-      "id": "gaziantep-zeugma",
+      "id": "gaziantep-stop-1",
       "order": 1,
       "assetId": "city_gaziantep_zeugma_mosaic_panel",
       "transform": {
         "position": [
-          4,
-          1.3,
-          -1
+          0,
+          0,
+          -8
         ],
         "rotation": [
           0,
-          -0.9,
+          0,
           0
         ],
         "scale": [
-          1.4,
-          1.4,
-          1.4
+          1,
+          1,
+          1
         ]
       },
-      "triggerRadius": 3,
+      "triggerRadius": 4.5,
       "camera": {
         "position": [
-          1,
-          2.2,
-          3
+          3.2,
+          3,
+          -1.5
         ],
         "target": [
-          4,
+          0,
           1.4,
-          -1
+          -8
         ],
-        "durationMs": 850
+        "durationMs": 900
       },
       "interaction": {
         "type": "inspect-and-find",
         "config": {
-          "targetId": "eye-highlight",
+          "targetId": "gaziantep-stop-1-target",
           "instruction": {
-            "en": "Find the tiny light-colored tile that makes the eye shine.",
-            "tr": "Gözü parlak gösteren küçük açık renkli taşı bul."
+            "en": "Find the Gypsy Girl's gaze at Zeugma & the Gypsy Girl.",
+            "tr": null
           },
-          "hintAfterAttempts": 2
+          "hintAfterAttempts": 2,
+          "options": [
+            {
+              "id": "correct",
+              "text": {
+                "en": "the Gypsy Girl's gaze",
+                "tr": null
+              },
+              "correct": true
+            },
+            {
+              "id": "decoy-0",
+              "text": {
+                "en": "a crunchy baklava square",
+                "tr": null
+              },
+              "correct": false
+            },
+            {
+              "id": "decoy-1",
+              "text": {
+                "en": "a tiny copper pot",
+                "tr": null
+              },
+              "correct": false
+            }
+          ]
         }
       },
       "fact": {
         "title": {
-          "en": "Zeugma Mosaics",
-          "tr": "Zeugma Mozaikleri"
+          "en": "Zeugma & the Gypsy Girl",
+          "tr": null
         },
         "body": {
-          "en": "Mosaics form pictures from many small colored pieces called tesserae.",
-          "tr": "Mozaikler tessera adı verilen çok sayıda küçük renkli parçadan oluşur."
+          "en": "Zeugma Museum is one of the biggest mosaic museums on Earth. Its star is the 'Gypsy Girl' — a mosaic face whose mysterious eyes follow you around the room. Try to escape her gaze!",
+          "tr": null
         },
         "editorialStatus": "legacy-unverified"
       },
       "rewardId": "collectible_gaziantep_mosaic_piece"
     },
     {
-      "id": "gaziantep-baklava",
+      "id": "gaziantep-stop-2",
       "order": 2,
       "assetId": "city_gaziantep_baklava_counter",
       "transform": {
         "position": [
-          12,
+          5.5,
           0,
-          -6
+          -22
         ],
         "rotation": [
           0,
-          -0.25,
+          0,
           0
         ],
         "scale": [
@@ -184,64 +201,83 @@
           1
         ]
       },
-      "triggerRadius": 3,
+      "triggerRadius": 4.5,
       "camera": {
         "position": [
-          10,
-          2,
-          0
+          8.7,
+          3,
+          -15.5
         ],
         "target": [
-          12,
-          1,
-          -6
+          5.5,
+          1.4,
+          -22
         ],
-        "durationMs": 750
+        "durationMs": 900
       },
       "interaction": {
         "type": "sequence-select",
         "config": {
+          "targetId": "gaziantep-stop-2-target",
           "instruction": {
-            "en": "Choose the three key parts of this baklava.",
-            "tr": "Bu baklavanın üç temel bölümünü seç."
+            "en": "Find a crunchy baklava square at Baklava Heaven.",
+            "tr": null
           },
-          "requiredIds": [
-            "thin-dough",
-            "pistachio",
-            "syrup"
-          ],
-          "distractorIds": [
-            "tomato",
-            "rice"
+          "hintAfterAttempts": 2,
+          "options": [
+            {
+              "id": "correct",
+              "text": {
+                "en": "a crunchy baklava square",
+                "tr": null
+              },
+              "correct": true
+            },
+            {
+              "id": "decoy-0",
+              "text": {
+                "en": "the Gypsy Girl's gaze",
+                "tr": null
+              },
+              "correct": false
+            },
+            {
+              "id": "decoy-1",
+              "text": {
+                "en": "a tiny copper pot",
+                "tr": null
+              },
+              "correct": false
+            }
           ]
         }
       },
       "fact": {
         "title": {
-          "en": "Gaziantep Baklava",
-          "tr": "Gaziantep Baklavası"
+          "en": "Baklava Heaven",
+          "tr": null
         },
         "body": {
-          "en": "Thin dough layers, pistachios and syrup create its crisp texture and rich taste.",
-          "tr": "İnce hamur katları, fıstık ve şerbet çıtır dokuyu ve zengin tadı oluşturur."
+          "en": "The world's most famous baklava is born in Gaziantep: forty paper-thin layers, golden syrup and bright green Antep pistachios. Masters say you should hear it CRUNCH!",
+          "tr": null
         },
         "editorialStatus": "legacy-unverified"
       },
       "rewardId": "collectible_gaziantep_baklava"
     },
     {
-      "id": "gaziantep-copper",
+      "id": "gaziantep-stop-3",
       "order": 3,
       "assetId": "city_gaziantep_coppersmith_workbench",
       "transform": {
         "position": [
-          22,
+          6.8,
           0,
-          -4
+          -36
         ],
         "rotation": [
           0,
-          0.2,
+          0,
           0
         ],
         "scale": [
@@ -250,45 +286,65 @@
           1
         ]
       },
-      "triggerRadius": 4,
+      "triggerRadius": 4.5,
       "camera": {
         "position": [
-          18,
-          2,
-          1
+          10,
+          3,
+          -29.5
         ],
         "target": [
-          22,
-          1,
-          -4
+          6.8,
+          1.4,
+          -36
         ],
-        "durationMs": 800
+        "durationMs": 900
       },
       "interaction": {
-        "type": "rhythm-repeat",
+        "type": "inspect-and-find",
         "config": {
+          "targetId": "gaziantep-stop-3-target",
           "instruction": {
-            "en": "Repeat the coppersmith's four-beat rhythm.",
-            "tr": "Bakırcının dört vuruşluk ritmini tekrar et."
+            "en": "Find a tiny copper pot at The Coppersmiths' Bazaar.",
+            "tr": null
           },
-          "pattern": [
-            1,
-            2,
-            1,
-            3
-          ],
-          "tempoBpm": 80,
-          "maxRetriesBeforeSlowMode": 2
+          "hintAfterAttempts": 2,
+          "options": [
+            {
+              "id": "correct",
+              "text": {
+                "en": "a tiny copper pot",
+                "tr": null
+              },
+              "correct": true
+            },
+            {
+              "id": "decoy-0",
+              "text": {
+                "en": "the Gypsy Girl's gaze",
+                "tr": null
+              },
+              "correct": false
+            },
+            {
+              "id": "decoy-1",
+              "text": {
+                "en": "a crunchy baklava square",
+                "tr": null
+              },
+              "correct": false
+            }
+          ]
         }
       },
       "fact": {
         "title": {
-          "en": "Coppersmiths' Bazaar",
-          "tr": "Bakırcılar Çarşısı"
+          "en": "The Coppersmiths' Bazaar",
+          "tr": null
         },
         "body": {
-          "en": "Craftspeople shape copper with repeated hammer strikes and practiced rhythm.",
-          "tr": "Ustalar bakırı tekrarlanan çekiç darbeleri ve alışılmış bir ritimle biçimlendirir."
+          "en": "Tin-tin-tin! In Gaziantep's old bazaar, coppersmiths hammer shiny pots, trays and coffee pots just like their great-grandfathers — the sound is the city's heartbeat.",
+          "tr": null
         },
         "editorialStatus": "legacy-unverified"
       },
@@ -299,31 +355,31 @@
     {
       "id": "gaziantep-quiz-01",
       "question": {
-        "en": "Which ingredient gave the baklava its green color?",
-        "tr": "Baklavaya yeşil rengini hangi malzeme verdi?"
+        "en": "What is the famous green treasure inside Gaziantep baklava?",
+        "tr": null
       },
       "options": [
         {
-          "id": "pistachio",
+          "id": "option-1",
           "text": {
-            "en": "Pistachio",
-            "tr": "Fıstık"
+            "en": "Antep pistachios",
+            "tr": null
           },
           "correct": true
         },
         {
-          "id": "pea",
+          "id": "option-2",
           "text": {
-            "en": "Peas",
-            "tr": "Bezelye"
+            "en": "Green peas",
+            "tr": null
           },
           "correct": false
         },
         {
-          "id": "mint-gum",
+          "id": "option-3",
           "text": {
             "en": "Mint gum",
-            "tr": "Naneli sakız"
+            "tr": null
           },
           "correct": false
         }
