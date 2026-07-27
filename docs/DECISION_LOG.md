@@ -108,3 +108,22 @@ Gaziantep keep their canonical content and validated scenes, and the test suite
 keeps checking both, but they stay closed until one province proves the whole
 experience end to end.
 
+## D-016 — Guided mode is removed (27 Jul 2026)
+
+There is one way to move: the player walks. Guided mode was a second movement
+system that had to be kept correct in parallel — it was the source of the
+unreachable-last-stop bug and it stalled in the field — and it earned its
+complexity nowhere, because arriving at a stop now opens the interaction on its
+own.
+
+`ControlMode`, the settings toggle and `engine/controls/guided.ts` are deleted.
+The route markers stay: they are how a child sees where to go next, and a
+validator rule still requires every stop to sit on that path.
+
+## D-017 — Telemetry can be opened in production (27 Jul 2026)
+
+`?debug=1` shows the performance overlay on a deployed build. The overlay was
+development-only, which meant its numbers could never be read from the site
+where they actually matter. It reveals nothing about the player and changes no
+behaviour.
+

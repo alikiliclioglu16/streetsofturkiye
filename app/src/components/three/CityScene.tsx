@@ -12,7 +12,6 @@ interface CitySceneProps {
   scene: SceneDescription;
   quality: QualityProfile;
   reducedMotion: boolean;
-  guided: boolean;
   frozen: boolean;
   completedHotspotIds: readonly string[];
   activeHotspotId: string | null;
@@ -40,7 +39,6 @@ export function CityScene({
   scene,
   quality,
   reducedMotion,
-  guided,
   frozen,
   completedHotspotIds,
   activeHotspotId,
@@ -163,10 +161,8 @@ export function CityScene({
 
       <PlayerRig
         scene={scene}
-        guided={guided}
         frozen={frozen}
         reducedMotion={reducedMotion}
-        completedHotspotIds={completedHotspotIds}
         guideId={guideId}
         profile={quality}
         heroReady={heroReady}

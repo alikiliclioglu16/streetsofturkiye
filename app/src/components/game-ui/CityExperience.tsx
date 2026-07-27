@@ -48,7 +48,6 @@ export function CityExperience({ cityId }: { cityId: string }) {
   const locale = useSettingsStore((state) => state.locale);
   const quality = useSettingsStore((state) => state.quality);
   const reducedMotion = useSettingsStore((state) => state.reducedMotion);
-  const controlMode = useSettingsStore((state) => state.controlMode);
 
   const status = useGameStore((state) => state.status);
   const city = useGameStore((state) => state.city);
@@ -72,7 +71,15 @@ export function CityExperience({ cityId }: { cityId: string }) {
   const [spin, setSpin] = useState(0);
   const [perf, setPerf] = useState<PerfSample | null>(null);
   const [retryToken, setRetryToken] = useState(0);
-  const showPerfOverlay = useSettingsStore((state) => state.showPerfOverlay);
+  const devOverlay = useSettingsStore((state) => state.showPerfOverlay);
+  /**
+   * `?debug=1` turns the telemetry overlay on in a production build.
+   *
+   * Without it the overlay is development-only, which meant the numbers could
+   * never be read from the deployed site — exactly where they matter. It shows
+   * nothing about the player and changes no behaviour.
+   */
+  const showPerfOverlay = devOverlay || searchParams.get('debug') === '1';
   const { webgl, coarsePointer } = useClientEnvironment();
 
   useEffect(() => {
@@ -100,6 +107,7 @@ export function CityExperience({ cityId }: { cityId: string }) {
   /** A short one-shot beat after a stop or a correct answer, e.g. an approving nod. */
   const [successBeat, setSuccessBeat] = useState(0);
   const [successPending, setSuccessPending] = useState(false);
+  const [loadingExpired, setLoadingExpired] = useState(false);
 
   /**
    * QA-only guide override: `/city/istanbul?guide=keloglan`.
@@ -147,7 +155,7 @@ export function CityExperience({ cityId }: { cityId: string }) {
     ['entering', 'active', 'retry', 'success', 'reward'].includes(interaction.state);
 
   // The keyboard drives the player only when no panel owns it.
-  useKeyboardControls(phase === 'explore' && !panelOpen && controlMode === 'explore');
+  useKeyboardControls(phase === 'explore' && !panelOpen);
 
   const focus =
     activeHotspot && ['entering', 'active', 'retry', 'success'].includes(interaction.state)
@@ -208,6 +216,21 @@ export function CityExperience({ cityId }: { cityId: string }) {
   const celebrationClip = currentCelebrationClip(celebration, plan);
   const performingClip =
     celebrationClip ?? (successPending ? (activeHero.successClip ?? null) : null);
+
+  // A real progress state, so the player never stares at an empty canvas.
+  const heroLoadingRaw =
+    isDelivered(activeHero) && status === 'ready' && phase !== 'intro' && heroStatus?.state !== 'ready';
+
+  /**
+   * The "getting ready" chip is a promise that something is coming. If the
+   * model never arrives, the promise has to expire rather than hang there.
+   */
+  useEffect(() => {
+    if (!heroLoadingRaw) return;
+    // Only the timer writes state; the reset happens by keying off the city.
+    const timer = window.setTimeout(() => setLoadingExpired(true), 15_000);
+    return () => window.clearTimeout(timer);
+  }, [heroLoadingRaw, cityId]);
 
   const onClipFinished = useCallback(() => {
     if (celebration.state === 'performing') {
@@ -308,9 +331,7 @@ export function CityExperience({ cityId }: { cityId: string }) {
   }
 
   const quizItem = city.quiz[quizIndex];
-  // A real progress state, so the player never stares at an empty canvas.
-  const heroLoading =
-    isDelivered(activeHero) && status === 'ready' && phase !== 'intro' && heroStatus?.state !== 'ready';
+  const heroLoading = heroLoadingRaw && !loadingExpired;
 
   return (
     <main style={{ position: 'relative', width: '100%', height: '100dvh', overflow: 'hidden' }}>
@@ -333,7 +354,6 @@ export function CityExperience({ cityId }: { cityId: string }) {
           onHeroStatus={setHeroStatus}
           onHeroMeasured={setHeroHeight}
           reducedMotion={reducedMotion}
-          guided={controlMode === 'guided'}
           frozen={panelOpen}
           completedHotspotIds={progress.completedHotspotIds}
           activeHotspotId={interaction.hotspotId}
@@ -361,7 +381,6 @@ export function CityExperience({ cityId }: { cityId: string }) {
         completed={progress.completedHotspotIds.length}
         total={city.hotspots.length}
         collected={progress.collectedRewardIds.length}
-        guided={controlMode === 'guided'}
         prompt={
           interaction.state === 'available' && activeHotspot
             ? `${ui('interact', locale)} — ${t(activeHotspot.fact.title, locale)}`
@@ -372,7 +391,7 @@ export function CityExperience({ cityId }: { cityId: string }) {
         onInteract={() => dispatchInteraction({ type: 'BEGIN' })}
       />
 
-      {coarsePointer && controlMode === 'explore' && !panelOpen && phase === 'explore' ? (
+      {coarsePointer && !panelOpen && phase === 'explore' ? (
         <TouchControls />
       ) : null}
 

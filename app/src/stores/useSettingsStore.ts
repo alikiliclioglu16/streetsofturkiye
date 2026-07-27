@@ -5,11 +5,8 @@ import type { QualityProfileId } from '@/engine/heroes/policy';
 import { detectQualityProfile, prefersReducedMotion } from '@/engine/quality/quality';
 import { DEFAULT_LOCALE, type Locale } from '@/content/i18n';
 
-export type ControlMode = 'explore' | 'guided';
-
 interface SettingsState {
   locale: Locale;
-  controlMode: ControlMode;
   quality: QualityProfileId;
   qualityAuto: boolean;
   reducedMotion: boolean;
@@ -20,7 +17,6 @@ interface SettingsState {
   showPerfOverlay: boolean;
   hydrated: boolean;
   setLocale: (locale: Locale) => void;
-  setControlMode: (mode: ControlMode) => void;
   setQuality: (profile: QualityProfileId) => void;
   setReducedMotion: (value: boolean) => void;
   toggleAudio: (channel: 'ambient' | 'ui' | 'guide') => void;
@@ -32,14 +28,13 @@ const STORAGE_KEY = 'sot.settings.v1';
 
 type Persisted = Pick<
   SettingsState,
-  'locale' | 'controlMode' | 'quality' | 'qualityAuto' | 'reducedMotion' | 'reducedMotionAuto' | 'muteAmbient' | 'muteUi' | 'muteGuide'
+  'locale' | 'quality' | 'qualityAuto' | 'reducedMotion' | 'reducedMotionAuto' | 'muteAmbient' | 'muteUi' | 'muteGuide'
 >;
 
 function persist(state: SettingsState): void {
   if (typeof window === 'undefined') return;
   const payload: Persisted = {
     locale: state.locale,
-    controlMode: state.controlMode,
     quality: state.quality,
     qualityAuto: state.qualityAuto,
     reducedMotion: state.reducedMotion,
@@ -57,7 +52,6 @@ function persist(state: SettingsState): void {
 
 export const useSettingsStore = create<SettingsState>((set, get) => ({
   locale: DEFAULT_LOCALE,
-  controlMode: 'explore',
   quality: 'balanced',
   qualityAuto: true,
   reducedMotion: false,
@@ -70,10 +64,6 @@ export const useSettingsStore = create<SettingsState>((set, get) => ({
 
   setLocale: (locale) => {
     set({ locale });
-    persist(get());
-  },
-  setControlMode: (controlMode) => {
-    set({ controlMode });
     persist(get());
   },
   setQuality: (quality) => {

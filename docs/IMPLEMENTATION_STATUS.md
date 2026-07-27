@@ -114,7 +114,7 @@ app/src/
 npm run lint       → temiz
 npm run typecheck  → temiz (strict, noUncheckedIndexedAccess, `any` yok)
 npm run content:check → 81 il, 249 durak, 84 soru; 1413 kanonik dizgi baseline ile eşleşti
-npm test           → 11 dosya / 160 test geçti (logic + jsdom ui)
+npm test           → 11 dosya / 151 test geçti (logic + jsdom ui)
 npm run build      → başarılı, 4 rota
 npm start          → /map ve /city/istanbul 200
 ```
@@ -238,6 +238,17 @@ Ayrıntı: `docs/KELOGLAN_INTEGRATION_REPORT.md`, `docs/NASREDDIN_HOCA_INTEGRATI
 | Donmanın kesin nedeni | ⚠️ bu ortamda üretilemedi; üç aday yolun üçü de kapatıldı |
 
 Ayrıntı: `docs/HERO_RENDER_BUGFIX_REPORT.md`.
+
+## 4g. Tek hareket modu ve İngilizce sürüm
+
+| Değişiklik | Durum |
+|---|---|
+| Rehberli mod kaldırıldı (D-016) | ✅ `guided.ts`, ayar ve tüm bağlantıları silindi |
+| Ürün İngilizce (D-014) | ✅ arayüzde Türkçe metin kalmadı, dil seçici yok |
+| Yalnız İstanbul açık (D-015) | ✅ diğer iki pilot şehir hazır ama kapalı |
+| Bölge görsel kimliği | ✅ gökyüzü ve zemin rengi kanonik bölge kaydından |
+| Üretimde telemetri (D-017) | ✅ `?debug=1` |
+| Yükleme yazısının zaman aşımı | ✅ 15 sn |
 
 ## 5. Bilinen sınırlar
 

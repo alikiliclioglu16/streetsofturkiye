@@ -9,7 +9,6 @@ interface HudProps {
   completed: number;
   total: number;
   collected: number;
-  guided: boolean;
   prompt: string | null;
   onSettings: () => void;
   onLeave: () => void;
@@ -23,7 +22,6 @@ export function Hud({
   completed,
   total,
   collected,
-  guided,
   prompt,
   onSettings,
   onLeave,
@@ -100,7 +98,7 @@ export function Hud({
         </div>
       ) : null}
 
-      {!guided ? (
+      {
         <p
           style={{
             position: 'absolute',
@@ -116,7 +114,7 @@ export function Hud({
         >
           {ui('moveHint', locale)}
         </p>
-      ) : null}
+      }
     </>
   );
 }

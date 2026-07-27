@@ -9,28 +9,17 @@ import { HeroCharacter, type HeroStatus } from '@/components/three/HeroCharacter
 import { heroForGuide, type HeroClip } from '@/engine/heroes/registry';
 import type { QualityProfile } from '@/engine/heroes/policy';
 import { inputState } from '@/engine/controls/inputState';
-import { distance2, resolveMovement, stepWithCollision, type Point2 } from '@/engine/controls/movement';
-import {
-  advanceGuided,
-  createGuidedState,
-  guidedPauseHotspot,
-  headingTowards,
-  type GuidedState,
-  type GuidedStop,
-} from '@/engine/controls/guided';
+import { distance2, stepWithCollision, type Point2 } from '@/engine/controls/movement';
 import { clampPitch, followCameraPosition, smoothing } from '@/engine/camera/anchors';
 import { celebrationCamera } from '@/engine/heroes/celebration';
 
 interface PlayerRigProps {
   scene: SceneDescription;
-  guided: boolean;
   /** True while a panel is open: the player holds still and the camera frames the hotspot. */
   frozen: boolean;
   reducedMotion: boolean;
   /** Camera anchor to hold while an interaction is running. */
   focus: { position: [number, number, number]; target: [number, number, number]; durationMs: number } | null;
-  /** Stops already performed; guided mode no longer halts at these. */
-  completedHotspotIds: readonly string[];
   /** Canonical guide id for this city; selects which hero is mounted. */
   guideId: string;
   profile: QualityProfile;
@@ -52,11 +41,9 @@ interface PlayerRigProps {
 
 export function PlayerRig({
   scene,
-  guided,
   frozen,
   reducedMotion,
   focus,
-  completedHotspotIds,
   guideId,
   profile,
   heroReady,
@@ -77,7 +64,6 @@ export function PlayerRig({
   const position = useRef<Point2>({ x: scene.spawn[0], z: scene.spawn[2] });
   const heading = useRef<number>(scene.spawnHeading);
   const pitch = useRef<number>(0.08);
-  const guidedState = useRef<GuidedState>(createGuidedState(scene.routePoints));
   const nearestId = useRef<string | null>(null);
   const previousPosition = useRef<Point2>({ x: scene.spawn[0], z: scene.spawn[2] });
   const settledFor = useRef<string | null>(null);
@@ -90,27 +76,9 @@ export function PlayerRig({
   const speedRef = useRef(0);
   const speedSampledAt = useRef(0);
 
-  const stops = useMemo<GuidedStop[]>(
-    () =>
-      scene.hotspots.map((hotspot) => ({
-        id: hotspot.id,
-        position: { x: hotspot.position[0], z: hotspot.position[2] },
-        triggerRadius: hotspot.triggerRadius,
-        order: hotspot.order,
-      })),
-    [scene],
-  );
-
-  // Read inside useFrame without re-creating the loop on every progress change.
-  const completedRef = useRef<readonly string[]>(completedHotspotIds);
-  useEffect(() => {
-    completedRef.current = completedHotspotIds;
-  }, [completedHotspotIds]);
-
   useEffect(() => {
     position.current = { x: scene.spawn[0], z: scene.spawn[2] };
     heading.current = scene.spawnHeading;
-    guidedState.current = createGuidedState(scene.routePoints);
     nearestId.current = null;
   }, [scene]);
 
@@ -155,24 +123,7 @@ export function PlayerRig({
   useFrame((_, rawDelta) => {
     const delta = Math.min(rawDelta, 0.05);
 
-    if (guided) {
-      const before = guidedState.current.position;
-      const blockedBy = guidedPauseHotspot(before, stops, completedRef.current);
-      guidedState.current = advanceGuided(
-        guidedState.current,
-        scene.routePoints,
-        delta,
-        frozen || blockedBy !== null,
-      );
-      const after = guidedState.current.position;
-      if (distance2(before, after) > 0.0005) {
-        heading.current = headingTowards(before, after);
-      }
-      // The authored route should never clip a building, but if a scene is
-      // edited by hand the guide still walks around rather than through.
-      position.current = resolveMovement(before, after, scene.bounds, scene.colliders);
-      guidedState.current = { ...guidedState.current, position: position.current };
-    } else if (!frozen) {
+    if (!frozen) {
       heading.current -= inputState.yawDelta * delta * 2.2;
       inputState.yawDelta = 0;
       position.current = stepWithCollision(

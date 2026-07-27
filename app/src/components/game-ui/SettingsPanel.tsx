@@ -24,18 +24,6 @@ export function SettingsPanel() {
       </h2>
 
       <div style={rowStyle}>
-        <span>{ui('guidedMode', locale)}</span>
-        <button
-          type="button"
-          className={settings.controlMode === 'guided' ? 'btn' : 'btn btn--ghost'}
-          aria-pressed={settings.controlMode === 'guided'}
-          onClick={() => settings.setControlMode(settings.controlMode === 'guided' ? 'explore' : 'guided')}
-        >
-          {settings.controlMode === 'guided' ? ui('guidedMode', locale) : ui('exploreMode', locale)}
-        </button>
-      </div>
-
-      <div style={rowStyle}>
         <span>{ui('quality', locale)}</span>
         <div style={{ display: 'flex', gap: 8 }}>
           {PROFILES.map((tier) => (
