@@ -35,6 +35,7 @@ interface PlayerRigProps {
   performanceToken?: number;
   onHeroStatus?: (status: HeroStatus) => void;
   onHeroMeasured?: (heightMeters: number) => void;
+  onHeroDrawCount?: (draws: { meshes: number; perFrame: number }) => void;
   onFocusSettled: () => void;
   onNearestChange: (hotspotId: string | null) => void;
 }
@@ -55,6 +56,7 @@ export function PlayerRig({
   performanceToken = 0,
   onHeroStatus,
   onHeroMeasured,
+  onHeroDrawCount,
   onFocusSettled,
   onNearestChange,
 }: PlayerRigProps) {
@@ -217,6 +219,7 @@ export function PlayerRig({
         performanceToken={performanceToken}
         onClipFinished={onClipFinished}
         onMeasured={onHeroMeasured}
+        onDrawCount={onHeroDrawCount}
         onStatusChange={onHeroStatus}
       />
       {/* Facing indicator: direction is readable without relying on colour. */}

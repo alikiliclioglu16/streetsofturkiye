@@ -47,7 +47,25 @@ pays; see the ladder below.
 Auto-selection: desktop with 8+ cores and 8 GB+ → `high`; other desktops →
 `balanced`; touch devices → `safe`, or `balanced` on 8-core/6 GB+ hardware.
 
-## Measured, 27 Jul 2026 — first real reading
+## Measured, 27 Jul 2026 — environment alone
+
+Deployed build, same laptop, intro screen (the hero is not requested until the
+intro is dismissed, so these are the environment's numbers only):
+
+| profile | fps | dpr cap | draw calls | triangles | geo / tex |
+|---|---|---|---|---|---|
+| high | 60 | 2.0 | 68 | 1,396 | 48 / 3 |
+| balanced | 60 | 1.5 | 55 | 1,240 | 40 / 3 |
+| safe | 60 | 1.0 | 30 | 836 | 30 / 1 |
+
+**The environment is not a bottleneck at any profile.** It holds 60 fps even at
+device pixel ratio 2. The theoretical estimate for the graybox scene was 1,524
+triangles; the measurement came in at 1,396.
+
+Set against the reading below, one character costs **41 fps**: 1,396 → 593,714
+triangles and 60 → 19 fps, with the entire difference attributable to the guide.
+
+## Measured, 27 Jul 2026 — with the hero
 
 Deployed build, desktop laptop, `high` profile, İstanbul completion screen:
 

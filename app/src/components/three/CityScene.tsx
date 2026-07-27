@@ -29,6 +29,7 @@ interface CitySceneProps {
   performanceToken?: number;
   onHeroStatus?: (status: HeroStatus) => void;
   onHeroMeasured?: (heightMeters: number) => void;
+  onHeroDrawCount?: (draws: { meshes: number; perFrame: number }) => void;
 }
 
 /**
@@ -56,6 +57,7 @@ export function CityScene({
   performanceToken,
   onHeroStatus,
   onHeroMeasured,
+  onHeroDrawCount,
 }: CitySceneProps) {
   const completed = useMemo(() => new Set(completedHotspotIds), [completedHotspotIds]);
 
@@ -174,6 +176,7 @@ export function CityScene({
         performanceToken={performanceToken}
         onHeroStatus={onHeroStatus}
         onHeroMeasured={onHeroMeasured}
+        onHeroDrawCount={onHeroDrawCount}
         focus={focus}
         onFocusSettled={onFocusSettled}
         onNearestChange={onNearestChange}

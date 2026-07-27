@@ -106,6 +106,7 @@ export function CityExperience({ cityId }: { cityId: string }) {
   const scene = useMemo(() => (city ? buildScene(city, assetTier) : null), [city, assetTier]);
   const [heroStatus, setHeroStatus] = useState<HeroStatus | null>(null);
   const [heroHeight, setHeroHeight] = useState<number | null>(null);
+  const [heroDraws, setHeroDraws] = useState<{ meshes: number; perFrame: number } | null>(null);
   const [celebration, setCelebration] = useState<CelebrationContext>(initialCelebration);
   const [performanceToken, setPerformanceToken] = useState(0);
   /** A short one-shot beat after a stop or a correct answer, e.g. an approving nod. */
@@ -369,6 +370,7 @@ export function CityExperience({ cityId }: { cityId: string }) {
           performanceToken={performanceToken + successBeat}
           onHeroStatus={setHeroStatus}
           onHeroMeasured={setHeroHeight}
+          onHeroDrawCount={setHeroDraws}
           reducedMotion={reducedMotion}
           frozen={panelOpen}
           completedHotspotIds={progress.completedHotspotIds}
@@ -420,6 +422,7 @@ export function CityExperience({ cityId }: { cityId: string }) {
           celebrationState={celebration.state}
           heroHeightMeters={heroHeight}
           autoSteps={adaptive.steps}
+          heroDraws={heroDraws}
         />
       ) : null}
 

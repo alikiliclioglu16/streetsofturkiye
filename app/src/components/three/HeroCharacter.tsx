@@ -4,7 +4,7 @@ import React, { Suspense, useEffect, useMemo, useRef, useState, type ReactNode }
 import { useGLTF } from '@react-three/drei';
 import { clone as cloneSkinned } from 'three/examples/jsm/utils/SkeletonUtils.js';
 import { useFrame } from '@react-three/fiber';
-import type { AnimationAction, AnimationClip, Group } from 'three';
+import type { AnimationAction, AnimationClip, Group, Mesh, Object3D } from 'three';
 import { AnimationMixer, Box3, LoopOnce, LoopRepeat, Vector3 } from 'three';
 import { resolveAsset } from '@/engine/assets/registry';
 import { PlaceholderAsset } from '@/components/three/PlaceholderAsset';
@@ -41,6 +41,8 @@ interface HeroModelProps {
   onClipFinished?: () => void;
   /** Reports the rendered height in metres, before scaling. */
   onMeasured?: (heightMeters: number) => void;
+  /** Reports how many times the hero's meshes are drawn per frame. */
+  onDrawCount?: (draws: { meshes: number; perFrame: number }) => void;
   /** Bumping this replays the current one-shot clip. */
   performanceToken: number;
 }
@@ -53,6 +55,7 @@ function HeroModel({
   onClipChange,
   onClipFinished,
   onMeasured,
+  onDrawCount,
   performanceToken,
 }: HeroModelProps) {
   const group = useRef<Group>(null);
@@ -88,6 +91,36 @@ function HeroModel({
     },
     [mixer],
   );
+
+  /**
+   * Draw counter.
+   *
+   * The first field reading showed the frame carrying almost exactly three
+   * times the hero's triangle count. Two passes are accounted for — the camera
+   * and the shadow map — and the third was guesswork. This counts the real
+   * thing: a hook on each of the hero's meshes, tallied per frame. If the
+   * number is 3 with one mesh, there is a pass nobody asked for.
+   */
+  const drawsThisFrame = useRef(0);
+  const framesCounted = useRef(0);
+  const drawsAccumulated = useRef(0);
+  const meshCount = useRef(0);
+
+  useEffect(() => {
+    const meshes: Mesh[] = [];
+    model.traverse((child: Object3D) => {
+      if ((child as Mesh).isMesh) meshes.push(child as Mesh);
+    });
+    meshCount.current = meshes.length;
+    for (const mesh of meshes) {
+      mesh.onBeforeRender = () => {
+        drawsThisFrame.current += 1;
+      };
+    }
+    return () => {
+      for (const mesh of meshes) mesh.onBeforeRender = () => {};
+    };
+  }, [model]);
 
   const currentClip = useRef<HeroClip | null>(null);
   const currentAction = useRef<AnimationAction | null>(null);
@@ -207,6 +240,19 @@ function HeroModel({
 
   // Drive the single mixer manually so it can never run while unmounted.
   useFrame((_, delta) => {
+    // useFrame runs before the render, so this frame's tally is last frame's.
+    drawsAccumulated.current += drawsThisFrame.current;
+    drawsThisFrame.current = 0;
+    framesCounted.current += 1;
+    if (framesCounted.current >= 30) {
+      onDrawCount?.({
+        meshes: meshCount.current,
+        perFrame: Math.round((drawsAccumulated.current / framesCounted.current) * 10) / 10,
+      });
+      framesCounted.current = 0;
+      drawsAccumulated.current = 0;
+    }
+
     mixer.update(delta);
 
     /**
@@ -293,6 +339,7 @@ export interface HeroCharacterProps {
   onStatusChange?: (status: HeroStatus) => void;
   onClipFinished?: () => void;
   onMeasured?: (heightMeters: number) => void;
+  onDrawCount?: (draws: { meshes: number; perFrame: number }) => void;
   /** Incremented to restart the current one-shot clip. */
   performanceToken?: number;
 }
@@ -313,6 +360,7 @@ export function HeroCharacter({
   onStatusChange,
   onClipFinished,
   onMeasured,
+  onDrawCount,
   performanceToken = 0,
 }: HeroCharacterProps) {
   const [failed, setFailed] = useState(false);
@@ -360,6 +408,7 @@ export function HeroCharacter({
           performanceToken={performanceToken}
           onClipFinished={onClipFinished}
           onMeasured={onMeasured}
+          onDrawCount={onDrawCount}
           onClipChange={(clip, clipName) => report({ state: 'ready', clip, clipName })}
         />
       </Suspense>
