@@ -6,7 +6,7 @@ import type { Group } from 'three';
 import { Vector3 } from 'three';
 import type { SceneDescription } from '@/engine/scene/buildScene';
 import { HeroCharacter, type HeroStatus } from '@/components/three/HeroCharacter';
-import { heroForGuide } from '@/engine/heroes/registry';
+import { heroForGuide, type HeroClip } from '@/engine/heroes/registry';
 import type { QualityProfile } from '@/engine/heroes/policy';
 import { inputState } from '@/engine/controls/inputState';
 import { distance2, resolveMovement, stepWithCollision, type Point2 } from '@/engine/controls/movement';
@@ -37,12 +37,13 @@ interface PlayerRigProps {
   /** The hero GLB is requested only once the city is otherwise playable. */
   heroReady: boolean;
   interacting: boolean;
-  celebrating: boolean;
+  /** One-shot clip driven by the choreography, or null. */
+  performing: HeroClip | null;
   /** True while the camera should frame the guide for a celebration. */
   framingCelebration: boolean;
   onCelebrationFramed?: () => void;
-  onDanceFinished?: () => void;
-  danceToken?: number;
+  onClipFinished?: () => void;
+  performanceToken?: number;
   onHeroStatus?: (status: HeroStatus) => void;
   onFocusSettled: () => void;
   onNearestChange: (hotspotId: string | null) => void;
@@ -59,11 +60,11 @@ export function PlayerRig({
   profile,
   heroReady,
   interacting,
-  celebrating,
+  performing,
   framingCelebration,
   onCelebrationFramed,
-  onDanceFinished,
-  danceToken = 0,
+  onClipFinished,
+  performanceToken = 0,
   onHeroStatus,
   onFocusSettled,
   onNearestChange,
@@ -259,9 +260,9 @@ export function PlayerRig({
         hero={hero}
         profile={profile}
         ready={heroReady}
-        motion={{ speed, interacting, celebrating }}
-        danceToken={danceToken}
-        onDanceFinished={onDanceFinished}
+        motion={{ speed, interacting, performing }}
+        performanceToken={performanceToken}
+        onClipFinished={onClipFinished}
         onStatusChange={onHeroStatus}
       />
       {/* Facing indicator: direction is readable without relying on colour. */}

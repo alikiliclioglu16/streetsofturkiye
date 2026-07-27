@@ -13,12 +13,16 @@ import {
 } from '@/engine/heroes/policy';
 import {
   allHeroes,
+  allowsCelebrationReplay,
   checkHeroBudget,
+  clipDurationCap,
   heroById,
   heroForGuide,
   inactiveHeroes,
   isApprovedDance,
   isDelivered,
+  isLocomotion,
+  resolveClipName,
 } from '@/engine/heroes/registry';
 import {
   activeHeroId,
@@ -34,7 +38,9 @@ import {
 import { createShuffleBag, draw } from '@/engine/heroes/danceBag';
 import {
   celebrationCamera,
+  celebrationPlan,
   celebrationReducer,
+  currentCelebrationClip,
   initialCelebration,
 } from '@/engine/heroes/celebration';
 import { clipForState } from '@/engine/heroes/animation';
@@ -180,11 +186,13 @@ describe('hero budget reporting', () => {
 
 describe('animation', () => {
   it('maps motion onto clips without touching the renderer', () => {
-    expect(clipForState({ speed: 0, interacting: false, celebrating: false })).toBe('idle');
-    expect(clipForState({ speed: 3, interacting: false, celebrating: false })).toBe('walk');
-    expect(clipForState({ speed: 6, interacting: false, celebrating: false })).toBe('run');
-    expect(clipForState({ speed: 0, interacting: true, celebrating: false })).toBe('talk');
-    expect(clipForState({ speed: 6, interacting: true, celebrating: true })).toBe('dance');
+    expect(clipForState({ speed: 0, interacting: false, performing: null })).toBe('idle');
+    expect(clipForState({ speed: 3, interacting: false, performing: null })).toBe('walk');
+    expect(clipForState({ speed: 6, interacting: false, performing: null })).toBe('run');
+    expect(clipForState({ speed: 0, interacting: true, performing: null })).toBe('talk');
+    // A one-shot beat outranks locomotion so the guide finishes it.
+    expect(clipForState({ speed: 6, interacting: true, performing: 'dance' })).toBe('dance');
+    expect(clipForState({ speed: 6, interacting: false, performing: 'agree' })).toBe('agree');
   });
 
   it('never repeats a celebration dance back to back', () => {
@@ -236,9 +244,9 @@ describe('failure behaviour', () => {
         hero.id,
       ).toBe(expected);
     }
-    // Keloğlan is delivered; Nasreddin Hodja is not yet.
+    // Both heroes are delivered.
     expect(heroById('keloglan').modelUrl).not.toBeNull();
-    expect(heroById('nasreddin-hoca').modelUrl).toBeNull();
+    expect(heroById('nasreddin-hoca').modelUrl).not.toBeNull();
   });
 });
 
@@ -336,44 +344,46 @@ describe('delivered Keloğlan model', () => {
     }
   });
 
-  it('reports Nasreddin Hodja as not yet delivered', () => {
+  it('reports both heroes as delivered', () => {
     expect(isDelivered(keloglan)).toBe(true);
-    expect(isDelivered(heroById('nasreddin-hoca'))).toBe(false);
+    expect(isDelivered(heroById('nasreddin-hoca'))).toBe(true);
+    // Distinct files, so one cannot silently stand in for the other.
+    expect(keloglan.modelUrl).not.toBe(heroById('nasreddin-hoca').modelUrl);
+    expect(keloglan.checksum).not.toBe(heroById('nasreddin-hoca').checksum);
   });
 });
 
 describe('completion choreography', () => {
-  const opts = { reducedMotion: false, hasDanceClips: true };
+  const opts = { reducedMotion: false, planLength: 1 };
   const run = (events: Parameters<typeof celebrationReducer>[1][], options = opts) =>
     events.reduce((ctx, event) => celebrationReducer(ctx, event, options), initialCelebration);
 
-  it('saves progress before any dancing starts', () => {
+  it('saves progress before any performance starts', () => {
     const afterComplete = run([{ type: 'CITY_COMPLETED' }]);
     expect(afterComplete.state).toBe('saving');
     expect(afterComplete.inputLocked).toBe(true);
-    // Dancing cannot be reached without the save step.
     expect(celebrationReducer(afterComplete, { type: 'CAMERA_FRAMED' }, opts).state).toBe('saving');
   });
 
-  it('walks frame → dance → summary', () => {
+  it('walks frame → perform → summary', () => {
     const done = run([
       { type: 'CITY_COMPLETED' },
       { type: 'PROGRESS_SAVED' },
       { type: 'CAMERA_FRAMED' },
-      { type: 'DANCE_FINISHED' },
+      { type: 'CLIP_FINISHED' },
     ]);
     expect(done.state).toBe('summary');
-    expect(done.dancesPlayed).toBe(1);
+    expect(done.performances).toBe(1);
   });
 
   it('locks input for the whole sequence', () => {
-    const states = ['saving', 'framing', 'dancing', 'summary'];
+    const states = ['saving', 'framing', 'performing', 'summary'];
     let ctx = initialCelebration;
     const events: Parameters<typeof celebrationReducer>[1][] = [
       { type: 'CITY_COMPLETED' },
       { type: 'PROGRESS_SAVED' },
       { type: 'CAMERA_FRAMED' },
-      { type: 'DANCE_FINISHED' },
+      { type: 'CLIP_FINISHED' },
     ];
     for (const [index, event] of events.entries()) {
       ctx = celebrationReducer(ctx, event, opts);
@@ -382,32 +392,17 @@ describe('completion choreography', () => {
     }
   });
 
-  it('plays another dance on request', () => {
-    const summary = run([
-      { type: 'CITY_COMPLETED' },
-      { type: 'PROGRESS_SAVED' },
-      { type: 'CAMERA_FRAMED' },
-      { type: 'DANCE_FINISHED' },
-    ]);
-    const again = celebrationReducer(summary, { type: 'ANOTHER_DANCE' }, opts);
-    expect(again.state).toBe('dancing');
-    const finished = celebrationReducer(again, { type: 'DANCE_FINISHED' }, opts);
-    expect(finished.dancesPlayed).toBe(2);
-  });
-
-  it('skips the dance under reduced motion and still shows the summary', () => {
-    const reduced = { reducedMotion: true, hasDanceClips: true };
+  it('skips the performance under reduced motion and still shows the summary', () => {
+    const reduced = { reducedMotion: true, planLength: 1 };
     const done = run([{ type: 'CITY_COMPLETED' }, { type: 'PROGRESS_SAVED' }], reduced);
     expect(done.state).toBe('summary');
-    expect(done.dancesPlayed).toBe(0);
-    // The replay button must not resurrect the dance.
-    expect(celebrationReducer(done, { type: 'ANOTHER_DANCE' }, reduced).state).toBe('summary');
+    expect(done.performances).toBe(0);
+    expect(celebrationReducer(done, { type: 'REPLAY' }, reduced).state).toBe('summary');
   });
 
-  it('skips the dance for a guide with no approved clips', () => {
-    const noClips = { reducedMotion: false, hasDanceClips: false };
-    const done = run([{ type: 'CITY_COMPLETED' }, { type: 'PROGRESS_SAVED' }], noClips);
-    expect(done.state).toBe('summary');
+  it('skips the performance for a guide with an empty plan', () => {
+    const empty = { reducedMotion: false, planLength: 0 };
+    expect(run([{ type: 'CITY_COMPLETED' }, { type: 'PROGRESS_SAVED' }], empty).state).toBe('summary');
   });
 
   it('frames the guide from a medium distance rather than overhead', () => {
@@ -417,5 +412,134 @@ describe('completion choreography', () => {
     expect(horizontal).toBeGreaterThan(3);
     expect(horizontal).toBeLessThan(8);
     expect(camera.position[1]).toBeLessThan(3);
+  });
+});
+
+describe('per-character celebration policy', () => {
+  const keloglan = heroById('keloglan');
+  const hoca = heroById('nasreddin-hoca');
+
+  it('gives Keloğlan a dance and Nasreddin Hodja a gesture sequence', () => {
+    expect(keloglan.celebration.kind).toBe('dance-bag');
+    expect(hoca.celebration.kind).toBe('gesture-sequence');
+    expect(celebrationPlan(keloglan)).toEqual(['dance']);
+    expect(celebrationPlan(hoca)).toEqual(['agree', 'wave']);
+  });
+
+  it('never gives Nasreddin Hodja a dance', () => {
+    expect(hoca.animation.danceClips).toEqual([]);
+    expect(celebrationPlan(hoca)).not.toContain('dance');
+    expect(hoca.animation.deliveredClips.some((clip) => /dance|dancing/i.test(clip))).toBe(false);
+  });
+
+  it('offers the replay button only to the dance guide', () => {
+    expect(allowsCelebrationReplay(keloglan)).toBe(true);
+    expect(allowsCelebrationReplay(hoca)).toBe(false);
+  });
+
+  it('plays agree then wave then the panel for Nasreddin Hodja', () => {
+    const plan = celebrationPlan(hoca);
+    const options = { reducedMotion: false, planLength: plan.length };
+    let ctx = celebrationReducer(initialCelebration, { type: 'CITY_COMPLETED' }, options);
+    ctx = celebrationReducer(ctx, { type: 'PROGRESS_SAVED' }, options);
+    ctx = celebrationReducer(ctx, { type: 'CAMERA_FRAMED' }, options);
+    expect(currentCelebrationClip(ctx, plan)).toBe('agree');
+
+    ctx = celebrationReducer(ctx, { type: 'CLIP_FINISHED' }, options);
+    expect(ctx.state).toBe('performing');
+    expect(currentCelebrationClip(ctx, plan)).toBe('wave');
+
+    ctx = celebrationReducer(ctx, { type: 'CLIP_FINISHED' }, options);
+    expect(ctx.state).toBe('summary');
+    expect(currentCelebrationClip(ctx, plan)).toBeNull();
+  });
+
+  it('keeps Keloğlan on a single drawn dance', () => {
+    const plan = celebrationPlan(keloglan);
+    const options = { reducedMotion: false, planLength: plan.length };
+    let ctx = celebrationReducer(initialCelebration, { type: 'CITY_COMPLETED' }, options);
+    ctx = celebrationReducer(ctx, { type: 'PROGRESS_SAVED' }, options);
+    ctx = celebrationReducer(ctx, { type: 'CAMERA_FRAMED' }, options);
+    expect(currentCelebrationClip(ctx, plan)).toBe('dance');
+    ctx = celebrationReducer(ctx, { type: 'CLIP_FINISHED' }, options);
+    expect(ctx.state).toBe('summary');
+  });
+
+  it('nods on success only for the guide whose policy says so', () => {
+    expect(hoca.successClip).toBe('agree');
+    expect(keloglan.successClip).toBeNull();
+  });
+});
+
+describe('delivered Nasreddin Hodja model', () => {
+  const hoca = heroById('nasreddin-hoca');
+
+  it('is registered with the delivered file, checksum and measurements', () => {
+    expect(hoca.modelUrl).toBe(
+      '/assets/heroes/Meshy_AI_Teal_Robed_Sage_biped_Meshy_AI_Meshy_Merged_Animations.glb',
+    );
+    expect(hoca.checksum).toHaveLength(64);
+    expect(hoca.triangles).toBe(197_482);
+    expect(hoca.transferBytes).toBe(19_867_032);
+    expect(hoca.measuredHeightMeters).toBe(1.7);
+  });
+
+  it('sits in the same hero technical class as Keloğlan', () => {
+    const check = checkHeroBudget(hoca);
+    expect(check.withinBudget).toBe(true);
+    expect(hoca.triangles!).toBeGreaterThanOrEqual(180_000);
+    expect(hoca.triangles!).toBeLessThanOrEqual(250_000);
+  });
+
+  it('maps all six clips to names present in the file', () => {
+    const { clips, deliveredClips } = hoca.animation;
+    expect(clips).toEqual({
+      idle: 'Idle_11',
+      walk: 'Walking',
+      run: 'Running',
+      talk: 'Talk_with_Hands_Open',
+      agree: 'Agree_Gesture',
+      wave: 'Wave_One_Hand',
+    });
+    for (const name of Object.values(clips)) {
+      expect(deliveredClips, `${name} missing from the GLB`).toContain(name);
+    }
+  });
+
+  it('never uses the excluded clapping clip', () => {
+    expect(hoca.animation.deliveredClips).toContain('Clapping_Run');
+    expect(hoca.animation.excludedClips.Clapping_Run).toBeTruthy();
+    expect(Object.values(hoca.animation.clips)).not.toContain('Clapping_Run');
+    expect(celebrationPlan(hoca).map((clip) => resolveClipName(hoca, clip as never))).not.toContain(
+      'Clapping_Run',
+    );
+  });
+
+  it('caps the 13 second agree gesture so the panel is not held back', () => {
+    expect(clipDurationCap(hoca, 'Agree_Gesture')).toBe(4);
+    expect(clipDurationCap(hoca, 'Wave_One_Hand')).toBeNull();
+  });
+
+  it('falls back through the documented chain when a clip is missing', () => {
+    const noAgree = {
+      ...hoca,
+      animation: { ...hoca.animation, clips: { idle: 'Idle_11', wave: 'Wave_One_Hand' } },
+    };
+    expect(resolveClipName(noAgree, 'agree')).toBe('Wave_One_Hand');
+
+    const idleOnly = { ...hoca, animation: { ...hoca.animation, clips: { idle: 'Idle_11' } } };
+    expect(resolveClipName(idleOnly, 'agree')).toBe('Idle_11');
+    expect(resolveClipName(idleOnly, 'wave')).toBe('Idle_11');
+    expect(resolveClipName(idleOnly, 'talk')).toBe('Idle_11');
+    expect(resolveClipName(idleOnly, 'run')).toBe('Idle_11');
+  });
+
+  it('treats only walking and running as locomotion', () => {
+    expect(isLocomotion('walk')).toBe(true);
+    expect(isLocomotion('run')).toBe(true);
+    // Everything else has its horizontal root translation cancelled.
+    for (const clip of ['idle', 'talk', 'agree', 'wave', 'dance'] as const) {
+      expect(isLocomotion(clip), clip).toBe(false);
+    }
   });
 });

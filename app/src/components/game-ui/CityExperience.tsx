@@ -10,10 +10,13 @@ import type { HeroStatus } from '@/components/three/HeroCharacter';
 import { onCityUnmount } from '@/engine/heroes/heroCache';
 import { heroForGuide, isDelivered, type HeroId } from '@/engine/heroes/registry';
 import {
+  celebrationPlan,
   celebrationReducer,
+  currentCelebrationClip,
   initialCelebration,
   type CelebrationContext,
 } from '@/engine/heroes/celebration';
+import { allowsCelebrationReplay } from '@/engine/heroes/registry';
 import { useClientEnvironment } from '@/engine/quality/useEnvironment';
 import { hotspotById, resolveInteractionType } from '@/engine/interactions/machine';
 import { useKeyboardControls } from '@/engine/controls/inputState';
@@ -87,7 +90,10 @@ export function CityExperience({ cityId }: { cityId: string }) {
   const scene = useMemo(() => (city ? buildScene(city, assetTier) : null), [city, assetTier]);
   const [heroStatus, setHeroStatus] = useState<HeroStatus | null>(null);
   const [celebration, setCelebration] = useState<CelebrationContext>(initialCelebration);
-  const [danceToken, setDanceToken] = useState(0);
+  const [performanceToken, setPerformanceToken] = useState(0);
+  /** A short one-shot beat after a stop or a correct answer, e.g. an approving nod. */
+  const [successBeat, setSuccessBeat] = useState(0);
+  const [successPending, setSuccessPending] = useState(false);
 
   /**
    * QA-only guide override: `/city/istanbul?guide=keloglan`.
@@ -103,14 +109,17 @@ export function CityExperience({ cityId }: { cityId: string }) {
       : city?.guideId ?? 'nasreddin-hoca';
   const activeHero = heroForGuide(effectiveGuideId);
 
-  const hasDanceClips = activeHero.animation.danceClips.length > 0;
+  /** The guide's own celebration plan; no per-character branching in the UI. */
+  const plan = useMemo(() => celebrationPlan(activeHero), [activeHero]);
+  const canReplay = allowsCelebrationReplay(activeHero) && !reducedMotion;
+
   const dispatchCelebration = useCallback(
     (event: Parameters<typeof celebrationReducer>[1]) => {
       setCelebration((current) =>
-        celebrationReducer(current, event, { reducedMotion, hasDanceClips }),
+        celebrationReducer(current, event, { reducedMotion, planLength: plan.length }),
       );
     },
-    [reducedMotion, hasDanceClips],
+    [reducedMotion, plan.length],
   );
 
   const activeHotspot = useMemo(
@@ -171,13 +180,36 @@ export function CityExperience({ cityId }: { cityId: string }) {
    * celebration. Progress is written first and awaited, so a dance that never
    * finishes cannot cost the child the province star.
    */
+  const playSuccessBeat = useCallback(() => {
+    if (!activeHero.successClip) return;
+    setSuccessPending(true);
+    setSuccessBeat((token) => token + 1);
+  }, [activeHero.successClip]);
+
   const finishQuizAnswer = useCallback(async () => {
     const wasLast = quizIndex + 1 >= (city?.quiz.length ?? 0);
+    playSuccessBeat();
     await answerQuiz(true);
     if (!wasLast) return;
     dispatchCelebration({ type: 'CITY_COMPLETED' });
     dispatchCelebration({ type: 'PROGRESS_SAVED' });
-  }, [answerQuiz, city?.quiz.length, quizIndex, dispatchCelebration]);
+  }, [answerQuiz, city?.quiz.length, quizIndex, dispatchCelebration, playSuccessBeat]);
+
+  /**
+   * What the guide is performing right now: a celebration step, or the short
+   * success beat after a stop or a correct answer. Both are one-shot.
+   */
+  const celebrationClip = currentCelebrationClip(celebration, plan);
+  const performingClip =
+    celebrationClip ?? (successPending ? (activeHero.successClip ?? null) : null);
+
+  const onClipFinished = useCallback(() => {
+    if (celebration.state === 'performing') {
+      dispatchCelebration({ type: 'CLIP_FINISHED' });
+      return;
+    }
+    setSuccessPending(false);
+  }, [celebration.state, dispatchCelebration]);
 
   const onFocusSettled = useCallback(() => {
     dispatchInteraction({ type: 'CAMERA_SETTLED' });
@@ -238,11 +270,11 @@ export function CityExperience({ cityId }: { cityId: string }) {
           guideId={effectiveGuideId}
           heroReady={status === 'ready' && phase !== 'intro'}
           interacting={['active', 'retry', 'success'].includes(interaction.state)}
-          celebrating={celebration.state === 'dancing'}
+          performing={performingClip}
           framingCelebration={celebration.state === 'framing'}
           onCelebrationFramed={() => dispatchCelebration({ type: 'CAMERA_FRAMED' })}
-          onDanceFinished={() => dispatchCelebration({ type: 'DANCE_FINISHED' })}
-          danceToken={danceToken}
+          onClipFinished={onClipFinished}
+          performanceToken={performanceToken + successBeat}
           onHeroStatus={setHeroStatus}
           reducedMotion={reducedMotion}
           guided={controlMode === 'guided'}
@@ -309,7 +341,14 @@ export function CityExperience({ cityId }: { cityId: string }) {
       ) : null}
 
       {phase === 'explore' && activeHotspot && interaction.state === 'success' ? (
-        <FactCard hotspot={activeHotspot} locale={locale} onContinue={() => void claimReward()} />
+        <FactCard
+          hotspot={activeHotspot}
+          locale={locale}
+          onContinue={() => {
+            playSuccessBeat();
+            void claimReward();
+          }}
+        />
       ) : null}
 
       {phase === 'explore' && activeHotspot && interaction.state === 'reward' ? (
@@ -340,10 +379,10 @@ export function CityExperience({ cityId }: { cityId: string }) {
           locale={locale}
           onLeave={() => router.push('/map')}
           onAnotherDance={
-            hasDanceClips && !reducedMotion
+            canReplay
               ? () => {
-                  setDanceToken((token) => token + 1);
-                  dispatchCelebration({ type: 'ANOTHER_DANCE' });
+                  setPerformanceToken((token) => token + 1);
+                  dispatchCelebration({ type: 'REPLAY' });
                 }
               : undefined
           }

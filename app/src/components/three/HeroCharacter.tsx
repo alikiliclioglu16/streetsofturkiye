@@ -7,10 +7,17 @@ import type { AnimationAction, AnimationClip, Group } from 'three';
 import { AnimationMixer, Box3, LoopOnce, LoopRepeat, Vector3 } from 'three';
 import { resolveAsset } from '@/engine/assets/registry';
 import { PlaceholderAsset } from '@/components/three/PlaceholderAsset';
-import { clipForState, transitionDuration, type HeroMotionState } from '@/engine/heroes/animation';
+import { clipForState, isOneShot, transitionDuration, type HeroMotionState } from '@/engine/heroes/animation';
 import { draw, loadShuffleBag, saveShuffleBag, type ShuffleBag } from '@/engine/heroes/danceBag';
 import { requestHero } from '@/engine/heroes/heroCache';
-import type { HeroClip, HeroDefinition, HeroId } from '@/engine/heroes/registry';
+import {
+  clipDurationCap,
+  isLocomotion,
+  resolveClipName,
+  type HeroClip,
+  type HeroDefinition,
+  type HeroId,
+} from '@/engine/heroes/registry';
 import type { QualityProfile } from '@/engine/heroes/policy';
 
 /**
@@ -28,9 +35,10 @@ interface HeroModelProps {
   profile: QualityProfile;
   motion: HeroMotionState;
   onClipChange: (clip: HeroClip, clipName: string | null) => void;
-  onDanceFinished?: () => void;
-  /** Bumping this replays the celebration with the next clip from the bag. */
-  danceToken: number;
+  /** Fired when a one-shot clip reaches its end or its duration cap. */
+  onClipFinished?: () => void;
+  /** Bumping this replays the current one-shot clip. */
+  performanceToken: number;
 }
 
 function HeroModel({
@@ -39,8 +47,8 @@ function HeroModel({
   profile,
   motion,
   onClipChange,
-  onDanceFinished,
-  danceToken,
+  onClipFinished,
+  performanceToken,
 }: HeroModelProps) {
   const group = useRef<Group>(null);
   const { scene, animations } = useGLTF(url);
@@ -108,7 +116,7 @@ function HeroModel({
 
   useEffect(() => {
     // A dance replay repeats the same state, so the token forces a re-run.
-    if (desiredClip === currentClip.current && desiredClip !== 'dance') return;
+    if (desiredClip === currentClip.current && !isOneShot(desiredClip)) return;
 
     const clipName = ((): string | null => {
       if (desiredClip === 'dance') {
@@ -117,12 +125,9 @@ function HeroModel({
         saveShuffleBag(hero.id, result.bag);
         return result.clip;
       }
-      const mapped = hero.animation.clips[desiredClip];
-      if (mapped) return mapped;
-      // Documented fallbacks: missing run uses walk, missing walk or talk holds
-      // idle. Movement still translates the rig either way.
-      if (desiredClip === 'run') return hero.animation.clips.walk ?? hero.animation.clips.idle ?? null;
-      return hero.animation.clips.idle ?? null;
+      // Documented fallbacks live in the registry: agree falls back to wave,
+      // wave and talk to idle, run to walk to idle.
+      return resolveClipName(hero, desiredClip);
     })();
 
     const clip = clipName ? clipsByName.get(clipName) : undefined;
@@ -132,10 +137,19 @@ function HeroModel({
 
     if (next) {
       next.reset().fadeIn(fade).play();
-      if (desiredClip === 'dance') {
+      if (isOneShot(desiredClip)) {
         // One pass, then hand control back to the choreography.
         next.setLoop(LoopOnce, 1);
         next.clampWhenFinished = true;
+        /**
+         * Some delivered clips run far longer than the beat they illustrate —
+         * Nasreddin Hodja's agree gesture is 13 s. A cap in the registry ends
+         * the beat early instead of holding the completion panel back.
+         */
+        const cap = clipName ? clipDurationCap(hero, clipName) : null;
+        if (cap && next.getClip().duration > cap) {
+          window.setTimeout(() => onClipFinished?.(), cap * 1000);
+        }
       } else {
         next.setLoop(LoopRepeat, Infinity);
       }
@@ -148,16 +162,16 @@ function HeroModel({
 
     currentClip.current = desiredClip;
     onClipChange(desiredClip, clipName);
-  }, [desiredClip, danceToken, clipsByName, mixer, hero.animation.clips, hero.id, onClipChange]);
+  }, [desiredClip, performanceToken, clipsByName, mixer, hero, onClipChange, onClipFinished]);
 
   // Celebration clips end; movement clips loop.
   useEffect(() => {
     const onFinished = () => {
-      if (currentClip.current === 'dance') onDanceFinished?.();
+      if (currentClip.current && isOneShot(currentClip.current)) onClipFinished?.();
     };
     mixer.addEventListener('finished', onFinished);
     return () => mixer.removeEventListener('finished', onFinished);
-  }, [mixer, onDanceFinished]);
+  }, [mixer, onClipFinished]);
 
   // Drive the single mixer manually so it can never run while unmounted.
   useFrame((_, delta) => {
@@ -166,14 +180,17 @@ function HeroModel({
     /**
      * Root-motion safety.
      *
-     * Two approved dances drift: FunnyDancing_01 travels 0.21 m sideways and
-     * several move vertically. The guide must stay on his celebration mark, so
-     * horizontal root translation is cancelled every frame and the rest pose is
-     * restored exactly when the clip ends.
+     * The engine owns the character's world position, so every non-locomotion
+     * clip has its horizontal root translation cancelled each frame and its
+     * rest pose restored exactly when the clip ends. Measured offenders:
+     * Keloğlan's FunnyDancing_01 drifts 0.21 m sideways, Nasreddin Hodja's
+     * Agree_Gesture drifts 0.21 m forward. Walking and Running are in place
+     * and keep their own transform.
      */
     const node = group.current;
     if (!node) return;
-    if (currentClip.current === 'dance') {
+    const clip = currentClip.current;
+    if (clip && !isLocomotion(clip)) {
       node.position.x = restPosition.current.x;
       node.position.z = restPosition.current.z;
     } else {
@@ -231,9 +248,9 @@ export interface HeroCharacterProps {
   /** False until the city shell and canonical content are ready (policy rule 2). */
   ready: boolean;
   onStatusChange?: (status: HeroStatus) => void;
-  onDanceFinished?: () => void;
-  /** Incremented to replay the celebration with the next clip from the bag. */
-  danceToken?: number;
+  onClipFinished?: () => void;
+  /** Incremented to restart the current one-shot clip. */
+  performanceToken?: number;
 }
 
 export interface HeroStatus {
@@ -250,8 +267,8 @@ export function HeroCharacter({
   motion,
   ready,
   onStatusChange,
-  onDanceFinished,
-  danceToken = 0,
+  onClipFinished,
+  performanceToken = 0,
 }: HeroCharacterProps) {
   const [failed, setFailed] = useState(false);
   const placeholderAsset = useMemo(() => resolveAsset(hero.assetId, 'medium'), [hero.assetId]);
@@ -294,8 +311,8 @@ export function HeroCharacter({
           url={url}
           profile={profile}
           motion={motion}
-          danceToken={danceToken}
-          onDanceFinished={onDanceFinished}
+          performanceToken={performanceToken}
+          onClipFinished={onClipFinished}
           onClipChange={(clip, clipName) => report({ state: 'ready', clip, clipName })}
         />
       </Suspense>

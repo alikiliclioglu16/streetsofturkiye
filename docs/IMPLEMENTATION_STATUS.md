@@ -1,8 +1,8 @@
 # Implementation Status
 
-**Son güncelleme:** 27 Temmuz 2026 — Keloğlan hero entegrasyonu (M0-K1) dahil
+**Son güncelleme:** 27 Temmuz 2026 — Nasreddin Hoca entegrasyonu dahil
 **Tamamlanan fazlar:** Faz 00, Faz 01, Faz 01B (Kapı A), C0, Hero Karakter Mimarisi, M0-K1 Keloğlan
-**Kanıt belgeleri:** `docs/QA_EVIDENCE.md`, `docs/CANONICAL_MIGRATION_REPORT.md`, `docs/HERO_CHARACTER_REPORT.md`, `docs/KELOGLAN_INTEGRATION_REPORT.md`
+**Kanıt belgeleri:** `docs/QA_EVIDENCE.md`, `docs/CANONICAL_MIGRATION_REPORT.md`, `docs/HERO_CHARACTER_REPORT.md`, `docs/KELOGLAN_INTEGRATION_REPORT.md`, `docs/NASREDDIN_HOCA_INTEGRATION_REPORT.md`
 **Faz 02 başlatılmadı.**
 **Uygulama konumu:** `app/` (kaynak paket dosyalarına dokunulmadı)
 
@@ -114,7 +114,7 @@ app/src/
 npm run lint       → temiz
 npm run typecheck  → temiz (strict, noUncheckedIndexedAccess, `any` yok)
 npm run content:check → 81 il, 249 durak, 84 soru; 1413 kanonik dizgi baseline ile eşleşti
-npm test           → 9 dosya / 118 test geçti (logic + jsdom ui)
+npm test           → 9 dosya / 130 test geçti (logic + jsdom ui)
 npm run build      → başarılı, 4 rota
 npm start          → /map ve /city/istanbul 200
 ```
@@ -224,7 +224,7 @@ Teslim edilen animasyonlu GLB, dosya adı değiştirilmeden `app/public/assets/h
 
 **Test için:** `/city/istanbul?guide=keloglan` — kanonik rehber atamasına dokunmayan QA parametresi.
 
-Ayrıntı: `docs/KELOGLAN_INTEGRATION_REPORT.md`.
+Ayrıntı: `docs/KELOGLAN_INTEGRATION_REPORT.md`, `docs/NASREDDIN_HOCA_INTEGRATION_REPORT.md`.
 
 ## 5. Bilinen sınırlar
 
@@ -235,7 +235,7 @@ Ayrıntı: `docs/KELOGLAN_INTEGRATION_REPORT.md`.
 5. **`inspect-and-find` fare hedefi basit.** Panel üzerindeki üç motif primitif şekil; gerçek çini paneli gelince hedefler modelin kendi parçalarına bağlanmalı.
 6. **Kanonik içeriğin tamamı İngilizce.** Arayüz Türkçe, içerik İngilizce. Çeviri katmanı kararı bekliyor; `tr` alanları kasıtlı olarak `null`.
 7. **İstanbul ve Nevşehir'de ikişer durak graybox varlıkla çiziliyor** (Kapalıçarşı, simit arabası, balon, halı tezgâhı). Meshy brief'i gerekiyor.
-8. **Nasreddin Hoca modeli üretilmedi.** İstanbul'un kanonik rehberi o olduğu için, parametresiz açılışta placeholder görünüyor. Şartname: `docs/MESHY_BRIEF_NASREDDIN_HOCA.md`.
+8. **Her iki hero da teslim edildi ve entegre edildi.** Keloğlan 222.150 üçgen, Nasreddin Hoca 197.482 üçgen. İstanbul'un kanonik rehberi Hoca olduğu için varsayılan açılışta o görünür.
 8b. **Keloğlan tarayıcıda görsel olarak doğrulanmadı.** Klip adları dosyadan okundu ve eşleşme testli, ama kliplerin içeriği görülmedi.
 9. **Gerçek cihaz FPS ölçümü yok.** Telemetri katmanı hazır, ölçüm bekliyor.
 10. **Su, deniz, gökyüzü yok.** `skyPreset` ve `environment.qualityNotes` okunuyor ama görsel karşılığı Faz 02'de.

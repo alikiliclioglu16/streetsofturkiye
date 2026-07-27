@@ -74,3 +74,19 @@ decoration density, shadow-map resolution, nonessential shadows, device pixel
 ratio, distant assets — deliberately contains no character entry. Map and
 collection routes use 2D portraits. `allowTwoHeroScene` defaults to false.
 
+## D-013 — Nasreddin Hodja does not dance (27 Jul 2026)
+
+The two hero guides celebrate differently, and that difference is character,
+not decoration. Keloğlan draws from an approved dance pool with a replay
+button. Nasreddin Hodja plays a measured `Agree_Gesture` then `Wave_One_Hand`
+and returns to idle; he has no dance pool and no replay button.
+
+Celebration behaviour is resolved from a per-hero policy in the hero registry,
+never from a per-character branch in a component, so a third guide needs only a
+policy entry.
+
+Deviation on record: the delivered `Agree_Gesture` runs 13.0 s, which would hold
+the completion panel back for 17 s. It is capped at 4 s through
+`maxDurationSeconds` in the registry. Removing that entry restores the full
+clip.
+

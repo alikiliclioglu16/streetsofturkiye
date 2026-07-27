@@ -4,6 +4,7 @@ import { useMemo } from 'react';
 import type { SceneDescription } from '@/engine/scene/buildScene';
 import type { QualityProfile } from '@/engine/quality/quality';
 import type { HeroStatus } from '@/components/three/HeroCharacter';
+import type { HeroClip } from '@/engine/heroes/registry';
 import { HotspotObject } from '@/components/three/HotspotObject';
 import { PlayerRig } from '@/components/three/PlayerRig';
 
@@ -22,11 +23,11 @@ interface CitySceneProps {
   guideId: string;
   heroReady: boolean;
   interacting: boolean;
-  celebrating: boolean;
+  performing: HeroClip | null;
   framingCelebration: boolean;
   onCelebrationFramed?: () => void;
-  onDanceFinished?: () => void;
-  danceToken?: number;
+  onClipFinished?: () => void;
+  performanceToken?: number;
   onHeroStatus?: (status: HeroStatus) => void;
 }
 
@@ -49,11 +50,11 @@ export function CityScene({
   guideId,
   heroReady,
   interacting,
-  celebrating,
+  performing,
   framingCelebration,
   onCelebrationFramed,
-  onDanceFinished,
-  danceToken,
+  onClipFinished,
+  performanceToken,
   onHeroStatus,
 }: CitySceneProps) {
   const completed = useMemo(() => new Set(completedHotspotIds), [completedHotspotIds]);
@@ -166,11 +167,11 @@ export function CityScene({
         profile={quality}
         heroReady={heroReady}
         interacting={interacting}
-        celebrating={celebrating}
+        performing={performing}
         framingCelebration={framingCelebration}
         onCelebrationFramed={onCelebrationFramed}
-        onDanceFinished={onDanceFinished}
-        danceToken={danceToken}
+        onClipFinished={onClipFinished}
+        performanceToken={performanceToken}
         onHeroStatus={onHeroStatus}
         focus={focus}
         onFocusSettled={onFocusSettled}

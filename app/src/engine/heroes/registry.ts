@@ -10,13 +10,43 @@ import { HERO_POLICY } from '@/engine/heroes/policy';
 export type HeroId = 'keloglan' | 'nasreddin-hoca';
 
 /** Clip names the engine drives. Data-driven so new clips need no code change. */
-export type HeroClip = 'idle' | 'walk' | 'run' | 'talk' | 'dance';
+export type HeroClip = 'idle' | 'walk' | 'run' | 'talk' | 'dance' | 'agree' | 'wave';
+
+/** Clips that carry the character across the ground; everything else is in place. */
+export const LOCOMOTION_CLIPS: readonly HeroClip[] = ['walk', 'run'];
+
+export function isLocomotion(clip: HeroClip): boolean {
+  return LOCOMOTION_CLIPS.includes(clip);
+}
+
+/**
+ * How a guide celebrates. Behaviour is resolved from this, never from a
+ * per-character branch in a component, so a third guide needs no UI rewrite.
+ */
+export type CelebrationStyle =
+  | {
+      readonly kind: 'dance-bag';
+      /** Non-repeating pool drawn from a shuffle bag. */
+      readonly pool: readonly string[];
+      readonly allowReplay: true;
+    }
+  | {
+      readonly kind: 'gesture-sequence';
+      /** Played once each, in order, before the completion panel appears. */
+      readonly sequence: readonly HeroClip[];
+      readonly allowReplay: false;
+    };
 
 export interface HeroAnimationManifest {
   /** Engine clip name → clip name inside the GLB. */
   readonly clips: Readonly<Partial<Record<HeroClip, string>>>;
   /** Approved celebration clips, drawn from a non-repeating shuffle bag. */
   readonly danceClips: readonly string[];
+  /**
+   * Play-time ceiling per clip, in seconds. Used where a delivered clip runs
+   * far longer than the moment it illustrates; absent means play in full.
+   */
+  readonly maxDurationSeconds?: Readonly<Partial<Record<string, number>>>;
   /** Clips present in the GLB but withheld from production, with the reason. */
   readonly excludedClips: Readonly<Record<string, string>>;
   /** Every clip the delivered file actually contains, for traceability. */
@@ -35,6 +65,9 @@ export interface HeroDefinition {
   readonly triangles: number | null;
   readonly transferBytes: number | null;
   readonly animation: HeroAnimationManifest;
+  readonly celebration: CelebrationStyle;
+  /** Played once when a stop or a quiz answer is completed, then back to idle. */
+  readonly successClip: HeroClip | null;
   /**
    * Measured height of the rendered model, in metres. The scene scales to the
    * manifest height using this, so a model delivered in different units lands
@@ -79,6 +112,7 @@ const HEROES: Readonly<Record<HeroId, HeroDefinition>> = {
         Breakdance_1990: 'clip is 0.50 s long and reads as incomplete',
         Step_Hip_Hop_Dance: 'measured 0.83 m forward root displacement',
       },
+      maxDurationSeconds: {},
       deliveredClips: [
         'Breakdance_1990',
         'FunnyDancing_01',
@@ -94,6 +128,17 @@ const HEROES: Readonly<Record<HeroId, HeroDefinition>> = {
         'ymca_dance',
       ],
     },
+    celebration: {
+      kind: 'dance-bag',
+      pool: [
+        'FunnyDancing_01',
+        'FunnyDancing_03',
+        'Hip_Hop_Dance',
+        'Joyful_Dance_with_Hand_Sway',
+      ],
+      allowReplay: true,
+    },
+    successClip: null,
     measuredHeightMeters: 1.7,
     portraitUrl: null,
     portraitColor: '#E0322F',
@@ -102,24 +147,51 @@ const HEROES: Readonly<Record<HeroId, HeroDefinition>> = {
     id: 'nasreddin-hoca',
     assetId: 'character_nasreddin_hoca_base',
     displayName: 'Nasreddin Hodja',
-    modelUrl: null,
-    checksum: null,
-    triangles: null,
-    transferBytes: null,
+    /**
+     * Approved production model, delivered 27 Jul 2026. Meshy filename kept
+     * verbatim for traceability.
+     */
+    modelUrl: '/assets/heroes/Meshy_AI_Teal_Robed_Sage_biped_Meshy_AI_Meshy_Merged_Animations.glb',
+    checksum: 'bb359aa93d2405917c9fbc310cdb25ccad89a9f7af0b57401937d6c88fecee24',
+    triangles: 197_482,
+    transferBytes: 19_867_032,
     animation: {
-      // Not yet produced. Mirrors the Keloğlan clip contract so the same
-      // Meshy brief can be reused, per the hero technical-class rule.
       clips: {
         idle: 'Idle_11',
         walk: 'Walking',
         run: 'Running',
-        talk: 'Talk_Passionately',
+        talk: 'Talk_with_Hands_Open',
+        agree: 'Agree_Gesture',
+        wave: 'Wave_One_Hand',
       },
+      /** Nasreddin Hodja does not dance (character decision, 27 Jul 2026). */
       danceClips: [],
-      excludedClips: {},
-      deliveredClips: [],
+      excludedClips: {
+        Clapping_Run: 'not aligned with the character tone',
+      },
+      /**
+       * The raw agree gesture runs 13.0 s of continuous motion, which would
+       * hold the completion panel back for 17 s. Capped for the completion
+       * sequence; remove this entry to play it in full.
+       */
+      maxDurationSeconds: { Agree_Gesture: 4 },
+      deliveredClips: [
+        'Agree_Gesture',
+        'Clapping_Run',
+        'Idle_11',
+        'Running',
+        'Talk_with_Hands_Open',
+        'Walking',
+        'Wave_One_Hand',
+      ],
     },
-    measuredHeightMeters: null,
+    celebration: {
+      kind: 'gesture-sequence',
+      sequence: ['agree', 'wave'],
+      allowReplay: false,
+    },
+    successClip: 'agree',
+    measuredHeightMeters: 1.7,
     portraitUrl: null,
     portraitColor: '#F2B233',
   },
@@ -149,6 +221,33 @@ export function isDelivered(hero: HeroDefinition): boolean {
 export function isApprovedDance(hero: HeroDefinition, clipName: string): boolean {
   if (clipName in hero.animation.excludedClips) return false;
   return hero.animation.danceClips.includes(clipName);
+}
+
+/** True when the completion UI should offer another celebration. */
+export function allowsCelebrationReplay(hero: HeroDefinition): boolean {
+  return hero.celebration.kind === 'dance-bag' && hero.celebration.allowReplay;
+}
+
+/** Clips the completion sequence will play, in order. Empty for dance guides. */
+export function celebrationSequence(hero: HeroDefinition): readonly HeroClip[] {
+  return hero.celebration.kind === 'gesture-sequence' ? hero.celebration.sequence : [];
+}
+
+/**
+ * Resolves an engine clip to a name in the delivered file, applying the
+ * documented fallbacks: agree → wave, wave/talk → idle, run → walk → idle.
+ */
+export function resolveClipName(hero: HeroDefinition, clip: HeroClip): string | null {
+  const clips = hero.animation.clips;
+  const direct = clips[clip];
+  if (direct) return direct;
+  if (clip === 'agree') return clips.wave ?? clips.idle ?? null;
+  if (clip === 'run') return clips.walk ?? clips.idle ?? null;
+  return clips.idle ?? null;
+}
+
+export function clipDurationCap(hero: HeroDefinition, clipName: string): number | null {
+  return hero.animation.maxDurationSeconds?.[clipName] ?? null;
 }
 
 export function allHeroes(): readonly HeroDefinition[] {
