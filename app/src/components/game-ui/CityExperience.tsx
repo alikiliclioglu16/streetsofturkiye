@@ -16,7 +16,12 @@ import {
   initialCelebration,
   type CelebrationContext,
 } from '@/engine/heroes/celebration';
-import { allowsCelebrationReplay } from '@/engine/heroes/registry';
+import { allowsCelebrationReplay, clipDurationCap, resolveClipName } from '@/engine/heroes/registry';
+import {
+  CAMERA_SETTLE_TIMEOUT_MS,
+  CELEBRATION_TIMEOUT_MS,
+  clipTimeoutFor,
+} from '@/engine/heroes/watchdog';
 import { useClientEnvironment } from '@/engine/quality/useEnvironment';
 import { hotspotById, resolveInteractionType } from '@/engine/interactions/machine';
 import { useKeyboardControls } from '@/engine/controls/inputState';
@@ -89,6 +94,7 @@ export function CityExperience({ cityId }: { cityId: string }) {
   const assetTier = useMemo(() => assetTierForProfile(quality), [quality]);
   const scene = useMemo(() => (city ? buildScene(city, assetTier) : null), [city, assetTier]);
   const [heroStatus, setHeroStatus] = useState<HeroStatus | null>(null);
+  const [heroHeight, setHeroHeight] = useState<number | null>(null);
   const [celebration, setCelebration] = useState<CelebrationContext>(initialCelebration);
   const [performanceToken, setPerformanceToken] = useState(0);
   /** A short one-shot beat after a stop or a correct answer, e.g. an approving nod. */
@@ -211,6 +217,51 @@ export function CityExperience({ cityId }: { cityId: string }) {
     setSuccessPending(false);
   }, [celebration.state, dispatchCelebration]);
 
+  /**
+   * Watchdog: the camera reports when it reaches the hotspot anchor. If that
+   * report never arrives the interaction sits in `entering` forever with input
+   * locked and no panel — a silent freeze. Open it anyway.
+   */
+  useEffect(() => {
+    if (interaction.state !== 'entering') return;
+    const timer = window.setTimeout(() => {
+      dispatchInteraction({ type: 'CAMERA_SETTLED' });
+    }, CAMERA_SETTLE_TIMEOUT_MS);
+    return () => window.clearTimeout(timer);
+  }, [interaction.state, interaction.hotspotId, dispatchInteraction]);
+
+  /**
+   * Watchdog: a one-shot beat ends when the mixer says so. A placeholder guide
+   * has no mixer at all, so without this the completion sequence never reaches
+   * the summary panel and the city can never be finished.
+   */
+  useEffect(() => {
+    if (celebration.state !== 'performing') return;
+    const clip = currentCelebrationClip(celebration, plan);
+    const clipName = clip ? resolveClipName(activeHero, clip) : null;
+    const budget = clipName ? clipTimeoutFor(clipDurationCap(activeHero, clipName)) : 1_000;
+    const timer = window.setTimeout(() => {
+      dispatchCelebration({ type: 'CLIP_FINISHED' });
+    }, budget);
+    return () => window.clearTimeout(timer);
+  }, [celebration, plan, activeHero, dispatchCelebration]);
+
+  /** Backstop for the whole sequence, whatever went wrong inside it. */
+  useEffect(() => {
+    if (celebration.state === 'idle' || celebration.state === 'summary') return;
+    const timer = window.setTimeout(() => {
+      dispatchCelebration({ type: 'SKIP' });
+    }, CELEBRATION_TIMEOUT_MS);
+    return () => window.clearTimeout(timer);
+  }, [celebration.state, dispatchCelebration]);
+
+  /** The success nod is cosmetic; never let a missing mixer strand it. */
+  useEffect(() => {
+    if (!successPending) return;
+    const timer = window.setTimeout(() => setSuccessPending(false), clipTimeoutFor(null));
+    return () => window.clearTimeout(timer);
+  }, [successPending, successBeat]);
+
   const onFocusSettled = useCallback(() => {
     dispatchInteraction({ type: 'CAMERA_SETTLED' });
   }, [dispatchInteraction]);
@@ -276,6 +327,7 @@ export function CityExperience({ cityId }: { cityId: string }) {
           onClipFinished={onClipFinished}
           performanceToken={performanceToken + successBeat}
           onHeroStatus={setHeroStatus}
+          onHeroMeasured={setHeroHeight}
           reducedMotion={reducedMotion}
           guided={controlMode === 'guided'}
           frozen={panelOpen}
@@ -321,7 +373,14 @@ export function CityExperience({ cityId }: { cityId: string }) {
       ) : null}
 
       {showPerfOverlay ? (
-        <PerfOverlay sample={perf} profile={settings} hero={heroStatus} />
+        <PerfOverlay
+          sample={perf}
+          profile={settings}
+          hero={heroStatus}
+          interactionState={interaction.state}
+          celebrationState={celebration.state}
+          heroHeightMeters={heroHeight}
+        />
       ) : null}
 
       {phase === 'intro' && city.intro ? (

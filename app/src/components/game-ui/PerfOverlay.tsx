@@ -15,10 +15,17 @@ export function PerfOverlay({
   sample,
   profile,
   hero,
+  interactionState,
+  celebrationState,
+  heroHeightMeters,
 }: {
   sample: PerfSample | null;
   profile: QualityProfile;
   hero: HeroStatus | null;
+  interactionState?: string;
+  celebrationState?: string;
+  /** Rendered height before scaling; a wildly small value means a broken bind. */
+  heroHeightMeters?: number | null;
 }) {
   const cache = heroCacheSnapshot();
   const definition = hero ? heroById(hero.heroId) : null;
@@ -68,6 +75,12 @@ export function PerfOverlay({
       {row('clip', hero?.clipName ?? hero?.clip ?? '—')}
       {row('hero shadow', hero ? (hero.shadow ? 'on' : 'off') : '—')}
       {row('hero tris', budget?.triangles?.toLocaleString('en-US') ?? 'not delivered')}
+      {row(
+        'measured h',
+        heroHeightMeters != null ? `${heroHeightMeters.toFixed(3)} m` : '—',
+      )}
+      {row('interaction', interactionState ?? '—')}
+      {row('celebration', celebrationState ?? '—')}
       {row('glb size', megabytes)}
       {row('resident', cache.resident.length > 0 ? cache.resident.join(', ') : 'none')}
       {row('requests', String(cache.requests.length))}

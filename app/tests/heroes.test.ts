@@ -44,6 +44,12 @@ import {
   initialCelebration,
 } from '@/engine/heroes/celebration';
 import { clipForState } from '@/engine/heroes/animation';
+import {
+  CAMERA_SETTLE_TIMEOUT_MS,
+  CELEBRATION_TIMEOUT_MS,
+  clipTimeoutFor,
+} from '@/engine/heroes/watchdog';
+import { initialInteractionContext, interactionReducer } from '@/engine/interactions/machine';
 import { assetTierForProfile } from '@/engine/quality/quality';
 import { loadComposedCity } from './helpers';
 
@@ -541,5 +547,44 @@ describe('delivered Nasreddin Hodja model', () => {
     for (const clip of ['idle', 'talk', 'agree', 'wave', 'dance'] as const) {
       expect(isLocomotion(clip), clip).toBe(false);
     }
+  });
+});
+
+describe('nothing waits forever', () => {
+  it('gives every clip a timeout, capped or not', () => {
+    expect(clipTimeoutFor(null)).toBeGreaterThan(0);
+    expect(clipTimeoutFor(4)).toBe(5_000);
+    // A capped clip must not be given less time than its cap.
+    expect(clipTimeoutFor(4)).toBeGreaterThan(4_000);
+  });
+
+  it('keeps the sequence backstop longer than any single clip', () => {
+    expect(CELEBRATION_TIMEOUT_MS).toBeGreaterThan(clipTimeoutFor(null));
+    expect(CAMERA_SETTLE_TIMEOUT_MS).toBeLessThan(CELEBRATION_TIMEOUT_MS);
+  });
+
+  it('reaches the summary from every performing step via SKIP', () => {
+    for (const hero of allHeroes()) {
+      const plan = celebrationPlan(hero);
+      const options = { reducedMotion: false, planLength: plan.length };
+      let ctx = celebrationReducer(initialCelebration, { type: 'CITY_COMPLETED' }, options);
+      ctx = celebrationReducer(ctx, { type: 'PROGRESS_SAVED' }, options);
+      ctx = celebrationReducer(ctx, { type: 'CAMERA_FRAMED' }, options);
+      // Whatever step it is on, the backstop ends the sequence.
+      ctx = celebrationReducer(ctx, { type: 'SKIP' }, options);
+      expect(ctx.state, hero.id).toBe('summary');
+    }
+  });
+
+  it('opens a stalled interaction rather than leaving input locked', () => {
+    // The camera watchdog fires the same event the camera would have.
+    const entering = (
+      [
+        { type: 'HOTSPOT_IN_RANGE', hotspotId: 'a' },
+        { type: 'BEGIN' },
+      ] as Parameters<typeof interactionReducer>[1][]
+    ).reduce(interactionReducer, initialInteractionContext);
+    expect(entering.state).toBe('entering');
+    expect(interactionReducer(entering, { type: 'CAMERA_SETTLED' }).state).toBe('active');
   });
 });

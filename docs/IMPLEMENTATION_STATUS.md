@@ -2,7 +2,7 @@
 
 **Son güncelleme:** 27 Temmuz 2026 — Nasreddin Hoca entegrasyonu dahil
 **Tamamlanan fazlar:** Faz 00, Faz 01, Faz 01B (Kapı A), C0, Hero Karakter Mimarisi, M0-K1 Keloğlan
-**Kanıt belgeleri:** `docs/QA_EVIDENCE.md`, `docs/CANONICAL_MIGRATION_REPORT.md`, `docs/HERO_CHARACTER_REPORT.md`, `docs/KELOGLAN_INTEGRATION_REPORT.md`, `docs/NASREDDIN_HOCA_INTEGRATION_REPORT.md`
+**Kanıt belgeleri:** `docs/QA_EVIDENCE.md`, `docs/CANONICAL_MIGRATION_REPORT.md`, `docs/HERO_CHARACTER_REPORT.md`, `docs/KELOGLAN_INTEGRATION_REPORT.md`, `docs/NASREDDIN_HOCA_INTEGRATION_REPORT.md`, `docs/HERO_RENDER_BUGFIX_REPORT.md`
 **Faz 02 başlatılmadı.**
 **Uygulama konumu:** `app/` (kaynak paket dosyalarına dokunulmadı)
 
@@ -114,7 +114,7 @@ app/src/
 npm run lint       → temiz
 npm run typecheck  → temiz (strict, noUncheckedIndexedAccess, `any` yok)
 npm run content:check → 81 il, 249 durak, 84 soru; 1413 kanonik dizgi baseline ile eşleşti
-npm test           → 9 dosya / 130 test geçti (logic + jsdom ui)
+npm test           → 9 dosya / 139 test geçti (logic + jsdom ui)
 npm run build      → başarılı, 4 rota
 npm start          → /map ve /city/istanbul 200
 ```
@@ -224,7 +224,20 @@ Teslim edilen animasyonlu GLB, dosya adı değiştirilmeden `app/public/assets/h
 
 **Test için:** `/city/istanbul?guide=keloglan` — kanonik rehber atamasına dokunmayan QA parametresi.
 
-Ayrıntı: `docs/KELOGLAN_INTEGRATION_REPORT.md`, `docs/NASREDDIN_HOCA_INTEGRATION_REPORT.md`.
+Ayrıntı: `docs/KELOGLAN_INTEGRATION_REPORT.md`, `docs/NASREDDIN_HOCA_INTEGRATION_REPORT.md`, `docs/HERO_RENDER_BUGFIX_REPORT.md`.
+
+## 4f. Saha arızası — görünmeyen rehber ve donma
+
+| Bulgu | Durum |
+|---|---|
+| Karakter 1,7 cm olarak çiziliyordu | ✅ düzeltildi — skinned mesh `Object3D.clone()` ile kopyalanıyordu, iskelet kopuyordu |
+| Yükseklik kayda güvenerek ölçekleniyordu | ✅ artık monte edilmiş modelden ölçülüyor, sapmada konsol uyarısı |
+| Kamera haberi gelmezse kalıcı donma | ✅ 2,5 sn zaman aşımı |
+| Klip bitiş haberi gelmezse kalıcı donma | ✅ klip ve sekans zaman aşımları |
+| Başarı jesti askıda kalması | ✅ zaman aşımı |
+| Donmanın kesin nedeni | ⚠️ bu ortamda üretilemedi; üç aday yolun üçü de kapatıldı |
+
+Ayrıntı: `docs/HERO_RENDER_BUGFIX_REPORT.md`.
 
 ## 5. Bilinen sınırlar
 

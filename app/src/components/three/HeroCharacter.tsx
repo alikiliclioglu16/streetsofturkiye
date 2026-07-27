@@ -2,6 +2,7 @@
 
 import React, { Suspense, useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import { useGLTF } from '@react-three/drei';
+import { clone as cloneSkinned } from 'three/examples/jsm/utils/SkeletonUtils.js';
 import { useFrame } from '@react-three/fiber';
 import type { AnimationAction, AnimationClip, Group } from 'three';
 import { AnimationMixer, Box3, LoopOnce, LoopRepeat, Vector3 } from 'three';
@@ -12,6 +13,7 @@ import { draw, loadShuffleBag, saveShuffleBag, type ShuffleBag } from '@/engine/
 import { requestHero } from '@/engine/heroes/heroCache';
 import {
   clipDurationCap,
+  heroModelUrl,
   isLocomotion,
   resolveClipName,
   type HeroClip,
@@ -37,6 +39,8 @@ interface HeroModelProps {
   onClipChange: (clip: HeroClip, clipName: string | null) => void;
   /** Fired when a one-shot clip reaches its end or its duration cap. */
   onClipFinished?: () => void;
+  /** Reports the rendered height in metres, before scaling. */
+  onMeasured?: (heightMeters: number) => void;
   /** Bumping this replays the current one-shot clip. */
   performanceToken: number;
 }
@@ -48,13 +52,24 @@ function HeroModel({
   motion,
   onClipChange,
   onClipFinished,
+  onMeasured,
   performanceToken,
 }: HeroModelProps) {
   const group = useRef<Group>(null);
   const { scene, animations } = useGLTF(url);
 
-  // Clone so the cached source stays pristine for the next city.
-  const model = useMemo(() => scene.clone(true), [scene]);
+  /**
+   * Clone so the cached source stays pristine for the next city.
+   *
+   * `Object3D.clone()` must NOT be used here. On a skinned mesh it copies the
+   * mesh but leaves its `skeleton` pointing at the ORIGINAL bones, so the
+   * clone's own bones — the ones the mixer animates — drive nothing. The mesh
+   * then falls back to its node transform, and because this rig stores joints
+   * in centimetres under an Armature scaled 0.01, a 1.70 m character renders
+   * 1.7 cm tall and is effectively invisible. SkeletonUtils.clone rebinds the
+   * skeleton to the cloned bones.
+   */
+  const model = useMemo(() => cloneSkinned(scene), [scene]);
 
   /**
    * The mixer is created here rather than taken from `useAnimations` so the
@@ -94,23 +109,40 @@ function HeroModel({
   /**
    * Scale to the briefed height.
    *
-   * The delivered model measures 1.70 m while the asset manifest briefs
-   * Keloğlan at 1.45 m — he is a child in the tales, and standing him at adult
-   * height next to a 32 m Galata Tower reads wrong. The measured height is
-   * recorded in the registry so this is a stated correction, not a guess.
+   * The height is MEASURED from the mounted model, never taken on trust: the
+   * registry figure is the raw mesh extent, which is not the rendered height
+   * once rig units and armature scale are applied. Measuring is also what makes
+   * a broken bind obvious instead of silent.
+   *
+   * Keloğlan is briefed at 1.45 m because he is a child in the tales; Nasreddin
+   * Hodja at 1.65 m. Standing either at raw model height next to a 32 m Galata
+   * Tower reads wrong.
    */
   useEffect(() => {
     const node = group.current;
     if (!node) return;
     const target = resolveAsset(hero.assetId, 'medium').entry.dimensions[1];
-    const measured =
-      hero.measuredHeightMeters ?? new Box3().setFromObject(model).getSize(new Vector3()).y;
+
+    node.scale.setScalar(1);
+    node.updateMatrixWorld(true);
+    const measured = new Box3().setFromObject(model).getSize(new Vector3()).y;
+
     if (measured > 0.0001 && target > 0) {
       node.scale.setScalar(target / measured);
+      const registryHeight = hero.measuredHeightMeters;
+      if (registryHeight && Math.abs(measured - registryHeight) > registryHeight * 0.5) {
+        // Loud, because this is what an unbound skeleton looks like.
+        console.warn(
+          `[hero] ${hero.id} rendered ${measured.toFixed(3)} m but the registry records ` +
+            `${registryHeight} m. Check that the skeleton is bound to the cloned bones.`,
+        );
+      }
     }
+
     restPosition.current.copy(node.position);
     restQuaternion.current = [node.quaternion.x, node.quaternion.y, node.quaternion.z, node.quaternion.w];
-  }, [model, hero.assetId, hero.measuredHeightMeters]);
+    onMeasured?.(measured);
+  }, [model, hero.assetId, hero.id, hero.measuredHeightMeters, onMeasured]);
 
   const desiredClip = clipForState(motion);
 
@@ -249,6 +281,7 @@ export interface HeroCharacterProps {
   ready: boolean;
   onStatusChange?: (status: HeroStatus) => void;
   onClipFinished?: () => void;
+  onMeasured?: (heightMeters: number) => void;
   /** Incremented to restart the current one-shot clip. */
   performanceToken?: number;
 }
@@ -268,6 +301,7 @@ export function HeroCharacter({
   ready,
   onStatusChange,
   onClipFinished,
+  onMeasured,
   performanceToken = 0,
 }: HeroCharacterProps) {
   const [failed, setFailed] = useState(false);
@@ -276,7 +310,8 @@ export function HeroCharacter({
 
   // The url is a pure function of the hero, so it is derived rather than stored.
   const mode = heroRenderMode({ ready, failed, modelUrl: hero.modelUrl });
-  const url = mode === 'model' ? hero.modelUrl : null;
+  // The registry stores a repository path; the asset host decides where it lives.
+  const url = mode === 'model' ? heroModelUrl(hero) : null;
 
   // The GLB is registered with the cache only once the rest of the city is
   // playable, which is what keeps the hero off the critical path (policy rule 2).
@@ -313,6 +348,7 @@ export function HeroCharacter({
           motion={motion}
           performanceToken={performanceToken}
           onClipFinished={onClipFinished}
+          onMeasured={onMeasured}
           onClipChange={(clip, clipName) => report({ state: 'ready', clip, clipName })}
         />
       </Suspense>

@@ -45,6 +45,7 @@ interface PlayerRigProps {
   onClipFinished?: () => void;
   performanceToken?: number;
   onHeroStatus?: (status: HeroStatus) => void;
+  onHeroMeasured?: (heightMeters: number) => void;
   onFocusSettled: () => void;
   onNearestChange: (hotspotId: string | null) => void;
 }
@@ -66,6 +67,7 @@ export function PlayerRig({
   onClipFinished,
   performanceToken = 0,
   onHeroStatus,
+  onHeroMeasured,
   onFocusSettled,
   onNearestChange,
 }: PlayerRigProps) {
@@ -263,6 +265,7 @@ export function PlayerRig({
         motion={{ speed, interacting, performing }}
         performanceToken={performanceToken}
         onClipFinished={onClipFinished}
+        onMeasured={onHeroMeasured}
         onStatusChange={onHeroStatus}
       />
       {/* Facing indicator: direction is readable without relying on colour. */}

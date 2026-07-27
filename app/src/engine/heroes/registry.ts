@@ -1,4 +1,5 @@
 import { HERO_POLICY } from '@/engine/heroes/policy';
+import { assetUrl } from '@/engine/assets/assetHost';
 
 /**
  * The two production hero characters.
@@ -58,7 +59,10 @@ export interface HeroDefinition {
   /** Asset id in asset-manifests/pilot-assets.csv. */
   readonly assetId: string;
   readonly displayName: string;
-  /** Full-quality GLB. Null until the model is delivered. */
+  /**
+   * Repository-relative path to the full-quality GLB, or null until delivered.
+   * Use `heroModelUrl()` to get the URL to fetch — it applies the asset host.
+   */
   readonly modelUrl: string | null;
   /** SHA-256 of the delivered GLB, for the asset-delivery audit trail. */
   readonly checksum: string | null;
@@ -212,6 +216,14 @@ export function heroById(heroId: HeroId): HeroDefinition {
 /** True when the hero has a delivered GLB rather than a placeholder. */
 export function isDelivered(hero: HeroDefinition): boolean {
   return hero.modelUrl !== null;
+}
+
+/**
+ * The URL to actually fetch. Identical to `modelUrl` while assets ship with the
+ * app; rewritten to the CDN when `NEXT_PUBLIC_ASSET_BASE_URL` is set.
+ */
+export function heroModelUrl(hero: HeroDefinition): string | null {
+  return assetUrl(hero.modelUrl);
 }
 
 /**

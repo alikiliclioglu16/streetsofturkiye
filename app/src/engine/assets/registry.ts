@@ -1,4 +1,5 @@
 import { MANIFEST_ENTRIES, type ManifestEntry, type ManifestFallbackShape } from '@/engine/assets/generated-manifest';
+import { assetUrl } from '@/engine/assets/assetHost';
 
 export type QualityTier = 'low' | 'medium' | 'high';
 export type PlaceholderShape = ManifestFallbackShape;
@@ -200,7 +201,8 @@ export function resolveAsset(assetId: string, quality: QualityTier): ResolvedAss
     }
     return { entry: unknownEntry(assetId), modelUrl: null, isPlaceholder: true, isUnknown: true };
   }
-  const modelUrl = entry.models?.[quality] ?? entry.models?.medium ?? entry.models?.low ?? null;
+  const path = entry.models?.[quality] ?? entry.models?.medium ?? entry.models?.low ?? null;
+  const modelUrl = assetUrl(path);
   return { entry, modelUrl, isPlaceholder: modelUrl === null, isUnknown: false };
 }
 
