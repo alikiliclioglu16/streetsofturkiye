@@ -18,7 +18,7 @@ describe('pilot cities', () => {
   for (const cityId of PILOT_CITY_IDS) {
     describe(cityId, () => {
       const city = loadComposedCity(cityId);
-      const scene = buildScene(city, 'medium');
+      const scene = buildScene(city, 'high');
 
       it('builds with no unknown assets', () => {
         expect(scene.unknownAssetIds).toEqual([]);
@@ -60,10 +60,10 @@ describe('pilot cities', () => {
 
   it('gives the three cities visibly different regions', () => {
     const grounds = PILOT_CITY_IDS.map(
-      (cityId) => buildScene(loadComposedCity(cityId), 'medium').ground.color,
+      (cityId) => buildScene(loadComposedCity(cityId), 'high').ground.color,
     );
     const skies = PILOT_CITY_IDS.map(
-      (cityId) => buildScene(loadComposedCity(cityId), 'medium').sky.top,
+      (cityId) => buildScene(loadComposedCity(cityId), 'high').sky.top,
     );
     // Three cities that look identical would make the pilot pointless.
     expect(new Set(grounds).size).toBe(3);

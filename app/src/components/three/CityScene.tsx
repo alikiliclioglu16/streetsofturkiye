@@ -2,7 +2,7 @@
 
 import { useMemo } from 'react';
 import type { SceneDescription } from '@/engine/scene/buildScene';
-import type { QualityProfile } from '@/engine/quality/quality';
+import type { QualitySettings } from '@/engine/quality/quality';
 import type { HeroStatus } from '@/components/three/HeroCharacter';
 import type { HeroClip } from '@/engine/heroes/registry';
 import { HotspotObject } from '@/components/three/HotspotObject';
@@ -10,7 +10,7 @@ import { PlayerRig } from '@/components/three/PlayerRig';
 
 interface CitySceneProps {
   scene: SceneDescription;
-  quality: QualityProfile;
+  quality: QualitySettings;
   reducedMotion: boolean;
   frozen: boolean;
   completedHotspotIds: readonly string[];

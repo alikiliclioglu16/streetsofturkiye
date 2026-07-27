@@ -20,7 +20,7 @@ import {
   type HeroDefinition,
   type HeroId,
 } from '@/engine/heroes/registry';
-import type { QualityProfile } from '@/engine/heroes/policy';
+import type { QualitySettings } from '@/engine/heroes/policy';
 
 /**
  * The one place a hero character is mounted.
@@ -34,7 +34,7 @@ import type { QualityProfile } from '@/engine/heroes/policy';
 interface HeroModelProps {
   hero: HeroDefinition;
   url: string;
-  profile: QualityProfile;
+  profile: QualitySettings;
   motion: HeroMotionState;
   onClipChange: (clip: HeroClip, clipName: string | null) => void;
   /** Fired when a one-shot clip reaches its end or its duration cap. */
@@ -356,7 +356,7 @@ export function heroRenderMode(input: {
 
 export interface HeroCharacterProps {
   hero: HeroDefinition;
-  profile: QualityProfile;
+  profile: QualitySettings;
   motion: HeroMotionState;
   /** False until the city shell and canonical content are ready (policy rule 2). */
   ready: boolean;

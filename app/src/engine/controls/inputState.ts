@@ -13,6 +13,10 @@ export interface InputState {
   yawDelta: number;
   pitchDelta: number;
   interactPressed: boolean;
+  /** Shift: the guide breaks into a run. */
+  running: boolean;
+  /** Space: a hop, consumed by the rig on the frame it is read. */
+  jumpRequested: boolean;
 }
 
 export const inputState: InputState = {
@@ -21,6 +25,8 @@ export const inputState: InputState = {
   yawDelta: 0,
   pitchDelta: 0,
   interactPressed: false,
+  running: false,
+  jumpRequested: false,
 };
 
 export function resetInput(): void {
@@ -29,6 +35,8 @@ export function resetInput(): void {
   inputState.yawDelta = 0;
   inputState.pitchDelta = 0;
   inputState.interactPressed = false;
+  inputState.running = false;
+  inputState.jumpRequested = false;
 }
 
 const FORWARD_KEYS = new Set(['w', 'W', 'ArrowUp']);
@@ -55,8 +63,9 @@ export function useKeyboardControls(enabled: boolean): void {
       pressed.forEach((key) => {
         if (FORWARD_KEYS.has(key)) forward += 1;
         if (BACK_KEYS.has(key)) forward -= 1;
-        if (RIGHT_KEYS.has(key)) strafe += 1;
-        if (LEFT_KEYS.has(key)) strafe -= 1;
+        // Looking along +z, +x lies to the player's left, so right is negative.
+        if (RIGHT_KEYS.has(key)) strafe -= 1;
+        if (LEFT_KEYS.has(key)) strafe += 1;
       });
       inputState.forward = forward;
       inputState.strafe = strafe;
@@ -65,6 +74,11 @@ export function useKeyboardControls(enabled: boolean): void {
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'e' || event.key === 'E' || event.key === 'Enter') {
         inputState.interactPressed = true;
+      }
+      if (event.key === 'Shift') inputState.running = true;
+      if (event.key === ' ' || event.key === 'Spacebar') {
+        event.preventDefault();
+        inputState.jumpRequested = true;
       }
       if (
         FORWARD_KEYS.has(event.key) ||
@@ -79,6 +93,7 @@ export function useKeyboardControls(enabled: boolean): void {
     };
 
     const onKeyUp = (event: KeyboardEvent) => {
+      if (event.key === 'Shift') inputState.running = false;
       pressed.delete(event.key);
       apply();
     };

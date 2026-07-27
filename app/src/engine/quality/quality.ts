@@ -1,48 +1,19 @@
 import type { QualityTier } from '@/engine/assets/registry';
-import {
-  QUALITY_PROFILES,
-  detectProfile,
-  type QualityProfile,
-  type QualityProfileId,
-} from '@/engine/heroes/policy';
+import { QUALITY, type QualitySettings } from '@/engine/heroes/policy';
 
-export type { QualityProfile, QualityProfileId } from '@/engine/heroes/policy';
-export { QUALITY_PROFILES, detectProfile, environmentConcessions, stepDown } from '@/engine/heroes/policy';
+export type { QualitySettings } from '@/engine/heroes/policy';
+export { QUALITY } from '@/engine/heroes/policy';
 
-export function qualityProfile(id: QualityProfileId): QualityProfile {
-  return QUALITY_PROFILES[id];
+export function qualitySettings(): QualitySettings {
+  return QUALITY;
 }
 
 /**
  * Which model variant to fetch for ordinary props. Hero characters ignore this
- * entirely: they always use the full-quality mesh (policy rule 4).
+ * entirely: they always use the full-quality mesh.
  */
-export function assetTierForProfile(id: QualityProfileId): QualityTier {
-  if (id === 'high') return 'high';
-  if (id === 'balanced') return 'medium';
-  return 'low';
-}
-
-export interface DeviceHints {
-  hardwareConcurrency?: number;
-  deviceMemory?: number;
-  coarsePointer: boolean;
-  viewportWidth: number;
-}
-
-export function readDeviceHints(): DeviceHints {
-  if (typeof window === 'undefined') return { coarsePointer: false, viewportWidth: 1280 };
-  const nav = window.navigator as Navigator & { deviceMemory?: number };
-  return {
-    hardwareConcurrency: nav.hardwareConcurrency,
-    deviceMemory: nav.deviceMemory,
-    coarsePointer: window.matchMedia('(pointer: coarse)').matches,
-    viewportWidth: window.innerWidth,
-  };
-}
-
-export function detectQualityProfile(): QualityProfileId {
-  return detectProfile(readDeviceHints());
+export function assetTier(): QualityTier {
+  return 'high';
 }
 
 export function prefersReducedMotion(): boolean {

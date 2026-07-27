@@ -154,3 +154,27 @@ modified: the correction lives in code where it can be read, tested and undone.
 
 This does not touch the mesh. D-012 stands.
 
+## D-020 — One quality configuration (27 Jul 2026)
+
+Quality profiles are removed. With the hero's material corrected the scene holds
+60 fps at full quality — 396,232 triangles, device pixel ratio 2, shadows on —
+so three profiles only bought differences nobody could see, and three code paths
+to keep correct. `QUALITY` is a single object and the settings panel no longer
+offers a choice.
+
+The adaptive stepping added earlier is removed with them. It existed to rescue a
+19 fps reading that turned out to be the celebration close-up before the
+material fix, and no longer reproduces.
+
+Open risk, stated plainly: nothing has been measured on a phone. A single
+full-quality configuration means a weak device has nothing to fall back to. If
+mobile measurement shows a problem, the answer is to bring back a reduced device
+pixel ratio — not to touch the hero mesh.
+
+## D-021 — Correct answers must not look different (27 Jul 2026)
+
+Interaction options were styled with the correct one filled and the rest
+outlined, which told the child the answer before they read it. Every option now
+renders identically. This is a rule, not a fix: no interaction may distinguish
+the correct option by colour, weight, order or position.
+

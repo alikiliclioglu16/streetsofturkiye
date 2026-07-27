@@ -7,9 +7,15 @@ import { Vector3 } from 'three';
 import type { SceneDescription } from '@/engine/scene/buildScene';
 import { HeroCharacter, type HeroStatus } from '@/components/three/HeroCharacter';
 import { heroForGuide, type HeroClip } from '@/engine/heroes/registry';
-import type { QualityProfile } from '@/engine/heroes/policy';
+import type { QualitySettings } from '@/engine/heroes/policy';
 import { inputState } from '@/engine/controls/inputState';
-import { distance2, stepWithCollision, type Point2 } from '@/engine/controls/movement';
+import {
+  distance2,
+  stepWithCollision,
+  GRAVITY,
+  JUMP_SPEED,
+  type Point2,
+} from '@/engine/controls/movement';
 import { clampPitch, followCameraPosition, smoothing } from '@/engine/camera/anchors';
 import { celebrationCamera } from '@/engine/heroes/celebration';
 
@@ -22,7 +28,7 @@ interface PlayerRigProps {
   focus: { position: [number, number, number]; target: [number, number, number]; durationMs: number } | null;
   /** Canonical guide id for this city; selects which hero is mounted. */
   guideId: string;
-  profile: QualityProfile;
+  profile: QualitySettings;
   /** The hero GLB is requested only once the city is otherwise playable. */
   heroReady: boolean;
   interacting: boolean;
@@ -75,8 +81,13 @@ export function PlayerRig({
 
   // Ground speed feeds the animation state; it is sampled, never React state.
   const [speed, setSpeed] = useState(0);
+  const [airborne, setAirborne] = useState(false);
   const speedRef = useRef(0);
   const speedSampledAt = useRef(0);
+
+  /** Vertical hop state. The ground is y = 0; there is nothing to land on. */
+  const height = useRef(0);
+  const verticalSpeed = useRef(0);
 
   useEffect(() => {
     position.current = { x: scene.spawn[0], z: scene.spawn[2] };
@@ -135,11 +146,31 @@ export function PlayerRig({
         delta,
         scene.bounds,
         scene.colliders,
+        inputState.running,
       );
+
+      // A hop can only start from the ground, so it cannot be stacked.
+      if (inputState.jumpRequested) {
+        inputState.jumpRequested = false;
+        if (height.current <= 0.001) verticalSpeed.current = JUMP_SPEED;
+      }
+    } else {
+      inputState.jumpRequested = false;
     }
 
+    if (height.current > 0 || verticalSpeed.current !== 0) {
+      verticalSpeed.current -= GRAVITY * delta;
+      height.current += verticalSpeed.current * delta;
+      if (height.current <= 0) {
+        height.current = 0;
+        verticalSpeed.current = 0;
+      }
+    }
+    const inAir = height.current > 0.001;
+    if (inAir !== airborne) setAirborne(inAir);
+
     if (bodyRef.current) {
-      bodyRef.current.position.set(position.current.x, 0, position.current.z);
+      bodyRef.current.position.set(position.current.x, height.current, position.current.z);
       bodyRef.current.rotation.y = heading.current;
     }
 
@@ -190,7 +221,10 @@ export function PlayerRig({
         pitch.current,
       );
       camera.position.lerp(new Vector3(...desired), reducedMotion ? 1 : Math.min(1, delta * 6));
-      lookTarget.current.lerp(new Vector3(position.current.x, 1.4, position.current.z), reducedMotion ? 1 : Math.min(1, delta * 8));
+      lookTarget.current.lerp(
+        new Vector3(position.current.x, 1.4 + height.current * 0.6, position.current.z),
+        reducedMotion ? 1 : Math.min(1, delta * 8),
+      );
       camera.lookAt(lookTarget.current);
     }
 
@@ -215,7 +249,7 @@ export function PlayerRig({
         hero={hero}
         profile={profile}
         ready={heroReady}
-        motion={{ speed, interacting, performing }}
+        motion={{ speed, airborne, interacting, performing }}
         performanceToken={performanceToken}
         onClipFinished={onClipFinished}
         onMeasured={onHeroMeasured}

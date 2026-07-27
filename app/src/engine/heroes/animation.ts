@@ -7,6 +7,8 @@ import type { HeroClip } from '@/engine/heroes/registry';
 export interface HeroMotionState {
   /** Metres per second along the ground plane. */
   readonly speed: number;
+  /** Height above the ground; anything above zero is mid-hop. */
+  readonly airborne?: boolean;
   readonly interacting: boolean;
   /**
    * A one-shot clip the choreography is driving — a celebration step or a
@@ -16,11 +18,21 @@ export interface HeroMotionState {
 }
 
 const WALK_THRESHOLD = 0.15;
-const RUN_THRESHOLD = 5.0;
+/**
+ * Sits between the walk and run speeds (4.2 and 7.4 m/s). It used to be 5.0
+ * with a 4.2 top speed, so the run clip could never play at all.
+ */
+const RUN_THRESHOLD = 5.6;
 
 export function clipForState(state: HeroMotionState): HeroClip {
   if (state.performing) return state.performing;
   if (state.interacting) return 'talk';
+  /**
+   * Neither hero ships a jump clip, so a hop keeps whatever locomotion clip
+   * was already playing rather than snapping to idle in mid-air. A `Jump`
+   * clip in the next Meshy export would replace this line.
+   */
+  if (state.airborne) return state.speed >= RUN_THRESHOLD ? 'run' : 'walk';
   if (state.speed >= RUN_THRESHOLD) return 'run';
   if (state.speed >= WALK_THRESHOLD) return 'walk';
   return 'idle';

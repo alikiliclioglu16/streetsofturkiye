@@ -2,15 +2,7 @@ import { readFileSync, readdirSync } from 'node:fs';
 import path from 'node:path';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { heroRenderMode } from '@/components/three/HeroCharacter';
-import {
-  DEGRADATION_LADDER,
-  HERO_POLICY,
-  QUALITY_PROFILES,
-  detectProfile,
-  environmentConcessions,
-  profileForTwoHeroScene,
-  stepDown,
-} from '@/engine/heroes/policy';
+import { DEGRADATION_LADDER, HERO_POLICY, QUALITY } from '@/engine/heroes/policy';
 import {
   allHeroes,
   allowsCelebrationReplay,
@@ -50,7 +42,7 @@ import {
   clipTimeoutFor,
 } from '@/engine/heroes/watchdog';
 import { initialInteractionContext, interactionReducer } from '@/engine/interactions/machine';
-import { assetTierForProfile } from '@/engine/quality/quality';
+import { assetTier } from '@/engine/quality/quality';
 import { loadComposedCity } from './helpers';
 
 beforeEach(() => {
@@ -81,10 +73,6 @@ describe('one active hero', () => {
     expect(maxActiveHeroes(true)).toBe(2);
   });
 
-  it('drops to the safe environment profile on touch devices in a two-hero scene', () => {
-    expect(profileForTwoHeroScene('high', true)).toBe('safe');
-    expect(profileForTwoHeroScene('high', false)).toBe('high');
-  });
 });
 
 describe('guide switching and cache policy', () => {
@@ -126,16 +114,20 @@ describe('guide switching and cache policy', () => {
   });
 });
 
-describe('full-quality mesh across profiles', () => {
-  it('uses the same hero asset in every profile', () => {
+describe('single quality configuration', () => {
+  it('runs one configuration everywhere', () => {
+    // Measurement removed the profiles: full quality holds 60 fps.
+    expect(QUALITY.maxDpr).toBe(2);
+    expect(QUALITY.heroShadow).toBe(true);
+    expect(QUALITY.shadowMapSize).toBe(2048);
+    expect(QUALITY.environmentDensity).toBe(1);
+    expect(assetTier()).toBe('high');
+  });
+
+  it('keeps the same hero asset regardless of anything', () => {
     const hero = heroById('keloglan');
-    for (const id of ['high', 'balanced', 'safe'] as const) {
-      // Profiles change environment tiers; the hero asset id is constant.
-      expect(assetTierForProfile(id)).toBeDefined();
-      expect(hero.assetId).toBe('character_keloglan_base');
-      expect(hero.modelUrl).toBe(heroById('keloglan').modelUrl);
-    }
-    expect(HERO_POLICY.preserveFullQualityMeshAcrossProfiles).toBe(true);
+    expect(hero.assetId).toBe('character_keloglan_base');
+    expect(HERO_POLICY.preserveFullQualityMesh).toBe(true);
   });
 
   it('never lists character quality in the degradation ladder', () => {
@@ -143,31 +135,6 @@ describe('full-quality mesh across profiles', () => {
     expect(ladder).not.toContain('character');
     expect(ladder).not.toContain('hero');
     expect(ladder).not.toContain('mesh');
-  });
-
-  it('spends the safe profile on environment, not on the model', () => {
-    const concessions = environmentConcessions(QUALITY_PROFILES.safe);
-    expect(concessions).toEqual([
-      'post-processing',
-      'environment-decoration-density',
-      'shadow-map-resolution',
-      'nonessential-shadows',
-      'device-pixel-ratio',
-      'distant-environment-assets',
-    ]);
-    expect(QUALITY_PROFILES.safe.maxDpr).toBe(1);
-    expect(QUALITY_PROFILES.safe.heroShadow).toBe(false);
-  });
-
-  it('walks profiles down one step at a time', () => {
-    expect(stepDown('high')).toBe('balanced');
-    expect(stepDown('balanced')).toBe('safe');
-    expect(stepDown('safe')).toBeNull();
-  });
-
-  it('starts touch devices below the desktop profile', () => {
-    expect(detectProfile({ coarsePointer: true, viewportWidth: 390, hardwareConcurrency: 4, deviceMemory: 4 })).toBe('safe');
-    expect(detectProfile({ coarsePointer: false, viewportWidth: 1680, hardwareConcurrency: 12, deviceMemory: 16 })).toBe('high');
   });
 });
 

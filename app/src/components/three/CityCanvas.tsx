@@ -2,7 +2,7 @@
 
 import { useRef, type ReactNode } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
-import type { QualityProfile } from '@/engine/quality/quality';
+import type { QualitySettings } from '@/engine/quality/quality';
 
 export interface PerfSample {
   fps: number;
@@ -46,7 +46,7 @@ function PerfProbe({ onSample }: PerfProbeProps) {
 }
 
 interface CityCanvasProps {
-  quality: QualityProfile;
+  quality: QualitySettings;
   /** Zenith colour for this region; the scene adds matching haze. */
   skyColor: string;
   children: ReactNode;
@@ -59,7 +59,7 @@ export function CityCanvas({ quality, skyColor, children, onPerfSample }: CityCa
       shadows={quality.heroShadow || quality.shadowMapSize > 512}
       dpr={[1, quality.maxDpr]}
       camera={{ fov: 55, near: 0.1, far: 220, position: [0, 4, 16] }}
-      gl={{ antialias: quality.id !== 'safe', powerPreference: 'high-performance' }}
+      gl={{ antialias: true, powerPreference: 'high-performance' }}
       onCreated={({ gl }) => {
         gl.setClearColor(skyColor);
       }}

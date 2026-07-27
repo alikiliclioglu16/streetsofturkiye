@@ -74,7 +74,9 @@ export function InteractionPanel({
               <button
                 key={option.id}
                 type="button"
-                className={option.correct ? 'btn' : 'btn btn--ghost'}
+                /* Every option looks the same. Styling the correct one
+                   differently answered the question for the child. */
+                className="btn btn--ghost"
                 onClick={() => onAnswer(option.correct)}
               >
                 {t(option.text, locale)}

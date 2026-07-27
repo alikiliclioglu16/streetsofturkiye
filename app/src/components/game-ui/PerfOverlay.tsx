@@ -2,7 +2,7 @@
 
 import type { PerfSample } from '@/components/three/CityCanvas';
 import type { HeroStatus } from '@/components/three/HeroCharacter';
-import { environmentConcessions, type QualityProfile } from '@/engine/heroes/policy';
+import type { QualitySettings } from '@/engine/heroes/policy';
 import { checkHeroBudget, heroById } from '@/engine/heroes/registry';
 import { heroCacheSnapshot } from '@/engine/heroes/heroCache';
 
@@ -18,25 +18,22 @@ export function PerfOverlay({
   interactionState,
   celebrationState,
   heroHeightMeters,
-  autoSteps,
   heroDraws,
 }: {
   sample: PerfSample | null;
-  profile: QualityProfile;
+  profile: QualitySettings;
   hero: HeroStatus | null;
   interactionState?: string;
   celebrationState?: string;
   /** Rendered height before scaling; a wildly small value means a broken bind. */
   heroHeightMeters?: number | null;
   /** Profiles the engine stepped down to on its own. */
-  autoSteps?: readonly string[];
   /** Hero meshes and how many times they are drawn per frame. */
   heroDraws?: { meshes: number; perFrame: number } | null;
 }) {
   const cache = heroCacheSnapshot();
   const definition = hero ? heroById(hero.heroId) : null;
   const budget = definition ? checkHeroBudget(definition) : null;
-  const concessions = environmentConcessions(profile);
 
   const row = (label: string, value: string) => (
     <div key={label} style={{ display: 'flex', gap: 8, justifyContent: 'space-between' }}>
@@ -68,7 +65,7 @@ export function PerfOverlay({
       }}
     >
       {row('fps', String(sample?.fps ?? '—'))}
-      {row('profile', autoSteps && autoSteps.length > 0 ? `${profile.id} (auto ↓${autoSteps.length})` : profile.id)}
+      {row('shadow map', String(profile.shadowMapSize))}
       {row('dpr cap', String(profile.maxDpr))}
       {row('draw calls', String(sample?.drawCalls ?? '—'))}
       {row('triangles', sample?.triangles?.toLocaleString('en-US') ?? '—')}
@@ -92,15 +89,6 @@ export function PerfOverlay({
       {row('resident', cache.resident.length > 0 ? cache.resident.join(', ') : 'none')}
       {row('requests', String(cache.requests.length))}
 
-      {concessions.length > 0 ? (
-        <>
-          <hr style={{ border: 0, borderTop: '1px solid rgba(255,248,231,0.2)', margin: '6px 0' }} />
-          <div style={{ opacity: 0.65 }}>environment concessions</div>
-          {concessions.map((item) => (
-            <div key={item}>· {item}</div>
-          ))}
-        </>
-      ) : null}
     </div>
   );
 }

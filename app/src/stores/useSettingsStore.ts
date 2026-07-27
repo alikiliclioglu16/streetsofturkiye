@@ -1,14 +1,11 @@
 'use client';
 
 import { create } from 'zustand';
-import type { QualityProfileId } from '@/engine/heroes/policy';
-import { detectQualityProfile, prefersReducedMotion } from '@/engine/quality/quality';
+import { prefersReducedMotion } from '@/engine/quality/quality';
 import { DEFAULT_LOCALE, type Locale } from '@/content/i18n';
 
 interface SettingsState {
   locale: Locale;
-  quality: QualityProfileId;
-  qualityAuto: boolean;
   reducedMotion: boolean;
   reducedMotionAuto: boolean;
   muteAmbient: boolean;
@@ -17,9 +14,6 @@ interface SettingsState {
   showPerfOverlay: boolean;
   hydrated: boolean;
   setLocale: (locale: Locale) => void;
-  setQuality: (profile: QualityProfileId) => void;
-  /** Engine-initiated downgrade; leaves `qualityAuto` on so it can step again. */
-  setQualityAutomatically: (profile: QualityProfileId) => void;
   setReducedMotion: (value: boolean) => void;
   toggleAudio: (channel: 'ambient' | 'ui' | 'guide') => void;
   togglePerfOverlay: () => void;
@@ -30,15 +24,13 @@ const STORAGE_KEY = 'sot.settings.v1';
 
 type Persisted = Pick<
   SettingsState,
-  'locale' | 'quality' | 'qualityAuto' | 'reducedMotion' | 'reducedMotionAuto' | 'muteAmbient' | 'muteUi' | 'muteGuide'
+  'locale' | 'reducedMotion' | 'reducedMotionAuto' | 'muteAmbient' | 'muteUi' | 'muteGuide'
 >;
 
 function persist(state: SettingsState): void {
   if (typeof window === 'undefined') return;
   const payload: Persisted = {
     locale: state.locale,
-    quality: state.quality,
-    qualityAuto: state.qualityAuto,
     reducedMotion: state.reducedMotion,
     reducedMotionAuto: state.reducedMotionAuto,
     muteAmbient: state.muteAmbient,
@@ -54,8 +46,6 @@ function persist(state: SettingsState): void {
 
 export const useSettingsStore = create<SettingsState>((set, get) => ({
   locale: DEFAULT_LOCALE,
-  quality: 'balanced',
-  qualityAuto: true,
   reducedMotion: false,
   reducedMotionAuto: true,
   muteAmbient: false,
@@ -66,14 +56,6 @@ export const useSettingsStore = create<SettingsState>((set, get) => ({
 
   setLocale: (locale) => {
     set({ locale });
-    persist(get());
-  },
-  setQuality: (quality) => {
-    set({ quality, qualityAuto: false });
-    persist(get());
-  },
-  setQualityAutomatically: (quality) => {
-    set({ quality });
     persist(get());
   },
   setReducedMotion: (reducedMotion) => {
@@ -102,13 +84,10 @@ export const useSettingsStore = create<SettingsState>((set, get) => ({
       stored = {};
     }
 
-    const qualityAuto = stored.qualityAuto ?? true;
     const reducedMotionAuto = stored.reducedMotionAuto ?? true;
 
     set({
       ...stored,
-      quality: qualityAuto ? detectQualityProfile() : (stored.quality ?? 'balanced'),
-      qualityAuto,
       reducedMotion: reducedMotionAuto ? prefersReducedMotion() : (stored.reducedMotion ?? false),
       reducedMotionAuto,
       hydrated: true,

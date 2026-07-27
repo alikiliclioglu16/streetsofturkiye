@@ -3,10 +3,14 @@ import { loadComposedCity } from './helpers';
 import {
   blockedBy,
   clampToBounds,
+  GRAVITY,
   isInsideBounds,
+  JUMP_SPEED,
+  RUN_SPEED,
   stepPosition,
   stepWithCollision,
 } from '@/engine/controls/movement';
+import { clipForState } from '@/engine/heroes/animation';
 import { buildScene } from '@/engine/scene/buildScene';
 import { resolveAsset } from '@/engine/assets/registry';
 
@@ -171,5 +175,58 @@ describe('route markers', () => {
         expect(closest, `${cityId} stop ${hotspot.order}`).toBeLessThanOrEqual(hotspot.triggerRadius);
       }
     }
+  });
+});
+
+describe('controls', () => {
+  it('sends the right key to the player\'s right', () => {
+    // Looking along +z with +y up, the player's right is -x. A right-strafe
+    // input must therefore decrease x. This was inverted on the first build.
+    const bounds = loadComposedCity('istanbul').route.bounds;
+    const from = { x: 0, z: 0 };
+    const right = stepPosition(from, { forward: 0, strafe: -1 }, 0, 1 / 60, bounds);
+    expect(right.x).toBeLessThan(from.x);
+    const left = stepPosition(from, { forward: 0, strafe: 1 }, 0, 1 / 60, bounds);
+    expect(left.x).toBeGreaterThan(from.x);
+  });
+
+  it('runs faster than it walks, by enough for the run clip to play', () => {
+    const scene = loadComposedCity('istanbul');
+    const colliders = scene.hotspots.map((hotspot) => ({
+      x: hotspot.transform.position[0],
+      z: hotspot.transform.position[2],
+      halfWidth: hotspot.collider.halfWidth,
+      halfDepth: hotspot.collider.halfDepth,
+    }));
+    const start = { x: scene.spawn.position[0], z: scene.spawn.position[2] };
+    const walked = stepWithCollision(start, { forward: 1, strafe: 0 }, 0, 1 / 60, scene.route.bounds, colliders, false);
+    const ran = stepWithCollision(start, { forward: 1, strafe: 0 }, 0, 1 / 60, scene.route.bounds, colliders, true);
+    const walkDistance = Math.hypot(walked.x - start.x, walked.z - start.z) * 60;
+    const runDistance = Math.hypot(ran.x - start.x, ran.z - start.z) * 60;
+
+    expect(runDistance).toBeGreaterThan(walkDistance);
+    expect(runDistance).toBeGreaterThan(RUN_SPEED - 0.1);
+    // The run clip threshold has to sit between the two, or it never plays.
+    expect(clipForState({ speed: walkDistance, interacting: false, performing: null })).toBe('walk');
+    expect(clipForState({ speed: runDistance, interacting: false, performing: null })).toBe('run');
+  });
+
+  it('keeps a hop from turning into flight', () => {
+    // A hop is a fixed arc: up, then back to the ground, and it cannot stack.
+    let height = 0;
+    let vertical = JUMP_SPEED;
+    let peak = 0;
+    for (let frame = 0; frame < 600; frame += 1) {
+      vertical -= GRAVITY / 60;
+      height += vertical / 60;
+      if (height <= 0) {
+        height = 0;
+        vertical = 0;
+      }
+      peak = Math.max(peak, height);
+    }
+    expect(peak).toBeGreaterThan(0.5);
+    expect(peak).toBeLessThan(1.5);
+    expect(height).toBe(0);
   });
 });

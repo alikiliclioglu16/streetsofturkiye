@@ -114,7 +114,7 @@ app/src/
 npm run lint       → temiz
 npm run typecheck  → temiz (strict, noUncheckedIndexedAccess, `any` yok)
 npm run content:check → 81 il, 249 durak, 84 soru; 1413 kanonik dizgi baseline ile eşleşti
-npm test           → 11 dosya / 151 test geçti (logic + jsdom ui)
+npm test           → 11 dosya / 153 test geçti (logic + jsdom ui)
 npm run build      → başarılı, 4 rota
 npm start          → /map ve /city/istanbul 200
 ```
@@ -250,6 +250,17 @@ Ayrıntı: `docs/HERO_RENDER_BUGFIX_REPORT.md`.
 | Üretimde telemetri (D-017) | ✅ `?debug=1` |
 | Yükleme yazısının zaman aşımı | ✅ 15 sn |
 
+## 4h. Saha turu düzeltmeleri
+
+| Bulgu | Durum |
+|---|---|
+| Doğru şık farklı stille gösteriliyordu | ✅ tüm şıklar aynı görünüyor (D-021) |
+| Sağ/sol tuşları tersti | ✅ işaret hatası düzeltildi, testli |
+| Koşma hiç çalışmıyordu (eşik 5.0 > hız 4.2) | ✅ Shift ile 7.4 m/s, eşik 5.6 |
+| Zıplama yoktu | ✅ Space ile hop; **animasyon klibi yok**, mevcut klip devam ediyor |
+| Kalite modları | ✅ kaldırıldı, tek yapılandırma (D-020) |
+| Materyal düzeltmesi sonrası üçgen | ✅ 593.714 → 396.232, 60 fps |
+
 ## 5. Bilinen sınırlar
 
 1. **Ses yok.** Ayar kanalları (ortam / arayüz / rehber) ve durumları var, çalan bir ses yok. Faz 02'de `ambientAudioId` bağlanacak.
@@ -260,7 +271,9 @@ Ayrıntı: `docs/HERO_RENDER_BUGFIX_REPORT.md`.
 6. **Ürün İngilizce (D-014).** Arayüz de içerik de İngilizce; dil seçici kaldırıldı. `tr` alanları ileride bir Türkçe sürüm için duruyor.
 7. **İstanbul ve Nevşehir'de ikişer durak graybox varlıkla çiziliyor** (Kapalıçarşı, simit arabası, balon, halı tezgâhı). Meshy brief'i gerekiyor.
 8. **Her iki hero da teslim edildi ve entegre edildi.** Keloğlan 222.150 üçgen, Nasreddin Hoca 197.482 üçgen. İstanbul'un kanonik rehberi Hoca olduğu için varsayılan açılışta o görünür.
-8b. **Keloğlan tarayıcıda görsel olarak doğrulanmadı.** Klip adları dosyadan okundu ve eşleşme testli, ama kliplerin içeriği görülmedi.
+8b. **Zıplama animasyonu yok.** İki GLB'de de `Jump` klibi bulunmuyor; hop sırasında yürüme veya koşma klibi devam ediyor. Sonraki Meshy ihracında bir zıplama klibi istenmeli.
+8c. **Mobil ölçüm yok.** Tek yapılandırma seçildiği için zayıf cihazın düşeceği bir basamak kalmadı.
+8d. **Keloğlan tarayıcıda görsel olarak doğrulanmadı.** Klip adları dosyadan okundu ve eşleşme testli, ama kliplerin içeriği görülmedi.
 9. **Gerçek cihaz FPS ölçümü yok.** Telemetri katmanı hazır, ölçüm bekliyor.
 10. **Su, deniz, gökyüzü yok.** `skyPreset` ve `environment.qualityNotes` okunuyor ama görsel karşılığı Faz 02'de.
 

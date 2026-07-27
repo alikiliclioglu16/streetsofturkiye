@@ -50,6 +50,12 @@ export interface MoveInput {
 }
 
 export const MOVE_SPEED = 4.2;
+/** Shift. Kept clearly above the walk speed so the run clip actually plays. */
+export const RUN_SPEED = 7.4;
+
+/** A hop, not a platforming jump: high enough to feel, low enough to be safe. */
+export const JUMP_SPEED = 4.6;
+export const GRAVITY = 12.5;
 
 /** Frame-rate independent step. Diagonal input is normalised. */
 export function stepPosition(
@@ -143,13 +149,14 @@ export function stepWithCollision(
   delta: number,
   bounds: readonly Vec3[],
   colliders: readonly RectCollider[],
+  running = false,
 ): Point2 {
   const magnitude = Math.hypot(input.forward, input.strafe);
   if (magnitude < 0.001) return position;
 
   const forward = input.forward / magnitude;
   const strafe = input.strafe / magnitude;
-  const distance = MOVE_SPEED * delta;
+  const distance = (running ? RUN_SPEED : MOVE_SPEED) * delta;
   const sin = Math.sin(heading);
   const cos = Math.cos(heading);
 

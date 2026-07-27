@@ -4,10 +4,6 @@ import { Modal } from '@/components/game-ui/Modal';
 import { ui } from '@/content/i18n';
 import { useSettingsStore } from '@/stores/useSettingsStore';
 import { useGameStore } from '@/stores/useGameStore';
-import type { QualityProfileId } from '@/engine/heroes/policy';
-
-/** Profiles differ in environment cost only; the hero mesh is identical in all three. */
-const PROFILES: QualityProfileId[] = ['safe', 'balanced', 'high'];
 
 export function SettingsPanel() {
   const settings = useSettingsStore();
@@ -22,23 +18,6 @@ export function SettingsPanel() {
       <h2 id="settings-title" style={{ fontSize: '1.6rem', marginBottom: 8 }}>
         {ui('settings', locale)}
       </h2>
-
-      <div style={rowStyle}>
-        <span>{ui('quality', locale)}</span>
-        <div style={{ display: 'flex', gap: 8 }}>
-          {PROFILES.map((tier) => (
-            <button
-              key={tier}
-              type="button"
-              className={settings.quality === tier ? 'btn' : 'btn btn--ghost'}
-              aria-pressed={settings.quality === tier}
-              onClick={() => settings.setQuality(tier)}
-            >
-              {tier === 'safe' ? ui('qualityLow', locale) : tier === 'balanced' ? ui('qualityMedium', locale) : ui('qualityHigh', locale)}
-            </button>
-          ))}
-        </div>
-      </div>
 
       <div style={rowStyle}>
         <span>{ui('reducedMotion', locale)}</span>
