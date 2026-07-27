@@ -4,7 +4,7 @@ import React, { Suspense, useEffect, useMemo, useRef, useState, type ReactNode }
 import { useGLTF } from '@react-three/drei';
 import { clone as cloneSkinned } from 'three/examples/jsm/utils/SkeletonUtils.js';
 import { useFrame } from '@react-three/fiber';
-import type { AnimationAction, AnimationClip, Group, Mesh, Object3D } from 'three';
+import type { AnimationAction, AnimationClip, Group, Material, Mesh, Object3D } from 'three';
 import { AnimationMixer, Box3, LoopOnce, LoopRepeat, Vector3 } from 'three';
 import { resolveAsset } from '@/engine/assets/registry';
 import { PlaceholderAsset } from '@/components/three/PlaceholderAsset';
@@ -127,6 +127,30 @@ function HeroModel({
   const bag = useRef<ShuffleBag>(loadShuffleBag(hero.id, hero.animation.danceClips));
   const restPosition = useRef(new Vector3());
   const restQuaternion = useRef<[number, number, number, number]>([0, 0, 0, 1]);
+
+  /**
+   * Material correction.
+   *
+   * three.js draws a transparent double-sided material twice — back faces then
+   * front faces — which doubles the cost of a 197k-triangle character for no
+   * visible gain when the "transparency" is a 210/255 export artefact. The
+   * decision is recorded per hero in the registry from an offline measurement,
+   * not guessed at runtime.
+   */
+  useEffect(() => {
+    if (!hero.material?.forceOpaque) return;
+    model.traverse((child: Object3D) => {
+      const mesh = child as Mesh;
+      if (!mesh.isMesh) return;
+      const materials: Material[] = Array.isArray(mesh.material) ? mesh.material : [mesh.material];
+      for (const material of materials) {
+        if (!material.transparent) continue;
+        material.transparent = false;
+        material.depthWrite = true;
+        material.needsUpdate = true;
+      }
+    });
+  }, [model, hero.material]);
 
   // Shadows follow the profile; the mesh does not.
   useEffect(() => {

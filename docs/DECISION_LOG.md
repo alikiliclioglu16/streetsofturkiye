@@ -141,3 +141,16 @@ replaced with a blob shadow, which costs two triangles and keeps him grounded.
 
 The hero mesh is still never reduced.
 
+## D-019 — Delivered materials are corrected in the registry (27 Jul 2026)
+
+Nasreddin Hodja's GLB carries `alphaMode: BLEND` on a texture whose most
+transparent pixel is 82% opaque. three.js renders a transparent double-sided
+material in two passes, so the export artefact cost a full extra pass of a
+197k-triangle mesh — half the character's entire frame cost, for nothing.
+
+The registry now records a per-hero material correction with the measurement
+that justifies it, and the engine applies it on load. The delivered file is not
+modified: the correction lives in code where it can be read, tested and undone.
+
+This does not touch the mesh. D-012 stands.
+

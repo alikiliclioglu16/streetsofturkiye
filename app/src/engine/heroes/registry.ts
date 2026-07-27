@@ -73,6 +73,19 @@ export interface HeroDefinition {
   /** Played once when a stop or a quiz answer is completed, then back to idle. */
   readonly successClip: HeroClip | null;
   /**
+   * Material corrections measured from the delivered file.
+   *
+   * A transparent, double-sided material is drawn twice by three.js — back
+   * faces, then front faces. Nasreddin Hodja shipped with `alphaMode: BLEND`
+   * although his texture's most transparent pixel is still 82% opaque, so the
+   * blend buys nothing and costs a full extra pass of a 197k mesh.
+   */
+  readonly material?: {
+    /** Render opaque despite the file's alpha mode. */
+    readonly forceOpaque: boolean;
+    readonly reason: string;
+  };
+  /**
    * Measured height of the rendered model, in metres. The scene scales to the
    * manifest height using this, so a model delivered in different units lands
    * at the right size without editing the file.
@@ -195,6 +208,10 @@ const HEROES: Readonly<Record<HeroId, HeroDefinition>> = {
       allowReplay: false,
     },
     successClip: 'agree',
+    material: {
+      forceOpaque: true,
+      reason: 'alphaMode BLEND with texture alpha 210-255; measured 27 Jul 2026',
+    },
     measuredHeightMeters: 1.7,
     portraitUrl: null,
     portraitColor: '#F2B233',

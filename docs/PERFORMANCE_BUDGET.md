@@ -65,7 +65,38 @@ triangles; the measurement came in at 1,396.
 Set against the reading below, one character costs **41 fps**: 1,396 → 593,714
 triangles and 60 → 19 fps, with the entire difference attributable to the guide.
 
-## Measured, 27 Jul 2026 — with the hero
+## Measured, 27 Jul 2026 — with the hero, all three profiles
+
+| profile | fps | dpr | draw calls | triangles | hero shadow |
+|---|---|---|---|---|---|
+| high | 60 | 2.0 | 69 | 593,714 | on |
+| balanced | 60 | 1.5 | 56 | 593,558 | on |
+| safe | 60 | 1.0 | 32 | 395,756 | off |
+
+Two things fall out of this.
+
+**The hero's shadow costs exactly one extra pass of the hero.** high − safe =
+197,958 triangles against a 197,482-triangle mesh. Measured, not inferred.
+
+**The hero was being drawn twice even with shadows off.** 395,756 − 1,396 of
+environment = 394,360, which is 2.00× the mesh. The cause is in the delivered
+file: Nasreddin Hodja's material carries `alphaMode: BLEND` with
+`doubleSided: true`, and three.js renders a transparent double-sided material in
+two passes, back faces then front faces. His texture's most transparent pixel is
+82% opaque, so the blend buys nothing. The registry now forces the material
+opaque, with the measurement recorded as the reason. Keloğlan shipped `OPAQUE`
+and never had the problem.
+
+Expected after the correction: roughly 396,000 triangles on `high` and 198,000
+on `safe`.
+
+**The 19 fps reading did not reproduce.** All three profiles hold 60 fps during
+normal play. That reading came from the completion screen, where the celebration
+camera fills the frame with the character — a fill-rate case, and the one most
+helped by removing the duplicate pass. It needs its own measurement before
+anything else is concluded from it.
+
+## Earlier reading, completion screen
 
 Deployed build, desktop laptop, `high` profile, İstanbul completion screen:
 

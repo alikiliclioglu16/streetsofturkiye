@@ -588,3 +588,17 @@ describe('nothing waits forever', () => {
     expect(interactionReducer(entering, { type: 'CAMERA_SETTLED' }).state).toBe('active');
   });
 });
+
+describe('material corrections', () => {
+  it('records why Nasreddin Hodja is forced opaque', () => {
+    const hoca = heroById('nasreddin-hoca');
+    expect(hoca.material?.forceOpaque).toBe(true);
+    // The reason has to survive in the file, not just in a chat message.
+    expect(hoca.material?.reason).toMatch(/BLEND/);
+    expect(hoca.material?.reason).toMatch(/210/);
+  });
+
+  it('leaves Keloğlan alone, because his material was already opaque', () => {
+    expect(heroById('keloglan').material).toBeUndefined();
+  });
+});
