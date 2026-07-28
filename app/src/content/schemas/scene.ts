@@ -134,6 +134,22 @@ export const sceneSchema = z
         }),
       )
       .default([]),
+    /**
+     * The sea beyond the quay. Absent in landlocked cities, which is most of
+     * them — Nevşehir has no shoreline and should not be given one.
+     */
+    water: z
+      .object({
+        centerX: z.number(),
+        centerZ: z.number(),
+        width: z.number().positive(),
+        depth: z.number().positive(),
+        color: z.string(),
+      })
+      .nullable()
+      .default(null),
+    /** Scenery beyond the play area: never reached, never collided with. */
+    backdrop: z.array(scenePropSchema).default([]),
     catRoutes: z
       .array(z.array(z.object({ x: z.number(), z: z.number() })).min(2))
       .default([]),

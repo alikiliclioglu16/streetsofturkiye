@@ -95,6 +95,52 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
       'down to 2.68 MB. Delivered already at the agreed 14 m and grounded.',
   },
   {
+    id: 'city_istanbul_hagia_sophia',
+    modelUrl: '/assets/city/city_istanbul_hagia_sophia.glb',
+    checksum: 'dd5a04a4e109a422a35822b45705863c60020f526bcec52c60a09ec7689b78de',
+    triangles: 6_053,
+    transferBytes: 2_831_596,
+    /**
+     * 8 m, not the 12 the proportions invite. Hagia Sophia is broad rather than
+     * tall: at 12 m its footprint was 21 m deep, which pushed its trigger ring
+     * into the tower's — the two stops are only 18.8 m apart — and left no room
+     * for lamps or cats at the top of the street.
+     */
+    dimensions: [13.4, 8.0, 14.3],
+    label: 'Hagia Sophia',
+    color: '#C9B79A',
+    placeholder: 'box',
+    scaleToBrief: true,
+    notes: 'Delivered 69.45 MB with four 4096 px maps on 6,053 triangles; recompressed to 2.70 MB.',
+  },
+  {
+    id: 'city_istanbul_beyoglu_row',
+    modelUrl: '/assets/city/city_istanbul_beyoglu_row.glb',
+    checksum: 'd1c2c0c036d5a0f38df440c94091d0e54e5a0e53779fb45c126964ae562420c8',
+    triangles: 5_776,
+    transferBytes: 2_604_364,
+    // Wide and shallow: a street facade, so it works as a backdrop row.
+    dimensions: [26.9, 12.0, 6.0],
+    label: 'Beyoğlu facades',
+    color: '#BFB09A',
+    placeholder: 'box',
+    scaleToBrief: true,
+    notes: 'Backdrop only. Delivered 58.27 MB; recompressed to 2.48 MB.',
+  },
+  {
+    id: 'city_istanbul_maidens_tower',
+    modelUrl: '/assets/city/city_istanbul_maidens_tower.glb',
+    checksum: '1d72f11448f913ddf8163d6d175ff5e6fae8f0c0e77af7689ad988702f00d764',
+    triangles: 9_018,
+    transferBytes: 2_490_808,
+    dimensions: [7.7, 10.0, 7.6],
+    label: "Maiden's Tower",
+    color: '#D8CFC0',
+    placeholder: 'cylinder',
+    scaleToBrief: true,
+    notes: 'Stands offshore, so it needs the water plane. Delivered 23.90 MB; recompressed to 2.38 MB.',
+  },
+  {
     id: 'city_istanbul_grand_bazaar',
     modelUrl: '/assets/city/city_istanbul_grand_bazaar.glb',
     checksum: '1870169a8cf0b8aaec70e03918a05f9e7b95524fba9d219da8c74ae716f1356e',

@@ -48,7 +48,7 @@
       [
         0,
         0,
-        -6.3
+        0.65
       ],
       [
         5.5,
@@ -106,7 +106,7 @@
         "stopId": "istanbul-stop-01"
       },
       "sceneStatus": "ready",
-      "assetId": "city_istanbul_iznik_tile_panel",
+      "assetId": "city_istanbul_hagia_sophia",
       "assetStatus": "commissioned",
       "transform": {
         "position": [
@@ -126,19 +126,19 @@
         ]
       },
       "collider": {
-        "halfWidth": 0.8,
-        "halfDepth": 0.2
+        "halfWidth": 6.7,
+        "halfDepth": 7.15
       },
-      "triggerRadius": 4.2,
+      "triggerRadius": 11.15,
       "camera": {
         "position": [
-          2.3,
-          2.4,
-          -3
+          4.5,
+          3.6,
+          2.0999999999999996
         ],
         "target": [
           0,
-          0.7,
+          2.2,
           -8
         ],
         "durationMs": 900
@@ -364,9 +364,9 @@
     {
       "assetId": "kit_street_lamp",
       "position": [
-        -8.5,
+        -10.5,
         0,
-        -13
+        -21
       ],
       "rotationY": 1.691,
       "note": "pedestrian segment, near the start"
@@ -374,9 +374,9 @@
     {
       "assetId": "kit_bench",
       "position": [
-        -7.2,
+        -9,
         0,
-        -16.5
+        -24.5
       ],
       "rotationY": 1.321,
       "note": "bench beside the first lamp, scale reference"
@@ -424,9 +424,9 @@
     {
       "assetId": "kit_planter_cypress",
       "position": [
-        -6.2,
+        -8,
         0,
-        -9.5
+        -19
       ],
       "rotationY": 0.3,
       "note": "planter at the start of the walk"
@@ -512,6 +512,48 @@
       "note": "crates stacked along the street edge"
     }
   ],
+  "water": {
+    "centerX": 0,
+    "centerZ": -182,
+    "width": 320,
+    "depth": 180,
+    "color": "#2E7FA8"
+  },
+  "backdrop": [
+    {
+      "assetId": "city_istanbul_beyoglu_row",
+      "position": [
+        -26,
+        0,
+        -34
+      ],
+      "rotationY": 1.5707963267948966,
+      "solid": false,
+      "note": "facades behind the west pavement"
+    },
+    {
+      "assetId": "city_istanbul_beyoglu_row",
+      "position": [
+        27,
+        0,
+        -56
+      ],
+      "rotationY": -1.5707963267948966,
+      "solid": false,
+      "note": "facades behind the east pavement"
+    },
+    {
+      "assetId": "city_istanbul_maidens_tower",
+      "position": [
+        22,
+        0,
+        -128
+      ],
+      "rotationY": -0.4,
+      "solid": false,
+      "note": "offshore, seen from the quay"
+    }
+  ],
   "catRoutes": [
     [
       {
@@ -553,12 +595,12 @@
     ],
     [
       {
-        "x": 8,
-        "z": -6
+        "x": 13,
+        "z": -12
       },
       {
-        "x": 13.5,
-        "z": -10
+        "x": 17,
+        "z": -17
       }
     ],
     [

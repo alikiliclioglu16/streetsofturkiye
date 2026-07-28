@@ -628,3 +628,46 @@ byte count matches, its SHA-256 matches, and no id is registered twice. A
 checksum that is not checked is worse than no checksum, because it reads as
 evidence.
 
+## D-059 — İstanbul gets a sea (28 Jul 2026)
+
+The last stop is a ferry and there was no water: a ferry moored on grass reads
+as a mistake before a child can name why.
+
+The sea is a plane starting exactly at the play boundary, so a child walks to
+the quay edge and stops there. It needs no collider — the boundary already
+holds them — and it is the one city that gets one. Nevşehir is in Cappadocia
+and a test keeps it dry.
+
+The Maiden's Tower stands offshore on that plane, 36 m past the quay, where it
+belongs.
+
+## D-060 — Scenery is not solid (28 Jul 2026)
+
+The Beyoğlu facades and the Maiden's Tower are backdrop: seen, never reached,
+never collided with. A child who walks to the edge should be stopped by the
+boundary, not by a building they were never meant to arrive at.
+
+Backdrop pieces also cast no shadow. They stand beyond the shadow camera's
+useful range, so the cost would buy nothing.
+
+## D-061 — Hagia Sophia is 8 m because it is broad, not because it is small
+(28 Jul 2026)
+
+The proportions invited 12 m, which would have made it 21 m deep. Its trigger
+ring then reached into the tower's — the two stops are 18.8 m apart — and
+swallowed the lamps, benches and cat routes at the top of the street.
+
+At 8 m it is 13.4 by 14.3, still the widest thing a child meets, and the street
+around it survives. Landmark scale is bounded by the stop layout, not only by
+what the model would like to be.
+
+## D-062 — The scene builder reads delivered sizes (28 Jul 2026)
+
+A stop's collider came from the manifest or the graybox table while its model
+came from the delivered file, so Hagia Sophia rendered at one size and was solid
+at another. The builder now prefers the delivered footprint.
+
+The numbers live in `scripts/lib/manifest.mjs` as well as the registry, because
+the build runs before TypeScript exists. A test asserts the two never drift: a
+stop whose collider and model disagree is a stop the player walks into.
+

@@ -261,8 +261,10 @@ describe('solid props', () => {
   });
 
   it('cannot be walked through, however long the player pushes', () => {
+    // Walk at a lamp from a point that is clear of every other solid thing.
     const lamp = scene.props.find((prop) => prop.asset.entry.id === 'kit_street_lamp')!;
-    let position = { x: lamp.position[0], z: lamp.position[2] + 6 };
+    let position = { x: lamp.position[0], z: lamp.position[2] + 4 };
+    expect(blockedBy(position, scene.colliders), 'test start is inside something').toBeNull();
     for (let frame = 0; frame < 400; frame += 1) {
       position = stepWithCollision(
         position,
@@ -649,8 +651,8 @@ describe('İstanbul is fully dressed', () => {
       .filter((hotspot) => hotspot.asset.isPlaceholder)
       .map((hotspot) => hotspot.asset.entry.id);
 
-    // Commissioned is a brief, not a delivery. These two are still briefs.
-    expect(waiting.sort()).toEqual(['city_istanbul_ferry', 'city_istanbul_iznik_tile_panel']);
+    // Commissioned is a brief, not a delivery. The ferry is the last brief.
+    expect(waiting.sort()).toEqual(['city_istanbul_ferry']);
   });
 
   it('keeps every delivered file within the budget for its kind', () => {
@@ -708,5 +710,63 @@ describe('the street kit is complete', () => {
     const depths = market.map((prop) => prop.position[2]);
     const spread = Math.max(...depths) - Math.min(...depths);
     expect(spread).toBeLessThan(30);
+  });
+});
+
+describe('the sea', () => {
+  it('gives İstanbul water and leaves the inland cities dry', () => {
+    const istanbul = buildScene(loadComposedCity('istanbul'), 'high');
+    expect(istanbul.water).not.toBeNull();
+    for (const cityId of ['nevsehir', 'gaziantep']) {
+      // Nevşehir is in Cappadocia. It should not be given a shoreline.
+      expect(buildScene(loadComposedCity(cityId), 'high').water, cityId).toBeNull();
+    }
+  });
+
+  it('starts the water past the play boundary, so it cannot be walked into', () => {
+    const scene = buildScene(loadComposedCity('istanbul'), 'high');
+    const water = scene.water!;
+    const nearEdge = water.centerZ + water.depth / 2;
+    const playFar = Math.min(...scene.bounds.map((corner) => corner[2]));
+    expect(nearEdge).toBeLessThanOrEqual(playFar);
+  });
+
+  it("puts the Maiden's Tower on the water, not on the pavement", () => {
+    const scene = buildScene(loadComposedCity('istanbul'), 'high');
+    const tower = scene.backdrop.find(
+      (prop) => prop.asset.entry.id === 'city_istanbul_maidens_tower',
+    )!;
+    expect(tower).toBeDefined();
+
+    const water = scene.water!;
+    const insideWater =
+      Math.abs(tower.position[0] - water.centerX) < water.width / 2 &&
+      Math.abs(tower.position[2] - water.centerZ) < water.depth / 2;
+    expect(insideWater).toBe(true);
+  });
+
+  it('keeps every backdrop piece out of the play area and out of the way', () => {
+    const scene = buildScene(loadComposedCity('istanbul'), 'high');
+    expect(scene.backdrop.length).toBeGreaterThan(0);
+    for (const prop of scene.backdrop) {
+      // Scenery is never solid: a child who reaches the edge should not be
+      // stopped by a building they were never meant to arrive at.
+      expect(prop.solid, prop.key).toBe(false);
+      const blocked = scene.colliders.some(
+        (collider) =>
+          Math.abs(collider.x - prop.position[0]) < 0.01 &&
+          Math.abs(collider.z - prop.position[2]) < 0.01,
+      );
+      expect(blocked, prop.key).toBe(false);
+    }
+  });
+
+  it('stands Hagia Sophia at the stop whose question is about mosques', () => {
+    const city = loadComposedCity('istanbul');
+    const scene = buildScene(city, 'high');
+    const first = scene.hotspots.find((hotspot) => hotspot.order === 1)!;
+    expect(first.asset.entry.id).toBe('city_istanbul_hagia_sophia');
+    // The canonical stop is the one about the dome and the İznik tiles.
+    expect(city.hotspots[0]!.fact.title.en).toMatch(/Hagia Sophia/);
   });
 });

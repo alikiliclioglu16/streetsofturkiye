@@ -93,9 +93,15 @@ describe('solid objects', () => {
   });
 
   it('cannot be walked through, however long the player pushes', () => {
-    // Aim straight at Galata Tower and hold forward.
+    // Aim straight at Galata Tower and hold forward, from the nearest point on
+    // that line that is clear of everything else. The mosque at the top of the
+    // street is broad enough to contain a naive starting point.
     const galata = colliders[1]!;
     let position = { x: galata.x, z: galata.z + 14 };
+    while (blockedBy(position, colliders) !== null && position.z > galata.z + 5) {
+      position = { x: position.x, z: position.z - 0.5 };
+    }
+    expect(blockedBy(position, colliders), 'no clear approach to the tower').toBeNull();
     for (let frame = 0; frame < 600; frame += 1) {
       position = stepWithCollision(position, { forward: 1, strafe: 0 }, 0, 1 / 60, scene.route.bounds, colliders);
       expect(blockedBy(position, colliders), `entered a solid object at frame ${frame}`).toBeNull();

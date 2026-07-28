@@ -7,6 +7,7 @@ import type { HeroStatus } from '@/components/three/HeroCharacter';
 import type { HeroClip } from '@/engine/heroes/registry';
 import { AssetInstance } from '@/components/three/AssetInstance';
 import { Ground } from '@/components/three/Ground';
+import { Water } from '@/components/three/Water';
 import { HotspotObject } from '@/components/three/HotspotObject';
 import { StreetCat } from '@/components/three/StreetCat';
 import { StreetTree } from '@/components/three/StreetTree';
@@ -111,6 +112,24 @@ export function CityScene({
       />
 
       <Ground ground={scene.ground} />
+
+      {scene.water ? (
+        <Water
+          centerX={scene.water.centerX}
+          centerZ={scene.water.centerZ}
+          width={scene.water.width}
+          depth={scene.water.depth}
+          color={scene.water.color}
+          reducedMotion={reducedMotion}
+        />
+      ) : null}
+
+      {/* Scenery beyond the play area: never solid, never reached. */}
+      {scene.backdrop.map((prop) => (
+        <group key={prop.key} position={prop.position} rotation={[0, prop.rotationY, 0]}>
+          <AssetInstance asset={prop.asset} castShadow={false} />
+        </group>
+      ))}
 
       {/* Boundary posts: the play area is visible rather than an invisible wall.
           Corner posts are essential; decorative density is applied to props. */}

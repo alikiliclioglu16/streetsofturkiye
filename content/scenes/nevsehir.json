@@ -361,6 +361,8 @@
     }
   ],
   "props": [],
+  "water": null,
+  "backdrop": [],
   "catRoutes": [],
   "npcs": [],
   "trees": [],

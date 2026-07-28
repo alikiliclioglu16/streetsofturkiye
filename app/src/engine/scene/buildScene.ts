@@ -3,6 +3,7 @@ import type { Vec3 } from '@/content/schemas/scene';
 import { kitAssetId, resolveAsset, type QualityTier, type ResolvedAsset } from '@/engine/assets/registry';
 import { orderedHotspots } from '@/engine/interactions/machine';
 import type { RectCollider } from '@/engine/controls/movement';
+import type { SceneDefinition } from '@/content/schemas/scene';
 import { npcById, type FeaturedNpc } from '@/engine/npc/registry';
 import type { StreetTreeSpec } from '@/components/three/StreetTree';
 
@@ -65,6 +66,9 @@ export interface SceneDescription {
   /** Briefed height for a cat, in metres; the delivered rig is not at world scale. */
   readonly catHeight: number;
   readonly props: readonly ScenePropInstance[];
+  /** Scenery beyond the play area; never solid. */
+  readonly backdrop: readonly ScenePropInstance[];
+  readonly water: SceneDefinition['water'];
   readonly sky: SceneSky;
   readonly colliders: readonly RectCollider[];
   readonly hotspots: readonly SceneHotspot[];
@@ -123,6 +127,7 @@ export function buildScene(city: CityDefinition, quality: QualityTier): SceneDes
   const unknownAssetIds = [
     ...hotspots.map((h) => h.asset),
     ...city.props.map((prop) => resolveAsset(prop.assetId, quality)),
+    ...city.backdrop.map((prop) => resolveAsset(prop.assetId, quality)),
     kit,
     guide,
     routeMarker,
@@ -194,8 +199,18 @@ export function buildScene(city: CityDefinition, quality: QualityTier): SceneDes
     rotationY: tree.rotationY,
   }));
 
+  const backdrop: ScenePropInstance[] = city.backdrop.map((prop, index) => ({
+    key: `backdrop-${index}`,
+    asset: resolveAsset(prop.assetId, quality),
+    position: prop.position,
+    rotationY: prop.rotationY,
+    solid: false,
+  }));
+
   return {
     cityId: city.id,
+    backdrop,
+    water: city.water,
     catRoutes: city.catRoutes,
     npcs,
     trees,

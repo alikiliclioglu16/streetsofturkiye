@@ -44,7 +44,7 @@ const KIT_BY_REGION = {
 
 /** Commissioned art, keyed by cityId:legacyArtType. Everything else is graybox. */
 const COMMISSIONED_ASSETS = {
-  'istanbul:mosque': 'city_istanbul_iznik_tile_panel',
+  'istanbul:mosque': 'city_istanbul_hagia_sophia',
   'istanbul:galata': 'city_istanbul_galata_tower',
   'istanbul:bazaar': 'city_istanbul_grand_bazaar',
   'istanbul:simit': 'city_istanbul_simit_cart',
@@ -140,8 +140,8 @@ function streetProps(cityId, stopPositions, geometry) {
   const candidates = [
     // Pedestrian segment near the start of the walk, lamp and bench together
     // so the child meets both at child-height distance.
-    prop('kit_street_lamp', -8.5, -13, Math.PI / 2 + 0.12, 'pedestrian segment, near the start'),
-    prop('kit_bench', -7.2, -16.5, Math.PI / 2 - 0.25, 'bench beside the first lamp, scale reference'),
+    prop('kit_street_lamp', -10.5, -21, Math.PI / 2 + 0.12, 'pedestrian segment, near the start'),
+    prop('kit_bench', -9.0, -24.5, Math.PI / 2 - 0.25, 'bench beside the first lamp, scale reference'),
 
     // Open walkway beside the tall landmark.
     prop('kit_street_lamp', 16.5, -24.5, -Math.PI / 2 - 0.18, 'open walkway by the tall landmark'),
@@ -153,7 +153,7 @@ function streetProps(cityId, stopPositions, geometry) {
 
     // Planters read as tended street furniture rather than scenery, so they sit
     // close to the pavement edge in pairs.
-    prop('kit_planter_cypress', -6.2, -9.5, 0.3, 'planter at the start of the walk'),
+    prop('kit_planter_cypress', -8.0, -19.0, 0.3, 'planter at the start of the walk'),
     prop('kit_planter_cypress', 6.8, -17.0, -0.4, 'planter opposite the first bench'),
     prop('kit_planter_cypress', -6.4, -30.0, 0.15, 'planter mid-walk'),
     prop('kit_planter_cypress', 8.5, -70.0, -0.25, 'planter towards the quay'),
@@ -210,8 +210,8 @@ function catRoutes(stopPositions, geometry) {
       { x: -12.5, z: -56.5 },
     ],
     [
-      { x: 8.0, z: -6.0 },
-      { x: 13.5, z: -10.0 },
+      { x: 13.0, z: -12.0 },
+      { x: 17.0, z: -17.0 },
     ],
     [
       { x: 13.0, z: -55.0 },
@@ -435,6 +435,44 @@ function buildScene(canonical) {
     intro: { cameraSequenceId: null, skippable: true },
     hotspots,
     props: streetProps(canonical.id, stopPositions, geometry),
+    /**
+     * İstanbul is the only pilot city on the water. The sea starts past the
+     * play boundary, so a child can see it and never walk into it.
+     */
+    water:
+      canonical.id === 'istanbul'
+        ? { centerX: 0, centerZ: -182, width: 320, depth: 180, color: '#2E7FA8' }
+        : null,
+    /**
+     * Scenery beyond the play area. The Beyoğlu row stands behind the walk as
+     * a skyline; the Maiden's Tower sits offshore, where it belongs.
+     */
+    backdrop:
+      canonical.id === 'istanbul'
+        ? [
+            {
+              assetId: 'city_istanbul_beyoglu_row',
+              position: [-26, 0, -34],
+              rotationY: Math.PI / 2,
+              solid: false,
+              note: 'facades behind the west pavement',
+            },
+            {
+              assetId: 'city_istanbul_beyoglu_row',
+              position: [27, 0, -56],
+              rotationY: -Math.PI / 2,
+              solid: false,
+              note: 'facades behind the east pavement',
+            },
+            {
+              assetId: 'city_istanbul_maidens_tower',
+              position: [22, 0, -128],
+              rotationY: -0.4,
+              solid: false,
+              note: 'offshore, seen from the quay',
+            },
+          ]
+        : [],
     /**
      * Cats. Scattered along the whole walk rather than clustered, on both
      * sides, each with its own short beat — a child should keep meeting one

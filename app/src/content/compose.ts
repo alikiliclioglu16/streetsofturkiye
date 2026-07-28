@@ -85,6 +85,8 @@ export interface RuntimeCity {
   props: SceneDefinition['props'];
   /** Waypoints for each street cat; empty in cities that are not dressed yet. */
   catRoutes: SceneDefinition['catRoutes'];
+  water: SceneDefinition['water'];
+  backdrop: SceneDefinition['backdrop'];
   /** Featured NPCs standing at their posts; carry no content. */
   npcs: SceneDefinition['npcs'];
   /** Procedural street trees. */
@@ -160,6 +162,8 @@ export function composeCity(canonical: CanonicalCity, scene: SceneDefinition): R
     environment: scene.environment,
     props: scene.props,
     catRoutes: scene.catRoutes,
+    water: scene.water,
+    backdrop: scene.backdrop,
     npcs: scene.npcs,
     trees: scene.trees,
     spawn: scene.spawn,
