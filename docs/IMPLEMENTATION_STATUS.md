@@ -357,6 +357,17 @@ Dört teslimat üst üste geometrisi bütçede, dokuları bütçe dışı geldi.
 **İstanbul'da graybox kalmadı** — beş durağın beşi de ısmarlanmış varlığa işaret ediyor.
 İkisinin (çini paneli, vapur) modeli henüz teslim edilmedi, yer tutucu çiziliyor.
 
+## 4s. Sokak kiti tamamlandı
+
+`kit_crates` (3.755 üçgen, 8,49 → 0,62 MB) ve `kit_market_stall` (3.851 üçgen, 6,74 → 0,46 MB) eklendi.
+Tezgâh bilerek boş: aynı model Gaziantep'te baharat, Nevşehir'de çömlek tezgâhı olacak — üstüne
+konanla değişecek, kendisi değil.
+
+İstanbul'da 15 kit propu: 4 lamba, 4 saksı, 3 kasa, 2 bank, 2 tezgâh. Hepsi aynı denetimden geçiyor —
+tetik halkalarının dışında, rota merkez hattından en az 4 m.
+
+Kitin altı parçasının beşi teslim edildi; kedi ayrı kategoride. Kalan: yok.
+
 ## 5. Bilinen sınırlar
 
 1. **Ses yok.** Ayar kanalları (ortam / arayüz / rehber) ve durumları var, çalan bir ses yok. Faz 02'de `ambientAudioId` bağlanacak.

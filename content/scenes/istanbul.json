@@ -53,17 +53,17 @@
       [
         5.5,
         0,
-        -22.39
+        -22.36
       ],
       [
         6.8,
         0,
-        -38.5
+        -40.7
       ],
       [
         3,
         0,
-        -60.05
+        -60.02
       ],
       [
         -3.1,
@@ -178,10 +178,10 @@
         ]
       },
       "collider": {
-        "halfWidth": 2.115,
-        "halfDepth": 2.11
+        "halfWidth": 2.14,
+        "halfDepth": 2.14
       },
-      "triggerRadius": 6.11,
+      "triggerRadius": 6.14,
       "camera": {
         "position": [
           13.5,
@@ -230,15 +230,15 @@
         ]
       },
       "collider": {
-        "halfWidth": 4,
-        "halfDepth": 4
+        "halfWidth": 2.685,
+        "halfDepth": 1.8
       },
-      "triggerRadius": 8,
+      "triggerRadius": 5.8,
       "camera": {
         "position": [
-          9.6,
-          2.4,
-          -37.7
+          10.2,
+          2.7,
+          -36.4
         ],
         "target": [
           6.8,
@@ -282,10 +282,10 @@
         ]
       },
       "collider": {
-        "halfWidth": 0.8,
-        "halfDepth": 0.45
+        "halfWidth": 1.025,
+        "halfDepth": 0.48
       },
-      "triggerRadius": 4.45,
+      "triggerRadius": 4.48,
       "camera": {
         "position": [
           5.3,
@@ -294,7 +294,7 @@
         ],
         "target": [
           3,
-          0.6,
+          1,
           -62
         ],
         "durationMs": 900
@@ -460,6 +460,56 @@
       ],
       "rotationY": -0.25,
       "note": "planter towards the quay"
+    },
+    {
+      "assetId": "kit_market_stall",
+      "position": [
+        -8.8,
+        0,
+        -39
+      ],
+      "rotationY": 1.221,
+      "note": "stall on the market approach"
+    },
+    {
+      "assetId": "kit_crates",
+      "position": [
+        -7.4,
+        0,
+        -41.6
+      ],
+      "rotationY": 0.55,
+      "note": "crates beside the first stall"
+    },
+    {
+      "assetId": "kit_market_stall",
+      "position": [
+        13.5,
+        0,
+        -46.5
+      ],
+      "rotationY": -1.291,
+      "note": "stall across from the gateway"
+    },
+    {
+      "assetId": "kit_crates",
+      "position": [
+        12.2,
+        0,
+        -49.4
+      ],
+      "rotationY": -0.9,
+      "note": "crates beside the second stall"
+    },
+    {
+      "assetId": "kit_crates",
+      "position": [
+        -9.6,
+        0,
+        -55
+      ],
+      "rotationY": 0.2,
+      "note": "crates stacked along the street edge"
     }
   ],
   "catRoutes": [
@@ -660,6 +710,16 @@
       "rotationY": 5.15
     },
     {
+      "kind": "plane",
+      "position": [
+        14.2,
+        0,
+        -44.3
+      ],
+      "scale": 1.03,
+      "rotationY": 1.27
+    },
+    {
       "kind": "shrub",
       "position": [
         -17.4,
@@ -668,6 +728,16 @@
       ],
       "scale": 0.97,
       "rotationY": 3.67
+    },
+    {
+      "kind": "plane",
+      "position": [
+        12.6,
+        0,
+        -50.4
+      ],
+      "scale": 0.91,
+      "rotationY": 6.07
     },
     {
       "kind": "cypress",

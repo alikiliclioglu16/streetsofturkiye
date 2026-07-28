@@ -13,6 +13,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import {
   DEFAULT_GRAYBOX_DIMENSIONS,
+  DELIVERED_DIMENSIONS,
   GRAYBOX_DIMENSIONS,
   readManifest,
 } from './lib/manifest.mjs';
@@ -86,6 +87,10 @@ const STOP_SPACING = 18;
 
 /** Footprint of whatever will stand at this stop, in metres. */
 function footprintFor(assetId, artType) {
+  // A delivered model outranks the brief it was made against: the collider and
+  // the trigger ring should match what is actually standing there.
+  const delivered = DELIVERED_DIMENSIONS[assetId];
+  if (delivered) return delivered;
   const manifest = manifestById.get(assetId);
   if (manifest) return manifest.dimensions;
   return GRAYBOX_DIMENSIONS[artType] ?? DEFAULT_GRAYBOX_DIMENSIONS;
@@ -152,6 +157,17 @@ function streetProps(cityId, stopPositions, geometry) {
     prop('kit_planter_cypress', 6.8, -17.0, -0.4, 'planter opposite the first bench'),
     prop('kit_planter_cypress', -6.4, -30.0, 0.15, 'planter mid-walk'),
     prop('kit_planter_cypress', 8.5, -70.0, -0.25, 'planter towards the quay'),
+
+    /**
+     * Market furniture belongs to the market end of the street, near the
+     * covered gateway. A stall alone reads as abandoned, so each one has its
+     * crates beside it.
+     */
+    prop('kit_market_stall', -8.8, -39.0, Math.PI / 2 - 0.35, 'stall on the market approach'),
+    prop('kit_crates', -7.4, -41.6, 0.55, 'crates beside the first stall'),
+    prop('kit_market_stall', 13.5, -46.5, -Math.PI / 2 + 0.28, 'stall across from the gateway'),
+    prop('kit_crates', 12.2, -49.4, -0.9, 'crates beside the second stall'),
+    prop('kit_crates', -9.6, -55.0, 0.2, 'crates stacked along the street edge'),
   ];
 
   /**

@@ -28,11 +28,17 @@ describe('street kit props', () => {
   });
 
   it('places a handful of test instances, not set dressing', () => {
-    expect(scene.props.length).toBeGreaterThanOrEqual(8);
-    expect(scene.props.length).toBeLessThanOrEqual(14);
+    expect(scene.props.length).toBeGreaterThanOrEqual(10);
+    expect(scene.props.length).toBeLessThanOrEqual(20);
     // Only shared kit props are scattered as dressing; city art belongs to stops.
     const kinds = [...new Set(scene.props.map((prop) => prop.asset.entry.id))].sort();
-    expect(kinds).toEqual(['kit_bench', 'kit_planter_cypress', 'kit_street_lamp']);
+    expect(kinds).toEqual([
+      'kit_bench',
+      'kit_crates',
+      'kit_market_stall',
+      'kit_planter_cypress',
+      'kit_street_lamp',
+    ]);
     expect(kinds.every((id) => id.startsWith('kit_'))).toBe(true);
   });
 

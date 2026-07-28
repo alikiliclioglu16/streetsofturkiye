@@ -77,3 +77,27 @@ export const GRAYBOX_DIMENSIONS = {
 };
 
 export const DEFAULT_GRAYBOX_DIMENSIONS = [2.4, 2.4, 2.4];
+
+/**
+ * Footprints of models that have actually been delivered.
+ *
+ * The scene builder sizes colliders, trigger rings and approach distances from
+ * a footprint. Delivered city art is registered in the TypeScript asset
+ * registry, which this script cannot import, so the measurements are mirrored
+ * here — and a test compares the two so they cannot drift apart.
+ *
+ * Without this the Grand Bazaar kept the 8 x 8 graybox footprint after a
+ * 5.37 x 3.6 gateway was delivered: a trigger ring half again too wide, which
+ * silently rejected two prop placements that were nowhere near it.
+ */
+export const DELIVERED_DIMENSIONS = {
+  city_istanbul_galata_tower: [4.28, 14.0, 4.28],
+  city_istanbul_grand_bazaar: [5.37, 6.0, 3.6],
+  city_istanbul_simit_cart: [2.05, 2.19, 0.96],
+  kit_street_lamp: [1.25, 5.0, 1.1],
+  kit_bench: [1.82, 0.9, 0.7],
+  kit_planter_cypress: [0.91, 2.5, 0.91],
+  kit_crates: [1.29, 1.0, 1.19],
+  kit_market_stall: [2.25, 2.5, 1.61],
+  kit_street_cat: [0.3, 0.4, 0.7],
+};
