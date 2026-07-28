@@ -44,7 +44,7 @@ const KIT_BY_REGION = {
 
 /** Commissioned art, keyed by cityId:legacyArtType. Everything else is graybox. */
 const COMMISSIONED_ASSETS = {
-  'istanbul:mosque': 'city_istanbul_hagia_sophia',
+  'istanbul:mosque': 'city_istanbul_iznik_tile_panel',
   'istanbul:galata': 'city_istanbul_galata_tower',
   'istanbul:bazaar': 'city_istanbul_grand_bazaar',
   'istanbul:simit': 'city_istanbul_simit_cart',
@@ -475,6 +475,19 @@ function buildScene(canonical) {
     backdrop:
       canonical.id === 'istanbul'
         ? [
+            {
+              /**
+               * Hagia Sophia stands behind the top of the street, outside the
+               * play area. The canonical stop is about the dome and the tiles
+               * inside it; the child studies a tile panel at their own height
+               * and sees the building it came from over the rooftops.
+               */
+              assetId: 'city_istanbul_hagia_sophia',
+              position: [-34, 0, -30],
+              rotationY: 1.05,
+              solid: false,
+              note: 'the mosque itself, behind the top of the street',
+            },
             {
               assetId: 'city_istanbul_beyoglu_row',
               position: [-26, 0, -52],

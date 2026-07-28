@@ -48,7 +48,7 @@
       [
         0,
         0,
-        -17.35
+        -23.97
       ],
       [
         5.5,
@@ -106,7 +106,7 @@
         "stopId": "istanbul-stop-01"
       },
       "sceneStatus": "ready",
-      "assetId": "city_istanbul_hagia_sophia",
+      "assetId": "city_istanbul_iznik_tile_panel",
       "assetStatus": "commissioned",
       "transform": {
         "position": [
@@ -126,19 +126,19 @@
         ]
       },
       "collider": {
-        "halfWidth": 6.7,
-        "halfDepth": 7.15
+        "halfWidth": 0.755,
+        "halfDepth": 0.53
       },
-      "triggerRadius": 11.15,
+      "triggerRadius": 4.53,
       "camera": {
         "position": [
-          4.5,
-          3.6,
-          -15.9
+          2.3,
+          2.4,
+          -21
         ],
         "target": [
           0,
-          2.2,
+          1,
           -26
         ],
         "durationMs": 900
@@ -561,6 +561,17 @@
   },
   "backdrop": [
     {
+      "assetId": "city_istanbul_hagia_sophia",
+      "position": [
+        -34,
+        0,
+        -30
+      ],
+      "rotationY": 1.05,
+      "solid": false,
+      "note": "the mosque itself, behind the top of the street"
+    },
+    {
       "assetId": "city_istanbul_beyoglu_row",
       "position": [
         -26,
@@ -740,6 +751,16 @@
       ],
       "scale": 1.03,
       "rotationY": 3.32
+    },
+    {
+      "kind": "cypress",
+      "position": [
+        11,
+        0,
+        -20.9
+      ],
+      "scale": 0.97,
+      "rotationY": 5.72
     },
     {
       "kind": "plane",

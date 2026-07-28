@@ -698,3 +698,28 @@ dock belong to İstanbul and to no other city. They are registered as `city_`
 props rather than `kit_`, which also puts them under the landmark size budget
 rather than the shared one.
 
+## D-066 — The stop is the tile panel; the mosque is behind it (28 Jul 2026)
+
+Hagia Sophia was the object at stop 1 and it did not work. As a stop object it
+had to fit a trigger ring between two neighbours 18.8 m apart, which held it to
+8 m — too small to be a mosque, and still large enough to loom over a child who
+had only just arrived.
+
+The canonical stop is about the dome and the twenty thousand İznik tiles inside
+it, and the reward is a blue İznik tile. So the object a child walks up to is a
+1.5 by 2.2 m tile panel at their own height, and the mosque stands behind the
+top of the street as scenery — outside the play area, freed from a trigger ring,
+12 m tall because nothing now constrains it.
+
+This is what the asset specification asked for in the first place: *the object
+at this stop is not the building*. It took building it the other way round to
+see why.
+
+## D-067 — Backdrop is where landmarks get to be large (28 Jul 2026)
+
+A landmark's size is bounded by whether a child has to stand next to it. As a
+stop object, Galata is 14 m and Hagia Sophia was 8. As scenery, the mosque is
+12 m and 20 m wide, and the Beyoğlu rows are 27 m across.
+
+Scale follows role, not importance.
+

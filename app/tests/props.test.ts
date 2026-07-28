@@ -759,13 +759,36 @@ describe('the sea', () => {
     }
   });
 
-  it('stands Hagia Sophia at the stop whose question is about mosques', () => {
+  it('puts a tile panel at the stop and the mosque behind it', () => {
     const city = loadComposedCity('istanbul');
     const scene = buildScene(city, 'high');
-    const first = scene.hotspots.find((hotspot) => hotspot.order === 1)!;
-    expect(first.asset.entry.id).toBe('city_istanbul_hagia_sophia');
-    // The canonical stop is the one about the dome and the İznik tiles.
+
+    // The canonical stop is about the dome and the tiles inside it. The child
+    // studies a panel at their own height; the building is scenery behind it.
     expect(city.hotspots[0]!.fact.title.en).toMatch(/Hagia Sophia/);
+    const first = scene.hotspots.find((hotspot) => hotspot.order === 1)!;
+    expect(first.asset.entry.id).toBe('city_istanbul_iznik_tile_panel');
+    expect(first.asset.entry.dimensions[1]).toBeLessThan(3);
+
+    const mosque = scene.backdrop.find(
+      (prop) => prop.asset.entry.id === 'city_istanbul_hagia_sophia',
+    );
+    expect(mosque, 'the mosque should be scenery now').toBeDefined();
+    expect(mosque!.solid).toBe(false);
+  });
+
+  it('stands the mosque outside the play area', () => {
+    const scene = buildScene(loadComposedCity('istanbul'), 'high');
+    const mosque = scene.backdrop.find(
+      (prop) => prop.asset.entry.id === 'city_istanbul_hagia_sophia',
+    )!;
+    const halfWidth = mosque.asset.entry.dimensions[0] / 2;
+    const nearestEdge = Math.abs(mosque.position[0]) - halfWidth;
+    const playHalfWidth = Math.max(...scene.bounds.map((corner) => Math.abs(corner[0])));
+
+    // Freed from a trigger ring it is 12 m tall and 20 m wide; it has to stand
+    // clear of the street rather than loom over it.
+    expect(nearestEdge).toBeGreaterThan(playHalfWidth);
   });
 });
 

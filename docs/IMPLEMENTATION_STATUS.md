@@ -114,7 +114,7 @@ app/src/
 npm run lint       → temiz
 npm run typecheck  → temiz (strict, noUncheckedIndexedAccess, `any` yok)
 npm run content:check → 81 il, 249 durak, 84 soru; 1413 kanonik dizgi baseline ile eşleşti
-npm test           → 12 dosya / 239 test geçti (logic + jsdom ui)
+npm test           → 12 dosya / 240 test geçti (logic + jsdom ui)
 npm run build      → başarılı, 4 rota
 npm start          → /map ve /city/istanbul 200
 ```
@@ -404,6 +404,18 @@ Hoca'nın 85 santim önündeydi. Üç test bunu koruyor: doğuş noktası hiçbi
 sokakta 19 yerleştirilmiş prop var ve hepsi teslim edilmiş model.
 
 Tramvay ve rıhtım İstanbul'a özel (D-065), paylaşılan kite girmiyor.
+
+## 4v. Durak 1 yeniden düzenlendi
+
+`city_istanbul_iznik_tile_panel` 1. durağın nesnesi oldu: 1,51 × 2,20 × 1,06 m — çocuk boyunda,
+yaklaşıp bakılacak bir pano. 20,31 MB'dan **0,58 MB**'a indi.
+
+Ayasofya durak olmaktan çıkıp arka plana alındı (D-066). Durak nesnesiyken tetik halkası iki
+komşu arasına sığmak zorunda olduğu için 8 metreye sıkışıyordu; artık oyun alanının dışında,
+**12 metre** boyunda ve 20 metre eninde.
+
+Bu zaten varlık şartnamesinin baştan söylediği şeydi: *bu duraktaki nesne bina değil.*
+Tersini kurup görmek gerekti.
 
 ## 5. Bilinen sınırlar
 

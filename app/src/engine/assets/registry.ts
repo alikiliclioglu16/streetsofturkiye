@@ -95,18 +95,32 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
       'down to 2.68 MB. Delivered already at the agreed 14 m and grounded.',
   },
   {
+    id: 'city_istanbul_iznik_tile_panel',
+    modelUrl: '/assets/city/city_istanbul_iznik_tile_panel.glb',
+    checksum: '5ace139839828ea0d6b32a0586b2bba36617e13ea9072ded8b8eaf4bd13a7c65',
+    triangles: 5_778,
+    transferBytes: 603424,
+    // Child height: the stop is something to walk up to and look at closely.
+    dimensions: [1.51, 2.2, 1.06],
+    label: 'İznik tile panel',
+    color: '#1B7FA8',
+    placeholder: 'plane',
+    scaleToBrief: true,
+    notes: 'Delivered 20.31 MB with 4096 px maps on 5,778 triangles; recompressed to 0.7 MB.',
+  },
+  {
     id: 'city_istanbul_hagia_sophia',
     modelUrl: '/assets/city/city_istanbul_hagia_sophia.glb',
     checksum: 'dd5a04a4e109a422a35822b45705863c60020f526bcec52c60a09ec7689b78de',
     triangles: 6_053,
     transferBytes: 2_831_596,
     /**
-     * 8 m, not the 12 the proportions invite. Hagia Sophia is broad rather than
-     * tall: at 12 m its footprint was 21 m deep, which pushed its trigger ring
-     * into the tower's — the two stops are only 18.8 m apart — and left no room
-     * for lamps or cats at the top of the street.
+     * Backdrop, not a stop. As a stop object it had to fit a trigger ring
+     * between two neighbours 18.8 m apart, which held it to 8 m and still left
+     * it looming over the child at the top of the street. Standing outside the
+     * play area it can be the size a mosque should be.
      */
-    dimensions: [13.4, 8.0, 14.3],
+    dimensions: [20.1, 12.0, 21.5],
     label: 'Hagia Sophia',
     color: '#C9B79A',
     placeholder: 'box',
