@@ -1,3 +1,5 @@
+import { readFileSync } from 'node:fs';
+import path from 'node:path';
 import { describe, expect, it } from 'vitest';
 import { blockedBy } from '@/engine/controls/movement';
 import { deliveredProps, resolveAsset, trustsModelScale } from '@/engine/assets/registry';
@@ -138,5 +140,22 @@ describe('optimised street kit', () => {
       // Route points run near x = 0; a prop on the centreline is an obstacle.
       expect(Math.abs(prop.position[0]), prop.key).toBeGreaterThan(3.5);
     }
+  });
+});
+
+describe('grounding cues', () => {
+  it('has no graybox facing indicator left in the rig', () => {
+    const rig = readFileSync(path.resolve(process.cwd(), 'src/components/three/PlayerRig.tsx'), 'utf8');
+    // The arrow at the guide's feet was for a featureless placeholder cylinder.
+    expect(rig).not.toContain('coneGeometry');
+  });
+
+  it('lets props cast a contact shadow, which is what grounds them visually', () => {
+    const instance = readFileSync(
+      path.resolve(process.cwd(), 'src/components/three/AssetInstance.tsx'),
+      'utf8',
+    );
+    expect(instance).toContain('castShadow');
+    expect(instance).toContain('receiveShadow');
   });
 });

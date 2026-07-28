@@ -2,7 +2,7 @@
 
 import React, { Suspense, useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import { useGLTF } from '@react-three/drei';
-import type { Group } from 'three';
+import type { Group, Mesh, Object3D } from 'three';
 import { Box3, Vector3 } from 'three';
 import type { ResolvedAsset } from '@/engine/assets/registry';
 import { PlaceholderAsset } from '@/components/three/PlaceholderAsset';
@@ -25,14 +25,31 @@ import { PlaceholderAsset } from '@/components/three/PlaceholderAsset';
 interface ModelProps {
   url: string;
   asset: ResolvedAsset;
+  castShadow: boolean;
 }
 
-function Model({ url, asset }: ModelProps) {
+function Model({ url, asset, castShadow }: ModelProps) {
   const { scene } = useGLTF(url);
   const groupRef = useRef<Group>(null);
 
   // Clone so two hotspots using the same GLB do not share one transform.
   const model = useMemo(() => scene.clone(true), [scene]);
+
+  /**
+   * A contact shadow is what tells the eye an object stands on the ground
+   * rather than hovering above it. The first props were grounded correctly and
+   * still read as floating, because nothing they cast reached the floor. Two
+   * kit props cost roughly 3,400 triangles in the shadow pass, which is nothing
+   * beside the guide's 197,000.
+   */
+  useEffect(() => {
+    model.traverse((child: Object3D) => {
+      const mesh = child as Mesh;
+      if (!mesh.isMesh) return;
+      mesh.castShadow = castShadow;
+      mesh.receiveShadow = true;
+    });
+  }, [model, castShadow]);
 
   /**
    * Normalise scale, then stand the model on the ground.
@@ -102,9 +119,11 @@ class ModelErrorBoundary extends React.Component<
 interface AssetInstanceProps {
   asset: ResolvedAsset;
   emphasis?: boolean;
+  /** Off for anything the scene draws in bulk or behind the play area. */
+  castShadow?: boolean;
 }
 
-export function AssetInstance({ asset, emphasis = false }: AssetInstanceProps) {
+export function AssetInstance({ asset, emphasis = false, castShadow = true }: AssetInstanceProps) {
   const [failed, setFailed] = useState(false);
   const placeholder = <PlaceholderAsset asset={asset} emphasis={emphasis} />;
 
@@ -120,7 +139,7 @@ export function AssetInstance({ asset, emphasis = false }: AssetInstanceProps) {
     >
       {/* The placeholder also covers the loading window, so nothing pops in blank. */}
       <Suspense fallback={placeholder}>
-        <Model url={asset.modelUrl} asset={asset} />
+        <Model url={asset.modelUrl} asset={asset} castShadow={castShadow} />
       </Suspense>
     </ModelErrorBoundary>
   );

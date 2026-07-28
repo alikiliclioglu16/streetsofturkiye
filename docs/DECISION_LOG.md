@@ -341,3 +341,20 @@ longer normalises delivered props against a briefed height.
 Normalising a 5 m lamp and a 0.9 m bench towards anything in common would
 flatten exactly the difference that makes a street read as a street.
 
+## D-038 — The graybox facing indicator is gone (28 Jul 2026)
+
+A dark cone sat at the guide's feet, pointing the way he faced. It existed
+because a featureless placeholder cylinder had no readable front. A character
+with a face, a turban and a robe does not need an arrow on the pavement, and it
+looked like debris in front of him.
+
+## D-039 — Props cast contact shadows (28 Jul 2026)
+
+Street props rendered without shadows and read as hovering, even though every
+base was measured onto y = 0. A contact shadow is what tells the eye that an
+object is standing on the ground; grounding it in the transform is not enough if
+nothing it casts reaches the floor.
+
+Two kit props add roughly 3,400 triangles to the shadow pass, against the
+guide's 197,000. The cost is not the consideration here.
+

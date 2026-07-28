@@ -243,11 +243,11 @@ export function PlayerRig({
         onMotionReport={onHeroMotion}
         onStatusChange={onHeroStatus}
       />
-      {/* Facing indicator: direction is readable without relying on colour. */}
-      <mesh position={[0, 0.06, 0.55]} rotation={[-Math.PI / 2, 0, 0]}>
-        <coneGeometry args={[0.22, 0.5, 3]} />
-        <meshStandardMaterial color="#16324F" roughness={0.6} />
-      </mesh>
+      {/*
+        The graybox facing indicator is gone. It existed so a featureless
+        placeholder cylinder had a readable front; a character with a face and a
+        turban does not need an arrow at his feet.
+      */}
     </group>
   );
 }
