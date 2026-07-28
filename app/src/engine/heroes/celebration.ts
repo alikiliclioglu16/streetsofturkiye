@@ -111,17 +111,30 @@ export function currentCelebrationClip(
   return (plan[context.step] as HeroClip | undefined) ?? null;
 }
 
-/** The camera anchor used to frame the guide for a celebration. */
-export function celebrationCamera(position: readonly [number, number, number]): {
+/**
+ * Where the camera goes to watch the guide celebrate.
+ *
+ * In front of him, slightly to one side, at chest height. The whole point of a
+ * celebration is the character's face, and a camera parked behind his shoulders
+ * shows a back.
+ */
+export function celebrationCamera(
+  position: readonly [number, number, number],
+  heading: number,
+): {
   position: [number, number, number];
   target: [number, number, number];
   durationMs: number;
 } {
   const [x, , z] = position;
+  const distance = 5.2;
   return {
-    // Medium/full-body framing: back off and drop to chest height.
-    position: [x + 1.2, 2.2, z + 5.4],
-    target: [x, 1.0, z],
+    position: [
+      x + Math.sin(heading) * distance + Math.cos(heading) * 1.2,
+      2.0,
+      z + Math.cos(heading) * distance - Math.sin(heading) * 1.2,
+    ],
+    target: [x, 1.15, z],
     durationMs: 700,
   };
 }

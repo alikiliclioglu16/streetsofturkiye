@@ -226,3 +226,24 @@ slid along the ground.
 The audio toggles are removed. There is no audio in the build, so three switches
 that changed nothing were on screen. They come back when sound does.
 
+## D-027 — The camera orbits, the guide turns (28 Jul 2026)
+
+Dragging the camera used to change the guide's heading, so the camera stayed
+locked behind his shoulders and his face was never visible. Drag now orbits the
+camera around him; the turn keys still turn him. The orbit eases back behind him
+while he walks, so a child cannot get stuck facing sideways.
+
+The celebration camera goes round to his front. A celebration is about the
+character's face.
+
+## D-028 — A watchdog, not another theory (28 Jul 2026)
+
+The guide kept reaching his bind pose — arms out, sliding along the ground —
+after finishing a stop. Two causes were fixed by reasoning and it kept coming
+back, so the outcome is now checked directly: twice a second, if no action is
+driving the skeleton, idle is started.
+
+The one-shot clips also stopped clamping. A clamped action holds its weight
+forever and blends into whatever plays next, which is one way to arrive at a
+pose nobody authored.
+

@@ -10,7 +10,7 @@ import { heroForGuide, type HeroClip } from '@/engine/heroes/registry';
 import type { QualitySettings } from '@/engine/heroes/policy';
 import { inputState } from '@/engine/controls/inputState';
 import { distance2, stepWithCollision, TURN_SPEED, type Point2 } from '@/engine/controls/movement';
-import { clampPitch, followCameraPosition, smoothing } from '@/engine/camera/anchors';
+import { clampPitch, decayOrbit, followCameraPosition, smoothing } from '@/engine/camera/anchors';
 import { celebrationCamera } from '@/engine/heroes/celebration';
 
 interface PlayerRigProps {
@@ -71,6 +71,8 @@ export function PlayerRig({
   const settledFor = useRef<string | null>(null);
   const lookTarget = useRef(new Vector3());
   const framedRef = useRef(false);
+  /** Camera orbit relative to the guide's heading; drag changes it, walking undoes it. */
+  const orbitOffset = useRef(0);
   const hero = useMemo(() => heroForGuide(guideId), [guideId]);
 
   // Ground speed feeds the animation state; it is sampled, never React state.
@@ -102,7 +104,8 @@ export function PlayerRig({
     };
     const move = (event: PointerEvent) => {
       if (!dragging) return;
-      heading.current -= (event.clientX - lastX) * 0.005;
+      // Dragging moves the camera around him, not him.
+      orbitOffset.current -= (event.clientX - lastX) * 0.006;
       pitch.current = clampPitch(pitch.current + (event.clientY - lastY) * 0.003);
       lastX = event.clientX;
       lastY = event.clientY;
@@ -159,7 +162,11 @@ export function PlayerRig({
 
     // Celebration framing wins over everything: the guide is the subject.
     if (framingCelebration) {
-      const anchor = celebrationCamera([position.current.x, 0, position.current.z]);
+      // Celebration is the one moment the camera goes round to his face.
+      const anchor = celebrationCamera(
+        [position.current.x, 0, position.current.z],
+        heading.current,
+      );
       const factor = smoothing(delta, anchor.durationMs, reducedMotion);
       camera.position.lerp(new Vector3(...anchor.position), factor);
       lookTarget.current.lerp(new Vector3(...anchor.target), factor);
@@ -187,10 +194,12 @@ export function PlayerRig({
       }
     } else {
       settledFor.current = null;
+      const moving = Math.abs(inputState.forward) > 0.01;
+      orbitOffset.current = decayOrbit(orbitOffset.current, moving, delta);
       const desired = followCameraPosition(
         position.current.x,
         position.current.z,
-        heading.current,
+        heading.current + orbitOffset.current,
         pitch.current,
       );
       camera.position.lerp(new Vector3(...desired), reducedMotion ? 1 : Math.min(1, delta * 6));

@@ -230,10 +230,13 @@ function HeroModel({
 
     if (next) {
       next.reset().fadeIn(fade).play();
+      next.setEffectiveWeight(1);
       if (isOneShot(desiredClip)) {
-        // One pass, then hand control back to the choreography.
+        // One pass, then hand control back to the choreography. The pose is not
+        // clamped: a clamped action keeps its weight forever and blends into
+        // whatever plays next.
         next.setLoop(LoopOnce, 1);
-        next.clampWhenFinished = true;
+        next.clampWhenFinished = false;
         /**
          * Some delivered clips run far longer than the beat they illustrate —
          * Nasreddin Hodja's agree gesture is 13 s. A cap in the registry ends
@@ -286,6 +289,17 @@ function HeroModel({
     return () => mixer.removeEventListener('finished', onFinished);
   }, [mixer, onClipFinished]);
 
+  /**
+   * Bind-pose watchdog.
+   *
+   * A clip that finishes while clamped keeps its weight, a cross-fade can be
+   * interrupted, and either way the character can end up with no action driving
+   * him — arms out, sliding along the ground. Rather than chase every path that
+   * leads there, this checks the outcome twice a second: if nothing is driving
+   * the skeleton, idle is started. It is the symptom that matters to a child.
+   */
+  const watchdogElapsed = useRef(0);
+
   // Drive the single mixer manually so it can never run while unmounted.
   useFrame((_, delta) => {
     // useFrame runs before the render, so this frame's tally is last frame's.
@@ -302,6 +316,26 @@ function HeroModel({
     }
 
     mixer.update(delta);
+
+    watchdogElapsed.current += delta;
+    if (watchdogElapsed.current >= 0.5) {
+      watchdogElapsed.current = 0;
+      let driving = 0;
+      for (const clip of clipsByName.values()) {
+        const action = mixer.existingAction(clip);
+        if (action?.isRunning()) driving += action.getEffectiveWeight();
+      }
+      if (driving < 0.05) {
+        const idleName = hero.animation.clips.idle;
+        const idle = idleName ? clipsByName.get(idleName) : undefined;
+        if (idle) {
+          const action = mixer.clipAction(idle);
+          action.reset().setEffectiveWeight(1).setLoop(LoopRepeat, Infinity).play();
+          currentAction.current = action;
+          currentClip.current = 'idle';
+        }
+      }
+    }
 
     /**
      * Root-motion safety.

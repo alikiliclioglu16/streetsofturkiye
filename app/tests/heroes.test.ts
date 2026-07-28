@@ -378,13 +378,27 @@ describe('completion choreography', () => {
     expect(run([{ type: 'CITY_COMPLETED' }, { type: 'PROGRESS_SAVED' }], empty).state).toBe('summary');
   });
 
-  it('frames the guide from a medium distance rather than overhead', () => {
-    const camera = celebrationCamera([4, 0, -22]);
-    expect(camera.target).toEqual([4, 1.0, -22]);
-    const horizontal = Math.hypot(camera.position[0] - 4, camera.position[2] - -22);
+  it('frames the guide from the front, at his height, not from behind', () => {
+    // Heading 0 means he faces +z, so the camera must sit at greater z.
+    const camera = celebrationCamera([4, 0, -22], 0);
+    expect(camera.target[0]).toBe(4);
+    expect(camera.target[1]).toBeGreaterThan(1);
+    expect(camera.position[2]).toBeGreaterThan(-22);
+
+    const horizontal = Math.hypot(camera.position[0] - 4, camera.position[2] + 22);
     expect(horizontal).toBeGreaterThan(3);
     expect(horizontal).toBeLessThan(8);
     expect(camera.position[1]).toBeLessThan(3);
+  });
+
+  it('stays in front however he is turned', () => {
+    for (const heading of [0, Math.PI / 2, Math.PI, -Math.PI / 2]) {
+      const camera = celebrationCamera([0, 0, 0], heading);
+      // Dot product of the camera direction with his facing must be positive.
+      const facing = { x: Math.sin(heading), z: Math.cos(heading) };
+      const dot = camera.position[0] * facing.x + camera.position[2] * facing.z;
+      expect(dot, `heading ${heading}`).toBeGreaterThan(0);
+    }
   });
 });
 

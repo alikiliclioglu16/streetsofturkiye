@@ -9,6 +9,7 @@ import {
   stepWithCollision,
 } from '@/engine/controls/movement';
 import { clipForState } from '@/engine/heroes/animation';
+import { decayOrbit, followCameraPosition } from '@/engine/camera/anchors';
 import { buildScene } from '@/engine/scene/buildScene';
 import { resolveAsset } from '@/engine/assets/registry';
 
@@ -209,4 +210,29 @@ describe('controls', () => {
     expect(clipForState({ speed: runDistance, interacting: false, performing: null })).toBe('run');
   });
 
+});
+
+describe('camera orbit', () => {
+  it('lets the camera swing round without turning the guide', () => {
+    // Dragging changes only the offset; the guide's heading is untouched.
+    const heading = 1.2;
+    const offset = Math.PI;
+    const front = followCameraPosition(0, 0, heading + offset, 0);
+    const behind = followCameraPosition(0, 0, heading, 0);
+    // Opposite sides of him, so his face becomes reachable.
+    expect(Math.hypot(front[0] - behind[0], front[2] - behind[2])).toBeGreaterThan(10);
+  });
+
+  it('recentres behind him only while he walks', () => {
+    // Standing still, a chosen angle is kept.
+    expect(decayOrbit(1.5, false, 1)).toBe(1.5);
+    // Walking, it eases back to centre rather than snapping.
+    const once = decayOrbit(1.5, true, 1);
+    expect(once).toBeLessThan(1.5);
+    expect(once).toBeGreaterThan(0);
+
+    let offset = 1.5;
+    for (let i = 0; i < 60; i += 1) offset = decayOrbit(offset, true, 1 / 6);
+    expect(Math.abs(offset)).toBeLessThan(0.05);
+  });
 });
