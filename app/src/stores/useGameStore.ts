@@ -20,6 +20,7 @@ import {
   completeHotspot,
   completeQuiz,
   quizUnlocked,
+  reconcileProgress,
   recordCityCompletion,
   recordVisit,
 } from '@/engine/progress/rules';
@@ -77,7 +78,12 @@ export const useGameStore = create<GameState>((set, get) => ({
       ]);
       if (signal?.aborted) return;
 
-      const progress = stored ?? emptyCityProgress(cityId);
+      // A save from an older shape is reconciled, never believed as-is.
+      const progress = reconcileProgress(city, stored);
+      if (stored && JSON.stringify(stored) !== JSON.stringify(progress)) {
+        await progressRepository.saveCityProgress(progress);
+      }
+
       const nextProfile = recordVisit(profile, cityId);
       await progressRepository.saveProfile(nextProfile);
 

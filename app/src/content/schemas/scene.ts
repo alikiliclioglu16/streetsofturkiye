@@ -1,5 +1,4 @@
 import { z } from 'zod';
-import { localizedTextSchema } from '@/content/schemas/canonical';
 
 /**
  * Technical scene data.
@@ -57,20 +56,11 @@ export const sceneHotspotSchema = z.object({
     target: vec3Schema,
     durationMs: z.number().nonnegative(),
   }),
-  interaction: z.object({
-    type: interactionTypeSchema,
-    mechanics: z.object({
-      targetId: z.string(),
-      hintAfterAttempts: z.number().int().positive().optional(),
-      /** Wrong answers are canonical rewards from other stops, referenced by id. */
-      decoyStopIds: z.array(z.string()).default([]),
-    }),
-    /**
-     * Gameplay instructions only. `{reward}` is substituted at runtime with the
-     * canonical reward label; canonical prose is never stored here.
-     */
-    gameplayCopy: z.object({ instruction: localizedTextSchema }).optional(),
-  }),
+  /**
+   * How the stop is presented. Stops present and hand over the collectible, so
+   * there is no answer mechanic here — an earlier build invented one.
+   */
+  presentation: z.object({ style: z.literal('fact-card') }),
   rewardAssetId: z.string(),
   audio: z.object({ onSuccessId: z.string().optional() }).optional(),
 });

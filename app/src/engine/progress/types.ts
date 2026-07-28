@@ -1,4 +1,16 @@
+/**
+ * Bumped whenever a saved city's shape changes.
+ *
+ * 1 → 2: İstanbul went from three hand-authored stops to five canonical ones,
+ * with new hotspot ids. A version-1 save records a finished city that no longer
+ * exists, and the player was shown a completion panel for a city they had not
+ * played.
+ */
+export const CITY_PROGRESS_VERSION = 2;
+
 export interface CityProgress {
+  /** Absent in saves written before versioning; treated as 1. */
+  schemaVersion?: number;
   cityId: string;
   completedHotspotIds: string[];
   collectedRewardIds: string[];
@@ -32,6 +44,7 @@ export const emptyProfile = (): PlayerProfile => ({
 });
 
 export const emptyCityProgress = (cityId: string): CityProgress => ({
+  schemaVersion: CITY_PROGRESS_VERSION,
   cityId,
   completedHotspotIds: [],
   collectedRewardIds: [],

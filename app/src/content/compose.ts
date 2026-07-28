@@ -4,7 +4,6 @@ import type {
   LocalizedText,
 } from '@/content/schemas/canonical';
 import type {
-  InteractionType,
   SceneDefinition,
   SceneHotspot,
   SceneStatus,
@@ -43,15 +42,6 @@ export interface RuntimeHotspot {
   triggerRadius: number;
   collider: { halfWidth: number; halfDepth: number };
   camera: { position: Vec3; target: Vec3; durationMs: number };
-  interaction: {
-    type: InteractionType;
-    targetId: string;
-    hintAfterAttempts: number;
-    /** Correct option first; the UI shuffles for display. */
-    options: RuntimeChoice[];
-    /** Gameplay instruction with `{reward}` already substituted. */
-    instruction: LocalizedText;
-  };
   /** Canonical category, used for the badge on the fact card. */
   category: string;
   /** Display name of the guide who speaks the line. */
@@ -93,16 +83,6 @@ export interface RuntimeCity {
   rewards: { cityStarId: string; collectibleAssetIds: string[] };
 }
 
-/** Substitutes `{reward}` in a gameplay instruction with the canonical label. */
-function fillInstruction(template: LocalizedText | undefined, reward: LocalizedText): LocalizedText {
-  const apply = (text: string | null, label: string | null): string | null => {
-    if (!text) return null;
-    return text.replace('{reward}', label ?? '');
-  };
-  if (!template) return { en: null, tr: null };
-  return { en: apply(template.en, reward.en), tr: apply(template.tr, reward.tr) };
-}
-
 function composeHotspot(
   hotspot: SceneHotspot,
   stopsById: Map<string, CanonicalStop>,
@@ -116,17 +96,6 @@ function composeHotspot(
     );
   }
 
-  const decoys = hotspot.interaction.mechanics.decoyStopIds.map((stopId) => {
-    const decoy = stopsById.get(stopId);
-    if (!decoy) {
-      throw new ContentRefError(
-        cityId,
-        `hotspot ${hotspot.id} references missing decoy stop "${stopId}"`,
-      );
-    }
-    return decoy;
-  });
-
   return {
     id: hotspot.id,
     order: hotspot.order,
@@ -139,20 +108,6 @@ function composeHotspot(
     triggerRadius: hotspot.triggerRadius,
     collider: hotspot.collider,
     camera: hotspot.camera,
-    interaction: {
-      type: hotspot.interaction.type,
-      targetId: hotspot.interaction.mechanics.targetId,
-      hintAfterAttempts: hotspot.interaction.mechanics.hintAfterAttempts ?? 2,
-      options: [
-        { id: `${stop.id}-correct`, text: stop.reward.label, correct: true },
-        ...decoys.map((decoy) => ({
-          id: `${decoy.id}-decoy`,
-          text: decoy.reward.label,
-          correct: false,
-        })),
-      ],
-      instruction: fillInstruction(hotspot.interaction.gameplayCopy?.instruction, stop.reward.label),
-    },
     fact: {
       title: stop.title,
       body: stop.description,

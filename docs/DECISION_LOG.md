@@ -290,3 +290,14 @@ A kit per province would be roughly 400 models. Sharing them is roughly 60. A
 child does not notice that Trabzon's bench is Konya's bench; they notice whether
 the street has benches.
 
+## D-033 — Saved progress is reconciled, never trusted (28 Jul 2026)
+
+`CityProgress` carries a schema version, and every city entry runs the save
+through `reconcileProgress`. Hotspot and reward ids the city no longer
+recognises are dropped, and the completion flags are recomputed rather than
+read.
+
+This had already failed in the field: a save from the three-stop İstanbul made
+the five-stop city report itself finished on arrival, and the only escape was
+resetting progress. Content outlives no save; a save must never outrank content.
+

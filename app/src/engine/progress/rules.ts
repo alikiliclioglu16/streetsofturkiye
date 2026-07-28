@@ -1,5 +1,10 @@
 import type { RuntimeCity as CityDefinition } from '@/content/compose';
-import type { CityProgress, PlayerProfile } from '@/engine/progress/types';
+import {
+  CITY_PROGRESS_VERSION,
+  emptyCityProgress,
+  type CityProgress,
+  type PlayerProfile,
+} from '@/engine/progress/types';
 
 /**
  * Progress rules are pure so they can be tested without React or WebGL.
@@ -61,4 +66,47 @@ export function recordCityCompletion(
     ? profile.starIds
     : [...profile.starIds, city.rewards.cityStarId];
   return { ...profile, completedCityIds: completed, starIds: stars };
+}
+
+/**
+ * Reconciles a saved city against the city as it exists now.
+ *
+ * Saves outlive content. A stop can be renamed, added or removed, and a save
+ * that names hotspots which no longer exist must not be trusted — least of all
+ * its `cityCompleted` flag, which is what decides whether the player is shown a
+ * completion panel the moment they arrive.
+ *
+ * Anything the current city still recognises is kept, so a player who finished
+ * three of five stops keeps those three. Everything else is dropped and the
+ * completion flags are recomputed rather than believed.
+ */
+export function reconcileProgress(city: CityDefinition, stored: CityProgress | null): CityProgress {
+  const fresh = emptyCityProgress(city.id);
+  if (!stored) return fresh;
+
+  const knownHotspots = new Set(city.hotspots.map((hotspot) => hotspot.id));
+  const knownRewards = new Set(city.hotspots.map((hotspot) => hotspot.reward.assetId));
+
+  const completedHotspotIds = stored.completedHotspotIds.filter((id) => knownHotspots.has(id));
+  const collectedRewardIds = stored.collectedRewardIds.filter((id) => knownRewards.has(id));
+
+  const everyStopDone = completedHotspotIds.length === city.hotspots.length;
+  // A quiz cannot be finished if the stops that gate it are not.
+  const quizCompleted = stored.quizCompleted && everyStopDone;
+
+  return {
+    schemaVersion: CITY_PROGRESS_VERSION,
+    cityId: city.id,
+    completedHotspotIds,
+    collectedRewardIds,
+    quizCompleted,
+    cityCompleted: everyStopDone && quizCompleted,
+    updatedAt: stored.updatedAt,
+  };
+}
+
+/** True when the saved shape no longer matches what the engine writes today. */
+export function needsMigration(stored: CityProgress | null): boolean {
+  if (!stored) return false;
+  return (stored.schemaVersion ?? 1) !== CITY_PROGRESS_VERSION;
 }

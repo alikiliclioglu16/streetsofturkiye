@@ -68,18 +68,6 @@ const COMMISSIONED_REWARDS = {
 };
 
 /**
- * Canonical category drives the interaction mechanic. Only `inspect-and-find`
- * is implemented; the rest degrade to an accessible choice at runtime, so this
- * records design intent without blocking a route.
- */
-const INTERACTION_BY_CATEGORY = {
-  history: 'inspect-and-find',
-  craft: 'inspect-and-find',
-  food: 'sequence-select',
-  nature: 'observe-and-answer',
-};
-
-/**
  * Geometry is derived per object rather than from one global number.
  *
  * A 9 m wide tower and a 1.6 m tile panel cannot share an approach distance:
@@ -164,13 +152,6 @@ function buildScene(canonical) {
     const position = stopPositions[index];
     const { halfWidth, halfDepth, triggerRadius } = geometry[index];
 
-    // Decoys are referenced by canonical stop id; their labels are resolved at
-    // runtime so no canonical string is copied into this file.
-    const decoyStopIds = canonical.stops
-      .filter((other) => other.id !== stop.id)
-      .slice(0, 2)
-      .map((other) => other.id);
-
     return {
       id: `${canonical.id}-hotspot-${String(stop.order).padStart(2, '0')}`,
       order: stop.order,
@@ -191,21 +172,11 @@ function buildScene(canonical) {
         target: [position[0], 1.4, position[2]],
         durationMs: 900,
       },
-      interaction: {
-        type: INTERACTION_BY_CATEGORY[stop.category] ?? 'simple-choice',
-        mechanics: {
-          targetId: `${stop.id}-target`,
-          hintAfterAttempts: 2,
-          decoyStopIds,
-        },
-        /**
-         * Gameplay instruction only. `{reward}` is filled at runtime with the
-         * canonical reward label; the label itself is never stored here.
-         */
-        gameplayCopy: {
-          instruction: { en: 'Find {reward}.', tr: null },
-        },
-      },
+      /**
+       * How the stop is presented. Stops present and hand over the collectible;
+       * they do not ask questions, so there is no answer mechanic here.
+       */
+      presentation: { style: 'fact-card' },
       rewardAssetId,
       audio: { onSuccessId: 'sfx_reward_chime' },
     };

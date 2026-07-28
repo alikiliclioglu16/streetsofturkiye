@@ -144,22 +144,16 @@ describe('composition', () => {
     expect(city.quiz).toHaveLength(2);
   });
 
-  it('fills the gameplay instruction with the canonical reward label', () => {
+  it('presents a stop rather than questioning it', () => {
     const { canonical, scene } = load('istanbul');
     const city = composeCity(canonical, scene);
-    expect(city.hotspots[0]!.interaction.instruction.en).toBe('Find a blue İznik tile.');
-    // The template itself never holds canonical text.
-    expect(scene.hotspots[0]!.interaction.gameplayCopy!.instruction.en).toBe('Find {reward}.');
-  });
+    const hotspot = city.hotspots[0]!;
 
-  it('builds wrong answers from other canonical stops in the same city', () => {
-    const { canonical, scene } = load('istanbul');
-    const city = composeCity(canonical, scene);
-    const options = city.hotspots[0]!.interaction.options;
-    expect(options[0]!.correct).toBe(true);
-    expect(options.slice(1).every((option) => !option.correct)).toBe(true);
-    const labels = canonical.stops.map((stop) => stop.reward.label.en);
-    for (const option of options) expect(labels).toContain(option.text.en);
+    // Everything a stop needs to present itself, and nothing to answer.
+    expect(hotspot.fact.title.en).toBe(canonical.stops[0]!.title.en);
+    expect(hotspot.reward.label.en).toBe(canonical.stops[0]!.reward.label.en);
+    expect('interaction' in hotspot).toBe(false);
+    expect(scene.hotspots[0]!.presentation.style).toBe('fact-card');
   });
 
   it('reports a canonical stop that has no technical hotspot as pending', () => {

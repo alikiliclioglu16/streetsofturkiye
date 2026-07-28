@@ -143,22 +143,8 @@
         ],
         "durationMs": 900
       },
-      "interaction": {
-        "type": "observe-and-answer",
-        "mechanics": {
-          "targetId": "nevsehir-stop-01-target",
-          "hintAfterAttempts": 2,
-          "decoyStopIds": [
-            "nevsehir-stop-02",
-            "nevsehir-stop-03"
-          ]
-        },
-        "gameplayCopy": {
-          "instruction": {
-            "en": "Find {reward}.",
-            "tr": null
-          }
-        }
+      "presentation": {
+        "style": "fact-card"
       },
       "rewardAssetId": "collectible_nevsehir_fairy_chimney",
       "audio": {
@@ -209,22 +195,8 @@
         ],
         "durationMs": 900
       },
-      "interaction": {
-        "type": "observe-and-answer",
-        "mechanics": {
-          "targetId": "nevsehir-stop-02-target",
-          "hintAfterAttempts": 2,
-          "decoyStopIds": [
-            "nevsehir-stop-01",
-            "nevsehir-stop-03"
-          ]
-        },
-        "gameplayCopy": {
-          "instruction": {
-            "en": "Find {reward}.",
-            "tr": null
-          }
-        }
+      "presentation": {
+        "style": "fact-card"
       },
       "rewardAssetId": "collectible_nevsehir_2",
       "audio": {
@@ -275,22 +247,8 @@
         ],
         "durationMs": 900
       },
-      "interaction": {
-        "type": "inspect-and-find",
-        "mechanics": {
-          "targetId": "nevsehir-stop-03-target",
-          "hintAfterAttempts": 2,
-          "decoyStopIds": [
-            "nevsehir-stop-01",
-            "nevsehir-stop-02"
-          ]
-        },
-        "gameplayCopy": {
-          "instruction": {
-            "en": "Find {reward}.",
-            "tr": null
-          }
-        }
+      "presentation": {
+        "style": "fact-card"
       },
       "rewardAssetId": "collectible_nevsehir_lantern",
       "audio": {
@@ -341,22 +299,8 @@
         ],
         "durationMs": 900
       },
-      "interaction": {
-        "type": "inspect-and-find",
-        "mechanics": {
-          "targetId": "nevsehir-stop-04-target",
-          "hintAfterAttempts": 2,
-          "decoyStopIds": [
-            "nevsehir-stop-01",
-            "nevsehir-stop-02"
-          ]
-        },
-        "gameplayCopy": {
-          "instruction": {
-            "en": "Find {reward}.",
-            "tr": null
-          }
-        }
+      "presentation": {
+        "style": "fact-card"
       },
       "rewardAssetId": "collectible_nevsehir_clay_pot",
       "audio": {
@@ -407,22 +351,8 @@
         ],
         "durationMs": 900
       },
-      "interaction": {
-        "type": "inspect-and-find",
-        "mechanics": {
-          "targetId": "nevsehir-stop-05-target",
-          "hintAfterAttempts": 2,
-          "decoyStopIds": [
-            "nevsehir-stop-01",
-            "nevsehir-stop-02"
-          ]
-        },
-        "gameplayCopy": {
-          "instruction": {
-            "en": "Find {reward}.",
-            "tr": null
-          }
-        }
+      "presentation": {
+        "style": "fact-card"
       },
       "rewardAssetId": "collectible_nevsehir_5",
       "audio": {

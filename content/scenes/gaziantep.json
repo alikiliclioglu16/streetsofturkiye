@@ -133,22 +133,8 @@
         ],
         "durationMs": 900
       },
-      "interaction": {
-        "type": "inspect-and-find",
-        "mechanics": {
-          "targetId": "gaziantep-stop-01-target",
-          "hintAfterAttempts": 2,
-          "decoyStopIds": [
-            "gaziantep-stop-02",
-            "gaziantep-stop-03"
-          ]
-        },
-        "gameplayCopy": {
-          "instruction": {
-            "en": "Find {reward}.",
-            "tr": null
-          }
-        }
+      "presentation": {
+        "style": "fact-card"
       },
       "rewardAssetId": "collectible_gaziantep_mosaic_piece",
       "audio": {
@@ -199,22 +185,8 @@
         ],
         "durationMs": 900
       },
-      "interaction": {
-        "type": "sequence-select",
-        "mechanics": {
-          "targetId": "gaziantep-stop-02-target",
-          "hintAfterAttempts": 2,
-          "decoyStopIds": [
-            "gaziantep-stop-01",
-            "gaziantep-stop-03"
-          ]
-        },
-        "gameplayCopy": {
-          "instruction": {
-            "en": "Find {reward}.",
-            "tr": null
-          }
-        }
+      "presentation": {
+        "style": "fact-card"
       },
       "rewardAssetId": "collectible_gaziantep_baklava",
       "audio": {
@@ -265,22 +237,8 @@
         ],
         "durationMs": 900
       },
-      "interaction": {
-        "type": "inspect-and-find",
-        "mechanics": {
-          "targetId": "gaziantep-stop-03-target",
-          "hintAfterAttempts": 2,
-          "decoyStopIds": [
-            "gaziantep-stop-01",
-            "gaziantep-stop-02"
-          ]
-        },
-        "gameplayCopy": {
-          "instruction": {
-            "en": "Find {reward}.",
-            "tr": null
-          }
-        }
+      "presentation": {
+        "style": "fact-card"
       },
       "rewardAssetId": "collectible_gaziantep_copper_pot",
       "audio": {

@@ -143,22 +143,8 @@
         ],
         "durationMs": 900
       },
-      "interaction": {
-        "type": "inspect-and-find",
-        "mechanics": {
-          "targetId": "istanbul-stop-01-target",
-          "hintAfterAttempts": 2,
-          "decoyStopIds": [
-            "istanbul-stop-02",
-            "istanbul-stop-03"
-          ]
-        },
-        "gameplayCopy": {
-          "instruction": {
-            "en": "Find {reward}.",
-            "tr": null
-          }
-        }
+      "presentation": {
+        "style": "fact-card"
       },
       "rewardAssetId": "collectible_istanbul_iznik_tile",
       "audio": {
@@ -209,22 +195,8 @@
         ],
         "durationMs": 900
       },
-      "interaction": {
-        "type": "inspect-and-find",
-        "mechanics": {
-          "targetId": "istanbul-stop-02-target",
-          "hintAfterAttempts": 2,
-          "decoyStopIds": [
-            "istanbul-stop-01",
-            "istanbul-stop-03"
-          ]
-        },
-        "gameplayCopy": {
-          "instruction": {
-            "en": "Find {reward}.",
-            "tr": null
-          }
-        }
+      "presentation": {
+        "style": "fact-card"
       },
       "rewardAssetId": "collectible_istanbul_legend_wings",
       "audio": {
@@ -275,22 +247,8 @@
         ],
         "durationMs": 900
       },
-      "interaction": {
-        "type": "inspect-and-find",
-        "mechanics": {
-          "targetId": "istanbul-stop-03-target",
-          "hintAfterAttempts": 2,
-          "decoyStopIds": [
-            "istanbul-stop-01",
-            "istanbul-stop-02"
-          ]
-        },
-        "gameplayCopy": {
-          "instruction": {
-            "en": "Find {reward}.",
-            "tr": null
-          }
-        }
+      "presentation": {
+        "style": "fact-card"
       },
       "rewardAssetId": "collectible_istanbul_3",
       "audio": {
@@ -341,22 +299,8 @@
         ],
         "durationMs": 900
       },
-      "interaction": {
-        "type": "sequence-select",
-        "mechanics": {
-          "targetId": "istanbul-stop-04-target",
-          "hintAfterAttempts": 2,
-          "decoyStopIds": [
-            "istanbul-stop-01",
-            "istanbul-stop-02"
-          ]
-        },
-        "gameplayCopy": {
-          "instruction": {
-            "en": "Find {reward}.",
-            "tr": null
-          }
-        }
+      "presentation": {
+        "style": "fact-card"
       },
       "rewardAssetId": "collectible_istanbul_4",
       "audio": {
@@ -407,22 +351,8 @@
         ],
         "durationMs": 900
       },
-      "interaction": {
-        "type": "observe-and-answer",
-        "mechanics": {
-          "targetId": "istanbul-stop-05-target",
-          "hintAfterAttempts": 2,
-          "decoyStopIds": [
-            "istanbul-stop-01",
-            "istanbul-stop-02"
-          ]
-        },
-        "gameplayCopy": {
-          "instruction": {
-            "en": "Find {reward}.",
-            "tr": null
-          }
-        }
+      "presentation": {
+        "style": "fact-card"
       },
       "rewardAssetId": "collectible_istanbul_ferry_token",
       "audio": {

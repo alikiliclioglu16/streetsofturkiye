@@ -1,12 +1,14 @@
 import { describe, expect, it } from 'vitest';
 import { loadComposedCity } from './helpers';
-import { emptyCityProgress, emptyProfile } from '@/engine/progress/types';
+import { CITY_PROGRESS_VERSION, emptyCityProgress, emptyProfile } from '@/engine/progress/types';
 import {
   allHotspotsComplete,
   completeHotspot,
   completeQuiz,
   hotspotProgressRatio,
+  needsMigration,
   quizUnlocked,
+  reconcileProgress,
   recordCityCompletion,
   recordVisit,
 } from '@/engine/progress/rules';
@@ -68,5 +70,54 @@ describe('progress rules', () => {
     expect(profile.visitedCityIds).toEqual([city.id]);
     expect(profile.completedCityIds).toEqual([city.id]);
     expect(profile.starIds).toEqual([city.rewards.cityStarId]);
+  });
+});
+
+describe('saved progress outliving content', () => {
+  const legacySave = {
+    // No schemaVersion, and hotspot ids from the three-stop İstanbul.
+    cityId: 'istanbul',
+    completedHotspotIds: ['istanbul-hotspot-01', 'istanbul-old-galata', 'istanbul-old-ferry'],
+    collectedRewardIds: ['collectible_istanbul_iznik_tile', 'collectible_istanbul_old'],
+    quizCompleted: true,
+    cityCompleted: true,
+    updatedAt: 1,
+  };
+
+  it('recognises a save written by an older shape', () => {
+    expect(needsMigration(legacySave)).toBe(true);
+    expect(needsMigration(emptyCityProgress('istanbul'))).toBe(false);
+    expect(needsMigration(null)).toBe(false);
+  });
+
+  it('does not believe a completion flag from a city that no longer exists', () => {
+    const reconciled = reconcileProgress(city, legacySave);
+    // Three of five, so the city is not finished however the save described it.
+    expect(reconciled.cityCompleted).toBe(false);
+    expect(reconciled.quizCompleted).toBe(false);
+  });
+
+  it('keeps the stops the city still recognises', () => {
+    const reconciled = reconcileProgress(city, legacySave);
+    expect(reconciled.completedHotspotIds).toEqual(['istanbul-hotspot-01']);
+    expect(reconciled.collectedRewardIds).toEqual(['collectible_istanbul_iznik_tile']);
+    expect(reconciled.schemaVersion).toBe(CITY_PROGRESS_VERSION);
+  });
+
+  it('leaves a current, genuinely finished save alone', () => {
+    const finished = completeQuiz(
+      city,
+      city.hotspots.reduce(
+        (progress, hotspot) => completeHotspot(progress, hotspot.id, hotspot.reward.assetId),
+        emptyCityProgress(city.id),
+      ),
+    );
+    const reconciled = reconcileProgress(city, finished);
+    expect(reconciled.cityCompleted).toBe(true);
+    expect(reconciled.completedHotspotIds).toHaveLength(city.hotspots.length);
+  });
+
+  it('treats a missing save as a fresh start', () => {
+    expect(reconcileProgress(city, null)).toEqual(emptyCityProgress(city.id));
   });
 });
