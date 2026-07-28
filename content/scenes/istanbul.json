@@ -73,22 +73,22 @@
     ],
     "bounds": [
       [
-        -20,
+        -22,
         0,
-        10
+        42
       ],
       [
-        20,
+        22,
         0,
-        10
+        42
       ],
       [
-        20,
+        22,
         0,
         -112
       ],
       [
-        -20,
+        -22,
         0,
         -112
       ]
@@ -522,14 +522,24 @@
       "note": "fountain towards the quay"
     },
     {
+      "assetId": "city_istanbul_hagia_sophia",
+      "position": [
+        0,
+        0,
+        28
+      ],
+      "rotationY": 3.202,
+      "note": "the mosque, closing the square"
+    },
+    {
       "assetId": "city_istanbul_streetcar",
       "position": [
-        -13,
+        -12.5,
         0,
-        -55
+        6
       ],
-      "rotationY": 0.08,
-      "note": "tram halted along the west side"
+      "rotationY": 0.12,
+      "note": "tram at the edge of the square"
     },
     {
       "assetId": "city_istanbul_stone_dock",
@@ -560,17 +570,6 @@
     "color": "#2E7FA8"
   },
   "backdrop": [
-    {
-      "assetId": "city_istanbul_hagia_sophia",
-      "position": [
-        -34,
-        0,
-        -30
-      ],
-      "rotationY": 1.05,
-      "solid": false,
-      "note": "the mosque itself, behind the top of the street"
-    },
     {
       "assetId": "city_istanbul_beyoglu_row",
       "position": [

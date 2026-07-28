@@ -736,3 +736,26 @@ and a test asserts no stop uses it.
 
 With this, every one of İstanbul's five stops points at a file that exists.
 
+## D-069 — There is ground behind the child (28 Jul 2026)
+
+The play area ended ten metres behind the spawn: a child who turned round saw
+the world stop. It now runs 42 m back, and that space is a square rather than
+spare ground — Hagia Sophia closes it and the tram waits at its edge, so the
+child begins as if they had just stepped off it.
+
+The mosque moved from backdrop to a solid prop on that square. Placing it
+outside the play area had put it past the edge of the ground entirely, floating
+over nothing. A building a child can walk through is worse than one they cannot
+reach, so it is solid, and at 10 m it shares a square rather than dominating a
+horizon.
+
+## D-070 — Clearance is measured against the route, not against x = 0 (28 Jul 2026)
+
+Props were kept 3.5 m from the centreline, which is a fair approximation while
+the walk runs down the middle — and wrong everywhere else. It refused to let
+the mosque close the square head-on, because the square is at x = 0 even though
+the route never reaches it.
+
+Clearance is now measured against the route polyline itself. The rule says what
+it always meant: nothing stands where the child walks.
+

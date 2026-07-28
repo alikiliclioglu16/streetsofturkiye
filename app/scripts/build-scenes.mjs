@@ -182,7 +182,16 @@ function streetProps(cityId, stopPositions, geometry) {
     prop('kit_wall_fountain', -14.5, -87, Math.PI / 2 - 0.15, 'fountain towards the quay'),
 
     // The red tram is Beyoğlu, parked rather than running.
-    prop('city_istanbul_streetcar', -13, -55, 0.08, 'tram halted along the west side'),
+    /**
+     * The mosque closes the square behind the child. It is solid: a building a
+     * child can walk through is worse than one they cannot reach, and standing
+     * it on the ground at the back of the play area means it is neither
+     * floating in the void nor out at sea.
+     */
+    prop('city_istanbul_hagia_sophia', 0, 28, Math.PI + 0.06, 'the mosque, closing the square'),
+
+    // Waiting at the edge of the square, as if the child had just stepped off.
+    prop('city_istanbul_streetcar', -12.5, 6, 0.12, 'tram at the edge of the square'),
 
     // Where the street meets the water.
     prop('city_istanbul_stone_dock', 12, -106, -0.25, 'dock at the quay'),
@@ -201,7 +210,12 @@ function streetProps(cityId, stopPositions, geometry) {
       const gap = Math.hypot(item.position[0] - stop[0], item.position[2] - stop[2]);
       return gap > geometry[index].triggerRadius;
     });
-    const clearOfWalk = Math.abs(item.position[0]) > ROUTE_CLEARANCE;
+    /**
+     * The centreline rule only applies where the walk actually runs. The square
+     * behind the child is not on the route, so the mosque can close it head-on.
+     */
+    const onTheWalk = item.position[2] <= 10;
+    const clearOfWalk = !onTheWalk || Math.abs(item.position[0]) > ROUTE_CLEARANCE;
     return clearOfStops && clearOfWalk;
   });
 }
@@ -373,14 +387,22 @@ function layout(stopCount, approaches) {
     ...stopPositions.map(([x, , z], i) => [x, 0, Math.round((z + approaches[i]) * 100) / 100]),
   ];
   const minZ = FIRST_STOP_Z - (stopCount - 1) * spacing - 14;
+  /**
+   * Ground behind the child, not just in front.
+   *
+   * The play area used to end ten metres behind the spawn, so a child who
+   * turned round saw the world stop. There is a square back there now, with
+   * the mosque closing it and the tram waiting at its edge.
+   */
+  const maxZ = 42;
   return {
     stopPositions,
     route,
     bounds: [
-      [-20, 0, 10],
-      [20, 0, 10],
-      [20, 0, minZ],
-      [-20, 0, minZ],
+      [-22, 0, maxZ],
+      [22, 0, maxZ],
+      [22, 0, minZ],
+      [-22, 0, minZ],
     ],
   };
 }
@@ -475,19 +497,6 @@ function buildScene(canonical) {
     backdrop:
       canonical.id === 'istanbul'
         ? [
-            {
-              /**
-               * Hagia Sophia stands behind the top of the street, outside the
-               * play area. The canonical stop is about the dome and the tiles
-               * inside it; the child studies a tile panel at their own height
-               * and sees the building it came from over the rooftops.
-               */
-              assetId: 'city_istanbul_hagia_sophia',
-              position: [-34, 0, -30],
-              rotationY: 1.05,
-              solid: false,
-              note: 'the mosque itself, behind the top of the street',
-            },
             {
               assetId: 'city_istanbul_beyoglu_row',
               position: [-26, 0, -52],

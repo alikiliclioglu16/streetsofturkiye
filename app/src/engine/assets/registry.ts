@@ -120,7 +120,7 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
      * it looming over the child at the top of the street. Standing outside the
      * play area it can be the size a mosque should be.
      */
-    dimensions: [20.1, 12.0, 21.5],
+    dimensions: [16.8, 10.0, 17.9],
     label: 'Hagia Sophia',
     color: '#C9B79A',
     placeholder: 'box',

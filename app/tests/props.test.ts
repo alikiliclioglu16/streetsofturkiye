@@ -169,8 +169,43 @@ describe('optimised street kit', () => {
   it('leaves the walking line clear', () => {
     const scene = buildScene(loadComposedCity('istanbul'), 'high');
     for (const prop of scene.props) {
-      // Route points run near x = 0; a prop on the centreline is an obstacle.
+      // The route runs from the spawn towards the quay near x = 0, so a prop on
+      // that centreline is an obstacle. The square behind the child is not on
+      // the route, and the mosque closes it head-on.
+      if (prop.position[2] > 10) continue;
       expect(Math.abs(prop.position[0]), prop.key).toBeGreaterThan(3.5);
+    }
+  });
+
+  it('never puts a prop on the route itself', () => {
+    const scene = buildScene(loadComposedCity('istanbul'), 'high');
+    for (const prop of scene.props) {
+      let closest = Infinity;
+      const points = scene.routePoints;
+      for (let i = 0; i < points.length - 1; i += 1) {
+        const a = points[i]!;
+        const b = points[i + 1]!;
+        const dx = b[0] - a[0];
+        const dz = b[2] - a[2];
+        const lengthSq = dx * dx + dz * dz;
+        const t =
+          lengthSq === 0
+            ? 0
+            : Math.max(
+                0,
+                Math.min(
+                  1,
+                  ((prop.position[0] - a[0]) * dx + (prop.position[2] - a[2]) * dz) / lengthSq,
+                ),
+              );
+        closest = Math.min(
+          closest,
+          Math.hypot(a[0] + t * dx - prop.position[0], a[2] + t * dz - prop.position[2]),
+        );
+      }
+      // Measured against the walk itself rather than against x = 0, which is
+      // what lets the square behind the child be dressed at all.
+      expect(closest, prop.key).toBeGreaterThan(2.5);
     }
   });
 });
@@ -783,25 +818,48 @@ describe('the sea', () => {
     expect(first.asset.entry.id).toBe('city_istanbul_iznik_tile_panel');
     expect(first.asset.entry.dimensions[1]).toBeLessThan(3);
 
-    const mosque = scene.backdrop.find(
+    // The mosque is no longer the stop. It stands on the square behind the
+    // child, solid, where they can walk up to it and no further.
+    const mosque = scene.props.find(
       (prop) => prop.asset.entry.id === 'city_istanbul_hagia_sophia',
     );
-    expect(mosque, 'the mosque should be scenery now').toBeDefined();
-    expect(mosque!.solid).toBe(false);
+    expect(mosque, 'the mosque should be on the square now').toBeDefined();
+    expect(mosque!.solid).toBe(true);
+    expect(mosque!.position[2]).toBeGreaterThan(0);
   });
 
-  it('stands the mosque outside the play area', () => {
-    const scene = buildScene(loadComposedCity('istanbul'), 'high');
-    const mosque = scene.backdrop.find(
+  it('gives the child ground behind them, and something to close it', () => {
+    const city = loadComposedCity('istanbul');
+    const scene = buildScene(city, 'high');
+    const spawn = city.spawn.position;
+    const behind = Math.max(...scene.bounds.map((corner) => corner[2])) - spawn[2];
+
+    // A child who turns round used to see the world stop ten metres away.
+    expect(behind).toBeGreaterThan(30);
+
+    const mosque = scene.props.find(
       (prop) => prop.asset.entry.id === 'city_istanbul_hagia_sophia',
     )!;
-    const halfWidth = mosque.asset.entry.dimensions[0] / 2;
-    const nearestEdge = Math.abs(mosque.position[0]) - halfWidth;
-    const playHalfWidth = Math.max(...scene.bounds.map((corner) => Math.abs(corner[0])));
+    const halfDepth = mosque.asset.entry.dimensions[2] / 2;
+    // Standing on the ground, not floating past its edge or out at sea.
+    expect(mosque.position[2] + halfDepth).toBeLessThanOrEqual(
+      Math.max(...scene.bounds.map((corner) => corner[2])),
+    );
+  });
 
-    // Freed from a trigger ring it is 12 m tall and 20 m wide; it has to stand
-    // clear of the street rather than loom over it.
-    expect(nearestEdge).toBeGreaterThan(playHalfWidth);
+  it('starts the child beside the tram', () => {
+    const city = loadComposedCity('istanbul');
+    const scene = buildScene(city, 'high');
+    const tram = scene.props.find(
+      (prop) => prop.asset.entry.id === 'city_istanbul_streetcar',
+    )!;
+    const distance = Math.hypot(
+      tram.position[0] - city.spawn.position[0],
+      tram.position[2] - city.spawn.position[2],
+    );
+    // Close enough to read as where they arrived from, far enough to walk out of.
+    expect(distance).toBeGreaterThan(6);
+    expect(distance).toBeLessThan(20);
   });
 });
 

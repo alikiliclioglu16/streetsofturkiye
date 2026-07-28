@@ -114,7 +114,7 @@ app/src/
 npm run lint       → temiz
 npm run typecheck  → temiz (strict, noUncheckedIndexedAccess, `any` yok)
 npm run content:check → 81 il, 249 durak, 84 soru; 1413 kanonik dizgi baseline ile eşleşti
-npm test           → 12 dosya / 241 test geçti (logic + jsdom ui)
+npm test           → 12 dosya / 243 test geçti (logic + jsdom ui)
 npm run build      → başarılı, 4 rota
 npm start          → /map ve /city/istanbul 200
 ```
@@ -427,6 +427,18 @@ geçti ve rıhtımda duruyor (D-068).
 sessizce kapatırdı; bir test hiçbir durağın onu kullanmadığını doğruluyor.
 
 **Beş durağın beşi de var olan bir dosyaya işaret ediyor.** Yer tutucu kalmadı.
+
+## 4z. Doğuş meydanı
+
+Oyun alanı doğuş noktasının arkasında 10 metrede bitiyordu; artık **42 metre** uzanıyor (D-069).
+Orası boş zemin değil, bir meydan: Ayasofya arkayı kapatıyor, tramvay kenarında bekliyor —
+çocuk sanki tramvaydan yeni inmiş gibi başlıyor.
+
+Ayasofya arka plandan çıkıp meydana **katı bir prop** olarak taşındı. Oyun alanının dışına
+koyunca zeminin de dışında kalıyordu, boşlukta duruyordu. 10 metreye küçültüldü.
+
+Prop açıklığı artık x=0'a değil **rotanın kendisine** göre ölçülüyor (D-070) — eski kural
+caminin meydanı karşıdan kapatmasını reddediyordu.
 
 ## 5. Bilinen sınırlar
 
