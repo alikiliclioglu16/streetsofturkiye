@@ -247,7 +247,7 @@
     }
   ],
   "props": [],
-  "catRoute": [],
+  "catRoutes": [],
   "quizPresentation": {
     "shuffleOptions": true
   },

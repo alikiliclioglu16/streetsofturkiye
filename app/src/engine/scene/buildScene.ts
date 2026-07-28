@@ -51,8 +51,10 @@ export interface ScenePropInstance {
 
 export interface SceneDescription {
   readonly cityId: string;
-  readonly catRoute: readonly { x: number; z: number }[];
+  readonly catRoutes: readonly (readonly { x: number; z: number }[])[];
   readonly catModelUrl: string | null;
+  /** Briefed height for a cat, in metres; the delivered rig is not at world scale. */
+  readonly catHeight: number;
   readonly props: readonly ScenePropInstance[];
   readonly sky: SceneSky;
   readonly colliders: readonly RectCollider[];
@@ -168,8 +170,9 @@ export function buildScene(city: CityDefinition, quality: QualityTier): SceneDes
 
   return {
     cityId: city.id,
-    catRoute: city.catRoute,
-    catModelUrl: city.catRoute.length >= 2 ? cat.modelUrl : null,
+    catRoutes: city.catRoutes,
+    catModelUrl: city.catRoutes.length > 0 ? cat.modelUrl : null,
+    catHeight: cat.entry.dimensions[1],
     props,
     colliders,
     hotspots,

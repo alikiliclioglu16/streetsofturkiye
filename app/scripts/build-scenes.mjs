@@ -161,6 +161,50 @@ function streetProps(cityId, stopPositions, geometry) {
   });
 }
 
+/**
+ * Cat routes.
+ *
+ * Kept off the walking line and outside every trigger ring, and checked here
+ * rather than by eye. A cat that wanders into a stop's ring stands in the shot
+ * the moment that stop opens.
+ */
+function catRoutes(stopPositions, geometry) {
+  const candidates = [
+    [
+      { x: -11.5, z: -19.0 },
+      { x: -6.0, z: -22.5 },
+      { x: -10.0, z: -27.0 },
+    ],
+    [
+      { x: 12.0, z: -33.0 },
+      { x: 16.5, z: -37.5 },
+    ],
+    [
+      { x: -13.0, z: -48.0 },
+      { x: -7.5, z: -52.0 },
+      { x: -12.5, z: -56.5 },
+    ],
+    [
+      { x: 8.0, z: -6.0 },
+      { x: 13.5, z: -10.0 },
+    ],
+    [
+      { x: 13.0, z: -55.0 },
+      { x: 17.0, z: -59.0 },
+      { x: 12.5, z: -63.0 },
+    ],
+  ];
+
+  const clear = (point) =>
+    Math.abs(point.x) > 4 &&
+    stopPositions.every((stop, index) => {
+      const gap = Math.hypot(point.x - stop[0], point.z - stop[2]);
+      return gap > geometry[index].triggerRadius;
+    });
+
+  return candidates.filter((route) => route.every(clear));
+}
+
 /** Deterministic S-curve layout; the same city always lays out identically. */
 function layout(stopCount, approaches) {
   const spacing = STOP_SPACING;
@@ -260,18 +304,11 @@ function buildScene(canonical) {
     hotspots,
     props: streetProps(canonical.id, stopPositions, geometry),
     /**
-     * The cat walks the pavement beside the first bench, well clear of every
-     * trigger ring and of the walking line, so it is something the child
-     * notices rather than something they collide with.
+     * Cats. Scattered along the whole walk rather than clustered, on both
+     * sides, each with its own short beat — a child should keep meeting one
+     * rather than find them all at once.
      */
-    catRoute:
-      canonical.id === 'istanbul'
-        ? [
-            { x: -11.5, z: -19.0 },
-            { x: -6.0, z: -22.5 },
-            { x: -10.0, z: -27.0 },
-          ]
-        : [],
+    catRoutes: canonical.id === 'istanbul' ? catRoutes(stopPositions, geometry) : [],
     quizPresentation: { shuffleOptions: true },
     rewards: {
       cityStarId: `star_${canonical.id}`,

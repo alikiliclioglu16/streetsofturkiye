@@ -157,10 +157,23 @@ export function CityScene({
         </group>
       ))}
 
-      {/* One stray cat. Dressing: no collider, the player walks through it. */}
-      {scene.catModelUrl ? (
-        <StreetCat url={scene.catModelUrl} route={scene.catRoute} />
-      ) : null}
+      {/*
+        Stray cats. Dressing: no colliders, the player walks through them.
+        One GLB is fetched once and cloned per cat, so five cats are one
+        download — but each clone carries its own skeleton and mixer, because
+        sharing either would make them move as one animal.
+      */}
+      {scene.catModelUrl
+        ? scene.catRoutes.map((route, index) => (
+            <StreetCat
+              key={`cat-${index}`}
+              url={scene.catModelUrl!}
+              route={route}
+              targetHeight={scene.catHeight}
+              phase={index / scene.catRoutes.length}
+            />
+          ))
+        : null}
 
       {scene.hotspots.map((hotspot) => (
         <HotspotObject

@@ -109,10 +109,12 @@ export const sceneSchema = z
     /** Street dressing, shared across cities; absent in older scene files. */
     props: z.array(scenePropSchema).default([]),
     /**
-     * A short walking route for the street cat, in world metres. Two or three
-     * waypoints: this is an animal crossing a pavement, not a patrol.
+     * Walking routes for the street cats, in world metres. Two or three
+     * waypoints each: these are animals crossing a pavement, not patrols.
      */
-    catRoute: z.array(z.object({ x: z.number(), z: z.number() })).default([]),
+    catRoutes: z
+      .array(z.array(z.object({ x: z.number(), z: z.number() })).min(2))
+      .default([]),
     quizPresentation: z.object({ shuffleOptions: z.boolean() }),
     rewards: z.object({
       cityStarId: z.string(),

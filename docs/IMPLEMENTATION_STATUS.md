@@ -114,7 +114,7 @@ app/src/
 npm run lint       → temiz
 npm run typecheck  → temiz (strict, noUncheckedIndexedAccess, `any` yok)
 npm run content:check → 81 il, 249 durak, 84 soru; 1413 kanonik dizgi baseline ile eşleşti
-npm test           → 12 dosya / 197 test geçti (logic + jsdom ui)
+npm test           → 12 dosya / 199 test geçti (logic + jsdom ui)
 npm run build      → başarılı, 4 rota
 npm start          → /map ve /city/istanbul 200
 ```
@@ -306,7 +306,8 @@ Proplara çarpışma hacmi verildi (D-041) — daha önce lamba ve bankın için
 Döndürülmüş bir bankın ayak izi, döndürülmüş dikdörtgenin eksen hizalı sınırlarından hesaplanıyor.
 
 `kit_street_cat` entegre edildi: 19.303 üçgen, 27 eklemli dörtayaklı, 1 saniyelik `Walking` klibi, 0,97 MB.
-İstanbul'da tek kedi, üç ara noktalı kısa bir rota, uç noktalarda 3–7 saniye duruyor.
+İstanbul'da **beş kedi**, her biri kendi kısa rotasında, uç noktalarda 3–7 saniye duruyor.
+Kedi teslim edilen rigde 1,7 cm boyunda çiziliyordu; motor ölçüp brief boyuna büyütüyor (D-044).
 Çarpışma hacmi **yok** — çocuk kedinin içinden geçebilir.
 
 **Üçgen sapması:** brief 800–1.500 diyordu, gelen 19.303. Boyut kuralına uyduğu için bu kapıda kabul edildi.

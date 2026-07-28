@@ -4,7 +4,7 @@ import { useEffect, useMemo, useRef } from 'react';
 import { useGLTF } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
 import { clone as cloneSkinned } from 'three/examples/jsm/utils/SkeletonUtils.js';
-import { AnimationMixer, LoopRepeat, type AnimationAction, type Group } from 'three';
+import { AnimationMixer, Box3, LoopRepeat, Vector3, type AnimationAction, type Group } from 'three';
 
 /**
  * A stray cat walking a short beat of the street.
@@ -107,10 +107,14 @@ export function randomPause(): number {
 interface StreetCatProps {
   url: string;
   route: readonly CatWaypoint[];
+  /** Briefed height in metres; the delivered rig is not authored at world scale. */
+  targetHeight: number;
+  /** Offsets the walk cycle so a row of cats does not step in unison. */
+  phase?: number;
   onMeasured?: (heightMeters: number) => void;
 }
 
-export function StreetCat({ url, route, onMeasured }: StreetCatProps) {
+export function StreetCat({ url, route, targetHeight, phase = 0, onMeasured }: StreetCatProps) {
   const group = useRef<Group>(null);
   const { scene, animations } = useGLTF(url);
 
@@ -127,14 +131,37 @@ export function StreetCat({ url, route, onMeasured }: StreetCatProps) {
     if (!clip) return;
     const action = mixer.clipAction(clip);
     action.setLoop(LoopRepeat, Infinity).play();
+    // Each cat starts at a different point in the cycle, so five of them do not
+    // march in step like a parade.
+    action.time = phase * clip.duration;
     walk.current = action;
     return () => {
       action.stop();
       mixer.stopAllAction();
     };
-  }, [mixer, animations]);
+  }, [mixer, animations, phase]);
 
+  /**
+   * Scale to the briefed height.
+   *
+   * The delivered rig has an armature scaled to 0.01 and joints in its own
+   * small units, so the cat renders about 1.7 cm tall — present in the scene
+   * and far too small to see. Measuring the mounted model and scaling it to the
+   * brief is the same correction the guide needed, and it self-corrects if the
+   * asset is ever re-exported at world scale.
+   */
   useEffect(() => {
+    const node = group.current;
+    if (!node) return;
+
+    node.scale.setScalar(1);
+    node.updateMatrixWorld(true);
+    const size = new Box3().setFromObject(model).getSize(new Vector3());
+
+    if (size.y > 1e-6 && targetHeight > 0) {
+      node.scale.setScalar(targetHeight / size.y);
+    }
+
     model.traverse((child) => {
       const mesh = child as { isMesh?: boolean; castShadow?: boolean; receiveShadow?: boolean };
       if (mesh.isMesh) {
@@ -142,11 +169,9 @@ export function StreetCat({ url, route, onMeasured }: StreetCatProps) {
         mesh.receiveShadow = true;
       }
     });
-    if (onMeasured && group.current) {
-      // Reported once so the rendered height can be checked against the brief.
-      onMeasured(0);
-    }
-  }, [model, onMeasured]);
+
+    onMeasured?.(size.y);
+  }, [model, targetHeight, onMeasured]);
 
   useFrame((_, rawDelta) => {
     const delta = Math.min(rawDelta, 0.05);

@@ -406,3 +406,30 @@ The clip runs only while the cat is walking. There is no idle in the delivered
 file, so a pause holds a stable frame of the walk rather than pretending the
 walk is an idle.
 
+## D-044 — The cat is scaled to its brief, not to its file (28 Jul 2026)
+
+The delivered cat renders about 1.7 cm tall: its armature is scaled to 0.01 and
+its joints are in their own small units, so unlike the guides the two do not
+cancel. It was in the scene from the first integration and simply too small to
+see.
+
+`StreetCat` measures the mounted model and scales it to the briefed height. This
+narrows D-037 rather than contradicting it: a delivered prop's own scale is
+trusted when the file is authored at world scale, and this one is not. Measured
+correction beats a stored number either way — it becomes a no-op if the asset is
+re-exported correctly.
+
+## D-045 — Five cats, five skeletons (28 Jul 2026)
+
+Five cats walk İstanbul, scattered along the length of the street and on both
+pavements. One GLB is fetched once and cloned per cat, so five cats cost one
+0.97 MB download.
+
+Each clone carries its own skeleton and its own mixer. Sharing either would make
+five cats move as one animal, and sharing a skeleton is the bug that rendered
+the guide at bind pose. Their walk cycles are phase-offset so they do not step
+in unison like a parade.
+
+Cost: five cats add about 96,000 triangles, roughly half the guide. Worth
+knowing before a sixth is added.
+
