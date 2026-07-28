@@ -114,7 +114,7 @@ app/src/
 npm run lint       → temiz
 npm run typecheck  → temiz (strict, noUncheckedIndexedAccess, `any` yok)
 npm run content:check → 81 il, 249 durak, 84 soru; 1413 kanonik dizgi baseline ile eşleşti
-npm test           → 12 dosya / 244 test geçti (logic + jsdom ui)
+npm test           → 13 dosya / 249 test geçti (logic + jsdom ui)
 npm run build      → başarılı, 4 rota
 npm start          → /map ve /city/istanbul 200
 ```
@@ -464,6 +464,17 @@ opak yaptığı bir materyalde — alfa hiçbir şey taşımıyordu.
 
 **Değişmeyen:** motor hâlâ hero mesh'ine dokunmuyor. Bu, üretilen dosyanın değişmesi;
 oyun sırasında motorun feda edebileceklerinin değil.
+
+## 5b. Uçtan uca tur simülasyonu
+
+`tests/playthrough.test.ts` bir çocuğun tüm ziyaretini oyunun kendi fonksiyonlarıyla canlandırıyor:
+doğ, rota işaretlerini izle, beş durağı karşıla, beşini topla, quiz'i geç, yıldızı kazan.
+
+İlk çalıştırmada gerçek bir hata buldu: **rota işaretleri Galata Kulesi'nin içinden geçiyordu** (D-073).
+Her durak yalnız bir ara nokta üretiyordu — nesnenin önünde. Oradan sonraki durağa giden düz hat
+nesnenin ortasından geçiyordu. Nesneler katı olmadan önce zararsızdı, katı olunca duvara dönüştü.
+
+Artık her durak iki nokta üretiyor: bakmak için durulan yer ve nesnenin öte yanını geçen nokta.
 
 ## 5. Bilinen sınırlar
 

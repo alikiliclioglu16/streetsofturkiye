@@ -376,16 +376,33 @@ function featuredNpcs(cityId, stopPositions, routePoints) {
 }
 
 /** Deterministic S-curve layout; the same city always lays out identically. */
-function layout(stopCount, approaches) {
+function layout(stopCount, approaches, geometry) {
   const spacing = STOP_SPACING;
   const stopPositions = [];
   for (let i = 0; i < stopCount; i += 1) {
     stopPositions.push([Math.round(Math.sin(i * 0.9) * 7 * 10) / 10, 0, FIRST_STOP_Z - i * spacing]);
   }
-  const route = [
-    [0, 0, 0],
-    ...stopPositions.map(([x, , z], i) => [x, 0, Math.round((z + approaches[i]) * 100) / 100]),
-  ];
+  /**
+   * The route stops in front of each object, then steps round it.
+   *
+   * With a waypoint only in front of each stop, the leg to the next one ran
+   * straight through the object standing at this one — the markers led a child
+   * into Galata Tower. Each stop now contributes two points: where you stand to
+   * look at it, and a point clear of its far side.
+   *
+   * The bypass goes towards the centre of the street, where there is always
+   * room; the stops sit within seven metres of it and the street is forty-four
+   * metres wide.
+   */
+  const route = [[0, 0, 0]];
+  for (const [i, [x, , z]] of stopPositions.entries()) {
+    const { halfWidth, halfDepth } = geometry[i];
+    const round = (value) => Math.round(value * 100) / 100;
+    route.push([x, 0, round(z + approaches[i])]);
+
+    const side = x >= 0 ? -1 : 1;
+    route.push([round(x + side * (halfWidth + 2.2)), 0, round(z - (halfDepth + 2.2))]);
+  }
   const minZ = FIRST_STOP_Z - (stopCount - 1) * spacing - 14;
   /**
    * Ground behind the child, not just in front.
@@ -419,6 +436,7 @@ function buildScene(canonical) {
   const { stopPositions, route, bounds } = layout(
     canonical.stops.length,
     geometry.map((entry) => entry.approach),
+    geometry,
   );
 
   const hotspots = canonical.stops.map((stop, index) => {

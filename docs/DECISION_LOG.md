@@ -802,3 +802,20 @@ profiles, degradation ladders and adaptive stepping remain forbidden from
 touching the mesh. This is a change to what is authored, not to what the engine
 may trade away while a child is playing.
 
+## D-073 — The route steps round each stop (28 Jul 2026)
+
+A simulated playthrough found the route markers leading a child into Galata
+Tower. Each stop contributed one waypoint, standing in front of the object; the
+leg from there to the next stop ran straight through the object itself. It had
+been harmless while nothing was solid, and became a wall the moment props and
+stops got colliders.
+
+Each stop now contributes two waypoints: where you stand to look at it, and a
+point clear of its far side, offset towards the centre of the street where
+there is always room.
+
+The test that found it is worth more than the fix. It is the first one that asks
+the whole question — arrive, walk the markers, meet five stops, collect five
+things, pass the quiz, win the star — using the functions the running game uses
+rather than checking a rule in isolation.
+
