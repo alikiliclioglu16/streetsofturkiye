@@ -111,21 +111,26 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
   {
     id: 'city_istanbul_hagia_sophia',
     modelUrl: '/assets/city/city_istanbul_hagia_sophia.glb',
-    checksum: 'dd5a04a4e109a422a35822b45705863c60020f526bcec52c60a09ec7689b78de',
-    triangles: 6_053,
-    transferBytes: 2_831_596,
+    checksum: 'f0752049fd0b71b256e9031e9b63301af2aff380f4721a8ab2a947cb0559d402',
+    triangles: 10_094,
+    transferBytes: 3_081_336,
     /**
-     * Backdrop, not a stop. As a stop object it had to fit a trigger ring
-     * between two neighbours 18.8 m apart, which held it to 8 m and still left
-     * it looming over the child at the top of the street. Standing outside the
-     * play area it can be the size a mosque should be.
+     * Not a stop. As a stop object it had to fit a trigger ring between two
+     * neighbours 18.8 m apart, which held it to 8 m and still left it looming
+     * over a child who had just arrived. It stands on the square behind the
+     * spawn instead, where 10 m closes the space without crowding it.
      */
-    dimensions: [16.8, 10.0, 17.9],
+    dimensions: [16.9, 10.0, 17.9],
     label: 'Hagia Sophia',
     color: '#C9B79A',
     placeholder: 'box',
     scaleToBrief: true,
-    notes: 'Delivered 69.45 MB with four 4096 px maps on 6,053 triangles; recompressed to 2.70 MB.',
+    notes:
+      'Second delivery. The first read poorly once the mosque stood on the ' +
+      'square at close range: 6,053 triangles and a 1024 colour map are enough ' +
+      'for something glimpsed over rooftops and not for something walked up to. ' +
+      'This one is 10,094 triangles with a 2048 colour map. 70.27 MB down to ' +
+      '2.94 MB.',
   },
   {
     id: 'city_istanbul_beyoglu_row',

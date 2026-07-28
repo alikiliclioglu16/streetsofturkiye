@@ -437,6 +437,10 @@ Orası boş zemin değil, bir meydan: Ayasofya arkayı kapatıyor, tramvay kenar
 Ayasofya arka plandan çıkıp meydana **katı bir prop** olarak taşındı. Oyun alanının dışına
 koyunca zeminin de dışında kalıyordu, boşlukta duruyordu. 10 metreye küçültüldü.
 
+İkinci sürümle değiştirildi: 10.094 üçgen ve 2048 renk haritası (D-071). İlk sürüm 1024'e
+sıkıştırılmıştı — uzaktan bakılan bir bina için yeterliydi, yanına gidilen bir bina için değil.
+70,27 MB'dan 2,94 MB'a.
+
 Prop açıklığı artık x=0'a değil **rotanın kendisine** göre ölçülüyor (D-070) — eski kural
 caminin meydanı karşıdan kapatmasını reddediyordu.
 

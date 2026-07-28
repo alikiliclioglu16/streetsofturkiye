@@ -91,7 +91,7 @@ export const DEFAULT_GRAYBOX_DIMENSIONS = [2.4, 2.4, 2.4];
  * silently rejected two prop placements that were nowhere near it.
  */
 export const DELIVERED_DIMENSIONS = {
-  city_istanbul_hagia_sophia: [16.8, 10.0, 17.9],
+  city_istanbul_hagia_sophia: [16.9, 10.0, 17.9],
   city_istanbul_iznik_tile_panel: [1.51, 2.2, 1.06],
   city_istanbul_ferry_terminal: [13.9, 8.0, 8.9],
   city_istanbul_beyoglu_row: [26.9, 12.0, 6.0],

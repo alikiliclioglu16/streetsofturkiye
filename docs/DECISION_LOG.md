@@ -759,3 +759,17 @@ the route never reaches it.
 Clearance is now measured against the route polyline itself. The rule says what
 it always meant: nothing stands where the child walks.
 
+## D-071 — Texture budget follows viewing distance (28 Jul 2026)
+
+Hagia Sophia was recompressed to a 1024 colour map when it was scenery behind
+the street. Once it moved onto the square, a child walks up to it, and 1024
+across a 17 m facade is about 60 pixels per metre. It looked poor, and rightly.
+
+The second delivery is kept at 10,094 triangles with a 2048 colour map: 2.94 MB
+against a 4 MB landmark budget.
+
+The rule that comes out of it: texture resolution follows how close a child gets,
+not how important the object is. The tower is glimpsed from 20 m and does fine
+on 2048; the tile panel is studied from two metres and needs no more than 1024
+because it is 1.5 m wide.
+
