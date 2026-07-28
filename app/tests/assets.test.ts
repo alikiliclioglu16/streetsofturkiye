@@ -36,10 +36,12 @@ describe('asset registry alignment', () => {
   it('covers every row of the manifest', () => {
     const csvIds = manifestIdsFromCsv();
     expect(csvIds).toHaveLength(25);
-    // Delivered street props are registered separately; the manifest is the
-    // brief for the pilot cities' commissioned art.
-    const propIds = new Set(deliveredProps().map((prop) => prop.id));
-    const fromManifest = [...knownAssetIds()].filter((id) => !propIds.has(id));
+    // Kit props were never briefed as manifest rows, so they are extra.
+    // Commissioned art that has since been delivered stays a manifest row.
+    const extras = deliveredProps()
+      .map((prop) => prop.id)
+      .filter((id) => !csvIds.includes(id));
+    const fromManifest = [...knownAssetIds()].filter((id) => !extras.includes(id));
     expect(fromManifest.sort()).toEqual([...csvIds].sort());
   });
 
@@ -121,8 +123,10 @@ describe('delivered street props', () => {
     // The file's base sits 1.5 m below its origin; placing it at y = 0 unaided
     // would bury half the post.
     expect(resolveAsset('kit_street_lamp', 'high').entry.groundAlign).toBe(true);
-    // Commissioned city art is authored grounded and must not be moved.
-    expect(resolveAsset('city_istanbul_galata_tower', 'high').entry.groundAlign).toBe(false);
+    // Galata has since been delivered, and a delivered model is measured onto
+    // the ground like any other. Undelivered manifest art is not moved.
+    expect(resolveAsset('city_istanbul_galata_tower', 'high').entry.groundAlign).toBe(true);
+    expect(resolveAsset('city_istanbul_ferry', 'high').entry.groundAlign).toBe(false);
   });
 
   it('stands lamps clear of the walk and of every solid object', () => {

@@ -115,11 +115,11 @@ export const MANIFEST_ENTRIES: readonly ManifestEntry[] = [
     "id": "city_istanbul_galata_tower",
     "kind": "model",
     "tier": "hero",
-    "status": "briefed",
+    "status": "delivered",
     "dimensions": [
-      4,
+      4.23,
       14,
-      4
+      4.22
     ],
     "triangleBudget": 35000,
     "textureBudget": "2K",

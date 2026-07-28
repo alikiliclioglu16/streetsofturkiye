@@ -22,6 +22,14 @@ export interface DeliveredProp {
   readonly label: string;
   readonly color: string;
   readonly placeholder: PlaceholderShape;
+  /**
+   * Scale the model to `dimensions` instead of trusting the file.
+   *
+   * Off by default: a delivered prop is normally authored at the size it means.
+   * On where the project has agreed a size the file does not match — Galata
+   * arrived at 20 m against an agreed 14.
+   */
+  readonly scaleToBrief?: boolean;
   readonly notes?: string;
 }
 
@@ -67,6 +75,24 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
       'Skinned, 27-joint quadruped with a 1 s Walking clip. Delivered at 19,303 ' +
       'triangles against a 800-1,500 brief; accepted for this gate on size, not ' +
       'on budget. Dressing, so it has no collider.',
+  },
+  {
+    id: 'city_istanbul_galata_tower',
+    modelUrl: '/assets/city/city_istanbul_galata_tower.glb',
+    checksum: '27ea82bd9369f3e7bf8e07325ee3715ca04e9a69ae27e7e7cff7d7ab2e8db9a8',
+    triangles: 34_313,
+    transferBytes: 1_726_368,
+    // The file is 6.04 x 20.00 x 6.03; these are the same proportions at the
+    // agreed 14 m, which the engine scales it to.
+    dimensions: [4.23, 14.0, 4.22],
+    label: 'Galata Tower',
+    color: '#C9BBA1',
+    placeholder: 'cylinder',
+    scaleToBrief: true,
+    notes:
+      'Delivered at 20 m. Scaled to the agreed 14 m (D-050): at 20 m the stop ' +
+      'camera stands 25 m back and the guide falls to 7% of frame height, so a ' +
+      'child loses sight of their companion the moment the landmark opens.',
   },
   {
     id: 'city_istanbul_simit_cart',
@@ -120,6 +146,8 @@ export interface AssetEntry {
    * offset, and it costs nothing when the pivot is already correct.
    */
   readonly groundAlign: boolean;
+  /** Scale the mounted model to `dimensions` rather than trusting the file. */
+  readonly scaleToBrief: boolean;
   readonly manifest: ManifestEntry;
 }
 
@@ -185,6 +213,7 @@ function propToEntry(prop: DeliveredProp): AssetEntry {
     color: prop.color,
     label: prop.label,
     groundAlign: true,
+    scaleToBrief: prop.scaleToBrief ?? false,
     manifest: {
       id: prop.id,
       kind: 'model',
@@ -210,13 +239,42 @@ function toAssetEntry(manifest: ManifestEntry): AssetEntry {
     color: presentation?.color ?? TIER_COLOR[manifest.tier] ?? '#9AA5B1',
     label: presentation?.label ?? manifest.id,
     groundAlign: false,
+    scaleToBrief: false,
     manifest,
   };
 }
 
+const DELIVERED_BY_ID = new Map(DELIVERED_PROPS.map((prop) => [prop.id, prop]));
+
+/**
+ * A delivered model attaches to its manifest row rather than replacing it.
+ *
+ * Galata Tower is both: a commissioned row in the pilot manifest, which carries
+ * its tier and triangle budget, and now a delivered file. Registering it only as
+ * a delivered prop silently dropped the budget it was commissioned against —
+ * exactly the record you want when asking whether a delivery met its brief.
+ */
+function withDeliveredModel(entry: AssetEntry, prop: DeliveredProp): AssetEntry {
+  return {
+    ...entry,
+    models: { low: prop.modelUrl, medium: prop.modelUrl, high: prop.modelUrl },
+    dimensions: prop.dimensions,
+    groundAlign: true,
+    scaleToBrief: prop.scaleToBrief ?? false,
+    manifest: { ...entry.manifest, status: 'delivered' },
+  };
+}
+
 const BY_ID = new Map<string, AssetEntry>([
-  ...MANIFEST_ENTRIES.map((entry): [string, AssetEntry] => [entry.id, toAssetEntry(entry)]),
-  ...DELIVERED_PROPS.map((prop): [string, AssetEntry] => [prop.id, propToEntry(prop)]),
+  ...MANIFEST_ENTRIES.map((entry): [string, AssetEntry] => {
+    const base = toAssetEntry(entry);
+    const delivered = DELIVERED_BY_ID.get(entry.id);
+    return [entry.id, delivered ? withDeliveredModel(base, delivered) : base];
+  }),
+  // Kit props and city props that were never briefed as manifest rows.
+  ...DELIVERED_PROPS.filter((prop) => !MANIFEST_ENTRIES.some((entry) => entry.id === prop.id)).map(
+    (prop): [string, AssetEntry] => [prop.id, propToEntry(prop)],
+  ),
 ]);
 
 /**
@@ -281,6 +339,7 @@ function grayboxEntry(id: string): AssetEntry {
     color: isCollectible ? '#F2B233' : '#A89880',
     label: key.replace(/_/g, ' '),
     groundAlign: false,
+    scaleToBrief: false,
     manifest: {
       id,
       kind: 'model',
@@ -308,6 +367,7 @@ function unknownEntry(id: string): AssetEntry {
     color: '#E0322F',
     label: `Eksik varlık: ${id}`,
     groundAlign: false,
+    scaleToBrief: false,
     manifest: {
       id,
       kind: 'unknown',

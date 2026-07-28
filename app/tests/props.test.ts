@@ -115,11 +115,17 @@ describe('optimised street kit', () => {
     const benchEntry = resolveAsset('kit_bench', 'high').entry;
     expect(trustsModelScale(lampEntry)).toBe(true);
     expect(trustsModelScale(benchEntry)).toBe(true);
+    // Neither is scaled to a brief; both are authored at the size they mean.
+    expect(lampEntry.scaleToBrief).toBe(false);
+    expect(benchEntry.scaleToBrief).toBe(false);
     // Normalising these towards anything in common would flatten the very
     // difference that makes a street read as a street.
     expect(lampEntry.dimensions[1] / benchEntry.dimensions[1]).toBeGreaterThan(5);
-    // Commissioned city art is still normalised against its brief.
-    expect(trustsModelScale(resolveAsset('city_istanbul_galata_tower', 'high').entry)).toBe(false);
+    // Galata is commissioned art that has since been delivered; it keeps its
+    // manifest row and is scaled to the size the project agreed.
+    const galata = resolveAsset('city_istanbul_galata_tower', 'high').entry;
+    expect(galata.scaleToBrief).toBe(true);
+    expect(galata.manifest.tier).toBe('hero');
   });
 
   it('places three to five lamps and two to three benches', () => {
@@ -555,5 +561,49 @@ describe('street trees', () => {
     for (const cityId of ['nevsehir', 'gaziantep']) {
       expect(buildScene(loadComposedCity(cityId), 'high').trees).toEqual([]);
     }
+  });
+});
+
+describe('Galata Tower', () => {
+  const tower = deliveredProps().find((prop) => prop.id === 'city_istanbul_galata_tower')!;
+
+  it('records what was delivered and what the project agreed', () => {
+    expect(tower.triangles).toBe(34_313);
+    expect(tower.transferBytes).toBe(1_726_368);
+    expect(tower.checksum).toHaveLength(64);
+    // Delivered at 20 m, kept at the agreed 14 (D-050).
+    expect(tower.dimensions[1]).toBe(14);
+    expect(tower.scaleToBrief).toBe(true);
+    expect(tower.notes).toMatch(/20 m/);
+  });
+
+  it('scales to the brief rather than trusting the file, for this asset only', () => {
+    expect(resolveAsset('city_istanbul_galata_tower', 'high').entry.scaleToBrief).toBe(true);
+    // Everything else is authored at the size it means.
+    for (const id of ['kit_street_lamp', 'kit_bench', 'city_istanbul_simit_cart']) {
+      expect(resolveAsset(id, 'high').entry.scaleToBrief, id).toBe(false);
+    }
+  });
+
+  it('keeps the guide visible in the landmark shot', () => {
+    const scene = buildScene(loadComposedCity('istanbul'), 'high');
+    const stop = scene.hotspots.find((hotspot) => hotspot.asset.entry.id === tower.id)!;
+    const distance = Math.hypot(
+      stop.camera.position[0] - stop.position[0],
+      stop.camera.position[2] - stop.position[2],
+      stop.camera.position[1] - stop.camera.target[1],
+    );
+    const visible = 2 * distance * Math.tan(25 * (Math.PI / 180));
+
+    // The tower fits, and the guide is still findable beside it. At the
+    // delivered 20 m he fell to 7% of frame height.
+    expect(14 / visible).toBeLessThan(1);
+    expect(1.65 / visible).toBeGreaterThan(0.08);
+  });
+
+  it('stays the tallest thing on the street', () => {
+    const lamp = resolveAsset('kit_street_lamp', 'high').entry.dimensions[1];
+    expect(tower.dimensions[1] / lamp).toBeGreaterThan(2.5);
+    expect(tower.dimensions[1] / 1.65).toBeGreaterThan(7);
   });
 });

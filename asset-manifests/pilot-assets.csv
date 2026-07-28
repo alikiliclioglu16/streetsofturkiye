@@ -5,7 +5,7 @@ shared_route_marker,model,system,placeholder,0.40x0.05x0.40,500,256,cylinder,"Ac
 shared_interaction_highlight,model,system,placeholder,1.0x1.0x1.0,0,none,sphere,"Engine effect or outline, no final GLB required"
 kit_marmara_urban_coastal,model,background,briefed,modular,60000,shared 1K atlases,box,"Modular pavement, facades, rail, waterfront props"
 city_istanbul_iznik_tile_panel,model,midground,briefed,1.6x0.12x1.6,8000,1K,plane,Separate selectable tulip motif mesh
-city_istanbul_galata_tower,model,hero,briefed,4x4x14,35000,2K,cylinder,Preserve silhouette; no invented text Storybook scale: the real tower is 67 m and a 32 m model filled the frame with masonry. 14 m keeps it the tallest thing on the street while a child can still see all of it.
+city_istanbul_galata_tower,model,hero,delivered,4.23x4.22x14,35000,2K,cylinder,Preserve silhouette; no invented text Storybook scale: the real tower is 67 m and a 32 m model filled the frame with masonry. 14 m keeps it the tallest thing on the street while a child can still see all of it.
 city_istanbul_ferry,model,midground,briefed,20x6x6,18000,1K,box,Simplified city ferry with moving route
 collectible_istanbul_iznik_tile,model,collectible,briefed,0.25x0.04x0.25,5000,1K,plane,Turntable-ready
 collectible_istanbul_legend_wings,model,collectible,briefed,0.35x0.12x0.22,5000,1K,box,"Wooden stylized wings, explicitly legendary"
