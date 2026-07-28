@@ -48,7 +48,7 @@ const COMMISSIONED_ASSETS = {
   'istanbul:galata': 'city_istanbul_galata_tower',
   'istanbul:bazaar': 'city_istanbul_grand_bazaar',
   'istanbul:simit': 'city_istanbul_simit_cart',
-  'istanbul:ferry': 'city_istanbul_ferry',
+  'istanbul:ferry': 'city_istanbul_ferry_terminal',
   'nevsehir:chimneys': 'city_nevsehir_fairy_chimney_cluster',
   'nevsehir:pottery': 'city_nevsehir_pottery_wheel',
   'nevsehir:cave': 'city_nevsehir_underground_stone_door',

@@ -155,6 +155,23 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
     notes: 'Stands offshore, so it needs the water plane. Delivered 23.90 MB; recompressed to 2.38 MB.',
   },
   {
+    id: 'city_istanbul_ferry_terminal',
+    modelUrl: '/assets/city/city_istanbul_ferry_terminal.glb',
+    checksum: 'ce52736a3c5df76c8455fe9c2525c1cc5cad52a7633868c775d6136c6f307b89',
+    triangles: 12_168,
+    transferBytes: 1994936,
+    dimensions: [13.9, 8.0, 8.9],
+    label: 'Ferry terminal',
+    color: '#B7A98F',
+    placeholder: 'box',
+    scaleToBrief: true,
+    notes:
+      'Stands in for the ferry itself at the last stop. The boat was briefed as ' +
+      'city_istanbul_ferry and never delivered; a terminal is where a child ' +
+      'would board one, and it sits on the quay rather than on grass. ' +
+      'Delivered 50.82 MB with four 4096 px maps; recompressed to 2.6 MB.',
+  },
+  {
     id: 'city_istanbul_grand_bazaar',
     modelUrl: '/assets/city/city_istanbul_grand_bazaar.glb',
     checksum: '1870169a8cf0b8aaec70e03918a05f9e7b95524fba9d219da8c74ae716f1356e',

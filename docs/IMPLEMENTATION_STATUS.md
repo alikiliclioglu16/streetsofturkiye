@@ -114,7 +114,7 @@ app/src/
 npm run lint       → temiz
 npm run typecheck  → temiz (strict, noUncheckedIndexedAccess, `any` yok)
 npm run content:check → 81 il, 249 durak, 84 soru; 1413 kanonik dizgi baseline ile eşleşti
-npm test           → 12 dosya / 240 test geçti (logic + jsdom ui)
+npm test           → 12 dosya / 241 test geçti (logic + jsdom ui)
 npm run build      → başarılı, 4 rota
 npm start          → /map ve /city/istanbul 200
 ```
@@ -416,6 +416,17 @@ komşu arasına sığmak zorunda olduğu için 8 metreye sıkışıyordu; artık
 
 Bu zaten varlık şartnamesinin baştan söylediği şeydi: *bu duraktaki nesne bina değil.*
 Tersini kurup görmek gerekti.
+
+## 4y. İstanbul'un beş durağı da tamam
+
+`city_istanbul_ferry_terminal` 5. durağın nesnesi oldu: 13,9 × 8,0 × 8,9 m, 12.168 üçgen,
+50,82 MB'dan **1,90 MB**'a indi. Vapurun kendisi hiç teslim edilmedi; iskele onun yerine
+geçti ve rıhtımda duruyor (D-068).
+
+`city_istanbul_ferry` manifestte karşılanmamış bir brief olarak duruyor — silmek boşluğu
+sessizce kapatırdı; bir test hiçbir durağın onu kullanmadığını doğruluyor.
+
+**Beş durağın beşi de var olan bir dosyaya işaret ediyor.** Yer tutucu kalmadı.
 
 ## 5. Bilinen sınırlar
 

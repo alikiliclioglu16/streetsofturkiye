@@ -93,6 +93,7 @@ export const DEFAULT_GRAYBOX_DIMENSIONS = [2.4, 2.4, 2.4];
 export const DELIVERED_DIMENSIONS = {
   city_istanbul_hagia_sophia: [20.1, 12.0, 21.5],
   city_istanbul_iznik_tile_panel: [1.51, 2.2, 1.06],
+  city_istanbul_ferry_terminal: [13.9, 8.0, 8.9],
   city_istanbul_beyoglu_row: [26.9, 12.0, 6.0],
   city_istanbul_maidens_tower: [7.7, 10.0, 7.6],
   city_istanbul_galata_tower: [4.28, 14.0, 4.28],

@@ -723,3 +723,16 @@ stop object, Galata is 14 m and Hagia Sophia was 8. As scenery, the mosque is
 
 Scale follows role, not importance.
 
+## D-068 — A terminal stands in for the ferry (28 Jul 2026)
+
+The last stop is about crossing the Bosphorus and the boat was never delivered.
+A Kadıköy ferry terminal took its place: it is where a child would board one, it
+belongs on the quay rather than on grass, and at 13.9 by 8.9 m its trigger ring
+is smaller than the 20 m boat's was.
+
+`city_istanbul_ferry` stays in the manifest as an unfulfilled brief. Deleting
+the row would close the gap quietly; leaving it makes the substitution visible,
+and a test asserts no stop uses it.
+
+With this, every one of İstanbul's five stops points at a file that exists.
+

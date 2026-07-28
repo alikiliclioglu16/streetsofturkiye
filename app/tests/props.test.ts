@@ -643,14 +643,27 @@ describe('İstanbul is fully dressed', () => {
     }
   });
 
-  it('knows which stops are still waiting for their model', () => {
+  it('has a delivered model at every stop', () => {
     const scene = buildScene(loadComposedCity('istanbul'), 'high');
     const waiting = scene.hotspots
       .filter((hotspot) => hotspot.asset.isPlaceholder)
       .map((hotspot) => hotspot.asset.entry.id);
 
-    // Commissioned is a brief, not a delivery. The ferry is the last brief.
-    expect(waiting.sort()).toEqual(['city_istanbul_ferry']);
+    // Every one of the five now points at a file that exists.
+    expect(waiting).toEqual([]);
+  });
+
+  it('leaves the unbuilt ferry brief in the manifest rather than pretending', () => {
+    // The boat was briefed and never delivered; a terminal stands in for it.
+    // The row stays, unused, so the gap is visible instead of quietly closed.
+    const ferry = resolveAsset('city_istanbul_ferry', 'high');
+    expect(ferry.isUnknown).toBe(false);
+    expect(ferry.isPlaceholder).toBe(true);
+
+    const scene = buildScene(loadComposedCity('istanbul'), 'high');
+    expect(scene.hotspots.map((hotspot) => hotspot.asset.entry.id)).not.toContain(
+      'city_istanbul_ferry',
+    );
   });
 
   it('keeps every delivered file within the budget for its kind', () => {

@@ -68,7 +68,7 @@
       [
         -3.1,
         0,
-        -93.5
+        -92.05
       ]
     ],
     "bounds": [
@@ -314,7 +314,7 @@
         "stopId": "istanbul-stop-05"
       },
       "sceneStatus": "ready",
-      "assetId": "city_istanbul_ferry",
+      "assetId": "city_istanbul_ferry_terminal",
       "assetStatus": "commissioned",
       "transform": {
         "position": [
@@ -334,15 +334,15 @@
         ]
       },
       "collider": {
-        "halfWidth": 10,
-        "halfDepth": 3
+        "halfWidth": 6.95,
+        "halfDepth": 4.45
       },
-      "triggerRadius": 12.5,
+      "triggerRadius": 9.45,
       "camera": {
         "position": [
-          0.2999999999999998,
-          2.7,
-          -90.4
+          1.4,
+          3.6,
+          -87.9
         ],
         "target": [
           -3.1,
