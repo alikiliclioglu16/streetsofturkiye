@@ -312,6 +312,15 @@ Kedi teslim edilen rigde 1,7 cm boyunda çiziliyordu; motor ölçüp brief boyun
 
 **Üçgen sapması:** brief 800–1.500 diyordu, gelen 19.303. Boyut kuralına uyduğu için bu kapıda kabul edildi.
 
+## 4n. Simit arabası
+
+`city_istanbul_simit_cart` 4. durağa bağlandı. Teslim edilen dosya 969.492 üçgen ve 31,33 MB'dı;
+sahneye olduğu gibi konsa kare hızı 50'den ~12'ye düşerdi. Proje içinde sadeleştirildi:
+**20.182 üçgen, 1,45 MB** — boyut, materyal ve taban korunarak (D-048).
+Sadeleştirici: `scripts/simplify-model.mjs`. Teslim edilen dosyanın üzerine yazılmadı.
+
+İstanbul artık 5 durağın 4'ünde ısmarlanmış varlık kullanıyor; sadece Kapalıçarşı graybox.
+
 ## 5. Bilinen sınırlar
 
 1. **Ses yok.** Ayar kanalları (ortam / arayüz / rehber) ve durumları var, çalan bir ses yok. Faz 02'de `ambientAudioId` bağlanacak.

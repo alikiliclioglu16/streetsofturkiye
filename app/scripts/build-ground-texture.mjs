@@ -68,14 +68,15 @@ dome = np.clip(edge / (MORTAR * 5.0), 0.0, 1.0)
 # Fine grain so a stone is not a flat blob up close.
 grain = rng.normal(0.0, 0.035, px.shape)
 
-albedo = (0.30 + 0.70 * mortar) * tone + grain * mortar
+# Mortar reads as a joint between stones, not as a black crack.
+albedo = (0.62 + 0.38 * mortar) * tone + grain * mortar
 albedo = np.clip(albedo, 0.0, 1.0).reshape(SIZE, SIZE)
 
-height = (0.25 + 0.75 * mortar) * (0.85 + 0.15 * dome) + grain * 0.3 * mortar
+height = (0.55 + 0.45 * mortar) * (0.9 + 0.1 * dome) + grain * 0.2 * mortar
 height = np.clip(height, 0.0, 1.0).reshape(SIZE, SIZE)
 
 # Rougher in the mortar, smoother on worn stone tops.
-rough = np.clip(0.95 - 0.35 * mortar * tone, 0.0, 1.0).reshape(SIZE, SIZE)
+rough = np.clip(0.92 - 0.25 * mortar * tone, 0.0, 1.0).reshape(SIZE, SIZE)
 
 def wrap_sobel(h):
     # np.roll keeps the derivative seamless across the tile edge.
@@ -83,7 +84,9 @@ def wrap_sobel(h):
     dzdy = (np.roll(h, -1, axis=0) - np.roll(h, 1, axis=0)) * 0.5
     return dzdx, dzdy
 
-STRENGTH = 6.0
+# Relief strength. The first pass used 6.0 and the street looked like cracked
+# earth: every joint became a black canyon. Paving is shallow.
+STRENGTH = 1.6
 dzdx, dzdy = wrap_sobel(height)
 nx = -dzdx * STRENGTH
 ny = -dzdy * STRENGTH

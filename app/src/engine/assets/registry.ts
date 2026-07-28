@@ -69,6 +69,21 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
       'on budget. Dressing, so it has no collider.',
   },
   {
+    id: 'city_istanbul_simit_cart',
+    modelUrl: '/assets/city/city_istanbul_simit_cart.glb',
+    checksum: '9ac7be8e4a487c68ea5f55ebeaade1eb1c6afbec939af94a4a53a12ba0e24d49',
+    triangles: 20_182,
+    transferBytes: 1_521_132,
+    dimensions: [2.05, 2.19, 0.96],
+    label: 'Simit cart',
+    color: '#C0392B',
+    placeholder: 'box',
+    notes:
+      'Delivered at 969,492 triangles and 31.33 MB, which would have taken the ' +
+      'scene from 50 fps to roughly 12. Simplified in-project to 20,182 ' +
+      'triangles and 1.45 MB; see scripts/simplify-model.mjs.',
+  },
+  {
     id: 'kit_bench',
     modelUrl: '/assets/props/kit_bench.glb',
     checksum: '3a36913072da66782987cb06ad0e1b501fa4a2d22b4ac7f707dc9d1d5d4ce767',

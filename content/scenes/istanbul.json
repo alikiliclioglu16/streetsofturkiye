@@ -262,8 +262,8 @@
         "stopId": "istanbul-stop-04"
       },
       "sceneStatus": "ready",
-      "assetId": "graybox_simit",
-      "assetStatus": "graybox",
+      "assetId": "city_istanbul_simit_cart",
+      "assetStatus": "commissioned",
       "transform": {
         "position": [
           3,

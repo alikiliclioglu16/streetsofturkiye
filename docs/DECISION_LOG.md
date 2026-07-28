@@ -454,3 +454,29 @@ tile instead of 14.
 
 Larger than a real cobble, and correct for a game a six-year-old is looking at.
 
+## D-048 — Over-budget models are simplified in-project (28 Jul 2026)
+
+The simit cart arrived at 969,492 triangles and 31.33 MB against a brief of
+3,000-6,000. Dropped in as delivered it would have taken the frame from 50 fps
+to roughly 12: one cart costing five times the guide.
+
+`scripts/simplify-model.mjs` reduces geometry through meshoptimizer and textures
+through sharp. The cart came out at 20,182 triangles and 1.45 MB — a 48× and 21×
+reduction — with its world size, opaque material and grounded pivot intact.
+
+The delivered file is never overwritten. The simplified copy goes to
+`public/assets` and the original stays where it was delivered, so the decision
+is reversible and the reduction is reproducible.
+
+Sending it back would also have been reasonable. Simplifying it here was faster
+and it costs nothing to redo if the source is ever re-authored properly.
+
+## D-049 — Paving relief is shallow (28 Jul 2026)
+
+The first cobblestone pass used a normal strength of 6.0 and mortar that fell to
+30% brightness. On screen the street read as cracked earth: every joint became a
+black canyon. Strength is now 1.6 and mortar sits at 62%.
+
+A cobbled street has shallow relief. The texture is meant to say "paving", not
+to be looked at.
+

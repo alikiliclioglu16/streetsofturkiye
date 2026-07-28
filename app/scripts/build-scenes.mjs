@@ -45,6 +45,7 @@ const KIT_BY_REGION = {
 const COMMISSIONED_ASSETS = {
   'istanbul:mosque': 'city_istanbul_iznik_tile_panel',
   'istanbul:galata': 'city_istanbul_galata_tower',
+  'istanbul:simit': 'city_istanbul_simit_cart',
   'istanbul:ferry': 'city_istanbul_ferry',
   'nevsehir:chimneys': 'city_nevsehir_fairy_chimney_cluster',
   'nevsehir:pottery': 'city_nevsehir_pottery_wheel',

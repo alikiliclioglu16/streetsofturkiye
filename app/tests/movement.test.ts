@@ -49,7 +49,15 @@ describe('scene building', () => {
       city.hotspots.map((_, index) => index + 1),
     );
     expect(scene.unknownAssetIds).toEqual([]);
-    expect(scene.hotspots.every((hotspot) => hotspot.asset.isPlaceholder)).toBe(true);
+    // Stops with a delivered model render it; the rest still fall back to a
+    // placeholder, and neither path throws.
+    const delivered = scene.hotspots.filter((hotspot) => !hotspot.asset.isPlaceholder);
+    expect(delivered.map((hotspot) => hotspot.asset.entry.id)).toContain(
+      'city_istanbul_simit_cart',
+    );
+    for (const hotspot of scene.hotspots) {
+      expect(hotspot.asset.isUnknown, hotspot.asset.entry.id).toBe(false);
+    }
   });
 
   it('returns a diagnostic placeholder for an unknown asset id', () => {
