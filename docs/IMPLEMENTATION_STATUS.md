@@ -114,7 +114,7 @@ app/src/
 npm run lint       → temiz
 npm run typecheck  → temiz (strict, noUncheckedIndexedAccess, `any` yok)
 npm run content:check → 81 il, 249 durak, 84 soru; 1413 kanonik dizgi baseline ile eşleşti
-npm test           → 12 dosya / 175 test geçti (logic + jsdom ui)
+npm test           → 12 dosya / 182 test geçti (logic + jsdom ui)
 npm run build      → başarılı, 4 rota
 npm start          → /map ve /city/istanbul 200
 ```
@@ -278,14 +278,18 @@ Ayrıntı: `docs/HERO_RENDER_BUGFIX_REPORT.md`.
 `docs/ISTANBUL_ASSET_SPEC.md` teknik şartname, `docs/MESHY_PRODUCTION_PACK_1.md` Meshy'ye hazır 11 istem.
 Sokak kiti 81 ilde ortak (D-032): İstanbul'a özel 5 nesne, geri kalan 6 parça her şehirde aynı.
 
-## 4k. İlk gerçek prop — sokak lambası
+## 4k. Sokak kiti — lamba ve bank
 
-`kit_street_lamp` entegre edildi: 1.834 üçgen, 3,0 m, `OPAQUE`; teslim notundaki üç iddia da ölçümle tuttu.
-Pivot dikeyde ortalanmış geldiği için motor monte edilen modeli ölçüp tabanını y=0'a oturtuyor (D-035).
-İstanbul'da dört lamba, hepsi her tetik halkasının dışında — yerleşim üreticide denetleniyor, gözle değil.
+`kit_street_lamp` (5,00 m, 1.834 üçgen, 1,31 MB) ve `kit_bench` (1,82×0,90×0,70 m, 1.586 üçgen, 0,93 MB).
+İki dosyanın da her teslim iddiası ölçümle tuttu; ikisi de `OPAQUE` ve tabanları y=0'da.
 
-**Açık kaygı:** 1.834 üçgenlik lamba için 8,36 MB; dosyanın neredeyse tamamı dört adet 2048'lik doku.
-Ayrıntı: `docs/PROP_INTEGRATION_NOTE.md`.
+Lambanın ilk sürümü 8,36 MB'dı; 1024 dokuyla yeniden ihraç edilince **6,4 kat** küçüldü.
+Artık her paylaşılan kit propu 2 MB altında olmak zorunda ve bunu bir test uyguluyor (D-036).
+Teslim edilen propun kendi ölçeği artık normalize edilmiyor (D-037).
+
+İstanbul'da dört lamba, iki bank. Yerleşimler üreticide denetleniyor: tetik halkalarının dışında,
+rota merkez hattından en az 7,2 m, açılar ve aralıklar bilinçli olarak farklı.
+Ayrıntı: `docs/STREET_KIT_GATE_NOTE.md`.
 
 ## 5. Bilinen sınırlar
 

@@ -25,18 +25,45 @@ export interface DeliveredProp {
   readonly notes?: string;
 }
 
+/**
+ * A delivered prop is authored at its intended size, and the engine trusts it.
+ *
+ * Height normalisation exists for models whose scale cannot be relied on. A
+ * measured, recorded prop is not one of those: normalising a 5 m lamp and a
+ * 0.9 m bench towards anything in common would flatten exactly the difference
+ * that makes a street read as a street.
+ */
+export function trustsModelScale(entry: AssetEntry): boolean {
+  return entry.manifest.status === 'delivered';
+}
+
 const DELIVERED_PROPS: readonly DeliveredProp[] = [
   {
     id: 'kit_street_lamp',
     modelUrl: '/assets/props/kit_street_lamp.glb',
-    checksum: 'a2b7538ddaef45d19075609960dadcde534860ea8b50ee975600b66cd4acdb15',
+    checksum: '0af61f66a9d80c92ed1bcbafd7d55f73877b0fc6027d041f1905c5c303677ff1',
     triangles: 1_834,
-    transferBytes: 8_768_808,
-    dimensions: [0.75, 3.0, 0.66],
+    transferBytes: 1_371_280,
+    dimensions: [1.25, 5.0, 1.1],
     label: 'Street lamp',
     color: '#3B4A42',
     placeholder: 'cylinder',
-    notes: 'Pivot centred vertically; the engine ground-aligns it on load.',
+    notes:
+      'Optimised re-export: 8.36 MB to 1.31 MB at 1024 textures, and re-authored ' +
+      'at 5 m. The mesh node carries a +2.5 m translation, so the root origin is ' +
+      'already on the ground.',
+  },
+  {
+    id: 'kit_bench',
+    modelUrl: '/assets/props/kit_bench.glb',
+    checksum: '3a36913072da66782987cb06ad0e1b501fa4a2d22b4ac7f707dc9d1d5d4ce767',
+    triangles: 1_586,
+    transferBytes: 980_160,
+    dimensions: [1.82, 0.9, 0.7],
+    label: 'Street bench',
+    color: '#7A5A38',
+    placeholder: 'box',
+    notes: 'Root scale 0.9, origin already on the ground.',
   },
 ];
 

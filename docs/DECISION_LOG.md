@@ -322,3 +322,22 @@ Measured rather than stored, because Meshy centres an origin about as often as
 it grounds it, and because the correction costs nothing when the pivot is
 already correct. Commissioned city art is authored grounded and is not moved.
 
+## D-036 — Shared kit props stay under 2 MB (28 Jul 2026)
+
+The first street lamp was 8.36 MB for 1,834 triangles: the geometry was 2% of
+the file and four 2048 textures were the rest. Re-exported at 1024 it is
+1.31 MB, a 6.4× reduction on a prop a child walks past at three to five metres.
+
+Every shared kit prop is now held under 2 MB, and a test enforces it. Six props
+at the original size would have added 50 MB to the repository for objects nobody
+stops to look at.
+
+## D-037 — A delivered prop's own scale is trusted (28 Jul 2026)
+
+Height normalisation exists for models whose scale cannot be relied on. A prop
+that has been measured and recorded is not one of those, so `AssetInstance` no
+longer normalises delivered props against a briefed height.
+
+Normalising a 5 m lamp and a 0.9 m bench towards anything in common would
+flatten exactly the difference that makes a street read as a street.
+

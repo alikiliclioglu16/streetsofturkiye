@@ -103,8 +103,8 @@ describe('delivered street props', () => {
   it('registers the lamp with the measurements taken from the file', () => {
     expect(lamp).toBeDefined();
     expect(lamp!.triangles).toBe(1_834);
-    expect(lamp!.transferBytes).toBe(8_768_808);
-    expect(lamp!.dimensions).toEqual([0.75, 3.0, 0.66]);
+    expect(lamp!.transferBytes).toBe(1_371_280);
+    expect(lamp!.dimensions).toEqual([1.25, 5.0, 1.1]);
     expect(lamp!.checksum).toHaveLength(64);
   });
 
@@ -127,8 +127,9 @@ describe('delivered street props', () => {
   it('stands lamps clear of the walk and of every solid object', () => {
     const city = loadComposedCity('istanbul');
     const scene = buildScene(city, 'high');
-    expect(scene.props.length).toBeGreaterThanOrEqual(3);
-    expect(scene.props.length).toBeLessThanOrEqual(5);
+    // Lamps and benches together; each kind is bounded separately elsewhere.
+    expect(scene.props.length).toBeGreaterThanOrEqual(5);
+    expect(scene.props.length).toBeLessThanOrEqual(8);
 
     for (const prop of scene.props) {
       const [x, , z] = prop.position;

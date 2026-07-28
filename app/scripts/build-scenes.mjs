@@ -118,30 +118,47 @@ function geometryFor(assetId, artType) {
 function streetProps(cityId, stopPositions, geometry) {
   if (cityId !== 'istanbul') return [];
 
-  const lamp = (x, z, rotationY, note) => ({
-    assetId: 'kit_street_lamp',
-    position: [x, 0, z],
-    rotationY,
+  const prop = (assetId, x, z, rotationY, note) => ({
+    assetId,
+    position: [x, 0, Math.round(z * 10) / 10],
+    rotationY: Math.round(rotationY * 1000) / 1000,
     note,
   });
 
+  /**
+   * Placements are hand-chosen but machine-checked. Spacing and angle vary on
+   * purpose: a row of identical lamps at identical intervals reads as a fence,
+   * not a street.
+   */
   const candidates = [
-    lamp(-9, -14, Math.PI / 2, 'pedestrian edge near the start of the walk'),
-    lamp(16, -26, -Math.PI / 2, 'open walkway beside the tall landmark'),
-    lamp(-9, -35, Math.PI / 2, 'street edge, mid-walk'),
-    lamp(11, -62, -Math.PI / 2, 'street edge near the food stop, opposite side'),
+    // Pedestrian segment near the start of the walk, lamp and bench together
+    // so the child meets both at child-height distance.
+    prop('kit_street_lamp', -8.5, -13, Math.PI / 2 + 0.12, 'pedestrian segment, near the start'),
+    prop('kit_bench', -7.2, -16.5, Math.PI / 2 - 0.25, 'bench beside the first lamp, scale reference'),
+
+    // Open walkway beside the tall landmark.
+    prop('kit_street_lamp', 16.5, -24.5, -Math.PI / 2 - 0.18, 'open walkway by the tall landmark'),
+
+    // Mid-walk street edge, then the market end.
+    prop('kit_street_lamp', -9.5, -36.5, Math.PI / 2 - 0.3, 'street edge, mid-walk'),
+    prop('kit_bench', 15.0, -40.0, -Math.PI / 2 + 0.2, 'bench facing the market end of the street'),
+    prop('kit_street_lamp', 11.5, -60.5, -Math.PI / 2 + 0.22, 'street edge near the food stop'),
   ];
 
   /**
-   * A lamp inside a trigger ring stands in the shot the moment that stop opens,
-   * so every placement is checked against every ring rather than eyeballed.
+   * A prop inside a trigger ring stands in the shot the moment that stop opens,
+   * and a prop on the route centreline is something to walk around. Both are
+   * checked here rather than judged by eye.
    */
-  return candidates.filter((prop) =>
-    stopPositions.every((stop, index) => {
-      const gap = Math.hypot(prop.position[0] - stop[0], prop.position[2] - stop[2]);
+  const ROUTE_CLEARANCE = 3.5;
+  return candidates.filter((item) => {
+    const clearOfStops = stopPositions.every((stop, index) => {
+      const gap = Math.hypot(item.position[0] - stop[0], item.position[2] - stop[2]);
       return gap > geometry[index].triggerRadius;
-    }),
-  );
+    });
+    const clearOfWalk = Math.abs(item.position[0]) > ROUTE_CLEARANCE;
+    return clearOfStops && clearOfWalk;
+  });
 }
 
 /** Deterministic S-curve layout; the same city always lays out identically. */

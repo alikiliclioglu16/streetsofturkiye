@@ -364,42 +364,62 @@
     {
       "assetId": "kit_street_lamp",
       "position": [
-        -9,
+        -8.5,
         0,
-        -14
+        -13
       ],
-      "rotationY": 1.5707963267948966,
-      "note": "pedestrian edge near the start of the walk"
+      "rotationY": 1.691,
+      "note": "pedestrian segment, near the start"
+    },
+    {
+      "assetId": "kit_bench",
+      "position": [
+        -7.2,
+        0,
+        -16.5
+      ],
+      "rotationY": 1.321,
+      "note": "bench beside the first lamp, scale reference"
     },
     {
       "assetId": "kit_street_lamp",
       "position": [
-        16,
+        16.5,
         0,
-        -26
+        -24.5
       ],
-      "rotationY": -1.5707963267948966,
-      "note": "open walkway beside the tall landmark"
+      "rotationY": -1.751,
+      "note": "open walkway by the tall landmark"
     },
     {
       "assetId": "kit_street_lamp",
       "position": [
-        -9,
+        -9.5,
         0,
-        -35
+        -36.5
       ],
-      "rotationY": 1.5707963267948966,
+      "rotationY": 1.271,
       "note": "street edge, mid-walk"
     },
     {
+      "assetId": "kit_bench",
+      "position": [
+        15,
+        0,
+        -40
+      ],
+      "rotationY": -1.371,
+      "note": "bench facing the market end of the street"
+    },
+    {
       "assetId": "kit_street_lamp",
       "position": [
-        11,
+        11.5,
         0,
-        -62
+        -60.5
       ],
-      "rotationY": -1.5707963267948966,
-      "note": "street edge near the food stop, opposite side"
+      "rotationY": -1.351,
+      "note": "street edge near the food stop"
     }
   ],
   "quizPresentation": {
