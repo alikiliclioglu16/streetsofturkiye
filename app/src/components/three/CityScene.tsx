@@ -69,28 +69,6 @@ export function CityScene({
 }: CitySceneProps) {
   const completed = useMemo(() => new Set(completedHotspotIds), [completedHotspotIds]);
 
-  /**
-   * Nonessential decoration. Count scales with `environmentDensity` and
-   * anything past `distantAssetCutoff` is dropped — these are the first two
-   * rungs of the degradation ladder, and the reason the hero mesh never has to
-   * be touched.
-   */
-  const decoration = useMemo(() => {
-    const base = 24;
-    const count = Math.round(base * quality.environmentDensity);
-    const items: { key: string; position: [number, number, number]; height: number }[] = [];
-    for (let i = 0; i < count; i += 1) {
-      const angle = i * 2.399963;
-      const radius = 12 + (i % 7) * 4.5;
-      const x = scene.ground.centerX + Math.cos(angle) * radius;
-      const z = scene.ground.centerZ + Math.sin(angle) * radius;
-      const distance = Math.hypot(x - scene.ground.centerX, z - scene.ground.centerZ);
-      if (distance > quality.distantAssetCutoff) continue;
-      items.push({ key: `decor-${i}`, position: [x, 0, z], height: 1.2 + (i % 4) * 0.6 });
-    }
-    return items;
-  }, [quality.environmentDensity, quality.distantAssetCutoff, scene.ground]);
-
   // Route markers are instanced-friendly primitives reused across cities.
   const markerScale = scene.routeMarker.entry.dimensions;
 
@@ -159,17 +137,6 @@ export function CityScene({
         </group>
       ))}
 
-      {decoration.map((item) => (
-        <mesh
-          key={item.key}
-          position={[item.position[0], item.height / 2, item.position[2]]}
-          castShadow={quality.shadowMapSize > 512}
-          receiveShadow
-        >
-          <boxGeometry args={[0.8, item.height, 0.8]} />
-          <meshStandardMaterial color="#B8AC98" roughness={0.9} />
-        </mesh>
-      ))}
 
       {/* Street dressing: static, shared across cities, no interaction. */}
       {scene.props.map((prop) => (

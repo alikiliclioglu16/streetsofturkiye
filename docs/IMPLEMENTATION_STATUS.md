@@ -114,7 +114,7 @@ app/src/
 npm run lint       → temiz
 npm run typecheck  → temiz (strict, noUncheckedIndexedAccess, `any` yok)
 npm run content:check → 81 il, 249 durak, 84 soru; 1413 kanonik dizgi baseline ile eşleşti
-npm test           → 12 dosya / 234 test geçti (logic + jsdom ui)
+npm test           → 12 dosya / 239 test geçti (logic + jsdom ui)
 npm run build      → başarılı, 4 rota
 npm start          → /map ve /city/istanbul 200
 ```
@@ -393,6 +393,17 @@ Sahne üreticisi artık teslim edilen boyutları okuyor (D-062) — daha önce �
 görsel teslimattan geliyordu ve ikisi farklıydı.
 
 Üç dosya toplam 151,62 MB geldi, **7,56 MB**'a indi.
+
+## 4u. Sokak yeniden düzenlendi
+
+İlk durak doğuş noktasından **26 metre** uzakta (D-063) — 8 metredeyken Ayasofya'nın cephesi
+Hoca'nın 85 santim önündeydi. Üç test bunu koruyor: doğuş noktası hiçbir şeyin içinde değil,
+5 metreden fazla açıklığı var, her yöne yürünebiliyor.
+
+**Gri kutular silindi** (D-064). Yerlerine çeşme (2), nostaljik tramvay ve taş rıhtım eklendi;
+sokakta 19 yerleştirilmiş prop var ve hepsi teslim edilmiş model.
+
+Tramvay ve rıhtım İstanbul'a özel (D-065), paylaşılan kite girmiyor.
 
 ## 5. Bilinen sınırlar
 

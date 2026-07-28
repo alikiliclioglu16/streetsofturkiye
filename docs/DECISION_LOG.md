@@ -671,3 +671,30 @@ The numbers live in `scripts/lib/manifest.mjs` as well as the registry, because
 the build runs before TypeScript exists. A test asserts the two never drift: a
 stop whose collider and model disagree is a stop the player walks into.
 
+## D-063 — The street starts 26 m from the spawn (28 Jul 2026)
+
+The first stop was 8 m from where the child appears, which put the face of a
+14 m-deep Hagia Sophia less than a metre away: the guide arrived already
+touching a building, with nowhere to stand and look.
+
+The street now begins at 26 m. Three tests hold it there — the spawn is inside
+nothing, has more than five metres of clearance, and can be walked out of in
+every direction. The last of those caught a real regression while it was being
+written: a bulk shift of the dressing had moved the spawn itself from the origin
+to within a metre of the mosque.
+
+## D-064 — The grey boxes are gone (28 Jul 2026)
+
+Twenty-four procedural grey boxes stood in for scenery from the graybox era.
+There is real dressing now — lamps, benches, planters, stalls, crates,
+fountains, a tram, a dock — so the filler is deleted rather than left as
+something to explain. A test asserts every placed prop resolves to a delivered
+model, so filler cannot creep back as a placeholder.
+
+## D-065 — İstanbul keeps a few props of its own (28 Jul 2026)
+
+The kit is shared across all 81 provinces, but a red Beyoğlu tram and a stone
+dock belong to İstanbul and to no other city. They are registered as `city_`
+props rather than `kit_`, which also puts them under the landmark size budget
+rather than the shared one.
+

@@ -48,27 +48,27 @@
       [
         0,
         0,
-        0.65
+        -17.35
       ],
       [
         5.5,
         0,
-        -22.36
+        -40.36
       ],
       [
         6.8,
         0,
-        -40.7
+        -58.7
       ],
       [
         3,
         0,
-        -60.02
+        -78.02
       ],
       [
         -3.1,
         0,
-        -75.5
+        -93.5
       ]
     ],
     "bounds": [
@@ -85,12 +85,12 @@
       [
         20,
         0,
-        -92
+        -112
       ],
       [
         -20,
         0,
-        -92
+        -112
       ]
     ]
   },
@@ -112,7 +112,7 @@
         "position": [
           0,
           0,
-          -8
+          -26
         ],
         "rotation": [
           0,
@@ -134,12 +134,12 @@
         "position": [
           4.5,
           3.6,
-          2.0999999999999996
+          -15.9
         ],
         "target": [
           0,
           2.2,
-          -8
+          -26
         ],
         "durationMs": 900
       },
@@ -164,7 +164,7 @@
         "position": [
           5.5,
           0,
-          -26
+          -44
         ],
         "rotation": [
           0,
@@ -186,12 +186,12 @@
         "position": [
           13.5,
           6.3,
-          -8.3
+          -26.3
         ],
         "target": [
           5.5,
           2.2,
-          -26
+          -44
         ],
         "durationMs": 900
       },
@@ -216,7 +216,7 @@
         "position": [
           6.8,
           0,
-          -44
+          -62
         ],
         "rotation": [
           0,
@@ -238,12 +238,12 @@
         "position": [
           10.2,
           2.7,
-          -36.4
+          -54.4
         ],
         "target": [
           6.8,
           2.2,
-          -44
+          -62
         ],
         "durationMs": 900
       },
@@ -268,7 +268,7 @@
         "position": [
           3,
           0,
-          -62
+          -80
         ],
         "rotation": [
           0,
@@ -290,12 +290,12 @@
         "position": [
           5.3,
           2.4,
-          -57
+          -75
         ],
         "target": [
           3,
           1,
-          -62
+          -80
         ],
         "durationMs": 900
       },
@@ -320,7 +320,7 @@
         "position": [
           -3.1,
           0,
-          -80
+          -98
         ],
         "rotation": [
           0,
@@ -342,12 +342,12 @@
         "position": [
           0.2999999999999998,
           2.7,
-          -72.4
+          -90.4
         ],
         "target": [
           -3.1,
           2.2,
-          -80
+          -98
         ],
         "durationMs": 900
       },
@@ -366,7 +366,7 @@
       "position": [
         -10.5,
         0,
-        -21
+        -39
       ],
       "rotationY": 1.691,
       "note": "pedestrian segment, near the start"
@@ -376,7 +376,7 @@
       "position": [
         -9,
         0,
-        -24.5
+        -42.5
       ],
       "rotationY": 1.321,
       "note": "bench beside the first lamp, scale reference"
@@ -386,7 +386,7 @@
       "position": [
         16.5,
         0,
-        -24.5
+        -42.5
       ],
       "rotationY": -1.751,
       "note": "open walkway by the tall landmark"
@@ -396,7 +396,7 @@
       "position": [
         -9.5,
         0,
-        -36.5
+        -54.5
       ],
       "rotationY": 1.271,
       "note": "street edge, mid-walk"
@@ -406,7 +406,7 @@
       "position": [
         15,
         0,
-        -40
+        -58
       ],
       "rotationY": -1.371,
       "note": "bench facing the market end of the street"
@@ -416,7 +416,7 @@
       "position": [
         11.5,
         0,
-        -60.5
+        -78.5
       ],
       "rotationY": -1.351,
       "note": "street edge near the food stop"
@@ -426,7 +426,7 @@
       "position": [
         -8,
         0,
-        -19
+        -37
       ],
       "rotationY": 0.3,
       "note": "planter at the start of the walk"
@@ -436,7 +436,7 @@
       "position": [
         6.8,
         0,
-        -17
+        -35
       ],
       "rotationY": -0.4,
       "note": "planter opposite the first bench"
@@ -446,7 +446,7 @@
       "position": [
         -6.4,
         0,
-        -30
+        -48
       ],
       "rotationY": 0.15,
       "note": "planter mid-walk"
@@ -456,7 +456,7 @@
       "position": [
         8.5,
         0,
-        -70
+        -88
       ],
       "rotationY": -0.25,
       "note": "planter towards the quay"
@@ -466,7 +466,7 @@
       "position": [
         -8.8,
         0,
-        -39
+        -57
       ],
       "rotationY": 1.221,
       "note": "stall on the market approach"
@@ -476,7 +476,7 @@
       "position": [
         -7.4,
         0,
-        -41.6
+        -59.6
       ],
       "rotationY": 0.55,
       "note": "crates beside the first stall"
@@ -486,7 +486,7 @@
       "position": [
         13.5,
         0,
-        -46.5
+        -64.5
       ],
       "rotationY": -1.291,
       "note": "stall across from the gateway"
@@ -496,17 +496,57 @@
       "position": [
         12.2,
         0,
-        -49.4
+        -67.4
       ],
       "rotationY": -0.9,
       "note": "crates beside the second stall"
+    },
+    {
+      "assetId": "kit_wall_fountain",
+      "position": [
+        9.5,
+        0,
+        -34
+      ],
+      "rotationY": -1.371,
+      "note": "fountain near the first landmark"
+    },
+    {
+      "assetId": "kit_wall_fountain",
+      "position": [
+        -14.5,
+        0,
+        -87
+      ],
+      "rotationY": 1.421,
+      "note": "fountain towards the quay"
+    },
+    {
+      "assetId": "city_istanbul_streetcar",
+      "position": [
+        -13,
+        0,
+        -55
+      ],
+      "rotationY": 0.08,
+      "note": "tram halted along the west side"
+    },
+    {
+      "assetId": "city_istanbul_stone_dock",
+      "position": [
+        12,
+        0,
+        -106
+      ],
+      "rotationY": -0.25,
+      "note": "dock at the quay"
     },
     {
       "assetId": "kit_crates",
       "position": [
         -9.6,
         0,
-        -55
+        -73
       ],
       "rotationY": 0.2,
       "note": "crates stacked along the street edge"
@@ -514,7 +554,7 @@
   ],
   "water": {
     "centerX": 0,
-    "centerZ": -182,
+    "centerZ": -202,
     "width": 320,
     "depth": 180,
     "color": "#2E7FA8"
@@ -525,7 +565,7 @@
       "position": [
         -26,
         0,
-        -34
+        -52
       ],
       "rotationY": 1.5707963267948966,
       "solid": false,
@@ -536,7 +576,7 @@
       "position": [
         27,
         0,
-        -56
+        -74
       ],
       "rotationY": -1.5707963267948966,
       "solid": false,
@@ -547,7 +587,7 @@
       "position": [
         22,
         0,
-        -128
+        -146
       ],
       "rotationY": -0.4,
       "solid": false,
@@ -558,63 +598,63 @@
     [
       {
         "x": -11.5,
-        "z": -19
+        "z": -37
       },
       {
         "x": -6,
-        "z": -22.5
+        "z": -40.5
       },
       {
         "x": -10,
-        "z": -27
+        "z": -45
       }
     ],
     [
       {
         "x": 12,
-        "z": -33
+        "z": -51
       },
       {
         "x": 16.5,
-        "z": -37.5
+        "z": -55.5
       }
     ],
     [
       {
         "x": -13,
-        "z": -48
+        "z": -66
       },
       {
         "x": -7.5,
-        "z": -52
+        "z": -70
       },
       {
         "x": -12.5,
-        "z": -56.5
+        "z": -74.5
       }
     ],
     [
       {
         "x": 13,
-        "z": -12
+        "z": -30
       },
       {
         "x": 17,
-        "z": -17
+        "z": -35
       }
     ],
     [
       {
         "x": 13,
-        "z": -55
+        "z": -73
       },
       {
         "x": 17,
-        "z": -59
+        "z": -77
       },
       {
         "x": 12.5,
-        "z": -63
+        "z": -81
       }
     ]
   ],
@@ -624,7 +664,7 @@
       "position": [
         9.9,
         0,
-        -23.4
+        -41.4
       ],
       "rotationY": -2.1,
       "note": "beside the tower gate"
@@ -634,7 +674,7 @@
       "position": [
         11.6,
         0,
-        -41.8
+        -59.8
       ],
       "rotationY": -2,
       "note": "at the bazaar entrance"
@@ -644,7 +684,7 @@
       "position": [
         7,
         0,
-        -60.2
+        -78.2
       ],
       "rotationY": -1.99,
       "note": "working beside the simit cart"
@@ -792,16 +832,6 @@
       "rotationY": 2.18
     },
     {
-      "kind": "cypress",
-      "position": [
-        11,
-        0,
-        -56.5
-      ],
-      "scale": 1.21,
-      "rotationY": 4.58
-    },
-    {
       "kind": "plane",
       "position": [
         -14.2,
@@ -840,6 +870,16 @@
       ],
       "scale": 0.97,
       "rotationY": 1.62
+    },
+    {
+      "kind": "cypress",
+      "position": [
+        -11,
+        0,
+        -79.4
+      ],
+      "scale": 0.91,
+      "rotationY": 4.02
     },
     {
       "kind": "plane",

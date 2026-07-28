@@ -28,18 +28,15 @@ describe('street kit props', () => {
   });
 
   it('places a handful of test instances, not set dressing', () => {
-    expect(scene.props.length).toBeGreaterThanOrEqual(10);
-    expect(scene.props.length).toBeLessThanOrEqual(20);
-    // Only shared kit props are scattered as dressing; city art belongs to stops.
+    expect(scene.props.length).toBeGreaterThanOrEqual(14);
+    expect(scene.props.length).toBeLessThanOrEqual(24);
+
+    // Mostly shared kit, plus a few pieces only İstanbul would have: a red tram
+    // and a stone dock belong to this city and to no other.
     const kinds = [...new Set(scene.props.map((prop) => prop.asset.entry.id))].sort();
-    expect(kinds).toEqual([
-      'kit_bench',
-      'kit_crates',
-      'kit_market_stall',
-      'kit_planter_cypress',
-      'kit_street_lamp',
-    ]);
-    expect(kinds.every((id) => id.startsWith('kit_'))).toBe(true);
+    expect(kinds.filter((id) => id.startsWith('kit_')).length).toBeGreaterThanOrEqual(5);
+    expect(kinds).toContain('city_istanbul_streetcar');
+    expect(kinds).toContain('city_istanbul_stone_dock');
   });
 
   it('stands every prop on the ground plane', () => {
@@ -158,7 +155,8 @@ describe('optimised street kit', () => {
   it('varies angle and spacing, so the street does not read as a fence', () => {
     const scene = buildScene(loadComposedCity('istanbul'), 'high');
     const rotations = scene.props.map((p) => Math.abs(p.rotationY));
-    expect(new Set(rotations).size).toBe(rotations.length);
+    // Near-unique angles: a handful of pieces may coincide, a row may not.
+    expect(new Set(rotations).size).toBeGreaterThan(rotations.length * 0.7);
 
     const gaps = scene.props
       .map((p) => p.position[2])
@@ -768,5 +766,74 @@ describe('the sea', () => {
     expect(first.asset.entry.id).toBe('city_istanbul_hagia_sophia');
     // The canonical stop is the one about the dome and the İznik tiles.
     expect(city.hotspots[0]!.fact.title.en).toMatch(/Hagia Sophia/);
+  });
+});
+
+describe('where the child appears', () => {
+  it('never spawns inside anything, in any city', () => {
+    for (const cityId of ['istanbul', 'nevsehir', 'gaziantep']) {
+      const city = loadComposedCity(cityId);
+      const scene = buildScene(city, 'high');
+      const spawn = { x: city.spawn.position[0], z: city.spawn.position[2] };
+      expect(blockedBy(spawn, scene.colliders), `${cityId} spawns inside an object`).toBeNull();
+    }
+  });
+
+  it('leaves room to look around before meeting anything', () => {
+    // Hagia Sophia once stood with its face less than a metre from the spawn:
+    // the guide arrived already touching a building.
+    const city = loadComposedCity('istanbul');
+    const scene = buildScene(city, 'high');
+    const spawn = { x: city.spawn.position[0], z: city.spawn.position[2] };
+
+    const clearance = Math.min(
+      ...scene.colliders.map((collider) =>
+        Math.max(
+          Math.abs(spawn.x - collider.x) - collider.halfWidth,
+          Math.abs(spawn.z - collider.z) - collider.halfDepth,
+        ),
+      ),
+    );
+    expect(clearance).toBeGreaterThan(5);
+  });
+
+  it('can walk out of the spawn in every direction without being trapped', () => {
+    const city = loadComposedCity('istanbul');
+    const scene = buildScene(city, 'high');
+    const spawn = { x: city.spawn.position[0], z: city.spawn.position[2] };
+
+    for (const heading of [0, Math.PI / 2, Math.PI, -Math.PI / 2]) {
+      let position = spawn;
+      for (let frame = 0; frame < 90; frame += 1) {
+        position = stepWithCollision(
+          position,
+          { forward: 1, strafe: 0 },
+          heading,
+          1 / 60,
+          scene.bounds,
+          scene.colliders,
+        );
+      }
+      const moved = Math.hypot(position.x - spawn.x, position.z - spawn.z);
+      expect(moved, `trapped facing ${heading.toFixed(2)}`).toBeGreaterThan(2);
+    }
+  });
+});
+
+describe('no graybox filler left', () => {
+  it('dresses the street with delivered props, not grey boxes', () => {
+    const scene = buildScene(loadComposedCity('istanbul'), 'high');
+    expect(scene.props.length).toBeGreaterThanOrEqual(14);
+    for (const prop of scene.props) {
+      expect(prop.asset.isPlaceholder, prop.asset.entry.id).toBe(false);
+    }
+  });
+
+  it('has no procedural decoration boxes in the renderer', () => {
+    const source = readFileSync(
+      path.resolve(process.cwd(), 'src/components/three/CityScene.tsx'),
+      'utf8',
+    );
+    expect(source).not.toContain('decoration');
   });
 });

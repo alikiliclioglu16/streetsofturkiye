@@ -85,6 +85,15 @@ const CLEARANCE = 1.5;
 const TRIGGER_MARGIN = 2.5;
 const STOP_SPACING = 18;
 
+/**
+ * How far the first stop sits from where the child appears.
+ *
+ * It was 8 m, which put the face of a 14 m-deep Hagia Sophia less than a metre
+ * from the spawn: the guide arrived already touching a building. A child needs
+ * to see where they are before they meet anything.
+ */
+const FIRST_STOP_Z = -26;
+
 /** Footprint of whatever will stand at this stop, in metres. */
 function footprintFor(assetId, artType) {
   // A delivered model outranks the brief it was made against: the collider and
@@ -140,34 +149,45 @@ function streetProps(cityId, stopPositions, geometry) {
   const candidates = [
     // Pedestrian segment near the start of the walk, lamp and bench together
     // so the child meets both at child-height distance.
-    prop('kit_street_lamp', -10.5, -21, Math.PI / 2 + 0.12, 'pedestrian segment, near the start'),
-    prop('kit_bench', -9.0, -24.5, Math.PI / 2 - 0.25, 'bench beside the first lamp, scale reference'),
+    prop('kit_street_lamp', -10.5, -39, Math.PI / 2 + 0.12, 'pedestrian segment, near the start'),
+    prop('kit_bench', -9.0, -42.5, Math.PI / 2 - 0.25, 'bench beside the first lamp, scale reference'),
 
     // Open walkway beside the tall landmark.
-    prop('kit_street_lamp', 16.5, -24.5, -Math.PI / 2 - 0.18, 'open walkway by the tall landmark'),
+    prop('kit_street_lamp', 16.5, -42.5, -Math.PI / 2 - 0.18, 'open walkway by the tall landmark'),
 
     // Mid-walk street edge, then the market end.
-    prop('kit_street_lamp', -9.5, -36.5, Math.PI / 2 - 0.3, 'street edge, mid-walk'),
-    prop('kit_bench', 15.0, -40.0, -Math.PI / 2 + 0.2, 'bench facing the market end of the street'),
-    prop('kit_street_lamp', 11.5, -60.5, -Math.PI / 2 + 0.22, 'street edge near the food stop'),
+    prop('kit_street_lamp', -9.5, -54.5, Math.PI / 2 - 0.3, 'street edge, mid-walk'),
+    prop('kit_bench', 15.0, -58, -Math.PI / 2 + 0.2, 'bench facing the market end of the street'),
+    prop('kit_street_lamp', 11.5, -78.5, -Math.PI / 2 + 0.22, 'street edge near the food stop'),
 
     // Planters read as tended street furniture rather than scenery, so they sit
     // close to the pavement edge in pairs.
-    prop('kit_planter_cypress', -8.0, -19.0, 0.3, 'planter at the start of the walk'),
-    prop('kit_planter_cypress', 6.8, -17.0, -0.4, 'planter opposite the first bench'),
-    prop('kit_planter_cypress', -6.4, -30.0, 0.15, 'planter mid-walk'),
-    prop('kit_planter_cypress', 8.5, -70.0, -0.25, 'planter towards the quay'),
+    prop('kit_planter_cypress', -8.0, -37, 0.3, 'planter at the start of the walk'),
+    prop('kit_planter_cypress', 6.8, -35, -0.4, 'planter opposite the first bench'),
+    prop('kit_planter_cypress', -6.4, -48, 0.15, 'planter mid-walk'),
+    prop('kit_planter_cypress', 8.5, -88, -0.25, 'planter towards the quay'),
 
     /**
      * Market furniture belongs to the market end of the street, near the
      * covered gateway. A stall alone reads as abandoned, so each one has its
      * crates beside it.
      */
-    prop('kit_market_stall', -8.8, -39.0, Math.PI / 2 - 0.35, 'stall on the market approach'),
-    prop('kit_crates', -7.4, -41.6, 0.55, 'crates beside the first stall'),
-    prop('kit_market_stall', 13.5, -46.5, -Math.PI / 2 + 0.28, 'stall across from the gateway'),
-    prop('kit_crates', 12.2, -49.4, -0.9, 'crates beside the second stall'),
-    prop('kit_crates', -9.6, -55.0, 0.2, 'crates stacked along the street edge'),
+    prop('kit_market_stall', -8.8, -57, Math.PI / 2 - 0.35, 'stall on the market approach'),
+    prop('kit_crates', -7.4, -59.6, 0.55, 'crates beside the first stall'),
+    prop('kit_market_stall', 13.5, -64.5, -Math.PI / 2 + 0.28, 'stall across from the gateway'),
+    prop('kit_crates', 12.2, -67.4, -0.9, 'crates beside the second stall'),
+    // A fountain at each end of the walk: İstanbul's street corners have them,
+    // and they give the long stretches something to arrive at.
+    prop('kit_wall_fountain', 9.5, -34, -Math.PI / 2 + 0.2, 'fountain near the first landmark'),
+    prop('kit_wall_fountain', -14.5, -87, Math.PI / 2 - 0.15, 'fountain towards the quay'),
+
+    // The red tram is Beyoğlu, parked rather than running.
+    prop('city_istanbul_streetcar', -13, -55, 0.08, 'tram halted along the west side'),
+
+    // Where the street meets the water.
+    prop('city_istanbul_stone_dock', 12, -106, -0.25, 'dock at the quay'),
+
+    prop('kit_crates', -9.6, -73, 0.2, 'crates stacked along the street edge'),
   ];
 
   /**
@@ -196,27 +216,27 @@ function streetProps(cityId, stopPositions, geometry) {
 function catRoutes(stopPositions, geometry) {
   const candidates = [
     [
-      { x: -11.5, z: -19.0 },
-      { x: -6.0, z: -22.5 },
-      { x: -10.0, z: -27.0 },
+      { x: -11.5, z: -37 },
+      { x: -6.0, z: -40.5 },
+      { x: -10.0, z: -45 },
     ],
     [
-      { x: 12.0, z: -33.0 },
-      { x: 16.5, z: -37.5 },
+      { x: 12.0, z: -51 },
+      { x: 16.5, z: -55.5 },
     ],
     [
-      { x: -13.0, z: -48.0 },
-      { x: -7.5, z: -52.0 },
-      { x: -12.5, z: -56.5 },
+      { x: -13.0, z: -66 },
+      { x: -7.5, z: -70 },
+      { x: -12.5, z: -74.5 },
     ],
     [
-      { x: 13.0, z: -12.0 },
-      { x: 17.0, z: -17.0 },
+      { x: 13.0, z: -30 },
+      { x: 17.0, z: -35 },
     ],
     [
-      { x: 13.0, z: -55.0 },
-      { x: 17.0, z: -59.0 },
-      { x: 12.5, z: -63.0 },
+      { x: 13.0, z: -73 },
+      { x: 17.0, z: -77 },
+      { x: 12.5, z: -81 },
     ],
   ];
 
@@ -346,13 +366,13 @@ function layout(stopCount, approaches) {
   const spacing = STOP_SPACING;
   const stopPositions = [];
   for (let i = 0; i < stopCount; i += 1) {
-    stopPositions.push([Math.round(Math.sin(i * 0.9) * 7 * 10) / 10, 0, -8 - i * spacing]);
+    stopPositions.push([Math.round(Math.sin(i * 0.9) * 7 * 10) / 10, 0, FIRST_STOP_Z - i * spacing]);
   }
   const route = [
     [0, 0, 0],
     ...stopPositions.map(([x, , z], i) => [x, 0, Math.round((z + approaches[i]) * 100) / 100]),
   ];
-  const minZ = -8 - (stopCount - 1) * spacing - 12;
+  const minZ = FIRST_STOP_Z - (stopCount - 1) * spacing - 14;
   return {
     stopPositions,
     route,
@@ -430,6 +450,11 @@ function buildScene(canonical) {
           ? 'character_keloglan_base'
           : 'character_nasreddin_hoca_base',
     },
+    /**
+     * The child appears at the head of the street, facing down it. This must
+     * stay at the origin: a bulk shift of the dressing once moved it to within
+     * a metre of Hagia Sophia's face, and the guide arrived inside a building.
+     */
     spawn: { position: [0, 0, 0], rotation: [0, Math.PI, 0], scale: [1, 1, 1] },
     route: { mode: 'guided-loop', points: route, bounds },
     intro: { cameraSequenceId: null, skippable: true },
@@ -441,7 +466,7 @@ function buildScene(canonical) {
      */
     water:
       canonical.id === 'istanbul'
-        ? { centerX: 0, centerZ: -182, width: 320, depth: 180, color: '#2E7FA8' }
+        ? { centerX: 0, centerZ: -202, width: 320, depth: 180, color: '#2E7FA8' }
         : null,
     /**
      * Scenery beyond the play area. The Beyoğlu row stands behind the walk as
@@ -452,21 +477,21 @@ function buildScene(canonical) {
         ? [
             {
               assetId: 'city_istanbul_beyoglu_row',
-              position: [-26, 0, -34],
+              position: [-26, 0, -52],
               rotationY: Math.PI / 2,
               solid: false,
               note: 'facades behind the west pavement',
             },
             {
               assetId: 'city_istanbul_beyoglu_row',
-              position: [27, 0, -56],
+              position: [27, 0, -74],
               rotationY: -Math.PI / 2,
               solid: false,
               note: 'facades behind the east pavement',
             },
             {
               assetId: 'city_istanbul_maidens_tower',
-              position: [22, 0, -128],
+              position: [22, 0, -146],
               rotationY: -0.4,
               solid: false,
               note: 'offshore, seen from the quay',
