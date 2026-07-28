@@ -107,9 +107,9 @@ const HEROES: Readonly<Record<HeroId, HeroDefinition>> = {
      * delivery without a rename in between.
      */
     modelUrl: '/assets/heroes/Meshy_AI_Little_Adventurer_biped_Meshy_AI_Meshy_Merged_Animations.glb',
-    checksum: '41f8f1fa2f0bac36085d2dc903fd34ab46577aa338e436a727359d1a9fa13f68',
-    triangles: 222_150,
-    transferBytes: 16_722_860,
+    checksum: 'ebc3e7deaef88ecd00680d87a2077bc1bf91f7031b09866ac4feaa1d05a98d21',
+    triangles: 99_966,
+    transferBytes: 4612368,
     animation: {
       clips: {
         idle: 'Idle_11',
@@ -169,9 +169,9 @@ const HEROES: Readonly<Record<HeroId, HeroDefinition>> = {
      * verbatim for traceability.
      */
     modelUrl: '/assets/heroes/Meshy_AI_Teal_Robed_Sage_biped_Meshy_AI_Meshy_Merged_Animations.glb',
-    checksum: 'bb359aa93d2405917c9fbc310cdb25ccad89a9f7af0b57401937d6c88fecee24',
-    triangles: 197_482,
-    transferBytes: 19_867_032,
+    checksum: 'c536508c1dbcaa211490b01d119baceedcbed2f4e824f6900e888856b301efaa',
+    triangles: 88_866,
+    transferBytes: 5094800,
     animation: {
       clips: {
         idle: 'Idle_11',

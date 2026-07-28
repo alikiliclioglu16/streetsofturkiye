@@ -773,3 +773,32 @@ not how important the object is. The tower is glimpsed from 20 m and does fine
 on 2048; the tile panel is studied from two metres and needs no more than 1024
 because it is 1.5 m wide.
 
+## D-072 — The hero mesh budget is revised (28 Jul 2026)
+
+D-012 set the hero budget at 180,000-250,000 triangles and forbade a low-poly
+variant without the owner's approval. That approval is given, and the budget is
+now 70,000-120,000.
+
+The original range came from a delivery brief, before anything had been measured
+against a download. Nasreddin Hodja at 197,482 triangles was 18.95 MB — 38% of
+everything a child downloads for a city, on a product aimed at tablets.
+
+| | Before | After |
+|---|---|---|
+| Nasreddin Hodja | 197,482 tris, 18.95 MB | 88,866 tris, 4.86 MB |
+| Keloğlan | 222,150 tris, 15.95 MB | 99,966 tris, 4.40 MB |
+| One İstanbul visit | 49.30 MB | 35.21 MB |
+| Hero share of a frame | 394,964 tris | 177,732 tris |
+
+Both keep their 24-joint skeleton, their skin weights, their measured 1.700 m
+height and every clip — seven for the Hodja, twelve for Keloğlan. Verified after
+the fact rather than assumed.
+
+Half the saving was texture: two 2048 RGBA PNGs at 5 MB each, on a material the
+engine already forces opaque, so the alpha was carrying nothing.
+
+**What has not changed:** the renderer still never reduces the hero. Quality
+profiles, degradation ladders and adaptive stepping remain forbidden from
+touching the mesh. This is a change to what is authored, not to what the engine
+may trade away while a child is playing.
+

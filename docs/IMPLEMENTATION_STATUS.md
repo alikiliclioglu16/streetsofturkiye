@@ -114,7 +114,7 @@ app/src/
 npm run lint       → temiz
 npm run typecheck  → temiz (strict, noUncheckedIndexedAccess, `any` yok)
 npm run content:check → 81 il, 249 durak, 84 soru; 1413 kanonik dizgi baseline ile eşleşti
-npm test           → 12 dosya / 243 test geçti (logic + jsdom ui)
+npm test           → 12 dosya / 244 test geçti (logic + jsdom ui)
 npm run build      → başarılı, 4 rota
 npm start          → /map ve /city/istanbul 200
 ```
@@ -443,6 +443,27 @@ sıkıştırılmıştı — uzaktan bakılan bir bina için yeterliydi, yanına 
 
 Prop açıklığı artık x=0'a değil **rotanın kendisine** göre ölçülüyor (D-070) — eski kural
 caminin meydanı karşıdan kapatmasını reddediyordu.
+
+## 5a. Hero bütçesi düşürüldü
+
+D-012'nin 180.000–250.000 üçgen aralığı, hiçbir şey indirme karşısında ölçülmeden önce
+teslim brief'inden gelmişti. Proje sahibinin onayıyla aralık **70.000–120.000**'e indirildi (D-072).
+
+| | Önce | Sonra |
+|---|---|---|
+| Nasreddin Hoca | 197.482 üçgen, 18,95 MB | 88.866 üçgen, **4,86 MB** |
+| Keloğlan | 222.150 üçgen, 15,95 MB | 99.966 üçgen, **4,40 MB** |
+| Bir İstanbul turu | 49,30 MB | **35,21 MB** |
+| Karedeki hero payı | 394.964 üçgen | 177.732 üçgen |
+
+İkisi de 24 eklemli iskeletini, deri ağırlıklarını, 1,700 m ölçülen boyunu ve tüm kliplerini
+koruyor — Hoca'da 7, Keloğlan'da 12. Sonradan doğrulandı, varsayılmadı.
+
+Tasarrufun yarısı dokudandı: iki adet 2048 RGBA PNG, her biri 5 MB, üstelik motorun zaten
+opak yaptığı bir materyalde — alfa hiçbir şey taşımıyordu.
+
+**Değişmeyen:** motor hâlâ hero mesh'ine dokunmuyor. Bu, üretilen dosyanın değişmesi;
+oyun sırasında motorun feda edebileceklerinin değil.
 
 ## 5. Bilinen sınırlar
 

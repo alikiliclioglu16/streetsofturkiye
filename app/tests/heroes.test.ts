@@ -141,16 +141,28 @@ describe('single quality configuration', () => {
 });
 
 describe('hero budget reporting', () => {
-  it('accepts the approved hero triangle range without decimating', () => {
-    const check = checkHeroBudget({ ...heroById('keloglan'), triangles: 222_150 });
+  it('accepts the approved hero triangle range without decimating at runtime', () => {
+    const check = checkHeroBudget({ ...heroById('keloglan'), triangles: 99_966 });
     expect(check.withinBudget).toBe(true);
     expect(check.message).toContain('within hero budget');
   });
 
   it('reports an oversized hero instead of shrinking it', () => {
-    const check = checkHeroBudget({ ...heroById('keloglan'), triangles: 400_000 });
+    // 222,150 was the original delivery, and it is now over budget: the range
+    // moved when 18.95 MB per hero met a product aimed at tablets.
+    const check = checkHeroBudget({ ...heroById('keloglan'), triangles: 222_150 });
     expect(check.withinBudget).toBe(false);
     expect(check.message).toContain('do not decimate');
+  });
+
+  it('holds both heroes to the same technical class', () => {
+    const sizes = allHeroes().map((hero) => hero.transferBytes ?? 0);
+    for (const size of sizes) {
+      // A hero is the single largest thing a child downloads for a city.
+      expect(size / (1024 * 1024)).toBeLessThan(6);
+    }
+    // Neither is more than half again the other.
+    expect(Math.max(...sizes) / Math.min(...sizes)).toBeLessThan(1.5);
   });
 
   it('keeps both heroes in the same technical class', () => {
@@ -287,8 +299,8 @@ describe('delivered Keloğlan model', () => {
       '/assets/heroes/Meshy_AI_Little_Adventurer_biped_Meshy_AI_Meshy_Merged_Animations.glb',
     );
     expect(keloglan.checksum).toHaveLength(64);
-    expect(keloglan.triangles).toBe(222_150);
-    expect(keloglan.transferBytes).toBe(16_722_860);
+    expect(keloglan.triangles).toBe(99_966);
+    expect(keloglan.transferBytes).toBe(4_612_368);
     expect(keloglan.measuredHeightMeters).toBe(1.7);
   });
 
@@ -299,7 +311,7 @@ describe('delivered Keloğlan model', () => {
   it('sits inside the approved hero triangle range without decimation', () => {
     const check = checkHeroBudget(keloglan);
     expect(check.withinBudget).toBe(true);
-    expect(check.triangles).toBe(222_150);
+    expect(check.triangles).toBe(99_966);
   });
 
   it('maps the four state clips to names that exist in the file', () => {
@@ -499,16 +511,16 @@ describe('delivered Nasreddin Hodja model', () => {
       '/assets/heroes/Meshy_AI_Teal_Robed_Sage_biped_Meshy_AI_Meshy_Merged_Animations.glb',
     );
     expect(hoca.checksum).toHaveLength(64);
-    expect(hoca.triangles).toBe(197_482);
-    expect(hoca.transferBytes).toBe(19_867_032);
+    expect(hoca.triangles).toBe(88_866);
+    expect(hoca.transferBytes).toBe(5_094_800);
     expect(hoca.measuredHeightMeters).toBe(1.7);
   });
 
   it('sits in the same hero technical class as Keloğlan', () => {
     const check = checkHeroBudget(hoca);
     expect(check.withinBudget).toBe(true);
-    expect(hoca.triangles!).toBeGreaterThanOrEqual(180_000);
-    expect(hoca.triangles!).toBeLessThanOrEqual(250_000);
+    expect(hoca.triangles!).toBeGreaterThanOrEqual(70_000);
+    expect(hoca.triangles!).toBeLessThanOrEqual(120_000);
   });
 
   it('maps all six clips to names present in the file', () => {

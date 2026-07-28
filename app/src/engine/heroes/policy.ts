@@ -50,7 +50,18 @@ export const HERO_POLICY: HeroCharacterPolicy = {
   enabled: true,
   defaultMaxActiveHeroes: 1,
   allowTwoHeroScene: false,
-  meshBudgetTriangles: { recommendedMin: 180_000, recommendedMax: 250_000 },
+  /**
+   * Revised 28 Jul 2026. The original 180,000-250,000 came from the delivery
+   * brief, before anything had been measured against a download. Nasreddin
+   * Hodja at 197,482 triangles was 18.95 MB — 38% of everything a child
+   * downloads for a city, on a product aimed at tablets.
+   *
+   * Simplified to 88,866 with UV seams locked, he is 4.86 MB and keeps his
+   * skeleton, his weights and all seven clips. The mesh is still never reduced
+   * at runtime; this is a change to what is authored, not to what the renderer
+   * may trade away.
+   */
+  meshBudgetTriangles: { recommendedMin: 70_000, recommendedMax: 120_000 },
   preserveFullQualityMesh: true,
 };
 
