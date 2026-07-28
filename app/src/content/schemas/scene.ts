@@ -71,6 +71,8 @@ export const scenePropSchema = z.object({
   assetId: z.string(),
   position: vec3Schema,
   rotationY: z.number().default(0),
+  /** False for dressing the player walks through, like a stray cat. */
+  solid: z.boolean().default(true),
 });
 export type SceneProp = z.infer<typeof scenePropSchema>;
 
@@ -106,6 +108,11 @@ export const sceneSchema = z
     hotspots: z.array(sceneHotspotSchema).min(1),
     /** Street dressing, shared across cities; absent in older scene files. */
     props: z.array(scenePropSchema).default([]),
+    /**
+     * A short walking route for the street cat, in world metres. Two or three
+     * waypoints: this is an animal crossing a pavement, not a patrol.
+     */
+    catRoute: z.array(z.object({ x: z.number(), z: z.number() })).default([]),
     quizPresentation: z.object({ shuffleOptions: z.boolean() }),
     rewards: z.object({
       cityStarId: z.string(),

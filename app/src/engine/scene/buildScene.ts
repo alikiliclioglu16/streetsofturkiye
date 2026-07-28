@@ -36,6 +36,8 @@ export interface ScenePropInstance {
   readonly asset: ResolvedAsset;
   readonly position: Vec3;
   readonly rotationY: number;
+  /** False for dressing the player should walk through, like a stray cat. */
+  readonly solid: boolean;
 }
 
 export interface ScenePropInstance {
@@ -43,10 +45,14 @@ export interface ScenePropInstance {
   readonly asset: ResolvedAsset;
   readonly position: Vec3;
   readonly rotationY: number;
+  /** False for dressing the player should walk through, like a stray cat. */
+  readonly solid: boolean;
 }
 
 export interface SceneDescription {
   readonly cityId: string;
+  readonly catRoute: readonly { x: number; z: number }[];
+  readonly catModelUrl: string | null;
   readonly props: readonly ScenePropInstance[];
   readonly sky: SceneSky;
   readonly colliders: readonly RectCollider[];
@@ -114,22 +120,56 @@ export function buildScene(city: CityDefinition, quality: QualityTier): SceneDes
     .filter((asset) => asset.isUnknown)
     .map((asset) => asset.entry.id);
 
-  const colliders: RectCollider[] = hotspots.map((hotspot) => ({
-    x: hotspot.position[0],
-    z: hotspot.position[2],
-    halfWidth: hotspot.collider.halfWidth,
-    halfDepth: hotspot.collider.halfDepth,
-  }));
-
   const props: ScenePropInstance[] = city.props.map((prop, index) => ({
     key: `${prop.assetId}-${index}`,
     asset: resolveAsset(prop.assetId, quality),
     position: prop.position,
     rotationY: prop.rotationY,
+    solid: prop.solid ?? true,
   }));
+
+  /**
+   * Everything solid, in one list.
+   *
+   * Props were added after the collision system and nobody gave them
+   * footprints, so the guide walked straight through lamp posts and benches.
+   * A prop's footprint comes from its registry dimensions; rotating it means
+   * taking the axis-aligned bounds of the rotated rectangle, because the
+   * collision test is axis-aligned.
+   */
+  const rotatedFootprint = (width: number, depth: number, rotationY: number) => {
+    const cos = Math.abs(Math.cos(rotationY));
+    const sin = Math.abs(Math.sin(rotationY));
+    const halfW = width / 2;
+    const halfD = depth / 2;
+    return {
+      halfWidth: halfW * cos + halfD * sin,
+      halfDepth: halfW * sin + halfD * cos,
+    };
+  };
+
+  const colliders: RectCollider[] = [
+    ...hotspots.map((hotspot) => ({
+      x: hotspot.position[0],
+      z: hotspot.position[2],
+      halfWidth: hotspot.collider.halfWidth,
+      halfDepth: hotspot.collider.halfDepth,
+    })),
+    ...props
+      .filter((prop) => prop.solid)
+      .map((prop) => {
+        const [width, , depth] = prop.asset.entry.dimensions;
+        const { halfWidth, halfDepth } = rotatedFootprint(width, depth, prop.rotationY);
+        return { x: prop.position[0], z: prop.position[2], halfWidth, halfDepth };
+      }),
+  ];
+
+  const cat = resolveAsset('kit_street_cat', quality);
 
   return {
     cityId: city.id,
+    catRoute: city.catRoute,
+    catModelUrl: city.catRoute.length >= 2 ? cat.modelUrl : null,
     props,
     colliders,
     hotspots,

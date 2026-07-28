@@ -8,6 +8,7 @@ import type { HeroClip } from '@/engine/heroes/registry';
 import { AssetInstance } from '@/components/three/AssetInstance';
 import { Ground } from '@/components/three/Ground';
 import { HotspotObject } from '@/components/three/HotspotObject';
+import { StreetCat } from '@/components/three/StreetCat';
 import { PlayerRig } from '@/components/three/PlayerRig';
 
 interface CitySceneProps {
@@ -155,6 +156,11 @@ export function CityScene({
           <AssetInstance asset={prop.asset} />
         </group>
       ))}
+
+      {/* One stray cat. Dressing: no collider, the player walks through it. */}
+      {scene.catModelUrl ? (
+        <StreetCat url={scene.catModelUrl} route={scene.catRoute} />
+      ) : null}
 
       {scene.hotspots.map((hotspot) => (
         <HotspotObject

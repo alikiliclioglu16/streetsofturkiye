@@ -1,7 +1,8 @@
 import { existsSync, readFileSync, statSync } from 'node:fs';
 import path from 'node:path';
 import { describe, expect, it } from 'vitest';
-import { blockedBy } from '@/engine/controls/movement';
+import { blockedBy, stepWithCollision } from '@/engine/controls/movement';
+import { createCatState, randomPause, stepCat } from '@/components/three/StreetCat';
 import { deliveredProps, resolveAsset, trustsModelScale } from '@/engine/assets/registry';
 import { buildScene } from '@/engine/scene/buildScene';
 import { loadComposedCity } from './helpers';
@@ -40,8 +41,15 @@ describe('street kit props', () => {
   it('keeps props out of the walking line and off the stops', () => {
     for (const prop of scene.props) {
       const at = { x: prop.position[0], z: prop.position[2] };
-      // Not inside a building.
-      expect(blockedBy(at, scene.colliders)).toBeNull();
+      // Not inside a stop's footprint. A prop now has a footprint of its own,
+      // so the test is against the stops rather than against every collider.
+      const stopColliders = scene.hotspots.map((hotspot) => ({
+        x: hotspot.position[0],
+        z: hotspot.position[2],
+        halfWidth: hotspot.collider.halfWidth,
+        halfDepth: hotspot.collider.halfDepth,
+      }));
+      expect(blockedBy(at, stopColliders)).toBeNull();
       // Not standing in a trigger ring, where it would clutter the moment a
       // stop opens.
       for (const hotspot of scene.hotspots) {
@@ -207,5 +215,122 @@ describe('ground surface', () => {
     expect(tile).toBeLessThanOrEqual(6);
     // Enough repeats across the street that the pattern is not one huge stone.
     expect(scene.ground.width / tile).toBeGreaterThan(5);
+  });
+});
+
+describe('solid props', () => {
+  const city = loadComposedCity('istanbul');
+  const scene = buildScene(city, 'high');
+
+  it('gives every lamp and bench a collider', () => {
+    // Props were added after the collision system, and the guide walked
+    // straight through lamp posts until they were given footprints.
+    const solid = scene.props.filter((prop) => prop.solid);
+    expect(solid.length).toBeGreaterThan(0);
+
+    for (const prop of solid) {
+      const at = { x: prop.position[0], z: prop.position[2] };
+      expect(blockedBy(at, scene.colliders), `${prop.key} is not solid`).not.toBeNull();
+    }
+  });
+
+  it('cannot be walked through, however long the player pushes', () => {
+    const lamp = scene.props.find((prop) => prop.asset.entry.id === 'kit_street_lamp')!;
+    let position = { x: lamp.position[0], z: lamp.position[2] + 6 };
+    for (let frame = 0; frame < 400; frame += 1) {
+      position = stepWithCollision(
+        position,
+        { forward: 1, strafe: 0 },
+        0,
+        1 / 60,
+        scene.bounds,
+        scene.colliders,
+      );
+      expect(blockedBy(position, scene.colliders), `entered a prop at frame ${frame}`).toBeNull();
+    }
+    expect(position.z).toBeGreaterThan(lamp.position[2]);
+  });
+
+  it('widens a rotated bench footprint rather than assuming it is square', () => {
+    const bench = scene.props.find((prop) => prop.asset.entry.id === 'kit_bench')!;
+    const collider = scene.colliders.find(
+      (c) => Math.abs(c.x - bench.position[0]) < 0.01 && Math.abs(c.z - bench.position[2]) < 0.01,
+    );
+    expect(collider).toBeDefined();
+    // Rotated about 78°, so most of its 1.82 m length lies along z.
+    expect(collider!.halfDepth).toBeGreaterThan(collider!.halfWidth);
+  });
+});
+
+describe('street cat', () => {
+  const city = loadComposedCity('istanbul');
+  const scene = buildScene(city, 'high');
+
+  it('walks a short route in İstanbul only', () => {
+    expect(scene.catRoute.length).toBeGreaterThanOrEqual(2);
+    expect(scene.catRoute.length).toBeLessThanOrEqual(3);
+    expect(scene.catModelUrl).toBe('/assets/props/kit_street_cat_walking.glb');
+    for (const cityId of ['nevsehir', 'gaziantep']) {
+      expect(buildScene(loadComposedCity(cityId), 'high').catModelUrl).toBeNull();
+    }
+  });
+
+  it('keeps the whole route off the stops and off the walking line', () => {
+    for (const point of scene.catRoute) {
+      for (const hotspot of scene.hotspots) {
+        const gap = Math.hypot(point.x - hotspot.position[0], point.z - hotspot.position[2]);
+        expect(gap, `cat route enters stop ${hotspot.order}`).toBeGreaterThan(hotspot.triggerRadius);
+      }
+      expect(Math.abs(point.x)).toBeGreaterThan(3.5);
+    }
+  });
+
+  it('is dressing, not an obstacle', () => {
+    // A child should be able to walk through a cat. Cats allow this.
+    const catCollider = scene.colliders.find((c) =>
+      scene.catRoute.some((p) => Math.abs(c.x - p.x) < 0.01 && Math.abs(c.z - p.z) < 0.01),
+    );
+    expect(catCollider).toBeUndefined();
+  });
+
+  it('walks, arrives, pauses, and turns back', () => {
+    const route = [...scene.catRoute];
+    let state = createCatState(route);
+    const start = { ...state };
+    let paused = false;
+
+    for (let frame = 0; frame < 60 * 30; frame += 1) {
+      state = stepCat(state, route, 1 / 60, () => 4);
+      if (state.pauseLeft > 0) paused = true;
+    }
+
+    expect(paused, 'the cat never paused').toBe(true);
+    // It went somewhere, and it stayed on the route.
+    expect(Math.hypot(state.x - start.x, state.z - start.z)).toBeGreaterThan(0);
+    const onRoute = route.some(
+      (point) => Math.hypot(state.x - point.x, state.z - point.z) < 6,
+    );
+    expect(onRoute).toBe(true);
+  });
+
+  it('never leaves the play area', () => {
+    const xs = scene.bounds.map((corner) => corner[0]);
+    const zs = scene.bounds.map((corner) => corner[2]);
+    let state = createCatState([...scene.catRoute]);
+    for (let frame = 0; frame < 60 * 60; frame += 1) {
+      state = stepCat(state, scene.catRoute, 1 / 60, () => 0);
+      expect(state.x).toBeGreaterThan(Math.min(...xs));
+      expect(state.x).toBeLessThan(Math.max(...xs));
+      expect(state.z).toBeGreaterThan(Math.min(...zs));
+      expect(state.z).toBeLessThan(Math.max(...zs));
+    }
+  });
+
+  it('pauses for a believable length of time', () => {
+    for (let i = 0; i < 50; i += 1) {
+      const pause = randomPause();
+      expect(pause).toBeGreaterThanOrEqual(3);
+      expect(pause).toBeLessThanOrEqual(7);
+    }
   });
 });

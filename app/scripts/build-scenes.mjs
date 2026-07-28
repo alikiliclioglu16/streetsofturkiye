@@ -259,6 +259,19 @@ function buildScene(canonical) {
     intro: { cameraSequenceId: null, skippable: true },
     hotspots,
     props: streetProps(canonical.id, stopPositions, geometry),
+    /**
+     * The cat walks the pavement beside the first bench, well clear of every
+     * trigger ring and of the walking line, so it is something the child
+     * notices rather than something they collide with.
+     */
+    catRoute:
+      canonical.id === 'istanbul'
+        ? [
+            { x: -11.5, z: -19.0 },
+            { x: -6.0, z: -22.5 },
+            { x: -10.0, z: -27.0 },
+          ]
+        : [],
     quizPresentation: { shuffleOptions: true },
     rewards: {
       cityStarId: `star_${canonical.id}`,

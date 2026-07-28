@@ -374,3 +374,35 @@ The maps are greyscale and the region's own ground colour tints them at render
 time. One texture set therefore serves all 81 provinces, and Cappadocia still
 reads as Cappadocia.
 
+## D-041 — Everything solid has a footprint (28 Jul 2026)
+
+Street props were added after the collision system and nobody gave them
+colliders, so the guide walked through lamp posts and benches. A prop's
+footprint now comes from its registry dimensions, and rotating it takes the
+axis-aligned bounds of the rotated rectangle rather than assuming a square.
+
+A prop can opt out with `solid: false`. The street cat does: a child walking
+through a cat is what cats allow, and a collider on a moving animal would be an
+obstacle that wanders.
+
+## D-042 — Skinned models are cloned with SkeletonUtils everywhere (28 Jul 2026)
+
+`AssetInstance` cloned with `Object3D.clone`, which keeps a reference to the
+original bones and leaves the copy's own skeleton driving nothing. That is what
+rendered Nasreddin Hodja 1.7 cm tall, and it was fixed only in the hero
+component at the time.
+
+The street cat is skinned too — 27 joints, the same centimetre-space rig — so
+the same bug was waiting. Every model clone now goes through
+`SkeletonUtils.clone`, which is harmless on unskinned props.
+
+## D-043 — The application moves the cat; the clip moves its legs (28 Jul 2026)
+
+The delivered walk cycle is in place, and the engine translates the cat along a
+short authored route. Applying the clip's root motion as world movement on top
+of that would make the paws skate.
+
+The clip runs only while the cat is walking. There is no idle in the delivered
+file, so a pause holds a stable frame of the walk rather than pretending the
+walk is an idle.
+

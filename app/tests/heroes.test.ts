@@ -244,7 +244,7 @@ describe('failure behaviour', () => {
 });
 
 describe('mixer ownership', () => {
-  it('updates exactly one mixer, and only from the mounted hero component', () => {
+  it('owns hero animation in one place, and animates nothing else from there', () => {
     const root = path.resolve(process.cwd(), 'src');
     const offenders: string[] = [];
     const walk = (dir: string) => {
@@ -258,7 +258,16 @@ describe('mixer ownership', () => {
       }
     };
     walk(root);
-    expect(offenders).toEqual(['components/three/HeroCharacter.tsx']);
+    /**
+     * The guide's animation lives in exactly one file. The street cat has its
+     * own mixer because it is a separate animated entity with its own skeleton
+     * — sharing one mixer between them would mean sharing skeletons, which is
+     * the bug that rendered the guide at bind pose.
+     */
+    expect(offenders.sort()).toEqual([
+      'components/three/HeroCharacter.tsx',
+      'components/three/StreetCat.tsx',
+    ]);
   });
 
   it('mounts no hero outside the city scene', () => {

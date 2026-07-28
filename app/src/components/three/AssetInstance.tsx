@@ -2,6 +2,7 @@
 
 import React, { Suspense, useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import { useGLTF } from '@react-three/drei';
+import { clone as cloneSkinned } from 'three/examples/jsm/utils/SkeletonUtils.js';
 import type { Group, Mesh, Object3D } from 'three';
 import { Box3, Vector3 } from 'three';
 import type { ResolvedAsset } from '@/engine/assets/registry';
@@ -32,8 +33,16 @@ function Model({ url, asset, castShadow }: ModelProps) {
   const { scene } = useGLTF(url);
   const groupRef = useRef<Group>(null);
 
-  // Clone so two hotspots using the same GLB do not share one transform.
-  const model = useMemo(() => scene.clone(true), [scene]);
+  /**
+   * Clone so two instances of the same GLB do not share one transform.
+   *
+   * `SkeletonUtils.clone` rather than `Object3D.clone`, because a plain clone
+   * of a skinned mesh keeps a reference to the ORIGINAL bones: the copy's own
+   * skeleton drives nothing and the mesh falls back to its node transform. That
+   * is what rendered Nasreddin Hodja 1.7 cm tall, and the street cat is skinned
+   * too. The call is harmless on unskinned props.
+   */
+  const model = useMemo(() => cloneSkinned(scene), [scene]);
 
   /**
    * A contact shadow is what tells the eye an object stands on the ground

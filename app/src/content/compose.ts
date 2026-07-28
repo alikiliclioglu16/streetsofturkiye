@@ -83,6 +83,8 @@ export interface RuntimeCity {
   quizPresentation: { shuffleOptions: boolean };
   /** Static street dressing carried straight through from the scene. */
   props: SceneDefinition['props'];
+  /** Waypoints for the street cat; empty in cities that are not dressed yet. */
+  catRoute: SceneDefinition['catRoute'];
   rewards: { cityStarId: string; collectibleAssetIds: string[] };
 }
 
@@ -153,6 +155,7 @@ export function composeCity(canonical: CanonicalCity, scene: SceneDefinition): R
     estimatedMinutes: scene.estimatedMinutes,
     environment: scene.environment,
     props: scene.props,
+    catRoute: scene.catRoute,
     spawn: scene.spawn,
     route: scene.route,
     intro: {

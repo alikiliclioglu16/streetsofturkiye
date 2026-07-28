@@ -54,6 +54,21 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
       'already on the ground.',
   },
   {
+    id: 'kit_street_cat',
+    modelUrl: '/assets/props/kit_street_cat_walking.glb',
+    checksum: 'b2fecf801593c57ecdb20994f7c420ce7cdde9feb32d068b2ce192409cb6e387',
+    triangles: 19_303,
+    transferBytes: 1_013_936,
+    dimensions: [0.25, 0.32, 0.6],
+    label: 'Street cat',
+    color: '#B8A48A',
+    placeholder: 'box',
+    notes:
+      'Skinned, 27-joint quadruped with a 1 s Walking clip. Delivered at 19,303 ' +
+      'triangles against a 800-1,500 brief; accepted for this gate on size, not ' +
+      'on budget. Dressing, so it has no collider.',
+  },
+  {
     id: 'kit_bench',
     modelUrl: '/assets/props/kit_bench.glb',
     checksum: '3a36913072da66782987cb06ad0e1b501fa4a2d22b4ac7f707dc9d1d5d4ce767',
