@@ -9,7 +9,7 @@ import { HeroCharacter, type HeroStatus } from '@/components/three/HeroCharacter
 import { heroForGuide, type HeroClip } from '@/engine/heroes/registry';
 import type { QualitySettings } from '@/engine/heroes/policy';
 import { inputState } from '@/engine/controls/inputState';
-import { distance2, stepWithCollision, type Point2 } from '@/engine/controls/movement';
+import { distance2, stepWithCollision, TURN_SPEED, type Point2 } from '@/engine/controls/movement';
 import { clampPitch, followCameraPosition, smoothing } from '@/engine/camera/anchors';
 import { celebrationCamera } from '@/engine/heroes/celebration';
 
@@ -127,11 +127,13 @@ export function PlayerRig({
     const delta = Math.min(rawDelta, 0.05);
 
     if (!frozen) {
+      // Left and right turn the guide, so the player can look back at him.
+      heading.current += inputState.turn * TURN_SPEED * delta;
       heading.current -= inputState.yawDelta * delta * 2.2;
       inputState.yawDelta = 0;
       position.current = stepWithCollision(
         position.current,
-        { forward: inputState.forward, strafe: inputState.strafe },
+        { forward: inputState.forward, strafe: 0 },
         heading.current,
         delta,
         scene.bounds,

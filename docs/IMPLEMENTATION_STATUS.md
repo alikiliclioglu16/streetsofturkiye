@@ -114,7 +114,7 @@ app/src/
 npm run lint       → temiz
 npm run typecheck  → temiz (strict, noUncheckedIndexedAccess, `any` yok)
 npm run content:check → 81 il, 249 durak, 84 soru; 1413 kanonik dizgi baseline ile eşleşti
-npm test           → 11 dosya / 152 test geçti (logic + jsdom ui)
+npm test           → 11 dosya / 154 test geçti (logic + jsdom ui)
 npm run build      → başarılı, 4 rota
 npm start          → /map ve /city/istanbul 200
 ```
@@ -260,6 +260,18 @@ Ayrıntı: `docs/HERO_RENDER_BUGFIX_REPORT.md`.
 | Zıplama | ✅ kaldırıldı (D-022) — klibi olmadan doğru görünmüyordu |
 | Kalite modları | ✅ kaldırıldı, tek yapılandırma (D-020) |
 | Materyal düzeltmesi sonrası üçgen | ✅ 593.714 → 396.232, 60 fps |
+
+## 4i. Saha turu — ikinci tur
+
+| Bildirilen | Durum |
+|---|---|
+| Shift'e basınca sonsuz yürüme | ✅ `event.key` yerine `event.code` (D-025) |
+| Hoca'ya arkadan bakıyoruz, döndüremiyoruz | ✅ sol/sağ artık döndürüyor |
+| Bazen A-pose'a geçip kayıyor | ✅ klip seçiminde histerezis + bind-pose koruması |
+| Ayarlardaki ses düğmeleri hiçbir şey yapmıyor | ✅ kaldırıldı (D-026) |
+| Durakta soru sorulmuyordu | ✅ soru kaldırıldı, sunum + "Collect" (D-023) |
+| Karşılama ekranı prototipteki gibi değil | ✅ metin kaynaktan çıkarıldı (D-024) |
+| Harita gerçek Türkiye haritası değil | ✅ kara parçası ve izdüşüm kaynaktan (D-024) |
 
 ## 5. Bilinen sınırlar
 

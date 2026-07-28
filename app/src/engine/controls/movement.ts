@@ -46,8 +46,12 @@ export function clampToBounds(from: Point2, to: Point2, bounds: readonly Vec3[])
 
 export interface MoveInput {
   forward: number;
+  /** Kept for the sidestep helpers used in tests; gameplay turns instead. */
   strafe: number;
 }
+
+/** Radians per second when a turn key is held. */
+export const TURN_SPEED = 2.4;
 
 export const MOVE_SPEED = 4.2;
 /** Shift. Kept clearly above the walk speed so the run clip actually plays. */

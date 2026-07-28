@@ -201,9 +201,13 @@ function HeroModel({
     onMeasured?.(measured);
   }, [model, hero.assetId, hero.id, hero.measuredHeightMeters, onMeasured]);
 
-  const desiredClip = clipForState(motion);
+  const { speed, interacting, performing } = motion;
 
   useEffect(() => {
+    // Hysteresis needs the clip that is currently playing, which is a ref, so
+    // the decision belongs here rather than in the render body.
+    const desiredClip = clipForState({ speed, interacting, performing }, currentClip.current);
+
     // A dance replay repeats the same state, so the token forces a re-run.
     if (desiredClip === currentClip.current && !isOneShot(desiredClip)) return;
 
@@ -247,11 +251,31 @@ function HeroModel({
     } else if (previous) {
       // Missing clip: hold the previous pose rather than snapping to bind pose.
       previous.play();
+    } else {
+      // Nothing to play and nothing playing would leave the bind pose on
+      // screen. Idle is always better than a T-shape sliding along the ground.
+      const idleName = hero.animation.clips.idle;
+      const idle = idleName ? clipsByName.get(idleName) : undefined;
+      if (idle) {
+        const action = mixer.clipAction(idle);
+        action.reset().setLoop(LoopRepeat, Infinity).play();
+        currentAction.current = action;
+      }
     }
 
     currentClip.current = desiredClip;
     onClipChange(desiredClip, clipName);
-  }, [desiredClip, performanceToken, clipsByName, mixer, hero, onClipChange, onClipFinished]);
+  }, [
+    speed,
+    interacting,
+    performing,
+    performanceToken,
+    clipsByName,
+    mixer,
+    hero,
+    onClipChange,
+    onClipFinished,
+  ]);
 
   // Celebration clips end; movement clips loop.
   useEffect(() => {

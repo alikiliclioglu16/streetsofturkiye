@@ -1,38 +1,68 @@
 'use client';
 
 import { Modal } from '@/components/game-ui/Modal';
-import { t, ui, type Locale } from '@/content/i18n';
+import { t, type Locale } from '@/content/i18n';
 import type { RuntimeHotspot as HotspotDefinition } from '@/content/compose';
+import type { Presentation } from '@/content/schemas/presentation';
 
-/** The fact arrives only after the action (D-009). Kept short by design. */
+/**
+ * Arriving at a stop.
+ *
+ * The source presents; it does not examine. A stop shows the guide's line, the
+ * category badge, the title and the description, and offers the collectible.
+ * There is no question here — questions belong to the Quiz Gate at the end of
+ * the street. An earlier build asked one at every stop, which was invented.
+ */
 export function FactCard({
   hotspot,
   locale,
-  onContinue,
+  presentation,
+  onCollect,
 }: {
   hotspot: HotspotDefinition;
   locale: Locale;
-  onContinue: () => void;
+  presentation: Presentation | null;
+  onCollect: () => void;
 }) {
-  // Canonical content is presented as authored; the guide line comes with it.
   const guideLine = t(hotspot.fact.guideLine, locale);
+  const category = presentation?.categories[hotspot.category];
+  const rewardLabel = t(hotspot.reward.label, locale);
 
   return (
-    <Modal labelledBy="fact-title" onDismiss={onContinue}>
-      <p style={{ margin: 0, fontWeight: 700, color: 'var(--green)' }}>{ui('correct', locale)}</p>
-      <h2 id="fact-title" style={{ fontSize: '1.6rem', margin: '6px 0 10px' }}>
-        {t(hotspot.fact.title, locale)}
-      </h2>
-      <p style={{ margin: '0 0 18px', fontSize: '1.02rem', lineHeight: 1.55 }}>
-        {t(hotspot.fact.body, locale)}
-      </p>
+    <Modal labelledBy="fact-title">
       {guideLine ? (
-        <p style={{ margin: '0 0 16px', fontSize: 14, fontStyle: 'italic', opacity: 0.75 }}>
-          {guideLine}
+        <p style={{ margin: '0 0 12px', fontSize: 15, fontStyle: 'italic', opacity: 0.8 }}>
+          {hotspot.guideName ? `${hotspot.guideName}: ` : ''}
+          “{guideLine}”
         </p>
       ) : null}
-      <button type="button" className="btn btn--gold" onClick={onContinue}>
-        {ui('continue', locale)}
+
+      {category ? (
+        <span
+          style={{
+            display: 'inline-block',
+            padding: '4px 12px',
+            borderRadius: 999,
+            background: category.color,
+            color: '#FFF8E7',
+            fontSize: 13,
+            fontWeight: 700,
+            marginBottom: 10,
+          }}
+        >
+          {category.label}
+        </span>
+      ) : null}
+
+      <h2 id="fact-title" style={{ fontSize: '1.6rem', margin: '4px 0 10px' }}>
+        {t(hotspot.fact.title, locale)}
+      </h2>
+      <p style={{ margin: '0 0 20px', fontSize: '1.02rem', lineHeight: 1.55 }}>
+        {t(hotspot.fact.body, locale)}
+      </p>
+
+      <button type="button" className="btn btn--gold" onClick={onCollect}>
+        {hotspot.reward.emoji} Collect {rewardLabel}!
       </button>
     </Modal>
   );

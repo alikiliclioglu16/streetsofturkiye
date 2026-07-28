@@ -52,6 +52,10 @@ export interface RuntimeHotspot {
     /** Gameplay instruction with `{reward}` already substituted. */
     instruction: LocalizedText;
   };
+  /** Canonical category, used for the badge on the fact card. */
+  category: string;
+  /** Display name of the guide who speaks the line. */
+  guideName?: string;
   fact: {
     title: LocalizedText;
     body: LocalizedText;
@@ -130,6 +134,7 @@ function composeHotspot(
     sceneStatus: hotspot.sceneStatus,
     assetId: hotspot.assetId,
     assetStatus: hotspot.assetStatus,
+    category: stop.category,
     transform: hotspot.transform,
     triggerRadius: hotspot.triggerRadius,
     collider: hotspot.collider,

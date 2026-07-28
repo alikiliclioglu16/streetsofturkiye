@@ -9,7 +9,8 @@ import { useEffect } from 'react';
  */
 export interface InputState {
   forward: number;
-  strafe: number;
+  /** Turn rate, -1 to 1. Left and right rotate the guide rather than sidestep. */
+  turn: number;
   yawDelta: number;
   pitchDelta: number;
   interactPressed: boolean;
@@ -19,7 +20,7 @@ export interface InputState {
 
 export const inputState: InputState = {
   forward: 0,
-  strafe: 0,
+  turn: 0,
   yawDelta: 0,
   pitchDelta: 0,
   interactPressed: false,
@@ -28,17 +29,31 @@ export const inputState: InputState = {
 
 export function resetInput(): void {
   inputState.forward = 0;
-  inputState.strafe = 0;
+  inputState.turn = 0;
   inputState.yawDelta = 0;
   inputState.pitchDelta = 0;
   inputState.interactPressed = false;
   inputState.running = false;
 }
 
-const FORWARD_KEYS = new Set(['w', 'W', 'ArrowUp']);
-const BACK_KEYS = new Set(['s', 'S', 'ArrowDown']);
-const LEFT_KEYS = new Set(['a', 'A', 'ArrowLeft']);
-const RIGHT_KEYS = new Set(['d', 'D', 'ArrowRight']);
+/**
+ * Physical key codes, not characters.
+ *
+ * `event.key` changes with Shift and keyboard layout: holding Shift turns 'w'
+ * into 'W', so the key released never matched the key pressed and the guide
+ * walked forever. `event.code` is the physical key and is immune to both.
+ */
+const FORWARD_CODES = new Set(['KeyW', 'ArrowUp']);
+const BACK_CODES = new Set(['KeyS', 'ArrowDown']);
+const TURN_LEFT_CODES = new Set(['KeyA', 'ArrowLeft']);
+const TURN_RIGHT_CODES = new Set(['KeyD', 'ArrowRight']);
+const RUN_CODES = new Set(['ShiftLeft', 'ShiftRight']);
+const MOVEMENT_CODES = new Set([
+  ...FORWARD_CODES,
+  ...BACK_CODES,
+  ...TURN_LEFT_CODES,
+  ...TURN_RIGHT_CODES,
+]);
 
 /**
  * Keyboard adapter. Disabled while a modal panel owns the keyboard so that
@@ -55,38 +70,32 @@ export function useKeyboardControls(enabled: boolean): void {
 
     const apply = () => {
       let forward = 0;
-      let strafe = 0;
-      pressed.forEach((key) => {
-        if (FORWARD_KEYS.has(key)) forward += 1;
-        if (BACK_KEYS.has(key)) forward -= 1;
-        // Looking along +z, +x lies to the player's left, so right is negative.
-        if (RIGHT_KEYS.has(key)) strafe -= 1;
-        if (LEFT_KEYS.has(key)) strafe += 1;
+      let turn = 0;
+      pressed.forEach((code) => {
+        if (FORWARD_CODES.has(code)) forward += 1;
+        if (BACK_CODES.has(code)) forward -= 1;
+        if (TURN_LEFT_CODES.has(code)) turn += 1;
+        if (TURN_RIGHT_CODES.has(code)) turn -= 1;
       });
       inputState.forward = forward;
-      inputState.strafe = strafe;
+      inputState.turn = turn;
     };
 
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'e' || event.key === 'E' || event.key === 'Enter') {
         inputState.interactPressed = true;
       }
-      if (event.key === 'Shift') inputState.running = true;
-      if (
-        FORWARD_KEYS.has(event.key) ||
-        BACK_KEYS.has(event.key) ||
-        LEFT_KEYS.has(event.key) ||
-        RIGHT_KEYS.has(event.key)
-      ) {
+      if (RUN_CODES.has(event.code)) inputState.running = true;
+      if (MOVEMENT_CODES.has(event.code)) {
         event.preventDefault();
-        pressed.add(event.key);
+        pressed.add(event.code);
         apply();
       }
     };
 
     const onKeyUp = (event: KeyboardEvent) => {
-      if (event.key === 'Shift') inputState.running = false;
-      pressed.delete(event.key);
+      if (RUN_CODES.has(event.code)) inputState.running = false;
+      pressed.delete(event.code);
       apply();
     };
 

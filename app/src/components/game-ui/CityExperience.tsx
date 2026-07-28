@@ -23,16 +23,16 @@ import {
   clipTimeoutFor,
 } from '@/engine/heroes/watchdog';
 import { useClientEnvironment } from '@/engine/quality/useEnvironment';
-import { hotspotById, resolveInteractionType } from '@/engine/interactions/machine';
+import { hotspotById } from '@/engine/interactions/machine';
 import { useKeyboardControls } from '@/engine/controls/inputState';
+import { loadPresentation } from '@/content/loaders/loadCity';
 import { t, ui } from '@/content/i18n';
+import type { Presentation } from '@/content/schemas/presentation';
 import { CityCanvas, type PerfSample } from '@/components/three/CityCanvas';
 import { CityScene } from '@/components/three/CityScene';
 import { Hud } from '@/components/game-ui/Hud';
 import { IntroPanel } from '@/components/game-ui/IntroPanel';
-import { InteractionPanel } from '@/components/game-ui/InteractionPanel';
 import { FactCard } from '@/components/game-ui/FactCard';
-import { RewardPanel } from '@/components/game-ui/RewardPanel';
 import { QuizPanel } from '@/components/game-ui/QuizPanel';
 import { CompletionPanel } from '@/components/game-ui/CompletionPanel';
 import { SettingsPanel } from '@/components/game-ui/SettingsPanel';
@@ -67,7 +67,6 @@ export function CityExperience({ cityId }: { cityId: string }) {
   const answerQuiz = useGameStore((state) => state.answerQuiz);
   const toggleSettings = useGameStore((state) => state.toggleSettings);
 
-  const [spin, setSpin] = useState(0);
   const [perf, setPerf] = useState<PerfSample | null>(null);
   const [retryToken, setRetryToken] = useState(0);
   const devOverlay = useSettingsStore((state) => state.showPerfOverlay);
@@ -102,6 +101,17 @@ export function CityExperience({ cityId }: { cityId: string }) {
   const [heroStatus, setHeroStatus] = useState<HeroStatus | null>(null);
   const [heroHeight, setHeroHeight] = useState<number | null>(null);
   const [heroDraws, setHeroDraws] = useState<{ meshes: number; perFrame: number } | null>(null);
+  const [presentation, setPresentation] = useState<Presentation | null>(null);
+
+  useEffect(() => {
+    const controller = new AbortController();
+    loadPresentation(controller.signal)
+      .then(setPresentation)
+      .catch(() => {
+        // Badges and the welcome degrade to plain text; the city still plays.
+      });
+    return () => controller.abort();
+  }, []);
   const [celebration, setCelebration] = useState<CelebrationContext>(initialCelebration);
   const [performanceToken, setPerformanceToken] = useState(0);
   /** A short one-shot beat after a stop or a correct answer, e.g. an approving nod. */
@@ -141,9 +151,6 @@ export function CityExperience({ cityId }: { cityId: string }) {
     [city, interaction.hotspotId],
   );
 
-  const interactionKind = activeHotspot
-    ? resolveInteractionType(activeHotspot.interaction.type)
-    : null;
 
   // The celebration owns the screen: movement and hotspot input are locked.
   const celebrating = celebration.state !== 'idle';
@@ -285,19 +292,21 @@ export function CityExperience({ cityId }: { cityId: string }) {
     return () => window.clearTimeout(timer);
   }, [successPending, successBeat]);
 
+  /**
+   * Collecting is the whole interaction: read, take the item, walk on. The
+   * machine still passes through its states so progress and the guide's nod
+   * stay in step, but the player only ever sees one panel.
+   */
+  const collectFromStop = useCallback(() => {
+    playSuccessBeat();
+    dispatchInteraction({ type: 'ANSWER', correct: true });
+    void claimReward().then(() => dispatchInteraction({ type: 'DISMISS' }));
+  }, [playSuccessBeat, dispatchInteraction, claimReward]);
+
   const onFocusSettled = useCallback(() => {
     dispatchInteraction({ type: 'CAMERA_SETTLED' });
   }, [dispatchInteraction]);
 
-  const onAnswer = useCallback(
-    (correct: boolean) => {
-      dispatchInteraction({ type: 'ANSWER', correct });
-      if (!correct) {
-        window.setTimeout(() => dispatchInteraction({ type: 'RETRY' }), 350);
-      }
-    },
-    [dispatchInteraction],
-  );
 
   // Once every hotspot is done the quiz gate opens on its own.
   useEffect(() => {
@@ -361,18 +370,6 @@ export function CityExperience({ cityId }: { cityId: string }) {
           focus={focus}
           onFocusSettled={onFocusSettled}
           onNearestChange={onNearestChange}
-          inspect={
-            activeHotspot &&
-            interactionKind?.resolved === 'inspect-and-find' &&
-            ['active', 'retry'].includes(interaction.state)
-              ? {
-                  hotspotId: activeHotspot.id,
-                  targetId: activeHotspot.interaction.targetId,
-                  spin,
-                  onPick: (pickedId) => onAnswer(pickedId === activeHotspot.interaction.targetId),
-                }
-              : null
-          }
         />
       </CityCanvas>
 
@@ -409,38 +406,22 @@ export function CityExperience({ cityId }: { cityId: string }) {
       ) : null}
 
       {phase === 'intro' && city.intro ? (
-        <IntroPanel city={city} locale={locale} onStart={skipIntro} />
-      ) : null}
-
-      {phase === 'explore' && activeHotspot && interactionKind && ['active', 'retry'].includes(interaction.state) ? (
-        <InteractionPanel
-          hotspot={activeHotspot}
-          resolvedType={interactionKind.resolved}
-          degraded={interactionKind.degraded}
-          attempts={interaction.attempts}
+        <IntroPanel
+          city={city}
           locale={locale}
-          onAnswer={onAnswer}
-          onRotate={(direction) => setSpin((value) => value + direction * (Math.PI / 4))}
+          presentation={presentation}
+          onStart={skipIntro}
         />
       ) : null}
 
-      {phase === 'explore' && activeHotspot && interaction.state === 'success' ? (
+      {phase === 'explore' &&
+      activeHotspot &&
+      ['active', 'retry', 'success', 'reward'].includes(interaction.state) ? (
         <FactCard
           hotspot={activeHotspot}
           locale={locale}
-          onContinue={() => {
-            playSuccessBeat();
-            void claimReward();
-          }}
-        />
-      ) : null}
-
-      {phase === 'explore' && activeHotspot && interaction.state === 'reward' ? (
-        <RewardPanel
-          rewardId={activeHotspot.reward.assetId}
-          locale={locale}
-          quality={tier}
-          onContinue={() => dispatchInteraction({ type: 'DISMISS' })}
+          presentation={presentation}
+          onCollect={collectFromStop}
         />
       ) : null}
 

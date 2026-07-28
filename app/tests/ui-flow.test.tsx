@@ -104,12 +104,31 @@ describe('quiz gate', () => {
 });
 
 describe('fact card', () => {
-  it('shows the canonical description and guide line as authored', () => {
+  it('presents the stop and offers the collectible, without asking anything', () => {
     const hotspot = city.hotspots[0]!;
-    render(<FactCard hotspot={hotspot} locale="tr" onContinue={vi.fn()} />);
+    render(<FactCard hotspot={hotspot} locale="en" presentation={null} onCollect={vi.fn()} />);
+
     expect(screen.getByText(hotspot.fact.body.en!)).toBeInTheDocument();
-    expect(screen.getByText(hotspot.fact.guideLine.en!)).toBeInTheDocument();
     expect(screen.getByRole('heading', { name: hotspot.fact.title.en! })).toBeInTheDocument();
+    // One action, and it is not a question.
+    const buttons = screen.getAllByRole('button');
+    expect(buttons).toHaveLength(1);
+    expect(buttons[0]).toHaveTextContent(new RegExp(`Collect ${hotspot.reward.label.en}`));
+  });
+
+  it('quotes the guide before the fact', () => {
+    const hotspot = city.hotspots[0]!;
+    render(<FactCard hotspot={hotspot} locale="en" presentation={null} onCollect={vi.fn()} />);
+    expect(screen.getByText(new RegExp(hotspot.fact.guideLine.en!))).toBeInTheDocument();
+  });
+
+  it('collects on click', async () => {
+    const onCollect = vi.fn();
+    render(
+      <FactCard hotspot={city.hotspots[0]!} locale="en" presentation={null} onCollect={onCollect} />,
+    );
+    await userEvent.click(screen.getByRole('button'));
+    expect(onCollect).toHaveBeenCalledTimes(1);
   });
 
   it('falls back to English when Turkish is missing', () => {
@@ -118,7 +137,7 @@ describe('fact card', () => {
       ...hotspot,
       fact: { ...hotspot.fact, body: { tr: null, en: 'English only body' } },
     };
-    render(<FactCard hotspot={englishOnly} locale="tr" onContinue={vi.fn()} />);
+    render(<FactCard hotspot={englishOnly} locale="tr" presentation={null} onCollect={vi.fn()} />);
     expect(screen.getByText('English only body')).toBeInTheDocument();
   });
 });

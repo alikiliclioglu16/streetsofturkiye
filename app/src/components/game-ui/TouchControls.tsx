@@ -21,7 +21,7 @@ export function TouchControls() {
   useEffect(
     () => () => {
       inputState.forward = 0;
-      inputState.strafe = 0;
+      inputState.turn = 0;
     },
     [],
   );
@@ -36,7 +36,8 @@ export function TouchControls() {
     const nx = (dx / distance) * clamped;
     const ny = (dy / distance) * clamped;
     setKnob({ x: nx, y: ny });
-    inputState.strafe = nx / MAX_OFFSET;
+    // Pushing the stick sideways turns the guide, matching the keyboard.
+    inputState.turn = -nx / MAX_OFFSET;
     inputState.forward = -ny / MAX_OFFSET;
   };
 
@@ -44,7 +45,7 @@ export function TouchControls() {
     pointerId.current = null;
     setKnob({ x: 0, y: 0 });
     inputState.forward = 0;
-    inputState.strafe = 0;
+    inputState.turn = 0;
   };
 
   return (

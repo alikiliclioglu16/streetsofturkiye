@@ -8,14 +8,10 @@ interface SettingsState {
   locale: Locale;
   reducedMotion: boolean;
   reducedMotionAuto: boolean;
-  muteAmbient: boolean;
-  muteUi: boolean;
-  muteGuide: boolean;
   showPerfOverlay: boolean;
   hydrated: boolean;
   setLocale: (locale: Locale) => void;
   setReducedMotion: (value: boolean) => void;
-  toggleAudio: (channel: 'ambient' | 'ui' | 'guide') => void;
   togglePerfOverlay: () => void;
   hydrate: () => void;
 }
@@ -24,7 +20,7 @@ const STORAGE_KEY = 'sot.settings.v1';
 
 type Persisted = Pick<
   SettingsState,
-  'locale' | 'reducedMotion' | 'reducedMotionAuto' | 'muteAmbient' | 'muteUi' | 'muteGuide'
+  'locale' | 'reducedMotion' | 'reducedMotionAuto'
 >;
 
 function persist(state: SettingsState): void {
@@ -33,9 +29,6 @@ function persist(state: SettingsState): void {
     locale: state.locale,
     reducedMotion: state.reducedMotion,
     reducedMotionAuto: state.reducedMotionAuto,
-    muteAmbient: state.muteAmbient,
-    muteUi: state.muteUi,
-    muteGuide: state.muteGuide,
   };
   try {
     window.localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
@@ -48,9 +41,6 @@ export const useSettingsStore = create<SettingsState>((set, get) => ({
   locale: DEFAULT_LOCALE,
   reducedMotion: false,
   reducedMotionAuto: true,
-  muteAmbient: false,
-  muteUi: false,
-  muteGuide: false,
   showPerfOverlay: process.env.NODE_ENV === 'development',
   hydrated: false,
 
@@ -60,12 +50,6 @@ export const useSettingsStore = create<SettingsState>((set, get) => ({
   },
   setReducedMotion: (reducedMotion) => {
     set({ reducedMotion, reducedMotionAuto: false });
-    persist(get());
-  },
-  toggleAudio: (channel) => {
-    if (channel === 'ambient') set((s) => ({ muteAmbient: !s.muteAmbient }));
-    if (channel === 'ui') set((s) => ({ muteUi: !s.muteUi }));
-    if (channel === 'guide') set((s) => ({ muteGuide: !s.muteGuide }));
     persist(get());
   },
   togglePerfOverlay: () => set((s) => ({ showPerfOverlay: !s.showPerfOverlay })),

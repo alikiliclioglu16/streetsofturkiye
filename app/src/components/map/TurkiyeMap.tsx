@@ -2,42 +2,40 @@
 
 import { useMemo } from 'react';
 import type { Locale } from '@/content/i18n';
-import { t, ui } from '@/content/i18n';
+import { t } from '@/content/i18n';
 import type { CityIndexEntry } from '@/content/loaders/loadCityIndex';
 import type { CanonicalRegion as Region } from '@/content/schemas/canonical';
+import type { Presentation } from '@/content/schemas/presentation';
 
-const VIEW_WIDTH = 1000;
-const VIEW_HEIGHT = 420;
-const LON_MIN = 25.6;
-const LON_MAX = 45.0;
-const LAT_MIN = 35.6;
-const LAT_MAX = 42.3;
-
-function project(longitude: number, latitude: number): { x: number; y: number } {
-  const x = ((longitude - LON_MIN) / (LON_MAX - LON_MIN)) * VIEW_WIDTH;
-  const y = VIEW_HEIGHT - ((latitude - LAT_MIN) / (LAT_MAX - LAT_MIN)) * VIEW_HEIGHT;
-  return { x, y };
-}
+/**
+ * The map of Türkiye.
+ *
+ * The land outline and this projection both come from the source: the province
+ * dots have to land on the coastline, so inventing either one puts every city
+ * in the sea. An earlier build drew a bare scatter of dots with no country
+ * behind them.
+ */
+const project = (longitude: number, latitude: number) => ({
+  x: Math.round((longitude - 25.55) * 50 * 10) / 10,
+  y: Math.round((30 + (42.25 - latitude) * 65) * 10) / 10,
+});
 
 export type CityAvailability = 'playable' | 'pilot' | 'locked';
 
 interface TurkiyeMapProps {
   cities: readonly CityIndexEntry[];
   regions: readonly Region[];
+  presentation: Presentation | null;
   locale: Locale;
   availability: (cityId: string) => CityAvailability;
   completedCityIds: readonly string[];
   onSelect: (cityId: string) => void;
 }
 
-/**
- * All 81 provinces are plotted from the legacy coordinates so the adapter path
- * to the full dataset is visible from day one. Availability is carried by size,
- * shape and label, never by colour alone (PRODUCT_REQUIREMENTS section 9).
- */
 export function TurkiyeMap({
   cities,
   regions,
+  presentation,
   locale,
   availability,
   completedCityIds,
@@ -52,11 +50,35 @@ export function TurkiyeMap({
 
   return (
     <svg
-      viewBox={`0 0 ${VIEW_WIDTH} ${VIEW_HEIGHT}`}
+      viewBox={presentation?.map.viewBox ?? '0 0 1000 500'}
       role="group"
-      aria-label="Province map of Türkiye" 
+      aria-label="Map of Türkiye"
       style={{ width: '100%', height: 'auto', display: 'block' }}
     >
+      <defs>
+        <linearGradient id="sot-sea" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stopColor="#4FC9E8" />
+          <stop offset="1" stopColor="#1B8FC4" />
+        </linearGradient>
+        <linearGradient id="sot-land" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stopColor="#E8DCBF" />
+          <stop offset="1" stopColor="#D6C49A" />
+        </linearGradient>
+      </defs>
+
+      <rect x="0" y="0" width="1000" height="500" fill="url(#sot-sea)" />
+
+      {presentation?.map.landPaths.map((d, index) => (
+        <path
+          key={`land-${index}`}
+          d={d}
+          fill="url(#sot-land)"
+          stroke="#FFF8E7"
+          strokeWidth={2}
+          strokeLinejoin="round"
+        />
+      ))}
+
       {cities.map((city) => {
         const { x, y } = project(city.coordinates.longitude, city.coordinates.latitude);
         const state = availability(city.id);
@@ -65,17 +87,7 @@ export function TurkiyeMap({
         const label = t(city.name, locale);
 
         if (state === 'locked') {
-          return (
-            <circle
-              key={city.id}
-              cx={x}
-              cy={y}
-              r={3.4}
-              fill={color}
-              opacity={0.34}
-              aria-hidden="true"
-            />
-          );
+          return <circle key={city.id} cx={x} cy={y} r={4} fill={color} opacity={0.5} aria-hidden="true" />;
         }
 
         return (
@@ -83,7 +95,7 @@ export function TurkiyeMap({
             key={city.id}
             role="button"
             tabIndex={0}
-            aria-label={`${label} — ${state === 'playable' ? 'playable' : ui('comingSoon', locale)}`}
+            aria-label={`${label} — ${state === 'playable' ? 'open to explore' : 'coming soon'}`}
             aria-disabled={state === 'pilot'}
             style={{ cursor: state === 'playable' ? 'pointer' : 'not-allowed' }}
             onClick={() => state === 'playable' && onSelect(city.id)}
@@ -96,17 +108,9 @@ export function TurkiyeMap({
             }}
           >
             {state === 'playable' ? (
-              <circle cx={x} cy={y} r={15} fill="none" stroke={color} strokeWidth={2.5} />
+              <circle cx={x} cy={y} r={15} fill="none" stroke={color} strokeWidth={3} />
             ) : (
-              <circle
-                cx={x}
-                cy={y}
-                r={13}
-                fill="none"
-                stroke={color}
-                strokeWidth={2}
-                strokeDasharray="4 4"
-              />
+              <circle cx={x} cy={y} r={13} fill="none" stroke={color} strokeWidth={2} strokeDasharray="4 4" />
             )}
             <circle cx={x} cy={y} r={7.5} fill={isDone ? '#4CAF7D' : color} />
             {isDone ? (
@@ -122,9 +126,12 @@ export function TurkiyeMap({
               x={x}
               y={y - 22}
               textAnchor="middle"
-              fontSize={17}
-              fontWeight={650}
+              fontSize={18}
+              fontWeight={700}
               fill="#16324F"
+              stroke="#FFF8E7"
+              strokeWidth={4}
+              paintOrder="stroke"
             >
               {label}
             </text>

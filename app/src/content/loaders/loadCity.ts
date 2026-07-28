@@ -6,6 +6,7 @@ import {
 } from '@/content/schemas/canonical';
 import { sceneSchema, type SceneDefinition } from '@/content/schemas/scene';
 import { composeCity, type RuntimeCity } from '@/content/compose';
+import { presentationSchema, type Presentation } from '@/content/schemas/presentation';
 
 export class ContentError extends Error {
   readonly cityId: string;
@@ -99,5 +100,20 @@ export async function loadRegions(signal?: AbortSignal): Promise<CanonicalRegion
   const raw = await fetchJson(REGIONS, signal);
   const parsed = canonicalRegionsSchema.safeParse(raw);
   if (!parsed.success) throw new ContentError('regions', 'Region list failed validation');
+  return parsed.data;
+}
+
+const PRESENTATION = '/content/canonical/presentation.json';
+
+export async function loadPresentation(signal?: AbortSignal): Promise<Presentation> {
+  const raw = await fetchJson(PRESENTATION, signal);
+  const parsed = presentationSchema.safeParse(raw);
+  if (!parsed.success) {
+    throw new ContentError(
+      'presentation',
+      'Presentation content failed validation',
+      parsed.error.issues.map((issue) => `${issue.path.join('.')}: ${issue.message}`),
+    );
+  }
   return parsed.data;
 }

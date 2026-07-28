@@ -16,7 +16,13 @@ const TARGET = path.resolve('public/content');
 const check = process.argv.includes('--check');
 
 /** cities.all.json is deliberately excluded: 366 KB never needs to reach a browser. */
-const CANONICAL_FILES = ['manifest.json', 'regions.json', 'city-index.json', 'taxonomy.json'];
+const CANONICAL_FILES = [
+  'manifest.json',
+  'regions.json',
+  'city-index.json',
+  'taxonomy.json',
+  'presentation.json',
+];
 
 const planned = new Map();
 

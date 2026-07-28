@@ -2,9 +2,15 @@
 
 import { useEffect, useMemo, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { loadRegions, PILOT_CITY_IDS, PLAYABLE_CITY_IDS } from '@/content/loaders/loadCity';
+import {
+  loadPresentation,
+  loadRegions,
+  PILOT_CITY_IDS,
+  PLAYABLE_CITY_IDS,
+} from '@/content/loaders/loadCity';
 import { loadCityIndex, type CityIndexEntry } from '@/content/loaders/loadCityIndex';
 import type { CanonicalRegion as Region } from '@/content/schemas/canonical';
+import type { Presentation } from '@/content/schemas/presentation';
 import { t, ui } from '@/content/i18n';
 import { TurkiyeMap, type CityAvailability } from '@/components/map/TurkiyeMap';
 import { useSettingsStore } from '@/stores/useSettingsStore';
@@ -23,6 +29,7 @@ export default function MapPage() {
 
   const [cities, setCities] = useState<CityIndexEntry[]>([]);
   const [regions, setRegions] = useState<Region[]>([]);
+  const [presentation, setPresentation] = useState<Presentation | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -32,10 +39,15 @@ export default function MapPage() {
 
   useEffect(() => {
     const controller = new AbortController();
-    Promise.all([loadCityIndex(controller.signal), loadRegions(controller.signal)])
-      .then(([cityList, regionList]) => {
+    Promise.all([
+      loadCityIndex(controller.signal),
+      loadRegions(controller.signal),
+      loadPresentation(controller.signal),
+    ])
+      .then(([cityList, regionList, presentationData]) => {
         setCities(cityList);
         setRegions(regionList);
+        setPresentation(presentationData);
       })
       .catch((cause: Error) => {
         if (controller.signal.aborted) return;
@@ -107,6 +119,7 @@ export default function MapPage() {
             <TurkiyeMap
               cities={cities}
               regions={regions}
+              presentation={presentation}
               locale={locale}
               availability={availability}
               completedCityIds={profile.completedCityIds}

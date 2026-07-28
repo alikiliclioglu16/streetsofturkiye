@@ -185,3 +185,44 @@ walk or run animation in mid-air, which looked wrong. Movement is walking and
 running only. If a jump is wanted later it needs a `Jump` clip in the Meshy
 export first, not a physics change.
 
+## D-023 — Stops present, they do not examine (27 Jul 2026)
+
+A stop shows the guide's line, the category badge, the title, the description
+and a "Collect …" button. There is no question at a stop. Questions belong to
+the Quiz Gate at the end of the street, where the source puts them.
+
+An earlier build asked a find-the-object question at every stop, with options
+synthesised from other stops' collectibles. That mechanic was invented: the
+source's `arriveStop` presents and offers the item. It is retired, along with
+the inspect-and-find markers in the scene.
+
+## D-024 — Presentation content is extracted too (27 Jul 2026)
+
+The first canonical extraction took stops, quiz questions and guide lines. It
+left behind the map of Türkiye, the guides' greetings and the category badges,
+which are equally authored. They were rebuilt by hand and came out wrong: a
+scatter of dots with no country behind it, and a stop's line used as a city
+welcome.
+
+`scripts/build-presentation.mjs` now extracts them from the same file under the
+same SHA into `content/canonical/presentation.json`. The map projection —
+`x = (lon − 25.55) × 50`, `y = 30 + (42.25 − lat) × 65` — comes from the source
+as well, because the dots have to land on the coastline.
+
+## D-025 — Left and right turn the guide (27 Jul 2026)
+
+Left and right rotate the guide instead of sidestepping, so the player can turn
+around and see his face. Movement keys are read from `event.code` rather than
+`event.key`: holding Shift turned `w` into `W`, so the key released never
+matched the key pressed and the guide walked on forever.
+
+Clip selection gained hysteresis. A single speed threshold made the animation
+flip many times a second around the boundary, and with a cross-fade on each flip
+every action could reach zero weight — the guide snapped to his bind pose and
+slid along the ground.
+
+## D-026 — Settings only shows what works (27 Jul 2026)
+
+The audio toggles are removed. There is no audio in the build, so three switches
+that changed nothing were on screen. They come back when sound does.
+

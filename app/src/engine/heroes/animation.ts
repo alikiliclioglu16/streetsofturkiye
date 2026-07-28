@@ -15,18 +15,26 @@ export interface HeroMotionState {
   readonly performing: HeroClip | null;
 }
 
-const WALK_THRESHOLD = 0.15;
+/**
+ * Hysteresis. A single threshold made the clip flip between idle and walk many
+ * times a second around the boundary, and with a quarter-second cross-fade on
+ * each flip every action could end up at zero weight — the guide snapped to his
+ * bind pose and slid along the ground.
+ */
+const WALK_THRESHOLD = 0.6;
+const STOP_THRESHOLD = 0.2;
 /**
  * Sits between the walk and run speeds (4.2 and 7.4 m/s). It used to be 5.0
  * with a 4.2 top speed, so the run clip could never play at all.
  */
 const RUN_THRESHOLD = 5.6;
 
-export function clipForState(state: HeroMotionState): HeroClip {
+export function clipForState(state: HeroMotionState, previous: HeroClip | null = null): HeroClip {
   if (state.performing) return state.performing;
   if (state.interacting) return 'talk';
   if (state.speed >= RUN_THRESHOLD) return 'run';
-  if (state.speed >= WALK_THRESHOLD) return 'walk';
+  const moving = previous === 'walk' || previous === 'run';
+  if (state.speed >= (moving ? STOP_THRESHOLD : WALK_THRESHOLD)) return 'walk';
   return 'idle';
 }
 

@@ -15,7 +15,6 @@ interface CitySceneProps {
   frozen: boolean;
   completedHotspotIds: readonly string[];
   activeHotspotId: string | null;
-  inspect: { hotspotId: string; targetId: string; spin: number; onPick: (id: string) => void } | null;
   focus: { position: [number, number, number]; target: [number, number, number]; durationMs: number } | null;
   onFocusSettled: () => void;
   onNearestChange: (hotspotId: string | null) => void;
@@ -43,7 +42,6 @@ export function CityScene({
   frozen,
   completedHotspotIds,
   activeHotspotId,
-  inspect,
   focus,
   onFocusSettled,
   onNearestChange,
@@ -153,11 +151,6 @@ export function CityScene({
           completed={completed.has(hotspot.id)}
           inRange={activeHotspotId === hotspot.id}
           reducedMotion={reducedMotion}
-          inspect={
-            inspect && inspect.hotspotId === hotspot.id
-              ? { targetId: inspect.targetId, spin: inspect.spin, onPick: inspect.onPick }
-              : null
-          }
         />
       ))}
 
