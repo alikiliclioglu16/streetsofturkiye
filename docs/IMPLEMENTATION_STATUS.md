@@ -114,7 +114,7 @@ app/src/
 npm run lint       → temiz
 npm run typecheck  → temiz (strict, noUncheckedIndexedAccess, `any` yok)
 npm run content:check → 81 il, 249 durak, 84 soru; 1413 kanonik dizgi baseline ile eşleşti
-npm test           → 12 dosya / 206 test geçti (logic + jsdom ui)
+npm test           → 12 dosya / 214 test geçti (logic + jsdom ui)
 npm run build      → başarılı, 4 rota
 npm start          → /map ve /city/istanbul 200
 ```
@@ -330,6 +330,20 @@ Hoca'nın sekiz katı, lambanın üç katı — ama tek karede tamamı görünü
 Durak kamerası artık nesnenin boyundan türetiliyor (D-051): çini paneli ve simit arabası 5,8 m,
 Kapalıçarşı 6,9 m, vapur 8,3 m, kule 19,9 m. Bir test her şehirdeki her durak nesnesinin
 kendi kadrajına sığdığını doğruluyor.
+
+## 4p. Üç NPC ve yeşillik
+
+`featured_soldier` Galata kapısının yanında, `featured_traveler` çarşı girişinde,
+`featured_craftsman_male` simit arabasının başında. Üçü de durağın **yanında** duruyor,
+önünde değil — üretici rotaya 2,5 metreden yakın yerleşimi düşürüyor (D-054).
+
+Yasaklı animasyonlar **dosyadan silindi** (D-052): askerin 20 klibinden 3'ü kaldı.
+Üç dosya 11,48 MB → **6,96 MB**. Askerin baltalı duruşları da kullanılmıyor.
+
+19 ağaç prosedürel üretiliyor (D-053): servi, çınar, çalı; ağaç başına ~250 üçgen.
+
+**Performans uyarısı:** kare başına tahmini 809.706 üçgen, kaba tahminle ~36 fps.
+Kalabalık fazına geçmeden gerçek ölçüm gerekiyor.
 
 ## 5. Bilinen sınırlar
 

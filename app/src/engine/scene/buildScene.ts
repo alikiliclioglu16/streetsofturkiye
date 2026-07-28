@@ -3,6 +3,8 @@ import type { Vec3 } from '@/content/schemas/scene';
 import { kitAssetId, resolveAsset, type QualityTier, type ResolvedAsset } from '@/engine/assets/registry';
 import { orderedHotspots } from '@/engine/interactions/machine';
 import type { RectCollider } from '@/engine/controls/movement';
+import { npcById, type FeaturedNpc } from '@/engine/npc/registry';
+import type { StreetTreeSpec } from '@/components/three/StreetTree';
 
 export interface SceneHotspot {
   readonly id: string;
@@ -52,6 +54,13 @@ export interface ScenePropInstance {
 export interface SceneDescription {
   readonly cityId: string;
   readonly catRoutes: readonly (readonly { x: number; z: number }[])[];
+  readonly npcs: readonly {
+    readonly key: string;
+    readonly npc: FeaturedNpc;
+    readonly position: Vec3;
+    readonly rotationY: number;
+  }[];
+  readonly trees: readonly StreetTreeSpec[];
   readonly catModelUrl: string | null;
   /** Briefed height for a cat, in metres; the delivered rig is not at world scale. */
   readonly catHeight: number;
@@ -168,9 +177,28 @@ export function buildScene(city: CityDefinition, quality: QualityTier): SceneDes
 
   const cat = resolveAsset('kit_street_cat', quality);
 
+  const npcs = city.npcs
+    .map((entry, index) => {
+      const npc = npcById(entry.npcId);
+      return npc
+        ? { key: `npc-${index}`, npc, position: entry.position, rotationY: entry.rotationY }
+        : null;
+    })
+    .filter((entry): entry is NonNullable<typeof entry> => entry !== null);
+
+  const trees: StreetTreeSpec[] = city.trees.map((tree, index) => ({
+    key: `tree-${index}`,
+    position: tree.position,
+    kind: tree.kind,
+    scale: tree.scale,
+    rotationY: tree.rotationY,
+  }));
+
   return {
     cityId: city.id,
     catRoutes: city.catRoutes,
+    npcs,
+    trees,
     catModelUrl: city.catRoutes.length > 0 ? cat.modelUrl : null,
     catHeight: cat.entry.dimensions[1],
     props,

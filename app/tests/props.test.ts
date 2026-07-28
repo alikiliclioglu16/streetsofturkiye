@@ -4,6 +4,7 @@ import { describe, expect, it } from 'vitest';
 import { blockedBy, stepWithCollision } from '@/engine/controls/movement';
 import { createCatState, randomPause, stepCat } from '@/components/three/StreetCat';
 import { FOLLOW_DISTANCE, FOLLOW_HEIGHT } from '@/engine/camera/anchors';
+import { FEATURED_NPCS, isApprovedClip, npcById } from '@/engine/npc/registry';
 import { CAMERA_FOV } from '@/components/three/CityCanvas';
 import { deliveredProps, resolveAsset, trustsModelScale } from '@/engine/assets/registry';
 import { buildScene } from '@/engine/scene/buildScene';
@@ -453,5 +454,106 @@ describe('landmark framing', () => {
     // A simit cart is met close up; a tower is not.
     expect(Math.min(...distances)).toBeLessThan(8);
     expect(Math.max(...distances)).toBeGreaterThan(15);
+  });
+});
+
+describe('featured NPCs', () => {
+  const scene = buildScene(loadComposedCity('istanbul'), 'high');
+
+  it('places one of each, in İstanbul only', () => {
+    expect(scene.npcs).toHaveLength(3);
+    const ids = scene.npcs.map((entry) => entry.npc.id).sort();
+    expect(ids).toEqual(['featured_craftsman_male', 'featured_soldier', 'featured_traveler']);
+    for (const cityId of ['nevsehir', 'gaziantep']) {
+      expect(buildScene(loadComposedCity(cityId), 'high').npcs).toEqual([]);
+    }
+  });
+
+  it('blocks every combat clip at the file, not only in code', () => {
+    const soldier = npcById('featured_soldier')!;
+    for (const banned of ['Attack', 'Spartan_Kick', 'Sword_Shout', 'Axe_Spin_Attack']) {
+      expect(isApprovedClip(soldier, banned), banned).toBe(false);
+    }
+    // And the two the manifest approved but we still declined to use.
+    expect(isApprovedClip(soldier, 'Axe_Breathe_and_Look_Around')).toBe(false);
+    expect(isApprovedClip(soldier, 'Combat_Idle_Turn_Left')).toBe(false);
+    expect(Object.keys(soldier.excludedClips).length).toBeGreaterThan(0);
+  });
+
+  it('gives every NPC at least one standing clip', () => {
+    for (const entry of scene.npcs) {
+      const standing = entry.npc.clips.filter((clip) => clip !== 'Walking' && clip !== 'Running');
+      expect(standing.length, entry.npc.id).toBeGreaterThan(0);
+    }
+  });
+
+  it('stands them beside their stop, never on the walking line', () => {
+    const points = scene.routePoints;
+    for (const entry of scene.npcs) {
+      let closest = Infinity;
+      for (let i = 0; i < points.length - 1; i += 1) {
+        const a = points[i]!;
+        const b = points[i + 1]!;
+        const dx = b[0] - a[0];
+        const dz = b[2] - a[2];
+        const lengthSq = dx * dx + dz * dz;
+        const t =
+          lengthSq === 0
+            ? 0
+            : Math.max(0, Math.min(1, ((entry.position[0] - a[0]) * dx + (entry.position[2] - a[2]) * dz) / lengthSq));
+        closest = Math.min(
+          closest,
+          Math.hypot(a[0] + t * dx - entry.position[0], a[2] + t * dz - entry.position[2]),
+        );
+      }
+      expect(closest, `${entry.npc.id} stands on the walk`).toBeGreaterThan(2.5);
+
+      // Still close enough to read as belonging to a stop.
+      const nearest = Math.min(
+        ...scene.hotspots.map((hotspot) =>
+          Math.hypot(entry.position[0] - hotspot.position[0], entry.position[2] - hotspot.position[2]),
+        ),
+      );
+      expect(nearest, `${entry.npc.id} belongs nowhere`).toBeLessThan(9);
+    }
+  });
+
+  it('keeps every NPC file under four megabytes', () => {
+    for (const npc of FEATURED_NPCS) {
+      expect(npc.transferBytes, npc.id).toBeLessThan(4 * 1024 * 1024);
+    }
+  });
+});
+
+describe('street trees', () => {
+  const scene = buildScene(loadComposedCity('istanbul'), 'high');
+
+  it('scatters a mix of shapes, not one repeated shape', () => {
+    expect(scene.trees.length).toBeGreaterThan(10);
+    const kinds = new Set(scene.trees.map((tree) => tree.kind));
+    expect(kinds.size).toBeGreaterThan(1);
+    const scales = new Set(scene.trees.map((tree) => tree.scale));
+    expect(scales.size).toBeGreaterThan(2);
+  });
+
+  it('plants them off the walk and clear of the stops', () => {
+    for (const tree of scene.trees) {
+      expect(Math.abs(tree.position[0])).toBeGreaterThan(8);
+      for (const hotspot of scene.hotspots) {
+        const gap = Math.hypot(
+          tree.position[0] - hotspot.position[0],
+          tree.position[2] - hotspot.position[2],
+        );
+        expect(gap, `a tree grows inside stop ${hotspot.order}`).toBeGreaterThan(
+          hotspot.triggerRadius,
+        );
+      }
+    }
+  });
+
+  it('leaves the other cities unplanted for now', () => {
+    for (const cityId of ['nevsehir', 'gaziantep']) {
+      expect(buildScene(loadComposedCity(cityId), 'high').trees).toEqual([]);
+    }
   });
 });

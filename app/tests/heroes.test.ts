@@ -265,6 +265,7 @@ describe('mixer ownership', () => {
      * the bug that rendered the guide at bind pose.
      */
     expect(offenders.sort()).toEqual([
+      'components/three/FeaturedNpc.tsx',
       'components/three/HeroCharacter.tsx',
       'components/three/StreetCat.tsx',
     ]);

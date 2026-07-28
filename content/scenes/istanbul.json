@@ -486,6 +486,230 @@
       }
     ]
   ],
+  "npcs": [
+    {
+      "npcId": "featured_soldier",
+      "position": [
+        9.9,
+        0,
+        -23.4
+      ],
+      "rotationY": -2.1,
+      "note": "beside the tower gate"
+    },
+    {
+      "npcId": "featured_traveler",
+      "position": [
+        11.6,
+        0,
+        -41.8
+      ],
+      "rotationY": -2,
+      "note": "at the bazaar entrance"
+    },
+    {
+      "npcId": "featured_craftsman_male",
+      "position": [
+        7,
+        0,
+        -60.2
+      ],
+      "rotationY": -1.99,
+      "note": "working beside the simit cart"
+    }
+  ],
+  "trees": [
+    {
+      "kind": "cypress",
+      "position": [
+        -11,
+        0,
+        2
+      ],
+      "scale": 0.85,
+      "rotationY": 0
+    },
+    {
+      "kind": "plane",
+      "position": [
+        14.2,
+        0,
+        -3.6
+      ],
+      "scale": 1.21,
+      "rotationY": 2.4
+    },
+    {
+      "kind": "shrub",
+      "position": [
+        -17.4,
+        0,
+        -9.2
+      ],
+      "scale": 1.15,
+      "rotationY": 4.8
+    },
+    {
+      "kind": "plane",
+      "position": [
+        12.6,
+        0,
+        -9.7
+      ],
+      "scale": 1.09,
+      "rotationY": 0.92
+    },
+    {
+      "kind": "cypress",
+      "position": [
+        -15.8,
+        0,
+        -15.3
+      ],
+      "scale": 1.03,
+      "rotationY": 3.32
+    },
+    {
+      "kind": "cypress",
+      "position": [
+        11,
+        0,
+        -20.9
+      ],
+      "scale": 0.97,
+      "rotationY": 5.72
+    },
+    {
+      "kind": "plane",
+      "position": [
+        -14.2,
+        0,
+        -21.4
+      ],
+      "scale": 0.91,
+      "rotationY": 1.83
+    },
+    {
+      "kind": "shrub",
+      "position": [
+        17.4,
+        0,
+        -27
+      ],
+      "scale": 0.85,
+      "rotationY": 4.23
+    },
+    {
+      "kind": "plane",
+      "position": [
+        -12.6,
+        0,
+        -32.6
+      ],
+      "scale": 1.21,
+      "rotationY": 0.35
+    },
+    {
+      "kind": "cypress",
+      "position": [
+        15.8,
+        0,
+        -33.1
+      ],
+      "scale": 1.15,
+      "rotationY": 2.75
+    },
+    {
+      "kind": "cypress",
+      "position": [
+        -11,
+        0,
+        -38.7
+      ],
+      "scale": 1.09,
+      "rotationY": 5.15
+    },
+    {
+      "kind": "shrub",
+      "position": [
+        -17.4,
+        0,
+        -44.8
+      ],
+      "scale": 0.97,
+      "rotationY": 3.67
+    },
+    {
+      "kind": "cypress",
+      "position": [
+        -15.8,
+        0,
+        -56
+      ],
+      "scale": 0.85,
+      "rotationY": 2.18
+    },
+    {
+      "kind": "cypress",
+      "position": [
+        11,
+        0,
+        -56.5
+      ],
+      "scale": 1.21,
+      "rotationY": 4.58
+    },
+    {
+      "kind": "plane",
+      "position": [
+        -14.2,
+        0,
+        -62.1
+      ],
+      "scale": 1.15,
+      "rotationY": 0.7
+    },
+    {
+      "kind": "shrub",
+      "position": [
+        17.4,
+        0,
+        -67.7
+      ],
+      "scale": 1.09,
+      "rotationY": 3.1
+    },
+    {
+      "kind": "plane",
+      "position": [
+        -12.6,
+        0,
+        -68.2
+      ],
+      "scale": 1.03,
+      "rotationY": 5.5
+    },
+    {
+      "kind": "cypress",
+      "position": [
+        15.8,
+        0,
+        -73.8
+      ],
+      "scale": 0.97,
+      "rotationY": 1.62
+    },
+    {
+      "kind": "plane",
+      "position": [
+        14.2,
+        0,
+        -79.9
+      ],
+      "scale": 0.85,
+      "rotationY": 0.13
+    }
+  ],
   "quizPresentation": {
     "shuffleOptions": true
   },

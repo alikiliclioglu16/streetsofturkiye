@@ -112,6 +112,28 @@ export const sceneSchema = z
      * Walking routes for the street cats, in world metres. Two or three
      * waypoints each: these are animals crossing a pavement, not patrols.
      */
+    /** People standing in the street. They carry no content and block nothing. */
+    npcs: z
+      .array(
+        z.object({
+          npcId: z.enum(['featured_soldier', 'featured_traveler', 'featured_craftsman_male']),
+          position: vec3Schema,
+          rotationY: z.number().default(0),
+          note: z.string().optional(),
+        }),
+      )
+      .default([]),
+    /** Procedural street trees; geometry is generated, not delivered. */
+    trees: z
+      .array(
+        z.object({
+          kind: z.enum(['cypress', 'plane', 'shrub']),
+          position: vec3Schema,
+          scale: z.number().positive().default(1),
+          rotationY: z.number().default(0),
+        }),
+      )
+      .default([]),
     catRoutes: z
       .array(z.array(z.object({ x: z.number(), z: z.number() })).min(2))
       .default([]),

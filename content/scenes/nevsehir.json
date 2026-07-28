@@ -362,6 +362,8 @@
   ],
   "props": [],
   "catRoutes": [],
+  "npcs": [],
+  "trees": [],
   "quizPresentation": {
     "shuffleOptions": true
   },

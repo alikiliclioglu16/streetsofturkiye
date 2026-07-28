@@ -505,3 +505,46 @@ object in every city fits inside its own shot.
 The guide is small in a landmark shot. That is what looking up at a landmark is,
 and it lasts only while the stop is open.
 
+## D-052 — Blocked animations leave the file (28 Jul 2026)
+
+The soldier shipped with twenty clips: attacks, an archery shot, a spartan
+kick, a chest-pound taunt, a sword shout. Fourteen were on the delivery's own
+blocked list.
+
+They are stripped from the delivered GLB, not merely avoided in code. A rule
+that lives only in a component is a rule someone breaks later without reading
+the component, and this is a street a six-year-old walks down.
+
+Two clips the manifest approved were also declined: `Axe_Breathe_and_Look_Around`
+and `Combat_Idle_Turn_Left`. Both are idles rather than attacks, but a soldier
+holding an axe buys nothing here. The engine plays `Idle_9` and
+`Look_Around_Dumbfounded`.
+
+Pruning clips also shrank the three files from 11.48 MB to 6.96 MB — the
+animation data was most of the weight.
+
+## D-053 — Trees are generated (28 Jul 2026)
+
+A tree is a trunk and a few masses. At this art level that is geometry, not a
+texture, so the street's greenery is generated in the renderer: three
+silhouettes — cypress, plane, shrub — with varied scale and angle, about 250
+triangles each.
+
+Nineteen trees cost 4,750 triangles, less than a quarter of one street cat. A
+street planted with one repeated shape reads as wallpaper, which is why there
+are three.
+
+## D-054 — NPCs stand beside their stop, never on the walk (28 Jul 2026)
+
+A soldier at the tower gate, a traveller at the bazaar entrance, a craftsman
+beside the simit cart, as the owner placed them. Each stands to one side: a
+person on the pavement in front of a stop becomes an obstacle a child tries to
+walk through, and the stop cameras now sit as close as 5.8 m.
+
+The generator checks the distance to the route and drops any placement closer
+than 2.5 m. The first attempt put the craftsman 0.4 m off the centre line.
+
+They hold their post rather than wander. `Walking` is on their whitelist because
+the model ships with it, but playing a walk cycle on the spot is exactly the
+skating the cat integration avoided.
+

@@ -236,6 +236,87 @@ function stopCamera(position, height) {
   };
 }
 
+
+/**
+ * Street trees.
+ *
+ * Scattered down both pavements with varied kind, scale and angle. Kept off the
+ * walking line and outside every trigger ring; anything that fails is dropped
+ * rather than shipped.
+ */
+function streetTrees(cityId, stopPositions, geometry) {
+  if (cityId !== 'istanbul') return [];
+  const kinds = ['cypress', 'plane', 'shrub', 'plane', 'cypress'];
+  const trees = [];
+  for (let i = 0; i < 22; i += 1) {
+    const side = i % 2 === 0 ? -1 : 1;
+    const z = 2 - i * 3.9 - (i % 3) * 1.7;
+    const x = side * (11 + ((i * 7) % 5) * 1.6);
+    const kind = kinds[i % kinds.length];
+    trees.push({
+      kind,
+      position: [Math.round(x * 10) / 10, 0, Math.round(z * 10) / 10],
+      scale: Math.round((0.85 + ((i * 13) % 7) * 0.06) * 100) / 100,
+      rotationY: Math.round(((i * 2.399963) % (Math.PI * 2)) * 100) / 100,
+    });
+  }
+  return trees.filter(
+    (tree) =>
+      Math.abs(tree.position[0]) > 8 &&
+      stopPositions.every((stop, index) => {
+        const gap = Math.hypot(tree.position[0] - stop[0], tree.position[2] - stop[2]);
+        return gap > geometry[index].triggerRadius + 1.5;
+      }),
+  );
+}
+
+/**
+ * Featured NPCs, placed by the owner: a soldier at the tower gate, a traveller
+ * at the bazaar entrance, a craftsman beside the simit cart.
+ *
+ * Each stands to the side of its stop. Standing at a gate is the point;
+ * standing on the pavement in front of it would turn a person into an obstacle
+ * a child tries to walk through.
+ */
+function featuredNpcs(cityId, stopPositions, routePoints) {
+  if (cityId !== 'istanbul') return [];
+
+  const candidates = [
+    { npcId: 'featured_soldier', at: 1, offset: [4.4, 2.6], note: 'beside the tower gate' },
+    { npcId: 'featured_traveler', at: 2, offset: [4.8, 2.2], note: 'at the bazaar entrance' },
+    { npcId: 'featured_craftsman_male', at: 3, offset: [4.0, 1.8], note: 'working beside the simit cart' },
+  ];
+
+  const distanceToRoute = (x, z) => {
+    let closest = Infinity;
+    for (let i = 0; i < routePoints.length - 1; i += 1) {
+      const [ax, , az] = routePoints[i];
+      const [bx, , bz] = routePoints[i + 1];
+      const dx = bx - ax;
+      const dz = bz - az;
+      const lengthSq = dx * dx + dz * dz;
+      const t = lengthSq === 0 ? 0 : Math.max(0, Math.min(1, ((x - ax) * dx + (z - az) * dz) / lengthSq));
+      closest = Math.min(closest, Math.hypot(ax + t * dx - x, az + t * dz - z));
+    }
+    return closest;
+  };
+
+  return candidates
+    .map(({ npcId, at, offset, note }) => {
+      const stop = stopPositions[at] ?? [0, 0, 0];
+      const x = Math.round((stop[0] + offset[0]) * 10) / 10;
+      const z = Math.round((stop[2] + offset[1]) * 10) / 10;
+      return {
+        npcId,
+        position: [x, 0, z],
+        // Turned back towards their stop, so an arriving child sees a face.
+        rotationY: Math.round(Math.atan2(stop[0] - x, stop[2] - z) * 100) / 100,
+        note,
+      };
+    })
+    .filter((npc) => distanceToRoute(npc.position[0], npc.position[2]) > 2.5);
+}
+
 /** Deterministic S-curve layout; the same city always lays out identically. */
 function layout(stopCount, approaches) {
   const spacing = STOP_SPACING;
@@ -336,6 +417,13 @@ function buildScene(canonical) {
      * rather than find them all at once.
      */
     catRoutes: canonical.id === 'istanbul' ? catRoutes(stopPositions, geometry) : [],
+    npcs: featuredNpcs(canonical.id, stopPositions, route),
+    trees: streetTrees(canonical.id, stopPositions, geometry),
+    /**
+     * Featured people, one each, standing beside the stop that suits them.
+     * Offset to the side rather than in front: the stop camera frames the
+     * object, and a person standing in that shot is in the way of it.
+     */
     quizPresentation: { shuffleOptions: true },
     rewards: {
       cityStarId: `star_${canonical.id}`,

@@ -9,6 +9,8 @@ import { AssetInstance } from '@/components/three/AssetInstance';
 import { Ground } from '@/components/three/Ground';
 import { HotspotObject } from '@/components/three/HotspotObject';
 import { StreetCat } from '@/components/three/StreetCat';
+import { StreetTree } from '@/components/three/StreetTree';
+import { FeaturedNpcActor } from '@/components/three/FeaturedNpc';
 import { PlayerRig } from '@/components/three/PlayerRig';
 
 interface CitySceneProps {
@@ -174,6 +176,22 @@ export function CityScene({
             />
           ))
         : null}
+
+      {/* Greenery. Generated geometry, roughly 250 triangles a tree. */}
+      {scene.trees.map((tree) => (
+        <StreetTree key={tree.key} spec={tree} />
+      ))}
+
+      {/* People at their posts. One of each, never mass-instanced. */}
+      {scene.npcs.map((entry, index) => (
+        <FeaturedNpcActor
+          key={entry.key}
+          npc={entry.npc}
+          position={entry.position}
+          rotationY={entry.rotationY}
+          phase={index / Math.max(1, scene.npcs.length)}
+        />
+      ))}
 
       {scene.hotspots.map((hotspot) => (
         <HotspotObject
