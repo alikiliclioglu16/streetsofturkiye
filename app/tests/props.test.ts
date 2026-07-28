@@ -28,11 +28,12 @@ describe('street kit props', () => {
   });
 
   it('places a handful of test instances, not set dressing', () => {
-    expect(scene.props.length).toBeGreaterThanOrEqual(5);
-    expect(scene.props.length).toBeLessThanOrEqual(8);
-    // Only kit props are placed; nothing city-specific has been dressed in yet.
-    const kinds = new Set(scene.props.map((prop) => prop.asset.entry.id));
-    expect([...kinds].sort()).toEqual(['kit_bench', 'kit_street_lamp']);
+    expect(scene.props.length).toBeGreaterThanOrEqual(8);
+    expect(scene.props.length).toBeLessThanOrEqual(14);
+    // Only shared kit props are scattered as dressing; city art belongs to stops.
+    const kinds = [...new Set(scene.props.map((prop) => prop.asset.entry.id))].sort();
+    expect(kinds).toEqual(['kit_bench', 'kit_planter_cypress', 'kit_street_lamp']);
+    expect(kinds.every((id) => id.startsWith('kit_'))).toBe(true);
   });
 
   it('stands every prop on the ground plane', () => {
@@ -623,5 +624,43 @@ describe('Galata Tower', () => {
     const lamp = resolveAsset('kit_street_lamp', 'high').entry.dimensions[1];
     expect(tower.dimensions[1] / lamp).toBeGreaterThan(2.5);
     expect(tower.dimensions[1] / 1.65).toBeGreaterThan(7);
+  });
+});
+
+describe('İstanbul is fully dressed', () => {
+  it('has no graybox left at any stop', () => {
+    const scene = buildScene(loadComposedCity('istanbul'), 'high');
+    for (const hotspot of scene.hotspots) {
+      // Every stop now points at commissioned art rather than a stand-in.
+      expect(hotspot.asset.entry.id, `stop ${hotspot.order}`).not.toMatch(/^graybox_/);
+      expect(hotspot.asset.isUnknown, `stop ${hotspot.order}`).toBe(false);
+    }
+  });
+
+  it('knows which stops are still waiting for their model', () => {
+    const scene = buildScene(loadComposedCity('istanbul'), 'high');
+    const waiting = scene.hotspots
+      .filter((hotspot) => hotspot.asset.isPlaceholder)
+      .map((hotspot) => hotspot.asset.entry.id);
+
+    // Commissioned is a brief, not a delivery. These two are still briefs.
+    expect(waiting.sort()).toEqual(['city_istanbul_ferry', 'city_istanbul_iznik_tile_panel']);
+  });
+
+  it('keeps every delivered file within the budget for its kind', () => {
+    for (const prop of deliveredProps()) {
+      const limit = prop.id.startsWith('kit_') ? 2 : 4;
+      expect(prop.transferBytes / (1024 * 1024), prop.id).toBeLessThan(limit);
+    }
+  });
+
+  it('records what each delivery cost before it was recompressed', () => {
+    // Four assets arrived far over budget. The record is what stops the next
+    // one arriving the same way.
+    const heavy = deliveredProps().filter((prop) => /MB/.test(prop.notes ?? ''));
+    expect(heavy.length).toBeGreaterThanOrEqual(3);
+    for (const prop of heavy) {
+      expect(prop.notes, prop.id).toMatch(/\d+\.\d+ MB/);
+    }
   });
 });

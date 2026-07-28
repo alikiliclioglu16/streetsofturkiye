@@ -210,8 +210,8 @@
         "stopId": "istanbul-stop-03"
       },
       "sceneStatus": "ready",
-      "assetId": "graybox_bazaar",
-      "assetStatus": "graybox",
+      "assetId": "city_istanbul_grand_bazaar",
+      "assetStatus": "commissioned",
       "transform": {
         "position": [
           6.8,
@@ -420,6 +420,46 @@
       ],
       "rotationY": -1.351,
       "note": "street edge near the food stop"
+    },
+    {
+      "assetId": "kit_planter_cypress",
+      "position": [
+        -6.2,
+        0,
+        -9.5
+      ],
+      "rotationY": 0.3,
+      "note": "planter at the start of the walk"
+    },
+    {
+      "assetId": "kit_planter_cypress",
+      "position": [
+        6.8,
+        0,
+        -17
+      ],
+      "rotationY": -0.4,
+      "note": "planter opposite the first bench"
+    },
+    {
+      "assetId": "kit_planter_cypress",
+      "position": [
+        -6.4,
+        0,
+        -30
+      ],
+      "rotationY": 0.15,
+      "note": "planter mid-walk"
+    },
+    {
+      "assetId": "kit_planter_cypress",
+      "position": [
+        8.5,
+        0,
+        -70
+      ],
+      "rotationY": -0.25,
+      "note": "planter towards the quay"
     }
   ],
   "catRoutes": [

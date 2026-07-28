@@ -114,7 +114,7 @@ app/src/
 npm run lint       → temiz
 npm run typecheck  → temiz (strict, noUncheckedIndexedAccess, `any` yok)
 npm run content:check → 81 il, 249 durak, 84 soru; 1413 kanonik dizgi baseline ile eşleşti
-npm test           → 12 dosya / 219 test geçti (logic + jsdom ui)
+npm test           → 12 dosya / 223 test geçti (logic + jsdom ui)
 npm run build      → başarılı, 4 rota
 npm start          → /map ve /city/istanbul 200
 ```
@@ -344,6 +344,18 @@ Yasaklı animasyonlar **dosyadan silindi** (D-052): askerin 20 klibinden 3'ü ka
 
 **Performans uyarısı:** kare başına tahmini 809.706 üçgen, kaba tahminle ~36 fps.
 Kalabalık fazına geçmeden gerçek ölçüm gerekiyor.
+
+## 4r. Kapalıçarşı kapısı ve servili saksı
+
+`city_istanbul_grand_bazaar` 3. durağa bağlandı: 7.793 üçgen, 52,08 MB'dan **1,90 MB**'a indi.
+`kit_planter_cypress` paylaşılan kit propu oldu: 3.747 üçgen, 8,40 MB'dan **0,65 MB**'a.
+İstanbul'da dört saksı, lamba ve banklarla aynı denetimden geçerek yerleştirildi.
+
+Dokular artık role göre boyutlandırılıyor (D-057): renk haritası büyük, diğerleri yarısı.
+Dört teslimat üst üste geometrisi bütçede, dokuları bütçe dışı geldi.
+
+**İstanbul'da graybox kalmadı** — beş durağın beşi de ısmarlanmış varlığa işaret ediyor.
+İkisinin (çini paneli, vapur) modeli henüz teslim edilmedi, yer tutucu çiziliyor.
 
 ## 5. Bilinen sınırlar
 

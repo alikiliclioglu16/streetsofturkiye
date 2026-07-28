@@ -132,9 +132,9 @@ describe('delivered street props', () => {
   it('stands lamps clear of the walk and of every solid object', () => {
     const city = loadComposedCity('istanbul');
     const scene = buildScene(city, 'high');
-    // Lamps and benches together; each kind is bounded separately elsewhere.
-    expect(scene.props.length).toBeGreaterThanOrEqual(5);
-    expect(scene.props.length).toBeLessThanOrEqual(8);
+    // Lamps, benches and planters together; each kind is bounded separately.
+    expect(scene.props.length).toBeGreaterThanOrEqual(8);
+    expect(scene.props.length).toBeLessThanOrEqual(14);
 
     for (const prop of scene.props) {
       const [x, , z] = prop.position;

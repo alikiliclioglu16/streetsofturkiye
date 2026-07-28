@@ -95,6 +95,37 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
       'down to 2.68 MB. Delivered already at the agreed 14 m and grounded.',
   },
   {
+    id: 'city_istanbul_grand_bazaar',
+    modelUrl: '/assets/city/city_istanbul_grand_bazaar.glb',
+    checksum: '1870169a8cf0b8aaec70e03918a05f9e7b95524fba9d219da8c74ae716f1356e',
+    triangles: 7_793,
+    transferBytes: 1_988_796,
+    // The file is authored tiny; these are its own proportions at 6 m.
+    dimensions: [5.37, 6.0, 3.6],
+    label: 'Grand Bazaar gateway',
+    color: '#A8763F',
+    placeholder: 'box',
+    scaleToBrief: true,
+    notes:
+      'Delivered at 52.08 MB with four 4096 px PNG maps on 7,793 triangles. ' +
+      'Recompressed to a 2048 colour map and 1024 for the rest: 1.90 MB.',
+  },
+  {
+    id: 'kit_planter_cypress',
+    modelUrl: '/assets/props/kit_planter_cypress.glb',
+    checksum: 'ee62dec6b98177caae46b6417bcca99ae0e64c500a9ffc6014ca0b1bf52a86e9',
+    triangles: 3_747,
+    transferBytes: 679_572,
+    dimensions: [0.91, 2.5, 0.91],
+    label: 'Cypress planter',
+    color: '#3E6B4A',
+    placeholder: 'cylinder',
+    scaleToBrief: true,
+    notes:
+      'Shared kit prop, so it carries the under-2 MB rule: 8.40 MB down to ' +
+      '0.65 MB at a 1024 colour map and 512 for the rest.',
+  },
+  {
     id: 'city_istanbul_simit_cart',
     modelUrl: '/assets/city/city_istanbul_simit_cart.glb',
     checksum: '9ac7be8e4a487c68ea5f55ebeaade1eb1c6afbec939af94a4a53a12ba0e24d49',

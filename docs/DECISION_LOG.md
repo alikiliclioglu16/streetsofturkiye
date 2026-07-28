@@ -596,3 +596,24 @@ Worth knowing if the gallery railing or the finial read poorly: the 70,462
 version is reproducible from the Meshy source with one command, and the
 difference will be in the silhouette rather than the surface.
 
+## D-057 — Textures are sized by role (28 Jul 2026)
+
+Four deliveries in a row arrived with the geometry inside budget and the
+textures far outside it: the simit cart at 31 MB, the tower at 23 MB, the bazaar
+gateway at 52 MB, the cypress planter at 8.4 MB. In every case four maps at the
+same large size.
+
+Only the colour map carries what a child sees. Normal, roughness and metallic
+describe how a surface responds to light, not what shape it is, and half the
+resolution is invisible on an object seen from five metres. Compression is now
+per slot rather than uniform:
+
+| | Colour | Others | Result |
+|---|---|---|---|
+| Bazaar gateway | 2048 | 1024 | 52.08 → 1.90 MB |
+| Galata Tower | 2048 | 1024 | 23.09 → 2.68 MB |
+| Cypress planter | 1024 | 512 | 8.40 → 0.65 MB |
+
+The planter takes the smaller pair because it is a `kit_` prop and its cost is
+paid in all 81 provinces.
+

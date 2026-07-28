@@ -45,6 +45,7 @@ const KIT_BY_REGION = {
 const COMMISSIONED_ASSETS = {
   'istanbul:mosque': 'city_istanbul_iznik_tile_panel',
   'istanbul:galata': 'city_istanbul_galata_tower',
+  'istanbul:bazaar': 'city_istanbul_grand_bazaar',
   'istanbul:simit': 'city_istanbul_simit_cart',
   'istanbul:ferry': 'city_istanbul_ferry',
   'nevsehir:chimneys': 'city_nevsehir_fairy_chimney_cluster',
@@ -144,6 +145,13 @@ function streetProps(cityId, stopPositions, geometry) {
     prop('kit_street_lamp', -9.5, -36.5, Math.PI / 2 - 0.3, 'street edge, mid-walk'),
     prop('kit_bench', 15.0, -40.0, -Math.PI / 2 + 0.2, 'bench facing the market end of the street'),
     prop('kit_street_lamp', 11.5, -60.5, -Math.PI / 2 + 0.22, 'street edge near the food stop'),
+
+    // Planters read as tended street furniture rather than scenery, so they sit
+    // close to the pavement edge in pairs.
+    prop('kit_planter_cypress', -6.2, -9.5, 0.3, 'planter at the start of the walk'),
+    prop('kit_planter_cypress', 6.8, -17.0, -0.4, 'planter opposite the first bench'),
+    prop('kit_planter_cypress', -6.4, -30.0, 0.15, 'planter mid-walk'),
+    prop('kit_planter_cypress', 8.5, -70.0, -0.25, 'planter towards the quay'),
   ];
 
   /**
