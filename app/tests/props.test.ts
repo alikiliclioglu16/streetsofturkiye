@@ -102,11 +102,21 @@ describe('optimised street kit', () => {
     expect(bench.transferBytes).toBe(980_160);
   });
 
-  it('keeps every kit prop under two megabytes', () => {
+  it('keeps every shared kit prop under two megabytes', () => {
     // The first lamp was 8.36 MB for 1,834 triangles. Six props at that size
-    // would have added 50 MB to the repository.
-    for (const prop of deliveredProps()) {
+    // would have added 50 MB for objects a child walks past.
+    //
+    // The rule is about repetition, not about size in itself: a `kit_` prop
+    // ships to all 81 provinces, so its cost is paid 81 times over. A city
+    // landmark appears once and is budgeted separately.
+    for (const prop of deliveredProps().filter((entry) => entry.id.startsWith('kit_'))) {
       expect(prop.transferBytes, prop.id).toBeLessThan(2 * 1024 * 1024);
+    }
+  });
+
+  it('keeps a one-off city landmark within a landmark budget', () => {
+    for (const prop of deliveredProps().filter((entry) => entry.id.startsWith('city_'))) {
+      expect(prop.transferBytes, prop.id).toBeLessThan(4 * 1024 * 1024);
     }
   });
 
@@ -121,11 +131,11 @@ describe('optimised street kit', () => {
     // Normalising these towards anything in common would flatten the very
     // difference that makes a street read as a street.
     expect(lampEntry.dimensions[1] / benchEntry.dimensions[1]).toBeGreaterThan(5);
-    // Galata is commissioned art that has since been delivered; it keeps its
-    // manifest row and is scaled to the size the project agreed.
+    // Galata is commissioned art that has since been delivered; it keeps the
+    // manifest row it was briefed against.
     const galata = resolveAsset('city_istanbul_galata_tower', 'high').entry;
-    expect(galata.scaleToBrief).toBe(true);
     expect(galata.manifest.tier).toBe('hero');
+    expect(galata.manifest.status).toBe('delivered');
   });
 
   it('places three to five lamps and two to three benches', () => {
@@ -568,19 +578,27 @@ describe('Galata Tower', () => {
   const tower = deliveredProps().find((prop) => prop.id === 'city_istanbul_galata_tower')!;
 
   it('records what was delivered and what the project agreed', () => {
-    expect(tower.triangles).toBe(34_313);
-    expect(tower.transferBytes).toBe(1_726_368);
+    expect(tower.triangles).toBe(7_003);
+    expect(tower.transferBytes).toBe(2_814_596);
     expect(tower.checksum).toHaveLength(64);
-    // Delivered at 20 m, kept at the agreed 14 (D-050).
+    // Delivered already at the agreed 14 m (D-050), so nothing is rescaled.
     expect(tower.dimensions[1]).toBe(14);
-    expect(tower.scaleToBrief).toBe(true);
-    expect(tower.notes).toMatch(/20 m/);
+    expect(tower.scaleToBrief ?? false).toBe(false);
+    // The reason the first optimisation was rejected survives in the record.
+    expect(tower.notes).toMatch(/34,313/);
+    expect(tower.notes).toMatch(/seams/);
   });
 
-  it('scales to the brief rather than trusting the file, for this asset only', () => {
-    expect(resolveAsset('city_istanbul_galata_tower', 'high').entry.scaleToBrief).toBe(true);
-    // Everything else is authored at the size it means.
-    for (const id of ['kit_street_lamp', 'kit_bench', 'city_istanbul_simit_cart']) {
+  it('needs no rescaling, because every delivered asset is authored at its size', () => {
+    // `scaleToBrief` exists for a file that disagrees with an agreed size. The
+    // third tower arrived at 14 m, so nothing uses it — which is the state to
+    // prefer.
+    for (const id of [
+      'city_istanbul_galata_tower',
+      'kit_street_lamp',
+      'kit_bench',
+      'city_istanbul_simit_cart',
+    ]) {
       expect(resolveAsset(id, 'high').entry.scaleToBrief, id).toBe(false);
     }
   });

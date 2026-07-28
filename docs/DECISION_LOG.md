@@ -548,3 +548,51 @@ They hold their post rather than wander. `Walking` is on their whitelist because
 the model ships with it, but playing a walk cycle on the spot is exactly the
 skating the cat integration avoided.
 
+## D-054 — Simplification locks UV seams (28 Jul 2026)
+
+The first optimised Galata Tower came back at 34,313 triangles with 448 px
+textures and rendered as a white, holed shape with no tower in it. Two causes:
+the simplifier had welded across UV and material seams, tearing the texture,
+and 448 px was far too little for a 14 m landmark.
+
+The shared simplifier now runs with `lockBorder: true` and a tighter error
+tolerance, and the tower is kept at 70,462 triangles with 1024 textures —
+2.67 MB from a 469,784-triangle, 23 MB source.
+
+The lesson is about choosing the ratio, not about the ratio. A cart is still a
+cart at 20,000 triangles. A tower needs its gallery, its conical roof and its
+finial, and loses all three long before the triangle count looks alarming.
+
+## D-055 — The 2 MB rule is about repetition (28 Jul 2026)
+
+The under-2 MB rule applies to `kit_` props, which ship to all 81 provinces and
+whose cost is therefore paid 81 times. A `city_` landmark appears once and is
+budgeted separately, under 4 MB.
+
+Galata at 2.67 MB would have failed a blanket rule, and enforcing it would have
+meant a worse-looking landmark for no real saving.
+
+## D-056 — The tower carries its detail in texture, not geometry (28 Jul 2026)
+
+Three versions were measured before one was kept.
+
+| | Triangles | Size | Textures | Outcome |
+|---|---|---|---|---|
+| First optimisation | 34,313 | 1.65 MB | 448 px | White, holed, no silhouette |
+| Rebuilt from source | 70,462 | 2.67 MB | 1024 px | Silhouette intact |
+| Third delivery | 7,003 | 23.09 MB | 4096 px | Kept, after recompression |
+
+The third was chosen by the project owner. Its geometry is very low for a tower
+— a tenth of the version rebuilt from source — so its detail lives in the colour
+map rather than in the mesh. The file was 23.09 MB because those maps were
+4096 px PNG, larger than the original Meshy source.
+
+Textures are now sized by role rather than uniformly: 2048 for the colour map,
+which is what a 7,000-triangle tower has left to read by, and 1024 for normal,
+roughness and metallic, which describe surface response and not shape. 23.09 MB
+to 2.68 MB.
+
+Worth knowing if the gallery railing or the finial read poorly: the 70,462
+version is reproducible from the Meshy source with one command, and the
+difference will be in the silhouette rather than the surface.
+

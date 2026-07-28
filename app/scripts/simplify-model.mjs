@@ -12,7 +12,12 @@
  * decision is reversible and the reduction is reproducible.
  *
  * Usage: node scripts/simplify-model.mjs <input.glb> <output.glb> <ratio>
- *   ratio 0.003 took the cart to 20,182 triangles and 1.45 MB.
+ *   ratio 0.003 took the simit cart to 20,182 triangles and 1.45 MB.
+ *   ratio 0.15 took Galata Tower to 70,462 triangles and 2.67 MB.
+ *
+ * Choose the ratio by what the object has to read as. A cart is a cart at 20k
+ * triangles; a tower needs its gallery, its conical roof and its finial, and
+ * loses all three long before the triangle count looks alarming.
  *
  * Requires: npm i -D @gltf-transform/core @gltf-transform/extensions \
  *           @gltf-transform/functions meshoptimizer sharp
@@ -36,7 +41,10 @@ const before = count();
 await doc.transform(
   dedup(),
   weld(),
-  simplify({ simplifier: MeshoptSimplifier, ratio: Number(ratioArg), error: 0.01, lockBorder: false }),
+    // lockBorder keeps UV and material seams intact. Without it the simplifier
+  // welds across them and the texture tears: the first Galata Tower came back
+  // white and shapeless because its seams had been collapsed.
+  simplify({ simplifier: MeshoptSimplifier, ratio: Number(ratioArg), error: 0.002, lockBorder: true }),
   // A cart seen from two metres does not need a 1024 map on every channel.
   textureCompress({ encoder: sharp, targetFormat: 'jpeg', resize: [1024, 1024], quality: 86 }),
   prune(),

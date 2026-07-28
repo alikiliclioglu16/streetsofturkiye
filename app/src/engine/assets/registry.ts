@@ -79,20 +79,20 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
   {
     id: 'city_istanbul_galata_tower',
     modelUrl: '/assets/city/city_istanbul_galata_tower.glb',
-    checksum: '27ea82bd9369f3e7bf8e07325ee3715ca04e9a69ae27e7e7cff7d7ab2e8db9a8',
-    triangles: 34_313,
-    transferBytes: 1_726_368,
-    // The file is 6.04 x 20.00 x 6.03; these are the same proportions at the
-    // agreed 14 m, which the engine scales it to.
-    dimensions: [4.23, 14.0, 4.22],
+    checksum: '3800f6e11430182b74f1b5c74e7d8c837c4966ba200dd3cd53529d62c7f3e40c',
+    triangles: 7_003,
+    transferBytes: 2_814_596,
+    // Authored at 14 m with its base on y = 0, so nothing is scaled or lifted.
+    dimensions: [4.28, 14.0, 4.28],
     label: 'Galata Tower',
     color: '#C9BBA1',
     placeholder: 'cylinder',
-    scaleToBrief: true,
     notes:
-      'Delivered at 20 m. Scaled to the agreed 14 m (D-050): at 20 m the stop ' +
-      'camera stands 25 m back and the guide falls to 7% of frame height, so a ' +
-      'child loses sight of their companion the moment the landmark opens.',
+      'Third version. The first optimisation cut to 34,313 triangles with 448 px ' +
+      'textures and welded across UV seams; the tower rendered white and lost its ' +
+      'silhouette. This one carries its detail in texture instead of geometry: ' +
+      '7,003 triangles with a 2048 colour map and 1024 for the rest, 23.09 MB ' +
+      'down to 2.68 MB. Delivered already at the agreed 14 m and grounded.',
   },
   {
     id: 'city_istanbul_simit_cart',
