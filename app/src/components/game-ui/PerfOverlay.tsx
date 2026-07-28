@@ -19,6 +19,7 @@ export function PerfOverlay({
   celebrationState,
   heroHeightMeters,
   heroDraws,
+  heroMotion,
 }: {
   sample: PerfSample | null;
   profile: QualitySettings;
@@ -30,6 +31,7 @@ export function PerfOverlay({
   /** Profiles the engine stepped down to on its own. */
   /** Hero meshes and how many times they are drawn per frame. */
   heroDraws?: { meshes: number; perFrame: number } | null;
+  heroMotion?: { weight: number; advancing: boolean; revivals: number } | null;
 }) {
   const cache = heroCacheSnapshot();
   const definition = hero ? heroById(hero.heroId) : null;
@@ -78,6 +80,7 @@ export function PerfOverlay({
       {row('clip', hero?.clipName ?? hero?.clip ?? '—')}
       {row('hero shadow', hero ? (hero.shadow ? 'on' : 'off') : '—')}
       {row('hero tris', budget?.triangles?.toLocaleString('en-US') ?? 'not delivered')}
+      {row('anim', heroMotion ? `w${heroMotion.weight} ${heroMotion.advancing ? 'moving' : 'STALLED'} r${heroMotion.revivals}` : '—')}
       {row('hero draws', heroDraws ? `${heroDraws.perFrame}x (${heroDraws.meshes} mesh)` : '—')}
       {row(
         'measured h',

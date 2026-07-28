@@ -43,6 +43,7 @@ interface HeroModelProps {
   onMeasured?: (heightMeters: number) => void;
   /** Reports how many times the hero's meshes are drawn per frame. */
   onDrawCount?: (draws: { meshes: number; perFrame: number }) => void;
+  onMotionReport?: (motion: { weight: number; advancing: boolean; revivals: number }) => void;
   /** Bumping this replays the current one-shot clip. */
   performanceToken: number;
 }
@@ -56,6 +57,7 @@ function HeroModel({
   onClipFinished,
   onMeasured,
   onDrawCount,
+  onMotionReport,
   performanceToken,
 }: HeroModelProps) {
   const group = useRef<Group>(null);
@@ -230,6 +232,8 @@ function HeroModel({
 
     if (next) {
       next.reset().fadeIn(fade).play();
+      next.paused = false;
+      next.setEffectiveTimeScale(1);
       next.setEffectiveWeight(1);
       if (isOneShot(desiredClip)) {
         // One pass, then hand control back to the choreography. The pose is not
@@ -299,6 +303,7 @@ function HeroModel({
    * the skeleton, idle is started. It is the symptom that matters to a child.
    */
   const watchdogElapsed = useRef(0);
+  const revivals = useRef(0);
 
   // Drive the single mixer manually so it can never run while unmounted.
   useFrame((_, delta) => {
@@ -320,17 +325,42 @@ function HeroModel({
     watchdogElapsed.current += delta;
     if (watchdogElapsed.current >= 0.5) {
       watchdogElapsed.current = 0;
+
+      /**
+       * Two ways to end up frozen, and the first watchdog only caught one.
+       *
+       * Nothing playing at all gives the bind pose. But an action can also be
+       * "running" with full weight and simply not advance — paused, or with a
+       * zero time scale — which looks identical to the player: a held pose
+       * gliding along the ground. So the check is whether the pose is actually
+       * moving, not whether an action exists.
+       */
       let driving = 0;
+      let advancing = false;
       for (const clip of clipsByName.values()) {
         const action = mixer.existingAction(clip);
-        if (action?.isRunning()) driving += action.getEffectiveWeight();
+        if (!action?.isRunning()) continue;
+        const weight = action.getEffectiveWeight();
+        driving += weight;
+        if (weight > 0.05 && !action.paused && action.getEffectiveTimeScale() !== 0) {
+          advancing = true;
+        }
       }
-      if (driving < 0.05) {
+
+      onMotionReport?.({ weight: Math.round(driving * 100) / 100, advancing, revivals: revivals.current });
+
+      if (driving < 0.05 || !advancing) {
+        revivals.current += 1;
         const idleName = hero.animation.clips.idle;
         const idle = idleName ? clipsByName.get(idleName) : undefined;
         if (idle) {
+          // Clear whatever is stuck before starting again, or the stuck action
+          // keeps its weight and blends into the new one.
+          mixer.stopAllAction();
           const action = mixer.clipAction(idle);
-          action.reset().setEffectiveWeight(1).setLoop(LoopRepeat, Infinity).play();
+          action.reset();
+          action.paused = false;
+          action.setEffectiveTimeScale(1).setEffectiveWeight(1).setLoop(LoopRepeat, Infinity).play();
           currentAction.current = action;
           currentClip.current = 'idle';
         }
@@ -422,6 +452,7 @@ export interface HeroCharacterProps {
   onClipFinished?: () => void;
   onMeasured?: (heightMeters: number) => void;
   onDrawCount?: (draws: { meshes: number; perFrame: number }) => void;
+  onMotionReport?: (motion: { weight: number; advancing: boolean; revivals: number }) => void;
   /** Incremented to restart the current one-shot clip. */
   performanceToken?: number;
 }
@@ -432,6 +463,8 @@ export interface HeroStatus {
   clip: HeroClip | null;
   clipName: string | null;
   shadow: boolean;
+  /** What the mixer is really doing: weight, whether time advances, revivals. */
+  motion?: { weight: number; advancing: boolean; revivals: number };
 }
 
 export function HeroCharacter({
@@ -443,6 +476,7 @@ export function HeroCharacter({
   onClipFinished,
   onMeasured,
   onDrawCount,
+  onMotionReport,
   performanceToken = 0,
 }: HeroCharacterProps) {
   const [failed, setFailed] = useState(false);
@@ -491,6 +525,7 @@ export function HeroCharacter({
           onClipFinished={onClipFinished}
           onMeasured={onMeasured}
           onDrawCount={onDrawCount}
+          onMotionReport={onMotionReport}
           onClipChange={(clip, clipName) => report({ state: 'ready', clip, clipName })}
         />
       </Suspense>

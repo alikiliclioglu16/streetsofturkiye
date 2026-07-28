@@ -101,6 +101,7 @@ export function CityExperience({ cityId }: { cityId: string }) {
   const [heroStatus, setHeroStatus] = useState<HeroStatus | null>(null);
   const [heroHeight, setHeroHeight] = useState<number | null>(null);
   const [heroDraws, setHeroDraws] = useState<{ meshes: number; perFrame: number } | null>(null);
+  const [heroMotion, setHeroMotion] = useState<{ weight: number; advancing: boolean; revivals: number } | null>(null);
   const [presentation, setPresentation] = useState<Presentation | null>(null);
 
   useEffect(() => {
@@ -276,6 +277,20 @@ export function CityExperience({ cityId }: { cityId: string }) {
     return () => window.clearTimeout(timer);
   }, [celebration, plan, activeHero, dispatchCelebration]);
 
+  /**
+   * The camera reports when it has framed the guide. If that report is late or
+   * never comes, the celebration must still happen — the earlier backstop
+   * skipped straight to the summary, so a stalled camera meant no celebration
+   * at all.
+   */
+  useEffect(() => {
+    if (celebration.state !== 'framing') return;
+    const timer = window.setTimeout(() => {
+      dispatchCelebration({ type: 'CAMERA_FRAMED' });
+    }, CAMERA_SETTLE_TIMEOUT_MS);
+    return () => window.clearTimeout(timer);
+  }, [celebration.state, dispatchCelebration]);
+
   /** Backstop for the whole sequence, whatever went wrong inside it. */
   useEffect(() => {
     if (celebration.state === 'idle' || celebration.state === 'summary') return;
@@ -363,6 +378,7 @@ export function CityExperience({ cityId }: { cityId: string }) {
           onHeroStatus={setHeroStatus}
           onHeroMeasured={setHeroHeight}
           onHeroDrawCount={setHeroDraws}
+          onHeroMotion={setHeroMotion}
           reducedMotion={reducedMotion}
           frozen={panelOpen}
           completedHotspotIds={progress.completedHotspotIds}
@@ -402,6 +418,7 @@ export function CityExperience({ cityId }: { cityId: string }) {
           celebrationState={celebration.state}
           heroHeightMeters={heroHeight}
           heroDraws={heroDraws}
+          heroMotion={heroMotion}
         />
       ) : null}
 
