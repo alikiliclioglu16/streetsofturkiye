@@ -82,7 +82,8 @@ describe('asset registry alignment', () => {
   it('carries manifest budgets through to the registry', () => {
     const galata = resolveAsset('city_istanbul_galata_tower', 'high');
     expect(galata.entry.manifest.tier).toBe('hero');
-    expect(galata.entry.dimensions[1]).toBe(32); // 9x9x32 in the manifest
+    // 4x4x14 in the manifest: storybook scale, so the tower fits its own shot.
+    expect(galata.entry.dimensions[1]).toBe(14);
     expect(galata.entry.manifest.triangleBudget).toBeGreaterThan(0);
   });
 

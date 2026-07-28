@@ -206,6 +206,36 @@ function catRoutes(stopPositions, geometry) {
   return candidates.filter((route) => route.every(clear));
 }
 
+/**
+ * Where the camera stands to show a stop.
+ *
+ * A fixed distance cannot frame both a 2 m simit cart and a tall landmark: at
+ * 5.65 m only 5.3 m of height is visible, so a tower filled the shot with
+ * masonry and the child never saw the tower. The distance is derived from the
+ * object instead, framing it to about 85% of the frame height.
+ *
+ * The guide is small in a landmark shot. That is what looking up at a landmark
+ * is, and it lasts only while the stop is open.
+ */
+const STOP_CAMERA_FILL = 0.85;
+const STOP_CAMERA_FOV = 50;
+
+function stopCamera(position, height) {
+  const halfFov = (STOP_CAMERA_FOV / 2) * (Math.PI / 180);
+  const needed = height / STOP_CAMERA_FILL / (2 * Math.tan(halfFov));
+  const distance = Math.max(5.0, Math.round(needed * 10) / 10);
+  const eye = Math.max(2.4, Math.round(height * 0.45 * 10) / 10);
+  return {
+    position: [
+      position[0] + Math.round(distance * 0.45 * 10) / 10,
+      eye,
+      position[2] + Math.round(distance * 10) / 10,
+    ],
+    target: [position[0], Math.round(Math.min(height * 0.45, 2.2) * 10) / 10, position[2]],
+    durationMs: 900,
+  };
+}
+
 /** Deterministic S-curve layout; the same city always lays out identically. */
 function layout(stopCount, approaches) {
   const spacing = STOP_SPACING;
@@ -266,13 +296,7 @@ function buildScene(canonical) {
       /** Solid footprint. The player walks around this, not through it. */
       collider: { halfWidth, halfDepth },
       triggerRadius,
-      camera: {
-        // Matched to the follow camera: closer and lower than the first pass,
-        // so a stop does not suddenly feel further away than the walk to it.
-        position: [position[0] + 2.4, 2.4, position[2] + 5.0],
-        target: [position[0], 1.3, position[2]],
-        durationMs: 900,
-      },
+      camera: stopCamera(position, footprintFor(assetId, artType)[1]),
       /**
        * How the stop is presented. Stops present and hand over the collectible;
        * they do not ask questions, so there is no answer mechanic here.

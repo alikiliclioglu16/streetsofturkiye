@@ -117,14 +117,14 @@ export const MANIFEST_ENTRIES: readonly ManifestEntry[] = [
     "tier": "hero",
     "status": "briefed",
     "dimensions": [
-      9,
-      32,
-      9
+      4,
+      14,
+      4
     ],
     "triangleBudget": 35000,
     "textureBudget": "2K",
     "fallbackShape": "cylinder",
-    "notes": "Preserve silhouette; no invented text"
+    "notes": "Preserve silhouette; no invented text Storybook scale: the real tower is 67 m and a 32 m model filled the frame with masonry. 14 m keeps it the tallest thing on the street while a child can still see all of it."
   },
   {
     "id": "city_istanbul_ferry",

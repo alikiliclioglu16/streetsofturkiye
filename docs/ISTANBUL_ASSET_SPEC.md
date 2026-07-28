@@ -111,10 +111,15 @@ Background silhouettes of the dome and minarets belong to the environment kit (s
 |---|---|
 | Asset id | `city_istanbul_galata_tower` |
 | Category | History |
-| Reserved footprint | 9 × 9 m |
-| Height | 32 m |
+| Reserved footprint | 4 × 4 m |
+| Height | **14 m** (storybook scale, not the real 67 m) |
 | Budget | 15,000–35,000 triangles |
 | Collectible | 🪁 a pair of legend wings |
+
+**14 m, not 32.** The real tower is 67 m; at 32 m the stop camera framed nothing
+but masonry and the child never saw a tower at all. At 14 m it is still the
+tallest thing on the street by a wide margin — eight times the guide, nearly
+three times a street lamp — and it fits in one shot.
 
 The tallest thing on the street and the landmark a child will steer by. The conical roof and the observation gallery are what make it recognisable at a distance; the stonework does not need geometry, it needs texture.
 

@@ -59,7 +59,7 @@ That last row matters. Named motifs leave the door open to a find-the-motif inte
 
 | | |
 |---|---|
-| Footprint | 9 × 9 m, height 32 m |
+| Footprint | 4 × 4 m, height 14 m |
 | Triangles | 15,000–35,000 |
 | Note | Stonework in texture, not geometry. This is the landmark a child steers by, so the silhouette matters more than the surface. |
 

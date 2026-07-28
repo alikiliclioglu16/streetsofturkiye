@@ -114,7 +114,7 @@ app/src/
 npm run lint       → temiz
 npm run typecheck  → temiz (strict, noUncheckedIndexedAccess, `any` yok)
 npm run content:check → 81 il, 249 durak, 84 soru; 1413 kanonik dizgi baseline ile eşleşti
-npm test           → 12 dosya / 203 test geçti (logic + jsdom ui)
+npm test           → 12 dosya / 206 test geçti (logic + jsdom ui)
 npm run build      → başarılı, 4 rota
 npm start          → /map ve /city/istanbul 200
 ```
@@ -320,6 +320,16 @@ sahneye olduğu gibi konsa kare hızı 50'den ~12'ye düşerdi. Proje içinde sa
 Sadeleştirici: `scripts/simplify-model.mjs`. Teslim edilen dosyanın üzerine yazılmadı.
 
 İstanbul artık 5 durağın 4'ünde ısmarlanmış varlık kullanıyor; sadece Kapalıçarşı graybox.
+
+## 4o. Simge ölçeği ve durak kamerası
+
+Galata Kulesi manifestte **4×4×14 m** (D-050). Gerçek kule 67 m; 32 metrelik model durak kamerasını
+taşla dolduruyordu, çocuk kuleyi hiç göremiyordu. 14 metrede hâlâ sokağın en yükseği —
+Hoca'nın sekiz katı, lambanın üç katı — ama tek karede tamamı görünüyor.
+
+Durak kamerası artık nesnenin boyundan türetiliyor (D-051): çini paneli ve simit arabası 5,8 m,
+Kapalıçarşı 6,9 m, vapur 8,3 m, kule 19,9 m. Bir test her şehirdeki her durak nesnesinin
+kendi kadrajına sığdığını doğruluyor.
 
 ## 5. Bilinen sınırlar
 

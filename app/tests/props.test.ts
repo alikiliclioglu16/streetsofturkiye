@@ -407,3 +407,51 @@ describe('framing', () => {
     expect(stone).toBeLessThan(0.6);
   });
 });
+
+describe('landmark framing', () => {
+  const FOV = 50;
+  const visibleHeight = (distance: number) =>
+    2 * distance * Math.tan((FOV / 2) * (Math.PI / 180));
+
+  it('frames every stop object inside its own camera shot', () => {
+    for (const cityId of ['istanbul', 'nevsehir', 'gaziantep']) {
+      const city = loadComposedCity(cityId);
+      const scene = buildScene(city, 'high');
+      for (const hotspot of scene.hotspots) {
+        const height = hotspot.asset.entry.dimensions[1];
+        const dx = hotspot.camera.position[0] - hotspot.position[0];
+        const dz = hotspot.camera.position[2] - hotspot.position[2];
+        const dy = hotspot.camera.position[1] - hotspot.camera.target[1];
+        const distance = Math.hypot(dx, dz, dy);
+
+        // A tower that overflows the frame is a wall, not a landmark.
+        expect(
+          height,
+          `${cityId} ${hotspot.asset.entry.id} does not fit its shot`,
+        ).toBeLessThan(visibleHeight(distance));
+      }
+    }
+  });
+
+  it('keeps landmarks at storybook scale', () => {
+    const galata = resolveAsset('city_istanbul_galata_tower', 'high').entry;
+    // The real tower is 67 m. A 32 m model filled the shot with masonry.
+    expect(galata.dimensions[1]).toBe(14);
+    // Still the tallest thing on the street by a wide margin.
+    const lamp = resolveAsset('kit_street_lamp', 'high').entry;
+    expect(galata.dimensions[1] / lamp.dimensions[1]).toBeGreaterThan(2.5);
+  });
+
+  it('moves the camera back only for the objects that need it', () => {
+    const scene = buildScene(loadComposedCity('istanbul'), 'high');
+    const distances = scene.hotspots.map((hotspot) =>
+      Math.hypot(
+        hotspot.camera.position[0] - hotspot.position[0],
+        hotspot.camera.position[2] - hotspot.position[2],
+      ),
+    );
+    // A simit cart is met close up; a tower is not.
+    expect(Math.min(...distances)).toBeLessThan(8);
+    expect(Math.max(...distances)).toBeGreaterThan(15);
+  });
+});

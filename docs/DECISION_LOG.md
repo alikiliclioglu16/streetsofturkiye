@@ -480,3 +480,28 @@ black canyon. Strength is now 1.6 and mortar sits at 62%.
 A cobbled street has shallow relief. The texture is meant to say "paving", not
 to be looked at.
 
+## D-050 — Landmarks are at storybook scale (28 Jul 2026)
+
+Galata Tower is 4 × 4 × 14 m in the manifest, not 9 × 9 × 32. The real tower is
+67 m; a 32 m model filled the stop camera with masonry and the child never saw a
+tower at all.
+
+At 14 m it is still the tallest thing on the street by a wide margin — eight
+times the guide and nearly three times a street lamp — and all of it fits in one
+shot. This is children's-book proportion, not a mistake about İstanbul, and the
+source prototype drew its landmarks the same way.
+
+## D-051 — The stop camera is derived from the object (28 Jul 2026)
+
+A fixed camera distance cannot frame both a 2.2 m simit cart and a 14 m tower.
+At the old fixed 5.65 m only 5.3 m of height was visible, so even at storybook
+scale the tower would have overflowed.
+
+Each stop's camera distance now comes from its object's height, framing it to
+about 85% of frame height: 5.8 m for the tile panel and the cart, 6.9 m for the
+bazaar, 8.3 m for the ferry, 19.9 m for the tower. A test checks that every stop
+object in every city fits inside its own shot.
+
+The guide is small in a landmark shot. That is what looking up at a landmark is,
+and it lasts only while the stop is open.
+
