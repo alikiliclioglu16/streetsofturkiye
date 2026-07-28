@@ -670,3 +670,43 @@ describe('İstanbul is fully dressed', () => {
     }
   });
 });
+
+describe('the street kit is complete', () => {
+  const KIT = [
+    'kit_street_lamp',
+    'kit_bench',
+    'kit_planter_cypress',
+    'kit_market_stall',
+    'kit_crates',
+    'kit_street_cat',
+  ];
+
+  it('has every piece the brief listed', () => {
+    const registered = deliveredProps().map((prop) => prop.id);
+    for (const id of KIT) {
+      expect(registered, id).toContain(id);
+    }
+  });
+
+  it('holds the whole kit inside one download budget', () => {
+    // Six shared props go to all 81 provinces, so their total is what a child
+    // waits for on every street, not just this one.
+    const total = deliveredProps()
+      .filter((prop) => KIT.includes(prop.id))
+      .reduce((sum, prop) => sum + prop.transferBytes, 0);
+    expect(total / (1024 * 1024)).toBeLessThan(6);
+  });
+
+  it('places stalls and crates where a market would spill out', () => {
+    const scene = buildScene(loadComposedCity('istanbul'), 'high');
+    const market = scene.props.filter((prop) =>
+      ['kit_market_stall', 'kit_crates'].includes(prop.asset.entry.id),
+    );
+    expect(market.length).toBeGreaterThanOrEqual(4);
+
+    // Clustered around the middle of the street rather than spread evenly.
+    const depths = market.map((prop) => prop.position[2]);
+    const spread = Math.max(...depths) - Math.min(...depths);
+    expect(spread).toBeLessThan(30);
+  });
+});

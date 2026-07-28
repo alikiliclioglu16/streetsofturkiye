@@ -617,3 +617,14 @@ per slot rather than uniform:
 The planter takes the smaller pair because it is a `kit_` prop and its cost is
 paid in all 81 provinces.
 
+## D-058 — The registry is checked against the files (28 Jul 2026)
+
+Two props were registered twice, and the older copy carried a checksum from a
+superseded compression. Nothing failed: the app read whichever entry came first
+and a stale checksum looked exactly like a verified one.
+
+Three tests now bind the registry to disk — every delivered file exists, its
+byte count matches, its SHA-256 matches, and no id is registered twice. A
+checksum that is not checked is worse than no checksum, because it reads as
+evidence.
+

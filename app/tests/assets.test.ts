@@ -160,3 +160,33 @@ describe('delivered street props', () => {
     }
   });
 });
+
+describe('the registry tells the truth about the files', () => {
+  it('records the byte count each delivered file actually has', async () => {
+    // Two entries once drifted from disk after a re-compression, and a stale
+    // checksum is worse than none: it looks like a verification.
+    const { statSync, existsSync } = await import('node:fs');
+    const path = await import('node:path');
+    for (const prop of deliveredProps()) {
+      const file = path.resolve(process.cwd(), 'public', prop.modelUrl.replace(/^\//, ''));
+      expect(existsSync(file), prop.id).toBe(true);
+      expect(statSync(file).size, prop.id).toBe(prop.transferBytes);
+    }
+  });
+
+  it('records a checksum that matches the file', async () => {
+    const { readFileSync } = await import('node:fs');
+    const { createHash } = await import('node:crypto');
+    const path = await import('node:path');
+    for (const prop of deliveredProps()) {
+      const file = path.resolve(process.cwd(), 'public', prop.modelUrl.replace(/^\//, ''));
+      const sha = createHash('sha256').update(readFileSync(file)).digest('hex');
+      expect(sha, prop.id).toBe(prop.checksum);
+    }
+  });
+
+  it('registers each asset id exactly once', () => {
+    const ids = deliveredProps().map((prop) => prop.id);
+    expect(new Set(ids).size).toBe(ids.length);
+  });
+});

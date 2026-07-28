@@ -115,10 +115,10 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
     modelUrl: '/assets/props/kit_crates.glb',
     checksum: '7f181f1cd132f16e1f23d1ac0cf2599b91a730b5fb805790f6645f5e562e240e',
     triangles: 3_755,
-    transferBytes: 648088,
+    transferBytes: 648_088,
     dimensions: [1.29, 1.0, 1.19],
     label: 'Crates and barrel',
-    color: '#9B7B4E',
+    color: '#9A7B4F',
     placeholder: 'box',
     scaleToBrief: true,
     notes: 'Shared kit prop: 8.49 MB down to 0.62 MB at a 1024 colour map and 512 for the rest.',
@@ -126,18 +126,18 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
   {
     id: 'kit_market_stall',
     modelUrl: '/assets/props/kit_market_stall.glb',
-    checksum: 'e70d71d66bbf7c22f065f52968eebd54f6acdc537179cf41237d09ae11a4d6be',
+    checksum: '76a498f4039b367aa17ca97c3aef4c599ec31140fc840d5751bb787ef20556d7',
     triangles: 3_851,
-    transferBytes: 482712,
+    transferBytes: 482_760,
     dimensions: [2.25, 2.5, 1.61],
     label: 'Market stall',
-    color: '#B5533F',
+    color: '#B5563C',
     placeholder: 'box',
     scaleToBrief: true,
     notes:
-      'Shared kit prop, empty on purpose: the same stall becomes a spice stall ' +
-      'in Gaziantep and a pottery stall in Nevsehir by what is placed on it. ' +
-      '6.74 MB down to 0.46 MB.',
+      'Shared kit prop, delivered empty on purpose: the same stall becomes a ' +
+      'spice stall in Gaziantep and a pottery stall in Nevşehir by what is ' +
+      'placed on it. 6.74 MB down to 0.46 MB.',
   },
   {
     id: 'kit_planter_cypress',

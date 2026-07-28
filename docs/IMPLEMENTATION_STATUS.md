@@ -114,7 +114,7 @@ app/src/
 npm run lint       → temiz
 npm run typecheck  → temiz (strict, noUncheckedIndexedAccess, `any` yok)
 npm run content:check → 81 il, 249 durak, 84 soru; 1413 kanonik dizgi baseline ile eşleşti
-npm test           → 12 dosya / 223 test geçti (logic + jsdom ui)
+npm test           → 12 dosya / 229 test geçti (logic + jsdom ui)
 npm run build      → başarılı, 4 rota
 npm start          → /map ve /city/istanbul 200
 ```
@@ -367,6 +367,16 @@ konanla değişecek, kendisi değil.
 tetik halkalarının dışında, rota merkez hattından en az 4 m.
 
 Kitin altı parçasının beşi teslim edildi; kedi ayrı kategoride. Kalan: yok.
+
+## 4s. Sokak kiti tamamlandı
+
+`kit_crates` (3.755 üçgen, 8,49 → 0,62 MB) ve `kit_market_stall` (3.851 üçgen, 6,74 → 0,46 MB)
+eklendi. Tezgâh bilinçli olarak boş: aynı model Gaziantep'te baharat, Nevşehir'de çömlek tezgâhı olacak.
+
+Paylaşılan kit artık altı parça ve toplam **5,17 MB** — 81 ilin hepsinde aynı dosyalar.
+
+Kayıt artık diskle bağlanıyor (D-058): her teslim dosyasının varlığı, bayt sayısı ve SHA-256'sı
+test ediliyor, mükerrer kimlik yasak. İki prop iki kez kayıtlıydı ve eskisi geçersiz bir sağlama taşıyordu.
 
 ## 5. Bilinen sınırlar
 
