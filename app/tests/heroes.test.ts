@@ -163,9 +163,27 @@ describe('animation', () => {
     expect(clipForState({ speed: 3, interacting: false, performing: null })).toBe('walk');
     expect(clipForState({ speed: 6, interacting: false, performing: null })).toBe('run');
     expect(clipForState({ speed: 0, interacting: true, performing: null })).toBe('talk');
-    // A one-shot beat outranks locomotion so the guide finishes it.
-    expect(clipForState({ speed: 6, interacting: true, performing: 'dance' })).toBe('dance');
-    expect(clipForState({ speed: 6, interacting: false, performing: 'agree' })).toBe('agree');
+    // A locked performance owns the screen and outranks everything.
+    expect(
+      clipForState({ speed: 6, interacting: true, performing: 'dance', performanceLocked: true }),
+    ).toBe('dance');
+    // An unlocked beat is cosmetic: walking away cancels it.
+    expect(clipForState({ speed: 6, interacting: false, performing: 'agree' })).toBe('run');
+    expect(clipForState({ speed: 3, interacting: false, performing: 'agree' })).toBe('walk');
+    // Standing still, the nod plays.
+    expect(clipForState({ speed: 0, interacting: false, performing: 'agree' })).toBe('agree');
+  });
+
+  it('never leaves the guide gliding in a held pose', () => {
+    // The five-second slide: collect at a stop, walk off immediately.
+    let clip = clipForState({ speed: 0, interacting: false, performing: 'agree' });
+    expect(clip).toBe('agree');
+    clip = clipForState({ speed: 4.2, interacting: false, performing: 'agree' }, clip);
+    expect(clip).toBe('walk');
+  });
+
+  it('caps the nod short enough that it is over before the child moves on', () => {
+    expect(clipDurationCap(heroById('nasreddin-hoca'), 'Agree_Gesture')).toBeLessThanOrEqual(3);
   });
 
   it('never repeats a celebration dance back to back', () => {
@@ -503,7 +521,7 @@ describe('delivered Nasreddin Hodja model', () => {
   });
 
   it('caps the 13 second agree gesture so the panel is not held back', () => {
-    expect(clipDurationCap(hoca, 'Agree_Gesture')).toBe(4);
+    expect(clipDurationCap(hoca, 'Agree_Gesture')).toBe(2.5);
     expect(clipDurationCap(hoca, 'Wave_One_Hand')).toBeNull();
   });
 

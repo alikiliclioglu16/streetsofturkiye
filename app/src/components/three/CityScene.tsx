@@ -22,6 +22,7 @@ interface CitySceneProps {
   heroReady: boolean;
   interacting: boolean;
   performing: HeroClip | null;
+  performanceLocked: boolean;
   framingCelebration: boolean;
   onCelebrationFramed?: () => void;
   onClipFinished?: () => void;
@@ -50,6 +51,7 @@ export function CityScene({
   heroReady,
   interacting,
   performing,
+  performanceLocked,
   framingCelebration,
   onCelebrationFramed,
   onClipFinished,
@@ -165,6 +167,7 @@ export function CityScene({
         heroReady={heroReady}
         interacting={interacting}
         performing={performing}
+        performanceLocked={performanceLocked}
         framingCelebration={framingCelebration}
         onCelebrationFramed={onCelebrationFramed}
         onClipFinished={onClipFinished}

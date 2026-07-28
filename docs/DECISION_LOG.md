@@ -247,3 +247,19 @@ The one-shot clips also stopped clamping. A clamped action holds its weight
 forever and blends into whatever plays next, which is one way to arrive at a
 pose nobody authored.
 
+## D-029 — A nod is cosmetic; a celebration owns the screen (28 Jul 2026)
+
+The guide glided in a held pose for five seconds after every stop. The cause was
+not the animation system: the success nod was written to outrank locomotion, and
+a child collects and walks off immediately, so `Agree_Gesture` blocked the walk
+clip until its own cap expired. Five seconds was exactly the cap plus its fade —
+the number is what identified it.
+
+One-shot beats are now either locked or not. A celebration is locked: input is
+already frozen and the performance is the whole screen. A success nod is not:
+walking cancels it.
+
+The city completion no longer fires a nod at all. It has its own choreography,
+and two systems driving the same clip cancelled each other — which is why no
+celebration ever played.
+

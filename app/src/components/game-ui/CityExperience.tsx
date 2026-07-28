@@ -210,7 +210,9 @@ export function CityExperience({ cityId }: { cityId: string }) {
 
   const finishQuizAnswer = useCallback(async () => {
     const wasLast = quizIndex + 1 >= (city?.quiz.length ?? 0);
-    playSuccessBeat();
+    // Only the intermediate answers get a nod. The last one starts the
+    // celebration, and two systems driving the same clip cancelled each other.
+    if (!wasLast) playSuccessBeat();
     await answerQuiz(true);
     if (!wasLast) return;
     dispatchCelebration({ type: 'CITY_COMPLETED' });
@@ -371,6 +373,7 @@ export function CityExperience({ cityId }: { cityId: string }) {
           heroReady={status === 'ready' && phase !== 'intro'}
           interacting={['active', 'retry', 'success'].includes(interaction.state)}
           performing={performingClip}
+          performanceLocked={celebrationClip !== null}
           framingCelebration={celebration.state === 'framing'}
           onCelebrationFramed={() => dispatchCelebration({ type: 'CAMERA_FRAMED' })}
           onClipFinished={onClipFinished}

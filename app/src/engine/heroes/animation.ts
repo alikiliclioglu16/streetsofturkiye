@@ -10,9 +10,16 @@ export interface HeroMotionState {
   readonly interacting: boolean;
   /**
    * A one-shot clip the choreography is driving — a celebration step or a
-   * success gesture. It outranks locomotion so the guide finishes the beat.
+   * success gesture.
    */
   readonly performing: HeroClip | null;
+  /**
+   * True while the performance owns the screen and input is locked, as during a
+   * city celebration. A success nod is not locked: the child usually walks off
+   * the moment they collect, and a nod that outranks walking left the guide
+   * gliding in a held pose for five seconds.
+   */
+  readonly performanceLocked?: boolean;
 }
 
 /**
@@ -30,11 +37,15 @@ const STOP_THRESHOLD = 0.2;
 const RUN_THRESHOLD = 5.6;
 
 export function clipForState(state: HeroMotionState, previous: HeroClip | null = null): HeroClip {
-  if (state.performing) return state.performing;
-  if (state.interacting) return 'talk';
+  const wasMoving = previous === 'walk' || previous === 'run';
+  const threshold = wasMoving ? STOP_THRESHOLD : WALK_THRESHOLD;
+  const walking = state.speed >= threshold;
+
+  // Walking cancels an unlocked beat. A locked one is the whole screen.
+  if (state.performing && (state.performanceLocked || !walking)) return state.performing;
+  if (state.interacting && !walking) return 'talk';
   if (state.speed >= RUN_THRESHOLD) return 'run';
-  const moving = previous === 'walk' || previous === 'run';
-  if (state.speed >= (moving ? STOP_THRESHOLD : WALK_THRESHOLD)) return 'walk';
+  if (walking) return 'walk';
   return 'idle';
 }
 

@@ -187,11 +187,12 @@ const HEROES: Readonly<Record<HeroId, HeroDefinition>> = {
         Clapping_Run: 'not aligned with the character tone',
       },
       /**
-       * The raw agree gesture runs 13.0 s of continuous motion, which would
-       * hold the completion panel back for 17 s. Capped for the completion
-       * sequence; remove this entry to play it in full.
+       * The raw agree gesture runs 13.0 s of continuous motion. Left uncapped
+       * it held the completion panel back for 17 s, and as a per-stop nod it
+       * kept the guide in a held pose while the child was already walking.
+       * Remove this entry to play it in full.
        */
-      maxDurationSeconds: { Agree_Gesture: 4 },
+      maxDurationSeconds: { Agree_Gesture: 2.5 },
       deliveredClips: [
         'Agree_Gesture',
         'Clapping_Run',

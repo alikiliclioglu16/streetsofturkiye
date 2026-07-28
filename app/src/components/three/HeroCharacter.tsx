@@ -203,12 +203,15 @@ function HeroModel({
     onMeasured?.(measured);
   }, [model, hero.assetId, hero.id, hero.measuredHeightMeters, onMeasured]);
 
-  const { speed, interacting, performing } = motion;
+  const { speed, interacting, performing, performanceLocked } = motion;
 
   useEffect(() => {
     // Hysteresis needs the clip that is currently playing, which is a ref, so
     // the decision belongs here rather than in the render body.
-    const desiredClip = clipForState({ speed, interacting, performing }, currentClip.current);
+    const desiredClip = clipForState(
+      { speed, interacting, performing, performanceLocked },
+      currentClip.current,
+    );
 
     // A dance replay repeats the same state, so the token forces a re-run.
     if (desiredClip === currentClip.current && !isOneShot(desiredClip)) return;
@@ -276,6 +279,7 @@ function HeroModel({
     speed,
     interacting,
     performing,
+    performanceLocked,
     performanceToken,
     clipsByName,
     mixer,

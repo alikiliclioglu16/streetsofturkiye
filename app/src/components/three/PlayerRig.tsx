@@ -28,6 +28,7 @@ interface PlayerRigProps {
   interacting: boolean;
   /** One-shot clip driven by the choreography, or null. */
   performing: HeroClip | null;
+  performanceLocked: boolean;
   /** True while the camera should frame the guide for a celebration. */
   framingCelebration: boolean;
   onCelebrationFramed?: () => void;
@@ -51,6 +52,7 @@ export function PlayerRig({
   heroReady,
   interacting,
   performing,
+  performanceLocked,
   framingCelebration,
   onCelebrationFramed,
   onClipFinished,
@@ -233,7 +235,7 @@ export function PlayerRig({
         hero={hero}
         profile={profile}
         ready={heroReady}
-        motion={{ speed, interacting, performing }}
+        motion={{ speed, interacting, performing, performanceLocked }}
         performanceToken={performanceToken}
         onClipFinished={onClipFinished}
         onMeasured={onHeroMeasured}
