@@ -1,5 +1,8 @@
 'use client';
 
+/** Vertical field of view. Narrower than the first pass, which framed the guide too small. */
+export const CAMERA_FOV = 50;
+
 import { useRef, type ReactNode } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import type { QualitySettings } from '@/engine/quality/quality';
@@ -58,7 +61,7 @@ export function CityCanvas({ quality, skyColor, children, onPerfSample }: CityCa
     <Canvas
       shadows={quality.heroShadow || quality.shadowMapSize > 512}
       dpr={[1, quality.maxDpr]}
-      camera={{ fov: 55, near: 0.1, far: 220, position: [0, 4, 16] }}
+      camera={{ fov: CAMERA_FOV, near: 0.1, far: 220, position: [0, 2.6, 9] }}
       gl={{ antialias: true, powerPreference: 'high-performance' }}
       onCreated={({ gl }) => {
         gl.setClearColor(skyColor);

@@ -132,13 +132,13 @@
       "triggerRadius": 4.2,
       "camera": {
         "position": [
-          3.2,
-          3,
-          -1.5
+          2.4,
+          2.4,
+          -3
         ],
         "target": [
           0,
-          1.4,
+          1.3,
           -8
         ],
         "durationMs": 900
@@ -184,13 +184,13 @@
       "triggerRadius": 8.5,
       "camera": {
         "position": [
-          8.7,
-          3,
-          -19.5
+          7.9,
+          2.4,
+          -21
         ],
         "target": [
           5.5,
-          1.4,
+          1.3,
           -26
         ],
         "durationMs": 900
@@ -236,13 +236,13 @@
       "triggerRadius": 8,
       "camera": {
         "position": [
-          10,
-          3,
-          -37.5
+          9.2,
+          2.4,
+          -39
         ],
         "target": [
           6.8,
-          1.4,
+          1.3,
           -44
         ],
         "durationMs": 900
@@ -288,13 +288,13 @@
       "triggerRadius": 4.45,
       "camera": {
         "position": [
-          6.2,
-          3,
-          -55.5
+          5.4,
+          2.4,
+          -57
         ],
         "target": [
           3,
-          1.4,
+          1.3,
           -62
         ],
         "durationMs": 900
@@ -340,13 +340,13 @@
       "triggerRadius": 12.5,
       "camera": {
         "position": [
-          0.10000000000000009,
-          3,
-          -73.5
+          -0.7000000000000002,
+          2.4,
+          -75
         ],
         "target": [
           -3.1,
-          1.4,
+          1.3,
           -80
         ],
         "durationMs": 900

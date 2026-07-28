@@ -114,7 +114,7 @@ app/src/
 npm run lint       → temiz
 npm run typecheck  → temiz (strict, noUncheckedIndexedAccess, `any` yok)
 npm run content:check → 81 il, 249 durak, 84 soru; 1413 kanonik dizgi baseline ile eşleşti
-npm test           → 12 dosya / 199 test geçti (logic + jsdom ui)
+npm test           → 12 dosya / 203 test geçti (logic + jsdom ui)
 npm run build      → başarılı, 4 rota
 npm start          → /map ve /city/istanbul 200
 ```
@@ -298,7 +298,7 @@ Voronoi hücreleri, yükseklikten türetilen normal harita. Albedo + normal + ro
 bir kit propundan küçük, üstelik ekranda en çok bakılan yüzey için.
 
 Dokular gri tonlamalı; bölgenin kendi zemin rengi çalışma zamanında tint olarak uygulanıyor,
-yani tek set 81 ilin hepsine yetiyor (D-040). Karo 4 metrede bir tekrarlıyor.
+yani tek set 81 ilin hepsine yetiyor (D-040). Karo 4 metrede bir tekrarlıyor, taşlar 44 cm (D-047).
 
 ## 4m. Çarpışma ve sokak kedisi
 

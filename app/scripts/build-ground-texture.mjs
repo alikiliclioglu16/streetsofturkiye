@@ -25,7 +25,7 @@ import numpy as np
 from PIL import Image
 
 SIZE = 1024
-CELLS = 14          # cobbles across the tile; 4 m repeat gives ~28 cm stones
+CELLS = 9           # cobbles across the tile; a 4 m repeat gives ~44 cm stones
 MORTAR = 0.055      # gap width as a fraction of cell distance
 rng = np.random.default_rng(20260728)
 

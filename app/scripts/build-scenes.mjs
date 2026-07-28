@@ -266,8 +266,10 @@ function buildScene(canonical) {
       collider: { halfWidth, halfDepth },
       triggerRadius,
       camera: {
-        position: [position[0] + 3.2, 3.0, position[2] + 6.5],
-        target: [position[0], 1.4, position[2]],
+        // Matched to the follow camera: closer and lower than the first pass,
+        // so a stop does not suddenly feel further away than the walk to it.
+        position: [position[0] + 2.4, 2.4, position[2] + 5.0],
+        target: [position[0], 1.3, position[2]],
         durationMs: 900,
       },
       /**

@@ -3,6 +3,8 @@ import path from 'node:path';
 import { describe, expect, it } from 'vitest';
 import { blockedBy, stepWithCollision } from '@/engine/controls/movement';
 import { createCatState, randomPause, stepCat } from '@/components/three/StreetCat';
+import { FOLLOW_DISTANCE, FOLLOW_HEIGHT } from '@/engine/camera/anchors';
+import { CAMERA_FOV } from '@/components/three/CityCanvas';
 import { deliveredProps, resolveAsset, trustsModelScale } from '@/engine/assets/registry';
 import { buildScene } from '@/engine/scene/buildScene';
 import { loadComposedCity } from './helpers';
@@ -357,5 +359,51 @@ describe('street cats', () => {
       expect(pause).toBeGreaterThanOrEqual(3);
       expect(pause).toBeLessThanOrEqual(7);
     }
+  });
+});
+
+describe('framing', () => {
+  /** How much of the frame height the guide occupies at the follow camera. */
+  const subjectFraction = (subjectHeight: number) => {
+    const lookAt = 1.4;
+    const rise = FOLLOW_HEIGHT - lookAt;
+    const distance = Math.hypot(FOLLOW_DISTANCE, rise);
+    const visible = 2 * distance * Math.tan((CAMERA_FOV / 2) * (Math.PI / 180));
+    return subjectHeight / visible;
+  };
+
+  it('frames the guide the way a third-person game does', () => {
+    // At the first pass — 7.5 m back, 3.4 m up, 55° — he filled about a fifth
+    // of the frame, and the whole street read as a model on a table.
+    const fraction = subjectFraction(1.65);
+    expect(fraction).toBeGreaterThan(0.25);
+    expect(fraction).toBeLessThan(0.45);
+  });
+
+  it('leaves a 5 m lamp readable in the same shot', () => {
+    // The tallest kit prop must still fit without the camera pulling back.
+    expect(subjectFraction(5.0)).toBeLessThan(1.4);
+  });
+
+  it('gives the cat the size the owner asked for', () => {
+    const cat = deliveredProps().find((prop) => prop.id === 'kit_street_cat')!;
+    expect(cat.dimensions[1]).toBeCloseTo(0.4, 2);
+  });
+
+  it('keeps cobbles large enough to read as paving, not gravel', () => {
+    const generator = readFileSync(
+      path.resolve(process.cwd(), 'scripts/build-ground-texture.mjs'),
+      'utf8',
+    );
+    const cells = Number(/CELLS = (\d+)/.exec(generator)?.[1]);
+    const ground = readFileSync(
+      path.resolve(process.cwd(), 'src/components/three/Ground.tsx'),
+      'utf8',
+    );
+    const tile = Number(/TILE_METRES = (\d+)/.exec(ground)?.[1]);
+    const stone = tile / cells;
+    // Fine repeating detail makes everything standing on it look small.
+    expect(stone).toBeGreaterThan(0.3);
+    expect(stone).toBeLessThan(0.6);
   });
 });

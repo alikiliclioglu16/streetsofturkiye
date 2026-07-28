@@ -2,8 +2,17 @@ import type { Vec3 } from '@/content/schemas/scene';
 
 export const MIN_PITCH = -0.35;
 export const MAX_PITCH = 0.45;
-export const FOLLOW_DISTANCE = 7.5;
-export const FOLLOW_HEIGHT = 3.4;
+/**
+ * Follow camera framing.
+ *
+ * At 7.5 m back and 3.4 m up with a 55° field of view, the guide filled about
+ * a fifth of the frame — the whole street read as a model seen from across a
+ * room, and everything in it looked small even though every object was the
+ * size it claimed. Third-person framing usually puts the character at a
+ * quarter to two fifths of frame height; this sits at about a third.
+ */
+export const FOLLOW_DISTANCE = 5.2;
+export const FOLLOW_HEIGHT = 2.3;
 
 /**
  * How fast a dragged camera swings back behind the guide once he moves.

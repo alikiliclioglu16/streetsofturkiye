@@ -59,7 +59,7 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
     checksum: 'b2fecf801593c57ecdb20994f7c420ce7cdde9feb32d068b2ce192409cb6e387',
     triangles: 19_303,
     transferBytes: 1_013_936,
-    dimensions: [0.25, 0.32, 0.6],
+    dimensions: [0.3, 0.4, 0.7],
     label: 'Street cat',
     color: '#B8A48A',
     placeholder: 'box',

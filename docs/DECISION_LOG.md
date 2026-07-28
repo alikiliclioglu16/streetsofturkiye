@@ -433,3 +433,24 @@ in unison like a parade.
 Cost: five cats add about 96,000 triangles, roughly half the guide. Worth
 knowing before a sixth is added.
 
+## D-046 — The camera comes in (28 Jul 2026)
+
+Every object in the street was the size it claimed and the whole scene still
+read as a model seen from across a room. The cause was framing, not scale: at
+7.5 m back, 3.4 m up and a 55° field of view, a 1.65 m guide filled about a
+fifth of the frame. Third-person framing usually puts the character between a
+quarter and two fifths of frame height.
+
+Now 5.2 m back, 2.3 m up, 50° — about a third. Stop camera anchors moved in to
+match, so arriving at a stop does not suddenly feel further away than the walk
+to it.
+
+## D-047 — Cobbles are 44 cm, not 28 (28 Jul 2026)
+
+Fine repeating detail makes a surface look large and everything standing on it
+look small. Realistic 28 cm cobbles worked against the sense of scale the
+camera change was trying to restore, so the generator lays 9 stones per 4 m
+tile instead of 14.
+
+Larger than a real cobble, and correct for a game a six-year-old is looking at.
+
