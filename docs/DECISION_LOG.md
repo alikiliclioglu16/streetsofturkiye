@@ -263,3 +263,30 @@ The city completion no longer fires a nod at all. It has its own choreography,
 and two systems driving the same clip cancelled each other — which is why no
 celebration ever played.
 
+## D-030 — Stops do not applaud (28 Jul 2026)
+
+The per-stop success nod is removed entirely. A stop presents its place and
+hands over the collectible; that is the whole beat. The nod was never asked for,
+it delayed the walk, and it was the cause of the guide gliding in a held pose.
+
+## D-031 — The celebration runs on time, not on reports (28 Jul 2026)
+
+The completion sequence advanced when the camera reported it had arrived and
+when the mixer reported a clip had ended. Both reports can simply not arrive —
+a placeholder guide has no mixer at all — and three attempts to fix the
+resulting stall failed because each one added another report to trust.
+
+It now runs on a clock: 0.9 s to frame, 2.6 s per beat. The clips still play,
+but nothing waits for them. Worst case for a child is under seven seconds to
+the summary panel, whatever the 3D layer does.
+
+## D-032 — The street kit is shared across all 81 provinces (28 Jul 2026)
+
+Lamps, benches, planters, crates, stalls and cats are one model each for the
+whole country; regional character comes from material and from what is placed on
+them. Only the five stop objects are İstanbul-specific.
+
+A kit per province would be roughly 400 models. Sharing them is roughly 60. A
+child does not notice that Trabzon's bench is Konya's bench; they notice whether
+the street has benches.
+

@@ -29,6 +29,8 @@ import {
 } from '@/engine/heroes/heroCache';
 import { createShuffleBag, draw } from '@/engine/heroes/danceBag';
 import {
+  BEAT_MS,
+  FRAMING_MS,
   celebrationCamera,
   celebrationPlan,
   celebrationReducer,
@@ -470,9 +472,12 @@ describe('per-character celebration policy', () => {
     expect(ctx.state).toBe('summary');
   });
 
-  it('nods on success only for the guide whose policy says so', () => {
-    expect(hoca.successClip).toBe('agree');
-    expect(keloglan.successClip).toBeNull();
+  it('keeps every celebration beat short enough for a child to sit through', () => {
+    // Time-driven, not event-driven: nothing waits on a report that may not come.
+    expect(FRAMING_MS).toBeLessThan(1_500);
+    expect(BEAT_MS).toBeLessThan(4_000);
+    const longest = FRAMING_MS + BEAT_MS * Math.max(...allHeroes().map((h) => celebrationPlan(h).length));
+    expect(longest).toBeLessThan(7_000);
   });
 });
 

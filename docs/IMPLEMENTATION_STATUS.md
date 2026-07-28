@@ -273,6 +273,11 @@ Ayrıntı: `docs/HERO_RENDER_BUGFIX_REPORT.md`.
 | Karşılama ekranı prototipteki gibi değil | ✅ metin kaynaktan çıkarıldı (D-024) |
 | Harita gerçek Türkiye haritası değil | ✅ kara parçası ve izdüşüm kaynaktan (D-024) |
 
+## 4j. Varlık üretimi
+
+`docs/ISTANBUL_ASSET_SPEC.md` teknik şartname, `docs/MESHY_PRODUCTION_PACK_1.md` Meshy'ye hazır 11 istem.
+Sokak kiti 81 ilde ortak (D-032): İstanbul'a özel 5 nesne, geri kalan 6 parça her şehirde aynı.
+
 ## 5. Bilinen sınırlar
 
 1. **Ses yok.** Ayar kanalları (ortam / arayüz / rehber) ve durumları var, çalan bir ses yok. Faz 02'de `ambientAudioId` bağlanacak.

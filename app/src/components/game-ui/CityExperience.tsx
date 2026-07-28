@@ -10,18 +10,16 @@ import type { HeroStatus } from '@/components/three/HeroCharacter';
 import { onCityUnmount } from '@/engine/heroes/heroCache';
 import { heroForGuide, isDelivered, type HeroId } from '@/engine/heroes/registry';
 import {
+  BEAT_MS,
+  FRAMING_MS,
   celebrationPlan,
   celebrationReducer,
   currentCelebrationClip,
   initialCelebration,
   type CelebrationContext,
 } from '@/engine/heroes/celebration';
-import { allowsCelebrationReplay, clipDurationCap, resolveClipName } from '@/engine/heroes/registry';
-import {
-  CAMERA_SETTLE_TIMEOUT_MS,
-  CELEBRATION_TIMEOUT_MS,
-  clipTimeoutFor,
-} from '@/engine/heroes/watchdog';
+import { allowsCelebrationReplay } from '@/engine/heroes/registry';
+import { CAMERA_SETTLE_TIMEOUT_MS, CELEBRATION_TIMEOUT_MS } from '@/engine/heroes/watchdog';
 import { useClientEnvironment } from '@/engine/quality/useEnvironment';
 import { hotspotById } from '@/engine/interactions/machine';
 import { useKeyboardControls } from '@/engine/controls/inputState';
@@ -115,9 +113,6 @@ export function CityExperience({ cityId }: { cityId: string }) {
   }, []);
   const [celebration, setCelebration] = useState<CelebrationContext>(initialCelebration);
   const [performanceToken, setPerformanceToken] = useState(0);
-  /** A short one-shot beat after a stop or a correct answer, e.g. an approving nod. */
-  const [successBeat, setSuccessBeat] = useState(0);
-  const [successPending, setSuccessPending] = useState(false);
   const [loadingExpired, setLoadingExpired] = useState(false);
 
   /**
@@ -202,30 +197,20 @@ export function CityExperience({ cityId }: { cityId: string }) {
    * celebration. Progress is written first and awaited, so a dance that never
    * finishes cannot cost the child the province star.
    */
-  const playSuccessBeat = useCallback(() => {
-    if (!activeHero.successClip) return;
-    setSuccessPending(true);
-    setSuccessBeat((token) => token + 1);
-  }, [activeHero.successClip]);
-
   const finishQuizAnswer = useCallback(async () => {
     const wasLast = quizIndex + 1 >= (city?.quiz.length ?? 0);
-    // Only the intermediate answers get a nod. The last one starts the
-    // celebration, and two systems driving the same clip cancelled each other.
-    if (!wasLast) playSuccessBeat();
     await answerQuiz(true);
     if (!wasLast) return;
     dispatchCelebration({ type: 'CITY_COMPLETED' });
     dispatchCelebration({ type: 'PROGRESS_SAVED' });
-  }, [answerQuiz, city?.quiz.length, quizIndex, dispatchCelebration, playSuccessBeat]);
+  }, [answerQuiz, city?.quiz.length, quizIndex, dispatchCelebration]);
 
   /**
-   * What the guide is performing right now: a celebration step, or the short
-   * success beat after a stop or a correct answer. Both are one-shot.
+   * The only one-shot the guide performs is the city celebration. Stops present
+   * and hand over the collectible; they do not applaud.
    */
   const celebrationClip = currentCelebrationClip(celebration, plan);
-  const performingClip =
-    celebrationClip ?? (successPending ? (activeHero.successClip ?? null) : null);
+  const performingClip = celebrationClip;
 
   // A real progress state, so the player never stares at an empty canvas.
   const heroLoadingRaw =
@@ -241,14 +226,6 @@ export function CityExperience({ cityId }: { cityId: string }) {
     const timer = window.setTimeout(() => setLoadingExpired(true), 15_000);
     return () => window.clearTimeout(timer);
   }, [heroLoadingRaw, cityId]);
-
-  const onClipFinished = useCallback(() => {
-    if (celebration.state === 'performing') {
-      dispatchCelebration({ type: 'CLIP_FINISHED' });
-      return;
-    }
-    setSuccessPending(false);
-  }, [celebration.state, dispatchCelebration]);
 
   /**
    * Watchdog: the camera reports when it reaches the hotspot anchor. If that
@@ -270,14 +247,11 @@ export function CityExperience({ cityId }: { cityId: string }) {
    */
   useEffect(() => {
     if (celebration.state !== 'performing') return;
-    const clip = currentCelebrationClip(celebration, plan);
-    const clipName = clip ? resolveClipName(activeHero, clip) : null;
-    const budget = clipName ? clipTimeoutFor(clipDurationCap(activeHero, clipName)) : 1_000;
     const timer = window.setTimeout(() => {
       dispatchCelebration({ type: 'CLIP_FINISHED' });
-    }, budget);
+    }, BEAT_MS);
     return () => window.clearTimeout(timer);
-  }, [celebration, plan, activeHero, dispatchCelebration]);
+  }, [celebration.state, celebration.step, dispatchCelebration]);
 
   /**
    * The camera reports when it has framed the guide. If that report is late or
@@ -289,7 +263,7 @@ export function CityExperience({ cityId }: { cityId: string }) {
     if (celebration.state !== 'framing') return;
     const timer = window.setTimeout(() => {
       dispatchCelebration({ type: 'CAMERA_FRAMED' });
-    }, CAMERA_SETTLE_TIMEOUT_MS);
+    }, FRAMING_MS);
     return () => window.clearTimeout(timer);
   }, [celebration.state, dispatchCelebration]);
 
@@ -302,23 +276,15 @@ export function CityExperience({ cityId }: { cityId: string }) {
     return () => window.clearTimeout(timer);
   }, [celebration.state, dispatchCelebration]);
 
-  /** The success nod is cosmetic; never let a missing mixer strand it. */
-  useEffect(() => {
-    if (!successPending) return;
-    const timer = window.setTimeout(() => setSuccessPending(false), clipTimeoutFor(null));
-    return () => window.clearTimeout(timer);
-  }, [successPending, successBeat]);
-
   /**
    * Collecting is the whole interaction: read, take the item, walk on. The
    * machine still passes through its states so progress and the guide's nod
    * stay in step, but the player only ever sees one panel.
    */
   const collectFromStop = useCallback(() => {
-    playSuccessBeat();
     dispatchInteraction({ type: 'ANSWER', correct: true });
     void claimReward().then(() => dispatchInteraction({ type: 'DISMISS' }));
-  }, [playSuccessBeat, dispatchInteraction, claimReward]);
+  }, [dispatchInteraction, claimReward]);
 
   const onFocusSettled = useCallback(() => {
     dispatchInteraction({ type: 'CAMERA_SETTLED' });
@@ -376,8 +342,7 @@ export function CityExperience({ cityId }: { cityId: string }) {
           performanceLocked={celebrationClip !== null}
           framingCelebration={celebration.state === 'framing'}
           onCelebrationFramed={() => dispatchCelebration({ type: 'CAMERA_FRAMED' })}
-          onClipFinished={onClipFinished}
-          performanceToken={performanceToken + successBeat}
+          performanceToken={performanceToken}
           onHeroStatus={setHeroStatus}
           onHeroMeasured={setHeroHeight}
           onHeroDrawCount={setHeroDraws}

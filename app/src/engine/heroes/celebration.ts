@@ -36,6 +36,18 @@ export interface CelebrationOptions {
   readonly planLength: number;
 }
 
+/**
+ * How long each beat lasts.
+ *
+ * The sequence used to advance when the camera reported it had arrived and when
+ * the mixer reported a clip had ended. Both reports can fail to arrive — a
+ * placeholder guide has no mixer at all — and then the child waited through a
+ * timeout for a celebration that never played. Time is something the engine
+ * always has.
+ */
+export const FRAMING_MS = 900;
+export const BEAT_MS = 2_600;
+
 export const initialCelebration: CelebrationContext = {
   state: 'idle',
   inputLocked: false,
