@@ -4,6 +4,46 @@ import { assetUrl } from '@/engine/assets/assetHost';
 export type QualityTier = 'low' | 'medium' | 'high';
 export type PlaceholderShape = ManifestFallbackShape;
 
+/**
+ * Props delivered outside the Meshy pilot manifest.
+ *
+ * `asset-manifests/pilot-assets.csv` is the brief for the three pilot cities and
+ * is not a record of what has shipped. Reusable street props live here, with
+ * measurements taken from the delivered file rather than from its delivery note.
+ */
+export interface DeliveredProp {
+  readonly id: string;
+  readonly modelUrl: string;
+  readonly checksum: string;
+  readonly triangles: number;
+  readonly transferBytes: number;
+  /** Width, height, depth of the delivered model, in metres. */
+  readonly dimensions: readonly [number, number, number];
+  readonly label: string;
+  readonly color: string;
+  readonly placeholder: PlaceholderShape;
+  readonly notes?: string;
+}
+
+const DELIVERED_PROPS: readonly DeliveredProp[] = [
+  {
+    id: 'kit_street_lamp',
+    modelUrl: '/assets/props/kit_street_lamp.glb',
+    checksum: 'a2b7538ddaef45d19075609960dadcde534860ea8b50ee975600b66cd4acdb15',
+    triangles: 1_834,
+    transferBytes: 8_768_808,
+    dimensions: [0.75, 3.0, 0.66],
+    label: 'Street lamp',
+    color: '#3B4A42',
+    placeholder: 'cylinder',
+    notes: 'Pivot centred vertically; the engine ground-aligns it on load.',
+  },
+];
+
+export function deliveredProps(): readonly DeliveredProp[] {
+  return DELIVERED_PROPS;
+}
+
 export interface AssetEntry {
   /** Logical id used by content. Components never reference file paths directly. */
   readonly id: string;
@@ -15,6 +55,14 @@ export interface AssetEntry {
   readonly dimensions: readonly [number, number, number];
   readonly color: string;
   readonly label: string;
+  /**
+   * Lift the model so its lowest point rests on y = 0.
+   *
+   * Meshy centres a model's origin as often as it grounds it. Measuring the
+   * mounted model is more reliable than trusting the export or a hand-written
+   * offset, and it costs nothing when the pivot is already correct.
+   */
+  readonly groundAlign: boolean;
   readonly manifest: ManifestEntry;
 }
 
@@ -71,6 +119,29 @@ const TIER_COLOR: Readonly<Record<string, string>> = {
   system: '#3EC6C9',
 };
 
+function propToEntry(prop: DeliveredProp): AssetEntry {
+  return {
+    id: prop.id,
+    models: { low: prop.modelUrl, medium: prop.modelUrl, high: prop.modelUrl },
+    placeholder: prop.placeholder,
+    dimensions: prop.dimensions,
+    color: prop.color,
+    label: prop.label,
+    groundAlign: true,
+    manifest: {
+      id: prop.id,
+      kind: 'model',
+      tier: 'midground',
+      status: 'delivered',
+      dimensions: prop.dimensions,
+      triangleBudget: prop.triangles,
+      textureBudget: null,
+      fallbackShape: prop.placeholder,
+      notes: prop.notes ?? '',
+    },
+  };
+}
+
 function toAssetEntry(manifest: ManifestEntry): AssetEntry {
   const presentation = PRESENTATION[manifest.id];
   const models = MODELS[manifest.id];
@@ -81,11 +152,15 @@ function toAssetEntry(manifest: ManifestEntry): AssetEntry {
     dimensions: manifest.dimensions,
     color: presentation?.color ?? TIER_COLOR[manifest.tier] ?? '#9AA5B1',
     label: presentation?.label ?? manifest.id,
+    groundAlign: false,
     manifest,
   };
 }
 
-const BY_ID = new Map(MANIFEST_ENTRIES.map((entry) => [entry.id, toAssetEntry(entry)]));
+const BY_ID = new Map<string, AssetEntry>([
+  ...MANIFEST_ENTRIES.map((entry): [string, AssetEntry] => [entry.id, toAssetEntry(entry)]),
+  ...DELIVERED_PROPS.map((prop): [string, AssetEntry] => [prop.id, propToEntry(prop)]),
+]);
 
 /**
  * Environment kits are referenced by content as `marmara-urban-coastal` while
@@ -148,6 +223,7 @@ function grayboxEntry(id: string): AssetEntry {
     dimensions: isCollectible ? [0.22, 0.22, 0.22] : shape.dimensions,
     color: isCollectible ? '#F2B233' : '#A89880',
     label: key.replace(/_/g, ' '),
+    groundAlign: false,
     manifest: {
       id,
       kind: 'model',
@@ -174,6 +250,7 @@ function unknownEntry(id: string): AssetEntry {
     dimensions: [1, 1, 1],
     color: '#E0322F',
     label: `Eksik varlık: ${id}`,
+    groundAlign: false,
     manifest: {
       id,
       kind: 'unknown',

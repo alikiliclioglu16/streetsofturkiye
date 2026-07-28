@@ -31,8 +31,23 @@ export interface SceneSky {
   readonly horizon: string;
 }
 
+export interface ScenePropInstance {
+  readonly key: string;
+  readonly asset: ResolvedAsset;
+  readonly position: Vec3;
+  readonly rotationY: number;
+}
+
+export interface ScenePropInstance {
+  readonly key: string;
+  readonly asset: ResolvedAsset;
+  readonly position: Vec3;
+  readonly rotationY: number;
+}
+
 export interface SceneDescription {
   readonly cityId: string;
+  readonly props: readonly ScenePropInstance[];
   readonly sky: SceneSky;
   readonly colliders: readonly RectCollider[];
   readonly hotspots: readonly SceneHotspot[];
@@ -88,7 +103,14 @@ export function buildScene(city: CityDefinition, quality: QualityTier): SceneDes
   const rewards = city.rewards.collectibleAssetIds.map((assetId: string) => resolveAsset(assetId, quality));
 
   // Every asset the city touches is checked, not just the hotspot models.
-  const unknownAssetIds = [...hotspots.map((h) => h.asset), kit, guide, routeMarker, ...rewards]
+  const unknownAssetIds = [
+    ...hotspots.map((h) => h.asset),
+    ...city.props.map((prop) => resolveAsset(prop.assetId, quality)),
+    kit,
+    guide,
+    routeMarker,
+    ...rewards,
+  ]
     .filter((asset) => asset.isUnknown)
     .map((asset) => asset.entry.id);
 
@@ -99,8 +121,16 @@ export function buildScene(city: CityDefinition, quality: QualityTier): SceneDes
     halfDepth: hotspot.collider.halfDepth,
   }));
 
+  const props: ScenePropInstance[] = city.props.map((prop, index) => ({
+    key: `${prop.assetId}-${index}`,
+    asset: resolveAsset(prop.assetId, quality),
+    position: prop.position,
+    rotationY: prop.rotationY,
+  }));
+
   return {
     cityId: city.id,
+    props,
     colliders,
     hotspots,
     routePoints: city.route.points,

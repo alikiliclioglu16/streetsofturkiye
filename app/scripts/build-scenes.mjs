@@ -107,6 +107,43 @@ function geometryFor(assetId, artType) {
   return { halfWidth, halfDepth, approach, triggerRadius };
 }
 
+/**
+ * Street dressing.
+ *
+ * Deliberately sparse: this is a visual fit test for the first delivered prop,
+ * not final set dressing. Lamps stand at the pavement edge, offset from the
+ * walking line so a child never has to walk around one, and placed against the
+ * three areas worth judging the fit by: the bazaar, the tower, and open street.
+ */
+function streetProps(cityId, stopPositions, geometry) {
+  if (cityId !== 'istanbul') return [];
+
+  const lamp = (x, z, rotationY, note) => ({
+    assetId: 'kit_street_lamp',
+    position: [x, 0, z],
+    rotationY,
+    note,
+  });
+
+  const candidates = [
+    lamp(-9, -14, Math.PI / 2, 'pedestrian edge near the start of the walk'),
+    lamp(16, -26, -Math.PI / 2, 'open walkway beside the tall landmark'),
+    lamp(-9, -35, Math.PI / 2, 'street edge, mid-walk'),
+    lamp(11, -62, -Math.PI / 2, 'street edge near the food stop, opposite side'),
+  ];
+
+  /**
+   * A lamp inside a trigger ring stands in the shot the moment that stop opens,
+   * so every placement is checked against every ring rather than eyeballed.
+   */
+  return candidates.filter((prop) =>
+    stopPositions.every((stop, index) => {
+      const gap = Math.hypot(prop.position[0] - stop[0], prop.position[2] - stop[2]);
+      return gap > geometry[index].triggerRadius;
+    }),
+  );
+}
+
 /** Deterministic S-curve layout; the same city always lays out identically. */
 function layout(stopCount, approaches) {
   const spacing = STOP_SPACING;
@@ -204,6 +241,7 @@ function buildScene(canonical) {
     route: { mode: 'guided-loop', points: route, bounds },
     intro: { cameraSequenceId: null, skippable: true },
     hotspots,
+    props: streetProps(canonical.id, stopPositions, geometry),
     quizPresentation: { shuffleOptions: true },
     rewards: {
       cityStarId: `star_${canonical.id}`,

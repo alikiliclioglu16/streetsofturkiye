@@ -5,6 +5,7 @@ import { describe, expect, it } from 'vitest';
 import {
   isModelAsset,
   kitAssetId,
+  deliveredProps,
   knownAssetIds,
   manifestEntries,
   resolveAsset,
@@ -35,7 +36,11 @@ describe('asset registry alignment', () => {
   it('covers every row of the manifest', () => {
     const csvIds = manifestIdsFromCsv();
     expect(csvIds).toHaveLength(25);
-    expect([...knownAssetIds()].sort()).toEqual([...csvIds].sort());
+    // Delivered street props are registered separately; the manifest is the
+    // brief for the pilot cities' commissioned art.
+    const propIds = new Set(deliveredProps().map((prop) => prop.id));
+    const fromManifest = [...knownAssetIds()].filter((id) => !propIds.has(id));
+    expect(fromManifest.sort()).toEqual([...csvIds].sort());
   });
 
   it('keeps the generated manifest in step with the CSV', () => {
@@ -82,10 +87,70 @@ describe('asset registry alignment', () => {
   });
 
   it('falls back to placeholder geometry while no GLB is delivered', () => {
+    const propIds = new Set(deliveredProps().map((prop) => prop.id));
     for (const id of knownAssetIds()) {
+      if (propIds.has(id)) continue; // delivered, so it has a model
       const resolved = resolveAsset(id, 'medium');
       expect(resolved.modelUrl, id).toBeNull();
       expect(resolved.isPlaceholder, id).toBe(true);
+    }
+  });
+});
+
+describe('delivered street props', () => {
+  const lamp = deliveredProps().find((prop) => prop.id === 'kit_street_lamp');
+
+  it('registers the lamp with the measurements taken from the file', () => {
+    expect(lamp).toBeDefined();
+    expect(lamp!.triangles).toBe(1_834);
+    expect(lamp!.transferBytes).toBe(8_768_808);
+    expect(lamp!.dimensions).toEqual([0.75, 3.0, 0.66]);
+    expect(lamp!.checksum).toHaveLength(64);
+  });
+
+  it('resolves through the same registry as everything else', () => {
+    const resolved = resolveAsset('kit_street_lamp', 'high');
+    expect(resolved.isUnknown).toBe(false);
+    // Delivered, so it renders a model rather than a placeholder.
+    expect(resolved.isPlaceholder).toBe(false);
+    expect(resolved.modelUrl).toBe('/assets/props/kit_street_lamp.glb');
+  });
+
+  it('is ground-aligned, because its pivot is centred', () => {
+    // The file's base sits 1.5 m below its origin; placing it at y = 0 unaided
+    // would bury half the post.
+    expect(resolveAsset('kit_street_lamp', 'high').entry.groundAlign).toBe(true);
+    // Commissioned city art is authored grounded and must not be moved.
+    expect(resolveAsset('city_istanbul_galata_tower', 'high').entry.groundAlign).toBe(false);
+  });
+
+  it('stands lamps clear of the walk and of every solid object', () => {
+    const city = loadComposedCity('istanbul');
+    const scene = buildScene(city, 'high');
+    expect(scene.props.length).toBeGreaterThanOrEqual(3);
+    expect(scene.props.length).toBeLessThanOrEqual(5);
+
+    for (const prop of scene.props) {
+      const [x, , z] = prop.position;
+      for (const hotspot of city.hotspots) {
+        const gap = Math.hypot(x - hotspot.transform.position[0], z - hotspot.transform.position[2]);
+        expect(gap, `${prop.key} overlaps stop ${hotspot.order}`).toBeGreaterThan(
+          hotspot.collider.halfWidth,
+        );
+      }
+      // Inside the play area, or the child sees a lamp they can never reach.
+      const xs = city.route.bounds.map((b) => b[0]);
+      const zs = city.route.bounds.map((b) => b[2]);
+      expect(x).toBeGreaterThan(Math.min(...xs));
+      expect(x).toBeLessThan(Math.max(...xs));
+      expect(z).toBeGreaterThan(Math.min(...zs));
+      expect(z).toBeLessThan(Math.max(...zs));
+    }
+  });
+
+  it('adds no props to cities that are not being dressed yet', () => {
+    for (const cityId of ['nevsehir', 'gaziantep']) {
+      expect(buildScene(loadComposedCity(cityId), 'high').props).toEqual([]);
     }
   });
 });

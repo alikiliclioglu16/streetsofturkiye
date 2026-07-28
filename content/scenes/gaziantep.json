@@ -246,6 +246,7 @@
       }
     }
   ],
+  "props": [],
   "quizPresentation": {
     "shuffleOptions": true
   },

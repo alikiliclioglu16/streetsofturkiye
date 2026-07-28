@@ -5,6 +5,7 @@ import type { SceneDescription } from '@/engine/scene/buildScene';
 import type { QualitySettings } from '@/engine/quality/quality';
 import type { HeroStatus } from '@/components/three/HeroCharacter';
 import type { HeroClip } from '@/engine/heroes/registry';
+import { AssetInstance } from '@/components/three/AssetInstance';
 import { HotspotObject } from '@/components/three/HotspotObject';
 import { PlayerRig } from '@/components/three/PlayerRig';
 
@@ -136,6 +137,13 @@ export function CityScene({
         </mesh>
       ))}
 
+      {/* Street dressing: static, no state, no interaction. */}
+      {scene.props.map((prop) => (
+        <group key={prop.key} position={prop.position} rotation={[0, prop.rotationY, 0]}>
+          <AssetInstance asset={prop.asset} />
+        </group>
+      ))}
+
       {decoration.map((item) => (
         <mesh
           key={item.key}
@@ -146,6 +154,13 @@ export function CityScene({
           <boxGeometry args={[0.8, item.height, 0.8]} />
           <meshStandardMaterial color="#B8AC98" roughness={0.9} />
         </mesh>
+      ))}
+
+      {/* Street dressing: static, shared across cities, no interaction. */}
+      {scene.props.map((prop) => (
+        <group key={prop.key} position={prop.position} rotation={[0, prop.rotationY, 0]}>
+          <AssetInstance asset={prop.asset} />
+        </group>
       ))}
 
       {scene.hotspots.map((hotspot) => (

@@ -301,3 +301,24 @@ This had already failed in the field: a save from the three-stop İstanbul made
 the five-stop city report itself finished on arrival, and the only escape was
 resetting progress. Content outlives no save; a save must never outrank content.
 
+## D-034 — Delivered props are registered apart from the Meshy brief (28 Jul 2026)
+
+`asset-manifests/pilot-assets.csv` is the brief for the three pilot cities'
+commissioned art. It is not a record of what has shipped, and reusable kit props
+do not belong in it. Delivered props live in `DELIVERED_PROPS` in the asset
+registry, carrying the file's SHA-256, triangle count, byte size and measured
+dimensions.
+
+Street dressing is scene data: `props` in a scene file is a list of asset id,
+position and rotation. Dressing a street is editing data, not code.
+
+## D-035 — Models are ground-aligned by measurement (28 Jul 2026)
+
+`AssetInstance` measures a mounted model's bounding box and lifts it so its
+lowest point rests on y = 0, when the registry entry asks for it. The first
+delivered lamp had its base 1.5 m below its origin.
+
+Measured rather than stored, because Meshy centres an origin about as often as
+it grounds it, and because the correction costs nothing when the pivot is
+already correct. Commissioned city art is authored grounded and is not moved.
+

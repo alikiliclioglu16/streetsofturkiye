@@ -360,6 +360,48 @@
       }
     }
   ],
+  "props": [
+    {
+      "assetId": "kit_street_lamp",
+      "position": [
+        -9,
+        0,
+        -14
+      ],
+      "rotationY": 1.5707963267948966,
+      "note": "pedestrian edge near the start of the walk"
+    },
+    {
+      "assetId": "kit_street_lamp",
+      "position": [
+        16,
+        0,
+        -26
+      ],
+      "rotationY": -1.5707963267948966,
+      "note": "open walkway beside the tall landmark"
+    },
+    {
+      "assetId": "kit_street_lamp",
+      "position": [
+        -9,
+        0,
+        -35
+      ],
+      "rotationY": 1.5707963267948966,
+      "note": "street edge, mid-walk"
+    },
+    {
+      "assetId": "kit_street_lamp",
+      "position": [
+        11,
+        0,
+        -62
+      ],
+      "rotationY": -1.5707963267948966,
+      "note": "street edge near the food stop, opposite side"
+    }
+  ],
   "quizPresentation": {
     "shuffleOptions": true
   },

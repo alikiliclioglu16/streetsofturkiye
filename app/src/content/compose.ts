@@ -71,6 +71,7 @@ export interface RuntimeCity {
   coordinates: { longitude: number; latitude: number };
   estimatedMinutes?: number;
   environment: SceneDefinition['environment'];
+  /** Static street dressing; shared across cities, carries no content. */
   spawn: Transform;
   route: SceneDefinition['route'];
   intro: { title: LocalizedText; guideLine: LocalizedText; skippable: boolean };
@@ -80,6 +81,8 @@ export interface RuntimeCity {
   pendingStopIds: string[];
   quiz: RuntimeQuizItem[];
   quizPresentation: { shuffleOptions: boolean };
+  /** Static street dressing carried straight through from the scene. */
+  props: SceneDefinition['props'];
   rewards: { cityStarId: string; collectibleAssetIds: string[] };
 }
 
@@ -149,6 +152,7 @@ export function composeCity(canonical: CanonicalCity, scene: SceneDefinition): R
     coordinates: canonical.coordinates,
     estimatedMinutes: scene.estimatedMinutes,
     environment: scene.environment,
+    props: scene.props,
     spawn: scene.spawn,
     route: scene.route,
     intro: {

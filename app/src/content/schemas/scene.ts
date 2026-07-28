@@ -66,6 +66,19 @@ export const sceneHotspotSchema = z.object({
 });
 export type SceneHotspot = z.infer<typeof sceneHotspotSchema>;
 
+/** A static piece of set dressing. No content, no interaction, no state. */
+export const scenePropSchema = z.object({
+  assetId: z.string(),
+  position: vec3Schema,
+  rotationY: z.number().default(0),
+});
+export type SceneProp = z.infer<typeof scenePropSchema>;
+
+/**
+ * A static prop placed in the street. Reusable across cities, so it carries no
+ * content of its own — only an asset id and where it stands.
+ */
+
 export const sceneSchema = z
   .object({
     schemaVersion: z.literal('2.0.0'),
@@ -91,6 +104,8 @@ export const sceneSchema = z
       skippable: z.boolean(),
     }),
     hotspots: z.array(sceneHotspotSchema).min(1),
+    /** Street dressing, shared across cities; absent in older scene files. */
+    props: z.array(scenePropSchema).default([]),
     quizPresentation: z.object({ shuffleOptions: z.boolean() }),
     rewards: z.object({
       cityStarId: z.string(),

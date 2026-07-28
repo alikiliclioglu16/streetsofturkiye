@@ -34,20 +34,34 @@ function Model({ url, asset }: ModelProps) {
   // Clone so two hotspots using the same GLB do not share one transform.
   const model = useMemo(() => scene.clone(true), [scene]);
 
-  // Normalise delivered models to the manifest footprint. Meshy output arrives
-  // at inconsistent scales; the manifest is the contract, so the scene stays
-  // correct even before an asset passes the M0 scale check.
+  /**
+   * Normalise scale, then stand the model on the ground.
+   *
+   * Meshy exports arrive at inconsistent scales and with inconsistent pivots —
+   * the first delivered prop had its origin at its own centre, so it would have
+   * floated half its height above the pavement. Rather than ask every artist to
+   * remember, the engine measures the mounted model and lifts it until its base
+   * sits at y = 0. This is automatic and applies to every prop that follows.
+   */
   useEffect(() => {
     const group = groupRef.current;
     if (!group) return;
-    const box = new Box3().setFromObject(model);
-    const size = box.getSize(new Vector3());
+
+    group.scale.setScalar(1);
+    group.position.setY(0);
+    group.updateMatrixWorld(true);
+
+    const size = new Box3().setFromObject(model).getSize(new Vector3());
     const target = asset.entry.dimensions[1];
     if (size.y > 0.0001 && target > 0) {
       const factor = target / size.y;
       // Only correct gross mismatches; small deviations are the artist's intent.
       if (factor < 0.5 || factor > 2) group.scale.setScalar(factor);
     }
+
+    group.updateMatrixWorld(true);
+    const grounded = new Box3().setFromObject(model);
+    if (Number.isFinite(grounded.min.y)) group.position.setY(-grounded.min.y);
   }, [model, asset.entry.dimensions]);
 
   return (
