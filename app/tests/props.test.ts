@@ -1,4 +1,4 @@
-import { readFileSync } from 'node:fs';
+import { existsSync, readFileSync, statSync } from 'node:fs';
 import path from 'node:path';
 import { describe, expect, it } from 'vitest';
 import { blockedBy } from '@/engine/controls/movement';
@@ -157,5 +157,55 @@ describe('grounding cues', () => {
     );
     expect(instance).toContain('castShadow');
     expect(instance).toContain('receiveShadow');
+  });
+});
+
+describe('ground surface', () => {
+  const texturePath = (name: string) =>
+    path.resolve(process.cwd(), `public/assets/textures/ground_cobblestone_${name}.jpg`);
+
+  it('ships the three generated maps', () => {
+    for (const name of ['albedo', 'normal', 'roughness']) {
+      expect(existsSync(texturePath(name)), name).toBe(true);
+    }
+  });
+
+  it('keeps the whole set small enough to be free', () => {
+    // The ground is the largest surface on screen; it must not be the largest
+    // download. All three maps together are smaller than one kit prop.
+    const total = ['albedo', 'normal', 'roughness'].reduce(
+      (sum, name) => sum + statSync(texturePath(name)).size,
+      0,
+    );
+    expect(total).toBeLessThan(600 * 1024);
+  });
+
+  it('tints one greyscale texture per region rather than shipping one each', () => {
+    // Cappadocia and İstanbul share the texture and differ only by colour, so
+    // the set serves all 81 provinces.
+    const colours = ['istanbul', 'nevsehir', 'gaziantep'].map(
+      (cityId) => buildScene(loadComposedCity(cityId), 'high').ground.color,
+    );
+    expect(new Set(colours).size).toBe(3);
+
+    const ground = readFileSync(
+      path.resolve(process.cwd(), 'src/components/three/Ground.tsx'),
+      'utf8',
+    );
+    expect(ground).toContain('ground.color');
+    expect(ground).toContain('RepeatWrapping');
+  });
+
+  it('repeats at a size a child can read as paving', () => {
+    const scene = buildScene(loadComposedCity('istanbul'), 'high');
+    const ground = readFileSync(
+      path.resolve(process.cwd(), 'src/components/three/Ground.tsx'),
+      'utf8',
+    );
+    const tile = Number(/TILE_METRES = (\d+)/.exec(ground)?.[1]);
+    expect(tile).toBeGreaterThanOrEqual(2);
+    expect(tile).toBeLessThanOrEqual(6);
+    // Enough repeats across the street that the pattern is not one huge stone.
+    expect(scene.ground.width / tile).toBeGreaterThan(5);
   });
 });

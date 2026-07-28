@@ -6,6 +6,7 @@ import type { QualitySettings } from '@/engine/quality/quality';
 import type { HeroStatus } from '@/components/three/HeroCharacter';
 import type { HeroClip } from '@/engine/heroes/registry';
 import { AssetInstance } from '@/components/three/AssetInstance';
+import { Ground } from '@/components/three/Ground';
 import { HotspotObject } from '@/components/three/HotspotObject';
 import { PlayerRig } from '@/components/three/PlayerRig';
 
@@ -106,15 +107,7 @@ export function CityScene({
         shadow-camera-bottom={-40}
       />
 
-      {/* Ground plate sized from the authored bounds. */}
-      <mesh
-        rotation={[-Math.PI / 2, 0, 0]}
-        position={[scene.ground.centerX, 0, scene.ground.centerZ]}
-        receiveShadow
-      >
-        <planeGeometry args={[scene.ground.width, scene.ground.depth]} />
-        <meshStandardMaterial color={scene.ground.color} roughness={0.95} />
-      </mesh>
+      <Ground ground={scene.ground} />
 
       {/* Boundary posts: the play area is visible rather than an invisible wall.
           Corner posts are essential; decorative density is applied to props. */}

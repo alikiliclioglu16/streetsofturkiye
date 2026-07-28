@@ -114,7 +114,7 @@ app/src/
 npm run lint       → temiz
 npm run typecheck  → temiz (strict, noUncheckedIndexedAccess, `any` yok)
 npm run content:check → 81 il, 249 durak, 84 soru; 1413 kanonik dizgi baseline ile eşleşti
-npm test           → 12 dosya / 184 test geçti (logic + jsdom ui)
+npm test           → 12 dosya / 188 test geçti (logic + jsdom ui)
 npm run build      → başarılı, 4 rota
 npm start          → /map ve /city/istanbul 200
 ```
@@ -290,6 +290,15 @@ Teslim edilen propun kendi ölçeği artık normalize edilmiyor (D-037).
 İstanbul'da dört lamba, iki bank. Yerleşimler üreticide denetleniyor: tetik halkalarının dışında,
 rota merkez hattından en az 7,2 m, açılar ve aralıklar bilinçli olarak farklı.
 Ayrıntı: `docs/STREET_KIT_GATE_NOTE.md`.
+
+## 4l. Zemin
+
+Arnavut kaldırımı prosedürel üretiliyor (`scripts/build-ground-texture.mjs`): torus üzerine sarılmış
+Voronoi hücreleri, yükseklikten türetilen normal harita. Albedo + normal + roughness toplam **368 KB** —
+bir kit propundan küçük, üstelik ekranda en çok bakılan yüzey için.
+
+Dokular gri tonlamalı; bölgenin kendi zemin rengi çalışma zamanında tint olarak uygulanıyor,
+yani tek set 81 ilin hepsine yetiyor (D-040). Karo 4 metrede bir tekrarlıyor.
 
 ## 5. Bilinen sınırlar
 
