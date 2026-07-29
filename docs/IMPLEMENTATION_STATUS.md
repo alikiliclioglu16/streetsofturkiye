@@ -114,7 +114,7 @@ app/src/
 npm run lint       → temiz
 npm run typecheck  → temiz (strict, noUncheckedIndexedAccess, `any` yok)
 npm run content:check → 81 il, 249 durak, 84 soru; 1413 kanonik dizgi baseline ile eşleşti
-npm test           → 14 dosya / 278 test geçti (logic + jsdom ui)
+npm test           → 16 dosya / 289 test geçti (logic + jsdom ui)
 npm run build      → başarılı, 4 rota
 npm start          → /map ve /city/istanbul 200
 ```
@@ -562,6 +562,23 @@ propunun kendisi ve pazar tezgâhının tentesi — dördü de çift yüzlüye g
 
 Ortak sadeleştirici artık yüz sayısına hiç dokunmuyor. `OPAQUE` zorlaması duruyor,
 o güvenli. Bir test her teslim GLB'yi denetliyor.
+
+## 6. Nevşehir açıldı
+
+**Dokunarak yürüme** (D-090): zemine dokunulan yere gidiliyor, çubuk isteyene duruyor.
+Yol bulma yok — yürür, kayar, üç saniye ilerleyemezse vazgeçer.
+
+**Dekor artık yürüyüşten türetiliyor** (D-091), şehir başına yazılmıyor. Elle yerleştirme
+yalnız şehre özgü olan için: İstanbul'un camisi, rıhtımı, tramvay hattı.
+
+**Her şehir kendi gibi ağaçlanıyor** (D-092): Anadolu'da kavak ve çalı, Marmara'da çınar ve servi.
+Kavak bunun için eklendi.
+
+**Nevşehir oynanabilir** (D-093): Keloğlan rehber, Kapadokya zemini, Anadolu ağaçları.
+Beş duraktan üçünün modeli henüz teslim edilmedi, yer tutucu çiziliyor — bilerek.
+Çok şehirli mimarinin (ikinci rehber, ikinci bölge, şehir başına ilerleme, elle
+dokunulmamış bir sokağın döşenmesi) seksen şehir üstüne kurulmadan önce bir sokakta daha
+kanıtlanması gerekiyordu. Nevşehir'in tam tur simülasyonu da geçiyor.
 
 ## 5. Bilinen sınırlar
 

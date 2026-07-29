@@ -131,92 +131,89 @@ function geometryFor(assetId, artType) {
  * walking line so a child never has to walk around one, and placed against the
  * three areas worth judging the fit by: the bazaar, the tower, and open street.
  */
+/**
+ * Dressing, derived from the walk rather than written per city.
+ *
+ * İstanbul's dressing was a list of hand-picked coordinates, which is fine for
+ * one street and impossible for eighty-one. The kit is placed relative to the
+ * stops instead: lamps and planters down both sides at a steady rhythm, benches
+ * and market clutter where the walk widens, all of it filtered by the same
+ * checks that always applied.
+ *
+ * A hand-placed list still wins where a city has something particular to say —
+ * İstanbul's tram line, its dock, its mosque — so the two are added together.
+ */
 function streetProps(cityId, stopPositions, geometry) {
-  /**
-   * The flag stands at the same place in every one of the 81 cities: beside
-   * the spawn, to the child's right, facing the walk. Arriving anywhere in the
-   * country should begin the same way.
-   */
-  const flag = {
-    assetId: 'kit_turkish_flag',
-    position: [7.5, 0, 4],
-    rotationY: -0.35,
-    solid: true,
-    note: 'the flag, in the same place in every city',
-  };
-
-  if (cityId !== 'istanbul') return [flag];
-
-  const prop = (assetId, x, z, rotationY, note) => ({
+  const prop = (assetId, x, z, rotationY, note, solid = true) => ({
     assetId,
-    position: [x, 0, Math.round(z * 10) / 10],
+    position: [Math.round(x * 10) / 10, 0, Math.round(z * 10) / 10],
     rotationY: Math.round(rotationY * 1000) / 1000,
+    solid,
     note,
   });
 
   /**
-   * Placements are hand-chosen but machine-checked. Spacing and angle vary on
-   * purpose: a row of identical lamps at identical intervals reads as a fence,
-   * not a street.
+   * The flag stands at the same place in every one of the 81 cities: beside the
+   * spawn, to the child's right, facing the walk.
    */
-  const candidates = [
-    flag,
+  const candidates = [prop('kit_turkish_flag', 7.5, 4, -0.35, 'the flag, same place in every city')];
 
-    // Pedestrian segment near the start of the walk, lamp and bench together
-    // so the child meets both at child-height distance.
-    prop('kit_street_lamp', -10.5, -39, Math.PI / 2 + 0.12, 'pedestrian segment, near the start'),
-    prop('kit_bench', -9.0, -42.5, Math.PI / 2 - 0.25, 'bench beside the first lamp, scale reference'),
+  const firstZ = stopPositions[0]?.[2] ?? -26;
+  const lastZ = stopPositions[stopPositions.length - 1]?.[2] ?? -100;
+  const walkLength = Math.abs(lastZ - firstZ);
 
-    // Open walkway beside the tall landmark.
-    prop('kit_street_lamp', 16.5, -42.5, -Math.PI / 2 - 0.18, 'open walkway by the tall landmark'),
+  // A lamp every eighteen metres, alternating sides, angles nudged so the row
+  // does not read as a fence.
+  const lampCount = Math.max(3, Math.round(walkLength / 18));
+  for (let i = 0; i < lampCount; i += 1) {
+    const t = (i + 0.5) / lampCount;
+    const z = firstZ - walkLength * t;
+    const side = i % 2 === 0 ? -1 : 1;
+    candidates.push(
+      prop(
+        'kit_street_lamp',
+        side * (9 + (i % 3)),
+        z,
+        side * (Math.PI / 2) + (i % 2 ? 0.12 : -0.18),
+        `street lamp ${i + 1}`,
+      ),
+    );
+  }
 
-    // Mid-walk street edge, then the market end.
-    prop('kit_street_lamp', -9.5, -54.5, Math.PI / 2 - 0.3, 'street edge, mid-walk'),
-    prop('kit_bench', 15.0, -58, -Math.PI / 2 + 0.2, 'bench facing the market end of the street'),
-    prop('kit_street_lamp', 11.5, -78.5, -Math.PI / 2 + 0.22, 'street edge near the food stop'),
+  // Benches and planters face the walk, offset from the lamps so a child does
+  // not pass a lamp and a bench at the same moment for the whole street.
+  for (let i = 0; i < Math.max(2, Math.round(lampCount / 2)); i += 1) {
+    const t = (i + 0.85) / Math.max(2, Math.round(lampCount / 2));
+    const z = firstZ - walkLength * t;
+    const side = i % 2 === 0 ? 1 : -1;
+    candidates.push(prop('kit_bench', side * 8.2, z, side * (Math.PI / 2) - 0.22, `bench ${i + 1}`));
+    candidates.push(
+      prop('kit_planter_cypress', -side * 7.4, z - 5, side * 0.3, `planter ${i + 1}`),
+    );
+  }
 
-    // Planters read as tended street furniture rather than scenery, so they sit
-    // close to the pavement edge in pairs.
-    prop('kit_planter_cypress', -8.0, -37, 0.3, 'planter at the start of the walk'),
-    prop('kit_planter_cypress', 6.8, -35, -0.4, 'planter opposite the first bench'),
-    prop('kit_planter_cypress', -6.4, -48, 0.15, 'planter mid-walk'),
-    prop('kit_planter_cypress', 8.5, -88, -0.25, 'planter towards the quay'),
+  // A market cluster around the middle of the walk, where a bazaar would spill
+  // out on to the street.
+  const middle = firstZ - walkLength * 0.55;
+  candidates.push(
+    prop('kit_market_stall', -11, middle + 3, Math.PI / 2 - 0.35, 'stall, west'),
+    prop('kit_market_stall', 12.5, middle - 4, -Math.PI / 2 + 0.28, 'stall, east'),
+    prop('kit_crates', -9.2, middle - 1, 0.55, 'crates by the west stall'),
+    prop('kit_crates', 11.2, middle - 7, -0.9, 'crates by the east stall'),
+    prop('kit_wall_fountain', 9.5, firstZ - walkLength * 0.12, -Math.PI / 2 + 0.2, 'fountain, near the start'),
+    prop('kit_wall_fountain', -10.5, firstZ - walkLength * 0.82, Math.PI / 2 - 0.15, 'fountain, near the end'),
+  );
 
-    /**
-     * Market furniture belongs to the market end of the street, near the
-     * covered gateway. A stall alone reads as abandoned, so each one has its
-     * crates beside it.
-     */
-    prop('kit_market_stall', -8.8, -57, Math.PI / 2 - 0.35, 'stall on the market approach'),
-    prop('kit_crates', -7.4, -59.6, 0.55, 'crates beside the first stall'),
-    prop('kit_market_stall', 13.5, -64.5, -Math.PI / 2 + 0.28, 'stall across from the gateway'),
-    prop('kit_crates', 12.2, -67.4, -0.9, 'crates beside the second stall'),
-    // A fountain at each end of the walk: İstanbul's street corners have them,
-    // and they give the long stretches something to arrive at.
-    prop('kit_wall_fountain', 9.5, -34, -Math.PI / 2 + 0.2, 'fountain near the first landmark'),
-    prop('kit_wall_fountain', -14.5, -87, Math.PI / 2 - 0.15, 'fountain towards the quay'),
-
-    // The red tram is Beyoğlu, parked rather than running.
-    /**
-     * The mosque closes the square behind the child. It is solid: a building a
-     * child can walk through is worse than one they cannot reach, and standing
-     * it on the ground at the back of the play area means it is neither
-     * floating in the void nor out at sea.
-     */
-    prop('city_istanbul_hagia_sophia', 0, 28, Math.PI + 0.06, 'the mosque, closing the square'),
-
-    // Waiting at the edge of the square, as if the child had just stepped off.
-
-    // Where the street meets the water.
-    prop('city_istanbul_stone_dock', 12, -106, -0.25, 'dock at the quay'),
-
-    prop('kit_crates', -9.6, -73, 0.2, 'crates stacked along the street edge'),
-  ];
+  if (cityId === 'istanbul') {
+    candidates.push(
+      prop('city_istanbul_hagia_sophia', 0, 28, Math.PI + 0.06, 'the mosque, closing the square'),
+      prop('city_istanbul_stone_dock', 12, -106, -0.25, 'dock at the quay'),
+    );
+  }
 
   /**
-   * A prop inside a trigger ring stands in the shot the moment that stop opens,
-   * and a prop on the route centreline is something to walk around. Both are
-   * checked here rather than judged by eye.
+   * The same checks that always applied: nothing inside a trigger ring, nothing
+   * on the walk. Placements that fail are dropped rather than shipped.
    */
   const ROUTE_CLEARANCE = 3.5;
   return candidates.filter((item) => {
@@ -224,10 +221,6 @@ function streetProps(cityId, stopPositions, geometry) {
       const gap = Math.hypot(item.position[0] - stop[0], item.position[2] - stop[2]);
       return gap > geometry[index].triggerRadius;
     });
-    /**
-     * The centreline rule only applies where the walk actually runs. The square
-     * behind the child is not on the route, so the mosque can close it head-on.
-     */
     const onTheWalk = item.position[2] <= 10;
     const clearOfWalk = !onTheWalk || Math.abs(item.position[0]) > ROUTE_CLEARANCE;
     return clearOfStops && clearOfWalk;
@@ -316,30 +309,52 @@ function stopCamera(position, height) {
  * walking line and outside every trigger ring; anything that fails is dropped
  * rather than shipped.
  */
-function streetTrees(cityId, stopPositions, geometry) {
-  if (cityId !== 'istanbul') return [];
-  const kinds = ['cypress', 'plane', 'shrub', 'plane', 'cypress'];
+/**
+ * Planting, derived from the walk and from where the city is.
+ *
+ * Cappadocia is not İstanbul: a street in Nevşehir lined with plane trees would
+ * be a picture of somewhere else. The mix comes from the region, the positions
+ * from the length of the walk.
+ */
+const REGION_PLANTING = {
+  'marmara': ['plane', 'cypress', 'plane', 'shrub', 'cypress'],
+  'aegean': ['cypress', 'plane', 'shrub', 'cypress', 'plane'],
+  'mediterranean': ['cypress', 'plane', 'cypress', 'shrub', 'plane'],
+  'central-anatolia': ['shrub', 'cypress', 'shrub', 'poplar', 'shrub'],
+  'black-sea': ['plane', 'plane', 'cypress', 'plane', 'shrub'],
+  'eastern-anatolia': ['shrub', 'shrub', 'poplar', 'shrub', 'cypress'],
+  'southeastern-anatolia': ['shrub', 'cypress', 'shrub', 'shrub', 'poplar'],
+};
+
+function streetTrees(cityId, stopPositions, geometry, regionId) {
+  const kinds = REGION_PLANTING[regionId] ?? REGION_PLANTING['marmara'];
+  const firstZ = stopPositions[0]?.[2] ?? -26;
+  const lastZ = stopPositions[stopPositions.length - 1]?.[2] ?? -100;
+  const span = Math.abs(lastZ - firstZ) + 40;
+
   const trees = [];
-  for (let i = 0; i < 22; i += 1) {
+  const count = Math.max(12, Math.round(span / 7));
+  for (let i = 0; i < count; i += 1) {
     const side = i % 2 === 0 ? -1 : 1;
-    const z = 2 - i * 3.9 - (i % 3) * 1.7;
+    const z = firstZ + 16 - (span * i) / count - (i % 3) * 1.7;
     const x = side * (11 + ((i * 7) % 5) * 1.6);
     const kind = kinds[i % kinds.length];
+
+    const clear = stopPositions.every((stop, index) => {
+      const gap = Math.hypot(x - stop[0], z - stop[2]);
+      return gap > geometry[index].triggerRadius + 1;
+    });
+    if (!clear) continue;
+
     trees.push({
-      kind,
+      key: `tree-${i}`,
       position: [Math.round(x * 10) / 10, 0, Math.round(z * 10) / 10],
-      scale: Math.round((0.85 + ((i * 13) % 7) * 0.06) * 100) / 100,
-      rotationY: Math.round(((i * 2.399963) % (Math.PI * 2)) * 100) / 100,
+      kind,
+      scale: Math.round((0.8 + ((i * 13) % 5) * 0.1) * 100) / 100,
+      rotationY: Math.round(((i * 37) % 360) * (Math.PI / 180) * 1000) / 1000,
     });
   }
-  return trees.filter(
-    (tree) =>
-      Math.abs(tree.position[0]) > 8 &&
-      stopPositions.every((stop, index) => {
-        const gap = Math.hypot(tree.position[0] - stop[0], tree.position[2] - stop[2]);
-        return gap > geometry[index].triggerRadius + 1.5;
-      }),
-  );
+  return trees;
 }
 
 /**
@@ -579,9 +594,9 @@ function buildScene(canonical) {
      * sides, each with its own short beat — a child should keep meeting one
      * rather than find them all at once.
      */
-    catRoutes: canonical.id === 'istanbul' ? catRoutes(stopPositions, geometry) : [],
+    catRoutes: catRoutes(stopPositions, geometry),
     npcs: featuredNpcs(canonical.id, stopPositions, route),
-    trees: streetTrees(canonical.id, stopPositions, geometry),
+    trees: streetTrees(canonical.id, stopPositions, geometry, canonical.regionId),
     /**
      * Featured people, one each, standing beside the stop that suits them.
      * Offset to the side rather than in front: the stop camera frames the

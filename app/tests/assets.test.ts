@@ -154,10 +154,14 @@ describe('delivered street props', () => {
     }
   });
 
-  it('adds nothing but the flag to cities that are not being dressed yet', () => {
+  it('dresses an untouched city entirely from the shared kit', () => {
     for (const cityId of ['nevsehir', 'gaziantep']) {
-      const props = buildScene(loadComposedCity(cityId), 'high').props;
-      expect(props.map((prop) => prop.asset.entry.id), cityId).toEqual(['kit_turkish_flag']);
+      const ids = buildScene(loadComposedCity(cityId), 'high').props.map(
+        (prop) => prop.asset.entry.id,
+      );
+      // Nothing was hand-placed here, and the street is still furnished.
+      expect(ids.every((id) => id.startsWith('kit_')), cityId).toBe(true);
+      expect(ids.length, cityId).toBeGreaterThan(5);
     }
   });
 });

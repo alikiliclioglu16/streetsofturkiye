@@ -9,10 +9,18 @@ import { loadComposedCity } from './helpers';
  * these tests are what make opening them safe rather than hopeful.
  */
 describe('pilot cities', () => {
-  it('opens İstanbul only, while the other pilot cities stay ready but closed', () => {
-    expect([...PLAYABLE_CITY_IDS]).toEqual(['istanbul']);
-    // Closed is a decision, not a gap: their content and scenes still pass below.
-    expect([...PILOT_CITY_IDS]).toEqual(['istanbul', 'nevsehir', 'gaziantep']);
+  it('opens two cities, with the rest ready and closed', () => {
+    /**
+     * Nevşehir opens with a second guide, a second region's colour and its own
+     * planting. Three of its five stop objects are still placeholders, which is
+     * the point: the multi-city machinery is worth proving on one more street
+     * before eighty are built on it.
+     */
+    expect([...PLAYABLE_CITY_IDS]).toEqual(['istanbul', 'nevsehir']);
+    for (const cityId of PLAYABLE_CITY_IDS) {
+      expect(PILOT_CITY_IDS).toContain(cityId);
+    }
+    expect(PILOT_CITY_IDS.length).toBeGreaterThan(PLAYABLE_CITY_IDS.length);
   });
 
   for (const cityId of PILOT_CITY_IDS) {

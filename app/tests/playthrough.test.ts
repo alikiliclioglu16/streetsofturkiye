@@ -136,3 +136,85 @@ describe('a child completes İstanbul', () => {
     expect(city.estimatedMinutes).toBeLessThanOrEqual(8);
   });
 });
+
+/**
+ * The same visit, in the second city.
+ *
+ * İstanbul was built by hand and its playthrough proves İstanbul works.
+ * Nevşehir was dressed by the generic path with a different guide, a different
+ * region and three stop objects that have not been delivered — which is exactly
+ * where a second city would break if the machinery were still İstanbul-shaped.
+ */
+describe('a child completes Nevşehir', () => {
+  const city = loadComposedCity('nevsehir');
+  const scene = buildScene(city, 'high');
+
+  it('sends a different guide', () => {
+    expect(city.guideId).not.toBe(loadComposedCity('istanbul').guideId);
+    expect(city.guideId).toBe('keloglan');
+  });
+
+  it('looks like Cappadocia rather than İstanbul', () => {
+    const istanbul = buildScene(loadComposedCity('istanbul'), 'high');
+    expect(scene.ground.color).not.toBe(istanbul.ground.color);
+    expect(new Set(scene.trees.map((t) => t.kind))).not.toEqual(
+      new Set(istanbul.trees.map((t) => t.kind)),
+    );
+    // Landlocked: no sea, and nothing borrowed from the Bosphorus.
+    expect(scene.water).toBeNull();
+    expect(scene.props.every((prop) => !prop.asset.entry.id.startsWith('city_istanbul'))).toBe(true);
+  });
+
+  it('has a street even though nobody dressed it by hand', () => {
+    expect(scene.props.length).toBeGreaterThan(5);
+    expect(scene.trees.length).toBeGreaterThan(8);
+    expect(scene.catRoutes.length).toBeGreaterThanOrEqual(3);
+  });
+
+  it('can be walked end to end and finished', () => {
+    let position = { x: city.spawn.position[0], z: city.spawn.position[2] };
+    let progress = emptyCityProgress(city.id);
+    const met = new Set<number>();
+
+    expect(blockedBy(position, scene.colliders), 'spawned inside something').toBeNull();
+
+    const meetNearbyStops = () => {
+      for (const hotspot of scene.hotspots) {
+        if (met.has(hotspot.order)) continue;
+        const distance = Math.hypot(
+          position.x - hotspot.position[0],
+          position.z - hotspot.position[2],
+        );
+        if (distance > hotspot.triggerRadius) continue;
+        const canonical = city.hotspots.find((entry) => entry.id === hotspot.id)!;
+        progress = completeHotspot(progress, hotspot.id, canonical.reward.assetId);
+        met.add(hotspot.order);
+      }
+    };
+
+    meetNearbyStops();
+    for (const waypoint of scene.routePoints) {
+      const target = { x: waypoint[0], z: waypoint[2] };
+      let reached = false;
+      for (let frame = 0; frame < 60 * 20 && !reached; frame += 1) {
+        const heading = Math.atan2(target.x - position.x, target.z - position.z);
+        position = stepWithCollision(
+          position,
+          { forward: 1, strafe: 0 },
+          heading,
+          1 / 60,
+          scene.bounds,
+          scene.colliders,
+          true,
+        );
+        meetNearbyStops();
+        if (Math.hypot(position.x - target.x, position.z - target.z) < 0.5) reached = true;
+      }
+      expect(reached, `could not reach ${target.x}, ${target.z}`).toBe(true);
+    }
+
+    expect([...met].sort((a, b) => a - b)).toEqual([1, 2, 3, 4, 5]);
+    progress = completeQuiz(city, progress);
+    expect(progress.cityCompleted).toBe(true);
+  });
+});

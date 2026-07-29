@@ -13,7 +13,7 @@ import { useMemo } from 'react';
  * shrub — because a street planted with one repeated shape reads as wallpaper.
  */
 
-export type TreeKind = 'cypress' | 'plane' | 'shrub';
+export type TreeKind = 'cypress' | 'plane' | 'shrub' | 'poplar';
 
 export const FOLIAGE = ['#4F7A46', '#5C8A50', '#456B3E'];
 
@@ -30,6 +30,11 @@ export function treeShape(kind: TreeKind) {
   switch (kind) {
     case 'cypress':
       return { trunk: 2.0, radius: 0.13, masses: [{ y: 3.4, r: 1.0, h: 4.6, colour: 0 }] };
+    case 'poplar':
+      // Tall, narrow, and planted in lines across the Anatolian plateau. A
+      // street in Nevşehir lined with plane trees would be a picture of
+      // somewhere else.
+      return { trunk: 2.6, radius: 0.11, masses: [{ y: 4.6, r: 0.75, h: 6.2, colour: 1 }] };
     case 'plane':
       return {
         trunk: 1.9,

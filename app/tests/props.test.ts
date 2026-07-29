@@ -86,13 +86,25 @@ describe('street kit props', () => {
     expect(scene.unknownAssetIds).toEqual([]);
   });
 
-  it('dresses only İstanbul, but flies the flag everywhere', () => {
+  it('dresses every city from the shared kit, and only İstanbul from its own', () => {
+    /**
+     * Dressing is derived from the walk, so a city that has never been touched
+     * by hand still gets a street. Anything city-specific stays city-specific:
+     * a Beyoğlu tram does not turn up in Nevşehir.
+     */
     for (const cityId of ['nevsehir', 'gaziantep']) {
-      const props = buildScene(loadComposedCity(cityId), 'high').props;
-      // The flag stands in the same place in all 81 cities; nothing else is
-      // placed until a city has been dressed.
-      expect(props.map((prop) => prop.asset.entry.id), cityId).toEqual(['kit_turkish_flag']);
+      const ids = buildScene(loadComposedCity(cityId), 'high').props.map(
+        (prop) => prop.asset.entry.id,
+      );
+      expect(ids.length, cityId).toBeGreaterThan(5);
+      expect(ids.every((id) => id.startsWith('kit_')), cityId).toBe(true);
+      expect(ids, cityId).toContain('kit_turkish_flag');
     }
+
+    const istanbul = buildScene(loadComposedCity('istanbul'), 'high').props.map(
+      (prop) => prop.asset.entry.id,
+    );
+    expect(istanbul.some((id) => id.startsWith('city_istanbul_'))).toBe(true);
   });
 
   it('puts the flag at the same place in every city', () => {
@@ -158,14 +170,19 @@ describe('optimised street kit', () => {
     expect(galata.manifest.status).toBe('delivered');
   });
 
-  it('places three to five lamps and two to three benches', () => {
-    const scene = buildScene(loadComposedCity('istanbul'), 'high');
-    const lamps = scene.props.filter((p) => p.asset.entry.id === 'kit_street_lamp');
-    const benches = scene.props.filter((p) => p.asset.entry.id === 'kit_bench');
-    expect(lamps.length).toBeGreaterThanOrEqual(3);
-    expect(lamps.length).toBeLessThanOrEqual(5);
-    expect(benches.length).toBeGreaterThanOrEqual(2);
-    expect(benches.length).toBeLessThanOrEqual(3);
+  it('scales the kit to the length of the walk, in every city', () => {
+    /**
+     * The counts come from the street rather than from a list, so a longer
+     * walk gets more lamps and a shorter one fewer — and a placement that lands
+     * inside a trigger ring is dropped, which is why these are ranges.
+     */
+    for (const cityId of ['istanbul', 'nevsehir', 'gaziantep']) {
+      const props = buildScene(loadComposedCity(cityId), 'high').props;
+      const lamps = props.filter((p) => p.asset.entry.id === 'kit_street_lamp');
+      expect(lamps.length, `${cityId} lamps`).toBeGreaterThanOrEqual(3);
+      expect(lamps.length, `${cityId} lamps`).toBeLessThanOrEqual(8);
+      expect(props.filter((p) => p.asset.entry.id === 'kit_market_stall').length).toBeGreaterThan(0);
+    }
   });
 
   it('varies angle and spacing, so the street does not read as a fence', () => {
@@ -331,14 +348,19 @@ describe('solid props', () => {
     expect(position.z).toBeGreaterThan(lamp.position[2]);
   });
 
-  it('widens a rotated bench footprint rather than assuming it is square', () => {
-    const bench = scene.props.find((prop) => prop.asset.entry.id === 'kit_bench')!;
+  it('widens a rotated footprint rather than assuming it is square', () => {
+    // Benches are placed where the walk allows, so this reads whatever long
+    // thin prop the street actually has.
+    const bench =
+      scene.props.find((prop) => prop.asset.entry.id === 'kit_bench') ??
+      scene.props.find((prop) => prop.asset.entry.id === 'kit_market_stall')!;
     const collider = scene.colliders.find(
       (c) => Math.abs(c.x - bench.position[0]) < 0.01 && Math.abs(c.z - bench.position[2]) < 0.01,
     );
     expect(collider).toBeDefined();
-    // Rotated about 78°, so most of its 1.82 m length lies along z.
-    expect(collider!.halfDepth).toBeGreaterThan(collider!.halfWidth);
+    const [width, , depth] = bench.asset.entry.dimensions;
+    // Rotated roughly a quarter turn, so its length lies along z.
+    expect(collider!.halfDepth).toBeGreaterThan(Math.min(width, depth) / 2);
   });
 });
 
@@ -346,12 +368,13 @@ describe('street cats', () => {
   const city = loadComposedCity('istanbul');
   const scene = buildScene(city, 'high');
 
-  it('walks several cats in İstanbul only', () => {
-    expect(scene.catRoutes.length).toBeGreaterThanOrEqual(4);
-    expect(scene.catRoutes.length).toBeLessThanOrEqual(6);
-    expect(scene.catModelUrl).toBe('/assets/props/kit_street_cat_walking.glb');
-    for (const cityId of ['nevsehir', 'gaziantep']) {
-      expect(buildScene(loadComposedCity(cityId), 'high').catRoutes).toEqual([]);
+  it('walks cats in every city, not only İstanbul', () => {
+    // Street cats are not an İstanbul feature; they are a Turkish street.
+    for (const cityId of ['istanbul', 'nevsehir', 'gaziantep']) {
+      const city = buildScene(loadComposedCity(cityId), 'high');
+      expect(city.catRoutes.length, cityId).toBeGreaterThanOrEqual(3);
+      expect(city.catRoutes.length, cityId).toBeLessThanOrEqual(6);
+      expect(city.catModelUrl, cityId).toBe('/assets/props/kit_street_cat_walking.glb');
     }
   });
 
@@ -630,9 +653,18 @@ describe('street trees', () => {
     }
   });
 
-  it('leaves the other cities unplanted for now', () => {
-    for (const cityId of ['nevsehir', 'gaziantep']) {
-      expect(buildScene(loadComposedCity(cityId), 'high').trees).toEqual([]);
+  it('plants every city, and plants each one like itself', () => {
+    const kindsFor = (cityId: string) =>
+      new Set(buildScene(loadComposedCity(cityId), 'high').trees.map((tree) => tree.kind));
+
+    // A street in Nevşehir lined with plane trees would be a picture of
+    // somewhere else. Cappadocia gets poplars and scrub.
+    expect(kindsFor('nevsehir').has('poplar')).toBe(true);
+    expect(kindsFor('istanbul').has('plane')).toBe(true);
+    expect(kindsFor('istanbul')).not.toEqual(kindsFor('nevsehir'));
+
+    for (const cityId of ['istanbul', 'nevsehir', 'gaziantep']) {
+      expect(buildScene(loadComposedCity(cityId), 'high').trees.length, cityId).toBeGreaterThan(8);
     }
   });
 });

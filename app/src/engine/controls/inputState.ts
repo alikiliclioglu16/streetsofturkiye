@@ -18,6 +18,12 @@ export interface InputState {
   running: boolean;
 }
 
+/**
+ * Where the child tapped, if they tapped the ground.
+ *
+ * Kept beside the stick rather than inside it: the guide walks towards a tap
+ * and is steered by a stick, and either one can arrive at any moment.
+ */
 export const inputState: InputState = {
   forward: 0,
   turn: 0,
@@ -26,6 +32,9 @@ export const inputState: InputState = {
   interactPressed: false,
   running: false,
 };
+
+/** Set by the canvas when a child taps the ground; cleared once acted on. */
+export const pendingTap: { point: { x: number; z: number } | null } = { point: null };
 
 export function resetInput(): void {
   inputState.forward = 0;

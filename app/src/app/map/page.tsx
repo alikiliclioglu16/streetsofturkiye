@@ -56,6 +56,9 @@ export default function MapPage() {
     return () => controller.abort();
   }, []);
 
+  // Widened so the copy reads correctly however many cities are open.
+  const openCount: number = PLAYABLE_CITY_IDS.length;
+
   const availability = useMemo(() => {
     const playable = new Set<string>(PLAYABLE_CITY_IDS);
     const pilot = new Set<string>(PILOT_CITY_IDS);
@@ -126,8 +129,8 @@ export default function MapPage() {
               onSelect={(cityId) => router.push(`/city/${cityId}`)}
             />
             <p style={{ fontSize: 13, opacity: 0.72, margin: '10px 2px 0' }}>
-              {`All ${cities.length} provinces are on the map. ${PLAYABLE_CITY_IDS.length} of them ` +
-                `${PLAYABLE_CITY_IDS.length === 1 ? 'is' : 'are'} open to explore so far — ` +
+              {`All ${cities.length} provinces are on the map. ${openCount} of them ` +
+                `${openCount === 1 ? 'is' : 'are'} open to explore so far — ` +
                 `the rest already have their stories written and are waiting for their streets.`}
             </p>
           </>

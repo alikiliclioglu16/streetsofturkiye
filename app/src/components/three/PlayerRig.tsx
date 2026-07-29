@@ -8,7 +8,8 @@ import type { SceneDescription } from '@/engine/scene/buildScene';
 import { HeroCharacter, type HeroStatus } from '@/components/three/HeroCharacter';
 import { heroForGuide, type HeroClip } from '@/engine/heroes/registry';
 import type { QualitySettings } from '@/engine/heroes/policy';
-import { inputState } from '@/engine/controls/inputState';
+import { inputState, pendingTap } from '@/engine/controls/inputState';
+import { idleWalk, stepWalk, turnTowards, walkTo, type WalkState } from '@/engine/controls/tapToWalk';
 import { distance2, stepWithCollision, TURN_SPEED, type Point2 } from '@/engine/controls/movement';
 import { clampPitch, decayOrbit, followCameraPosition, smoothing } from '@/engine/camera/anchors';
 import { celebrationCamera } from '@/engine/heroes/celebration';
@@ -69,6 +70,8 @@ export function PlayerRig({
 
   const position = useRef<Point2>({ x: scene.spawn[0], z: scene.spawn[2] });
   const heading = useRef<number>(scene.spawnHeading);
+  /** Where a tap sent the guide, if anywhere. */
+  const walk = useRef<WalkState>(idleWalk);
   const pitch = useRef<number>(0.08);
   const nearestId = useRef<string | null>(null);
   const previousPosition = useRef<Point2>({ x: scene.spawn[0], z: scene.spawn[2] });
@@ -135,12 +138,28 @@ export function PlayerRig({
 
     if (!frozen) {
       // Left and right turn the guide, so the player can look back at him.
-      heading.current += inputState.turn * TURN_SPEED * delta;
+      // A tap sets a destination; touching the stick takes control back.
+      if (pendingTap.point) {
+        walk.current = walkTo(pendingTap.point);
+        pendingTap.point = null;
+      }
+      if (inputState.forward !== 0 || inputState.turn !== 0) {
+        walk.current = idleWalk;
+      }
+
+      const tapped = stepWalk(walk.current, position.current, delta);
+      walk.current = tapped.state;
+
+      if (tapped.heading !== null) {
+        heading.current = turnTowards(heading.current, tapped.heading, delta);
+      } else {
+        heading.current += inputState.turn * TURN_SPEED * delta;
+      }
       heading.current -= inputState.yawDelta * delta * 2.2;
       inputState.yawDelta = 0;
       position.current = stepWithCollision(
         position.current,
-        { forward: inputState.forward, strafe: 0 },
+        { forward: tapped.forward || inputState.forward, strafe: 0 },
         heading.current,
         delta,
         scene.bounds,

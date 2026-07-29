@@ -33,7 +33,16 @@ const REGIONS = '/content/canonical/regions.json';
  * have canonical content and validated scenes — the tests keep checking them —
  * but they stay closed until İstanbul is done (owner decision, 27 Jul 2026).
  */
-export const PLAYABLE_CITY_IDS = ['istanbul'] as const;
+/**
+ * Cities a child can walk into.
+ *
+ * Nevşehir opens with Keloğlan as its guide and the shared kit dressing its
+ * street, but three of its five stop objects have not been delivered and render
+ * as placeholders. That is deliberate: the multi-city machinery — a second
+ * guide, a second region's colour and planting, progress kept per city — is
+ * worth proving on a real street before eighty of them are built on it.
+ */
+export const PLAYABLE_CITY_IDS = ['istanbul', 'nevsehir'] as const;
 export const PILOT_CITY_IDS = ['istanbul', 'nevsehir', 'gaziantep'] as const;
 
 async function fetchJson(path: string, signal?: AbortSignal): Promise<unknown> {

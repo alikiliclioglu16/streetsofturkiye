@@ -127,7 +127,7 @@ export const sceneSchema = z
     trees: z
       .array(
         z.object({
-          kind: z.enum(['cypress', 'plane', 'shrub']),
+          kind: z.enum(['cypress', 'plane', 'shrub', 'poplar']),
           position: vec3Schema,
           scale: z.number().positive().default(1),
           rotationY: z.number().default(0),

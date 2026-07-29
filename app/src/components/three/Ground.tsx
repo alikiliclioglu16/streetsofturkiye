@@ -3,6 +3,8 @@
 import { useMemo } from 'react';
 import { useTexture } from '@react-three/drei';
 import { RepeatWrapping, SRGBColorSpace, type Texture } from 'three';
+import type { ThreeEvent } from '@react-three/fiber';
+import { pendingTap } from '@/engine/controls/inputState';
 import type { SceneGround } from '@/engine/scene/buildScene';
 
 /** Metres covered by one tile of the cobblestone texture. */
@@ -60,6 +62,18 @@ export function Ground({ ground }: { ground: SceneGround }) {
 
   return (
     <mesh
+      /**
+       * Tapping the ground walks there.
+       *
+       * The stick works — the whole game runs on a tablet — but it takes
+       * getting used to, and getting used to a joystick is not what this
+       * product is for. Tapping where you want to go is the control every child
+       * already knows.
+       */
+      onPointerDown={(event: ThreeEvent<PointerEvent>) => {
+        event.stopPropagation();
+        pendingTap.point = { x: event.point.x, z: event.point.z };
+      }}
       rotation={[-Math.PI / 2, 0, 0]}
       position={[ground.centerX, 0, ground.centerZ]}
       receiveShadow

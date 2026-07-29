@@ -1088,3 +1088,53 @@ model cannot lose its back faces again without something failing.
 The pattern behind it: an optimisation that is correct for the common case was
 applied to everything without asking which case each model was.
 
+## D-090 — Tapping the ground walks there (29 Jul 2026)
+
+The whole game runs on a tablet, but the virtual stick takes getting used to —
+and getting used to a joystick is not what this product is for.
+
+Tapping the ground now sets a destination and the guide walks to it, sliding
+along anything in the way. The stick stays for anyone who prefers it, and
+touching it cancels the walk.
+
+There is no pathfinding. The guide walks, slides, and gives up after three
+seconds without progress — which looks like a child changing their mind and is
+a great deal less code than a navigation mesh for a street.
+
+## D-091 — Dressing is derived from the walk, not written per city (29 Jul 2026)
+
+İstanbul's street was a list of hand-picked coordinates. That is fine for one
+street and impossible for eighty-one.
+
+The kit is now placed relative to the stops — lamps at a rhythm down both sides,
+benches and planters offset from them, a market cluster where the walk is
+busiest — and filtered by the checks that always applied. A city nobody has
+touched still gets a furnished street.
+
+Hand-placed props are added on top, for what a city has particular to say:
+İstanbul's mosque, its dock, its tram line. Nothing İstanbul-specific reaches
+another city, and a test holds that line.
+
+## D-092 — Cities are planted like themselves (29 Jul 2026)
+
+Trees were an İstanbul list. A street in Nevşehir lined with plane trees is a
+picture of somewhere else, so the mix now comes from the region: poplars and
+scrub on the Anatolian plateau, planes and cypresses on the Marmara coast.
+
+A poplar was added for it — tall and narrow, and planted in lines across the
+plateau exactly as it is in the model.
+
+## D-093 — Nevşehir is open (29 Jul 2026)
+
+The second city a child can walk into. Keloğlan guides it, the ground is
+Cappadocian, the planting is Anatolian, and three of its five stop objects have
+not been delivered and render as placeholders.
+
+Opening it before its art is deliberate. The multi-city machinery — a second
+guide loading, a second region's colour and planting, progress kept per city,
+a street dressed without anyone placing a prop by hand — is worth proving on one
+more real street before eighty are built on top of it.
+
+A full playthrough of Nevşehir is simulated alongside İstanbul's: arrive, walk
+the markers, meet all five stops, finish the city. It passes.
+
