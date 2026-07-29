@@ -11,7 +11,7 @@
  * suspended for the whole session — silence with no error to explain it.
  */
 
-export type AudioChannel = 'voice' | 'ambience' | 'ui';
+export type AudioChannel = 'voice' | 'music' | 'ambience' | 'ui';
 
 export interface ChannelState {
   readonly muted: boolean;
@@ -24,6 +24,12 @@ export const DEFAULT_CHANNELS: Readonly<Record<AudioChannel, ChannelState>> = {
   voice: { muted: false, volume: 1 },
   // A bed, not a feature. Loud ambience is the fastest way to make a parent
   // reach for the mute.
+  /**
+   * Quiet by design. A theme a child hears for the fourth time should sit under
+   * the street rather than over it, and a parent in the room should be able to
+   * forget it is playing.
+   */
+  music: { muted: false, volume: 0.28 },
   ambience: { muted: false, volume: 0.35 },
   ui: { muted: false, volume: 0.6 },
 };
@@ -71,7 +77,7 @@ export async function unlockAudio(): Promise<boolean> {
     master.connect(context.destination);
 
     const channels = {} as Record<AudioChannel, GainNode>;
-    for (const name of ['voice', 'ambience', 'ui'] as const) {
+    for (const name of ['voice', 'music', 'ambience', 'ui'] as const) {
       const gain = context.createGain();
       gain.gain.value = effectiveGain(channelState[name], false);
       gain.connect(master);
@@ -103,15 +109,16 @@ export function channelStates(): Readonly<Record<AudioChannel, ChannelState>> {
   return channelState;
 }
 
-/** Steps the ambience back while the guide speaks, and returns it after. */
+/** Steps the bed and the theme back while the guide speaks, and returns them. */
 export function duckAmbience(ducked: boolean): void {
   if (!nodes) return;
-  const gain = nodes.channels.ambience;
-  gain.gain.setTargetAtTime(
-    effectiveGain(channelState.ambience, ducked),
-    nodes.context.currentTime,
-    DUCK_SECONDS,
-  );
+  for (const channel of ['ambience', 'music'] as const) {
+    nodes.channels[channel].gain.setTargetAtTime(
+      effectiveGain(channelState[channel], ducked),
+      nodes.context.currentTime,
+      DUCK_SECONDS,
+    );
+  }
 }
 
 /** Releases everything. Called when the player leaves a city. */

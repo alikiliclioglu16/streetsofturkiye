@@ -132,7 +132,20 @@ function geometryFor(assetId, artType) {
  * three areas worth judging the fit by: the bazaar, the tower, and open street.
  */
 function streetProps(cityId, stopPositions, geometry) {
-  if (cityId !== 'istanbul') return [];
+  /**
+   * The flag stands at the same place in every one of the 81 cities: beside
+   * the spawn, to the child's right, facing the walk. Arriving anywhere in the
+   * country should begin the same way.
+   */
+  const flag = {
+    assetId: 'kit_turkish_flag',
+    position: [7.5, 0, 4],
+    rotationY: -0.35,
+    solid: true,
+    note: 'the flag, in the same place in every city',
+  };
+
+  if (cityId !== 'istanbul') return [flag];
 
   const prop = (assetId, x, z, rotationY, note) => ({
     assetId,
@@ -147,6 +160,8 @@ function streetProps(cityId, stopPositions, geometry) {
    * not a street.
    */
   const candidates = [
+    flag,
+
     // Pedestrian segment near the start of the walk, lamp and bench together
     // so the child meets both at child-height distance.
     prop('kit_street_lamp', -10.5, -39, Math.PI / 2 + 0.12, 'pedestrian segment, near the start'),
@@ -504,6 +519,7 @@ function buildScene(canonical) {
      * İstanbul is the only pilot city on the water. The sea starts past the
      * play boundary, so a child can see it and never walk into it.
      */
+    musicUrl: canonical.id === 'istanbul' ? '/assets/audio/istanbul_theme.webm' : null,
     water:
       canonical.id === 'istanbul'
         ? { centerX: 0, centerZ: -202, width: 320, depth: 180, color: '#2E7FA8' }
@@ -515,6 +531,20 @@ function buildScene(canonical) {
     backdrop:
       canonical.id === 'istanbul'
         ? [
+            {
+              assetId: 'city_istanbul_beyoglu_row',
+              position: [-30, 0, -46],
+              rotationY: Math.PI / 2,
+              solid: false,
+              note: 'facades along the west side',
+            },
+            {
+              assetId: 'city_istanbul_beyoglu_row',
+              position: [31, 0, -68],
+              rotationY: -Math.PI / 2,
+              solid: false,
+              note: 'facades along the east side',
+            },
             {
               /**
                * The ferry belongs on the water, not beside the pavement. It

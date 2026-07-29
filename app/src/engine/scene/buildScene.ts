@@ -69,6 +69,7 @@ export interface SceneDescription {
   /** Scenery beyond the play area; never solid. */
   readonly backdrop: readonly ScenePropInstance[];
   readonly water: SceneDefinition['water'];
+  readonly musicUrl: string | null;
   readonly sky: SceneSky;
   readonly colliders: readonly RectCollider[];
   readonly hotspots: readonly SceneHotspot[];
@@ -211,6 +212,7 @@ export function buildScene(city: CityDefinition, quality: QualityTier): SceneDes
     cityId: city.id,
     backdrop,
     water: city.water,
+    musicUrl: city.musicUrl,
     catRoutes: city.catRoutes,
     npcs,
     trees,

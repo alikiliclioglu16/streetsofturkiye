@@ -153,3 +153,57 @@ export function stopAmbience(): void {
   ambienceSource.disconnect();
   ambienceSource = null;
 }
+
+
+/* ------------------------------------------------------------------ */
+
+let musicElement: HTMLAudioElement | null = null;
+let musicSource: MediaElementAudioSourceNode | null = null;
+
+/**
+ * The city theme.
+ *
+ * Streamed through an <audio> element rather than decoded into memory: a four
+ * minute track is 1.6 MB on the wire and about 40 MB decoded, and a child on a
+ * tablet should not pay that to hear a song.
+ *
+ * It fades in over a few seconds. A theme that starts at full volume the
+ * instant a city loads announces itself; one that arrives underneath the
+ * seagulls is just there.
+ */
+export function startMusic(url: string): void {
+  const context = audioContext();
+  const destination = channelNode('music');
+  if (!context || !destination || musicElement) return;
+
+  const element = new Audio(url);
+  element.loop = true;
+  element.crossOrigin = 'anonymous';
+  element.preload = 'auto';
+
+  const source = context.createMediaElementSource(element);
+  const fade = context.createGain();
+  fade.gain.setValueAtTime(0.0001, context.currentTime);
+  fade.gain.exponentialRampToValueAtTime(1, context.currentTime + 4);
+
+  source.connect(fade).connect(destination);
+  void element.play().catch(() => {
+    // A browser that refuses playback leaves the street quiet rather than
+    // broken; the ambience and cues are unaffected.
+  });
+
+  musicElement = element;
+  musicSource = source;
+}
+
+export function stopMusic(): void {
+  if (musicElement) {
+    musicElement.pause();
+    musicElement.src = '';
+    musicElement = null;
+  }
+  if (musicSource) {
+    musicSource.disconnect();
+    musicSource = null;
+  }
+}

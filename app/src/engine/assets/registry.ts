@@ -134,6 +134,21 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
       '2.94 MB.',
   },
   {
+    id: 'city_istanbul_beyoglu_row',
+    modelUrl: '/assets/city/city_istanbul_beyoglu_row.glb',
+    checksum: '27957de7fb9d98e02087b81efcab60786503cb9b59a7a2276f5b5493ca29bf2c',
+    triangles: 9_452,
+    transferBytes: 2672016,
+    // Deeper than the 0.3 the brief asked for, which does not matter: it stands
+    // beyond the play boundary where only its front is ever seen.
+    dimensions: [30.7, 14.0, 12.3],
+    label: 'Beyoğlu facades',
+    color: '#C9A46E',
+    placeholder: 'box',
+    scaleToBrief: true,
+    notes: 'Backdrop only. Delivered 25.01 MB; recompressed to 2.55 MB.',
+  },
+  {
     id: 'city_istanbul_ferry_boat',
     modelUrl: '/assets/city/city_istanbul_ferry_boat.glb',
     checksum: 'd1c2c0c036d5a0f38df440c94091d0e54e5a0e53779fb45c126964ae562420c8',
@@ -241,6 +256,21 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
     placeholder: 'box',
     scaleToBrief: true,
     notes: 'Stands at the quay, where the street meets the water. 9.65 MB down to 0.65 MB.',
+  },
+  {
+    id: 'kit_turkish_flag',
+    modelUrl: '/assets/props/kit_turkish_flag.glb',
+    checksum: '37be2cf50090e14a9f9c8acac1523fa71c1a6961c83e399d50e4f9ad26abf185',
+    triangles: 3_008,
+    transferBytes: 470676,
+    dimensions: [3.5, 6.0, 1.0],
+    label: 'Turkish flag',
+    color: '#E30A17',
+    placeholder: 'cylinder',
+    scaleToBrief: true,
+    notes:
+      'Stands at the same place in every one of the 81 cities, so a child ' +
+      'arriving anywhere sees the same thing first. 14.59 MB down to 0.45 MB.',
   },
   {
     id: 'kit_crates',

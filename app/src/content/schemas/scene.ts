@@ -148,6 +148,8 @@ export const sceneSchema = z
       })
       .nullable()
       .default(null),
+    /** The city's theme, or null where none has been chosen yet. */
+    musicUrl: z.string().nullable().default(null),
     /** Scenery beyond the play area: never reached, never collided with. */
     backdrop: z.array(scenePropSchema).default([]),
     catRoutes: z

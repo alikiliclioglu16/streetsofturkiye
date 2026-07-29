@@ -25,7 +25,14 @@ import { hotspotById } from '@/engine/interactions/machine';
 import { useKeyboardControls } from '@/engine/controls/inputState';
 import { loadPresentation } from '@/content/loaders/loadCity';
 import { unlockAudio, stopAudio } from '@/engine/audio/engine';
-import { playCollect, playCityComplete, startAmbience, stopAmbience } from '@/engine/audio/cues';
+import {
+  playCollect,
+  playCityComplete,
+  startAmbience,
+  stopAmbience,
+  startMusic,
+  stopMusic,
+} from '@/engine/audio/cues';
 import { t, ui } from '@/content/i18n';
 import type { Presentation } from '@/content/schemas/presentation';
 import { CityCanvas, type PerfSample } from '@/components/three/CityCanvas';
@@ -289,15 +296,19 @@ export function CityExperience({ cityId }: { cityId: string }) {
    * anything make a sound. Opening the context any earlier leaves it suspended
    * for the whole session, which is silence with nothing to explain it.
    */
+  const musicUrl = scene?.musicUrl ?? null;
   const beginCity = useCallback(() => {
     void unlockAudio().then((ready) => {
-      if (ready) startAmbience();
+      if (!ready) return;
+      startAmbience();
+      if (musicUrl) startMusic(musicUrl);
     });
     skipIntro();
-  }, [skipIntro]);
+  }, [skipIntro, musicUrl]);
 
   useEffect(
     () => () => {
+      stopMusic();
       stopAmbience();
       stopAudio();
     },

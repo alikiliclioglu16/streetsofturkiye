@@ -83,10 +83,23 @@ describe('street kit props', () => {
     expect(scene.unknownAssetIds).toEqual([]);
   });
 
-  it('leaves the other cities undressed, since this is a single-city test', () => {
+  it('dresses only İstanbul, but flies the flag everywhere', () => {
     for (const cityId of ['nevsehir', 'gaziantep']) {
-      expect(buildScene(loadComposedCity(cityId), 'high').props).toEqual([]);
+      const props = buildScene(loadComposedCity(cityId), 'high').props;
+      // The flag stands in the same place in all 81 cities; nothing else is
+      // placed until a city has been dressed.
+      expect(props.map((prop) => prop.asset.entry.id), cityId).toEqual(['kit_turkish_flag']);
     }
+  });
+
+  it('puts the flag at the same place in every city', () => {
+    const positions = ['istanbul', 'nevsehir', 'gaziantep'].map((cityId) => {
+      const flag = buildScene(loadComposedCity(cityId), 'high').props.find(
+        (prop) => prop.asset.entry.id === 'kit_turkish_flag',
+      )!;
+      return flag.position.join(',');
+    });
+    expect(new Set(positions).size).toBe(1);
   });
 });
 
@@ -294,10 +307,13 @@ describe('solid props', () => {
   });
 
   it('cannot be walked through, however long the player pushes', () => {
-    // Walk at a lamp from a point that is clear of every other solid thing.
+    // Walk at a lamp from the nearest point on that line that is clear.
     const lamp = scene.props.find((prop) => prop.asset.entry.id === 'kit_street_lamp')!;
     let position = { x: lamp.position[0], z: lamp.position[2] + 4 };
-    expect(blockedBy(position, scene.colliders), 'test start is inside something').toBeNull();
+    while (blockedBy(position, scene.colliders) !== null && position.z > lamp.position[2] + 1.5) {
+      position = { x: position.x, z: position.z - 0.25 };
+    }
+    expect(blockedBy(position, scene.colliders), 'no clear approach to the lamp').toBeNull();
     for (let frame = 0; frame < 400; frame += 1) {
       position = stepWithCollision(
         position,

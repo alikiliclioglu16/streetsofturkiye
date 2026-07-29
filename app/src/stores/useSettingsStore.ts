@@ -10,6 +10,7 @@ interface SettingsState {
   reducedMotion: boolean;
   /** Per-channel mute. Restored now that the switches control something. */
   muteVoice: boolean;
+  muteMusic: boolean;
   muteAmbience: boolean;
   muteUi: boolean;
   reducedMotionAuto: boolean;
@@ -17,7 +18,7 @@ interface SettingsState {
   hydrated: boolean;
   setLocale: (locale: Locale) => void;
   setReducedMotion: (value: boolean) => void;
-  toggleAudio: (channel: 'voice' | 'ambience' | 'ui') => void;
+  toggleAudio: (channel: 'voice' | 'music' | 'ambience' | 'ui') => void;
   togglePerfOverlay: () => void;
   hydrate: () => void;
 }
@@ -26,7 +27,7 @@ const STORAGE_KEY = 'sot.settings.v1';
 
 type Persisted = Pick<
   SettingsState,
-  'locale' | 'reducedMotion' | 'muteVoice' | 'muteAmbience' | 'muteUi' | 'reducedMotionAuto'
+  'locale' | 'reducedMotion' | 'muteVoice' | 'muteMusic' | 'muteAmbience' | 'muteUi' | 'reducedMotionAuto'
 >;
 
 function persist(state: SettingsState): void {
@@ -34,6 +35,7 @@ function persist(state: SettingsState): void {
   const payload: Persisted = {
     locale: state.locale,
     muteVoice: state.muteVoice,
+    muteMusic: state.muteMusic,
     muteAmbience: state.muteAmbience,
     muteUi: state.muteUi,
     reducedMotion: state.reducedMotion,
@@ -50,6 +52,7 @@ export const useSettingsStore = create<SettingsState>((set, get) => ({
   locale: DEFAULT_LOCALE,
   reducedMotion: false,
   muteVoice: false,
+  muteMusic: false,
   muteAmbience: false,
   muteUi: false,
   reducedMotionAuto: true,
@@ -61,7 +64,14 @@ export const useSettingsStore = create<SettingsState>((set, get) => ({
     persist(get());
   },
   toggleAudio: (channel) => {
-    const key = channel === 'voice' ? 'muteVoice' : channel === 'ambience' ? 'muteAmbience' : 'muteUi';
+    const key =
+      channel === 'voice'
+        ? 'muteVoice'
+        : channel === 'music'
+          ? 'muteMusic'
+          : channel === 'ambience'
+            ? 'muteAmbience'
+            : 'muteUi';
     const muted = !get()[key];
     set({ [key]: muted } as Partial<SettingsState>);
     setChannelState(channel, { ...DEFAULT_CHANNELS[channel], muted });

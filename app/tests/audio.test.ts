@@ -13,14 +13,14 @@ import {
  * sound, and safe to call in a server render.
  */
 describe('audio channels', () => {
-  const channels: AudioChannel[] = ['voice', 'ambience', 'ui'];
+  const channels: AudioChannel[] = ['voice', 'music', 'ambience', 'ui'];
 
   it('starts locked, because a browser will not allow sound before a gesture', () => {
     expect(isUnlocked()).toBe(false);
   });
 
   it('has a channel for each reason a person mutes', () => {
-    expect(Object.keys(DEFAULT_CHANNELS).sort()).toEqual(['ambience', 'ui', 'voice']);
+    expect(Object.keys(DEFAULT_CHANNELS).sort()).toEqual(['ambience', 'music', 'ui', 'voice']);
     for (const channel of channels) {
       expect(DEFAULT_CHANNELS[channel].muted, channel).toBe(false);
     }
@@ -49,25 +49,53 @@ describe('audio channels', () => {
     const { unlockAudio, setChannelState, duckAmbience, stopAudio } = await import(
       '@/engine/audio/engine'
     );
-    const { playCollect, playCorrect, playRetry, playCityComplete, startAmbience, stopAmbience } =
-      await import('@/engine/audio/cues');
+    const {
+      playCollect,
+      playCorrect,
+      playRetry,
+      playCityComplete,
+      startAmbience,
+      stopAmbience,
+      stopMusic,
+    } = await import('@/engine/audio/cues');
 
     // None of these may throw where AudioContext does not exist — a server
     // render, a test, or a browser that has refused us.
     await expect(unlockAudio()).resolves.toBe(false);
     expect(() => setChannelState('ui', { muted: true, volume: 1 })).not.toThrow();
     expect(() => duckAmbience(true)).not.toThrow();
-    for (const cue of [playCollect, playCorrect, playRetry, playCityComplete, startAmbience, stopAmbience]) {
+    for (const cue of [
+      playCollect,
+      playCorrect,
+      playRetry,
+      playCityComplete,
+      startAmbience,
+      stopAmbience,
+      stopMusic,
+    ]) {
       expect(() => cue(), cue.name).not.toThrow();
     }
     expect(() => stopAudio()).not.toThrow();
   });
 
-  it('ships no audio files, because every cue is synthesised', async () => {
-    const { existsSync } = await import('node:fs');
+  it('synthesises every cue, and streams the one thing that is a recording', async () => {
+    const { readdirSync, statSync } = await import('node:fs');
     const path = await import('node:path');
-    // The whole sound design is oscillators and filtered noise, so it costs
-    // nothing to download. Recorded voice and seagulls land on top of it later.
-    expect(existsSync(path.resolve(process.cwd(), 'public/assets/audio'))).toBe(false);
+    const dir = path.resolve(process.cwd(), 'public/assets/audio');
+    const files = readdirSync(dir);
+
+    // Interface cues and the ambience bed are oscillators and filtered noise,
+    // so the only file here is the city theme.
+    expect(files).toEqual(['istanbul_theme.webm']);
+    for (const file of files) {
+      // Opus in WebM, streamed rather than decoded into memory.
+      expect(file.endsWith('.webm'), file).toBe(true);
+      expect(statSync(path.join(dir, file)).size / (1024 * 1024)).toBeLessThan(2.5);
+    }
+  });
+
+  it('keeps the theme under the street rather than over it', () => {
+    expect(DEFAULT_CHANNELS.music.volume).toBeLessThan(DEFAULT_CHANNELS.voice.volume);
+    expect(DEFAULT_CHANNELS.music.volume).toBeLessThan(DEFAULT_CHANNELS.ui.volume);
   });
 });

@@ -95,6 +95,8 @@ export const DELIVERED_DIMENSIONS = {
   city_istanbul_iznik_tile_panel: [1.51, 2.2, 1.06],
   city_istanbul_ferry_terminal: [13.9, 8.0, 8.9],
   city_istanbul_ferry_boat: [20.2, 9.0, 4.5],
+  city_istanbul_beyoglu_row: [30.7, 14.0, 12.3],
+  kit_turkish_flag: [3.5, 6.0, 1.0],
   city_istanbul_maidens_tower: [7.7, 10.0, 7.6],
   city_istanbul_galata_tower: [4.28, 14.0, 4.28],
   city_istanbul_grand_bazaar: [5.37, 6.0, 3.6],

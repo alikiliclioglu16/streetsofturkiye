@@ -133,8 +133,8 @@ describe('delivered street props', () => {
     const city = loadComposedCity('istanbul');
     const scene = buildScene(city, 'high');
     // The whole street kit together; each kind is bounded separately.
-    expect(scene.props.length).toBeGreaterThanOrEqual(10);
-    expect(scene.props.length).toBeLessThanOrEqual(20);
+    expect(scene.props.length).toBeGreaterThanOrEqual(14);
+    expect(scene.props.length).toBeLessThanOrEqual(28);
 
     for (const prop of scene.props) {
       const [x, , z] = prop.position;
@@ -154,9 +154,10 @@ describe('delivered street props', () => {
     }
   });
 
-  it('adds no props to cities that are not being dressed yet', () => {
+  it('adds nothing but the flag to cities that are not being dressed yet', () => {
     for (const cityId of ['nevsehir', 'gaziantep']) {
-      expect(buildScene(loadComposedCity(cityId), 'high').props).toEqual([]);
+      const props = buildScene(loadComposedCity(cityId), 'high').props;
+      expect(props.map((prop) => prop.asset.entry.id), cityId).toEqual(['kit_turkish_flag']);
     }
   });
 });

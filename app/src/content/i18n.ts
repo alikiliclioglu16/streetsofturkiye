@@ -80,6 +80,7 @@ type UiKey =
   | 'on'
   | 'off'
   | 'language'
+  | 'audioMusic'
   | 'audioAmbient'
   | 'audioInterface'
   | 'audioGuide'
@@ -138,6 +139,7 @@ const UI: Record<UiKey, Record<Locale, string>> = {
   on: { tr: 'Açık', en: 'On' },
   off: { tr: 'Kapalı', en: 'Off' },
   language: { tr: 'Dil', en: 'Language' },
+  audioMusic: { tr: 'Müzik', en: 'Music' },
   audioAmbient: { tr: 'Ortam', en: 'Ambient' },
   audioInterface: { tr: 'Arayüz', en: 'Interface' },
   audioGuide: { tr: 'Rehber', en: 'Guide' },

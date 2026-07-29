@@ -385,7 +385,20 @@
       }
     }
   ],
-  "props": [],
+  "props": [
+    {
+      "assetId": "kit_turkish_flag",
+      "position": [
+        7.5,
+        0,
+        4
+      ],
+      "rotationY": -0.35,
+      "solid": true,
+      "note": "the flag, in the same place in every city"
+    }
+  ],
+  "musicUrl": null,
   "water": null,
   "backdrop": [],
   "catRoutes": [],

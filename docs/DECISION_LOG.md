@@ -899,3 +899,41 @@ on a filename gets asked about rather than assumed.
 
 The facades are still wanted. `docs/BEYOGLU_FACADE_BRIEF.md` specifies them.
 
+## D-079 — The flag stands in the same place in every city (29 Jul 2026)
+
+`kit_turkish_flag` is placed by the scene builder for all 81 provinces, at the
+same coordinates beside the spawn. Arriving anywhere in the country begins the
+same way, and it is the first shared prop that is placed rather than merely
+available. It is solid, so a child can walk up to it and no further.
+
+## D-080 — İstanbul has a theme, streamed (29 Jul 2026)
+
+A four minute recording of *Üsküdar'a Gider İken*, re-encoded from 4.53 MB of
+MP3 to **1.60 MB** of Opus in WebM — a smaller file at higher quality than the
+64 kbps MP3 it came from.
+
+Music gets its own channel rather than sharing the ambience one: people mute a
+song for different reasons than a background bed, and the theme sits quieter
+than everything else by default. A theme a child hears for the fourth time
+should be under the street rather than over it.
+
+It streams through an `<audio>` element rather than being decoded into an
+`AudioBuffer`. Decoded, four minutes of stereo is about 40 MB of memory, which
+is not a thing to spend on a tablet. It fades in over four seconds, loops, and
+ducks with the ambience when the guide speaks.
+
+Scene data carries `musicUrl`, so the other 80 cities stay silent until each
+gets a theme rather than inheriting İstanbul's.
+
+**One thing for the owner to confirm:** the melody is traditional and long out
+of copyright, but this particular recording has a performer and an arranger.
+Worth being certain the rights sit with the project before publication.
+
+## D-081 — The Beyoğlu row arrived, and it is a row (29 Jul 2026)
+
+30.7 by 14 by 12.3 m, deeper than the 4 m the brief asked for. That turns out
+not to matter: it stands beyond the play boundary where only its front is ever
+seen, so the depth costs nothing but triangles it already had.
+
+Two instances, one along each side of the walk. 25.01 MB down to 2.55 MB.
+

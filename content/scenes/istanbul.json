@@ -387,6 +387,17 @@
   ],
   "props": [
     {
+      "assetId": "kit_turkish_flag",
+      "position": [
+        7.5,
+        0,
+        4
+      ],
+      "rotationY": -0.35,
+      "solid": true,
+      "note": "the flag, in the same place in every city"
+    },
+    {
       "assetId": "kit_street_lamp",
       "position": [
         -10.5,
@@ -587,6 +598,7 @@
       "note": "crates stacked along the street edge"
     }
   ],
+  "musicUrl": "/assets/audio/istanbul_theme.webm",
   "water": {
     "centerX": 0,
     "centerZ": -202,
@@ -595,6 +607,28 @@
     "color": "#2E7FA8"
   },
   "backdrop": [
+    {
+      "assetId": "city_istanbul_beyoglu_row",
+      "position": [
+        -30,
+        0,
+        -46
+      ],
+      "rotationY": 1.5707963267948966,
+      "solid": false,
+      "note": "facades along the west side"
+    },
+    {
+      "assetId": "city_istanbul_beyoglu_row",
+      "position": [
+        31,
+        0,
+        -68
+      ],
+      "rotationY": -1.5707963267948966,
+      "solid": false,
+      "note": "facades along the east side"
+    },
     {
       "assetId": "city_istanbul_ferry_boat",
       "position": [

@@ -114,7 +114,7 @@ app/src/
 npm run lint       → temiz
 npm run typecheck  → temiz (strict, noUncheckedIndexedAccess, `any` yok)
 npm run content:check → 81 il, 249 durak, 84 soru; 1413 kanonik dizgi baseline ile eşleşti
-npm test           → 14 dosya / 261 test geçti (logic + jsdom ui)
+npm test           → 14 dosya / 263 test geçti (logic + jsdom ui)
 npm run build      → başarılı, 4 rota
 npm start          → /map ve /city/istanbul 200
 ```
@@ -495,6 +495,19 @@ gölge yaratmıyor.
 | Tek geçiş üçgen | 412.384 | ~351.864 |
 | Gölgeliyle | 824.768 | ~664.000 |
 | Draw call | 108 | ~48 |
+
+## 5d. Bayrak, müzik, Beyoğlu
+
+**Bayrak** 81 ilin hepsinde aynı noktada (D-079): doğuş noktasının sağında, yürüyüşe bakar.
+Katı — çocuk yanına gidebilir, öteye geçemez. 14,59 MB'dan 0,45 MB'a.
+
+**İstanbul teması** eklendi (D-080): *Üsküdar'a Gider İken*, 4,53 MB MP3'ten **1,60 MB**
+Opus/WebM'e. Müziğin kendi kanalı var, varsayılan sesi hepsinden düşük.
+`<audio>` üzerinden akıtılıyor — çözülmüş hâli ~40 MB bellek eder.
+Dört saniyede açılıyor, döngüye giriyor, rehber konuşurken ortamla birlikte kısılıyor.
+Diğer 80 il kendi teması gelene kadar sessiz.
+
+**Beyoğlu cephe sırası** geldi: 30,7 × 14 × 12,3 m, iki yerde. 25,01 MB'dan 2,55 MB'a (D-081).
 
 ## 5. Bilinen sınırlar
 
