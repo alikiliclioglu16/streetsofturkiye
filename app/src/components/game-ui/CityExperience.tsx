@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useGameStore } from '@/stores/useGameStore';
 import { useSettingsStore } from '@/stores/useSettingsStore';
@@ -25,6 +25,7 @@ import { hotspotById } from '@/engine/interactions/machine';
 import { useKeyboardControls } from '@/engine/controls/inputState';
 import { loadPresentation } from '@/content/loaders/loadCity';
 import { unlockAudio, stopAudio } from '@/engine/audio/engine';
+import { speak, stopSpeaking, stopNarration } from '@/engine/audio/speech';
 import {
   playCollect,
   playCityComplete,
@@ -308,12 +309,40 @@ export function CityExperience({ cityId }: { cityId: string }) {
 
   useEffect(
     () => () => {
+      stopSpeaking();
       stopMusic();
       stopAmbience();
       stopAudio();
     },
     [],
   );
+
+  /**
+   * The guide reads the stop aloud as it opens.
+   *
+   * Keyed on the hotspot rather than on the panel's own state, so walking on to
+   * the next stop replaces the line instead of queueing behind it.
+   */
+  const narratedHotspotId = useRef<string | null>(null);
+  useEffect(() => {
+    const open = ['entering', 'active'].includes(interaction.state);
+    if (!open || !activeHotspot) {
+      if (narratedHotspotId.current) {
+        stopSpeaking();
+        narratedHotspotId.current = null;
+      }
+      return;
+    }
+    if (narratedHotspotId.current === activeHotspot.id) return;
+    narratedHotspotId.current = activeHotspot.id;
+    speak(
+      stopNarration({
+        guideLine: t(activeHotspot.fact.guideLine, locale),
+        title: t(activeHotspot.fact.title, locale),
+        description: t(activeHotspot.fact.body, locale),
+      }),
+    );
+  }, [interaction.state, activeHotspot, locale]);
 
   const collectFromStop = useCallback(() => {
     playCollect();

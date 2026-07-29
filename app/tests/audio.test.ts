@@ -99,3 +99,60 @@ describe('audio channels', () => {
     expect(DEFAULT_CHANNELS.music.volume).toBeLessThan(DEFAULT_CHANNELS.ui.volume);
   });
 });
+
+describe('the guide speaks', () => {
+  it('reads a stop in the order a child meets it', async () => {
+    const { stopNarration } = await import('@/engine/audio/speech');
+    const line = stopNarration({
+      guideLine: 'Look up, my friend!',
+      title: 'Galata Tower',
+      description: 'Sailors once watched for fires from the top.',
+    });
+    expect(line).toBe(
+      'Look up, my friend!. Galata Tower. Sailors once watched for fires from the top.',
+    );
+  });
+
+  it('says nothing when a stop has nothing to say', async () => {
+    const { stopNarration } = await import('@/engine/audio/speech');
+    expect(stopNarration({ guideLine: '', title: '', description: '' })).toBe('');
+  });
+
+  it('prefers an English voice, and a local one over a network one', async () => {
+    const { chooseVoice } = await import('@/engine/audio/speech');
+    const voices = [
+      { name: 'Yelda', lang: 'tr-TR', localService: true },
+      { name: 'Google UK English Male', lang: 'en-GB', localService: false },
+      { name: 'Daniel', lang: 'en-GB', localService: true },
+    ] as unknown as SpeechSynthesisVoice[];
+
+    // A network voice pauses before it starts, and a guide who takes a second
+    // to begin reads as a guide who is buffering.
+    expect(chooseVoice(voices)?.name).toBe('Daniel');
+  });
+
+  it('falls back rather than going silent when no English voice exists', async () => {
+    const { chooseVoice } = await import('@/engine/audio/speech');
+    const voices = [{ name: 'Yelda', lang: 'tr-TR', localService: true }] as unknown as SpeechSynthesisVoice[];
+    expect(chooseVoice(voices)?.name).toBe('Yelda');
+    expect(chooseVoice([])).toBeNull();
+  });
+
+  it('reads slower than a browser reads to an adult', async () => {
+    const { SPEECH_RATE } = await import('@/engine/audio/speech');
+    // A child following the text on screen needs the words at about the speed
+    // they would read them.
+    expect(SPEECH_RATE).toBeLessThan(1);
+    expect(SPEECH_RATE).toBeGreaterThan(0.8);
+  });
+
+  it('is safe to call where the browser has no speech at all', async () => {
+    const { speak, stopSpeaking, isSpeaking, speechSupport } = await import(
+      '@/engine/audio/speech'
+    );
+    expect(speechSupport().available).toBe(false);
+    expect(() => speak('hello')).not.toThrow();
+    expect(() => stopSpeaking()).not.toThrow();
+    expect(isSpeaking()).toBe(false);
+  });
+});

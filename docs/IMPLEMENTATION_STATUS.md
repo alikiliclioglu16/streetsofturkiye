@@ -114,7 +114,7 @@ app/src/
 npm run lint       → temiz
 npm run typecheck  → temiz (strict, noUncheckedIndexedAccess, `any` yok)
 npm run content:check → 81 il, 249 durak, 84 soru; 1413 kanonik dizgi baseline ile eşleşti
-npm test           → 14 dosya / 270 test geçti (logic + jsdom ui)
+npm test           → 14 dosya / 276 test geçti (logic + jsdom ui)
 npm run build      → başarılı, 4 rota
 npm start          → /map ve /city/istanbul 200
 ```
@@ -536,6 +536,21 @@ Katı değil — çocuk hattın üstüne çıkarsa görmediği bir araç onu dur
 
 **Zemin oyun alanının 26 m ötesine uzatıldı** (D-082) — cepheler gökyüzünün üstünde
 yüzüyordu. **Sokağın iki yanı on cephe sırasıyla kapatıldı** (D-083).
+
+## 5f. Rehber konuşuyor
+
+Tarayıcının `speechSynthesis`'i her durağı açıldığında İngilizce okuyor: rehber cümlesi,
+başlık, bilgi (D-088). Hız 0,92 — tarayıcı varsayılanı yetişkine göre hızlı.
+Yerel ses, ağ sesine tercih ediliyor; ağ sesi konuşmadan önce duraklıyor.
+Yeni durak, öncekinin sırasını beklemiyor, yerine geçiyor.
+
+Konuşma Web Audio grafiğinden geçmediği için ses kanalının kısma ve susturması
+söyleyiş üzerinde uygulanıyor — "Guide" düğmesi artık gerçekten bir şey susturuyor.
+
+Kayıt gerekirse `speak()` arayüzü aynı kalarak değiştirilebilir.
+
+**Tramvay yan gidiyordu** (D-087): modelin uzun ekseni X'te, yön hesabı +Z varsayıyordu.
+Bileşen artık ayak izini okuyup çeyrek tur ekliyor.
 
 ## 5. Bilinen sınırlar
 

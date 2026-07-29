@@ -1031,3 +1031,40 @@ for.
 Raised by half again from 40 cm. The people the street was shown to could not
 find them, which is the only measurement that mattered.
 
+## D-087 — The tram was running sideways (29 Jul 2026)
+
+The heading came from `atan2(dx, dz)`, which assumes a model whose nose points
+along +Z. The tram is 4.8 m wide and 1.9 m deep, so its length lies along X and
+it was crossing the street broadside while travelling down it.
+
+The component now reads the footprint and adds a quarter turn when the model is
+wider than it is deep. Reading the shape is more reliable than remembering a
+per-asset convention, and it will be right for the next vehicle too.
+
+## D-088 — The guide speaks, using the browser (29 Jul 2026)
+
+`speechSynthesis` reads each stop aloud in English as it opens: the guide's
+line, the title, then the fact.
+
+Many six to ten year olds read slowly, and for a good number of them English is
+the language of school rather than of home. A stop whose text is only read by
+children who can already read it teaches the ones who least need teaching.
+
+Browser speech rather than recordings: 249 stops across 81 cities is a serious
+amount of studio time, and this costs nothing, ships nothing and works today.
+Recordings can replace it later without the calling code changing — `speak()` is
+the whole interface.
+
+Details that matter more than they look:
+
+- **Rate 0.92**, slower than a browser's default, which is pitched at adults
+  skimming. A child following the text needs the words at reading speed.
+- **A local voice is preferred over a network one.** A network voice pauses
+  before it starts, and a guide who takes a second to begin reads as a guide who
+  is buffering.
+- **Speaking replaces rather than queues.** A child walking straight to the next
+  stop should hear where they are, not wait out where they were.
+- Speech does not run through the Web Audio graph, so the voice channel's mute
+  and volume are applied on the utterance. The mute switch now controls
+  something.
+

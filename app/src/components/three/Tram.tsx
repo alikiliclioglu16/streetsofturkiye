@@ -67,8 +67,25 @@ export function Tram({ asset, from, to, reducedMotion }: TramProps) {
     const dx = to[0] - from[0];
     const dz = to[1] - from[1];
     const length = Math.hypot(dx, dz);
-    return { dx: dx / length, dz: dz / length, length, heading: Math.atan2(dx, dz) };
-  }, [from, to]);
+
+    /**
+     * Which way the model already points.
+     *
+     * A heading of `atan2(dx, dz)` assumes the model's nose is along +Z. This
+     * tram is 4.8 m wide and 1.9 m deep, so its length lies along X and it was
+     * running down the street sideways. Reading the footprint is more reliable
+     * than remembering a per-asset convention.
+     */
+    const [width, , depth] = asset.entry.dimensions;
+    const modelFacesX = width > depth;
+
+    return {
+      dx: dx / length,
+      dz: dz / length,
+      length,
+      heading: Math.atan2(dx, dz) + (modelFacesX ? Math.PI / 2 : 0),
+    };
+  }, [from, to, asset.entry.dimensions]);
 
   useFrame((_, rawDelta) => {
     const node = group.current;
