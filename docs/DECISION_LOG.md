@@ -937,3 +937,97 @@ seen, so the depth costs nothing but triangles it already had.
 
 Two instances, one along each side of the walk. 25.01 MB down to 2.55 MB.
 
+## D-082 — Ground is scenery; bounds are gameplay (29 Jul 2026)
+
+They were the same rectangle, so anything standing outside the play area stood
+off the edge of the world — the facades appeared to float over a strip of sky
+with water showing under them.
+
+The paving now runs 26 m past the boundary in every direction. The child still
+stops where they always did; the world does not stop with them.
+
+## D-083 — The street is closed on both sides (29 Jul 2026)
+
+Two facade rows left gaps of open sky between them, which read as holes in the
+city rather than as distance. Ten rows now run end to end down both sides.
+
+A street a child cannot see out of is a street. One with blue slots in its walls
+is a stage set.
+
+## D-084 — Wind (29 Jul 2026)
+
+The flag leans and the tree canopies sway: two sines at unrelated periods, so
+the motion never visibly repeats, with a phase offset per object so twenty-one
+trees do not lean in unison — which reads as an earthquake rather than a breeze.
+
+Trunks hold still. A swaying trunk reads as a tree falling over.
+
+The whole flag leans rather than its cloth rippling; rippling needs bones the
+delivered file does not have, and at six metres a lean says wind well enough.
+
+`sway()` is pure, so reduced motion is honoured by passing zero strength rather
+than by threading a flag through every component that moves.
+
+## D-085 — The tram runs its line (29 Jul 2026)
+
+A tram parked at the kerb is a model of a tram. It now runs 120 m of the west
+side, pauses four seconds at each end and comes back — which is what İstanbul's
+nostalgic tram does, one street, all day.
+
+It is not solid: a child who wanders on to the line should not be stopped by a
+vehicle they cannot see coming. The step function is pure, so a tram that never
+arrives or never turns round is a failing test rather than something to watch
+for.
+
+## D-086 — Cats are 60 cm (29 Jul 2026)
+
+Raised by half again from 40 cm. The people the street was shown to could not
+find them, which is the only measurement that mattered.
+
+## D-082 — Ground is scenery; bounds are gameplay (29 Jul 2026)
+
+They were the same rectangle, so anything standing outside the play area stood
+off the edge of the world — the facades appeared to float over a strip of sky
+with water showing under them.
+
+The paving now runs 26 m past the boundary in every direction. The child still
+stops where they always did; the world does not stop with them.
+
+## D-083 — The street is closed on both sides (29 Jul 2026)
+
+Two facade rows left gaps of open sky between them, which read as holes in the
+city rather than as distance. Ten rows now run end to end down both sides.
+
+A street a child cannot see out of is a street. One with blue slots in its walls
+is a stage set.
+
+## D-084 — Wind (29 Jul 2026)
+
+The flag leans and the tree canopies sway: two sines at unrelated periods, so
+the motion never visibly repeats, with a phase offset per object so twenty-one
+trees do not lean in unison — which reads as an earthquake rather than a breeze.
+
+Trunks hold still. A swaying trunk reads as a tree falling over.
+
+The whole flag leans rather than its cloth rippling; rippling needs bones the
+delivered file does not have, and at six metres a lean says wind well enough.
+
+`sway()` is pure, so reduced motion is honoured by passing zero strength rather
+than by threading a flag through every component that moves.
+
+## D-085 — The tram runs its line (29 Jul 2026)
+
+A tram parked at the kerb is a model of a tram. It now runs 120 m of the west
+side, pauses four seconds at each end and comes back — which is what İstanbul's
+nostalgic tram does, one street, all day.
+
+It is not solid: a child who wanders on to the line should not be stopped by a
+vehicle they cannot see coming. The step function is pure, so a tram that never
+arrives or never turns round is a failing test rather than something to watch
+for.
+
+## D-086 — Cats are 60 cm (29 Jul 2026)
+
+Raised by half again from 40 cm. The people the street was shown to could not
+find them, which is the only measurement that mattered.
+

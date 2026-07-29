@@ -6,6 +6,8 @@ import type { QualitySettings } from '@/engine/quality/quality';
 import type { HeroStatus } from '@/components/three/HeroCharacter';
 import type { HeroClip } from '@/engine/heroes/registry';
 import { AssetInstance } from '@/components/three/AssetInstance';
+import { WindProp } from '@/components/three/WindProp';
+import { Tram } from '@/components/three/Tram';
 import { Ground } from '@/components/three/Ground';
 import { Water } from '@/components/three/Water';
 import { HotspotObject } from '@/components/three/HotspotObject';
@@ -131,19 +133,50 @@ export function CityScene({
       ))}
 
       {/* Street dressing: static, no state, no interaction. */}
-      {scene.props.map((prop) => (
-        <group key={prop.key} position={prop.position} rotation={[0, prop.rotationY, 0]}>
-          <AssetInstance asset={prop.asset} />
-        </group>
-      ))}
+      {scene.props.map((prop) =>
+        // The flag is the one prop whose stillness would be conspicuous.
+        prop.asset.entry.id === 'kit_turkish_flag' ? (
+          <WindProp
+            key={prop.key}
+            asset={prop.asset}
+            position={prop.position}
+            rotationY={prop.rotationY}
+            reducedMotion={reducedMotion}
+          />
+        ) : (
+          <group key={prop.key} position={prop.position} rotation={[0, prop.rotationY, 0]}>
+            <AssetInstance asset={prop.asset} />
+          </group>
+        ),
+      )}
 
 
       {/* Street dressing: static, shared across cities, no interaction. */}
-      {scene.props.map((prop) => (
-        <group key={prop.key} position={prop.position} rotation={[0, prop.rotationY, 0]}>
-          <AssetInstance asset={prop.asset} />
-        </group>
-      ))}
+      {scene.props.map((prop) =>
+        // The flag is the one prop whose stillness would be conspicuous.
+        prop.asset.entry.id === 'kit_turkish_flag' ? (
+          <WindProp
+            key={prop.key}
+            asset={prop.asset}
+            position={prop.position}
+            rotationY={prop.rotationY}
+            reducedMotion={reducedMotion}
+          />
+        ) : (
+          <group key={prop.key} position={prop.position} rotation={[0, prop.rotationY, 0]}>
+            <AssetInstance asset={prop.asset} />
+          </group>
+        ),
+      )}
+
+      {scene.tramLine && scene.tramAsset ? (
+        <Tram
+          asset={scene.tramAsset}
+          from={scene.tramLine.from}
+          to={scene.tramLine.to}
+          reducedMotion={reducedMotion}
+        />
+      ) : null}
 
       {/*
         Stray cats. Dressing: no colliders, the player walks through them.
@@ -164,7 +197,7 @@ export function CityScene({
         : null}
 
       {/* Greenery. Generated geometry, roughly 250 triangles a tree. */}
-      <StreetTrees trees={scene.trees} />
+      <StreetTrees trees={scene.trees} reducedMotion={reducedMotion} />
 
       {/* People at their posts. One of each, never mass-instanced. */}
       {scene.npcs.map((entry, index) => (

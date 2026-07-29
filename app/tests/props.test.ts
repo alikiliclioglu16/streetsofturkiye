@@ -5,6 +5,8 @@ import { blockedBy, stepWithCollision } from '@/engine/controls/movement';
 import { createCatState, randomPause, stepCat } from '@/components/three/StreetCat';
 import { FOLLOW_DISTANCE, FOLLOW_HEIGHT } from '@/engine/camera/anchors';
 import { FEATURED_NPCS, isApprovedClip, npcById } from '@/engine/npc/registry';
+import { SWAY_RADIANS, heightFactor, sway } from '@/engine/environment/wind';
+import { initialTramState, stepTram } from '@/components/three/Tram';
 import { CAMERA_FOV } from '@/components/three/CityCanvas';
 import { deliveredProps, resolveAsset, trustsModelScale } from '@/engine/assets/registry';
 import { buildScene } from '@/engine/scene/buildScene';
@@ -35,8 +37,9 @@ describe('street kit props', () => {
     // and a stone dock belong to this city and to no other.
     const kinds = [...new Set(scene.props.map((prop) => prop.asset.entry.id))].sort();
     expect(kinds.filter((id) => id.startsWith('kit_')).length).toBeGreaterThanOrEqual(5);
-    expect(kinds).toContain('city_istanbul_streetcar');
     expect(kinds).toContain('city_istanbul_stone_dock');
+    // The tram is no longer a prop: it runs its own line.
+    expect(kinds).not.toContain('city_istanbul_streetcar');
   });
 
   it('stands every prop on the ground plane', () => {
@@ -356,7 +359,7 @@ describe('street cats', () => {
     // The delivered armature is scaled 0.01 and the cat renders about 1.7 cm
     // tall — present in the scene and impossible to see.
     expect(scene.catHeight).toBeGreaterThan(0.2);
-    expect(scene.catHeight).toBeLessThan(0.5);
+    expect(scene.catHeight).toBeLessThan(0.8);
   });
 
   it('scatters them along the walk rather than clustering them', () => {
@@ -462,7 +465,9 @@ describe('framing', () => {
 
   it('gives the cat the size the owner asked for', () => {
     const cat = deliveredProps().find((prop) => prop.id === 'kit_street_cat')!;
-    expect(cat.dimensions[1]).toBeCloseTo(0.4, 2);
+    // Raised by half again: the people the street was shown to could not find
+    // the cats at 40 cm.
+    expect(cat.dimensions[1]).toBeCloseTo(0.6, 2);
   });
 
   it('keeps cobbles large enough to read as paving, not gravel', () => {
@@ -897,19 +902,19 @@ describe('the sea', () => {
     );
   });
 
-  it('starts the child beside the tram', () => {
+  it('starts the child where the tram passes', () => {
     const city = loadComposedCity('istanbul');
     const scene = buildScene(city, 'high');
-    const tram = scene.props.find(
-      (prop) => prop.asset.entry.id === 'city_istanbul_streetcar',
-    )!;
-    const distance = Math.hypot(
-      tram.position[0] - city.spawn.position[0],
-      tram.position[2] - city.spawn.position[2],
+    const line = scene.tramLine!;
+
+    // The tram no longer waits at the kerb; it runs. What matters is that its
+    // line comes past the square, so the child sees it arrive early on.
+    const nearSpawn = Math.min(
+      ...[line.from, line.to].map((end) =>
+        Math.hypot(end[0] - city.spawn.position[0], end[1] - city.spawn.position[2]),
+      ),
     );
-    // Close enough to read as where they arrived from, far enough to walk out of.
-    expect(distance).toBeGreaterThan(6);
-    expect(distance).toBeLessThan(20);
+    expect(nearSpawn).toBeLessThan(30);
   });
 });
 
@@ -1022,5 +1027,65 @@ describe('trees render as trees', () => {
     const scene = buildScene(loadComposedCity('istanbul'), 'high');
     const kinds = new Set(scene.trees.map((tree) => tree.kind));
     expect(kinds.size).toBeGreaterThanOrEqual(2);
+  });
+});
+
+describe('the street is alive', () => {
+  it('sways without ever repeating the same lean twice in a row', () => {
+    const samples = Array.from({ length: 200 }, (_, i) => sway(i * 0.05, 0));
+    expect(new Set(samples.map((s) => s.toFixed(4))).size).toBeGreaterThan(150);
+    for (const value of samples) {
+      // Four degrees, not a storm.
+      expect(Math.abs(value)).toBeLessThanOrEqual(SWAY_RADIANS * 1.4);
+    }
+  });
+
+  it('does not lean the whole street in unison', () => {
+    const atOneMoment = [0, 3, 7, 11, 19].map((phase) => sway(2.5, phase).toFixed(3));
+    expect(new Set(atOneMoment).size).toBeGreaterThan(3);
+  });
+
+  it('leans a flagpole more than a shrub', () => {
+    expect(heightFactor(6)).toBeGreaterThan(heightFactor(1.5));
+    expect(heightFactor(20)).toBe(1);
+  });
+
+  it('stands still for a child who asked for less motion', () => {
+    // Reduced motion passes zero strength rather than threading a flag
+    // through every component that moves.
+    expect(sway(3.2, 1.1, 0)).toBe(0);
+  });
+
+  it('runs the tram end to end and turns it round', () => {
+    const line = 120;
+    let state = initialTramState();
+    let reachedFar = false;
+    let cameBack = false;
+
+    for (let frame = 0; frame < 60 * 120; frame += 1) {
+      state = stepTram(state, line, 1 / 60);
+      if (state.travelled >= line - 0.01) reachedFar = true;
+      if (reachedFar && state.travelled <= 0.01) cameBack = true;
+      expect(state.travelled).toBeGreaterThanOrEqual(0);
+      expect(state.travelled).toBeLessThanOrEqual(line);
+    }
+
+    expect(reachedFar, 'the tram never reached the end of its line').toBe(true);
+    expect(cameBack, 'the tram never came back').toBe(true);
+  });
+
+  it('runs the tram clear of the walk', () => {
+    const scene = buildScene(loadComposedCity('istanbul'), 'high');
+    const line = scene.tramLine!;
+    expect(line).not.toBeNull();
+    for (const point of [line.from, line.to]) {
+      // A vehicle a child cannot see coming must not cross where they walk.
+      expect(Math.abs(point[0])).toBeGreaterThan(10);
+    }
+  });
+
+  it('gives cats a size the people who were shown the street could find', () => {
+    const cat = deliveredProps().find((prop) => prop.id === 'kit_street_cat')!;
+    expect(cat.dimensions[1]).toBeCloseTo(0.6, 2);
   });
 });

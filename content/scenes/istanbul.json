@@ -568,16 +568,6 @@
       "note": "the mosque, closing the square"
     },
     {
-      "assetId": "city_istanbul_streetcar",
-      "position": [
-        -12.5,
-        0,
-        6
-      ],
-      "rotationY": 0.12,
-      "note": "tram at the edge of the square"
-    },
-    {
       "assetId": "city_istanbul_stone_dock",
       "position": [
         12,
@@ -599,6 +589,16 @@
     }
   ],
   "musicUrl": "/assets/audio/istanbul_theme.webm",
+  "tramLine": {
+    "from": [
+      -15.5,
+      20
+    ],
+    "to": [
+      -15.5,
+      -100
+    ]
+  },
   "water": {
     "centerX": 0,
     "centerZ": -202,
@@ -610,24 +610,112 @@
     {
       "assetId": "city_istanbul_beyoglu_row",
       "position": [
-        -30,
+        -30.5,
         0,
-        -46
+        26
       ],
-      "rotationY": 1.5707963267948966,
+      "rotationY": 1.5507963267948965,
       "solid": false,
-      "note": "facades along the west side"
+      "note": "facades west 1"
     },
     {
       "assetId": "city_istanbul_beyoglu_row",
       "position": [
-        31,
+        -30.5,
         0,
-        -68
+        -6
       ],
-      "rotationY": -1.5707963267948966,
+      "rotationY": 1.6007963267948966,
       "solid": false,
-      "note": "facades along the east side"
+      "note": "facades west 2"
+    },
+    {
+      "assetId": "city_istanbul_beyoglu_row",
+      "position": [
+        -30.5,
+        0,
+        -38
+      ],
+      "rotationY": 1.5507963267948965,
+      "solid": false,
+      "note": "facades west 3"
+    },
+    {
+      "assetId": "city_istanbul_beyoglu_row",
+      "position": [
+        -30.5,
+        0,
+        -70
+      ],
+      "rotationY": 1.6007963267948966,
+      "solid": false,
+      "note": "facades west 4"
+    },
+    {
+      "assetId": "city_istanbul_beyoglu_row",
+      "position": [
+        -30.5,
+        0,
+        -102
+      ],
+      "rotationY": 1.5507963267948965,
+      "solid": false,
+      "note": "facades west 5"
+    },
+    {
+      "assetId": "city_istanbul_beyoglu_row",
+      "position": [
+        30.5,
+        0,
+        26
+      ],
+      "rotationY": -1.5907963267948966,
+      "solid": false,
+      "note": "facades east 1"
+    },
+    {
+      "assetId": "city_istanbul_beyoglu_row",
+      "position": [
+        30.5,
+        0,
+        -6
+      ],
+      "rotationY": -1.5407963267948965,
+      "solid": false,
+      "note": "facades east 2"
+    },
+    {
+      "assetId": "city_istanbul_beyoglu_row",
+      "position": [
+        30.5,
+        0,
+        -38
+      ],
+      "rotationY": -1.5907963267948966,
+      "solid": false,
+      "note": "facades east 3"
+    },
+    {
+      "assetId": "city_istanbul_beyoglu_row",
+      "position": [
+        30.5,
+        0,
+        -70
+      ],
+      "rotationY": -1.5407963267948965,
+      "solid": false,
+      "note": "facades east 4"
+    },
+    {
+      "assetId": "city_istanbul_beyoglu_row",
+      "position": [
+        30.5,
+        0,
+        -102
+      ],
+      "rotationY": -1.5907963267948966,
+      "solid": false,
+      "note": "facades east 5"
     },
     {
       "assetId": "city_istanbul_ferry_boat",

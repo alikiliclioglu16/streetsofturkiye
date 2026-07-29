@@ -150,6 +150,11 @@ export const sceneSchema = z
       .default(null),
     /** The city's theme, or null where none has been chosen yet. */
     musicUrl: z.string().nullable().default(null),
+    /** Both ends of the tram line, in world metres. Absent where there is no tram. */
+    tramLine: z
+      .object({ from: z.tuple([z.number(), z.number()]), to: z.tuple([z.number(), z.number()]) })
+      .nullable()
+      .default(null),
     /** Scenery beyond the play area: never reached, never collided with. */
     backdrop: z.array(scenePropSchema).default([]),
     catRoutes: z

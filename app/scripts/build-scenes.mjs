@@ -206,7 +206,6 @@ function streetProps(cityId, stopPositions, geometry) {
     prop('city_istanbul_hagia_sophia', 0, 28, Math.PI + 0.06, 'the mosque, closing the square'),
 
     // Waiting at the edge of the square, as if the child had just stepped off.
-    prop('city_istanbul_streetcar', -12.5, 6, 0.12, 'tram at the edge of the square'),
 
     // Where the street meets the water.
     prop('city_istanbul_stone_dock', 12, -106, -0.25, 'dock at the quay'),
@@ -520,6 +519,12 @@ function buildScene(canonical) {
      * play boundary, so a child can see it and never walk into it.
      */
     musicUrl: canonical.id === 'istanbul' ? '/assets/audio/istanbul_theme.webm' : null,
+    /**
+     * The tram runs the length of the street on the west side, clear of the
+     * walk. İstanbul's nostalgic tram does one street, up and down, all day.
+     */
+    tramLine:
+      canonical.id === 'istanbul' ? { from: [-15.5, 20], to: [-15.5, -100] } : null,
     water:
       canonical.id === 'istanbul'
         ? { centerX: 0, centerZ: -202, width: 320, depth: 180, color: '#2E7FA8' }
@@ -531,20 +536,23 @@ function buildScene(canonical) {
     backdrop:
       canonical.id === 'istanbul'
         ? [
-            {
-              assetId: 'city_istanbul_beyoglu_row',
-              position: [-30, 0, -46],
-              rotationY: Math.PI / 2,
-              solid: false,
-              note: 'facades along the west side',
-            },
-            {
-              assetId: 'city_istanbul_beyoglu_row',
-              position: [31, 0, -68],
-              rotationY: -Math.PI / 2,
-              solid: false,
-              note: 'facades along the east side',
-            },
+            /**
+             * Facades down both sides, end to end.
+             *
+             * Two rows left gaps of open sky between them, which read as holes
+             * in the city rather than as distance. A street a child cannot see
+             * out of is a street; one with blue slots in its walls is a stage
+             * set. Each row is 30.7 m, so four a side covers the walk.
+             */
+            ...[-30.5, 30.5].flatMap((x) =>
+              [26, -6, -38, -70, -102].map((z, index) => ({
+                assetId: 'city_istanbul_beyoglu_row',
+                position: [x, 0, z],
+                rotationY: (x < 0 ? 1 : -1) * (Math.PI / 2) + (index % 2 ? 0.03 : -0.02),
+                solid: false,
+                note: `facades ${x < 0 ? 'west' : 'east'} ${index + 1}`,
+              })),
+            ),
             {
               /**
                * The ferry belongs on the water, not beside the pavement. It

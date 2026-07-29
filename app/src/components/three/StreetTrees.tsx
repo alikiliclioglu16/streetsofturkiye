@@ -1,7 +1,9 @@
 'use client';
 
-import { useLayoutEffect, useMemo, useRef } from 'react';
-import { Matrix4, Quaternion, Vector3, type InstancedMesh } from 'three';
+import { useMemo, useRef } from 'react';
+import { useFrame } from '@react-three/fiber';
+import { Euler, Matrix4, Quaternion, Vector3, type InstancedMesh } from 'three';
+import { gust, heightFactor, sway } from '@/engine/environment/wind';
 import type { StreetTreeSpec } from '@/components/three/StreetTree';
 import { treeShape, FOLIAGE } from '@/components/three/StreetTree';
 
@@ -26,39 +28,58 @@ interface Placement {
   position: [number, number, number];
   rotationY: number;
   scale: [number, number, number];
+  /** Spreads the sway phase so the street does not lean in unison. */
+  phase: number;
 }
 
 function InstancedGroup({
   placements,
   colour,
   geometry,
+  reducedMotion,
 }: {
   placements: readonly Placement[];
   colour: string;
   geometry: 'trunk' | 'canopy';
+  reducedMotion: boolean;
 }) {
   const mesh = useRef<InstancedMesh>(null);
+  const elapsed = useRef(0);
+  const scratch = useMemo(
+    () => ({
+      matrix: new Matrix4(),
+      position: new Vector3(),
+      quaternion: new Quaternion(),
+      euler: new Euler(),
+      scale: new Vector3(),
+    }),
+    [],
+  );
 
-  useLayoutEffect(() => {
+  useFrame((_, delta) => {
     const node = mesh.current;
     if (!node) return;
-    const matrix = new Matrix4();
-    const position = new Vector3();
-    const quaternion = new Quaternion();
-    const scale = new Vector3();
-    const axis = new Vector3(0, 1, 0);
+    elapsed.current += delta;
+
+    // Canopies lean; trunks hold still, because a swaying trunk reads as a
+    // tree falling over rather than as wind.
+    const strength = reducedMotion || geometry === 'trunk' ? 0 : gust(elapsed.current);
+    const { matrix, position, quaternion, euler, scale } = scratch;
 
     placements.forEach((placement, index) => {
+      const lean = strength === 0 ? 0 : sway(elapsed.current, placement.phase, strength) *
+        heightFactor(placement.position[1] * 2);
       position.set(...placement.position);
-      quaternion.setFromAxisAngle(axis, placement.rotationY);
+      euler.set(lean * 0.6, placement.rotationY, lean);
+      quaternion.setFromEuler(euler);
       scale.set(...placement.scale);
       matrix.compose(position, quaternion, scale);
       node.setMatrixAt(index, matrix);
     });
+
     node.count = placements.length;
     node.instanceMatrix.needsUpdate = true;
-    node.computeBoundingSphere();
-  }, [placements]);
+  });
 
   if (placements.length === 0) return null;
 
@@ -74,7 +95,13 @@ function InstancedGroup({
   );
 }
 
-export function StreetTrees({ trees }: { trees: readonly StreetTreeSpec[] }) {
+export function StreetTrees({
+  trees,
+  reducedMotion,
+}: {
+  trees: readonly StreetTreeSpec[];
+  reducedMotion: boolean;
+}) {
   const groups = useMemo(() => {
     const trunks: Placement[] = [];
     const canopies = new Map<string, Placement[]>();
@@ -84,10 +111,12 @@ export function StreetTrees({ trees }: { trees: readonly StreetTreeSpec[] }) {
       const [x, , z] = spec.position;
       const s = spec.scale;
 
+      const phase = x * 0.21 + z * 0.13;
       trunks.push({
         position: [x, (shape.trunk / 2) * s, z],
         rotationY: spec.rotationY,
         scale: [shape.radius * s, (shape.trunk / 2) * s, shape.radius * s],
+        phase,
       });
 
       for (const mass of shape.masses) {
@@ -97,6 +126,7 @@ export function StreetTrees({ trees }: { trees: readonly StreetTreeSpec[] }) {
           position: [x, mass.y * s, z],
           rotationY: spec.rotationY,
           scale: [mass.r * s, (mass.h / 2) * s, mass.r * s],
+          phase,
         });
         canopies.set(colour, list);
       }
@@ -109,9 +139,20 @@ export function StreetTrees({ trees }: { trees: readonly StreetTreeSpec[] }) {
 
   return (
     <group>
-      <InstancedGroup placements={groups.trunks} colour="#6B5138" geometry="trunk" />
+      <InstancedGroup
+        placements={groups.trunks}
+        colour="#6B5138"
+        geometry="trunk"
+        reducedMotion={reducedMotion}
+      />
       {groups.canopies.map(([colour, placements]) => (
-        <InstancedGroup key={colour} placements={placements} colour={colour} geometry="canopy" />
+        <InstancedGroup
+          key={colour}
+          placements={placements}
+          colour={colour}
+          geometry="canopy"
+          reducedMotion={reducedMotion}
+        />
       ))}
     </group>
   );

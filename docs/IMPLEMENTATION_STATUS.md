@@ -114,7 +114,7 @@ app/src/
 npm run lint       → temiz
 npm run typecheck  → temiz (strict, noUncheckedIndexedAccess, `any` yok)
 npm run content:check → 81 il, 249 durak, 84 soru; 1413 kanonik dizgi baseline ile eşleşti
-npm test           → 14 dosya / 263 test geçti (logic + jsdom ui)
+npm test           → 14 dosya / 270 test geçti (logic + jsdom ui)
 npm run build      → başarılı, 4 rota
 npm start          → /map ve /city/istanbul 200
 ```
@@ -508,6 +508,34 @@ Dört saniyede açılıyor, döngüye giriyor, rehber konuşurken ortamla birlik
 Diğer 80 il kendi teması gelene kadar sessiz.
 
 **Beyoğlu cephe sırası** geldi: 30,7 × 14 × 12,3 m, iki yerde. 25,01 MB'dan 2,55 MB'a (D-081).
+
+## 5e. Yaşayan sokak
+
+**Rüzgâr** (D-084): bayrak eğiliyor, ağaç tepeleri salınıyor. İki farklı periyotta sinüs, nesne başına
+faz kayması — yirmi bir ağaç aynı anda eğilirse deprem gibi görünür. Gövdeler duruyor.
+`sway()` saf bir fonksiyon, azaltılmış hareket sıfır güç geçilerek sağlanıyor.
+
+**Tramvay hattı** (D-085): batı tarafında 120 m gidip geliyor, uçlarda dört saniye bekliyor.
+Katı değil — çocuk hattın üstüne çıkarsa görmediği bir araç onu durdurmamalı.
+
+**Kediler %50 büyüdü**: 0,40 → 0,60 m (D-086). Gösterilen kişiler bulamıyordu.
+
+**Zemin oyun alanının 26 m ötesine uzatıldı** (D-082) — cepheler gökyüzünün üstünde
+yüzüyordu. **Sokağın iki yanı on cephe sırasıyla kapatıldı** (D-083).
+
+## 5e. Yaşayan sokak
+
+**Rüzgâr** (D-084): bayrak eğiliyor, ağaç tepeleri salınıyor. İki farklı periyotta sinüs, nesne başına
+faz kayması — yirmi bir ağaç aynı anda eğilirse deprem gibi görünür. Gövdeler duruyor.
+`sway()` saf bir fonksiyon, azaltılmış hareket sıfır güç geçilerek sağlanıyor.
+
+**Tramvay hattı** (D-085): batı tarafında 120 m gidip geliyor, uçlarda dört saniye bekliyor.
+Katı değil — çocuk hattın üstüne çıkarsa görmediği bir araç onu durdurmamalı.
+
+**Kediler %50 büyüdü**: 0,40 → 0,60 m (D-086). Gösterilen kişiler bulamıyordu.
+
+**Zemin oyun alanının 26 m ötesine uzatıldı** (D-082) — cepheler gökyüzünün üstünde
+yüzüyordu. **Sokağın iki yanı on cephe sırasıyla kapatıldı** (D-083).
 
 ## 5. Bilinen sınırlar
 

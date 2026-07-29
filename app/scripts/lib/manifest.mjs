@@ -106,7 +106,7 @@ export const DELIVERED_DIMENSIONS = {
   kit_planter_cypress: [0.91, 2.5, 0.91],
   kit_crates: [1.29, 1.0, 1.19],
   kit_market_stall: [2.25, 2.5, 1.61],
-  kit_street_cat: [0.3, 0.4, 0.7],
+  kit_street_cat: [0.45, 0.6, 1.05],
   kit_wall_fountain: [2.0, 3.0, 1.7],
   city_istanbul_streetcar: [4.8, 3.4, 1.9],
   city_istanbul_stone_dock: [4.0, 1.2, 6.6],

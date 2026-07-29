@@ -70,6 +70,8 @@ export interface SceneDescription {
   readonly backdrop: readonly ScenePropInstance[];
   readonly water: SceneDefinition['water'];
   readonly musicUrl: string | null;
+  readonly tramLine: SceneDefinition['tramLine'];
+  readonly tramAsset: ResolvedAsset | null;
   readonly sky: SceneSky;
   readonly colliders: readonly RectCollider[];
   readonly hotspots: readonly SceneHotspot[];
@@ -213,6 +215,8 @@ export function buildScene(city: CityDefinition, quality: QualityTier): SceneDes
     backdrop,
     water: city.water,
     musicUrl: city.musicUrl,
+    tramLine: city.tramLine,
+    tramAsset: city.tramLine ? resolveAsset('city_istanbul_streetcar', quality) : null,
     catRoutes: city.catRoutes,
     npcs,
     trees,

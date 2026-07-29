@@ -9,6 +9,15 @@ import type { SceneGround } from '@/engine/scene/buildScene';
 const TILE_METRES = 4;
 
 /**
+ * How far the paving runs past the edge of the play area.
+ *
+ * The ground used to end exactly where the child could walk, so the facades
+ * standing beyond that edge appeared to float over a strip of sky. Ground is
+ * scenery; bounds are gameplay, and they are not the same rectangle.
+ */
+const GROUND_MARGIN = 26;
+
+/**
  * The street surface.
  *
  * This is the largest thing on screen and was a flat colour, which left every
@@ -27,8 +36,8 @@ export function Ground({ ground }: { ground: SceneGround }) {
   const [albedo, normal, roughness] = loaded;
 
   const maps = useMemo(() => {
-    const repeatX = Math.max(1, Math.round(ground.width / TILE_METRES));
-    const repeatY = Math.max(1, Math.round(ground.depth / TILE_METRES));
+    const repeatX = Math.max(1, Math.round((ground.width + GROUND_MARGIN * 2) / TILE_METRES));
+    const repeatY = Math.max(1, Math.round((ground.depth + GROUND_MARGIN * 2) / TILE_METRES));
 
     const prepare = (texture: Texture, colour: boolean) => {
       texture.wrapS = RepeatWrapping;
@@ -55,7 +64,7 @@ export function Ground({ ground }: { ground: SceneGround }) {
       position={[ground.centerX, 0, ground.centerZ]}
       receiveShadow
     >
-      <planeGeometry args={[ground.width, ground.depth]} />
+      <planeGeometry args={[ground.width + GROUND_MARGIN * 2, ground.depth + GROUND_MARGIN * 2]} />
       <meshStandardMaterial
         {...maps}
         color={ground.color}
