@@ -1068,3 +1068,23 @@ Details that matter more than they look:
   and volume are applied on the utterance. The mute switch now controls
   something.
 
+## D-089 — Sidedness is never forced off (29 Jul 2026)
+
+Every delivered model had its material forced single-sided, to save fragment
+work. That is right for a closed shape and destroys a thin one: a flag is a
+single plane, and culling its back face draws half of it.
+
+The Turkish flag on the Maiden's Tower and the flags on the ferry's masts were
+torn in half. So, silently, was the standalone flag prop that stands in all 81
+cities, and the canvas awning on the market stall.
+
+All four are back to double-sided. The shared simplifier no longer touches
+sidedness at all; it still forces `OPAQUE`, which is safe because a transparent
+material costs two passes and this project has never needed one.
+
+An audit of every delivered GLB is in the test suite now, so a thin-geometry
+model cannot lose its back faces again without something failing.
+
+The pattern behind it: an optimisation that is correct for the common case was
+applied to everything without asking which case each model was.
+

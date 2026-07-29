@@ -114,7 +114,7 @@ app/src/
 npm run lint       → temiz
 npm run typecheck  → temiz (strict, noUncheckedIndexedAccess, `any` yok)
 npm run content:check → 81 il, 249 durak, 84 soru; 1413 kanonik dizgi baseline ile eşleşti
-npm test           → 14 dosya / 276 test geçti (logic + jsdom ui)
+npm test           → 14 dosya / 278 test geçti (logic + jsdom ui)
 npm run build      → başarılı, 4 rota
 npm start          → /map ve /city/istanbul 200
 ```
@@ -551,6 +551,17 @@ Kayıt gerekirse `speak()` arayüzü aynı kalarak değiştirilebilir.
 
 **Tramvay yan gidiyordu** (D-087): modelin uzun ekseni X'te, yön hesabı +Z varsayıyordu.
 Bileşen artık ayak izini okuyup çeyrek tur ekliyor.
+
+## 5g. Yırtık bayraklar
+
+Tüm teslim modellerin materyalini tek yüzlü yapmıştım — kapalı bir şekilde doğru,
+ince bir şekilde yıkıcı. Bayrak tek bir düzlem; arka yüzü elenince yarısı çizilmiyor (D-089).
+
+Kız Kulesi'nin çatısındaki bayrak, vapurun direklerindeki bayraklar, 81 ilde duran bayrak
+propunun kendisi ve pazar tezgâhının tentesi — dördü de çift yüzlüye geri alındı.
+
+Ortak sadeleştirici artık yüz sayısına hiç dokunmuyor. `OPAQUE` zorlaması duruyor,
+o güvenli. Bir test her teslim GLB'yi denetliyor.
 
 ## 5. Bilinen sınırlar
 

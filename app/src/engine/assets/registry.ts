@@ -151,9 +151,9 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
   {
     id: 'city_istanbul_ferry_boat',
     modelUrl: '/assets/city/city_istanbul_ferry_boat.glb',
-    checksum: 'd1c2c0c036d5a0f38df440c94091d0e54e5a0e53779fb45c126964ae562420c8',
+    checksum: 'eecab180735468a971892e483d45446a7a9805446daf9cc111093893cdaba447',
     triangles: 5_776,
-    transferBytes: 2604364,
+    transferBytes: 2_604_380,
     /**
      * A Şehir Hatları ferry, moored off the quay. It was registered as a row of
      * Beyoğlu facades: the file is 2.24 : 1 : 0.50, wide and shallow, which is
@@ -169,21 +169,26 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
     color: '#C8CBD0',
     placeholder: 'box',
     scaleToBrief: true,
-    notes: 'Delivered 58.27 MB; recompressed to 2.48 MB. One instance, on the water.',
+    notes:
+      'Delivered 58.27 MB; recompressed to 2.48 MB. One instance, on the water. ' +
+      'Kept double-sided for the flags on its masts.',
   },
 
   {
     id: 'city_istanbul_maidens_tower',
     modelUrl: '/assets/city/city_istanbul_maidens_tower.glb',
-    checksum: '1d72f11448f913ddf8163d6d175ff5e6fae8f0c0e77af7689ad988702f00d764',
+    checksum: '890da45e8153dc09c284ce486fd01627e729a1e99a88711a46a234a65d0f5c1d',
     triangles: 9_018,
-    transferBytes: 2_490_808,
+    transferBytes: 2490828,
     dimensions: [7.7, 10.0, 7.6],
     label: "Maiden's Tower",
     color: '#D8CFC0',
     placeholder: 'cylinder',
     scaleToBrief: true,
-    notes: 'Stands offshore, so it needs the water plane. Delivered 23.90 MB; recompressed to 2.38 MB.',
+    notes:
+      'Stands offshore, so it needs the water plane. Kept double-sided: the flag ' +
+      'on its roof is a single plane, and culling its back face tore it in half. ' +
+      'Delivered 23.90 MB; recompressed to 2.38 MB.',
   },
   {
     id: 'city_istanbul_ferry_terminal',
@@ -260,9 +265,9 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
   {
     id: 'kit_turkish_flag',
     modelUrl: '/assets/props/kit_turkish_flag.glb',
-    checksum: '37be2cf50090e14a9f9c8acac1523fa71c1a6961c83e399d50e4f9ad26abf185',
+    checksum: '606137d144b3d1f5199c11254c8cc44ba8e79fbb3d35c3e57149d12acb5b778c',
     triangles: 3_008,
-    transferBytes: 470676,
+    transferBytes: 470696,
     dimensions: [3.5, 6.0, 1.0],
     label: 'Turkish flag',
     color: '#E30A17',
@@ -270,7 +275,8 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
     scaleToBrief: true,
     notes:
       'Stands at the same place in every one of the 81 cities, so a child ' +
-      'arriving anywhere sees the same thing first. 14.59 MB down to 0.45 MB.',
+      'arriving anywhere sees the same thing first. Double-sided: a flag is a ' +
+      'plane, and culling its back face tears it in half. 14.59 MB down to 0.45 MB.',
   },
   {
     id: 'kit_crates',
@@ -288,9 +294,9 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
   {
     id: 'kit_market_stall',
     modelUrl: '/assets/props/kit_market_stall.glb',
-    checksum: '76a498f4039b367aa17ca97c3aef4c599ec31140fc840d5751bb787ef20556d7',
+    checksum: 'c7357ded22641d7d10f7e6a1ec1ff4f30bc39e7b0a3b80d4d0580a022ea3e896',
     triangles: 3_851,
-    transferBytes: 482_760,
+    transferBytes: 482780,
     dimensions: [2.25, 2.5, 1.61],
     label: 'Market stall',
     color: '#B5563C',
@@ -299,7 +305,7 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
     notes:
       'Shared kit prop, delivered empty on purpose: the same stall becomes a ' +
       'spice stall in Gaziantep and a pottery stall in Nevşehir by what is ' +
-      'placed on it. 6.74 MB down to 0.46 MB.',
+      'placed on it. Double-sided for the canvas awning. 6.74 MB down to 0.46 MB.',
   },
   {
     id: 'kit_planter_cypress',

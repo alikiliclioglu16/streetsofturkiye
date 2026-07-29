@@ -49,5 +49,21 @@ await doc.transform(
   textureCompress({ encoder: sharp, targetFormat: 'jpeg', resize: [1024, 1024], quality: 86 }),
   prune(),
 );
+
+/**
+ * Alpha is forced opaque; sidedness is left exactly as delivered.
+ *
+ * Forcing single-sided saves fragments on a closed shape and destroys a thin
+ * one. A flag is a single plane: cull its back face and half of it stops being
+ * drawn, which reads as a torn flag. The Maiden's Tower and the ferry both came
+ * back that way before this was understood.
+ *
+ * Opaque is safe to force — a transparent material costs two passes and the
+ * project has never needed one.
+ */
+for (const material of doc.getRoot().listMaterials()) {
+  material.setAlphaMode('OPAQUE');
+}
+
 await io.write(output, doc);
 console.log(JSON.stringify({ before: Math.round(before), after: Math.round(count()) }));

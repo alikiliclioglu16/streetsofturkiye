@@ -1089,3 +1089,41 @@ describe('the street is alive', () => {
     expect(cat.dimensions[1]).toBeCloseTo(0.6, 2);
   });
 });
+
+describe('thin geometry survives optimisation', () => {
+  it('keeps the flag-carrying models double-sided', async () => {
+    const { readFileSync } = await import('node:fs');
+    const { resolve } = await import('node:path');
+
+    /**
+     * A flag is one plane. Culling its back face draws half of it and reads as
+     * a torn flag — which is what happened to the Maiden's Tower and the ferry
+     * when every material was forced single-sided to save fragments.
+     */
+    const thin = [
+      ['city', 'city_istanbul_maidens_tower'], // flag on the roof
+      ['city', 'city_istanbul_ferry_boat'], // flags on the masts
+      ['props', 'kit_turkish_flag'], // the flag itself
+      ['props', 'kit_market_stall'], // canvas awning
+    ] as const;
+
+    for (const [folder, file] of thin) {
+      const bytes = readFileSync(resolve(process.cwd(), `public/assets/${folder}/${file}.glb`));
+      const jsonLength = bytes.readUInt32LE(12);
+      const gltf = JSON.parse(bytes.subarray(20, 20 + jsonLength).toString('utf8'));
+      for (const material of gltf.materials ?? []) {
+        expect(material.doubleSided, `${file} lost its back faces`).toBe(true);
+        expect(material.alphaMode ?? 'OPAQUE', file).toBe('OPAQUE');
+      }
+    }
+  });
+
+  it('does not force sidedness in the shared simplifier', async () => {
+    const { readFileSync } = await import('node:fs');
+    const { resolve } = await import('node:path');
+    const script = readFileSync(resolve(process.cwd(), 'scripts/simplify-model.mjs'), 'utf8');
+    // Opaque is safe to force; single-sided is not.
+    expect(script).toContain("setAlphaMode('OPAQUE')");
+    expect(script).not.toContain('setDoubleSided(false)');
+  });
+});
