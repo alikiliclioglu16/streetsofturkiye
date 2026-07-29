@@ -396,6 +396,7 @@
     }
   ],
   "musicUrl": null,
+  "groundSurface": "redsand",
   "tramLine": null,
   "water": null,
   "backdrop": [],

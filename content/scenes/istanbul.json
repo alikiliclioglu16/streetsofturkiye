@@ -553,6 +553,7 @@
     }
   ],
   "musicUrl": "/assets/audio/istanbul_theme.webm",
+  "groundSurface": "cobblestone",
   "tramLine": {
     "from": [
       -15.5,
@@ -578,7 +579,7 @@
         0,
         26
       ],
-      "rotationY": 1.5507963267948965,
+      "rotationY": 1.5707963267948966,
       "solid": false,
       "note": "facades west 1"
     },
@@ -589,7 +590,7 @@
         0,
         -6
       ],
-      "rotationY": 1.6007963267948966,
+      "rotationY": 1.5707963267948966,
       "solid": false,
       "note": "facades west 2"
     },
@@ -600,7 +601,7 @@
         0,
         -38
       ],
-      "rotationY": 1.5507963267948965,
+      "rotationY": 1.5707963267948966,
       "solid": false,
       "note": "facades west 3"
     },
@@ -611,7 +612,7 @@
         0,
         -70
       ],
-      "rotationY": 1.6007963267948966,
+      "rotationY": 1.5707963267948966,
       "solid": false,
       "note": "facades west 4"
     },
@@ -622,7 +623,7 @@
         0,
         -102
       ],
-      "rotationY": 1.5507963267948965,
+      "rotationY": 1.5707963267948966,
       "solid": false,
       "note": "facades west 5"
     },
@@ -633,7 +634,7 @@
         0,
         26
       ],
-      "rotationY": -1.5907963267948966,
+      "rotationY": -1.5707963267948966,
       "solid": false,
       "note": "facades east 1"
     },
@@ -644,7 +645,7 @@
         0,
         -6
       ],
-      "rotationY": -1.5407963267948965,
+      "rotationY": -1.5707963267948966,
       "solid": false,
       "note": "facades east 2"
     },
@@ -655,7 +656,7 @@
         0,
         -38
       ],
-      "rotationY": -1.5907963267948966,
+      "rotationY": -1.5707963267948966,
       "solid": false,
       "note": "facades east 3"
     },
@@ -666,7 +667,7 @@
         0,
         -70
       ],
-      "rotationY": -1.5407963267948965,
+      "rotationY": -1.5707963267948966,
       "solid": false,
       "note": "facades east 4"
     },
@@ -677,7 +678,7 @@
         0,
         -102
       ],
-      "rotationY": -1.5907963267948966,
+      "rotationY": -1.5707963267948966,
       "solid": false,
       "note": "facades east 5"
     },

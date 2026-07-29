@@ -150,6 +150,8 @@ export const sceneSchema = z
       .default(null),
     /** The city's theme, or null where none has been chosen yet. */
     musicUrl: z.string().nullable().default(null),
+    /** Which ground surface this region has. */
+    groundSurface: z.enum(['cobblestone', 'redsand']).default('cobblestone'),
     /** Both ends of the tram line, in world metres. Absent where there is no tram. */
     tramLine: z
       .object({ from: z.tuple([z.number(), z.number()]), to: z.tuple([z.number(), z.number()]) })

@@ -114,7 +114,7 @@ app/src/
 npm run lint       → temiz
 npm run typecheck  → temiz (strict, noUncheckedIndexedAccess, `any` yok)
 npm run content:check → 81 il, 249 durak, 84 soru; 1413 kanonik dizgi baseline ile eşleşti
-npm test           → 16 dosya / 294 test geçti (logic + jsdom ui)
+npm test           → 16 dosya / 300 test geçti (logic + jsdom ui)
 npm run build      → başarılı, 4 rota
 npm start          → /map ve /city/istanbul 200
 ```
@@ -594,6 +594,19 @@ Artık ilk dokunuş veya tuş o jest sayılıyor.
 
 **Nevşehir teması** eklendi: *Gökyüzü Balonları*, 1,33 MB. Gaziantep kendi teması gelene kadar
 sessiz — Boğaz şarkısını Kapadokya'ya çalmak, oraya çınar dikmekle aynı şey (D-095).
+
+## 6c. Kapadokya
+
+**Zemin bölgeye göre** (D-096): kıyı ve Marmara kaldırım, plato ve güneydoğu **kızıl kum**.
+Üç ölçekte katmanlı gürültü ve hafif rüzgâr dalgaları; hücre ve harç yok, tozun derzi olmaz.
+Karo 9 metrede tekrarlıyor (kaldırım 4) — tozun birimi yok, aynı tekrar desen gibi görünür.
+
+**Hava da bölgeye göre** (D-097): kıyıda kabaran alçak uğultu, platoda kuru ve durgun rüzgâr.
+Deniz sesi Kapadokya'da çalıyordu.
+
+**Ufuk** (D-098): iki yanda on peri bacası sırtı, arkada Kapadokya vadisi.
+Sırt ve 1. durak kümesi **aynı dosya, iki boyutta** — 6 m yanına gidilen, 17 m karşıdan görülen.
+Balonlar geldiğinde ön taraf da kapanacak.
 
 ## 5. Bilinen sınırlar
 

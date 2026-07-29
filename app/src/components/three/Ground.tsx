@@ -11,6 +11,15 @@ import type { SceneGround } from '@/engine/scene/buildScene';
 const TILE_METRES = 4;
 
 /**
+ * Sand tiles larger than paving.
+ *
+ * A cobble is 44 cm and repeating it every four metres is what a street looks
+ * like. Dust has no unit, so the same repeat reads as a pattern; stretching it
+ * lets it read as ground.
+ */
+const SURFACE_TILE = { cobblestone: 4, redsand: 9 } as const;
+
+/**
  * How far the paving runs past the edge of the play area.
  *
  * The ground used to end exactly where the child could walk, so the facades
@@ -29,17 +38,25 @@ const GROUND_MARGIN = 26;
  * The texture is greyscale and the region's own ground colour tints it, so one
  * 368 KB set serves all 81 provinces and Cappadocia still reads as Cappadocia.
  */
-export function Ground({ ground }: { ground: SceneGround }) {
+export function Ground({
+  ground,
+  surface,
+}: {
+  ground: SceneGround;
+  /** Which region's surface this is: paving on the coast, dust on the plateau. */
+  surface: 'cobblestone' | 'redsand';
+}) {
   const loaded = useTexture([
-    '/assets/textures/ground_cobblestone_albedo.jpg',
-    '/assets/textures/ground_cobblestone_normal.jpg',
-    '/assets/textures/ground_cobblestone_roughness.jpg',
+    `/assets/textures/ground_${surface}_albedo.jpg`,
+    `/assets/textures/ground_${surface}_normal.jpg`,
+    `/assets/textures/ground_${surface}_roughness.jpg`,
   ]) as Texture[];
   const [albedo, normal, roughness] = loaded;
 
   const maps = useMemo(() => {
-    const repeatX = Math.max(1, Math.round((ground.width + GROUND_MARGIN * 2) / TILE_METRES));
-    const repeatY = Math.max(1, Math.round((ground.depth + GROUND_MARGIN * 2) / TILE_METRES));
+    const tile = SURFACE_TILE[surface] ?? TILE_METRES;
+    const repeatX = Math.max(1, Math.round((ground.width + GROUND_MARGIN * 2) / tile));
+    const repeatY = Math.max(1, Math.round((ground.depth + GROUND_MARGIN * 2) / tile));
 
     const prepare = (texture: Texture, colour: boolean) => {
       texture.wrapS = RepeatWrapping;
@@ -58,7 +75,7 @@ export function Ground({ ground }: { ground: SceneGround }) {
       normalMap: prepare(normal, false),
       roughnessMap: prepare(roughness, false),
     };
-  }, [albedo, normal, roughness, ground.width, ground.depth]);
+  }, [albedo, normal, roughness, ground.width, ground.depth, surface]);
 
   return (
     <mesh

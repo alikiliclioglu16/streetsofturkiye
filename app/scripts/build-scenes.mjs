@@ -83,6 +83,24 @@ const COMMISSIONED_REWARDS = {
  */
 const CLEARANCE = 1.5;
 const TRIGGER_MARGIN = 2.5;
+/**
+ * Ground by region.
+ *
+ * A cobbled street is the coast and the Marmara. The plateau and the south-east
+ * are dust, and paving Nevşehir in İstanbul cobbles is the same mistake as
+ * planting plane trees there — only louder, because the ground is the largest
+ * thing on screen.
+ */
+const REGION_SURFACE = {
+  marmara: 'cobblestone',
+  aegean: 'cobblestone',
+  mediterranean: 'cobblestone',
+  'black-sea': 'cobblestone',
+  'central-anatolia': 'redsand',
+  'eastern-anatolia': 'redsand',
+  'southeastern-anatolia': 'redsand',
+};
+
 const CITY_THEMES = {
   istanbul: '/assets/audio/istanbul_theme.webm',
   nevsehir: '/assets/audio/nevsehir_theme.webm',
@@ -409,6 +427,82 @@ function featuredNpcs(cityId, stopPositions, routePoints) {
     .filter((npc) => distanceToRoute(npc.position[0], npc.position[2]) > 2.5);
 }
 
+/**
+ * The horizon, per city.
+ *
+ * Placed relative to the walk rather than at fixed coordinates, so a city with
+ * a longer street gets a longer wall.
+ */
+function cityBackdrop(cityId, stopPositions) {
+  const firstZ = stopPositions[0]?.[2] ?? -26;
+  const lastZ = stopPositions[stopPositions.length - 1]?.[2] ?? -100;
+  const span = Math.abs(lastZ - firstZ);
+
+  const wall = (assetId, x, z, note) => ({
+    assetId,
+    position: [x, 0, Math.round(z * 10) / 10],
+    rotationY: (x < 0 ? 1 : -1) * (Math.PI / 2),
+    solid: false,
+    note,
+  });
+
+  if (cityId === 'istanbul') {
+    return [
+      ...[-30.5, 30.5].flatMap((x) =>
+        [26, -6, -38, -70, -102].map((z, i) =>
+          wall('city_istanbul_beyoglu_row', x, z, `facades ${x < 0 ? 'west' : 'east'} ${i + 1}`),
+        ),
+      ),
+      {
+        assetId: 'city_istanbul_ferry_boat',
+        position: [-24, 0, -128],
+        rotationY: 0.18,
+        solid: false,
+        note: 'moored off the quay',
+      },
+      {
+        assetId: 'city_istanbul_maidens_tower',
+        position: [22, 0, -146],
+        rotationY: -0.4,
+        solid: false,
+        note: 'offshore, seen from the quay',
+      },
+    ];
+  }
+
+  if (cityId === 'nevsehir') {
+    // Ridges are 24.7 m wide, so five a side covers the walk with an overlap
+    // that hides the joins.
+    const ridgeCount = 5;
+    return [
+      ...[-32, 32].flatMap((x) =>
+        Array.from({ length: ridgeCount }, (_, i) => {
+          const z = firstZ + 24 - ((span + 48) * i) / (ridgeCount - 1);
+          return wall(
+            'city_nevsehir_chimney_ridge',
+            x,
+            z,
+            `chimney ridge ${x < 0 ? 'west' : 'east'} ${i + 1}`,
+          );
+        }),
+      ),
+      {
+        /**
+         * The valley closes the back, where İstanbul has its mosque. A child who
+         * turns round should see Cappadocia rather than the edge of the ground.
+         */
+        assetId: 'city_nevsehir_valley',
+        position: [0, 0, 78],
+        rotationY: Math.PI,
+        solid: false,
+        note: 'the valley, behind the square',
+      },
+    ];
+  }
+
+  return [];
+}
+
 /** Deterministic S-curve layout; the same city always lays out identically. */
 function layout(stopCount, approaches, geometry) {
   const spacing = STOP_SPACING;
@@ -544,6 +638,7 @@ function buildScene(canonical) {
      * audio equivalent of planting plane trees there.
      */
     musicUrl: CITY_THEMES[canonical.id] ?? null,
+    groundSurface: REGION_SURFACE[canonical.regionId] ?? 'cobblestone',
     /**
      * The tram runs the length of the street on the west side, clear of the
      * walk. İstanbul's nostalgic tram does one street, up and down, all day.
@@ -558,52 +653,13 @@ function buildScene(canonical) {
      * Scenery beyond the play area. The Beyoğlu row stands behind the walk as
      * a skyline; the Maiden's Tower sits offshore, where it belongs.
      */
-    backdrop:
-      canonical.id === 'istanbul'
-        ? [
-            /**
-             * Facades down both sides, end to end.
-             *
-             * Two rows left gaps of open sky between them, which read as holes
-             * in the city rather than as distance. A street a child cannot see
-             * out of is a street; one with blue slots in its walls is a stage
-             * set. Each row is 30.7 m, so four a side covers the walk.
-             */
-            ...[-30.5, 30.5].flatMap((x) =>
-              [26, -6, -38, -70, -102].map((z, index) => ({
-                assetId: 'city_istanbul_beyoglu_row',
-                position: [x, 0, z],
-                rotationY: (x < 0 ? 1 : -1) * (Math.PI / 2) + (index % 2 ? 0.03 : -0.02),
-                solid: false,
-                note: `facades ${x < 0 ? 'west' : 'east'} ${index + 1}`,
-              })),
-            ),
-            {
-              /**
-               * The ferry belongs on the water, not beside the pavement. It
-               * lies off the quay near the terminal, where a child looking out
-               * from the last stop sees the thing the stop is about.
-               */
-              assetId: 'city_istanbul_ferry_boat',
-              position: [-24, 0, -128],
-              rotationY: 0.18,
-              solid: false,
-              note: 'moored off the quay',
-            },
-            {
-              assetId: 'city_istanbul_maidens_tower',
-              position: [22, 0, -146],
-              rotationY: -0.4,
-              solid: false,
-              note: 'offshore, seen from the quay',
-            },
-          ]
-        : [],
     /**
-     * Cats. Scattered along the whole walk rather than clustered, on both
-     * sides, each with its own short beat — a child should keep meeting one
-     * rather than find them all at once.
+     * Scenery beyond the play area. Every city needs four answered directions:
+     * walls to the sides, distance in front, something to turn round to. The
+     * answers differ by region — İstanbul closes with facades and opens on to
+     * the sea; Nevşehir closes with fairy chimneys and opens on to a valley.
      */
+    backdrop: cityBackdrop(canonical.id, stopPositions),
     catRoutes: catRoutes(stopPositions, geometry),
     npcs: featuredNpcs(canonical.id, stopPositions, route),
     trees: streetTrees(canonical.id, stopPositions, geometry, canonical.regionId),

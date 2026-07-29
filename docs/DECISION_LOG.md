@@ -1164,3 +1164,40 @@ Gaziantep has nothing yet and stays silent rather than borrowing İstanbul's.
 A Bosphorus song over Cappadocia is the audio equivalent of planting plane trees
 there.
 
+## D-096 — The ground follows the region (29 Jul 2026)
+
+Nevşehir was paved in İstanbul cobbles. The ground is the largest thing on
+screen, so it is the loudest place to get a region wrong — the same mistake as
+planting plane trees there, only harder to miss.
+
+A second surface is generated: red volcanic dust, layered noise at three scales
+plus faint wind ripples, with no cells and no mortar because dust has no joints.
+Greyscale and tinted by the region's own colour, exactly as the cobbles are.
+
+It tiles at nine metres rather than four. A cobble is 44 cm and repeating it
+every four metres is what a street looks like; dust has no unit, so the same
+repeat reads as a pattern instead of as ground.
+
+## D-097 — The air follows the region too (29 Jul 2026)
+
+The ambience bed was a sea wash and it played over Cappadocia, three hundred
+kilometres from any coast. Two profiles now: a low-passed swell for the coast,
+a drier, higher, steadier wind for the plateau. Surf breathes; a plateau wind
+does not.
+
+The ground and the trees had already been taught not to lie about where a child
+is. The air was still doing it.
+
+## D-098 — Nevşehir's horizon (29 Jul 2026)
+
+Every city needs four answered directions: walls to the sides, distance in
+front, something to turn round to.
+
+- **Sides:** ten fairy chimney ridges, five each side.
+- **Back:** a Cappadocian valley behind the spawn square, where İstanbul has
+  Hagia Sophia.
+- **Front:** balloons, once delivered.
+
+The ridge and the stop-1 cluster are the same file at two sizes — six metres to
+be walked up to, seventeen to be seen across the street. One download, two roles.
+

@@ -1159,3 +1159,67 @@ describe('thin geometry survives optimisation', () => {
     expect(script).not.toContain('setDoubleSided(false)');
   });
 });
+
+describe('Cappadocia looks and sounds like Cappadocia', () => {
+  const nevsehir = buildScene(loadComposedCity('nevsehir'), 'high');
+  const istanbul = buildScene(loadComposedCity('istanbul'), 'high');
+
+  it('paves the coast and dusts the plateau', () => {
+    expect(istanbul.groundSurface).toBe('cobblestone');
+    expect(nevsehir.groundSurface).toBe('redsand');
+    // The ground is the largest thing on screen, so it is the loudest place to
+    // get a region wrong.
+    expect(buildScene(loadComposedCity('gaziantep'), 'high').groundSurface).toBe('redsand');
+  });
+
+  it('closes both sides with fairy chimneys', () => {
+    const ridges = nevsehir.backdrop.filter(
+      (prop) => prop.asset.entry.id === 'city_nevsehir_chimney_ridge',
+    );
+    expect(ridges.length).toBeGreaterThanOrEqual(8);
+    // Walls on both sides, the way the Beyoğlu rows work.
+    expect(ridges.some((prop) => prop.position[0] < 0)).toBe(true);
+    expect(ridges.some((prop) => prop.position[0] > 0)).toBe(true);
+    for (const ridge of ridges) {
+      expect(Math.abs(ridge.position[0])).toBeGreaterThan(22);
+      expect(ridge.solid).toBe(false);
+    }
+  });
+
+  it('closes the back with a valley, where İstanbul has a mosque', () => {
+    const valley = nevsehir.backdrop.find(
+      (prop) => prop.asset.entry.id === 'city_nevsehir_valley',
+    )!;
+    expect(valley).toBeDefined();
+    // Behind the spawn: a child who turns round sees Cappadocia rather than the
+    // edge of the ground.
+    expect(valley.position[2]).toBeGreaterThan(loadComposedCity('nevsehir').spawn.position[2]);
+    expect(valley.solid).toBe(false);
+  });
+
+  it('borrows nothing from İstanbul', () => {
+    const ids = [...nevsehir.backdrop, ...nevsehir.props].map((prop) => prop.asset.entry.id);
+    expect(ids.some((id) => id.startsWith('city_istanbul_'))).toBe(false);
+  });
+
+  it('draws one chimney file at two sizes rather than shipping two', () => {
+    const cluster = deliveredProps().find(
+      (prop) => prop.id === 'city_nevsehir_fairy_chimney_cluster',
+    )!;
+    const ridge = deliveredProps().find((prop) => prop.id === 'city_nevsehir_chimney_ridge')!;
+    expect(cluster.triangles).toBe(ridge.triangles);
+    // Walked up to at six metres; seen across the street at seventeen.
+    expect(ridge.dimensions[1] / cluster.dimensions[1]).toBeGreaterThan(2.5);
+  });
+
+  it('gives the plateau dry air instead of surf', async () => {
+    const { ambienceProfileFor } = await import('@/engine/audio/cues');
+    const coast = ambienceProfileFor('cobblestone');
+    const plateau = ambienceProfileFor('redsand');
+
+    // A child who hears waves in Nevşehir is being told something untrue about
+    // where they are.
+    expect(plateau.cutoff).toBeGreaterThan(coast.cutoff);
+    expect(plateau.swell).toBeLessThan(coast.swell);
+  });
+});

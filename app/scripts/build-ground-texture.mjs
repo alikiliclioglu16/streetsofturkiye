@@ -18,6 +18,7 @@ import path from 'node:path';
 import { execFileSync } from 'node:child_process';
 
 const OUT = path.resolve('public/assets/textures');
+
 fs.mkdirSync(OUT, { recursive: true });
 
 const PY = `
@@ -106,6 +107,89 @@ print(f'{SIZE}x{SIZE}, {CELLS}x{CELLS} cobbles')
 `;
 
 execFileSync('python3', ['-c', PY], { stdio: 'inherit' });
+
+for (const file of fs.readdirSync(OUT)) {
+  const bytes = fs.statSync(path.join(OUT, file)).size;
+  console.log(`  ${file}  ${(bytes / 1024).toFixed(0)} KB`);
+}
+
+/* ------------------------------------------------------------------ */
+
+/**
+ * Red volcanic sand, for the Anatolian plateau.
+ *
+ * No cells and no mortar: dust has no joints. The structure is layered noise at
+ * three scales plus faint wind ripples, which is what reads as sand rather than
+ * as a flat colour with grain on it.
+ */
+const SAND = `
+import numpy as np
+from PIL import Image
+
+SIZE = 1024
+rng = np.random.default_rng(20260729)
+
+def wrapped_noise(cells):
+    """Value noise on a torus, so it tiles."""
+    grid = rng.random((cells, cells))
+    ys = (np.arange(SIZE) / SIZE * cells)
+    xs = (np.arange(SIZE) / SIZE * cells)
+    y0 = np.floor(ys).astype(int) % cells
+    x0 = np.floor(xs).astype(int) % cells
+    y1 = (y0 + 1) % cells
+    x1 = (x0 + 1) % cells
+    fy = (ys - np.floor(ys))[:, None]
+    fx = (xs - np.floor(xs))[None, :]
+    sy = fy * fy * (3 - 2 * fy)
+    sx = fx * fx * (3 - 2 * fx)
+    top = grid[np.ix_(y0, x0)] * (1 - sx) + grid[np.ix_(y0, x1)] * sx
+    bottom = grid[np.ix_(y1, x0)] * (1 - sx) + grid[np.ix_(y1, x1)] * sx
+    return top * (1 - sy) + bottom * sy
+
+# Three scales: broad drifts, dune texture, then grain.
+field = (
+    wrapped_noise(4) * 0.5
+    + wrapped_noise(11) * 0.3
+    + wrapped_noise(29) * 0.2
+)
+field = (field - field.min()) / (field.max() - field.min())
+
+# Wind ripples, faint and roughly parallel, the way sand actually lies.
+yy, xx = np.mgrid[0:SIZE, 0:SIZE]
+ripple = np.sin((xx * 0.16 + yy * 0.05) + wrapped_noise(6) * 7.0) * 0.5 + 0.5
+
+height = np.clip(field * 0.78 + ripple * 0.22, 0, 1)
+grain = rng.normal(0.0, 0.02, (SIZE, SIZE))
+
+# Greyscale: the region's own ground colour tints it, exactly as the cobbles are
+# tinted, so one set serves every dry province.
+albedo = np.clip(0.62 + height * 0.34 + grain, 0, 1)
+rough = np.clip(0.94 - height * 0.06, 0, 1)
+
+def wrap_sobel(h):
+    dzdx = (np.roll(h, -1, axis=1) - np.roll(h, 1, axis=1)) * 0.5
+    dzdy = (np.roll(h, -1, axis=0) - np.roll(h, 1, axis=0)) * 0.5
+    return dzdx, dzdy
+
+# Gentler than paving: sand has relief you can see and not relief you trip on.
+STRENGTH = 0.9
+dzdx, dzdy = wrap_sobel(height)
+nx, ny = -dzdx * STRENGTH, -dzdy * STRENGTH
+nz = np.ones_like(nx)
+length = np.sqrt(nx * nx + ny * ny + nz * nz)
+normal = (((np.stack([nx / length, ny / length, nz / length], axis=-1)) * 0.5 + 0.5) * 255).astype(np.uint8)
+
+Image.fromarray((albedo * 255).astype(np.uint8), mode='L').convert('RGB').save(
+    'public/assets/textures/ground_redsand_albedo.jpg', quality=88, optimize=True)
+Image.fromarray(normal, mode='RGB').save(
+    'public/assets/textures/ground_redsand_normal.jpg', quality=88, optimize=True)
+Image.fromarray((rough * 255).astype(np.uint8), mode='L').convert('RGB').save(
+    'public/assets/textures/ground_redsand_roughness.jpg', quality=85, optimize=True)
+
+print(f'{SIZE}x{SIZE} red sand')
+`;
+
+execFileSync('python3', ['-c', SAND], { stdio: 'inherit' });
 
 for (const file of fs.readdirSync(OUT)) {
   const bytes = fs.statSync(path.join(OUT, file)).size;

@@ -87,6 +87,7 @@ export interface RuntimeCity {
   catRoutes: SceneDefinition['catRoutes'];
   water: SceneDefinition['water'];
   musicUrl: SceneDefinition['musicUrl'];
+  groundSurface: SceneDefinition['groundSurface'];
   tramLine: SceneDefinition['tramLine'];
   backdrop: SceneDefinition['backdrop'];
   /** Featured NPCs standing at their posts; carry no content. */
@@ -166,6 +167,7 @@ export function composeCity(canonical: CanonicalCity, scene: SceneDefinition): R
     catRoutes: scene.catRoutes,
     water: scene.water,
     musicUrl: scene.musicUrl,
+    groundSurface: scene.groundSurface,
     tramLine: scene.tramLine,
     backdrop: scene.backdrop,
     npcs: scene.npcs,

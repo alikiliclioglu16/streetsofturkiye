@@ -114,7 +114,34 @@ let ambienceSource: AudioBufferSourceNode | null = null;
  * Recorded seagulls and a ferry horn belong on top of this later; the bed
  * itself never needs to be a file.
  */
-export function startAmbience(): void {
+/**
+ * What the air sounds like, by region.
+ *
+ * The first bed was a sea wash, and it played over Cappadocia — three hundred
+ * kilometres from any coast. A child who hears waves in Nevşehir is being told
+ * something untrue about where they are, and the ground and the trees had
+ * already been taught not to do that.
+ *
+ * `cutoff` is the low-pass corner: lower is water, higher is dry wind over
+ * stone. `swell` is how much the bed rises and falls — surf breathes, a plateau
+ * wind does not.
+ */
+export interface AmbienceProfile {
+  readonly cutoff: number;
+  readonly swell: number;
+  readonly level: number;
+}
+
+export const AMBIENCE_PROFILES: Readonly<Record<string, AmbienceProfile>> = {
+  coastal: { cutoff: 900, swell: 0.4, level: 3.2 },
+  plateau: { cutoff: 2100, swell: 0.12, level: 2.4 },
+};
+
+export function ambienceProfileFor(surface: 'cobblestone' | 'redsand'): AmbienceProfile {
+  return surface === 'redsand' ? AMBIENCE_PROFILES.plateau! : AMBIENCE_PROFILES.coastal!;
+}
+
+export function startAmbience(profile: AmbienceProfile = AMBIENCE_PROFILES.coastal!): void {
   const context = audioContext();
   const destination = channelNode('ambience');
   if (!context || !destination || ambienceSource) return;
@@ -129,8 +156,8 @@ export function startAmbience(): void {
       // sounds like a broken speaker.
       const white = Math.random() * 2 - 1;
       last = (last + 0.02 * white) / 1.02;
-      const swell = 0.6 + 0.4 * Math.sin((i / data.length) * Math.PI * 2);
-      data[i] = last * 3.2 * swell;
+      const swell = 1 - profile.swell + profile.swell * Math.sin((i / data.length) * Math.PI * 2);
+      data[i] = last * profile.level * swell;
     }
   }
 
@@ -140,7 +167,7 @@ export function startAmbience(): void {
 
   const lowpass = context.createBiquadFilter();
   lowpass.type = 'lowpass';
-  lowpass.frequency.value = 900;
+  lowpass.frequency.value = profile.cutoff;
 
   source.connect(lowpass).connect(destination);
   source.start();

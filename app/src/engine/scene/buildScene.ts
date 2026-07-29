@@ -70,6 +70,7 @@ export interface SceneDescription {
   readonly backdrop: readonly ScenePropInstance[];
   readonly water: SceneDefinition['water'];
   readonly musicUrl: string | null;
+  readonly groundSurface: SceneDefinition['groundSurface'];
   readonly tramLine: SceneDefinition['tramLine'];
   readonly tramAsset: ResolvedAsset | null;
   readonly sky: SceneSky;
@@ -234,6 +235,7 @@ export function buildScene(city: CityDefinition, quality: QualityTier): SceneDes
       depth: maxZ - minZ + 4,
       color: city.environment.groundColor ?? '#D9CFBC',
     },
+    groundSurface: city.groundSurface,
     sky: {
       top: city.environment.skyPreset?.[0] ?? '#BFE4F2',
       horizon: city.environment.skyPreset?.[1] ?? city.environment.skyPreset?.[0] ?? '#DCF1FA',

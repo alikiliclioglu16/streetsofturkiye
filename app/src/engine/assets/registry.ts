@@ -96,6 +96,55 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
       'down to 2.68 MB. Delivered already at the agreed 14 m and grounded.',
   },
   {
+    id: 'city_nevsehir_fairy_chimney_cluster',
+    modelUrl: '/assets/city/city_nevsehir_fairy_chimney_cluster.glb',
+    checksum: 'bf6b6a224a3f3aecb144bff6c5ec29080b98d21a6fd315b8f10751f0c6c103e8',
+    triangles: 10_391,
+    transferBytes: 2409920,
+    /**
+     * Stop 1, so it is scaled to be walked up to rather than looked at across a
+     * valley. Its own proportions at 6 m: the same file dressed larger becomes
+     * the ridge on the horizon.
+     */
+    dimensions: [8.7, 6.0, 6.7],
+    label: 'Fairy chimneys',
+    color: '#D8C39C',
+    placeholder: 'cylinder',
+    scaleToBrief: true,
+    notes: 'Delivered 21.18 MB with 4096 px maps; recompressed to 2.30 MB. Double-sided kept.',
+  },
+  {
+    id: 'city_nevsehir_chimney_ridge',
+    modelUrl: '/assets/city/city_nevsehir_chimney_ridge.glb',
+    checksum: 'bf6b6a224a3f3aecb144bff6c5ec29080b98d21a6fd315b8f10751f0c6c103e8',
+    triangles: 10_391,
+    transferBytes: 2409920,
+    /**
+     * The same chimneys at 17 m, closing both sides of the street the way the
+     * Beyoğlu rows close İstanbul's. One file, fetched once, drawn at two sizes.
+     */
+    dimensions: [24.7, 17.0, 19.0],
+    label: 'Fairy chimney ridge',
+    color: '#D8C39C',
+    placeholder: 'box',
+    scaleToBrief: true,
+    notes: 'Same source as the stop-1 cluster, dressed as horizon.',
+  },
+  {
+    id: 'city_nevsehir_valley',
+    modelUrl: '/assets/city/city_nevsehir_valley.glb',
+    checksum: 'cc2b0d511773abd308a0aa6c7ce5ad8ddf5f4b5029680714699f10bb26e25820',
+    triangles: 10_422,
+    transferBytes: 2724448,
+    // Nearly square in plan: a terrain plate, not a wall. It closes the back.
+    dimensions: [79.4, 12.0, 78.2],
+    label: 'Cappadocian valley',
+    color: '#D3B48C',
+    placeholder: 'box',
+    scaleToBrief: true,
+    notes: 'Backdrop. Delivered 21.62 MB; recompressed to 2.60 MB.',
+  },
+  {
     id: 'city_istanbul_iznik_tile_panel',
     modelUrl: '/assets/city/city_istanbul_iznik_tile_panel.glb',
     checksum: '5ace139839828ea0d6b32a0586b2bba36617e13ea9072ded8b8eaf4bd13a7c65',

@@ -48,12 +48,12 @@
       [
         0,
         0,
-        -19.5
+        -21.15
       ],
       [
-        -8.2,
+        -6.55,
         0,
-        -33.2
+        -31.55
       ],
       [
         5.5,
@@ -151,15 +151,15 @@
         ]
       },
       "collider": {
-        "halfWidth": 6,
-        "halfDepth": 5
+        "halfWidth": 4.35,
+        "halfDepth": 3.35
       },
-      "triggerRadius": 9,
+      "triggerRadius": 7.35,
       "camera": {
         "position": [
-          9.1,
-          7.2,
-          -5.800000000000001
+          3.4,
+          2.7,
+          -18.4
         ],
         "target": [
           0,
@@ -553,9 +553,132 @@
     }
   ],
   "musicUrl": "/assets/audio/nevsehir_theme.webm",
+  "groundSurface": "redsand",
   "tramLine": null,
   "water": null,
-  "backdrop": [],
+  "backdrop": [
+    {
+      "assetId": "city_nevsehir_chimney_ridge",
+      "position": [
+        -32,
+        0,
+        -2
+      ],
+      "rotationY": 1.5707963267948966,
+      "solid": false,
+      "note": "chimney ridge west 1"
+    },
+    {
+      "assetId": "city_nevsehir_chimney_ridge",
+      "position": [
+        -32,
+        0,
+        -32
+      ],
+      "rotationY": 1.5707963267948966,
+      "solid": false,
+      "note": "chimney ridge west 2"
+    },
+    {
+      "assetId": "city_nevsehir_chimney_ridge",
+      "position": [
+        -32,
+        0,
+        -62
+      ],
+      "rotationY": 1.5707963267948966,
+      "solid": false,
+      "note": "chimney ridge west 3"
+    },
+    {
+      "assetId": "city_nevsehir_chimney_ridge",
+      "position": [
+        -32,
+        0,
+        -92
+      ],
+      "rotationY": 1.5707963267948966,
+      "solid": false,
+      "note": "chimney ridge west 4"
+    },
+    {
+      "assetId": "city_nevsehir_chimney_ridge",
+      "position": [
+        -32,
+        0,
+        -122
+      ],
+      "rotationY": 1.5707963267948966,
+      "solid": false,
+      "note": "chimney ridge west 5"
+    },
+    {
+      "assetId": "city_nevsehir_chimney_ridge",
+      "position": [
+        32,
+        0,
+        -2
+      ],
+      "rotationY": -1.5707963267948966,
+      "solid": false,
+      "note": "chimney ridge east 1"
+    },
+    {
+      "assetId": "city_nevsehir_chimney_ridge",
+      "position": [
+        32,
+        0,
+        -32
+      ],
+      "rotationY": -1.5707963267948966,
+      "solid": false,
+      "note": "chimney ridge east 2"
+    },
+    {
+      "assetId": "city_nevsehir_chimney_ridge",
+      "position": [
+        32,
+        0,
+        -62
+      ],
+      "rotationY": -1.5707963267948966,
+      "solid": false,
+      "note": "chimney ridge east 3"
+    },
+    {
+      "assetId": "city_nevsehir_chimney_ridge",
+      "position": [
+        32,
+        0,
+        -92
+      ],
+      "rotationY": -1.5707963267948966,
+      "solid": false,
+      "note": "chimney ridge east 4"
+    },
+    {
+      "assetId": "city_nevsehir_chimney_ridge",
+      "position": [
+        32,
+        0,
+        -122
+      ],
+      "rotationY": -1.5707963267948966,
+      "solid": false,
+      "note": "chimney ridge east 5"
+    },
+    {
+      "assetId": "city_nevsehir_valley",
+      "position": [
+        0,
+        0,
+        78
+      ],
+      "rotationY": 3.141592653589793,
+      "solid": false,
+      "note": "the valley, behind the square"
+    }
+  ],
   "catRoutes": [
     [
       {
