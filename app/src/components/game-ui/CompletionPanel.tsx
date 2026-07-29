@@ -11,12 +11,20 @@ export function CompletionPanel({
   collectedRewardIds,
   locale,
   onLeave,
+  onKeepExploring,
   onAnotherDance,
 }: {
   city: CityDefinition;
   collectedRewardIds: readonly string[];
   locale: Locale;
   onLeave: () => void;
+  /**
+   * Back to the street rather than back to the map.
+   *
+   * A finished city is still a city worth walking around, and the only way out
+   * of this panel used to be leaving.
+   */
+  onKeepExploring?: () => void;
   /** Absent when the guide has no approved dances or reduced motion is on. */
   onAnotherDance?: () => void;
 }) {
@@ -51,6 +59,11 @@ export function CompletionPanel({
         {onAnotherDance ? (
           <button type="button" className="btn" onClick={onAnotherDance}>
             {ui('anotherDance', locale)}
+          </button>
+        ) : null}
+        {onKeepExploring ? (
+          <button type="button" className="btn" onClick={onKeepExploring}>
+            {ui('keepExploring', locale)}
           </button>
         ) : null}
         <button type="button" className="btn btn--gold" onClick={onLeave}>

@@ -114,7 +114,7 @@ app/src/
 npm run lint       → temiz
 npm run typecheck  → temiz (strict, noUncheckedIndexedAccess, `any` yok)
 npm run content:check → 81 il, 249 durak, 84 soru; 1413 kanonik dizgi baseline ile eşleşti
-npm test           → 16 dosya / 289 test geçti (logic + jsdom ui)
+npm test           → 16 dosya / 294 test geçti (logic + jsdom ui)
 npm run build      → başarılı, 4 rota
 npm start          → /map ve /city/istanbul 200
 ```
@@ -579,6 +579,21 @@ Beş duraktan üçünün modeli henüz teslim edilmedi, yer tutucu çiziliyor �
 Çok şehirli mimarinin (ikinci rehber, ikinci bölge, şehir başına ilerleme, elle
 dokunulmamış bir sokağın döşenmesi) seksen şehir üstüne kurulmadan önce bir sokakta daha
 kanıtlanması gerekiyordu. Nevşehir'in tam tur simülasyonu da geçiyor.
+
+## 6b. Tamamlanan şehir kapanmıyor
+
+Tamamlanmış bir şehre girince çocuk doğrudan özet paneline düşüyordu ve o panelin tek düğmesi
+haritaya dönüyordu — yani bitirdiği şehre bir daha giremiyordu (D-094).
+
+Artık sokakta açılıyor. Özet HUD'dan erişilebilir, panelde sokağa dönüş düğmesi var.
+Toplanmış duraklar yaklaşınca tekrar açılmıyor ama istenirse bakılabiliyor; iki kez toplamak
+iki yıldız vermiyor.
+
+Yan etki: ses giriş düğmesinde açılıyordu ve tamamlanmış şehir o düğmeyi atlıyor.
+Artık ilk dokunuş veya tuş o jest sayılıyor.
+
+**Nevşehir teması** eklendi: *Gökyüzü Balonları*, 1,33 MB. Gaziantep kendi teması gelene kadar
+sessiz — Boğaz şarkısını Kapadokya'ya çalmak, oraya çınar dikmekle aynı şey (D-095).
 
 ## 5. Bilinen sınırlar
 

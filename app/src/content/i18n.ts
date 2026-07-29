@@ -47,6 +47,8 @@ type UiKey =
   | 'appTagline'
   | 'startCity'
   | 'backToMap'
+  | 'keepExploring'
+  | 'viewCollection'
   | 'progress'
   | 'collection'
   | 'settings'
@@ -99,6 +101,8 @@ const UI: Record<UiKey, Record<Locale, string>> = {
   appTitle: { tr: 'Türkiye Sokakları', en: 'Streets of Türkiye' },
   appTagline: { tr: 'Küçük Kâşifler, Koca Türkiye', en: 'Little Explorers, Big Türkiye' },
   startCity: { tr: 'Şehre gir', en: 'Enter city' },
+  viewCollection: { tr: 'Koleksiyonum', en: 'My collection' },
+  keepExploring: { tr: 'Gezmeye devam et', en: 'Keep exploring' },
   backToMap: { tr: 'Haritaya dön', en: 'Back to map' },
   progress: { tr: 'İlerleme', en: 'Progress' },
   collection: { tr: 'Koleksiyon', en: 'Collection' },

@@ -83,6 +83,11 @@ const COMMISSIONED_REWARDS = {
  */
 const CLEARANCE = 1.5;
 const TRIGGER_MARGIN = 2.5;
+const CITY_THEMES = {
+  istanbul: '/assets/audio/istanbul_theme.webm',
+  nevsehir: '/assets/audio/nevsehir_theme.webm',
+};
+
 const STOP_SPACING = 18;
 
 /**
@@ -533,7 +538,12 @@ function buildScene(canonical) {
      * İstanbul is the only pilot city on the water. The sea starts past the
      * play boundary, so a child can see it and never walk into it.
      */
-    musicUrl: canonical.id === 'istanbul' ? '/assets/audio/istanbul_theme.webm' : null,
+    /**
+     * A city's own theme. Silent where none has been chosen, rather than
+     * borrowing a neighbour's — a Bosphorus song over Cappadocia would be the
+     * audio equivalent of planting plane trees there.
+     */
+    musicUrl: CITY_THEMES[canonical.id] ?? null,
     /**
      * The tram runs the length of the street on the west side, clear of the
      * walk. İstanbul's nostalgic tram does one street, up and down, all day.

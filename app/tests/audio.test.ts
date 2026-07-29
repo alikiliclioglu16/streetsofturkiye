@@ -86,7 +86,7 @@ describe('audio channels', () => {
 
     // Interface cues and the ambience bed are oscillators and filtered noise,
     // so the only file here is the city theme.
-    expect(files).toEqual(['istanbul_theme.webm']);
+    expect(files.sort()).toEqual(['istanbul_theme.webm', 'nevsehir_theme.webm']);
     for (const file of files) {
       // Opus in WebM, streamed rather than decoded into memory.
       expect(file.endsWith('.webm'), file).toBe(true);
@@ -154,5 +154,32 @@ describe('the guide speaks', () => {
     expect(() => speak('hello')).not.toThrow();
     expect(() => stopSpeaking()).not.toThrow();
     expect(isSpeaking()).toBe(false);
+  });
+});
+
+describe('each city has its own theme', () => {
+  it('gives İstanbul and Nevşehir different music, and neither to Gaziantep', async () => {
+    const { buildScene } = await import('@/engine/scene/buildScene');
+    const { loadComposedCity } = await import('./helpers');
+
+    const istanbul = buildScene(loadComposedCity('istanbul'), 'high').musicUrl;
+    const nevsehir = buildScene(loadComposedCity('nevsehir'), 'high').musicUrl;
+
+    expect(istanbul).not.toBeNull();
+    expect(nevsehir).not.toBeNull();
+    // A Bosphorus song over Cappadocia is the audio equivalent of planting
+    // plane trees there.
+    expect(istanbul).not.toBe(nevsehir);
+    // Silent rather than borrowing a neighbour's.
+    expect(buildScene(loadComposedCity('gaziantep'), 'high').musicUrl).toBeNull();
+  });
+
+  it('keeps every theme small enough to stream on a tablet', async () => {
+    const { readdirSync, statSync } = await import('node:fs');
+    const path = await import('node:path');
+    const dir = path.resolve(process.cwd(), 'public/assets/audio');
+    for (const file of readdirSync(dir)) {
+      expect(statSync(path.join(dir, file)).size / (1024 * 1024), file).toBeLessThan(2.5);
+    }
   });
 });

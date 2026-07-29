@@ -1138,3 +1138,29 @@ more real street before eighty are built on top of it.
 A full playthrough of Nevşehir is simulated alongside İstanbul's: arrive, walk
 the markers, meet all five stops, finish the city. It passes.
 
+## D-094 — A finished city stays open (29 Jul 2026)
+
+Entering a completed city dropped the child on the completion panel, whose only
+button goes back to the map. A city they had finished was a city they could not
+re-enter.
+
+It now opens on the street. The summary is reachable from the HUD, and the panel
+has a way back to the street as well as a way out. Stops already collected still
+do not re-trigger on approach, but the prompt button gives another look — and
+collecting one twice does not award it twice.
+
+**Finishing something should not lock the door to it.**
+
+A side effect worth recording: audio unlocks on the intro button, and a finished
+city skips the intro. Without a fallback, revisiting a city would have been
+silent with nothing to explain why. The first touch or key press anywhere now
+serves as the gesture.
+
+## D-095 — Each city has its own theme, or none (29 Jul 2026)
+
+`CITY_THEMES` maps a city to its music. Nevşehir has *Gökyüzü Balonları*;
+Gaziantep has nothing yet and stays silent rather than borrowing İstanbul's.
+
+A Bosphorus song over Cappadocia is the audio equivalent of planting plane trees
+there.
+

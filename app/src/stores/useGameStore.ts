@@ -44,6 +44,8 @@ interface GameState {
   enterCity: (cityId: string, signal?: AbortSignal) => Promise<void>;
   leaveCity: () => void;
   skipIntro: () => void;
+  reviewCompletion: () => void;
+  resumeExploring: () => void;
   dispatchInteraction: (event: InteractionEvent) => void;
   claimReward: () => Promise<void>;
   answerQuiz: (correct: boolean) => Promise<void>;
@@ -93,7 +95,15 @@ export const useGameStore = create<GameState>((set, get) => ({
         progress,
         profile: nextProfile,
         interaction: initialInteractionContext,
-        phase: progress.cityCompleted ? 'complete' : 'intro',
+        /**
+         * A finished city opens for exploring, not on its summary.
+         *
+         * It used to drop the child straight on to the completion panel, whose
+         * only button goes back to the map — so a city they had finished was a
+         * city they could not re-enter. Finishing something should not lock the
+         * door to it.
+         */
+        phase: 'explore',
         quizIndex: 0,
       });
     } catch (error) {
@@ -118,6 +128,20 @@ export const useGameStore = create<GameState>((set, get) => ({
     }),
 
   skipIntro: () => set({ phase: 'explore' }),
+
+  /**
+   * Reopens the summary of a city already finished, from the HUD.
+   *
+   * The panel is still how a child sees what they collected; it is just no
+   * longer the thing standing between them and the street.
+   */
+  reviewCompletion: () => {
+    if (!get().progress?.cityCompleted) return;
+    set({ phase: 'complete' });
+  },
+
+  /** Leaves the summary and goes back to the street. */
+  resumeExploring: () => set({ phase: 'explore' }),
 
   dispatchInteraction: (event) => {
     const { interaction, phase } = get();

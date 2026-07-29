@@ -218,3 +218,39 @@ describe('a child completes Nevşehir', () => {
     expect(progress.cityCompleted).toBe(true);
   });
 });
+
+describe('a finished city stays open', () => {
+  it('opens on the street, not on the summary', async () => {
+    const { useGameStore } = await import('@/stores/useGameStore');
+    // Entering used to drop the child on the completion panel, whose only
+    // button goes back to the map — so a city they had finished was a city they
+    // could not re-enter.
+    const source = await import('node:fs').then(({ readFileSync }) =>
+      readFileSync('src/stores/useGameStore.ts', 'utf8'),
+    );
+    expect(source).not.toContain("progress.cityCompleted ? 'complete' : 'intro'");
+    expect(typeof useGameStore.getState().resumeExploring).toBe('function');
+    expect(typeof useGameStore.getState().reviewCompletion).toBe('function');
+  });
+
+  it('will not reopen a summary for a city that is not finished', async () => {
+    const { useGameStore } = await import('@/stores/useGameStore');
+    const before = useGameStore.getState().phase;
+    useGameStore.getState().reviewCompletion();
+    expect(useGameStore.getState().phase).toBe(before);
+  });
+
+  it('lets a child collect a stop only once, however often they revisit', () => {
+    const city = loadComposedCity('istanbul');
+    let progress = emptyCityProgress(city.id);
+    const first = city.hotspots[0]!;
+
+    progress = completeHotspot(progress, first.id, first.reward.assetId);
+    progress = completeHotspot(progress, first.id, first.reward.assetId);
+    progress = completeHotspot(progress, first.id, first.reward.assetId);
+
+    // Revisiting is for looking again, not for farming stars.
+    expect(progress.completedHotspotIds).toEqual([first.id]);
+    expect(progress.collectedRewardIds).toEqual([first.reward.assetId]);
+  });
+});

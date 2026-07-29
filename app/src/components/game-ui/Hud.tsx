@@ -13,6 +13,12 @@ interface HudProps {
   onSettings: () => void;
   onLeave: () => void;
   onInteract: () => void;
+  /**
+   * Reopens the summary from the street. Present only once the city is
+   * finished — a finished city is still walkable, so its summary has to be
+   * reachable rather than being the thing that replaced it.
+   */
+  onReviewCompletion?: () => void;
 }
 
 /** Persistent in-city UI: name, route progress, collection, settings, prompt. */
@@ -26,6 +32,7 @@ export function Hud({
   onSettings,
   onLeave,
   onInteract,
+  onReviewCompletion,
 }: HudProps) {
   return (
     <>
@@ -49,6 +56,21 @@ export function Hud({
             {/* Progress is stated numerically, never by colour alone. */}
             {completed}/{total} {ui('hotspotsDone', locale)} · {collected} ★
           </p>
+          {onReviewCompletion ? (
+            /**
+             * A finished city is still walkable, so its summary has to be
+             * reachable from the street rather than being the thing that
+             * replaced it.
+             */
+            <button
+              type="button"
+              className="btn btn--ghost"
+              style={{ marginTop: 8, fontSize: 13, padding: '5px 12px' }}
+              onClick={onReviewCompletion}
+            >
+              {ui('viewCollection', locale)}
+            </button>
+          ) : null}
           <div
             role="progressbar"
             aria-valuemin={0}

@@ -61,6 +61,8 @@ export function CityExperience({ cityId }: { cityId: string }) {
   const progress = useGameStore((state) => state.progress);
   const interaction = useGameStore((state) => state.interaction);
   const phase = useGameStore((state) => state.phase);
+  const resumeExploring = useGameStore((state) => state.resumeExploring);
+  const reviewCompletion = useGameStore((state) => state.reviewCompletion);
   const quizIndex = useGameStore((state) => state.quizIndex);
   const errorMessage = useGameStore((state) => state.errorMessage);
   const errorIssues = useGameStore((state) => state.errorIssues);
@@ -298,14 +300,41 @@ export function CityExperience({ cityId }: { cityId: string }) {
    * for the whole session, which is silence with nothing to explain it.
    */
   const musicUrl = scene?.musicUrl ?? null;
-  const beginCity = useCallback(() => {
+
+  /**
+   * Sound needs a gesture, and a finished city has no intro button to give one.
+   *
+   * Re-entering a completed city goes straight to the street, so the first
+   * touch or key press anywhere becomes the gesture instead. Without this, a
+   * child revisiting a city they had finished would find it silent with nothing
+   * to explain why.
+   */
+  const audioStarted = useRef(false);
+  const startAudioOnce = useCallback(() => {
+    if (audioStarted.current) return;
+    audioStarted.current = true;
     void unlockAudio().then((ready) => {
       if (!ready) return;
       startAmbience();
       if (musicUrl) startMusic(musicUrl);
     });
+  }, [musicUrl]);
+
+  useEffect(() => {
+    if (phase === 'intro') return;
+    const open = () => startAudioOnce();
+    window.addEventListener('pointerdown', open, { once: true });
+    window.addEventListener('keydown', open, { once: true });
+    return () => {
+      window.removeEventListener('pointerdown', open);
+      window.removeEventListener('keydown', open);
+    };
+  }, [phase, startAudioOnce]);
+
+  const beginCity = useCallback(() => {
+    startAudioOnce();
     skipIntro();
-  }, [skipIntro, musicUrl]);
+  }, [skipIntro, startAudioOnce]);
 
   useEffect(
     () => () => {
@@ -422,6 +451,7 @@ export function CityExperience({ cityId }: { cityId: string }) {
       </CityCanvas>
 
       <Hud
+        onReviewCompletion={progress.cityCompleted ? reviewCompletion : undefined}
         cityName={t(city.name, locale)}
         locale={locale}
         completed={progress.completedHotspotIds.length}
@@ -488,6 +518,7 @@ export function CityExperience({ cityId }: { cityId: string }) {
       {/* `idle` covers re-entering an already finished city: summary, no dance. */}
       {phase === 'complete' && (celebration.state === 'summary' || celebration.state === 'idle') ? (
         <CompletionPanel
+          onKeepExploring={resumeExploring}
           city={city}
           collectedRewardIds={progress.collectedRewardIds}
           locale={locale}
