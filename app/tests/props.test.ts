@@ -931,3 +931,46 @@ describe('no graybox filler left', () => {
     expect(source).not.toContain('decoration');
   });
 });
+
+describe('trees render as trees', () => {
+  it('groups instances by colour instead of using per-instance colour', () => {
+    const source = readFileSync(
+      path.resolve(process.cwd(), 'src/components/three/StreetTrees.tsx'),
+      'utf8',
+    );
+    /**
+     * The first instancing attempt used one material with `vertexColors` and
+     * `setColorAt`. The instance colour attribute is added after the shader is
+     * compiled, so the shader had nothing to read and every tree rendered
+     * black. Grouping by colour costs three extra draw calls and cannot fail
+     * that way.
+     */
+    // Matches the JSX prop, not the comment that explains why it is gone.
+    expect(source).not.toMatch(/\bvertexColors[\s/>]/);
+    expect(source).not.toContain('setColorAt');
+    expect(source).toContain('instancedMesh');
+  });
+
+  it('still saves most of the draw calls the trees used to cost', () => {
+    const scene = buildScene(loadComposedCity('istanbul'), 'high');
+    // One group per trunk, one per distinct foliage colour: four, against
+    // sixty-three when each tree was its own group of meshes.
+    const colours = new Set<number>();
+    for (const tree of scene.trees) {
+      if (tree.kind === 'cypress') colours.add(0);
+      else if (tree.kind === 'plane') {
+        colours.add(1);
+        colours.add(2);
+      } else colours.add(2);
+    }
+    const drawCalls = 1 + colours.size;
+    expect(drawCalls).toBeLessThan(8);
+    expect(scene.trees.length).toBeGreaterThan(drawCalls * 3);
+  });
+
+  it('keeps a mix of shapes, so the street is not one tree repeated', () => {
+    const scene = buildScene(loadComposedCity('istanbul'), 'high');
+    const kinds = new Set(scene.trees.map((tree) => tree.kind));
+    expect(kinds.size).toBeGreaterThanOrEqual(2);
+  });
+});

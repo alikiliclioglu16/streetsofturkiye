@@ -863,3 +863,17 @@ skeleton, the twenty-seven joints and the walk clip intact: five cats are now
 Flagged twice before acting. It stopped being a note and became a number when
 the street filled up and the frame fell to 17 fps.
 
+## D-077 — Instances are grouped by colour, not coloured per instance (29 Jul 2026)
+
+The first instancing pass gave every tree its colour through `setColorAt` on a
+material with `vertexColors`. Every tree rendered black: the instance colour
+attribute is added after the shader compiles, so the shader had nothing to read.
+
+Instances are now grouped by colour, one plain material each — one group for
+trunks and one per foliage tone. Four draw calls instead of three, against
+sixty-three before instancing, and it cannot fail that way.
+
+Worth remembering for the next batch of repeated props: group by material, and
+do not reach for per-instance colour to save a draw call that was never the
+expensive part.
+

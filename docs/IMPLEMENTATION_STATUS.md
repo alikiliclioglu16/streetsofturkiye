@@ -114,7 +114,7 @@ app/src/
 npm run lint       → temiz
 npm run typecheck  → temiz (strict, noUncheckedIndexedAccess, `any` yok)
 npm run content:check → 81 il, 249 durak, 84 soru; 1413 kanonik dizgi baseline ile eşleşti
-npm test           → 14 dosya / 256 test geçti (logic + jsdom ui)
+npm test           → 14 dosya / 259 test geçti (logic + jsdom ui)
 npm run build      → başarılı, 4 rota
 npm start          → /map ve /city/istanbul 200
 ```
@@ -486,7 +486,7 @@ Ses, giriş düğmesinde açılıyor — tarayıcının istediği jest o.
 Yanlış cevap sesi bilerek zil değil. Öğrenme oyununda yanlış yapan çocuk nötr bir şey duyup
 tekrar denemeli.
 
-**Kare hızı:** ağaçlar örneklendi, 63 draw call → 3 (D-075). Kedi sadeleştirildi,
+**Kare hızı:** ağaçlar örneklendi, 63 draw call → 4 (D-075, D-077). Kedi sadeleştirildi,
 19.303 → 7.199 üçgen; beş kedi 96.515'ten 35.995'e indi (D-076). Kediler ve ağaçlar artık
 gölge yaratmıyor.
 
