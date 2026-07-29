@@ -596,26 +596,15 @@
   },
   "backdrop": [
     {
-      "assetId": "city_istanbul_beyoglu_row",
+      "assetId": "city_istanbul_ferry_boat",
       "position": [
-        -26,
+        -24,
         0,
-        -52
+        -128
       ],
-      "rotationY": 1.5707963267948966,
+      "rotationY": 0.18,
       "solid": false,
-      "note": "facades behind the west pavement"
-    },
-    {
-      "assetId": "city_istanbul_beyoglu_row",
-      "position": [
-        27,
-        0,
-        -74
-      ],
-      "rotationY": -1.5707963267948966,
-      "solid": false,
-      "note": "facades behind the east pavement"
+      "note": "moored off the quay"
     },
     {
       "assetId": "city_istanbul_maidens_tower",

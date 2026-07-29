@@ -516,18 +516,16 @@ function buildScene(canonical) {
       canonical.id === 'istanbul'
         ? [
             {
-              assetId: 'city_istanbul_beyoglu_row',
-              position: [-26, 0, -52],
-              rotationY: Math.PI / 2,
+              /**
+               * The ferry belongs on the water, not beside the pavement. It
+               * lies off the quay near the terminal, where a child looking out
+               * from the last stop sees the thing the stop is about.
+               */
+              assetId: 'city_istanbul_ferry_boat',
+              position: [-24, 0, -128],
+              rotationY: 0.18,
               solid: false,
-              note: 'facades behind the west pavement',
-            },
-            {
-              assetId: 'city_istanbul_beyoglu_row',
-              position: [27, 0, -74],
-              rotationY: -Math.PI / 2,
-              solid: false,
-              note: 'facades behind the east pavement',
+              note: 'moored off the quay',
             },
             {
               assetId: 'city_istanbul_maidens_tower',

@@ -791,6 +791,40 @@ describe('the sea', () => {
     expect(insideWater).toBe(true);
   });
 
+  it('floats what belongs on water and stands what belongs on land', () => {
+    const scene = buildScene(loadComposedCity('istanbul'), 'high');
+    const water = scene.water!;
+    const onWater = (prop: { position: readonly number[] }) =>
+      Math.abs(prop.position[0]! - water.centerX) < water.width / 2 &&
+      Math.abs(prop.position[2]! - water.centerZ) < water.depth / 2;
+
+    // A ferry beside a pavement reads as a mistake before a child can name why.
+    const ferry = scene.backdrop.find(
+      (prop) => prop.asset.entry.id === 'city_istanbul_ferry_boat',
+    )!;
+    expect(ferry, 'the ferry should be in the scene').toBeDefined();
+    expect(onWater(ferry), 'the ferry is not on the water').toBe(true);
+
+    const tower = scene.backdrop.find(
+      (prop) => prop.asset.entry.id === 'city_istanbul_maidens_tower',
+    )!;
+    expect(onWater(tower)).toBe(true);
+  });
+
+  it('moors one ferry, at a length that matches the terminal', () => {
+    const scene = buildScene(loadComposedCity('istanbul'), 'high');
+    const ferries = scene.backdrop.filter(
+      (prop) => prop.asset.entry.id === 'city_istanbul_ferry_boat',
+    );
+    expect(ferries).toHaveLength(1);
+
+    const hull = ferries[0]!.asset.entry.dimensions[0];
+    const terminal = resolveAsset('city_istanbul_ferry_terminal', 'high').entry.dimensions[0];
+    // A boat longer than its own terminal by a factor reads as a cruise liner.
+    expect(hull / terminal).toBeGreaterThan(1);
+    expect(hull / terminal).toBeLessThan(2);
+  });
+
   it('keeps every backdrop piece out of the play area and out of the way', () => {
     const scene = buildScene(loadComposedCity('istanbul'), 'high');
     expect(scene.backdrop.length).toBeGreaterThan(0);

@@ -877,3 +877,25 @@ Worth remembering for the next batch of repeated props: group by material, and
 do not reach for per-instance colour to save a draw call that was never the
 expensive part.
 
+## D-078 — The Beyoğlu row was a ferry (29 Jul 2026)
+
+A file named `Beyoğlu` measured 2.24 : 1 : 0.50 — wide and shallow, which is
+what a row of street fronts measures like. The name and the numbers agreed, so
+it was registered as `city_istanbul_beyoglu_row` and placed twice as backdrop
+without being looked at.
+
+It was a ferry. Two of them stood beside the pavement, twenty-seven metres long
+and four metres from the play boundary.
+
+It is now `city_istanbul_ferry_boat`: one instance, 20 m at the hull to match
+the 13.9 m terminal it sits beside, moored on the water off the quay. A ferry
+beside a pavement reads as a mistake before a child can name why — the same
+reason the sea was added in the first place.
+
+**Measurement narrows an asset down; it does not identify it.** Every previous
+delivery was checked against a claim about what it was. This one had no claim
+beyond its filename, and the filename was wrong. Anything whose identity rests
+on a filename gets asked about rather than assumed.
+
+The facades are still wanted. `docs/BEYOGLU_FACADE_BRIEF.md` specifies them.
+

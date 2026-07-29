@@ -134,19 +134,29 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
       '2.94 MB.',
   },
   {
-    id: 'city_istanbul_beyoglu_row',
-    modelUrl: '/assets/city/city_istanbul_beyoglu_row.glb',
+    id: 'city_istanbul_ferry_boat',
+    modelUrl: '/assets/city/city_istanbul_ferry_boat.glb',
     checksum: 'd1c2c0c036d5a0f38df440c94091d0e54e5a0e53779fb45c126964ae562420c8',
     triangles: 5_776,
-    transferBytes: 2_604_364,
-    // Wide and shallow: a street facade, so it works as a backdrop row.
-    dimensions: [26.9, 12.0, 6.0],
-    label: 'Beyoğlu facades',
-    color: '#BFB09A',
+    transferBytes: 2604364,
+    /**
+     * A Şehir Hatları ferry, moored off the quay. It was registered as a row of
+     * Beyoğlu facades: the file is 2.24 : 1 : 0.50, wide and shallow, which is
+     * what a street front measures like, and the name on the delivery said
+     * Beyoğlu. It is a boat. Measurement narrowed it down and did not settle it,
+     * and it was not checked on screen.
+     *
+     * 9 m tall including masts gives a 20 m hull — the length the ferry was
+     * briefed at, and a match for the 13.9 m terminal it sits beside.
+     */
+    dimensions: [20.2, 9.0, 4.5],
+    label: 'Bosphorus ferry',
+    color: '#C8CBD0',
     placeholder: 'box',
     scaleToBrief: true,
-    notes: 'Backdrop only. Delivered 58.27 MB; recompressed to 2.48 MB.',
+    notes: 'Delivered 58.27 MB; recompressed to 2.48 MB. One instance, on the water.',
   },
+
   {
     id: 'city_istanbul_maidens_tower',
     modelUrl: '/assets/city/city_istanbul_maidens_tower.glb',

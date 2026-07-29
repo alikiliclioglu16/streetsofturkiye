@@ -114,7 +114,7 @@ app/src/
 npm run lint       → temiz
 npm run typecheck  → temiz (strict, noUncheckedIndexedAccess, `any` yok)
 npm run content:check → 81 il, 249 durak, 84 soru; 1413 kanonik dizgi baseline ile eşleşti
-npm test           → 14 dosya / 259 test geçti (logic + jsdom ui)
+npm test           → 14 dosya / 261 test geçti (logic + jsdom ui)
 npm run build      → başarılı, 4 rota
 npm start          → /map ve /city/istanbul 200
 ```
@@ -383,7 +383,7 @@ test ediliyor, mükerrer kimlik yasak. İki prop iki kez kayıtlıydı ve eskisi
 `city_istanbul_hagia_sophia` 1. durağın nesnesi oldu — kanonik soru camilerle ilgili.
 8 metrede tutuldu (D-061): 12 metrede ayak izi 21 m derinliğe çıkıp Galata'nın halkasına giriyordu.
 
-`city_istanbul_beyoglu_row` iki kez arka planda, `city_istanbul_maidens_tower` denizde.
+`city_istanbul_ferry_boat` denizde demirli, `city_istanbul_maidens_tower` denizde.
 İkisi de katı değil ve gölge yaratmıyor (D-060).
 
 **Deniz eklendi** (D-059): oyun alanının sınırında başlıyor, çocuk rıhtım kenarında duruyor.
