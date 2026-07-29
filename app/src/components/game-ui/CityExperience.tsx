@@ -24,6 +24,8 @@ import { useClientEnvironment } from '@/engine/quality/useEnvironment';
 import { hotspotById } from '@/engine/interactions/machine';
 import { useKeyboardControls } from '@/engine/controls/inputState';
 import { loadPresentation } from '@/content/loaders/loadCity';
+import { unlockAudio, stopAudio } from '@/engine/audio/engine';
+import { playCollect, playCityComplete, startAmbience, stopAmbience } from '@/engine/audio/cues';
 import { t, ui } from '@/content/i18n';
 import type { Presentation } from '@/content/schemas/presentation';
 import { CityCanvas, type PerfSample } from '@/components/three/CityCanvas';
@@ -201,6 +203,7 @@ export function CityExperience({ cityId }: { cityId: string }) {
     const wasLast = quizIndex + 1 >= (city?.quiz.length ?? 0);
     await answerQuiz(true);
     if (!wasLast) return;
+    playCityComplete();
     dispatchCelebration({ type: 'CITY_COMPLETED' });
     dispatchCelebration({ type: 'PROGRESS_SAVED' });
   }, [answerQuiz, city?.quiz.length, quizIndex, dispatchCelebration]);
@@ -281,7 +284,28 @@ export function CityExperience({ cityId }: { cityId: string }) {
    * machine still passes through its states so progress and the guide's nod
    * stay in step, but the player only ever sees one panel.
    */
+  /**
+   * The intro button is the one gesture the browser needs before it will let
+   * anything make a sound. Opening the context any earlier leaves it suspended
+   * for the whole session, which is silence with nothing to explain it.
+   */
+  const beginCity = useCallback(() => {
+    void unlockAudio().then((ready) => {
+      if (ready) startAmbience();
+    });
+    skipIntro();
+  }, [skipIntro]);
+
+  useEffect(
+    () => () => {
+      stopAmbience();
+      stopAudio();
+    },
+    [],
+  );
+
   const collectFromStop = useCallback(() => {
+    playCollect();
     dispatchInteraction({ type: 'ANSWER', correct: true });
     void claimReward().then(() => dispatchInteraction({ type: 'DISMISS' }));
   }, [dispatchInteraction, claimReward]);
@@ -395,7 +419,7 @@ export function CityExperience({ cityId }: { cityId: string }) {
           city={city}
           locale={locale}
           presentation={presentation}
-          onStart={skipIntro}
+          onStart={beginCity}
         />
       ) : null}
 

@@ -15,7 +15,7 @@ import { useMemo } from 'react';
 
 export type TreeKind = 'cypress' | 'plane' | 'shrub';
 
-const FOLIAGE = ['#4F7A46', '#5C8A50', '#456B3E'];
+export const FOLIAGE = ['#4F7A46', '#5C8A50', '#456B3E'];
 
 export interface StreetTreeSpec {
   readonly key: string;
@@ -25,24 +25,27 @@ export interface StreetTreeSpec {
   readonly rotationY: number;
 }
 
+/** Shared by the single-tree renderer and the instanced one. */
+export function treeShape(kind: TreeKind) {
+  switch (kind) {
+    case 'cypress':
+      return { trunk: 2.0, radius: 0.13, masses: [{ y: 3.4, r: 1.0, h: 4.6, colour: 0 }] };
+    case 'plane':
+      return {
+        trunk: 1.9,
+        radius: 0.19,
+        masses: [
+          { y: 3.0, r: 1.7, h: 2.3, colour: 1 },
+          { y: 4.0, r: 1.2, h: 1.7, colour: 2 },
+        ],
+      };
+    default:
+      return { trunk: 0.5, radius: 0.1, masses: [{ y: 1.0, r: 0.9, h: 1.3, colour: 2 }] };
+  }
+}
+
 export function StreetTree({ spec }: { spec: StreetTreeSpec }) {
-  const shape = useMemo(() => {
-    switch (spec.kind) {
-      case 'cypress':
-        return { trunk: 2.0, radius: 0.13, masses: [{ y: 3.4, r: 1.0, h: 4.6, colour: 0 }] };
-      case 'plane':
-        return {
-          trunk: 1.9,
-          radius: 0.19,
-          masses: [
-            { y: 3.0, r: 1.7, h: 2.3, colour: 1 },
-            { y: 4.0, r: 1.2, h: 1.7, colour: 2 },
-          ],
-        };
-      default:
-        return { trunk: 0.5, radius: 0.1, masses: [{ y: 1.0, r: 0.9, h: 1.3, colour: 2 }] };
-    }
-  }, [spec.kind]);
+  const shape = useMemo(() => treeShape(spec.kind), [spec.kind]);
 
   return (
     <group position={spec.position as [number, number, number]} rotation={[0, spec.rotationY, 0]} scale={spec.scale}>

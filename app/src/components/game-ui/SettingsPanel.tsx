@@ -31,6 +31,29 @@ export function SettingsPanel() {
         </button>
       </div>
 
+      <div style={{ marginBottom: 18 }}>
+        <p style={{ margin: '0 0 8px', fontWeight: 700 }}>{ui('audio', locale)}</p>
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
+          {(
+            [
+              ['voice', settings.muteVoice, ui('audioGuide', locale)],
+              ['ambience', settings.muteAmbience, ui('audioAmbient', locale)],
+              ['ui', settings.muteUi, ui('audioInterface', locale)],
+            ] as const
+          ).map(([channel, muted, label]) => (
+            <button
+              key={channel}
+              type="button"
+              className={muted ? 'btn btn--ghost' : 'btn'}
+              aria-pressed={!muted}
+              onClick={() => settings.toggleAudio(channel)}
+            >
+              {label}: {muted ? ui('off', locale).toLowerCase() : ui('on', locale).toLowerCase()}
+            </button>
+          ))}
+        </div>
+      </div>
+
       <div style={{ display: 'flex', justifyContent: 'space-between', gap: 12, marginTop: 22 }}>
         <button
           type="button"

@@ -2,16 +2,22 @@
 
 import { create } from 'zustand';
 import { prefersReducedMotion } from '@/engine/quality/quality';
+import { DEFAULT_CHANNELS, setChannelState } from '@/engine/audio/engine';
 import { DEFAULT_LOCALE, type Locale } from '@/content/i18n';
 
 interface SettingsState {
   locale: Locale;
   reducedMotion: boolean;
+  /** Per-channel mute. Restored now that the switches control something. */
+  muteVoice: boolean;
+  muteAmbience: boolean;
+  muteUi: boolean;
   reducedMotionAuto: boolean;
   showPerfOverlay: boolean;
   hydrated: boolean;
   setLocale: (locale: Locale) => void;
   setReducedMotion: (value: boolean) => void;
+  toggleAudio: (channel: 'voice' | 'ambience' | 'ui') => void;
   togglePerfOverlay: () => void;
   hydrate: () => void;
 }
@@ -20,13 +26,16 @@ const STORAGE_KEY = 'sot.settings.v1';
 
 type Persisted = Pick<
   SettingsState,
-  'locale' | 'reducedMotion' | 'reducedMotionAuto'
+  'locale' | 'reducedMotion' | 'muteVoice' | 'muteAmbience' | 'muteUi' | 'reducedMotionAuto'
 >;
 
 function persist(state: SettingsState): void {
   if (typeof window === 'undefined') return;
   const payload: Persisted = {
     locale: state.locale,
+    muteVoice: state.muteVoice,
+    muteAmbience: state.muteAmbience,
+    muteUi: state.muteUi,
     reducedMotion: state.reducedMotion,
     reducedMotionAuto: state.reducedMotionAuto,
   };
@@ -40,6 +49,9 @@ function persist(state: SettingsState): void {
 export const useSettingsStore = create<SettingsState>((set, get) => ({
   locale: DEFAULT_LOCALE,
   reducedMotion: false,
+  muteVoice: false,
+  muteAmbience: false,
+  muteUi: false,
   reducedMotionAuto: true,
   showPerfOverlay: process.env.NODE_ENV === 'development',
   hydrated: false,
@@ -48,6 +60,14 @@ export const useSettingsStore = create<SettingsState>((set, get) => ({
     set({ locale });
     persist(get());
   },
+  toggleAudio: (channel) => {
+    const key = channel === 'voice' ? 'muteVoice' : channel === 'ambience' ? 'muteAmbience' : 'muteUi';
+    const muted = !get()[key];
+    set({ [key]: muted } as Partial<SettingsState>);
+    setChannelState(channel, { ...DEFAULT_CHANNELS[channel], muted });
+    persist(get());
+  },
+
   setReducedMotion: (reducedMotion) => {
     set({ reducedMotion, reducedMotionAuto: false });
     persist(get());

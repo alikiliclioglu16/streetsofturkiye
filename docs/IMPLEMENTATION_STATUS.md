@@ -114,7 +114,7 @@ app/src/
 npm run lint       → temiz
 npm run typecheck  → temiz (strict, noUncheckedIndexedAccess, `any` yok)
 npm run content:check → 81 il, 249 durak, 84 soru; 1413 kanonik dizgi baseline ile eşleşti
-npm test           → 13 dosya / 249 test geçti (logic + jsdom ui)
+npm test           → 14 dosya / 256 test geçti (logic + jsdom ui)
 npm run build      → başarılı, 4 rota
 npm start          → /map ve /city/istanbul 200
 ```
@@ -475,6 +475,26 @@ Her durak yalnız bir ara nokta üretiyordu — nesnenin önünde. Oradan sonrak
 nesnenin ortasından geçiyordu. Nesneler katı olmadan önce zararsızdı, katı olunca duvara dönüştü.
 
 Artık her durak iki nokta üretiyor: bakmak için durulan yer ve nesnenin öte yanını geçen nokta.
+
+## 5c. Ses ve kare hızı
+
+**Ses eklendi, tek bayt dosya olmadan** (D-074). Üç kanal: rehber, ortam, arayüz — ayrı ayrı
+sessize alınabiliyor ve düğmeler artık gerçekten bir şey yapıyor. Toplama, doğru cevap, yeniden
+deneme ve şehir tamamlama sesleri osilatörle; ortam sesi filtrelenmiş kahverengi gürültü.
+Ses, giriş düğmesinde açılıyor — tarayıcının istediği jest o.
+
+Yanlış cevap sesi bilerek zil değil. Öğrenme oyununda yanlış yapan çocuk nötr bir şey duyup
+tekrar denemeli.
+
+**Kare hızı:** ağaçlar örneklendi, 63 draw call → 3 (D-075). Kedi sadeleştirildi,
+19.303 → 7.199 üçgen; beş kedi 96.515'ten 35.995'e indi (D-076). Kediler ve ağaçlar artık
+gölge yaratmıyor.
+
+| | Önce | Sonra |
+|---|---|---|
+| Tek geçiş üçgen | 412.384 | ~351.864 |
+| Gölgeliyle | 824.768 | ~664.000 |
+| Draw call | 108 | ~48 |
 
 ## 5. Bilinen sınırlar
 

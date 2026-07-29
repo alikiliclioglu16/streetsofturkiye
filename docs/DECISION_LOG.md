@@ -819,3 +819,47 @@ the whole question — arrive, walk the markers, meet five stops, collect five
 things, pass the quiz, win the star — using the functions the running game uses
 rather than checking a rule in isolation.
 
+## D-074 — Sound, and none of it is a file (28 Jul 2026)
+
+Three channels, because people mute for different reasons: a parent may want
+the room quiet without taking the guide's voice from a child who cannot yet read
+fluently, and a child replaying a city may want the guide quiet without losing
+the seagulls. The settings switches are back, and this time they control
+something (D-026 removed them for controlling nothing).
+
+Every cue is synthesised. Collect, correct, retry and city-complete are a few
+triangle oscillators on a pentatonic set — no semitone clashes, so two cues
+overlapping never sounds like a mistake. The ambience is filtered brown noise
+with a slow swell: not the sound of any particular thing, but enough open air
+that a street stops feeling like a room.
+
+Cost: **zero bytes.** Recorded seagulls, a ferry horn and the guide's voice land
+on top of this later; the bed and the interface never need to be files.
+
+The wrong-answer cue is deliberately not a buzzer. A child who gets a question
+wrong in a learning game should hear something neutral and try again.
+
+Audio unlocks on the intro button, which is the one gesture a browser needs. A
+context opened earlier stays suspended for the whole session — silence with
+nothing to explain it.
+
+## D-075 — Trees are instanced and stop casting shadows (28 Jul 2026)
+
+Twenty-one trees rendered as separate groups cost sixty-three draw calls, more
+than half the frame's total, for under four thousand triangles. They are three
+shapes repeated. Instanced, they cost three.
+
+They also stop casting shadows, along with the cats. Twenty-one canopies and
+five animals in the shadow pass bought a dappling nobody asked for on a street
+that already has shadows from everything a child walks up to.
+
+## D-076 — The cat is simplified (28 Jul 2026)
+
+Five cats were 96,515 triangles — more than the guide, on a 40 cm animal
+delivered at 19,303 against a 800-1,500 brief. Simplified to 7,199 with the
+skeleton, the twenty-seven joints and the walk clip intact: five cats are now
+35,995.
+
+Flagged twice before acting. It stopped being a note and became a number when
+the street filled up and the frame fell to 17 fps.
+

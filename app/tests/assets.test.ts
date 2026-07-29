@@ -162,7 +162,7 @@ describe('delivered street props', () => {
 });
 
 describe('the registry tells the truth about the files', () => {
-  it('records the byte count each delivered file actually has', async () => {
+  it('records the byte count each delivered file actually has', { timeout: 15_000 }, async () => {
     // Two entries once drifted from disk after a re-compression, and a stale
     // checksum is worse than none: it looks like a verification.
     const { statSync, existsSync } = await import('node:fs');
@@ -174,7 +174,8 @@ describe('the registry tells the truth about the files', () => {
     }
   });
 
-  it('records a checksum that matches the file', async () => {
+  // Hashing about 30 MB of models; the default timeout is occasionally short.
+  it('records a checksum that matches the file', { timeout: 30_000 }, async () => {
     const { readFileSync } = await import('node:fs');
     const { createHash } = await import('node:crypto');
     const path = await import('node:path');

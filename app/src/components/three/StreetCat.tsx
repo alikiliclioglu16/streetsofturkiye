@@ -165,7 +165,12 @@ export function StreetCat({ url, route, targetHeight, phase = 0, onMeasured }: S
     model.traverse((child) => {
       const mesh = child as { isMesh?: boolean; castShadow?: boolean; receiveShadow?: boolean };
       if (mesh.isMesh) {
-        mesh.castShadow = true;
+        /**
+         * Cats receive shadow but do not cast one. Five of them in the shadow
+         * pass cost as much as the guide, and a 40 cm animal's shadow is not
+         * what tells a child where the ground is.
+         */
+        mesh.castShadow = false;
         mesh.receiveShadow = true;
       }
     });

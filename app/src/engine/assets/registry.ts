@@ -64,17 +64,18 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
   {
     id: 'kit_street_cat',
     modelUrl: '/assets/props/kit_street_cat_walking.glb',
-    checksum: 'b2fecf801593c57ecdb20994f7c420ce7cdde9feb32d068b2ce192409cb6e387',
-    triangles: 19_303,
-    transferBytes: 1_013_936,
+    checksum: '590fcd80e91cddd6c91af9abfd4c326769e20f363618da921bd59f8b3dc40806',
+    triangles: 7_199,
+    transferBytes: 579884,
     dimensions: [0.3, 0.4, 0.7],
     label: 'Street cat',
     color: '#B8A48A',
     placeholder: 'box',
     notes:
       'Skinned, 27-joint quadruped with a 1 s Walking clip. Delivered at 19,303 ' +
-      'triangles against a 800-1,500 brief; accepted for this gate on size, not ' +
-      'on budget. Dressing, so it has no collider.',
+      'triangles against a 800-1,500 brief. Five cats were 96,515 triangles — ' +
+      'more than the guide — so it was simplified to 7,199. Dressing, so it has ' +
+      'no collider.',
   },
   {
     id: 'city_istanbul_galata_tower',
