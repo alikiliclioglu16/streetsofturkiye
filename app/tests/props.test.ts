@@ -1186,15 +1186,33 @@ describe('Cappadocia looks and sounds like Cappadocia', () => {
     }
   });
 
-  it('closes the back with a valley, where İstanbul has a mosque', () => {
-    const valley = nevsehir.backdrop.find(
+  it('closes both ends with a valley, standing on the ground', () => {
+    const valleys = nevsehir.backdrop.filter(
       (prop) => prop.asset.entry.id === 'city_nevsehir_valley',
-    )!;
-    expect(valley).toBeDefined();
-    // Behind the spawn: a child who turns round sees Cappadocia rather than the
-    // edge of the ground.
-    expect(valley.position[2]).toBeGreaterThan(loadComposedCity('nevsehir').spawn.position[2]);
-    expect(valley.solid).toBe(false);
+    );
+    expect(valleys).toHaveLength(2);
+
+    const spawnZ = loadComposedCity('nevsehir').spawn.position[2];
+    const zs = nevsehir.bounds.map((corner) => corner[2]);
+    const halfDepth = valleys[0]!.asset.entry.dimensions[2] / 2;
+
+    // One behind the child, one ahead. Both solid, so a child walks up to a rim
+    // and stops there, which is what the rim of a valley is for.
+    expect(valleys.some((v) => v.position[2] > spawnZ)).toBe(true);
+    expect(valleys.some((v) => v.position[2] < spawnZ)).toBe(true);
+    for (const valley of valleys) {
+      expect(valley.solid).toBe(true);
+      /**
+       * Aligned by its near edge, not its centre. A 78 m deep landscape centred
+       * on the boundary put the child inside a valley at spawn.
+       */
+      const nearEdge =
+        valley.position[2] > 0 ? valley.position[2] - halfDepth : valley.position[2] + halfDepth;
+      expect(Math.abs(nearEdge) ).toBeGreaterThanOrEqual(
+        Math.min(...zs.map(Math.abs)) - 0.5,
+      );
+      expect(Math.abs(nearEdge - spawnZ)).toBeGreaterThan(20);
+    }
   });
 
   it('borrows nothing from İstanbul', () => {
@@ -1217,9 +1235,100 @@ describe('Cappadocia looks and sounds like Cappadocia', () => {
     const coast = ambienceProfileFor('cobblestone');
     const plateau = ambienceProfileFor('redsand');
 
-    // A child who hears waves in Nevşehir is being told something untrue about
-    // where they are.
+    /**
+     * A child who hears waves in Nevşehir is being told something untrue about
+     * where they are.
+     *
+     * The high-pass is the assertion that matters. Raising the low-pass ceiling
+     * alone left the plateau sounding exactly like the coast, because what makes
+     * a noise bed read as surf is the rumble underneath it.
+     */
+    expect(plateau.highpass).toBeGreaterThan(400);
+    expect(coast.highpass).toBe(0);
     expect(plateau.cutoff).toBeGreaterThan(coast.cutoff);
     expect(plateau.swell).toBeLessThan(coast.swell);
+    // Brown noise is surf whatever you filter above it.
+    expect(plateau.brownness).toBeGreaterThan(coast.brownness * 4);
+  });
+});
+
+describe('balloons', () => {
+  const scene = buildScene(loadComposedCity('nevsehir'), 'high');
+
+  it('fills the sky over Cappadocia and nowhere else', () => {
+    expect(scene.balloons.length).toBeGreaterThanOrEqual(8);
+    expect(scene.balloonAsset).not.toBeNull();
+    for (const cityId of ['istanbul', 'gaziantep']) {
+      expect(buildScene(loadComposedCity(cityId), 'high').balloons, cityId).toEqual([]);
+    }
+  });
+
+  it('varies size, height and distance, because that is the whole trick', () => {
+    const scales = new Set(scene.balloons.map((b) => b.scale));
+    const heights = new Set(scene.balloons.map((b) => b.position[1]));
+    const depths = new Set(scene.balloons.map((b) => b.position[2]));
+
+    // A sky of identical balloons is one balloon copied.
+    expect(scales.size).toBeGreaterThan(5);
+    expect(heights.size).toBeGreaterThan(5);
+    expect(depths.size).toBeGreaterThan(5);
+    expect(Math.max(...scales) / Math.min(...scales)).toBeGreaterThan(3);
+  });
+
+  it('keeps them in the air and out of reach', () => {
+    for (const balloon of scene.balloons) {
+      // Well above a 1.7 m guide, and never a collider.
+      expect(balloon.position[1]).toBeGreaterThan(15);
+    }
+    const grounded = scene.colliders.some((collider) =>
+      scene.balloons.some(
+        (b) => Math.abs(collider.x - b.position[0]) < 0.01 && Math.abs(collider.z - b.position[2]) < 0.01,
+      ),
+    );
+    expect(grounded).toBe(false);
+  });
+
+  it('lays out the same sky every time a child comes back', () => {
+    const again = buildScene(loadComposedCity('nevsehir'), 'high');
+    expect(again.balloons).toEqual(scene.balloons);
+  });
+
+  it('uses one file for the sky and for the stop a child walks up to', () => {
+    const stop = scene.hotspots.find((h) => h.asset.entry.id === 'kit_hot_air_balloon');
+    expect(stop, 'stop 2 should be the balloon').toBeDefined();
+    expect(scene.balloonAsset!.entry.id).toBe('kit_hot_air_balloon');
+    // Tethered at stop height; flying at several times it.
+    expect(Math.max(...scene.balloons.map((b) => b.scale))).toBeGreaterThan(0.9);
+  });
+});
+
+describe('streets after İstanbul are shorter', () => {
+  it('halves the walk, and lets the stop objects decide how far is safe', () => {
+    const istanbul = buildScene(loadComposedCity('istanbul'), 'high');
+    const nevsehir = buildScene(loadComposedCity('nevsehir'), 'high');
+
+    const length = (scene: typeof istanbul) => {
+      const zs = scene.hotspots.map((h) => h.position[2]);
+      return Math.abs(Math.max(...zs) - Math.min(...zs));
+    };
+
+    // İstanbul had more that had to be seen; everywhere else is tighter.
+    expect(length(nevsehir)).toBeLessThan(length(istanbul) * 0.8);
+
+    /**
+     * Spacing is asked for and then checked. Two stops closer than their trigger
+     * rings would open each other, so the geometry has the last word — which is
+     * why this is an inequality and not a number.
+     */
+    for (const cityId of ['istanbul', 'nevsehir', 'gaziantep']) {
+      const scene = buildScene(loadComposedCity(cityId), 'high');
+      const sorted = [...scene.hotspots].sort((a, b) => b.position[2] - a.position[2]);
+      for (let i = 1; i < sorted.length; i += 1) {
+        const gap = Math.abs(sorted[i]!.position[2] - sorted[i - 1]!.position[2]);
+        expect(gap, `${cityId} stops ${i} and ${i + 1}`).toBeGreaterThan(
+          sorted[i]!.triggerRadius + sorted[i - 1]!.triggerRadius,
+        );
+      }
+    }
   });
 });

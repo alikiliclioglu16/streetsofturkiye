@@ -8,6 +8,7 @@ import type { HeroClip } from '@/engine/heroes/registry';
 import { AssetInstance } from '@/components/three/AssetInstance';
 import { WindProp } from '@/components/three/WindProp';
 import { Tram } from '@/components/three/Tram';
+import { Balloons } from '@/components/three/Balloons';
 import { Ground } from '@/components/three/Ground';
 import { Water } from '@/components/three/Water';
 import { HotspotObject } from '@/components/three/HotspotObject';
@@ -168,6 +169,12 @@ export function CityScene({
           </group>
         ),
       )}
+
+      <Balloons
+        asset={scene.balloonAsset}
+        specs={scene.balloons}
+        reducedMotion={reducedMotion}
+      />
 
       {scene.tramLine && scene.tramAsset ? (
         <Tram

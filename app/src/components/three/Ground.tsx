@@ -26,7 +26,7 @@ const SURFACE_TILE = { cobblestone: 4, redsand: 9 } as const;
  * standing beyond that edge appeared to float over a strip of sky. Ground is
  * scenery; bounds are gameplay, and they are not the same rectangle.
  */
-const GROUND_MARGIN = 26;
+const GROUND_MARGIN = 44;
 
 /**
  * The street surface.

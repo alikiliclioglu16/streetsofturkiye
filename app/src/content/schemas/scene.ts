@@ -152,6 +152,18 @@ export const sceneSchema = z
     musicUrl: z.string().nullable().default(null),
     /** Which ground surface this region has. */
     groundSurface: z.enum(['cobblestone', 'redsand']).default('cobblestone'),
+    /** Balloons drifting over the city, if it is a city that has them. */
+    balloons: z
+      .array(
+        z.object({
+          key: z.string(),
+          position: vec3Schema,
+          scale: z.number().positive(),
+          drift: z.number().nonnegative(),
+          phase: z.number(),
+        }),
+      )
+      .default([]),
     /** Both ends of the tram line, in world metres. Absent where there is no tram. */
     tramLine: z
       .object({ from: z.tuple([z.number(), z.number()]), to: z.tuple([z.number(), z.number()]) })

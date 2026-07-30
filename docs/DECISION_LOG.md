@@ -1201,3 +1201,69 @@ front, something to turn round to.
 The ridge and the stop-1 cluster are the same file at two sizes — six metres to
 be walked up to, seventeen to be seen across the street. One download, two roles.
 
+## D-099 — The plateau ambience needed its floor removed, not its ceiling raised
+(29 Jul 2026)
+
+The first attempt at regional ambience only raised the low-pass corner, and
+Cappadocia still sounded like the sea. The wiring was correct; the acoustics were
+wrong.
+
+What makes a noise bed read as surf is the rumble underneath it, and a low-pass
+passes that untouched. The plateau profile now cuts the bottom out with a
+high-pass at 520 Hz and uses far less integrated noise — brown noise *is* surf
+whatever you filter above it. Wind over stone is mid and high, gusty rather than
+breathing.
+
+The test asserts the high-pass, not the ceiling, because that is the parameter
+that decides it.
+
+## D-100 — Streets after İstanbul are shorter (29 Jul 2026)
+
+İstanbul walks eighteen metres between stops because İstanbul has that much to
+look at. Everywhere else asks for eleven, and the play area narrows from 44 m to
+30 m with it.
+
+Spacing is *asked for*, then checked: two stops closer together than their
+trigger rings would open each other, so the geometry has the last word. That
+turned out to matter immediately — the first compact Nevşehir came out barely
+shorter than İstanbul, because its stop objects were sized as landscape rather
+than as things to stand beside.
+
+The fairy chimney cluster went from 6 m to 4.5, and the tethered balloon from
+11 m to 5. Nevşehir's street is now 56 m against İstanbul's 72, and Gaziantep's
+is 22.
+
+**The lesson is about where a constraint lives.** Asking for a shorter street
+does nothing if the objects on it are too big; the spacing rule surfaced that
+instead of quietly producing overlapping rings.
+
+## D-101 — The valley is aligned by its edge, and it stops you (29 Jul 2026)
+
+Placed outside the play area, the valley hung in the sky with nothing under it.
+Placed with its centre on the boundary, its 78 m depth swallowed the spawn and a
+child appeared inside a valley.
+
+Its *near edge* is now aligned to the boundary, at both ends of the street, and
+it is solid — so a child walks up to the rim of a valley and stops there, which
+is what the rim of a valley is for. Half of it hanging past the paving is
+expected: beyond the rim, the valley is the ground.
+
+The paving margin went from 26 m to 44 m to hide the join.
+
+## D-102 — Balloons over Cappadocia (29 Jul 2026)
+
+Ten of them, drifting: the one image everybody has of this place, and the reason
+the front of a Nevşehir street wants sky rather than a wall.
+
+One model at ten scales, heights and distances. Size is the whole trick — a sky
+of identical balloons is one balloon copied, while the same balloon at 2.5× down
+to 0.48× is a morning with balloons in it, and perspective does the rest.
+
+It is also the stop-2 object, tethered at five metres. One download, two roles,
+exactly as the fairy chimneys are both a cluster and a ridge.
+
+They drift rather than fly a route: a balloon has no engine, so it goes where the
+air goes — slow lateral drift, a slower rise and fall, and a lean from the same
+wind module that moves the flag. The layout is deterministic, because a child who
+leaves a city and comes back should find the same morning.
+

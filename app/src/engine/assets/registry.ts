@@ -106,7 +106,7 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
      * valley. Its own proportions at 6 m: the same file dressed larger becomes
      * the ridge on the horizon.
      */
-    dimensions: [8.7, 6.0, 6.7],
+    dimensions: [6.5, 4.5, 5.0],
     label: 'Fairy chimneys',
     color: '#D8C39C',
     placeholder: 'cylinder',
@@ -326,6 +326,28 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
       'Stands at the same place in every one of the 81 cities, so a child ' +
       'arriving anywhere sees the same thing first. Double-sided: a flag is a ' +
       'plane, and culling its back face tears it in half. 14.59 MB down to 0.45 MB.',
+  },
+  {
+    id: 'kit_hot_air_balloon',
+    modelUrl: '/assets/props/kit_hot_air_balloon.glb',
+    checksum: '19495897885065e3c28fc45758b82bab752ad8c2d551a938e34fb83d8d36b9c5',
+    triangles: 10_175,
+    transferBytes: 1038368,
+    /**
+     * Registered at the size a child stands next to: stop 2 is a tethered
+     * balloon, not one overhead. The sky multiplies this — the same file doing
+     * both jobs, as the fairy chimneys do.
+     *
+     * Sizing it at flying height instead gave stop 2 an eleven metre object and
+     * a seven metre trigger ring, which pushed the whole street back out to
+     * İstanbul's length.
+     */
+    dimensions: [3.1, 5.0, 3.1],
+    label: 'Hot air balloon',
+    color: '#D9532C',
+    placeholder: 'cylinder',
+    scaleToBrief: true,
+    notes: 'Kept double-sided: the envelope is thin where it meets the crown.',
   },
   {
     id: 'kit_crates',

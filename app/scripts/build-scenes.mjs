@@ -50,6 +50,7 @@ const COMMISSIONED_ASSETS = {
   'istanbul:simit': 'city_istanbul_simit_cart',
   'istanbul:ferry': 'city_istanbul_ferry_terminal',
   'nevsehir:chimneys': 'city_nevsehir_fairy_chimney_cluster',
+  'nevsehir:balloon': 'kit_hot_air_balloon',
   'nevsehir:pottery': 'city_nevsehir_pottery_wheel',
   'nevsehir:cave': 'city_nevsehir_underground_stone_door',
   'gaziantep:muze': 'city_gaziantep_zeugma_mosaic_panel',
@@ -101,12 +102,25 @@ const REGION_SURFACE = {
   'southeastern-anatolia': 'redsand',
 };
 
+/** Half the depth of the valley plate, from its registered dimensions. */
+const VALLEY_HALF_DEPTH = 78.2 / 2;
+
 const CITY_THEMES = {
   istanbul: '/assets/audio/istanbul_theme.webm',
   nevsehir: '/assets/audio/nevsehir_theme.webm',
 };
 
+/**
+ * Stop spacing.
+ *
+ * İstanbul walks eighteen metres between stops because İstanbul has that much
+ * to look at. Everywhere else is eleven: the same five stops, a street a child
+ * crosses in half the time, and far less empty ground to fill.
+ *
+ * The owner's words: that was İstanbul, there was a lot that had to be seen.
+ */
 const STOP_SPACING = 18;
+const COMPACT_STOP_SPACING = 11;
 
 /**
  * How far the first stop sits from where the child appears.
@@ -116,6 +130,13 @@ const STOP_SPACING = 18;
  * to see where they are before they meet anything.
  */
 const FIRST_STOP_Z = -26;
+const COMPACT_FIRST_STOP_Z = -17;
+
+function layoutMetrics(cityId) {
+  return cityId === 'istanbul'
+    ? { spacing: STOP_SPACING, firstZ: FIRST_STOP_Z, halfWidth: 22, behind: 42 }
+    : { spacing: COMPACT_STOP_SPACING, firstZ: COMPACT_FIRST_STOP_Z, halfWidth: 15, behind: 26 };
+}
 
 /** Footprint of whatever will stand at this stop, in metres. */
 function footprintFor(assetId, artType) {
@@ -433,10 +454,11 @@ function featuredNpcs(cityId, stopPositions, routePoints) {
  * Placed relative to the walk rather than at fixed coordinates, so a city with
  * a longer street gets a longer wall.
  */
-function cityBackdrop(cityId, stopPositions) {
+function cityBackdrop(cityId, stopPositions, metrics) {
   const firstZ = stopPositions[0]?.[2] ?? -26;
   const lastZ = stopPositions[stopPositions.length - 1]?.[2] ?? -100;
   const span = Math.abs(lastZ - firstZ);
+  const behind = metrics.behind;
 
   const wall = (assetId, x, z, note) => ({
     assetId,
@@ -471,13 +493,11 @@ function cityBackdrop(cityId, stopPositions) {
   }
 
   if (cityId === 'nevsehir') {
-    // Ridges are 24.7 m wide, so five a side covers the walk with an overlap
-    // that hides the joins.
     const ridgeCount = 5;
     return [
-      ...[-32, 32].flatMap((x) =>
+      ...[-24, 24].flatMap((x) =>
         Array.from({ length: ridgeCount }, (_, i) => {
-          const z = firstZ + 24 - ((span + 48) * i) / (ridgeCount - 1);
+          const z = firstZ + 18 - ((span + 36) * i) / (ridgeCount - 1);
           return wall(
             'city_nevsehir_chimney_ridge',
             x,
@@ -486,16 +506,37 @@ function cityBackdrop(cityId, stopPositions) {
           );
         }),
       ),
+      /**
+       * The valley closes both ends, standing on the ground rather than beyond
+       * it.
+       *
+       * Placed outside the play area it hung in the sky with nothing under it —
+       * the same mistake the Beyoğlu facades made before the paving was widened.
+       * These sit at the boundary and are solid, so a child walks up to the rim
+       * of a valley and stops there, which is what the rim of a valley is for.
+       */
+      /**
+       * The valley closes both ends, standing on the ground and stopping the
+       * child at its rim.
+       *
+       * Its *near edge* is aligned to the boundary, not its centre. Placing the
+       * centre there put a 78 m deep landscape over the spawn — the child
+       * appeared inside a valley. Half of it hanging past the paving is fine and
+       * expected: beyond the rim the valley is the ground.
+       */
       {
-        /**
-         * The valley closes the back, where İstanbul has its mosque. A child who
-         * turns round should see Cappadocia rather than the edge of the ground.
-         */
         assetId: 'city_nevsehir_valley',
-        position: [0, 0, 78],
+        position: [0, 0, behind + VALLEY_HALF_DEPTH],
         rotationY: Math.PI,
-        solid: false,
-        note: 'the valley, behind the square',
+        solid: true,
+        note: 'the valley behind the square',
+      },
+      {
+        assetId: 'city_nevsehir_valley',
+        position: [0, 0, lastZ - 14 - VALLEY_HALF_DEPTH],
+        rotationY: 0,
+        solid: true,
+        note: 'the valley the street runs down to',
       },
     ];
   }
@@ -503,12 +544,64 @@ function cityBackdrop(cityId, stopPositions) {
   return [];
 }
 
+/**
+ * A sky of balloons, laid out from the walk.
+ *
+ * Deliberately not random: a child who leaves and comes back should find the
+ * same morning. Size does the work — one model at eleven scales, heights and
+ * distances reads as a sky, where eleven identical ones read as one copied.
+ */
+function balloonSky(stopPositions) {
+  const firstZ = stopPositions[0]?.[2] ?? -20;
+  const lastZ = stopPositions[stopPositions.length - 1]?.[2] ?? -70;
+  /**
+   * x, distance ahead, height, scale.
+   *
+   * Scales are multiples of the tethered stop-2 balloon, which is five metres.
+   * A balloon in the air is bigger than one you stand beside, and the near ones
+   * have to be big enough to read as balloons rather than as dots.
+   */
+  const layout = [
+    [-26, 34, 26, 2.2], [18, 58, 38, 1.7], [-8, 76, 31, 1.35], [34, 96, 47, 1.1],
+    [-38, 118, 40, 0.92], [8, 140, 54, 0.75], [-18, 168, 46, 0.6], [26, 196, 60, 0.48],
+  ];
+  const specs = layout.map(([x, ahead, height, scale], i) => ({
+    key: `balloon-${i}`,
+    position: [x, height, Math.round((lastZ - ahead) * 10) / 10],
+    scale,
+    drift: 6 + (i % 3) * 3,
+    phase: Math.round(i * 1.37 * 100) / 100,
+  }));
+  // Two close enough to read as balloons rather than dots on the horizon.
+  specs.push(
+    { key: 'balloon-near-a', position: [-30, 19, Math.round((firstZ - 12) * 10) / 10], scale: 2.5, drift: 5, phase: 0.4 },
+    { key: 'balloon-near-b', position: [28, 23, Math.round((lastZ + 14) * 10) / 10], scale: 2.1, drift: 7, phase: 2.1 },
+  );
+  return specs;
+}
+
 /** Deterministic S-curve layout; the same city always lays out identically. */
-function layout(stopCount, approaches, geometry) {
-  const spacing = STOP_SPACING;
+function layout(stopCount, approaches, geometry, metrics) {
+  const { firstZ } = metrics;
+
+  /**
+   * Spacing is asked for, then checked against the objects.
+   *
+   * A compact street is the goal, but two stops closer together than their
+   * trigger rings is a street where arriving at one opens the other. The
+   * requested spacing is a floor to aim at; the geometry decides what it can
+   * actually be, so no city can be authored into overlapping rings.
+   */
+  let needed = 0;
+  for (let i = 1; i < stopCount; i += 1) {
+    needed = Math.max(needed, geometry[i - 1].triggerRadius + geometry[i].triggerRadius + 1.5);
+  }
+  const spacing = Math.max(metrics.spacing, Math.ceil(needed));
   const stopPositions = [];
+  // The S-curve narrows with the street, or a compact city zig-zags absurdly.
+  const sway = spacing / STOP_SPACING * 7;
   for (let i = 0; i < stopCount; i += 1) {
-    stopPositions.push([Math.round(Math.sin(i * 0.9) * 7 * 10) / 10, 0, FIRST_STOP_Z - i * spacing]);
+    stopPositions.push([Math.round(Math.sin(i * 0.9) * sway * 10) / 10, 0, firstZ - i * spacing]);
   }
   /**
    * The route stops in front of each object, then steps round it.
@@ -531,7 +624,7 @@ function layout(stopCount, approaches, geometry) {
     const side = x >= 0 ? -1 : 1;
     route.push([round(x + side * (halfWidth + 2.2)), 0, round(z - (halfDepth + 2.2))]);
   }
-  const minZ = FIRST_STOP_Z - (stopCount - 1) * spacing - 14;
+  const minZ = firstZ - (stopCount - 1) * spacing - 14;
   /**
    * Ground behind the child, not just in front.
    *
@@ -539,15 +632,15 @@ function layout(stopCount, approaches, geometry) {
    * turned round saw the world stop. There is a square back there now, with
    * the mosque closing it and the tram waiting at its edge.
    */
-  const maxZ = 42;
+  const maxZ = metrics.behind;
   return {
     stopPositions,
     route,
     bounds: [
-      [-22, 0, maxZ],
-      [22, 0, maxZ],
-      [22, 0, minZ],
-      [-22, 0, minZ],
+      [-metrics.halfWidth, 0, maxZ],
+      [metrics.halfWidth, 0, maxZ],
+      [metrics.halfWidth, 0, minZ],
+      [-metrics.halfWidth, 0, minZ],
     ],
   };
 }
@@ -561,10 +654,12 @@ function buildScene(canonical) {
     const assetId = COMMISSIONED_ASSETS[`${canonical.id}:${artType}`] ?? `graybox_${artType}`;
     return geometryFor(assetId, artType);
   });
+  const metrics = layoutMetrics(canonical.id);
   const { stopPositions, route, bounds } = layout(
     canonical.stops.length,
     geometry.map((entry) => entry.approach),
     geometry,
+    metrics,
   );
 
   const hotspots = canonical.stops.map((stop, index) => {
@@ -640,6 +735,11 @@ function buildScene(canonical) {
     musicUrl: CITY_THEMES[canonical.id] ?? null,
     groundSurface: REGION_SURFACE[canonical.regionId] ?? 'cobblestone',
     /**
+     * Balloons answer the front of the street the way the sea does in İstanbul:
+     * with distance rather than a wall. Cappadocia only, for now.
+     */
+    balloons: canonical.id === 'nevsehir' ? balloonSky(stopPositions) : [],
+    /**
      * The tram runs the length of the street on the west side, clear of the
      * walk. İstanbul's nostalgic tram does one street, up and down, all day.
      */
@@ -659,7 +759,7 @@ function buildScene(canonical) {
      * answers differ by region — İstanbul closes with facades and opens on to
      * the sea; Nevşehir closes with fairy chimneys and opens on to a valley.
      */
-    backdrop: cityBackdrop(canonical.id, stopPositions),
+    backdrop: cityBackdrop(canonical.id, stopPositions, metrics),
     catRoutes: catRoutes(stopPositions, geometry),
     npcs: featuredNpcs(canonical.id, stopPositions, route),
     trees: streetTrees(canonical.id, stopPositions, geometry, canonical.regionId),

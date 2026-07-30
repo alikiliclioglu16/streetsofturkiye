@@ -71,6 +71,8 @@ export interface SceneDescription {
   readonly water: SceneDefinition['water'];
   readonly musicUrl: string | null;
   readonly groundSurface: SceneDefinition['groundSurface'];
+  readonly balloons: SceneDefinition['balloons'];
+  readonly balloonAsset: ResolvedAsset | null;
   readonly tramLine: SceneDefinition['tramLine'];
   readonly tramAsset: ResolvedAsset | null;
   readonly sky: SceneSky;
@@ -168,6 +170,14 @@ export function buildScene(city: CityDefinition, quality: QualityTier): SceneDes
     };
   };
 
+  const backdrop: ScenePropInstance[] = city.backdrop.map((prop, index) => ({
+    key: `backdrop-${index}`,
+    asset: resolveAsset(prop.assetId, quality),
+    position: prop.position,
+    rotationY: prop.rotationY,
+    solid: prop.solid ?? false,
+  }));
+
   const colliders: RectCollider[] = [
     ...hotspots.map((hotspot) => ({
       x: hotspot.position[0],
@@ -175,7 +185,7 @@ export function buildScene(city: CityDefinition, quality: QualityTier): SceneDes
       halfWidth: hotspot.collider.halfWidth,
       halfDepth: hotspot.collider.halfDepth,
     })),
-    ...props
+    ...[...props, ...backdrop]
       .filter((prop) => prop.solid)
       .map((prop) => {
         const [width, , depth] = prop.asset.entry.dimensions;
@@ -203,13 +213,6 @@ export function buildScene(city: CityDefinition, quality: QualityTier): SceneDes
     rotationY: tree.rotationY,
   }));
 
-  const backdrop: ScenePropInstance[] = city.backdrop.map((prop, index) => ({
-    key: `backdrop-${index}`,
-    asset: resolveAsset(prop.assetId, quality),
-    position: prop.position,
-    rotationY: prop.rotationY,
-    solid: false,
-  }));
 
   return {
     cityId: city.id,
@@ -236,6 +239,8 @@ export function buildScene(city: CityDefinition, quality: QualityTier): SceneDes
       color: city.environment.groundColor ?? '#D9CFBC',
     },
     groundSurface: city.groundSurface,
+    balloons: city.balloons,
+    balloonAsset: city.balloons.length > 0 ? resolveAsset('kit_hot_air_balloon', quality) : null,
     sky: {
       top: city.environment.skyPreset?.[0] ?? '#BFE4F2',
       horizon: city.environment.skyPreset?.[1] ?? city.environment.skyPreset?.[0] ?? '#DCF1FA',

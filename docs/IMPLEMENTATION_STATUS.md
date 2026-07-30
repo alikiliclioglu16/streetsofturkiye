@@ -114,7 +114,7 @@ app/src/
 npm run lint       → temiz
 npm run typecheck  → temiz (strict, noUncheckedIndexedAccess, `any` yok)
 npm run content:check → 81 il, 249 durak, 84 soru; 1413 kanonik dizgi baseline ile eşleşti
-npm test           → 16 dosya / 300 test geçti (logic + jsdom ui)
+npm test           → 16 dosya / 306 test geçti (logic + jsdom ui)
 npm run build      → başarılı, 4 rota
 npm start          → /map ve /city/istanbul 200
 ```
@@ -607,6 +607,24 @@ Deniz sesi Kapadokya'da çalıyordu.
 **Ufuk** (D-098): iki yanda on peri bacası sırtı, arkada Kapadokya vadisi.
 Sırt ve 1. durak kümesi **aynı dosya, iki boyutta** — 6 m yanına gidilen, 17 m karşıdan görülen.
 Balonlar geldiğinde ön taraf da kapanacak.
+
+## 6d. Kapadokya tamamlanıyor
+
+**Ses düzeltildi** (D-099). İlk denemede yalnız alçak geçirenin köşesini yükseltmişim; kablolama
+doğruydu, akustik yanlıştı. Dalga sesini yapan şey **alt frekanslar** ve alçak geçiren onları
+zaten geçiriyor. Platoda 520 Hz'de yüksek geçiren var ve gürültü çok daha az entegre —
+kahverengi gürültü, üstünü nasıl filtrelersen filtrele, dalgadır.
+
+**Sokaklar kısaldı** (D-100): İstanbul 72 m, Nevşehir 56 m, Gaziantep 22 m. Alan 44×154'ten
+30×113'e. Aralık isteniyor ama halkalar onaylıyor — ilk denemede Nevşehir İstanbul kadar uzun
+çıktı, çünkü durak nesneleri manzara ölçeğindeydi. Peri bacası kümesi 6→4,5 m, bağlı balon 11→5 m.
+
+**Vadi kenarından hizalandı** (D-101), iki uçta, ve **katı** — çocuk vadinin kenarına kadar
+yürüyüp orada duruyor. Merkezini sınıra koyunca 78 metrelik derinlik doğuş noktasını yutuyordu.
+Zemin payı 26'dan 44 metreye çıktı.
+
+**On balon** süzülüyor (D-102): tek model, on ayrı ölçek, yükseklik ve mesafede.
+Aynı dosya 2. durağın bağlı balonu — tek indirme, iki rol.
 
 ## 5. Bilinen sınırlar
 

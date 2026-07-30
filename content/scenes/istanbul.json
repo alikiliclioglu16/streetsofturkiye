@@ -554,6 +554,7 @@
   ],
   "musicUrl": "/assets/audio/istanbul_theme.webm",
   "groundSurface": "cobblestone",
+  "balloons": [],
   "tramLine": {
     "from": [
       -15.5,

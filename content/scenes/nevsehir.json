@@ -48,74 +48,74 @@
       [
         0,
         0,
-        -21.15
+        -13
       ],
       [
-        -6.55,
+        -5.45,
         0,
-        -31.55
+        -21.7
       ],
       [
-        5.5,
+        4.3,
         0,
-        -39.5
+        -27.95
       ],
       [
-        0.3,
+        0.55,
         0,
-        -49.2
+        -34.75
       ],
       [
-        6.8,
+        5.3,
         0,
-        -60.25
+        -43.25
       ],
       [
-        3.5,
+        2,
         0,
-        -64.45
+        -47.45
       ],
       [
-        3,
+        2.3,
         0,
-        -77.9
+        -56.9
       ],
       [
-        0.2,
+        -0.5,
         0,
-        -82.8
+        -61.8
       ],
       [
-        -3.1,
+        -2.4,
         0,
-        -95.9
+        -70.9
       ],
       [
-        0.2,
+        0.9,
         0,
-        -100.8
+        -75.8
       ]
     ],
     "bounds": [
       [
-        -22,
+        -15,
         0,
-        42
+        26
       ],
       [
-        22,
+        15,
         0,
-        42
+        26
       ],
       [
-        22,
+        15,
         0,
-        -112
+        -87
       ],
       [
-        -22,
+        -15,
         0,
-        -112
+        -87
       ]
     ]
   },
@@ -137,7 +137,7 @@
         "position": [
           0,
           0,
-          -26
+          -17
         ],
         "rotation": [
           0,
@@ -151,20 +151,20 @@
         ]
       },
       "collider": {
-        "halfWidth": 4.35,
-        "halfDepth": 3.35
+        "halfWidth": 3.25,
+        "halfDepth": 2.5
       },
-      "triggerRadius": 7.35,
+      "triggerRadius": 6.5,
       "camera": {
         "position": [
-          3.4,
-          2.7,
-          -18.4
+          2.6,
+          2.4,
+          -11.3
         ],
         "target": [
           0,
-          2.2,
-          -26
+          2,
+          -17
         ],
         "durationMs": 900
       },
@@ -183,13 +183,13 @@
         "stopId": "nevsehir-stop-02"
       },
       "sceneStatus": "ready",
-      "assetId": "graybox_balloon",
-      "assetStatus": "graybox",
+      "assetId": "kit_hot_air_balloon",
+      "assetStatus": "commissioned",
       "transform": {
         "position": [
-          5.5,
+          4.3,
           0,
-          -44
+          -31
         ],
         "rotation": [
           0,
@@ -203,20 +203,20 @@
         ]
       },
       "collider": {
-        "halfWidth": 3,
-        "halfDepth": 3
+        "halfWidth": 1.55,
+        "halfDepth": 1.55
       },
-      "triggerRadius": 7,
+      "triggerRadius": 5.55,
       "camera": {
         "position": [
-          10,
-          3.6,
-          -33.9
+          7.1,
+          2.4,
+          -24.7
         ],
         "target": [
-          5.5,
+          4.3,
           2.2,
-          -44
+          -31
         ],
         "durationMs": 900
       },
@@ -239,9 +239,9 @@
       "assetStatus": "commissioned",
       "transform": {
         "position": [
-          6.8,
+          5.3,
           0,
-          -62
+          -45
         ],
         "rotation": [
           0,
@@ -261,14 +261,14 @@
       "triggerRadius": 4.25,
       "camera": {
         "position": [
-          9.1,
+          7.6,
           2.4,
-          -57
+          -40
         ],
         "target": [
-          6.8,
+          5.3,
           1,
-          -62
+          -45
         ],
         "durationMs": 900
       },
@@ -291,9 +291,9 @@
       "assetStatus": "commissioned",
       "transform": {
         "position": [
-          3,
+          2.3,
           0,
-          -80
+          -59
         ],
         "rotation": [
           0,
@@ -313,14 +313,14 @@
       "triggerRadius": 4.6,
       "camera": {
         "position": [
-          5.3,
+          4.6,
           2.4,
-          -75
+          -54
         ],
         "target": [
-          3,
+          2.3,
           0.5,
-          -80
+          -59
         ],
         "durationMs": 900
       },
@@ -343,9 +343,9 @@
       "assetStatus": "graybox",
       "transform": {
         "position": [
-          -3.1,
+          -2.4,
           0,
-          -98
+          -73
         ],
         "rotation": [
           0,
@@ -365,14 +365,14 @@
       "triggerRadius": 4.6,
       "camera": {
         "position": [
-          -0.8000000000000003,
+          -0.10000000000000009,
           2.4,
-          -93
+          -68
         ],
         "target": [
-          -3.1,
+          -2.4,
           0.8,
-          -98
+          -73
         ],
         "durationMs": 900
       },
@@ -402,7 +402,7 @@
       "position": [
         -9,
         0,
-        -35
+        -26.3
       ],
       "rotationY": -1.751,
       "solid": true,
@@ -413,7 +413,7 @@
       "position": [
         10,
         0,
-        -53
+        -45
       ],
       "rotationY": 1.691,
       "solid": true,
@@ -424,29 +424,18 @@
       "position": [
         -11,
         0,
-        -71
+        -63.7
       ],
       "rotationY": -1.751,
       "solid": true,
       "note": "street lamp 3"
     },
     {
-      "assetId": "kit_street_lamp",
-      "position": [
-        9,
-        0,
-        -89
-      ],
-      "rotationY": 1.691,
-      "solid": true,
-      "note": "street lamp 4"
-    },
-    {
       "assetId": "kit_bench",
       "position": [
         8.2,
         0,
-        -56.6
+        -40.8
       ],
       "rotationY": 1.351,
       "solid": true,
@@ -457,7 +446,7 @@
       "position": [
         -7.4,
         0,
-        -61.6
+        -45.8
       ],
       "rotationY": 0.3,
       "solid": true,
@@ -468,7 +457,7 @@
       "position": [
         -8.2,
         0,
-        -92.6
+        -68.8
       ],
       "rotationY": -1.791,
       "solid": true,
@@ -479,7 +468,7 @@
       "position": [
         7.4,
         0,
-        -97.6
+        -73.8
       ],
       "rotationY": -0.3,
       "solid": true,
@@ -490,7 +479,7 @@
       "position": [
         -11,
         0,
-        -62.6
+        -44.8
       ],
       "rotationY": 1.221,
       "solid": true,
@@ -501,7 +490,7 @@
       "position": [
         12.5,
         0,
-        -69.6
+        -51.8
       ],
       "rotationY": -1.291,
       "solid": true,
@@ -512,7 +501,7 @@
       "position": [
         -9.2,
         0,
-        -66.6
+        -48.8
       ],
       "rotationY": 0.55,
       "solid": true,
@@ -523,7 +512,7 @@
       "position": [
         11.2,
         0,
-        -72.6
+        -54.8
       ],
       "rotationY": -0.9,
       "solid": true,
@@ -534,7 +523,7 @@
       "position": [
         9.5,
         0,
-        -34.6
+        -23.7
       ],
       "rotationY": -1.371,
       "solid": true,
@@ -545,7 +534,7 @@
       "position": [
         -10.5,
         0,
-        -85
+        -62.9
       ],
       "rotationY": 1.421,
       "solid": true,
@@ -554,15 +543,127 @@
   ],
   "musicUrl": "/assets/audio/nevsehir_theme.webm",
   "groundSurface": "redsand",
+  "balloons": [
+    {
+      "key": "balloon-0",
+      "position": [
+        -26,
+        26,
+        -107
+      ],
+      "scale": 2.2,
+      "drift": 6,
+      "phase": 0
+    },
+    {
+      "key": "balloon-1",
+      "position": [
+        18,
+        38,
+        -131
+      ],
+      "scale": 1.7,
+      "drift": 9,
+      "phase": 1.37
+    },
+    {
+      "key": "balloon-2",
+      "position": [
+        -8,
+        31,
+        -149
+      ],
+      "scale": 1.35,
+      "drift": 12,
+      "phase": 2.74
+    },
+    {
+      "key": "balloon-3",
+      "position": [
+        34,
+        47,
+        -169
+      ],
+      "scale": 1.1,
+      "drift": 6,
+      "phase": 4.11
+    },
+    {
+      "key": "balloon-4",
+      "position": [
+        -38,
+        40,
+        -191
+      ],
+      "scale": 0.92,
+      "drift": 9,
+      "phase": 5.48
+    },
+    {
+      "key": "balloon-5",
+      "position": [
+        8,
+        54,
+        -213
+      ],
+      "scale": 0.75,
+      "drift": 12,
+      "phase": 6.85
+    },
+    {
+      "key": "balloon-6",
+      "position": [
+        -18,
+        46,
+        -241
+      ],
+      "scale": 0.6,
+      "drift": 6,
+      "phase": 8.22
+    },
+    {
+      "key": "balloon-7",
+      "position": [
+        26,
+        60,
+        -269
+      ],
+      "scale": 0.48,
+      "drift": 9,
+      "phase": 9.59
+    },
+    {
+      "key": "balloon-near-a",
+      "position": [
+        -30,
+        19,
+        -29
+      ],
+      "scale": 2.5,
+      "drift": 5,
+      "phase": 0.4
+    },
+    {
+      "key": "balloon-near-b",
+      "position": [
+        28,
+        23,
+        -59
+      ],
+      "scale": 2.1,
+      "drift": 7,
+      "phase": 2.1
+    }
+  ],
   "tramLine": null,
   "water": null,
   "backdrop": [
     {
       "assetId": "city_nevsehir_chimney_ridge",
       "position": [
-        -32,
+        -24,
         0,
-        -2
+        1
       ],
       "rotationY": 1.5707963267948966,
       "solid": false,
@@ -571,9 +672,9 @@
     {
       "assetId": "city_nevsehir_chimney_ridge",
       "position": [
-        -32,
+        -24,
         0,
-        -32
+        -22
       ],
       "rotationY": 1.5707963267948966,
       "solid": false,
@@ -582,9 +683,9 @@
     {
       "assetId": "city_nevsehir_chimney_ridge",
       "position": [
-        -32,
+        -24,
         0,
-        -62
+        -45
       ],
       "rotationY": 1.5707963267948966,
       "solid": false,
@@ -593,9 +694,9 @@
     {
       "assetId": "city_nevsehir_chimney_ridge",
       "position": [
-        -32,
+        -24,
         0,
-        -92
+        -68
       ],
       "rotationY": 1.5707963267948966,
       "solid": false,
@@ -604,9 +705,9 @@
     {
       "assetId": "city_nevsehir_chimney_ridge",
       "position": [
-        -32,
+        -24,
         0,
-        -122
+        -91
       ],
       "rotationY": 1.5707963267948966,
       "solid": false,
@@ -615,9 +716,9 @@
     {
       "assetId": "city_nevsehir_chimney_ridge",
       "position": [
-        32,
+        24,
         0,
-        -2
+        1
       ],
       "rotationY": -1.5707963267948966,
       "solid": false,
@@ -626,9 +727,9 @@
     {
       "assetId": "city_nevsehir_chimney_ridge",
       "position": [
-        32,
+        24,
         0,
-        -32
+        -22
       ],
       "rotationY": -1.5707963267948966,
       "solid": false,
@@ -637,9 +738,9 @@
     {
       "assetId": "city_nevsehir_chimney_ridge",
       "position": [
-        32,
+        24,
         0,
-        -62
+        -45
       ],
       "rotationY": -1.5707963267948966,
       "solid": false,
@@ -648,9 +749,9 @@
     {
       "assetId": "city_nevsehir_chimney_ridge",
       "position": [
-        32,
+        24,
         0,
-        -92
+        -68
       ],
       "rotationY": -1.5707963267948966,
       "solid": false,
@@ -659,9 +760,9 @@
     {
       "assetId": "city_nevsehir_chimney_ridge",
       "position": [
-        32,
+        24,
         0,
-        -122
+        -91
       ],
       "rotationY": -1.5707963267948966,
       "solid": false,
@@ -672,11 +773,22 @@
       "position": [
         0,
         0,
-        78
+        65.1
       ],
       "rotationY": 3.141592653589793,
-      "solid": false,
-      "note": "the valley, behind the square"
+      "solid": true,
+      "note": "the valley behind the square"
+    },
+    {
+      "assetId": "city_nevsehir_valley",
+      "position": [
+        0,
+        0,
+        -126.1
+      ],
+      "rotationY": 0,
+      "solid": true,
+      "note": "the valley the street runs down to"
     }
   ],
   "catRoutes": [
@@ -750,7 +862,7 @@
       "position": [
         -11,
         0,
-        -10
+        -1
       ],
       "kind": "shrub",
       "scale": 0.8,
@@ -761,7 +873,7 @@
       "position": [
         14.2,
         0,
-        -18.7
+        -9.6
       ],
       "kind": "cypress",
       "scale": 1.1,
@@ -772,7 +884,7 @@
       "position": [
         -17.4,
         0,
-        -27.4
+        -18.1
       ],
       "kind": "shrub",
       "scale": 0.9,
@@ -783,7 +895,7 @@
       "position": [
         12.6,
         0,
-        -31
+        -21.6
       ],
       "kind": "poplar",
       "scale": 1.2,
@@ -794,18 +906,29 @@
       "position": [
         -15.8,
         0,
-        -39.7
+        -30.1
       ],
       "kind": "shrub",
       "scale": 1,
       "rotationY": 2.583
     },
     {
+      "key": "tree-5",
+      "position": [
+        11,
+        0,
+        -38.7
+      ],
+      "kind": "shrub",
+      "scale": 0.8,
+      "rotationY": 3.229
+    },
+    {
       "key": "tree-6",
       "position": [
         -14.2,
         0,
-        -52
+        -42.1
       ],
       "kind": "cypress",
       "scale": 1.1,
@@ -816,7 +939,7 @@
       "position": [
         17.4,
         0,
-        -60.7
+        -50.7
       ],
       "kind": "shrub",
       "scale": 0.9,
@@ -827,7 +950,7 @@
       "position": [
         -12.6,
         0,
-        -69.4
+        -59.3
       ],
       "kind": "poplar",
       "scale": 1.2,
@@ -838,7 +961,7 @@
       "position": [
         15.8,
         0,
-        -73
+        -62.7
       ],
       "kind": "shrub",
       "scale": 1,
@@ -849,7 +972,7 @@
       "position": [
         -11,
         0,
-        -81.7
+        -71.3
       ],
       "kind": "shrub",
       "scale": 0.8,
@@ -860,7 +983,7 @@
       "position": [
         14.2,
         0,
-        -90.4
+        -79.8
       ],
       "kind": "cypress",
       "scale": 1.1,
@@ -871,7 +994,7 @@
       "position": [
         -17.4,
         0,
-        -94
+        -83.3
       ],
       "kind": "shrub",
       "scale": 0.9,
@@ -882,33 +1005,11 @@
       "position": [
         12.6,
         0,
-        -102.7
+        -91.8
       ],
       "kind": "poplar",
       "scale": 1.2,
       "rotationY": 2.112
-    },
-    {
-      "key": "tree-14",
-      "position": [
-        -15.8,
-        0,
-        -111.4
-      ],
-      "kind": "shrub",
-      "scale": 1,
-      "rotationY": 2.758
-    },
-    {
-      "key": "tree-15",
-      "position": [
-        11,
-        0,
-        -115
-      ],
-      "kind": "shrub",
-      "scale": 0.8,
-      "rotationY": 3.403
     }
   ],
   "quizPresentation": {
