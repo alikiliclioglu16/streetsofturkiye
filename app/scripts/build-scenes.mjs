@@ -52,6 +52,7 @@ const COMMISSIONED_ASSETS = {
   'nevsehir:chimneys': 'city_nevsehir_fairy_chimney_cluster',
   'nevsehir:balloon': 'kit_hot_air_balloon',
   'nevsehir:pottery': 'city_nevsehir_pottery_wheel',
+  'nevsehir:loom': 'city_nevsehir_carpet_loom',
   'nevsehir:cave': 'city_nevsehir_underground_stone_door',
   'gaziantep:muze': 'city_gaziantep_zeugma_mosaic_panel',
   'gaziantep:tatli': 'city_gaziantep_baklava_counter',

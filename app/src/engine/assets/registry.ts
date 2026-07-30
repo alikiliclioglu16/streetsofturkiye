@@ -170,6 +170,37 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
       'double-sided — the millstone disc has thin carved edges.',
   },
   {
+    id: 'city_nevsehir_carpet_loom',
+    modelUrl: '/assets/city/city_nevsehir_carpet_loom.glb',
+    checksum: 'dec522e9a0ca8e0fe52d2798aba74444143cf7bfd1c1bf31eb205934b3f82638',
+    triangles: 9_796,
+    transferBytes: 2881920,
+    dimensions: [2.06, 2.4, 1.27],
+    label: 'Kilim loom',
+    color: '#A8402F',
+    placeholder: 'box',
+    scaleToBrief: true,
+    notes:
+      'Double-sided matters here more than anywhere: the warp threads and the ' +
+      'hanging kilim are single planes, and culling their back faces would draw ' +
+      'half a carpet. 25.70 MB down to 2.4 MB.',
+  },
+  {
+    id: 'city_nevsehir_pottery_wheel',
+    modelUrl: '/assets/city/city_nevsehir_pottery_wheel.glb',
+    checksum: 'a861dd2e6647c3f4798bfdcc728573d1cbcdab0007382b9484a6446726f1c34b',
+    triangles: 10_173,
+    transferBytes: 882432,
+    // The smallest stop object in the project, and the one a child gets closest
+    // to — which is why its colour map is 1024 and not 2048.
+    dimensions: [1.38, 1.4, 1.35],
+    label: 'Avanos pottery wheel',
+    color: '#B4633C',
+    placeholder: 'box',
+    scaleToBrief: true,
+    notes: 'Delivered 22.87 MB with 4096 px maps; recompressed to 0.9 MB.',
+  },
+  {
     id: 'city_nevsehir_valley',
     modelUrl: '/assets/city/city_nevsehir_valley.glb',
     checksum: 'cc2b0d511773abd308a0aa6c7ce5ad8ddf5f4b5029680714699f10bb26e25820',

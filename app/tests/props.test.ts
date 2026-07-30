@@ -1499,3 +1499,47 @@ describe('balloons actually fly', () => {
     expect(burnerIntensity(5.5)).toBe(0);
   });
 });
+
+describe('Nevşehir is finished', () => {
+  const scene = buildScene(loadComposedCity('nevsehir'), 'high');
+
+  it('has a delivered model at every stop', () => {
+    for (const hotspot of scene.hotspots) {
+      expect(hotspot.asset.isPlaceholder, `stop ${hotspot.order}`).toBe(false);
+      expect(hotspot.asset.entry.id, `stop ${hotspot.order}`).not.toMatch(/^graybox_/);
+    }
+    expect(scene.hotspots).toHaveLength(5);
+  });
+
+  it('keeps every stop object at child scale', () => {
+    /**
+     * A stop is something to walk up to and stand beside. Hagia Sophia was built
+     * as one and had to be moved to the horizon; the fairy chimneys arrived as
+     * landscape and had to be shrunk, which was also why the street would not
+     * compress.
+     */
+    for (const hotspot of scene.hotspots) {
+      const height = hotspot.asset.entry.dimensions[1];
+      expect(height, `stop ${hotspot.order}`).toBeGreaterThan(0.8);
+      expect(height, `stop ${hotspot.order}`).toBeLessThan(7);
+    }
+  });
+
+  it('keeps the loom double-sided, because a kilim is a plane', () => {
+    const loom = deliveredProps().find((prop) => prop.id === 'city_nevsehir_carpet_loom')!;
+    // Warp threads and a hanging carpet are single planes: cull their back
+    // faces and half the carpet stops being drawn.
+    expect(loom.notes).toMatch(/[Dd]ouble-sided/);
+  });
+
+  it('is a Cappadocian street and borrows nothing from İstanbul', () => {
+    const ids = [...scene.hotspots, ...scene.props, ...scene.backdrop].map(
+      (entry) => entry.asset.entry.id,
+    );
+    expect(ids.some((id) => id.startsWith('city_istanbul_'))).toBe(false);
+    expect(scene.animal).toBe('horse');
+    expect(scene.groundSurface).toBe('redsand');
+    expect(scene.musicUrl).toBe('/assets/audio/nevsehir_theme.webm');
+    expect(scene.balloons.length).toBeGreaterThanOrEqual(8);
+  });
+});

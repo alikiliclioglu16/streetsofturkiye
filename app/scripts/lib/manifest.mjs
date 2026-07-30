@@ -102,6 +102,8 @@ export const DELIVERED_DIMENSIONS = {
   city_nevsehir_chimney_ridge: [24.7, 17.0, 19.0],
   city_nevsehir_valley: [79.4, 12.0, 78.2],
   city_nevsehir_underground_stone_door: [3.9, 3.0, 3.82],
+  city_nevsehir_carpet_loom: [2.06, 2.4, 1.27],
+  city_nevsehir_pottery_wheel: [1.38, 1.4, 1.35],
   city_istanbul_maidens_tower: [7.7, 10.0, 7.6],
   city_istanbul_galata_tower: [4.28, 14.0, 4.28],
   city_istanbul_grand_bazaar: [5.37, 6.0, 3.6],

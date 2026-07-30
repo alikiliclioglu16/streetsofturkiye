@@ -1399,3 +1399,27 @@ offer more candidates than it needs.
 
 Nevşehir now has four of five stops delivered. Only the carpet loom is left.
 
+## D-112 — Nevşehir is complete (30 Jul 2026)
+
+The kilim loom and the Avanos pottery wheel land at stops 5 and 4, and every one
+of Nevşehir's five stops now points at a delivered file.
+
+| | Delivered | Shipped |
+|---|---|---|
+| Kilim loom | 25.70 MB | 2.75 MB |
+| Pottery wheel | 22.87 MB | 0.84 MB |
+
+The wheel is the smallest stop object in the project at 1.4 m, and the one a
+child gets closest to. Its colour map is 1024 rather than 2048 for the same
+reason the tile panel's is: resolution follows how much of the screen the object
+covers, not how close the child stands.
+
+Both kept double-sided. It matters most on the loom, where the warp threads and
+the hanging kilim are single planes — culling their back faces would draw half a
+carpet, which is the mistake that tore the flags on the Maiden's Tower.
+
+Two cities are now finished end to end: İstanbul on the Marmara coast with cats,
+cobbles, a tram and a ferry terminal; Nevşehir on the plateau with horses, red
+dust, balloons and a valley rim. Nothing crosses between them, and a test holds
+that line.
+

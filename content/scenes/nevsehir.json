@@ -78,22 +78,22 @@
       [
         2.3,
         0,
-        -56.9
+        -56.83
       ],
       [
-        -0.5,
+        -0.59,
         0,
-        -61.8
+        -61.87
       ],
       [
         -2.4,
         0,
-        -70.9
+        -70.87
       ],
       [
-        0.9,
+        0.83,
         0,
-        -75.8
+        -75.83
       ]
     ],
     "bounds": [
@@ -307,10 +307,10 @@
         ]
       },
       "collider": {
-        "halfWidth": 0.6,
-        "halfDepth": 0.6
+        "halfWidth": 0.69,
+        "halfDepth": 0.675
       },
-      "triggerRadius": 4.6,
+      "triggerRadius": 4.67,
       "camera": {
         "position": [
           4.6,
@@ -319,7 +319,7 @@
         ],
         "target": [
           2.3,
-          0.5,
+          0.6,
           -59
         ],
         "durationMs": 900
@@ -339,8 +339,8 @@
         "stopId": "nevsehir-stop-05"
       },
       "sceneStatus": "ready",
-      "assetId": "graybox_loom",
-      "assetStatus": "graybox",
+      "assetId": "city_nevsehir_carpet_loom",
+      "assetStatus": "commissioned",
       "transform": {
         "position": [
           -2.4,
@@ -359,10 +359,10 @@
         ]
       },
       "collider": {
-        "halfWidth": 1.1,
-        "halfDepth": 0.6
+        "halfWidth": 1.03,
+        "halfDepth": 0.635
       },
-      "triggerRadius": 4.6,
+      "triggerRadius": 4.63,
       "camera": {
         "position": [
           -0.10000000000000009,
@@ -371,7 +371,7 @@
         ],
         "target": [
           -2.4,
-          0.8,
+          1.1,
           -73
         ],
         "durationMs": 900
@@ -927,13 +927,13 @@
     {
       "npcId": "featured_craftsman_male",
       "position": [
-        8.1,
+        8.2,
         0,
         -56.4
       ],
       "rotationY": 1.9,
       "walkTo": [
-        6.6,
+        6.7,
         0,
         -60.6
       ]

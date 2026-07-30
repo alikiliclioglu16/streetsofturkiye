@@ -114,7 +114,7 @@ app/src/
 npm run lint       → temiz
 npm run typecheck  → temiz (strict, noUncheckedIndexedAccess, `any` yok)
 npm run content:check → 81 il, 249 durak, 84 soru; 1413 kanonik dizgi baseline ile eşleşti
-npm test           → 16 dosya / 314 test geçti (logic + jsdom ui)
+npm test           → 16 dosya / 318 test geçti (logic + jsdom ui)
 npm run build      → başarılı, 4 rota
 npm start          → /map ve /city/istanbul 200
 ```
@@ -673,7 +673,15 @@ Artık atın 20-60 metrelik iki-üç koşusu var, kedinin 6-13 metrelik beş tur
 Halkası yer tutucudan büyük olduğu için bir lambayı dışarı itti; lamba yoğunluğu artırıldı
 ve lambalar merkez hattından uzaklaştırıldı.
 
-**Nevşehir'de beş duraktan dördü teslim edildi.** Kalan tek şey halı tezgâhı.
+**Nevşehir tamamlandı** (D-112): halı tezgâhı (25,70 → 2,75 MB) ve Avanos çömlek çarkı
+(22,87 → 0,84 MB) son iki durağa yerleşti. Beş durağın beşi de teslim edilmiş dosyaya işaret ediyor.
+
+Çömlek çarkı projedeki en küçük durak nesnesi (1,4 m) ve çocuğun en çok yaklaştığı şey;
+renk haritası yine de 1024 — çözünürlük çocuğun uzaklığına değil, nesnenin ekranda kapladığı
+alana göre.
+
+İkisi de çift yüzlü. Tezgâhta bu en kritik olanı: çözgü iplikleri ve asılı kilim tek düzlem,
+arka yüzleri elenirse halının yarısı çizilmez.
 
 ## 5. Bilinen sınırlar
 
