@@ -1347,3 +1347,25 @@ two metres of animal wants more room than forty centimetres of one.
 The horse arrived with the same 0.01 armature scale as the cat, so it would have
 rendered 1.6 cm tall. The engine measures and scales it, as it has since D-044.
 
+## D-109 — Balloons wander; they do not cross and wrap (30 Jul 2026)
+
+They took minutes to appear. A phase seeded into a 260 m wrapping crossing put
+some of them 130 m off-screen before they had moved at all, and nobody stays in
+one city that long.
+
+Two problems, one fix. Wrapping also meant a balloon reaching the end of its run
+teleported back to the start in one frame, in full view of a child looking up at
+it.
+
+They now wander: a 45 m arc either side of where they belong, on a ninety second
+round trip. Every balloon is in the sky at t = 0, most have covered twenty to
+thirty metres by ten seconds, and there is no seam to teleport across.
+
+Three attempts on this one, and the shape of the mistake was the same each time —
+choosing the motion first and only then asking what it looks like from where the
+child is standing. Six metres of drift was invisible; a wrapping crossing was
+invisible for the first minute and then a jump.
+
+`balloonOffsetAt` is pure, so "is the sky full when a child arrives" is a test
+rather than something to sit and watch for.
+

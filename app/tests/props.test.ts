@@ -1399,17 +1399,54 @@ describe('streets after İstanbul are shorter', () => {
 });
 
 describe('balloons actually fly', () => {
-  it('crosses the sky rather than swaying on the spot', async () => {
-    const { TRAVEL_SPAN, DRIFT_SPEED } = await import('@/components/three/Balloons');
+  it('fills the sky the moment a child arrives', async () => {
+    const { balloonOffsetAt, DRIFT_AMPLITUDE } = await import('@/components/three/Balloons');
+    const scene = buildScene(loadComposedCity('nevsehir'), 'high');
+
     /**
-     * The first version drifted six metres either side of a fixed point, which
-     * at balloon distances is invisible: they read as pinned to the sky.
+     * Every balloon is where it belongs, give or take its wander, at t = 0.
+     *
+     * The first version seeded a phase into a wrapping crossing, which put some
+     * balloons a hundred metres off-screen before they had moved at all — they
+     * took minutes to appear, and nobody stays in one city that long.
      */
-    expect(TRAVEL_SPAN).toBeGreaterThan(150);
-    // Crossing that span should take a couple of minutes, not an hour.
-    const seconds = TRAVEL_SPAN / DRIFT_SPEED;
-    expect(seconds).toBeGreaterThan(60);
-    expect(seconds).toBeLessThan(400);
+    for (const balloon of scene.balloons) {
+      expect(Math.abs(balloonOffsetAt(balloon, 0)), balloon.key).toBeLessThanOrEqual(
+        DRIFT_AMPLITUDE,
+      );
+    }
+  });
+
+  it('is visibly moving within ten seconds', async () => {
+    const { balloonOffsetAt } = await import('@/components/three/Balloons');
+    const scene = buildScene(loadComposedCity('nevsehir'), 'high');
+
+    const moved = scene.balloons.map((b) =>
+      Math.abs(balloonOffsetAt(b, 10) - balloonOffsetAt(b, 0)),
+    );
+    // Most should have covered real ground by then; a few sit near the turn of
+    // their arc, which is what a sky of balloons looks like.
+    const busy = moved.filter((d) => d > 10).length;
+    expect(busy).toBeGreaterThan(scene.balloons.length / 2);
+  });
+
+  it('never teleports across the sky', async () => {
+    const { balloonOffsetAt } = await import('@/components/three/Balloons');
+    const scene = buildScene(loadComposedCity('nevsehir'), 'high');
+
+    /**
+     * A crossing that wraps sends a balloon reaching the end of its run back to
+     * the start in one frame, in full view of a child looking up at it. A
+     * wander has no seam.
+     */
+    for (const balloon of scene.balloons) {
+      let previous = balloonOffsetAt(balloon, 0);
+      for (let t = 0.05; t < 200; t += 0.05) {
+        const next = balloonOffsetAt(balloon, t);
+        expect(Math.abs(next - previous), `${balloon.key} jumped at ${t}s`).toBeLessThan(1);
+        previous = next;
+      }
+    }
   });
 
   it('gives each balloon a different speed, so they do not fly in formation', () => {

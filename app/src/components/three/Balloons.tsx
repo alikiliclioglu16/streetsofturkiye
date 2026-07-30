@@ -29,11 +29,36 @@ export interface BalloonSpec {
   readonly phase: number;
 }
 
-/** Metres a balloon crosses before wrapping round to start again. */
-export const TRAVEL_SPAN = 260;
+/**
+ * How far a balloon wanders either side of where it belongs, in metres.
+ *
+ * Large enough that the movement is obvious — the first attempt used six metres,
+ * which at balloon distance is invisible.
+ */
+export const DRIFT_AMPLITUDE = 45;
 
-/** Metres per second at the base speed. A balloon is not in a hurry. */
-export const DRIFT_SPEED = 1.15;
+/**
+ * Radians per second of the wander. About a ninety second round trip, which puts
+ * roughly thirty metres of travel in the first ten — visible immediately without
+ * looking like a balloon in a hurry.
+ */
+export const DRIFT_RATE = 0.067;
+
+/**
+ * Where a balloon is at a moment, relative to where it belongs.
+ *
+ * A wander rather than a crossing that wraps. Wrapping meant a balloon reaching
+ * the end of its run teleported back to the start, in full view of a child
+ * looking up at it — and seeding a phase into that wrap put some of them a
+ * hundred metres off-screen at load, so they took minutes to arrive. Nobody
+ * stays in one city that long.
+ *
+ * Pure, so "is the sky full when a child arrives" is a test rather than
+ * something to sit and watch for.
+ */
+export function balloonOffsetAt(spec: BalloonSpec, seconds: number): number {
+  return Math.sin(seconds * DRIFT_RATE * spec.driftSpeed + spec.phase) * DRIFT_AMPLITUDE;
+}
 
 function Balloon({
   asset,
@@ -58,18 +83,12 @@ function Balloon({
     const t = elapsed.current;
 
     /**
-     * Actually flying, not swaying on the spot.
+     * Flying, and already in the sky when the child looks up.
      *
-     * The first version drifted six metres either side of a fixed point, which
-     * at balloon distances is invisible: they read as pinned to the sky. A
-     * balloon crosses the sky. These travel the length of the street and wrap
-     * around to start again, so a child looking up twice sees a different sky.
-     *
-     * The travel is along x because a balloon goes where the air goes and the
-     * air here is crossing the valley, not running down the street.
+     * The travel is along x because a balloon goes where the air goes, and the
+     * air here crosses the valley rather than running down the street.
      */
-    const travelled = (t * DRIFT_SPEED * spec.driftSpeed + spec.phase * 40) % TRAVEL_SPAN;
-    const x = spec.position[0] - TRAVEL_SPAN / 2 + travelled;
+    const x = spec.position[0] + balloonOffsetAt(spec, t);
 
     // Slow rise and fall on top, at a period unrelated to the crossing.
     const lift = Math.sin(t * 0.055 + spec.phase * 0.7) * 2.4;

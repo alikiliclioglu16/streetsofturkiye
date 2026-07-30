@@ -114,7 +114,7 @@ app/src/
 npm run lint       → temiz
 npm run typecheck  → temiz (strict, noUncheckedIndexedAccess, `any` yok)
 npm run content:check → 81 il, 249 durak, 84 soru; 1413 kanonik dizgi baseline ile eşleşti
-npm test           → 16 dosya / 311 test geçti (logic + jsdom ui)
+npm test           → 16 dosya / 313 test geçti (logic + jsdom ui)
 npm run build      → başarılı, 4 rota
 npm start          → /map ve /city/istanbul 200
 ```
@@ -635,8 +635,10 @@ dalga gibi duydu; üçüncü denemek yerine durdum. Kanal ve susturma düğmesi 
 bir plaka dizisinin tek manzara gibi görünmesini sağlayan şey bu. Peri bacaları halkanın içine
 alındı: yakında bacalar, ötede vadi.
 
-**Balonlar uçuyor** (D-105): 260 metre kat edip başa dönüyorlar, on ayrı hızda. Her şehirde var,
-Kapadokya'da gökyüzü dolu.
+**Balonlar geziniyor** (D-105, D-109): bulundukları yerin 45 metre iki yanında, doksan saniyelik
+gidiş-dönüşle. Sarma yok — sarmalı sürüm balonu tek karede gökyüzünün öbür ucuna ışınlıyordu,
+üstelik faz kaydırması bazılarını 130 metre kadraj dışında başlatıyordu.
+Hepsi t=0'da gökyüzünde, çoğu 10 saniyede 20-30 metre yol alıyor.
 
 **Duraktaki balon brülör yakıyor** (D-106): dokuz saniyede bir, iki saniye. Duran bir balon
 balondur; brülör yakan balon, kalkmak üzere olan bir balondur.
