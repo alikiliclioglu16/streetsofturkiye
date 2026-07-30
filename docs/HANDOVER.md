@@ -329,8 +329,12 @@ Nevşehir. This is the one change in the project that most needs a pair of eyes.
 
 **3. Kars's art.** The city is open, it has its theme, and every model in it is a
 placeholder. `docs/KARS_ASSET_BRIEF.md` lists all eleven files in the order to
-draw them: four for the horizon, three stops, the goose, three rewards. The goose
-is the only one that has to be rigged.
+draw them: four for the horizon, three stops, the goose, three rewards.
+
+The goose mesh has arrived and is waiting on a rig — it is the only file on the
+list that needs one. `docs/KARS_GOOSE_PRERIG_REPORT.md` has what the rigger needs,
+including the two places the mesh will fight them. The clip must be called
+`Walking`, with the -ing.
 
 **4. Then a fifth city.** Everything needed is in place: the shared kit, three
 regional grounds, the planting table, the animal table, the layout that handles

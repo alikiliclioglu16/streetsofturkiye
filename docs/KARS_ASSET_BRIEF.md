@@ -27,7 +27,7 @@ diorama.
 | 5 | `city_kars_ani_carved_doorway` | **stop 1** — carving, rubbing half taken | 2.6 × 3.2 × 1.0 m | 2048 |
 | 6 | `city_kars_eastern_express_platform` | **stop 2** — platform, nose of the engine | 6.0 × 3.4 × 2.6 m | 1024 |
 | 7 | `city_kars_gravyer_stall` | **stop 3** — cheese wheels, one cut | 2.2 × 1.6 × 1.1 m | 1024 |
-| 8 | `kit_kars_goose` | the animal, **rigged, with a walk** | 0.35 × 0.85 × 0.75 m | 1024 |
+| 8 | `kit_kars_goose` | the animal, **rigged, `Walking` clip** — mesh delivered, rig outstanding | 0.43 × 0.85 × 0.91 m | 1024 |
 | 9 | `collectible_kars_stone_rubbing` | reward 1 | 0.22 × 0.30 × 0.02 m | 1024 |
 | 10 | `collectible_kars_express_ticket` | reward 2 | 0.14 × 0.09 × 0.01 m | 1024 |
 | 11 | `collectible_kars_gravyer_wedge` | reward 3 | 0.20 × 0.16 × 0.14 m | 1024 |
@@ -293,7 +293,7 @@ the only file on this list that has to be **rigged and animated**.
 
 | | |
 |---|---|
-| Target size | **0.35 m wide × 0.85 m tall × 0.75 m long** |
+| Target size | **0.43 m wide × 0.85 m tall × 0.91 m long** (as delivered) |
 | Triangles | 4,000–8,000 |
 | Textures | base colour **1024**, others **512** |
 | Rig | skinned, with a **walk** clip |
@@ -301,7 +301,10 @@ the only file on this list that has to be **rigged and animated**.
 Three things about the animation, each of which cost this project time on the cat
 and then again on the horse.
 
-**One clip, named `Walk`.** The engine matches clips by name from a whitelist.
+**One clip, named `Walking`.** Exactly that, with the -ing. `StreetCat.tsx`
+looks for it by name and otherwise falls back to whatever clip comes first in the
+file — so a wrong name works today and breaks silently the moment a second clip
+is added. An `Idle` is worth delivering too; nothing plays it yet.
 
 **No root motion in the clip.** The application moves the goose through the
 world; the clip moves its legs. A walk cycle that also translates the root makes

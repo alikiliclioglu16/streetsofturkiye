@@ -1777,3 +1777,43 @@ in the audio directory but a theme belonging to a city that exists; the manifest
 has no duplicate rows; a `city_` prop belongs to exactly one city; no pilot city
 is closed. Each of those survives a fifth province. The literals did not survive
 a fourth.
+
+## D-128 — The goose mesh is here; the rig is not (30 Jul 2026)
+
+`kit_kars_goose_rig_source.glb` — 10,395 triangles, 0.43 × 0.85 × 0.91 m,
+standing on y = 0, textures already sized by role, no skin and no animation. It
+is marked `RIG_SOURCE_ONLY` and it is not integrated.
+
+**The delivery note was accurate in every particular** — checksum, triangle
+count, world size, base offset, skin and animation counts, alpha mode and
+sidedness all matched the file. That is the first time in this project, and it is
+worth recording as plainly as the three that did not.
+
+Not integrated because Kars generates three goose routes and the file has no
+walk. Three birds sliding across the grass with their feet still is exactly the
+skating the in-place rule exists to prevent (D-043), and a placeholder is more
+honest than that.
+
+Three things measured out of the mesh for whoever rigs it, in
+`docs/KARS_GOOSE_PRERIG_REPORT.md`:
+
+- **The legs separate cleanly at shin height and merge into the belly above it.**
+  Below the belly the geometry gives the rigger two islands to weight; at thigh
+  height there is one continuous surface and nothing to stop weight bleeding
+  between the two legs. That is where a bad step will come from.
+- **The mesh is not mirror-symmetric** — 12.9% of vertices have a partner across
+  x = 0. The rig spec asks for symmetric weighting of the two legs and it cannot
+  be got by mirroring; both sides have to be painted.
+- **10,395 triangles against a brief of 4,000–8,000**, which is fine: three geese
+  cost 31,000 where three horses cost 27,500. It must not grow on the way back.
+
+**A mistake of mine, corrected.** `KARS_ASSET_BRIEF.md` asked for a clip named
+`Walk`. The engine looks for `Walking`, and falls back to the first clip in the
+file when it does not find it — so the wrong name would have worked in Kars and
+broken silently the first time a second clip was added. The rig spec that arrived
+with the mesh had it right and the brief had it wrong.
+
+**An option that needs no rig.** Geese standing on the plateau rather than
+walking would put a real bird in Kars now. It needs an animal with no routes,
+which the engine cannot currently express, and it is a decision about what the
+city looks like rather than an engineering one.
