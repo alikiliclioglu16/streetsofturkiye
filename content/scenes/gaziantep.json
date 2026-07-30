@@ -457,6 +457,7 @@
   "tramLine": null,
   "water": null,
   "backdrop": [],
+  "animal": "cat",
   "catRoutes": [
     [
       {

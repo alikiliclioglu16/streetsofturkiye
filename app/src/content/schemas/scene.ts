@@ -180,6 +180,14 @@ export const sceneSchema = z
     catRoutes: z
       .array(z.array(z.object({ x: z.number(), z: z.number() })).min(2))
       .default([]),
+    /**
+     * Which animal walks this street.
+     *
+     * İstanbul's cats are one of the first things a child notices about the
+     * city. Cappadocia is named for its horses — *Katpatuka*, the land of
+     * beautiful horses — and has no street cats to speak of.
+     */
+    animal: z.enum(['cat', 'horse', 'none']).default('cat'),
     quizPresentation: z.object({ shuffleOptions: z.boolean() }),
     rewards: z.object({
       cityStarId: z.string(),

@@ -64,6 +64,7 @@ export interface SceneDescription {
     readonly walkTo: Vec3 | null;
   }[];
   readonly trees: readonly StreetTreeSpec[];
+  readonly animal: SceneDefinition['animal'];
   readonly catModelUrl: string | null;
   /** Briefed height for a cat, in metres; the delivered rig is not at world scale. */
   readonly catHeight: number;
@@ -196,7 +197,13 @@ export function buildScene(city: CityDefinition, quality: QualityTier): SceneDes
       }),
   ];
 
-  const cat = resolveAsset('kit_street_cat', quality);
+  /**
+   * The animal that walks this street: a cat on the coast, a horse on the
+   * plateau. One component walks either — they are the same problem, and only
+   * the file, the size and the pace differ.
+   */
+  const animalId = city.animal === 'horse' ? 'kit_anatolian_horse' : 'kit_street_cat';
+  const cat = resolveAsset(animalId, quality);
 
   const npcs = city.npcs
     .map((entry, index) => {
@@ -232,7 +239,8 @@ export function buildScene(city: CityDefinition, quality: QualityTier): SceneDes
     catRoutes: city.catRoutes,
     npcs,
     trees,
-    catModelUrl: city.catRoutes.length > 0 ? cat.modelUrl : null,
+    animal: city.animal,
+    catModelUrl: city.animal === 'none' || city.catRoutes.length === 0 ? null : cat.modelUrl,
     catHeight: cat.entry.dimensions[1],
     props,
     colliders,

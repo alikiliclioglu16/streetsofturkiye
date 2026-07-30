@@ -1329,3 +1329,21 @@ they are the same shape of mistake:
 The application moves them and the clip only moves their legs, which is the rule
 the cat and the tram already follow.
 
+## D-108 — The animal belongs to the region (30 Jul 2026)
+
+Cats walked every street, including Cappadocia's. İstanbul's cats are one of the
+first things a child notices about that city; Nevşehir has no street cats to
+speak of, and is named for the opposite animal — *Katpatuka*, the land of
+beautiful horses.
+
+Coastal and Marmara regions keep cats. The plateau gets horses.
+
+One component walks either. They are the same problem — a skinned quadruped with
+one walk clip, a route of two or three points, a pause at each end — and only the
+file, the size and the pace differ. A horse moves at 1.15 m/s against a cat's
+0.55, turns more slowly, and its routes are held further from the walk because
+two metres of animal wants more room than forty centimetres of one.
+
+The horse arrived with the same 0.01 armature scale as the cat, so it would have
+rendered 1.6 cm tall. The engine measures and scales it, as it has since D-044.
+

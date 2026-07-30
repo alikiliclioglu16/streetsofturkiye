@@ -62,6 +62,29 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
       'already on the ground.',
   },
   {
+    id: 'kit_anatolian_horse',
+    modelUrl: '/assets/props/kit_anatolian_horse.glb',
+    checksum: '7d705dc0a79764cdbf9ed8bbd1bda079bebefb3b20f995243bb84f2f41f33e77',
+    triangles: 9_165,
+    transferBytes: 753444,
+    /**
+     * Cappadocia is named for horses — *Katpatuka*, the land of beautiful
+     * horses — so a Nevşehir street without them is missing the thing the place
+     * is called after.
+     *
+     * Skinned, 27 joints, and authored with the same 0.01 armature scale as the
+     * cat, so it renders about 1.6 cm tall until the engine measures it.
+     */
+    dimensions: [0.48, 1.6, 1.98],
+    label: 'Anatolian horse',
+    color: '#8B5A3C',
+    placeholder: 'box',
+    scaleToBrief: true,
+    notes:
+      'Delivered 4.93 MB at 10,311 triangles with a 2048 PNG; simplified to ' +
+      '9,165 and 0.72 MB with the 27-joint rig and its walk clip intact.',
+  },
+  {
     id: 'kit_street_cat',
     modelUrl: '/assets/props/kit_street_cat_walking.glb',
     checksum: '590fcd80e91cddd6c91af9abfd4c326769e20f363618da921bd59f8b3dc40806',

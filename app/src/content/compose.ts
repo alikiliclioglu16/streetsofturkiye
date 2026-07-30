@@ -85,6 +85,7 @@ export interface RuntimeCity {
   props: SceneDefinition['props'];
   /** Waypoints for each street cat; empty in cities that are not dressed yet. */
   catRoutes: SceneDefinition['catRoutes'];
+  animal: SceneDefinition['animal'];
   water: SceneDefinition['water'];
   musicUrl: SceneDefinition['musicUrl'];
   groundSurface: SceneDefinition['groundSurface'];
@@ -166,6 +167,7 @@ export function composeCity(canonical: CanonicalCity, scene: SceneDefinition): R
     environment: scene.environment,
     props: scene.props,
     catRoutes: scene.catRoutes,
+    animal: scene.animal,
     water: scene.water,
     musicUrl: scene.musicUrl,
     groundSurface: scene.groundSurface,

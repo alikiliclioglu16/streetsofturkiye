@@ -368,13 +368,58 @@ describe('street cats', () => {
   const city = loadComposedCity('istanbul');
   const scene = buildScene(city, 'high');
 
-  it('walks cats in every city, not only İstanbul', () => {
-    // Street cats are not an İstanbul feature; they are a Turkish street.
+  it('walks the animal that belongs to the region', () => {
+    /**
+     * İstanbul's cats are one of the first things a child notices about the
+     * city. Cappadocia is named for its horses — *Katpatuka*, the land of
+     * beautiful horses — and has no street cats to speak of.
+     */
+    const istanbul = buildScene(loadComposedCity('istanbul'), 'high');
+    expect(istanbul.animal).toBe('cat');
+    expect(istanbul.catModelUrl).toBe('/assets/props/kit_street_cat_walking.glb');
+
+    const nevsehir = buildScene(loadComposedCity('nevsehir'), 'high');
+    expect(nevsehir.animal).toBe('horse');
+    expect(nevsehir.catModelUrl).toBe('/assets/props/kit_anatolian_horse.glb');
+
     for (const cityId of ['istanbul', 'nevsehir', 'gaziantep']) {
-      const city = buildScene(loadComposedCity(cityId), 'high');
-      expect(city.catRoutes.length, cityId).toBeGreaterThanOrEqual(3);
-      expect(city.catRoutes.length, cityId).toBeLessThanOrEqual(6);
-      expect(city.catModelUrl, cityId).toBe('/assets/props/kit_street_cat_walking.glb');
+      const scene = buildScene(loadComposedCity(cityId), 'high');
+      expect(scene.catRoutes.length, cityId).toBeGreaterThanOrEqual(3);
+      expect(scene.catRoutes.length, cityId).toBeLessThanOrEqual(6);
+    }
+  });
+
+  it('walks a horse at a horse pace and a cat at a cat pace', async () => {
+    const { CAT_WALK_SPEED, HORSE_WALK_SPEED, CAT_TURN_RATE, HORSE_TURN_RATE, stepCat, createCatState } =
+      await import('@/components/three/StreetCat');
+
+    expect(HORSE_WALK_SPEED).toBeGreaterThan(CAT_WALK_SPEED);
+    // A horse turns more slowly than a cat, and a cat turns on the spot.
+    expect(HORSE_TURN_RATE).toBeLessThan(CAT_TURN_RATE);
+
+    const route = [
+      { x: 0, z: 0 },
+      { x: 0, z: -14 },
+    ];
+    const walk = (speed: number, turn: number) => {
+      let state = createCatState(route);
+      for (let f = 0; f < 60 * 6; f += 1) {
+        state = stepCat(state, route, 1 / 60, () => 3, speed, turn);
+      }
+      return Math.hypot(state.x, state.z);
+    };
+    expect(walk(HORSE_WALK_SPEED, HORSE_TURN_RATE)).toBeGreaterThan(
+      walk(CAT_WALK_SPEED, CAT_TURN_RATE),
+    );
+  });
+
+  it('gives a horse the room a horse needs', () => {
+    const nevsehir = buildScene(loadComposedCity('nevsehir'), 'high');
+    for (const route of nevsehir.catRoutes) {
+      for (const point of route) {
+        // Two metres of animal wants more clearance than a cat does.
+        expect(Math.abs(point.x)).toBeGreaterThan(6);
+      }
     }
   });
 

@@ -92,6 +92,23 @@ const TRIGGER_MARGIN = 2.5;
  * planting plane trees there — only louder, because the ground is the largest
  * thing on screen.
  */
+/**
+ * The animal that walks a region's streets.
+ *
+ * Cats belong to the coastal cities; horses to the plateau Cappadocia is named
+ * after. Getting this wrong is the same class of mistake as planting plane trees
+ * in Nevşehir, only it moves.
+ */
+const REGION_ANIMAL = {
+  marmara: 'cat',
+  aegean: 'cat',
+  mediterranean: 'cat',
+  'black-sea': 'cat',
+  'central-anatolia': 'horse',
+  'eastern-anatolia': 'horse',
+  'southeastern-anatolia': 'cat',
+};
+
 const REGION_SURFACE = {
   marmara: 'cobblestone',
   aegean: 'cobblestone',
@@ -278,7 +295,7 @@ function streetProps(cityId, stopPositions, geometry) {
  * rather than by eye. A cat that wanders into a stop's ring stands in the shot
  * the moment that stop opens.
  */
-function catRoutes(stopPositions, geometry) {
+function catRoutes(stopPositions, geometry, animal) {
   const candidates = [
     [
       { x: -11.5, z: -37 },
@@ -305,11 +322,13 @@ function catRoutes(stopPositions, geometry) {
     ],
   ];
 
+  // A horse is two metres long and needs more room than a cat to turn.
+  const margin = animal === 'horse' ? 2.5 : 0;
   const clear = (point) =>
-    Math.abs(point.x) > 4 &&
+    Math.abs(point.x) > 4 + margin &&
     stopPositions.every((stop, index) => {
       const gap = Math.hypot(point.x - stop[0], point.z - stop[2]);
-      return gap > geometry[index].triggerRadius;
+      return gap > geometry[index].triggerRadius + margin;
     });
 
   return candidates.filter((route) => route.every(clear));
@@ -801,7 +820,8 @@ function buildScene(canonical) {
      * the sea; Nevşehir closes with fairy chimneys and opens on to a valley.
      */
     backdrop: cityBackdrop(canonical.id, stopPositions, metrics),
-    catRoutes: catRoutes(stopPositions, geometry),
+    animal: REGION_ANIMAL[canonical.regionId] ?? 'cat',
+    catRoutes: catRoutes(stopPositions, geometry, REGION_ANIMAL[canonical.regionId] ?? 'cat'),
     npcs: featuredNpcs(canonical.id, stopPositions, geometry),
     trees: streetTrees(canonical.id, stopPositions, geometry, canonical.regionId),
     /**

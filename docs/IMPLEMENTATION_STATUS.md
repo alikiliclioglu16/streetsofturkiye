@@ -114,7 +114,7 @@ app/src/
 npm run lint       → temiz
 npm run typecheck  → temiz (strict, noUncheckedIndexedAccess, `any` yok)
 npm run content:check → 81 il, 249 durak, 84 soru; 1413 kanonik dizgi baseline ile eşleşti
-npm test           → 16 dosya / 309 test geçti (logic + jsdom ui)
+npm test           → 16 dosya / 311 test geçti (logic + jsdom ui)
 npm run build      → başarılı, 4 rota
 npm start          → /map ve /city/istanbul 200
 ```
@@ -644,6 +644,18 @@ balondur; brülör yakan balon, kalkmak üzere olan bir balondur.
 **Üç NPC her şehirde ve yürüyor** (D-107): dört metrelik bir beat gidip dönüyorlar.
 Yerleşim üç denemede oturdu — durağın x'inden kaydırmak rotaya düşürdü, merkez hattından
 ölçmek durağın öbür yanına attı; doğrusu duraktan **dışa** doğru itmek.
+
+## 6f. Atlar
+
+Kediler her sokakta yürüyordu, Kapadokya dahil. Nevşehir'in sokak kedisi yok ve şehir
+tam da öbür hayvanın adını taşıyor: *Katpatuka*, güzel atlar ülkesi (D-108).
+
+Kıyı ve Marmara kedi, plato **at**. Tek bileşen ikisini de yürütüyor — aynı problem:
+tek yürüyüş klipli skinned dörtayaklı, iki-üç noktalı rota, uçlarda bekleme.
+Yalnız dosya, boyut ve tempo farklı: at 1,15 m/s (kedi 0,55), daha yavaş dönüyor,
+rotaları yürüyüş hattından daha uzak.
+
+At da kedinin 0,01 armature ölçeğiyle geldi, 1,6 cm boyunda çizilecekti; motor ölçüp büyütüyor.
 
 ## 5. Bilinen sınırlar
 

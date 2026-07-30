@@ -12,7 +12,13 @@ import { Balloons } from '@/components/three/Balloons';
 import { Ground } from '@/components/three/Ground';
 import { Water } from '@/components/three/Water';
 import { HotspotObject } from '@/components/three/HotspotObject';
-import { StreetCat } from '@/components/three/StreetCat';
+import {
+  CAT_TURN_RATE,
+  CAT_WALK_SPEED,
+  HORSE_TURN_RATE,
+  HORSE_WALK_SPEED,
+  StreetCat,
+} from '@/components/three/StreetCat';
 import { StreetTrees } from '@/components/three/StreetTrees';
 import { FeaturedNpcActor } from '@/components/three/FeaturedNpc';
 import { PlayerRig } from '@/components/three/PlayerRig';
@@ -194,11 +200,13 @@ export function CityScene({
       {scene.catModelUrl
         ? scene.catRoutes.map((route, index) => (
             <StreetCat
-              key={`cat-${index}`}
+              key={`animal-${index}`}
               url={scene.catModelUrl!}
               route={route}
               targetHeight={scene.catHeight}
               phase={index / scene.catRoutes.length}
+              speed={scene.animal === 'horse' ? HORSE_WALK_SPEED : CAT_WALK_SPEED}
+              turnRate={scene.animal === 'horse' ? HORSE_TURN_RATE : CAT_TURN_RATE}
             />
           ))
         : null}

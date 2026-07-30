@@ -7,7 +7,12 @@ import { clone as cloneSkinned } from 'three/examples/jsm/utils/SkeletonUtils.js
 import { AnimationMixer, Box3, LoopRepeat, Vector3, type AnimationAction, type Group } from 'three';
 
 /**
- * A stray cat walking a short beat of the street.
+ * A skinned animal walking a short beat of the street.
+ *
+ * Written for İstanbul's cats and now shared with Cappadocia's horses, because
+ * they are the same problem: a quadruped with one walk clip, a route of two or
+ * three points, and a pause at each end. The only differences are the file, the
+ * size and how fast it moves — all passed in.
  *
  * İstanbul's cats are one of the first things any child notices about the city,
  * so this is not filler. It is also the first asset in the project that moves
@@ -25,6 +30,10 @@ import { AnimationMixer, Box3, LoopRepeat, Vector3, type AnimationAction, type G
 
 export const CAT_WALK_SPEED = 0.55;
 export const CAT_TURN_RATE = 3.2;
+
+/** A horse covers ground faster than a cat, and turns more slowly. */
+export const HORSE_WALK_SPEED = 1.15;
+export const HORSE_TURN_RATE = 1.6;
 const ARRIVE_EPSILON = 0.12;
 const PAUSE_MIN_S = 3;
 const PAUSE_MAX_S = 7;
@@ -58,6 +67,8 @@ export function stepCat(
   route: readonly CatWaypoint[],
   delta: number,
   pauseFor: () => number,
+  speed: number = CAT_WALK_SPEED,
+  turnRate: number = CAT_TURN_RATE,
 ): CatState {
   if (route.length < 2) return state;
 
@@ -76,9 +87,9 @@ export function stepCat(
   let turn = desired - state.heading;
   while (turn > Math.PI) turn -= Math.PI * 2;
   while (turn < -Math.PI) turn += Math.PI * 2;
-  const heading = state.heading + Math.max(-1, Math.min(1, turn / 0.4)) * CAT_TURN_RATE * delta;
+  const heading = state.heading + Math.max(-1, Math.min(1, turn / 0.4)) * turnRate * delta;
 
-  const step = CAT_WALK_SPEED * delta;
+  const step = speed * delta;
   if (distance <= Math.max(step, ARRIVE_EPSILON)) {
     const isEnd = state.target === 0 || state.target === route.length - 1;
     const next = state.target === route.length - 1 ? route.length - 2 : state.target === 0 ? 1 : state.target + 1;
@@ -109,12 +120,22 @@ interface StreetCatProps {
   route: readonly CatWaypoint[];
   /** Briefed height in metres; the delivered rig is not authored at world scale. */
   targetHeight: number;
-  /** Offsets the walk cycle so a row of cats does not step in unison. */
+  /** Offsets the walk cycle so a row of animals does not step in unison. */
   phase?: number;
+  speed?: number;
+  turnRate?: number;
   onMeasured?: (heightMeters: number) => void;
 }
 
-export function StreetCat({ url, route, targetHeight, phase = 0, onMeasured }: StreetCatProps) {
+export function StreetCat({
+  url,
+  route,
+  targetHeight,
+  phase = 0,
+  speed = CAT_WALK_SPEED,
+  turnRate = CAT_TURN_RATE,
+  onMeasured,
+}: StreetCatProps) {
   const group = useRef<Group>(null);
   const { scene, animations } = useGLTF(url);
 
@@ -180,7 +201,7 @@ export function StreetCat({ url, route, targetHeight, phase = 0, onMeasured }: S
 
   useFrame((_, rawDelta) => {
     const delta = Math.min(rawDelta, 0.05);
-    state.current = stepCat(state.current, route, delta, randomPause);
+    state.current = stepCat(state.current, route, delta, randomPause, speed, turnRate);
 
     const node = group.current;
     if (node) {
