@@ -276,9 +276,9 @@
     {
       "assetId": "kit_street_lamp",
       "position": [
-        -9,
+        -11,
         0,
-        -20.7
+        -19.2
       ],
       "rotationY": -1.751,
       "solid": true,
@@ -287,9 +287,9 @@
     {
       "assetId": "kit_street_lamp",
       "position": [
-        10,
+        12,
         0,
-        -28
+        -23.6
       ],
       "rotationY": 1.691,
       "solid": true,
@@ -298,20 +298,42 @@
     {
       "assetId": "kit_street_lamp",
       "position": [
-        -11,
+        -13,
         0,
-        -35.3
+        -28
       ],
       "rotationY": -1.751,
       "solid": true,
       "note": "street lamp 3"
     },
     {
+      "assetId": "kit_street_lamp",
+      "position": [
+        11,
+        0,
+        -32.4
+      ],
+      "rotationY": 1.691,
+      "solid": true,
+      "note": "street lamp 4"
+    },
+    {
+      "assetId": "kit_street_lamp",
+      "position": [
+        -12,
+        0,
+        -36.8
+      ],
+      "rotationY": -1.751,
+      "solid": true,
+      "note": "street lamp 5"
+    },
+    {
       "assetId": "kit_bench",
       "position": [
         8.2,
         0,
-        -26.3
+        -23.2
       ],
       "rotationY": 1.351,
       "solid": true,
@@ -322,7 +344,7 @@
       "position": [
         -7.4,
         0,
-        -31.3
+        -28.2
       ],
       "rotationY": 0.3,
       "solid": true,
@@ -333,7 +355,7 @@
       "position": [
         -8.2,
         0,
-        -37.3
+        -30.6
       ],
       "rotationY": -1.791,
       "solid": true,
@@ -344,11 +366,22 @@
       "position": [
         7.4,
         0,
-        -42.3
+        -35.6
       ],
       "rotationY": -0.3,
       "solid": true,
       "note": "planter 2"
+    },
+    {
+      "assetId": "kit_planter_cypress",
+      "position": [
+        -7.4,
+        0,
+        -42.9
+      ],
+      "rotationY": 0.3,
+      "solid": true,
+      "note": "planter 3"
     },
     {
       "assetId": "kit_market_stall",
@@ -462,63 +495,63 @@
     [
       {
         "x": -11.5,
-        "z": -37
+        "z": -28
       },
       {
         "x": -6,
-        "z": -40.5
+        "z": -31.5
       },
       {
         "x": -10,
-        "z": -45
+        "z": -36
       }
     ],
     [
       {
         "x": 12,
-        "z": -51
+        "z": -24
       },
       {
         "x": 16.5,
-        "z": -55.5
+        "z": -28.5
       }
     ],
     [
       {
         "x": -13,
-        "z": -66
+        "z": -39
       },
       {
         "x": -7.5,
-        "z": -70
+        "z": -43
       },
       {
         "x": -12.5,
-        "z": -74.5
+        "z": -47.5
       }
     ],
     [
       {
         "x": 13,
-        "z": -30
+        "z": -3
       },
       {
         "x": 17,
-        "z": -35
+        "z": -8
       }
     ],
     [
       {
         "x": 13,
-        "z": -73
+        "z": -32
       },
       {
         "x": 17,
-        "z": -77
+        "z": -36
       },
       {
         "x": 12.5,
-        "z": -81
+        "z": -40
       }
     ]
   ],

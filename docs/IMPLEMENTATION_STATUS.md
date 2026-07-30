@@ -114,7 +114,7 @@ app/src/
 npm run lint       → temiz
 npm run typecheck  → temiz (strict, noUncheckedIndexedAccess, `any` yok)
 npm run content:check → 81 il, 249 durak, 84 soru; 1413 kanonik dizgi baseline ile eşleşti
-npm test           → 16 dosya / 313 test geçti (logic + jsdom ui)
+npm test           → 16 dosya / 314 test geçti (logic + jsdom ui)
 npm run build      → başarılı, 4 rota
 npm start          → /map ve /city/istanbul 200
 ```
@@ -658,6 +658,22 @@ Yalnız dosya, boyut ve tempo farklı: at 1,15 m/s (kedi 0,55), daha yavaş dön
 rotaları yürüyüş hattından daha uzak.
 
 At da kedinin 0,01 armature ölçeğiyle geldi, 1,6 cm boyunda çizilecekti; motor ölçüp büyütüyor.
+
+## 6g. Atlar büyüdü, Derinkuyu geldi
+
+Atlar 1,6 m'de tay gibi duruyordu; **2,4 m** oldu — Keloğlan'dan uzun ve boyundan uzun,
+yandan bakınca at gibi (D-110).
+
+Büyüyünce rotaları kırıldı ve çözüm daha büyük pay değil, **ayrı rota** oldu.
+Kedi mobilyanın arasından kısa turlar atar, at dış şeritte uzun bir hat yürür.
+Tek rota kümesi ikisine yetmiyordu: at büyüdüğünde beş rotadan biri kalmıştı.
+Artık atın 20-60 metrelik iki-üç koşusu var, kedinin 6-13 metrelik beş turu.
+
+**Derinkuyu taş kapısı** 3. durakta: 3,9 × 3,0 × 3,8 m, 19,70 MB'dan **1,62 MB**'a (D-111).
+Halkası yer tutucudan büyük olduğu için bir lambayı dışarı itti; lamba yoğunluğu artırıldı
+ve lambalar merkez hattından uzaklaştırıldı.
+
+**Nevşehir'de beş duraktan dördü teslim edildi.** Kalan tek şey halı tezgâhı.
 
 ## 5. Bilinen sınırlar
 

@@ -168,7 +168,8 @@ describe('a child completes Nevşehir', () => {
   it('has a street even though nobody dressed it by hand', () => {
     expect(scene.props.length).toBeGreaterThan(5);
     expect(scene.trees.length).toBeGreaterThan(8);
-    expect(scene.catRoutes.length).toBeGreaterThanOrEqual(3);
+    // Horses walk fewer, longer runs than cats do.
+    expect(scene.catRoutes.length).toBeGreaterThanOrEqual(2);
   });
 
   it('can be walked end to end and finished', () => {

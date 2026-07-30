@@ -225,7 +225,12 @@ function streetProps(cityId, stopPositions, geometry) {
 
   // A lamp every eighteen metres, alternating sides, angles nudged so the row
   // does not read as a fence.
-  const lampCount = Math.max(3, Math.round(walkLength / 18));
+  /**
+   * Enough candidates that the ring filter can drop a few and still leave a lit
+   * street. A compact city has bigger objects relative to its length, so more of
+   * its placements land inside a trigger ring.
+   */
+  const lampCount = Math.max(5, Math.round(walkLength / 14));
   for (let i = 0; i < lampCount; i += 1) {
     const t = (i + 0.5) / lampCount;
     const z = firstZ - walkLength * t;
@@ -233,7 +238,8 @@ function streetProps(cityId, stopPositions, geometry) {
     candidates.push(
       prop(
         'kit_street_lamp',
-        side * (9 + (i % 3)),
+        // Further out than the benches, where the rings reach less often.
+        side * (11 + (i % 3)),
         z,
         side * (Math.PI / 2) + (i % 2 ? 0.12 : -0.18),
         `street lamp ${i + 1}`,
@@ -295,43 +301,80 @@ function streetProps(cityId, stopPositions, geometry) {
  * rather than by eye. A cat that wanders into a stop's ring stands in the shot
  * the moment that stop opens.
  */
-function catRoutes(stopPositions, geometry, animal) {
-  const candidates = [
-    [
-      { x: -11.5, z: -37 },
-      { x: -6.0, z: -40.5 },
-      { x: -10.0, z: -45 },
-    ],
-    [
-      { x: 12.0, z: -51 },
-      { x: 16.5, z: -55.5 },
-    ],
-    [
-      { x: -13.0, z: -66 },
-      { x: -7.5, z: -70 },
-      { x: -12.5, z: -74.5 },
-    ],
-    [
-      { x: 13.0, z: -30 },
-      { x: 17.0, z: -35 },
-    ],
-    [
-      { x: 13.0, z: -73 },
-      { x: 17.0, z: -77 },
-      { x: 12.5, z: -81 },
-    ],
-  ];
+/**
+ * Where the animals walk.
+ *
+ * A cat and a horse want different streets. A cat picks its way between the
+ * furniture in short tight beats near the pavement; a horse walks a long line
+ * along the open edge and needs three metres of clearance to do it. Generating
+ * one set of routes for both left the horses with almost nowhere to go once
+ * they grew to their proper size.
+ */
+function animalRoutes(stopPositions, geometry, animal, metrics) {
+  const firstZ = stopPositions[0]?.[2] ?? -20;
+  const lastZ = stopPositions[stopPositions.length - 1]?.[2] ?? -70;
+  const span = Math.abs(lastZ - firstZ);
+  const edge = metrics.halfWidth;
 
-  // A horse is two metres long and needs more room than a cat to turn.
-  const margin = animal === 'horse' ? 2.5 : 0;
-  const clear = (point) =>
-    Math.abs(point.x) > 4 + margin &&
+  const clearOfStops = (point, margin) =>
     stopPositions.every((stop, index) => {
       const gap = Math.hypot(point.x - stop[0], point.z - stop[2]);
       return gap > geometry[index].triggerRadius + margin;
     });
 
-  return candidates.filter((route) => route.every(clear));
+  if (animal === 'horse') {
+    /**
+     * Long runs down the outer edges, where a three metre animal has room.
+     * Horses graze at the edge of a settlement, not between its market stalls.
+     */
+    const lane = edge - 3.5;
+    const routes = [
+      [
+        { x: -lane, z: firstZ + 6 },
+        { x: -lane + 2, z: firstZ - span * 0.45 },
+        { x: -lane, z: firstZ - span * 0.9 },
+      ],
+      [
+        { x: lane, z: firstZ - span * 0.25 },
+        { x: lane - 2, z: lastZ - 10 },
+      ],
+      [
+        { x: -lane + 1, z: lastZ - 6 },
+        { x: lane - 4, z: lastZ - 18 },
+      ],
+    ];
+    return routes.filter((route) => route.every((point) => clearOfStops(point, 3)));
+  }
+
+  // Cats: short beats, tucked in near the pavement.
+  const candidates = [
+    [
+      { x: -11.5, z: firstZ - 11 },
+      { x: -6.0, z: firstZ - 14.5 },
+      { x: -10.0, z: firstZ - 19 },
+    ],
+    [
+      { x: 12.0, z: firstZ - 7 },
+      { x: 16.5, z: firstZ - 11.5 },
+    ],
+    [
+      { x: -13.0, z: firstZ - 22 },
+      { x: -7.5, z: firstZ - 26 },
+      { x: -12.5, z: firstZ - 30.5 },
+    ],
+    [
+      { x: 13.0, z: firstZ + 14 },
+      { x: 17.0, z: firstZ + 9 },
+    ],
+    [
+      { x: 13.0, z: lastZ + 7 },
+      { x: 17.0, z: lastZ + 3 },
+      { x: 12.5, z: lastZ - 1 },
+    ],
+  ];
+  return candidates.filter((route) =>
+    route.every((point) => Math.abs(point.x) > 4 && clearOfStops(point, 0)),
+  );
 }
 
 /**
@@ -821,7 +864,12 @@ function buildScene(canonical) {
      */
     backdrop: cityBackdrop(canonical.id, stopPositions, metrics),
     animal: REGION_ANIMAL[canonical.regionId] ?? 'cat',
-    catRoutes: catRoutes(stopPositions, geometry, REGION_ANIMAL[canonical.regionId] ?? 'cat'),
+    catRoutes: animalRoutes(
+      stopPositions,
+      geometry,
+      REGION_ANIMAL[canonical.regionId] ?? 'cat',
+      metrics,
+    ),
     npcs: featuredNpcs(canonical.id, stopPositions, geometry),
     trees: streetTrees(canonical.id, stopPositions, geometry, canonical.regionId),
     /**

@@ -75,7 +75,7 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
      * Skinned, 27 joints, and authored with the same 0.01 armature scale as the
      * cat, so it renders about 1.6 cm tall until the engine measures it.
      */
-    dimensions: [0.48, 1.6, 1.98],
+    dimensions: [0.72, 2.4, 2.97],
     label: 'Anatolian horse',
     color: '#8B5A3C',
     placeholder: 'box',
@@ -152,6 +152,22 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
     placeholder: 'box',
     scaleToBrief: true,
     notes: 'Same source as the stop-1 cluster, dressed as horizon.',
+  },
+  {
+    id: 'city_nevsehir_underground_stone_door',
+    modelUrl: '/assets/city/city_nevsehir_underground_stone_door.glb',
+    checksum: 'f635ac91b1bdf0f4f811847b5177212037f621efc401ff7e6baa4e64d0305075',
+    triangles: 10_333,
+    transferBytes: 1697396,
+    // Stop 3, so child-scale: something to walk up to and stand beside.
+    dimensions: [3.9, 3.0, 3.82],
+    label: 'Derinkuyu stone door',
+    color: '#C6B393',
+    placeholder: 'box',
+    scaleToBrief: true,
+    notes:
+      'Delivered 19.70 MB with 4096 px maps; recompressed to 2.4 MB. Kept ' +
+      'double-sided — the millstone disc has thin carved edges.',
   },
   {
     id: 'city_nevsehir_valley',

@@ -1369,3 +1369,33 @@ invisible for the first minute and then a jump.
 `balloonOffsetAt` is pure, so "is the sky full when a child arrives" is a test
 rather than something to sit and watch for.
 
+## D-110 — Horses are 2.4 m, and they get their own routes (30 Jul 2026)
+
+At 1.6 m the horses read as ponies on screen. Raised by half again to 2.4 m tall
+and just under three metres long, which is taller than the guide and clearly
+longer than it is tall — what a horse looks like from beside it.
+
+Growing them broke their routes, and the fix was not a bigger margin. A cat and a
+horse want different streets: a cat picks its way between the furniture in short
+tight beats near the pavement, a horse walks a long line along the open edge.
+Generating one set of routes for both left the horses with almost nowhere to go
+once they were their proper size — one surviving route out of five.
+
+They now have their own: two or three runs of twenty to sixty metres down the
+outer lanes, against the cat's five beats of six to thirteen. Horses graze at the
+edge of a settlement, not between its market stalls.
+
+## D-111 — Derinkuyu's stone door (30 Jul 2026)
+
+Stop 3 of Nevşehir, at 3.9 by 3.0 by 3.8 m — child-scale, something to walk up
+to. 19.70 MB down to 1.62 MB, double-sided kept for the carved edges of the
+millstone disc.
+
+Its trigger ring is larger than the placeholder's was, which pushed a street lamp
+out of the dressing. Lamp density went up and lamps moved further from the
+centreline to compensate: a compact city has larger objects relative to its
+length, so more of its placements land inside a ring and the generator has to
+offer more candidates than it needs.
+
+Nevşehir now has four of five stops delivered. Only the carpet loom is left.
+

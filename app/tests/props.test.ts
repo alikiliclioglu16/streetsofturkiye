@@ -382,11 +382,25 @@ describe('street cats', () => {
     expect(nevsehir.animal).toBe('horse');
     expect(nevsehir.catModelUrl).toBe('/assets/props/kit_anatolian_horse.glb');
 
-    for (const cityId of ['istanbul', 'nevsehir', 'gaziantep']) {
+    /**
+     * Cats get several short beats; horses get fewer, longer runs. A three
+     * metre animal picking its way between market stalls is not a horse.
+     */
+    for (const cityId of ['istanbul', 'gaziantep']) {
       const scene = buildScene(loadComposedCity(cityId), 'high');
       expect(scene.catRoutes.length, cityId).toBeGreaterThanOrEqual(3);
       expect(scene.catRoutes.length, cityId).toBeLessThanOrEqual(6);
     }
+    expect(nevsehir.catRoutes.length).toBeGreaterThanOrEqual(2);
+
+    const routeLength = (route: readonly { x: number; z: number }[]) =>
+      route.slice(1).reduce(
+        (total, point, i) => total + Math.hypot(point.x - route[i]!.x, point.z - route[i]!.z),
+        0,
+      );
+    const longestHorse = Math.max(...nevsehir.catRoutes.map(routeLength));
+    const longestCat = Math.max(...istanbul.catRoutes.map(routeLength));
+    expect(longestHorse).toBeGreaterThan(longestCat * 2);
   });
 
   it('walks a horse at a horse pace and a cat at a cat pace', async () => {
@@ -413,14 +427,27 @@ describe('street cats', () => {
     );
   });
 
-  it('gives a horse the room a horse needs', () => {
-    const nevsehir = buildScene(loadComposedCity('nevsehir'), 'high');
-    for (const route of nevsehir.catRoutes) {
+  it('walks horses along the open edge, clear of every stop', () => {
+    const scene = buildScene(loadComposedCity('nevsehir'), 'high');
+    for (const route of scene.catRoutes) {
       for (const point of route) {
-        // Two metres of animal wants more clearance than a cat does.
+        // Horses graze at the edge of a settlement, not between its stalls.
         expect(Math.abs(point.x)).toBeGreaterThan(6);
+        for (const hotspot of scene.hotspots) {
+          const gap = Math.hypot(point.x - hotspot.position[0], point.z - hotspot.position[2]);
+          expect(gap).toBeGreaterThan(hotspot.triggerRadius + 2);
+        }
       }
     }
+  });
+
+  it('makes the horse read as a horse beside the guide', () => {
+    const horse = deliveredProps().find((prop) => prop.id === 'kit_anatolian_horse')!;
+    // Raised by half again from 1.6 m: at that size it read as a pony on screen.
+    expect(horse.dimensions[1]).toBeCloseTo(2.4, 2);
+    // Taller than the 1.7 m guide, and clearly longer than it is tall.
+    expect(horse.dimensions[1]).toBeGreaterThan(1.7);
+    expect(horse.dimensions[2]).toBeGreaterThan(horse.dimensions[1]);
   });
 
   it('scales the cat to its brief, because the rig is not at world scale', () => {
