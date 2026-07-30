@@ -410,5 +410,50 @@ export const MANIFEST_ENTRIES: readonly ManifestEntry[] = [
     "textureBudget": "1K",
     "fallbackShape": "box",
     "notes": "Kars goose; flock animal, walk cycle, no root motion"
+  },
+  {
+    "id": "collectible_kars_stone_rubbing",
+    "kind": "model",
+    "tier": "collectible",
+    "status": "briefed",
+    "dimensions": [
+      0.22,
+      0.3,
+      0.05
+    ],
+    "triangleBudget": 3000,
+    "textureBudget": "1K",
+    "fallbackShape": "plane",
+    "notes": "Paper rubbing of an interlace carving; slight curl"
+  },
+  {
+    "id": "collectible_kars_express_ticket",
+    "kind": "model",
+    "tier": "collectible",
+    "status": "briefed",
+    "dimensions": [
+      0.14,
+      0.09,
+      0.05
+    ],
+    "triangleBudget": 2000,
+    "textureBudget": "1K",
+    "fallbackShape": "plane",
+    "notes": "Card ticket, punched, no legible text"
+  },
+  {
+    "id": "collectible_kars_gravyer_wedge",
+    "kind": "model",
+    "tier": "collectible",
+    "status": "briefed",
+    "dimensions": [
+      0.2,
+      0.16,
+      0.14
+    ],
+    "triangleBudget": 5000,
+    "textureBudget": "1K",
+    "fallbackShape": "box",
+    "notes": "Wedge with visible round holes on the cut faces"
   }
 ] as const;

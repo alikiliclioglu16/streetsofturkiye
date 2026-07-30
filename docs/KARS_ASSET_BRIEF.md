@@ -10,6 +10,35 @@ horizon is a placeholder.
 
 Three stops and one question, the same shape as Gaziantep. The street is 28 m.
 
+---
+
+## The whole list, in the order I would draw it
+
+Eleven files. **Part A first** — a street with placeholder stops and a real
+horizon reads as a place under construction; real stops and no horizon reads as a
+diorama.
+
+| # | Asset id | What it is | Size (w × h × d) | Base colour |
+|---|---|---|---|---|
+| 1 | `city_kars_ani_church_row` | one roofless church shell | 9 × 11 × 9 m | 2048 |
+| 2 | `city_kars_ani_cathedral` | the cathedral, standing apart | 16 × 17 × 22 m | 2048 |
+| 3 | `city_kars_ani_walls` | walls and the Arslan Gate | 44 × 14 × 7 m | 2048 |
+| 4 | `city_kars_ani_gorge` | the Arpaçay gorge | 60 × 12 × 40 m | 2048 |
+| 5 | `city_kars_ani_carved_doorway` | **stop 1** — carving, rubbing half taken | 2.6 × 3.2 × 1.0 m | 2048 |
+| 6 | `city_kars_eastern_express_platform` | **stop 2** — platform, nose of the engine | 6.0 × 3.4 × 2.6 m | 1024 |
+| 7 | `city_kars_gravyer_stall` | **stop 3** — cheese wheels, one cut | 2.2 × 1.6 × 1.1 m | 1024 |
+| 8 | `kit_kars_goose` | the animal, **rigged, with a walk** | 0.35 × 0.85 × 0.75 m | 1024 |
+| 9 | `collectible_kars_stone_rubbing` | reward 1 | 0.22 × 0.30 × 0.02 m | 1024 |
+| 10 | `collectible_kars_express_ticket` | reward 2 | 0.14 × 0.09 × 0.01 m | 1024 |
+| 11 | `collectible_kars_gravyer_wedge` | reward 3 | 0.20 × 0.16 × 0.14 m | 1024 |
+
+Normal and roughness always one step below the base colour. Sizes are what the
+registry will record and what will draw the model, so they are the sizes to aim
+at — but do not fight the exporter over them. Deliver at whatever scale comes
+out, say what it is, and it is re-authored here in one command.
+
+The music is done: *Kars Yaylası*.
+
 **A note on where this is set.** The environment is Ani, the ruined city on the
 gorge. The three stops are Kars the province: the ruins, the Eastern Express and
 the gravyer cheese. Those are not all in the same place in life — Ani is forty-
@@ -248,6 +277,78 @@ holes are what gravyer *is*, and a child cannot see them in an uncut wheel.
 
 ---
 
+# Part C — the goose
+
+## C1 · Kars goose — `kit_kars_goose`
+
+Kars is known for its geese, and this is the third animal in the project. It is
+the only file on this list that has to be **rigged and animated**.
+
+> A large white domestic goose standing on short orange legs: heavy rounded
+> body, long curved neck held upright, orange bill, small dark eye, wings folded
+> against the body with the feather edges just visible.
+>
+> Stylised low-poly game asset, soft rounded edges, warm hand-painted texture,
+> bright children's storybook palette, no text, no logos.
+
+| | |
+|---|---|
+| Target size | **0.35 m wide × 0.85 m tall × 0.75 m long** |
+| Triangles | 4,000–8,000 |
+| Textures | base colour **1024**, others **512** |
+| Rig | skinned, with a **walk** clip |
+
+Three things about the animation, each of which cost this project time on the cat
+and then again on the horse.
+
+**One clip, named `Walk`.** The engine matches clips by name from a whitelist.
+
+**No root motion in the clip.** The application moves the goose through the
+world; the clip moves its legs. A walk cycle that also translates the root makes
+the feet skate, and every animal here follows this rule.
+
+**Deliver it standing on y = 0 at its real size if you can.** Both other animals
+arrived with a 0.01 armature and rendered at centimetres until the engine
+measured them.
+
+A waddle would be worth more here than on either of the others — it is most of
+what a goose *is* from behind. If the rig can carry a side-to-side roll on the
+body through the walk, put it in.
+
+---
+
+# Part D — the three rewards
+
+Small, held up close, and seen against the completion panel rather than in the
+street. **1024 colour maps**; they are 20 cm objects.
+
+## D1 · Ani stone rubbing — `collectible_kars_stone_rubbing`
+
+> A sheet of cream paper with a wax rubbing taken from carved stone: the dark
+> interlaced geometric pattern shows where the crayon has passed, the edges are
+> uneven, and one corner curls.
+
+**0.22 × 0.30 × 0.02 m.** Nearly flat, so leave `doubleSided` on — a curling
+sheet of paper is exactly the thin thing that culling ruins.
+
+## D2 · Eastern Express ticket — `collectible_kars_express_ticket`
+
+> A small stiff card railway ticket in pale buff and faded red, with a punched
+> hole through one end, printed rules and lines, and worn corners.
+
+**0.14 × 0.09 × 0.01 m.** **No legible text.** Lines and blocks where writing
+would be — a baked-in word is the one thing on this that cannot be translated.
+
+## D3 · Wedge of gravyer — `collectible_kars_gravyer_wedge`
+
+> A wedge cut from a wheel of pale golden gruyère, the rind darker on the curved
+> outer face, with round holes of different sizes showing on both cut faces.
+
+**0.20 × 0.16 × 0.14 m.** The holes are the whole point and they must read at
+this size — fewer and larger beats many and small.
+
+---
+
 ## Rules for every file
 
 Each of these cost this project time.
@@ -280,10 +381,6 @@ desert had a bazaar in it.
 
 ## If you want one more thing after these
 
-**Music.** Kars is silent. Anything from the region; the file converts to Opus
-and lands at about 1.8 MB. The engine will not lend it another city's.
-
-**An animal.** The region table gives Kars horses, which is defensible — but Kars
-is known for its geese, and a goose is a different silhouette from anything the
-project has. It would need its own model and its own walk, the way the horse
-needed routes the cat's did not fit.
+**A hammering, a train whistle, a goose.** The audio channel for recorded sound
+exists and is empty. None of it is needed for Kars to work, and all of it would
+be worth more than another model.

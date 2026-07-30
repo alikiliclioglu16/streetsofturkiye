@@ -36,7 +36,7 @@ Fiber 9, Drei 10, Zustand 5, Zod 4, Vitest 4.
 | Ground | cobblestone | red sand | red sand | steppe |
 | Animal | 5 cats | 3 horses | 5 cats | geese (placeholder) |
 | Horizon | facades, sea, ferry, Maiden's Tower | chimney ridges, valley rim | stone houses, castle, olive groves, bazaar gate | **all placeholder** — Ani shells, cathedral, walls, gorge |
-| Music | *Üsküdar'a Gider İken* | *Gökyüzü Balonları* | *Sarı Çoraplı Yol* | **none yet** |
+| Music | *Üsküdar'a Gider İken* | *Gökyüzü Balonları* | *Sarı Çoraplı Yol* | *Kars Yaylası* |
 | Balloons | no | **yes** | no | no |
 
 Three cities are finished end to end. **Kars is open and unbuilt** — walkable,
@@ -254,6 +254,12 @@ went live with placeholder stops, and both immediately exposed code that assumed
 the shape of the cities it had already seen. Gaziantep's three stops broke the
 NPC placer, which required four (D-115).
 
+**A list or a count in a test is not a test.** Four have gone stale in two days:
+the audio directory written out as filenames, the manifest row count, "only
+İstanbul has props of its own", "playable is exactly the pilot". Each was true
+the day it was written and said nothing about whether anything worked. Write the
+rule underneath it instead — it survives the next province (D-127).
+
 **The most valuable tests simulate a whole visit** using the running game's own
 functions. `playthrough.test.ts` found that the route markers led into a
 building (D-073) and that the spawn had drifted inside a mosque.
@@ -321,11 +327,10 @@ cities — all of them towards the size the layout already assumed. The maths is
 tested; what is not tested is whether a 17 m chimney ridge looks right behind
 Nevşehir. This is the one change in the project that most needs a pair of eyes.
 
-**3. Kars's art.** The city is open and every model in it is a placeholder. The
-brief is written: four horizon pieces (church shell, cathedral, walls, gorge) and
-three stops (a carved doorway with a rubbing half taken, a platform with the nose
-of the Eastern Express at the end of it, a gravyer stall with one wheel cut). Then
-a theme.
+**3. Kars's art.** The city is open, it has its theme, and every model in it is a
+placeholder. `docs/KARS_ASSET_BRIEF.md` lists all eleven files in the order to
+draw them: four for the horizon, three stops, the goose, three rewards. The goose
+is the only one that has to be rigged.
 
 **4. Then a fifth city.** Everything needed is in place: the shared kit, three
 regional grounds, the planting table, the animal table, the layout that handles

@@ -25,3 +25,6 @@ collectible_gaziantep_mosaic_piece,model,collectible,briefed,0.18x0.04x0.18,3000
 collectible_gaziantep_baklava,model,collectible,briefed,0.16x0.16x0.08,5000,1K,box,Clean layered cross-section
 collectible_gaziantep_copper_pot,model,collectible,briefed,0.20x0.20x0.22,6000,1K,cylinder,Hammered copper surface
 kit_kars_goose,model,midground,briefed,0.35x0.75x0.85,6000,1K,box,"Kars goose; flock animal, walk cycle, no root motion"
+collectible_kars_stone_rubbing,model,collectible,briefed,0.22x0.02x0.30,3000,1K,plane,"Paper rubbing of an interlace carving; slight curl"
+collectible_kars_express_ticket,model,collectible,briefed,0.14x0.01x0.09,2000,1K,plane,"Card ticket, punched, no legible text"
+collectible_kars_gravyer_wedge,model,collectible,briefed,0.20x0.14x0.16,5000,1K,box,"Wedge with visible round holes on the cut faces"

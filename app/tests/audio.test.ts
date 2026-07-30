@@ -80,13 +80,22 @@ describe('audio channels', () => {
     const dir = path.resolve(process.cwd(), 'public/assets/audio');
     const files = readdirSync(dir);
 
-    // Interface cues and the ambience bed are oscillators and filtered noise,
-    // so the only files here are the city themes — one per playable city.
-    expect(files.sort()).toEqual([
-      'gaziantep_theme.webm',
-      'istanbul_theme.webm',
-      'nevsehir_theme.webm',
-    ]);
+    /**
+     * Interface cues and the ambience bed are oscillators and filtered noise,
+     * so the only files here are city themes.
+     *
+     * Not a list of filenames. That was written when there were two, failed
+     * when Gaziantep got a theme and failed again when Kars did, and each time
+     * it recorded the day it was written rather than the rule. The rule is that
+     * nothing lives in this directory except a theme belonging to a city that
+     * exists.
+     */
+    const { PLAYABLE_CITY_IDS } = await import('@/content/loaders/loadCity');
+    expect(files.length).toBeGreaterThan(0);
+    for (const file of files) {
+      const cityId = file.replace('_theme.webm', '');
+      expect(PLAYABLE_CITY_IDS as readonly string[], file).toContain(cityId);
+    }
     for (const file of files) {
       // Opus in WebM, streamed rather than decoded into memory.
       expect(file.endsWith('.webm'), file).toBe(true);

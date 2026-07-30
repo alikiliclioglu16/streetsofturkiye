@@ -1751,3 +1751,29 @@ One more count came out of a test while doing this: the manifest was asserted to
 have exactly twenty-five rows. A number like that records the day it was written
 rather than a rule, and it fails every time a province is briefed. What is
 actually required is that the manifest has no duplicate rows.
+
+## D-127 — Kars has a theme, and lists in tests keep going stale (30 Jul 2026)
+
+*Kars Yaylası*, 4 minutes 5, converted to Opus in WebM at 1.87 MB — in line with
+İstanbul's 1.67, Nevşehir's 1.39 and Gaziantep's 1.85. Cover image and metadata
+stripped, as before.
+
+The three collectibles are briefed as manifest rows, so Kars now has every asset
+it needs named. Eleven files: four for the horizon, three stops, the goose and
+three rewards. `docs/KARS_ASSET_BRIEF.md` carries the whole list.
+
+**Three tests in two days have failed for the same reason**, and it is worth
+naming. Each held a literal list or count that was true on the day it was
+written:
+
+- the audio directory contents, written as two filenames, then three
+- the manifest row count, written as twenty-five
+- "only İstanbul has props of its own"
+- "playable is exactly the pilot"
+
+None of them was testing anything. A count of rows does not say the manifest is
+correct; it says nobody has added a row. The rules underneath were: nothing lives
+in the audio directory but a theme belonging to a city that exists; the manifest
+has no duplicate rows; a `city_` prop belongs to exactly one city; no pilot city
+is closed. Each of those survives a fifth province. The literals did not survive
+a fourth.

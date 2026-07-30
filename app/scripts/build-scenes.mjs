@@ -139,6 +139,7 @@ const CITY_THEMES = {
   istanbul: '/assets/audio/istanbul_theme.webm',
   nevsehir: '/assets/audio/nevsehir_theme.webm',
   gaziantep: '/assets/audio/gaziantep_theme.webm',
+  kars: '/assets/audio/kars_theme.webm',
 };
 
 /**
