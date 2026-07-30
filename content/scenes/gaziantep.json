@@ -489,7 +489,162 @@
   ],
   "tramLine": null,
   "water": null,
-  "backdrop": [],
+  "backdrop": [
+    {
+      "assetId": "city_gaziantep_stone_houses",
+      "position": [
+        -21,
+        0,
+        -5
+      ],
+      "rotationY": 1.5707963267948966,
+      "solid": false,
+      "note": "stone houses west 1"
+    },
+    {
+      "assetId": "city_gaziantep_stone_houses",
+      "position": [
+        -21,
+        0,
+        -23
+      ],
+      "rotationY": 1.5707963267948966,
+      "solid": false,
+      "note": "stone houses west 2"
+    },
+    {
+      "assetId": "city_gaziantep_stone_houses",
+      "position": [
+        -21,
+        0,
+        -41
+      ],
+      "rotationY": 1.5707963267948966,
+      "solid": false,
+      "note": "stone houses west 3"
+    },
+    {
+      "assetId": "city_gaziantep_stone_houses",
+      "position": [
+        -21,
+        0,
+        -59
+      ],
+      "rotationY": 1.5707963267948966,
+      "solid": false,
+      "note": "stone houses west 4"
+    },
+    {
+      "assetId": "city_gaziantep_stone_houses",
+      "position": [
+        21,
+        0,
+        -5
+      ],
+      "rotationY": -1.5707963267948966,
+      "solid": false,
+      "note": "stone houses east 1"
+    },
+    {
+      "assetId": "city_gaziantep_stone_houses",
+      "position": [
+        21,
+        0,
+        -23
+      ],
+      "rotationY": -1.5707963267948966,
+      "solid": false,
+      "note": "stone houses east 2"
+    },
+    {
+      "assetId": "city_gaziantep_stone_houses",
+      "position": [
+        21,
+        0,
+        -41
+      ],
+      "rotationY": -1.5707963267948966,
+      "solid": false,
+      "note": "stone houses east 3"
+    },
+    {
+      "assetId": "city_gaziantep_stone_houses",
+      "position": [
+        21,
+        0,
+        -59
+      ],
+      "rotationY": -1.5707963267948966,
+      "solid": false,
+      "note": "stone houses east 4"
+    },
+    {
+      "assetId": "city_gaziantep_castle",
+      "position": [
+        0,
+        0,
+        44.5
+      ],
+      "rotationY": 3.141592653589793,
+      "solid": true,
+      "note": "the castle on its mound, behind the square"
+    },
+    {
+      "assetId": "kit_olive_grove",
+      "position": [
+        -16,
+        0,
+        -71
+      ],
+      "rotationY": 0,
+      "solid": false,
+      "note": "olive grove 1"
+    },
+    {
+      "assetId": "kit_olive_grove",
+      "position": [
+        15,
+        0,
+        -79
+      ],
+      "rotationY": 1.1,
+      "solid": false,
+      "note": "olive grove 2"
+    },
+    {
+      "assetId": "kit_olive_grove",
+      "position": [
+        -4,
+        0,
+        -93
+      ],
+      "rotationY": 2.2,
+      "solid": false,
+      "note": "olive grove 3"
+    },
+    {
+      "assetId": "kit_olive_grove",
+      "position": [
+        -30,
+        0,
+        -21
+      ],
+      "rotationY": 3.3,
+      "solid": false,
+      "note": "olive grove 4"
+    },
+    {
+      "assetId": "kit_olive_grove",
+      "position": [
+        30,
+        0,
+        -33.8
+      ],
+      "rotationY": 4.4,
+      "solid": false,
+      "note": "olive grove 5"
+    }
+  ],
   "animal": "cat",
   "catRoutes": [
     [

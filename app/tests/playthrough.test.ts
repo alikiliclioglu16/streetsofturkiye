@@ -340,6 +340,53 @@ describe('a child completes Gaziantep', () => {
     expect(scene.groundSurface).toBe('redsand');
     expect(scene.animal).toBe('cat');
     expect(scene.props.every((prop) => !prop.asset.entry.id.startsWith('city_'))).toBe(true);
-    expect(scene.backdrop).toEqual([]);
+  });
+
+  it('answers its four directions its own way', () => {
+    /**
+     * A walled stone city on a plain: houses to the sides, a castle on its mound
+     * behind, olive groves running out in front. İstanbul answers the front with
+     * sea and Nevşehir with a valley; none of the three borrows another's.
+     */
+    const ids = scene.backdrop.map((prop) => prop.asset.entry.id);
+    expect(ids).toContain('city_gaziantep_stone_houses');
+    expect(ids).toContain('city_gaziantep_castle');
+    expect(ids).toContain('kit_olive_grove');
+    expect(ids.some((id) => /istanbul|nevsehir/.test(id))).toBe(false);
+
+    const houses = scene.backdrop.filter(
+      (prop) => prop.asset.entry.id === 'city_gaziantep_stone_houses',
+    );
+    const playHalfWidth = Math.max(...scene.bounds.map((corner) => Math.abs(corner[0])));
+    expect(houses.some((h) => h.position[0] < 0)).toBe(true);
+    expect(houses.some((h) => h.position[0] > 0)).toBe(true);
+    for (const house of houses) {
+      expect(Math.abs(house.position[0])).toBeGreaterThan(playHalfWidth);
+    }
+  });
+
+  it('stands the castle on the ground behind the child, not over them', () => {
+    const castle = scene.backdrop.find(
+      (prop) => prop.asset.entry.id === 'city_gaziantep_castle',
+    )!;
+    const spawnZ = city.spawn.position[2];
+    const halfDepth = castle.asset.entry.dimensions[2] / 2;
+
+    // Aligned by its near edge: a 37 m landscape centred on the boundary would
+    // put the child inside a castle, which is the mistake the valley made first.
+    expect(castle.position[2] - halfDepth).toBeGreaterThanOrEqual(
+      Math.max(...scene.bounds.map((corner) => corner[2])) - 0.5,
+    );
+    expect(castle.position[2]).toBeGreaterThan(spawnZ + 20);
+    expect(castle.solid).toBe(true);
+  });
+
+  it('leaves the olive groves walkable', () => {
+    // A grove is somewhere you would walk into, not a wall.
+    for (const grove of scene.backdrop.filter(
+      (prop) => prop.asset.entry.id === 'kit_olive_grove',
+    )) {
+      expect(grove.solid).toBe(false);
+    }
   });
 });

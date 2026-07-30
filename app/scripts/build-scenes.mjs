@@ -662,6 +662,57 @@ function cityBackdrop(cityId, stopPositions, metrics) {
     ];
   }
 
+  if (cityId === 'gaziantep') {
+    /**
+     * A walled stone city on a plain.
+     *
+     * Houses close both sides, the castle closes the back on its mound, and
+     * olive groves run out in front — the direction İstanbul answers with sea
+     * and Nevşehir with a valley.
+     */
+    const houseCount = 4;
+    return [
+      ...[-21, 21].flatMap((x) =>
+        Array.from({ length: houseCount }, (_, i) => {
+          const z = firstZ + 12 - ((span + 26) * i) / (houseCount - 1);
+          return wall(
+            'city_gaziantep_stone_houses',
+            x,
+            z,
+            `stone houses ${x < 0 ? 'west' : 'east'} ${i + 1}`,
+          );
+        }),
+      ),
+      {
+        /**
+         * The castle stands on its mound behind the square, aligned by its near
+         * edge so that a thirty-seven metre landscape does not sit over the
+         * spawn — the mistake the Nevşehir valley made first.
+         */
+        assetId: 'city_gaziantep_castle',
+        position: [0, 0, Math.round((behind + 37 / 2) * 10) / 10],
+        rotationY: Math.PI,
+        solid: true,
+        note: 'the castle on its mound, behind the square',
+      },
+      // Groves out in front and at the far corners: low, spreading, and never
+      // solid — an olive grove is somewhere you would walk into, not a wall.
+      ...[
+        [-16, lastZ - 26],
+        [15, lastZ - 34],
+        [-4, lastZ - 48],
+        [-30, firstZ - 4],
+        [30, firstZ - span * 0.6],
+      ].map(([x, z], i) => ({
+        assetId: 'kit_olive_grove',
+        position: [x, 0, Math.round(z * 10) / 10],
+        rotationY: Math.round(i * 1.1 * 1000) / 1000,
+        solid: false,
+        note: `olive grove ${i + 1}`,
+      })),
+    ];
+  }
+
   return [];
 }
 

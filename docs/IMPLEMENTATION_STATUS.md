@@ -114,7 +114,7 @@ app/src/
 npm run lint       → temiz
 npm run typecheck  → temiz (strict, noUncheckedIndexedAccess, `any` yok)
 npm run content:check → 81 il, 249 durak, 84 soru; 1413 kanonik dizgi baseline ile eşleşti
-npm test           → 16 dosya / 315 test geçti (logic + jsdom ui)
+npm test           → 16 dosya / 318 test geçti (logic + jsdom ui)
 npm run build      → başarılı, 4 rota
 npm start          → /map ve /city/istanbul 200
 ```
@@ -724,6 +724,19 @@ iskelesinin 9,45 metrelik halkasının yanında imkânsız. Aidiyet artık dura�
 göre ölçülüyor — halkanın dışında, ondan 4 metre içinde.
 
 **Üç pilot şehir de uçtan uca yürünebiliyor** ve her birinin tam tur simülasyonu var.
+
+## 7b. Gaziantep'in ufku
+
+Ovada surlu bir taş şehir (D-116): iki yanda sekiz sıra Antep taş evi, arkada höyüğü üstünde kale,
+önde beş zeytinlik — İstanbul'un denizle, Nevşehir'in vadiyle cevapladığı yön.
+
+Üç şehir, aynı dört yöne üç ayrı cevap, aralarında hiçbir alışveriş yok.
+
+Kale katı ve **yakın kenarından** hizalı — 37 metrelik manzarayı sınırın merkezine koymak
+çocuğu içine alır, bunu Nevşehir vadisi öğretmişti. Zeytinlikler katı değil.
+
+**Zeytinlik, zeytinlik olarak kaydedildi** (D-117). Brief antep fıstığı istemişti, gelen zeytin.
+İstenen adla kaydetmek, vapuru Beyoğlu cephesi diye koyan hatanın aynısı olurdu.
 
 ## 5. Bilinen sınırlar
 

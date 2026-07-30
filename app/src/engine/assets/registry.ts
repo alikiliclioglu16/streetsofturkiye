@@ -201,6 +201,58 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
     notes: 'Delivered 22.87 MB with 4096 px maps; recompressed to 0.9 MB.',
   },
   {
+    id: 'city_gaziantep_stone_houses',
+    modelUrl: '/assets/city/city_gaziantep_stone_houses.glb',
+    checksum: 'f01bc372d81705aa7b2cf1f7d243a603e9ae5b3e4ebe87141ca23d9fed78f61f',
+    triangles: 9_963,
+    transferBytes: 2767072,
+    dimensions: [20.7, 12.0, 12.0],
+    label: 'Antep stone houses',
+    color: '#CBB187',
+    placeholder: 'box',
+    scaleToBrief: true,
+    notes: 'Backdrop. Delivered 25.85 MB; recompressed to 2.64 MB.',
+  },
+  {
+    id: 'city_gaziantep_castle',
+    modelUrl: '/assets/city/city_gaziantep_castle.glb',
+    checksum: 'fd30cc479284a53df5529477a04bdaeae83b5eeca7e6b80484cc449759e5c06f',
+    triangles: 10_200,
+    transferBytes: 2678220,
+    /**
+     * What a child turns round to see, where İstanbul has Hagia Sophia and
+     * Nevşehir has its valley. The mound is most of the silhouette.
+     */
+    dimensions: [36.8, 18.0, 37.0],
+    label: 'Gaziantep Castle',
+    color: '#C4B091',
+    placeholder: 'box',
+    scaleToBrief: true,
+    notes: 'Backdrop. Delivered 23.93 MB; recompressed to 2.55 MB.',
+  },
+  {
+    id: 'kit_olive_grove',
+    modelUrl: '/assets/props/kit_olive_grove.glb',
+    checksum: 'cc261c1b70888a9d6ff1af090492cca68b634ed5fe38891cd39231a4aca5bfc5',
+    triangles: 10_139,
+    transferBytes: 1372048,
+    /**
+     * An olive grove, and named as one.
+     *
+     * The brief asked for pistachios, which is what Gaziantep's plain grows.
+     * What arrived is olives. Registering it under the name it was asked for
+     * would repeat the mistake that put a ferry in the scene as a row of
+     * Beyoğlu facades — so it is an olive grove, and olives grow across the
+     * south and west, which makes it a `kit_` asset rather than a Gaziantep one.
+     */
+    dimensions: [13.4, 5.0, 13.8],
+    label: 'Olive grove',
+    color: '#6F7A4B',
+    placeholder: 'box',
+    scaleToBrief: true,
+    notes: 'Delivered 31.64 MB; recompressed to 1.31 MB.',
+  },
+  {
     id: 'city_nevsehir_valley',
     modelUrl: '/assets/city/city_nevsehir_valley.glb',
     checksum: 'cc2b0d511773abd308a0aa6c7ce5ad8ddf5f4b5029680714699f10bb26e25820',

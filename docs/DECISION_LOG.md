@@ -1491,3 +1491,31 @@ the ring, within four metres of it — which is what the rule always meant.
 All three pilot cities are now walkable end to end, and each has a simulated
 playthrough that arrives, walks the markers, meets every stop and finishes.
 
+## D-116 — Gaziantep's horizon (30 Jul 2026)
+
+A walled stone city on a plain. Eight rows of Antep limestone houses close both
+sides, the castle stands on its mound behind the square, and five olive groves
+run out in front — the direction İstanbul answers with sea and Nevşehir with a
+valley.
+
+Three cities, three different answers to the same four directions, and nothing
+borrowed between them. A test holds that line.
+
+The castle is solid and aligned by its near edge, which is the rule the Nevşehir
+valley taught: a thirty-seven metre landscape centred on the boundary puts the
+child inside it. The groves are not solid — a grove is somewhere you would walk
+into, not a wall.
+
+## D-117 — The grove is olives, and is named as one (30 Jul 2026)
+
+The brief asked for a pistachio grove, because pistachios are what Gaziantep's
+plain grows. What arrived is an olive grove.
+
+It is registered as `kit_olive_grove`. Registering it under the name it was asked
+for would repeat exactly the mistake that put a ferry into İstanbul as a row of
+Beyoğlu facades — a file whose name and whose contents disagreed, believed
+because the name was plausible.
+
+Olives grow across the south and west, so it is a `kit_` asset rather than a
+Gaziantep one, and the next Aegean city already has its groves.
+
