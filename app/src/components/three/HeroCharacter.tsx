@@ -9,7 +9,6 @@ import { AnimationMixer, Box3, LoopOnce, LoopRepeat, Vector3 } from 'three';
 import { resolveAsset } from '@/engine/assets/registry';
 import { PlaceholderAsset } from '@/components/three/PlaceholderAsset';
 import { clipForState, isOneShot, transitionDuration, type HeroMotionState } from '@/engine/heroes/animation';
-import { draw, loadShuffleBag, saveShuffleBag, type ShuffleBag } from '@/engine/heroes/danceBag';
 import { requestHero } from '@/engine/heroes/heroCache';
 import {
   clipDurationCap,
@@ -126,7 +125,6 @@ function HeroModel({
 
   const currentClip = useRef<HeroClip | null>(null);
   const currentAction = useRef<AnimationAction | null>(null);
-  const bag = useRef<ShuffleBag>(loadShuffleBag(hero.id, hero.animation.danceClips));
   const restPosition = useRef(new Vector3());
   const restQuaternion = useRef<[number, number, number, number]>([0, 0, 0, 1]);
 
@@ -213,20 +211,12 @@ function HeroModel({
       currentClip.current,
     );
 
-    // A dance replay repeats the same state, so the token forces a re-run.
+    // A one-shot repeats the same state, so the token forces a re-run.
     if (desiredClip === currentClip.current && !isOneShot(desiredClip)) return;
 
-    const clipName = ((): string | null => {
-      if (desiredClip === 'dance') {
-        const result = draw(bag.current);
-        bag.current = result.bag;
-        saveShuffleBag(hero.id, result.bag);
-        return result.clip;
-      }
-      // Documented fallbacks live in the registry: agree falls back to wave,
-      // wave and talk to idle, run to walk to idle.
-      return resolveClipName(hero, desiredClip);
-    })();
+    // Documented fallbacks live in the registry: agree falls back to wave,
+    // wave and talk to idle, run to walk to idle.
+    const clipName = resolveClipName(hero, desiredClip);
 
     const clip = clipName ? clipsByName.get(clipName) : undefined;
     const next: AnimationAction | null = clip ? mixer.clipAction(clip) : null;

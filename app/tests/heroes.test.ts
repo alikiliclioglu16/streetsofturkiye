@@ -11,7 +11,6 @@ import {
   heroById,
   heroForGuide,
   inactiveHeroes,
-  isApprovedDance,
   isDelivered,
   isLocomotion,
   resolveClipName,
@@ -27,7 +26,6 @@ import {
   requestHero,
   resetHeroCache,
 } from '@/engine/heroes/heroCache';
-import { createShuffleBag, draw } from '@/engine/heroes/danceBag';
 import {
   BEAT_MS,
   FRAMING_MS,
@@ -179,8 +177,8 @@ describe('animation', () => {
     expect(clipForState({ speed: 0, interacting: true, performing: null })).toBe('talk');
     // A locked performance owns the screen and outranks everything.
     expect(
-      clipForState({ speed: 6, interacting: true, performing: 'dance', performanceLocked: true }),
-    ).toBe('dance');
+      clipForState({ speed: 6, interacting: true, performing: 'wave', performanceLocked: true }),
+    ).toBe('wave');
     // An unlocked beat is cosmetic: walking away cancels it.
     expect(clipForState({ speed: 6, interacting: false, performing: 'agree' })).toBe('run');
     expect(clipForState({ speed: 3, interacting: false, performing: 'agree' })).toBe('walk');
@@ -200,33 +198,8 @@ describe('animation', () => {
     expect(clipDurationCap(heroById('nasreddin-hoca'), 'Agree_Gesture')).toBeLessThanOrEqual(3);
   });
 
-  it('never repeats a celebration dance back to back', () => {
-    let bag = createShuffleBag(['Dance_01', 'Dance_02', 'Dance_03']);
-    let previous: string | null = null;
-    for (let i = 0; i < 200; i += 1) {
-      const result = draw(bag, i * 7919);
-      bag = result.bag;
-      expect(result.clip).not.toBeNull();
-      expect(result.clip, `repeat at draw ${i}`).not.toBe(previous);
-      previous = result.clip;
-    }
-  });
 
-  it('hands out every dance once before repeating any', () => {
-    let bag = createShuffleBag(['a', 'b', 'c']);
-    const drawn: string[] = [];
-    for (let i = 0; i < 3; i += 1) {
-      const result = draw(bag, i + 1);
-      bag = result.bag;
-      if (result.clip) drawn.push(result.clip);
-    }
-    expect(new Set(drawn).size).toBe(3);
-  });
 
-  it('copes with a hero that has no dance clips yet', () => {
-    const result = draw(createShuffleBag([]));
-    expect(result.clip).toBeNull();
-  });
 });
 
 describe('failure behaviour', () => {
@@ -300,7 +273,7 @@ describe('delivered Keloğlan model', () => {
     );
     expect(keloglan.checksum).toHaveLength(64);
     expect(keloglan.triangles).toBe(99_966);
-    expect(keloglan.transferBytes).toBe(4_612_368);
+    expect(keloglan.transferBytes).toBe(4_551_556);
     expect(keloglan.measuredHeightMeters).toBe(1.7);
   });
 
@@ -328,36 +301,17 @@ describe('delivered Keloğlan model', () => {
   });
 
   it('records all twelve delivered clips', () => {
-    expect(keloglan.animation.deliveredClips).toHaveLength(12);
-  });
-
-  it('approves exactly the four agreed celebration clips', () => {
-    expect(keloglan.animation.danceClips).toEqual([
-      'FunnyDancing_01',
-      'FunnyDancing_03',
-      'Hip_Hop_Dance',
-      'Joyful_Dance_with_Hand_Sway',
+    // Eight dance clips were stripped from the file on 30 Jul 2026 (D-113).
+    expect(keloglan.animation.deliveredClips).toEqual([
+      'Idle_11',
+      'Running',
+      'Talk_Passionately',
+      'Walking',
     ]);
   });
 
-  it('never selects an excluded clip, and records why each is excluded', () => {
-    const excluded = ['Love_You_Pop_Dance', 'ymca_dance', 'Breakdance_1990', 'Step_Hip_Hop_Dance'];
-    for (const clip of excluded) {
-      expect(keloglan.animation.deliveredClips, clip).toContain(clip);
-      expect(keloglan.animation.danceClips, clip).not.toContain(clip);
-      expect(isApprovedDance(keloglan, clip), clip).toBe(false);
-      expect(keloglan.animation.excludedClips[clip], `${clip} needs a reason`).toBeTruthy();
-    }
-  });
 
-  it('only ever draws approved clips from the bag', () => {
-    let bag = createShuffleBag(keloglan.animation.danceClips);
-    for (let i = 0; i < 100; i += 1) {
-      const result = draw(bag, i * 104_729);
-      bag = result.bag;
-      expect(isApprovedDance(keloglan, result.clip!), result.clip ?? '').toBe(true);
-    }
-  });
+
 
   it('reports both heroes as delivered', () => {
     expect(isDelivered(keloglan)).toBe(true);
@@ -445,26 +399,10 @@ describe('completion choreography', () => {
 });
 
 describe('per-character celebration policy', () => {
-  const keloglan = heroById('keloglan');
   const hoca = heroById('nasreddin-hoca');
 
-  it('gives Keloğlan a dance and Nasreddin Hodja a gesture sequence', () => {
-    expect(keloglan.celebration.kind).toBe('dance-bag');
-    expect(hoca.celebration.kind).toBe('gesture-sequence');
-    expect(celebrationPlan(keloglan)).toEqual(['dance']);
-    expect(celebrationPlan(hoca)).toEqual(['agree', 'wave']);
-  });
 
-  it('never gives Nasreddin Hodja a dance', () => {
-    expect(hoca.animation.danceClips).toEqual([]);
-    expect(celebrationPlan(hoca)).not.toContain('dance');
-    expect(hoca.animation.deliveredClips.some((clip) => /dance|dancing/i.test(clip))).toBe(false);
-  });
 
-  it('offers the replay button only to the dance guide', () => {
-    expect(allowsCelebrationReplay(keloglan)).toBe(true);
-    expect(allowsCelebrationReplay(hoca)).toBe(false);
-  });
 
   it('plays agree then wave then the panel for Nasreddin Hodja', () => {
     const plan = celebrationPlan(hoca);
@@ -483,15 +421,28 @@ describe('per-character celebration policy', () => {
     expect(currentCelebrationClip(ctx, plan)).toBeNull();
   });
 
-  it('keeps Keloğlan on a single drawn dance', () => {
-    const plan = celebrationPlan(keloglan);
-    const options = { reducedMotion: false, planLength: plan.length };
-    let ctx = celebrationReducer(initialCelebration, { type: 'CITY_COMPLETED' }, options);
-    ctx = celebrationReducer(ctx, { type: 'PROGRESS_SAVED' }, options);
-    ctx = celebrationReducer(ctx, { type: 'CAMERA_FRAMED' }, options);
-    expect(currentCelebrationClip(ctx, plan)).toBe('dance');
-    ctx = celebrationReducer(ctx, { type: 'CLIP_FINISHED' }, options);
-    expect(ctx.state).toBe('summary');
+
+  it('gives both guides a short gesture sequence and no dance', () => {
+    /**
+     * Keloğlan used to dance, from a shuffled bag of four approved clips with a
+     * persisted history so a child never saw the same one twice running. That
+     * whole subsystem is gone (D-113): the bag, the shuffle, the replay button
+     * and eight clips in the delivered file.
+     */
+    for (const hero of allHeroes()) {
+      const plan = celebrationPlan(hero);
+      expect(plan.length, hero.id).toBeGreaterThan(0);
+      expect(plan.length, hero.id).toBeLessThanOrEqual(3);
+      expect(plan.every((clip) => clip !== ('dance' as never)), hero.id).toBe(true);
+    }
+    expect(allowsCelebrationReplay()).toBe(false);
+  });
+
+  it('ships no dance clips in either delivered file', () => {
+    for (const hero of allHeroes()) {
+      const delivered = hero.animation.deliveredClips ?? [];
+      expect(delivered.some((name) => /danc/i.test(name)), hero.id).toBe(false);
+    }
   });
 
   it('keeps every celebration beat short enough for a child to sit through', () => {
@@ -570,7 +521,7 @@ describe('delivered Nasreddin Hodja model', () => {
     expect(isLocomotion('walk')).toBe(true);
     expect(isLocomotion('run')).toBe(true);
     // Everything else has its horizontal root translation cancelled.
-    for (const clip of ['idle', 'talk', 'agree', 'wave', 'dance'] as const) {
+    for (const clip of ['idle', 'talk', 'agree', 'wave'] as const) {
       expect(isLocomotion(clip), clip).toBe(false);
     }
   });

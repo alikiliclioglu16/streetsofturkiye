@@ -18,7 +18,6 @@ import {
   initialCelebration,
   type CelebrationContext,
 } from '@/engine/heroes/celebration';
-import { allowsCelebrationReplay } from '@/engine/heroes/registry';
 import { CAMERA_SETTLE_TIMEOUT_MS, CELEBRATION_TIMEOUT_MS } from '@/engine/heroes/watchdog';
 import { useClientEnvironment } from '@/engine/quality/useEnvironment';
 import { hotspotById } from '@/engine/interactions/machine';
@@ -122,7 +121,14 @@ export function CityExperience({ cityId }: { cityId: string }) {
     return () => controller.abort();
   }, []);
   const [celebration, setCelebration] = useState<CelebrationContext>(initialCelebration);
-  const [performanceToken, setPerformanceToken] = useState(0);
+  /**
+   * Forces a one-shot to re-run when the state has not changed.
+   *
+   * It used to be bumped by the "another dance" button as well; that button is
+   * gone with the dance (D-113), and this is now only touched by the
+   * celebration itself.
+   */
+  const [performanceToken] = useState(0);
   const [loadingExpired, setLoadingExpired] = useState(false);
 
   /**
@@ -141,7 +147,6 @@ export function CityExperience({ cityId }: { cityId: string }) {
 
   /** The guide's own celebration plan; no per-character branching in the UI. */
   const plan = useMemo(() => celebrationPlan(activeHero), [activeHero]);
-  const canReplay = allowsCelebrationReplay(activeHero) && !reducedMotion;
 
   const dispatchCelebration = useCallback(
     (event: Parameters<typeof celebrationReducer>[1]) => {
@@ -204,7 +209,7 @@ export function CityExperience({ cityId }: { cityId: string }) {
 
   /**
    * The last correct answer both completes the city and starts the
-   * celebration. Progress is written first and awaited, so a dance that never
+   * celebration. Progress is written first and awaited, so a performance that never
    * finishes cannot cost the child the province star.
    */
   const finishQuizAnswer = useCallback(async () => {
@@ -511,7 +516,7 @@ export function CityExperience({ cityId }: { cityId: string }) {
         />
       ) : null}
 
-      {/* `idle` covers re-entering an already finished city: summary, no dance. */}
+      {/* `idle` covers re-entering a finished city: the summary, with no beat. */}
       {phase === 'complete' && (celebration.state === 'summary' || celebration.state === 'idle') ? (
         <CompletionPanel
           onKeepExploring={resumeExploring}
@@ -519,14 +524,6 @@ export function CityExperience({ cityId }: { cityId: string }) {
           collectedRewardIds={progress.collectedRewardIds}
           locale={locale}
           onLeave={() => router.push('/map')}
-          onAnotherDance={
-            canReplay
-              ? () => {
-                  setPerformanceToken((token) => token + 1);
-                  dispatchCelebration({ type: 'REPLAY' });
-                }
-              : undefined
-          }
         />
       ) : null}
 

@@ -1423,3 +1423,44 @@ cobbles, a tram and a ferry terminal; Nevşehir on the plateau with horses, red
 dust, balloons and a valley rim. Nothing crosses between them, and a test holds
 that line.
 
+## D-113 — The dance is gone (30 Jul 2026)
+
+Keloğlan danced. Behind that were four approved clips drawn from a shuffle bag
+with a history persisted to localStorage so a child never saw the same one twice
+running, four more clips rejected with written reasons, a replay button on the
+completion panel, a branch in the celebration planner, a branch in the hero
+component, and a `dance` member on the clip type that every animation function
+had to consider.
+
+All of it is removed, along with eight clips from the delivered file.
+
+Both guides now celebrate the same way: a short sequence of gestures. The Hodja
+agrees and waves; Keloğlan says an excited word about what the child just did.
+`CelebrationStyle` went from a union of two shapes to one interface with one
+field.
+
+**The file saving is small — 4.61 MB to 4.34 MB.** Animation data is tiny beside
+geometry and textures, and it would be dishonest to sell this as a size win. What
+went is a subsystem: a shuffle, a persisted history, a replay path, a union type
+and two branches. That is the saving worth having.
+
+D-013 said Nasreddin Hodja does not dance. Now nobody does, and the asymmetry
+that decision created goes with it.
+
+## D-114 — The pottery wheel cannot spin (30 Jul 2026)
+
+Asked for, and not done. The delivered model is one mesh, one primitive, no
+named parts and no animation, so there is nothing to rotate but the whole object
+— frame, shelf and finished jugs included, which would read as a table on a
+turntable rather than a potter at work.
+
+Two ways it becomes possible, neither of them guesswork on my side:
+
+1. **A second export with the wheel head and the jug as a separate named mesh.**
+   Then it is one line to spin it.
+2. **A short spin baked into the file as an animation clip**, the way the cat and
+   the horse carry their walks.
+
+The second is better: it can carry the wobble of a jug being shaped, which no
+amount of rotating a rigid mesh will.
+

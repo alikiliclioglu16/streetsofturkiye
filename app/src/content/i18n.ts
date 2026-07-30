@@ -89,7 +89,6 @@ type UiKey =
   | 'turnLeft'
   | 'turnRight'
   | 'inspectHint'
-  | 'anotherDance'
   | 'comingSoon'
   | 'inProgress'
   | 'notOpenYet'
@@ -150,7 +149,6 @@ const UI: Record<UiKey, Record<Locale, string>> = {
   turnLeft: { tr: 'Sola çevir', en: 'Turn left' },
   turnRight: { tr: 'Sağa çevir', en: 'Turn right' },
   inspectHint: { tr: 'Çevir, sonra doğru şeye dokun', en: 'Turn it, then tap the right one' },
-  anotherDance: { tr: 'Başka bir kutlama dansı', en: 'Another celebration dance' },
   comingSoon: { tr: 'yakında', en: 'coming soon' },
   inProgress: { tr: 'Başlandı', en: 'In progress' },
   notOpenYet: { tr: 'Henüz açılmadı', en: 'Not open yet' },

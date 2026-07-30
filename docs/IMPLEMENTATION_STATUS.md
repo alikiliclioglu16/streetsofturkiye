@@ -114,7 +114,7 @@ app/src/
 npm run lint       → temiz
 npm run typecheck  → temiz (strict, noUncheckedIndexedAccess, `any` yok)
 npm run content:check → 81 il, 249 durak, 84 soru; 1413 kanonik dizgi baseline ile eşleşti
-npm test           → 16 dosya / 318 test geçti (logic + jsdom ui)
+npm test           → 16 dosya / 310 test geçti (logic + jsdom ui)
 npm run build      → başarılı, 4 rota
 npm start          → /map ve /city/istanbul 200
 ```
@@ -682,6 +682,27 @@ alana göre.
 
 İkisi de çift yüzlü. Tezgâhta bu en kritik olanı: çözgü iplikleri ve asılı kilim tek düzlem,
 arka yüzleri elenirse halının yarısı çizilmez.
+
+## 6h. Dans kaldırıldı
+
+Keloğlan'ın dansı ve arkasındaki her şey silindi (D-113): dört onaylı klip, karıştırma çantası,
+localStorage'a yazılan geçmiş, dört reddedilmiş klip ve gerekçeleri, tamamlama panelindeki
+"başka bir dans" düğmesi, kutlama planlayıcısındaki dal, hero bileşenindeki dal, ve klip
+türündeki `dance` üyesi.
+
+Teslim dosyasından da sekiz klip çıktı: 4,61 → 4,34 MB.
+
+**Dosya kazancı küçük** — animasyon verisi geometri ve dokunun yanında ufak kalıyor ve bunu
+boyut kazancı diye satmak dürüst olmaz. Giden şey bir alt sistem: karıştırma, kalıcı geçmiş,
+tekrar yolu, birleşim tipi ve iki dal.
+
+İki rehber artık aynı şekilde kutluyor: kısa bir jest dizisi. Hoca onaylayıp el sallıyor,
+Keloğlan çocuğun yaptığı şey hakkında heyecanlı bir laf ediyor.
+
+**Çömlek çarkı dönemiyor** (D-114): teslim edilen model tek mesh, tek parça, animasyonsuz.
+Döndürülecek tek şey nesnenin tamamı — tezgâh, raf ve bitmiş testiler dahil.
+Çözüm ya çark başının ayrı adlandırılmış mesh olduğu ikinci bir ihraç, ya da dosyaya gömülü
+kısa bir dönüş klibi. İkincisi daha iyi: şekillenen testinin salınımını da taşıyabilir.
 
 ## 5. Bilinen sınırlar
 

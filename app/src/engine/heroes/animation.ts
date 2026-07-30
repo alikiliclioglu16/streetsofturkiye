@@ -52,12 +52,12 @@ export function clipForState(state: HeroMotionState, previous: HeroClip | null =
 /** Cross-fade duration in seconds; one-shot beats snap in for punch. */
 export function transitionDuration(from: HeroClip | null, to: HeroClip): number {
   if (from === null) return 0;
-  if (to === 'dance' || to === 'agree' || to === 'wave') return 0.12;
+  if (to === 'agree' || to === 'wave' || to === 'talk') return 0.12;
   if (from === 'idle' || to === 'idle') return 0.25;
   return 0.18;
 }
 
 /** One-shot clips play once and hand control back; the rest loop. */
 export function isOneShot(clip: HeroClip): boolean {
-  return clip === 'dance' || clip === 'agree' || clip === 'wave';
+  return clip === 'agree' || clip === 'wave' || clip === 'talk';
 }

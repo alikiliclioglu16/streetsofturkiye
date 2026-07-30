@@ -11,7 +11,7 @@ import { assetUrl } from '@/engine/assets/assetHost';
 export type HeroId = 'keloglan' | 'nasreddin-hoca';
 
 /** Clip names the engine drives. Data-driven so new clips need no code change. */
-export type HeroClip = 'idle' | 'walk' | 'run' | 'talk' | 'dance' | 'agree' | 'wave';
+export type HeroClip = 'idle' | 'walk' | 'run' | 'talk' | 'agree' | 'wave';
 
 /** Clips that carry the character across the ground; everything else is in place. */
 export const LOCOMOTION_CLIPS: readonly HeroClip[] = ['walk', 'run'];
@@ -24,25 +24,22 @@ export function isLocomotion(clip: HeroClip): boolean {
  * How a guide celebrates. Behaviour is resolved from this, never from a
  * per-character branch in a component, so a third guide needs no UI rewrite.
  */
-export type CelebrationStyle =
-  | {
-      readonly kind: 'dance-bag';
-      /** Non-repeating pool drawn from a shuffle bag. */
-      readonly pool: readonly string[];
-      readonly allowReplay: true;
-    }
-  | {
-      readonly kind: 'gesture-sequence';
-      /** Played once each, in order, before the completion panel appears. */
-      readonly sequence: readonly HeroClip[];
-      readonly allowReplay: false;
-    };
+/**
+ * How a guide celebrates.
+ *
+ * One shape for every guide. It used to be a union — a shuffled dance bag or an
+ * authored gesture sequence — and the dance half is gone (D-113), which took a
+ * shuffle, a persisted history and a replay button with it.
+ */
+export interface CelebrationStyle {
+  /** Played once each, in order, before the completion panel appears. */
+  readonly clips: readonly HeroClip[];
+}
 
 export interface HeroAnimationManifest {
   /** Engine clip name → clip name inside the GLB. */
   readonly clips: Readonly<Partial<Record<HeroClip, string>>>;
   /** Approved celebration clips, drawn from a non-repeating shuffle bag. */
-  readonly danceClips: readonly string[];
   /**
    * Play-time ceiling per clip, in seconds. Used where a delivered clip runs
    * far longer than the moment it illustrates; absent means play in full.
@@ -105,11 +102,13 @@ const HEROES: Readonly<Record<HeroId, HeroDefinition>> = {
      * Approved production model, delivered 27 Jul 2026. The Meshy filename is
      * kept verbatim so the file in the repository can be traced back to the
      * delivery without a rename in between.
+     *
+     * Re-exported 30 Jul 2026 with the eight dance clips removed (D-113).
      */
     modelUrl: '/assets/heroes/Meshy_AI_Little_Adventurer_biped_Meshy_AI_Meshy_Merged_Animations.glb',
-    checksum: 'ebc3e7deaef88ecd00680d87a2077bc1bf91f7031b09866ac4feaa1d05a98d21',
+    checksum: 'd81bc3947e8f3e59d7b015d86a6cfaf89a4cc66144a9a83f0f0d12021fe4b205',
     triangles: 99_966,
-    transferBytes: 4612368,
+    transferBytes: 4551556,
     animation: {
       clips: {
         idle: 'Idle_11',
@@ -117,44 +116,23 @@ const HEROES: Readonly<Record<HeroId, HeroDefinition>> = {
         run: 'Running',
         talk: 'Talk_Passionately',
       },
-      danceClips: [
-        'FunnyDancing_01',
-        'FunnyDancing_03',
-        'Hip_Hop_Dance',
-        'Joyful_Dance_with_Hand_Sway',
-      ],
-      excludedClips: {
-        Love_You_Pop_Dance: 'romantic theme is outside project art direction',
-        ymca_dance: 'outside Turkish cultural art direction',
-        Breakdance_1990: 'clip is 0.50 s long and reads as incomplete',
-        Step_Hip_Hop_Dance: 'measured 0.83 m forward root displacement',
-      },
+      excludedClips: {},
       maxDurationSeconds: {},
-      deliveredClips: [
-        'Breakdance_1990',
-        'FunnyDancing_01',
-        'FunnyDancing_03',
-        'Hip_Hop_Dance',
-        'Idle_11',
-        'Joyful_Dance_with_Hand_Sway',
-        'Love_You_Pop_Dance',
-        'Running',
-        'Step_Hip_Hop_Dance',
-        'Talk_Passionately',
-        'Walking',
-        'ymca_dance',
-      ],
+      deliveredClips: ['Idle_11', 'Running', 'Talk_Passionately', 'Walking'],
     },
+    /**
+     * Keloğlan tells you about it.
+     *
+     * He used to dance, from a shuffled bag of four approved clips with a
+     * persisted history so a child never saw the same one twice running. All of
+     * that is gone (D-113): both guides now celebrate the same way, with a short
+     * sequence of gestures, and Keloğlan has one — an excited word about what
+     * the child just did.
+     */
     celebration: {
-      kind: 'dance-bag',
-      pool: [
-        'FunnyDancing_01',
-        'FunnyDancing_03',
-        'Hip_Hop_Dance',
-        'Joyful_Dance_with_Hand_Sway',
-      ],
-      allowReplay: true,
+      clips: ['talk'],
     },
+
     successClip: null,
     measuredHeightMeters: 1.7,
     portraitUrl: null,
@@ -181,8 +159,6 @@ const HEROES: Readonly<Record<HeroId, HeroDefinition>> = {
         agree: 'Agree_Gesture',
         wave: 'Wave_One_Hand',
       },
-      /** Nasreddin Hodja does not dance (character decision, 27 Jul 2026). */
-      danceClips: [],
       excludedClips: {
         Clapping_Run: 'not aligned with the character tone',
       },
@@ -204,9 +180,7 @@ const HEROES: Readonly<Record<HeroId, HeroDefinition>> = {
       ],
     },
     celebration: {
-      kind: 'gesture-sequence',
-      sequence: ['agree', 'wave'],
-      allowReplay: false,
+      clips: ['agree', 'wave'],
     },
     successClip: 'agree',
     material: {
@@ -244,23 +218,21 @@ export function heroModelUrl(hero: HeroDefinition): string | null {
   return assetUrl(hero.modelUrl);
 }
 
+
 /**
- * Guards the celebration pool. An excluded clip must never reach the player,
- * including through the "another dance" button.
+ * True when the completion UI should offer another celebration.
+ *
+ * Never, now. It existed for the dance bag: a child who liked the dance could
+ * ask for another, and the bag guaranteed a different one. With both guides
+ * performing a fixed short gesture, "again" would show the same thing twice.
  */
-export function isApprovedDance(hero: HeroDefinition, clipName: string): boolean {
-  if (clipName in hero.animation.excludedClips) return false;
-  return hero.animation.danceClips.includes(clipName);
+export function allowsCelebrationReplay(): boolean {
+  return false;
 }
 
-/** True when the completion UI should offer another celebration. */
-export function allowsCelebrationReplay(hero: HeroDefinition): boolean {
-  return hero.celebration.kind === 'dance-bag' && hero.celebration.allowReplay;
-}
-
-/** Clips the completion sequence will play, in order. Empty for dance guides. */
+/** Clips the completion sequence will play, in order. */
 export function celebrationSequence(hero: HeroDefinition): readonly HeroClip[] {
-  return hero.celebration.kind === 'gesture-sequence' ? hero.celebration.sequence : [];
+  return hero.celebration.clips;
 }
 
 /**

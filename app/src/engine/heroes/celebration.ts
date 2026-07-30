@@ -7,9 +7,10 @@ import { celebrationSequence } from '@/engine/heroes/registry';
  * Progress is persisted before any of this runs, so a celebration that never
  * finishes — a closed tab, a missing clip — can never cost the child a city.
  *
- * The shape of the celebration comes from the hero's own policy, not from a
- * branch per character: Keloğlan draws one dance from a shuffle bag, Nasreddin
- * Hodja plays a measured agree-then-wave. A third guide only needs a policy.
+ * The shape comes from the hero's own policy rather than from a branch here, so
+ * a third guide needs a policy and no code. Both current guides perform a short
+ * sequence of gestures: the Hodja agrees then waves, Keloğlan says a word about
+ * what the child just did.
  */
 export type CelebrationState = 'idle' | 'saving' | 'framing' | 'performing' | 'summary';
 
@@ -55,14 +56,8 @@ export const initialCelebration: CelebrationContext = {
   performances: 0,
 };
 
-/**
- * The clips a guide plays on completion. A dance guide performs exactly one
- * drawn clip; a gesture guide performs its authored sequence.
- */
-export function celebrationPlan(hero: HeroDefinition): readonly (HeroClip | 'dance')[] {
-  if (hero.celebration.kind === 'dance-bag') {
-    return hero.celebration.pool.length > 0 ? ['dance'] : [];
-  }
+/** The clips this guide performs for a completion, in order. */
+export function celebrationPlan(hero: HeroDefinition): readonly HeroClip[] {
   return celebrationSequence(hero);
 }
 
@@ -117,7 +112,7 @@ export function celebrationReducer(
 /** The clip to play right now, or null when nothing is being performed. */
 export function currentCelebrationClip(
   context: CelebrationContext,
-  plan: readonly (HeroClip | 'dance')[],
+  plan: readonly HeroClip[],
 ): HeroClip | null {
   if (context.state !== 'performing') return null;
   return (plan[context.step] as HeroClip | undefined) ?? null;

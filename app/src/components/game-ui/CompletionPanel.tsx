@@ -12,7 +12,6 @@ export function CompletionPanel({
   locale,
   onLeave,
   onKeepExploring,
-  onAnotherDance,
 }: {
   city: CityDefinition;
   collectedRewardIds: readonly string[];
@@ -25,8 +24,6 @@ export function CompletionPanel({
    * of this panel used to be leaving.
    */
   onKeepExploring?: () => void;
-  /** Absent when the guide has no approved dances or reduced motion is on. */
-  onAnotherDance?: () => void;
 }) {
   // Labels come from canonical content, not from the asset registry.
   const collectibles = city.hotspots.map((hotspot) => hotspot.reward);
@@ -56,11 +53,6 @@ export function CompletionPanel({
       </ul>
 
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10 }}>
-        {onAnotherDance ? (
-          <button type="button" className="btn" onClick={onAnotherDance}>
-            {ui('anotherDance', locale)}
-          </button>
-        ) : null}
         {onKeepExploring ? (
           <button type="button" className="btn" onClick={onKeepExploring}>
             {ui('keepExploring', locale)}
