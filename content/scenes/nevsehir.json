@@ -913,29 +913,29 @@
     {
       "npcId": "featured_traveler",
       "position": [
-        12.4,
+        8.2,
         0,
-        -48
+        -62
       ],
       "rotationY": -2.1,
       "walkTo": [
-        13.9,
+        9.7,
         0,
-        -52.2
+        -66.2
       ]
     },
     {
       "npcId": "featured_craftsman_male",
       "position": [
-        8.2,
+        -8.2,
         0,
-        -56.4
+        -70.4
       ],
       "rotationY": 1.9,
       "walkTo": [
-        6.7,
+        -9.7,
         0,
-        -60.6
+        -74.6
       ]
     }
   ],

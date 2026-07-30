@@ -255,3 +255,91 @@ describe('a finished city stays open', () => {
     expect(progress.collectedRewardIds).toEqual([first.reward.assetId]);
   });
 });
+
+/**
+ * The third city, and the first that is not shaped like the other two.
+ *
+ * Three stops and one question against İstanbul's five and two. Everything that
+ * assumes a five-stop city — the quiz gate, the layout, the route, the
+ * completion — has to hold here or it holds on three cities out of eighty-one.
+ */
+describe('a child completes Gaziantep', () => {
+  const city = loadComposedCity('gaziantep');
+  const scene = buildScene(city, 'high');
+
+  it('is a shorter city, not a broken one', () => {
+    expect(city.hotspots).toHaveLength(3);
+    expect(city.quiz).toHaveLength(1);
+    expect(scene.hotspots).toHaveLength(3);
+    expect(blockedBy(
+      { x: city.spawn.position[0], z: city.spawn.position[2] },
+      scene.colliders,
+    )).toBeNull();
+  });
+
+  it('opens its quiz after three stops, not after five', () => {
+    let progress = emptyCityProgress(city.id);
+    for (const [index, hotspot] of city.hotspots.entries()) {
+      expect(quizUnlocked(city, progress), `after ${index} stops`).toBe(false);
+      progress = completeHotspot(progress, hotspot.id, hotspot.reward.assetId);
+    }
+    expect(quizUnlocked(city, progress)).toBe(true);
+
+    progress = completeQuiz(city, progress);
+    expect(progress.cityCompleted).toBe(true);
+  });
+
+  it('can be walked end to end and finished', () => {
+    let position = { x: city.spawn.position[0], z: city.spawn.position[2] };
+    let progress = emptyCityProgress(city.id);
+    const met = new Set<number>();
+
+    const meetNearbyStops = () => {
+      for (const hotspot of scene.hotspots) {
+        if (met.has(hotspot.order)) continue;
+        const distance = Math.hypot(
+          position.x - hotspot.position[0],
+          position.z - hotspot.position[2],
+        );
+        if (distance > hotspot.triggerRadius) continue;
+        const canonical = city.hotspots.find((entry) => entry.id === hotspot.id)!;
+        progress = completeHotspot(progress, hotspot.id, canonical.reward.assetId);
+        met.add(hotspot.order);
+      }
+    };
+
+    meetNearbyStops();
+    for (const waypoint of scene.routePoints) {
+      const target = { x: waypoint[0], z: waypoint[2] };
+      let reached = false;
+      for (let frame = 0; frame < 60 * 20 && !reached; frame += 1) {
+        const heading = Math.atan2(target.x - position.x, target.z - position.z);
+        position = stepWithCollision(
+          position,
+          { forward: 1, strafe: 0 },
+          heading,
+          1 / 60,
+          scene.bounds,
+          scene.colliders,
+          true,
+        );
+        meetNearbyStops();
+        if (Math.hypot(position.x - target.x, position.z - target.z) < 0.5) reached = true;
+      }
+      expect(reached, `could not reach ${target.x}, ${target.z}`).toBe(true);
+    }
+
+    expect([...met].sort((a, b) => a - b)).toEqual([1, 2, 3]);
+    progress = completeQuiz(city, progress);
+    expect(progress.cityCompleted).toBe(true);
+  });
+
+  it('looks like the south-east and not like the other two', () => {
+    // Dust like Cappadocia, cats like İstanbul: the region decides each, and
+    // they do not have to agree.
+    expect(scene.groundSurface).toBe('redsand');
+    expect(scene.animal).toBe('cat');
+    expect(scene.props.every((prop) => !prop.asset.entry.id.startsWith('city_'))).toBe(true);
+    expect(scene.backdrop).toEqual([]);
+  });
+});

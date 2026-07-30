@@ -699,13 +699,29 @@ describe('featured NPCs', () => {
       }
       expect(closest, `${entry.npc.id} stands on the walk`).toBeGreaterThan(2.5);
 
-      // Still close enough to read as belonging to a stop.
-      const nearest = Math.min(
-        ...scene.hotspots.map((hotspot) =>
-          Math.hypot(entry.position[0] - hotspot.position[0], entry.position[2] - hotspot.position[2]),
-        ),
+      /**
+       * Just outside the ring of the stop they belong to.
+       *
+       * Measured against that stop's own trigger radius rather than a fixed
+       * distance: a person has to stand clear of the ring or they open it, and a
+       * stop with a 9.45 m ring needs them further out than one with a 4 m ring.
+       */
+      const nearest = scene.hotspots.reduce(
+        (best, hotspot) => {
+          const distance = Math.hypot(
+            entry.position[0] - hotspot.position[0],
+            entry.position[2] - hotspot.position[2],
+          );
+          return distance < best.distance ? { distance, radius: hotspot.triggerRadius } : best;
+        },
+        { distance: Infinity, radius: 0 },
       );
-      expect(nearest, `${entry.npc.id} belongs nowhere`).toBeLessThan(9);
+      expect(nearest.distance, `${entry.npc.id} stands in a trigger ring`).toBeGreaterThan(
+        nearest.radius,
+      );
+      expect(nearest.distance, `${entry.npc.id} belongs nowhere`).toBeLessThan(
+        nearest.radius + 4,
+      );
     }
   });
 

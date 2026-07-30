@@ -1464,3 +1464,30 @@ Two ways it becomes possible, neither of them guesswork on my side:
 The second is better: it can carry the wobble of a jug being shaped, which no
 amount of rotating a rigid mesh will.
 
+## D-115 — Gaziantep is open, and it is not shaped like the others (30 Jul 2026)
+
+The third pilot city, with its three stop objects still placeholders.
+
+It tests something neither of the others could: **three stops and one question**,
+where they have five and two. A layout that only works for five-stop cities would
+work on three of the eighty-one — seventy-eight have fewer.
+
+Two things broke immediately, and both were the same mistake in different places:
+code that assumed the shape of the cities it had seen.
+
+- **Nobody stood in it.** The NPC placer required four stops and returned an
+  empty list below that. A three-stop city is not a lesser city, it is a shorter
+  one. The three now spread across whatever stops a city has, rather than naming
+  fixed indices.
+- **Its street was 22 m.** At the compact eleven metre spacing, a child could see
+  all three stops from where they appeared and walk the city in three seconds.
+  Spacing went to fourteen; the street is 28 m.
+
+A test in the NPC placer also had to be rewritten: it required a person to stand
+within nine metres of their stop, which is impossible beside the ferry terminal's
+9.45 m ring. Belonging is now measured against the stop's own radius — outside
+the ring, within four metres of it — which is what the rule always meant.
+
+All three pilot cities are now walkable end to end, and each has a simulated
+playthrough that arrives, walks the markers, meets every stop and finishes.
+

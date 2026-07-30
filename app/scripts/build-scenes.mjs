@@ -138,7 +138,14 @@ const CITY_THEMES = {
  * The owner's words: that was İstanbul, there was a lot that had to be seen.
  */
 const STOP_SPACING = 18;
-const COMPACT_STOP_SPACING = 11;
+/**
+ * Fourteen, not eleven.
+ *
+ * Eleven gave Gaziantep a twenty-two metre street: a child could see all three
+ * stops from where they appeared, and walking it took three seconds. A short
+ * city should be short, not instant.
+ */
+const COMPACT_STOP_SPACING = 14;
 
 /**
  * How far the first stop sits from where the child appears.
@@ -480,7 +487,14 @@ function streetTrees(cityId, stopPositions, geometry, regionId) {
  * person rooted to one spot for a whole visit reads as a statue of a person.
  */
 function featuredNpcs(cityId, stopPositions, geometry) {
-  if (stopPositions.length < 4) return [];
+  /**
+   * One person per stop, up to three.
+   *
+   * The first version required four stops and so gave Gaziantep nobody — a
+   * three-stop city is not a lesser city, it is a shorter one. Seventy-eight of
+   * the eighty-one have fewer than five stops.
+   */
+  if (stopPositions.length < 2) return [];
 
   const beside = (index, side, alongZ) => {
     const [x, , z] = stopPositions[Math.min(index, stopPositions.length - 1)];
@@ -505,11 +519,22 @@ function featuredNpcs(cityId, stopPositions, geometry) {
     ];
   };
 
-  const plan = [
-    { npcId: 'featured_soldier', at: 1, side: -1, alongZ: 3.5, rotationY: 2.4 },
-    { npcId: 'featured_traveler', at: 2, side: 1, alongZ: -3.0, rotationY: -2.1 },
-    { npcId: 'featured_craftsman_male', at: 3, side: -1, alongZ: 2.6, rotationY: 1.9 },
+  /**
+   * One person per stop, spread across whatever stops the city has.
+   *
+   * Two of them landing on the same stop is what happens when the plan names
+   * fixed indices and the city is shorter than the plan expects.
+   */
+  const people = [
+    { npcId: 'featured_soldier', side: -1, alongZ: 3.5, rotationY: 2.4 },
+    { npcId: 'featured_traveler', side: 1, alongZ: -3.0, rotationY: -2.1 },
+    { npcId: 'featured_craftsman_male', side: -1, alongZ: 2.6, rotationY: 1.9 },
   ];
+  const stops = stopPositions.length;
+  const plan = people.map((person, i) => ({
+    ...person,
+    at: Math.min(stops - 1, Math.round(((i + 1) * (stops - 1)) / people.length)),
+  }));
 
   return plan.map((entry) => {
     const position = beside(entry.at, entry.side, entry.alongZ);

@@ -36,13 +36,16 @@ const REGIONS = '/content/canonical/regions.json';
 /**
  * Cities a child can walk into.
  *
- * Nevşehir opens with Keloğlan as its guide and the shared kit dressing its
- * street, but three of its five stop objects have not been delivered and render
- * as placeholders. That is deliberate: the multi-city machinery — a second
- * guide, a second region's colour and planting, progress kept per city — is
- * worth proving on a real street before eighty of them are built on it.
+ * All three pilot cities. İstanbul and Nevşehir are finished; Gaziantep opens
+ * with its three stop objects still placeholders and the shared kit dressing
+ * its street.
+ *
+ * Opening a city before its art is deliberate, and Gaziantep tests something
+ * neither of the others could: it has three stops and one question where they
+ * have five and two. A layout that only works for five-stop cities would fail
+ * on seventy-eight of the eighty-one.
  */
-export const PLAYABLE_CITY_IDS = ['istanbul', 'nevsehir'] as const;
+export const PLAYABLE_CITY_IDS = ['istanbul', 'nevsehir', 'gaziantep'] as const;
 export const PILOT_CITY_IDS = ['istanbul', 'nevsehir', 'gaziantep'] as const;
 
 async function fetchJson(path: string, signal?: AbortSignal): Promise<unknown> {

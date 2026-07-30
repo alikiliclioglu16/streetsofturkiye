@@ -114,7 +114,7 @@ app/src/
 npm run lint       → temiz
 npm run typecheck  → temiz (strict, noUncheckedIndexedAccess, `any` yok)
 npm run content:check → 81 il, 249 durak, 84 soru; 1413 kanonik dizgi baseline ile eşleşti
-npm test           → 16 dosya / 310 test geçti (logic + jsdom ui)
+npm test           → 16 dosya / 315 test geçti (logic + jsdom ui)
 npm run build      → başarılı, 4 rota
 npm start          → /map ve /city/istanbul 200
 ```
@@ -703,6 +703,27 @@ Keloğlan çocuğun yaptığı şey hakkında heyecanlı bir laf ediyor.
 Döndürülecek tek şey nesnenin tamamı — tezgâh, raf ve bitmiş testiler dahil.
 Çözüm ya çark başının ayrı adlandırılmış mesh olduğu ikinci bir ihraç, ya da dosyaya gömülü
 kısa bir dönüş klibi. İkincisi daha iyi: şekillenen testinin salınımını da taşıyabilir.
+
+## 7. Gaziantep açıldı
+
+Üçüncü pilot şehir, üç durak nesnesi hâlâ yer tutucu (D-115).
+
+Diğer ikisinin sınayamadığı bir şeyi sınıyor: **üç durak, bir soru** — onlarda beş ve iki.
+Yalnız beş duraklı şehirlerde çalışan bir düzen, 81 ilin 3'ünde çalışır; 78'inin daha az durağı var.
+
+İki şey hemen kırıldı ve ikisi de aynı hatanın farklı yerlerdeki hâliydi — kodun,
+gördüğü şehirlerin biçimini varsayması:
+
+- **İçinde kimse yoktu.** NPC yerleştirici dört durak istiyordu. Üç duraklı şehir eksik bir
+  şehir değil, kısa bir şehir. Üçü artık şehrin sahip olduğu duraklara yayılıyor.
+- **Sokağı 22 metreydi.** Çocuk üç durağı doğduğu yerden görüyor ve şehri üç saniyede
+  yürüyordu. Aralık 14'e çıktı, sokak 28 metre oldu.
+
+Bir test de yeniden yazıldı: kişinin durağına 9 metreden yakın olmasını istiyordu, ki vapur
+iskelesinin 9,45 metrelik halkasının yanında imkânsız. Aidiyet artık durağın kendi yarıçapına
+göre ölçülüyor — halkanın dışında, ondan 4 metre içinde.
+
+**Üç pilot şehir de uçtan uca yürünebiliyor** ve her birinin tam tur simülasyonu var.
 
 ## 5. Bilinen sınırlar
 

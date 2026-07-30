@@ -9,18 +9,35 @@ import { loadComposedCity } from './helpers';
  * these tests are what make opening them safe rather than hopeful.
  */
 describe('pilot cities', () => {
-  it('opens two cities, with the rest ready and closed', () => {
+  it('opens all three pilot cities', () => {
     /**
-     * Nevşehir opens with a second guide, a second region's colour and its own
-     * planting. Three of its five stop objects are still placeholders, which is
-     * the point: the multi-city machinery is worth proving on one more street
-     * before eighty are built on it.
+     * Gaziantep's three stop objects are still placeholders, and it opens
+     * anyway. It tests something neither of the others could: three stops and
+     * one question, where they have five and two. A layout that only works for
+     * five-stop cities would fail on seventy-eight of the eighty-one.
      */
-    expect([...PLAYABLE_CITY_IDS]).toEqual(['istanbul', 'nevsehir']);
-    for (const cityId of PLAYABLE_CITY_IDS) {
-      expect(PILOT_CITY_IDS).toContain(cityId);
-    }
-    expect(PILOT_CITY_IDS.length).toBeGreaterThan(PLAYABLE_CITY_IDS.length);
+    expect([...PLAYABLE_CITY_IDS].sort()).toEqual([...PILOT_CITY_IDS].sort());
+  });
+
+  it('lays out a three-stop city as correctly as a five-stop one', () => {
+    const gaziantep = loadComposedCity('gaziantep');
+    expect(gaziantep.hotspots).toHaveLength(3);
+    expect(gaziantep.quiz).toHaveLength(1);
+
+    const scene = buildScene(gaziantep, 'high');
+    // Everything the five-stop cities get, scaled to a shorter street.
+    expect(scene.props.length).toBeGreaterThan(5);
+    expect(scene.trees.length).toBeGreaterThan(8);
+    expect(scene.catRoutes.length).toBeGreaterThan(0);
+    expect(scene.routePoints.length).toBeGreaterThan(3);
+
+    const zs = scene.hotspots.map((h) => h.position[2]);
+    const istanbulZs = buildScene(loadComposedCity('istanbul'), 'high').hotspots.map(
+      (h) => h.position[2],
+    );
+    expect(Math.max(...zs) - Math.min(...zs)).toBeLessThan(
+      Math.max(...istanbulZs) - Math.min(...istanbulZs),
+    );
   });
 
   for (const cityId of PILOT_CITY_IDS) {
