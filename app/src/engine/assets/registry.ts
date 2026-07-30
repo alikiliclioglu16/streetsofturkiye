@@ -231,6 +231,68 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
     notes: 'Backdrop. Delivered 23.93 MB; recompressed to 2.55 MB.',
   },
   {
+    id: 'city_gaziantep_zeugma_mosaic_panel',
+    modelUrl: '/assets/city/city_gaziantep_zeugma_mosaic_panel.glb',
+    checksum: 'cc1ae0d452cfbf9c28963cc9a3f2fc1f90d3285ee68a1e09694a358e1505a3ff',
+    triangles: 9_995,
+    transferBytes: 2310484,
+    /**
+     * The one stop in the project whose colour map stays at 2048.
+     *
+     * Everywhere else resolution follows how much of the screen an object
+     * covers, which would put a 2.2 m panel at 1024. A mosaic is different:
+     * its subject is the tesserae, and at 1024 the individual stones stop
+     * being stones and the face becomes a smear of colour.
+     */
+    dimensions: [1.82, 2.2, 0.69],
+    label: 'Zeugma mosaic panel',
+    color: '#C96A2B',
+    placeholder: 'box',
+    notes:
+      'Delivered 26.17 MB at 4 m tall with four maps, two of them 4096. ' +
+      'Re-authored to the agreed 2.2 m and recompressed to 2.20 MB.',
+  },
+  {
+    id: 'city_gaziantep_baklava_counter',
+    modelUrl: '/assets/city/city_gaziantep_baklava_counter.glb',
+    checksum: 'c6938b6c0ea99e9663a8dca67cc11b30bc4ed63a9eee6c79cd15e0111a51fb42',
+    triangles: 9_520,
+    transferBytes: 813064,
+    /**
+     * A counter seen from the customer's side, so a child stands in front of
+     * it rather than walking round it: 2.26 m of frontage against 0.86 m of
+     * depth, which is what the trigger ring is sized from.
+     */
+    dimensions: [2.26, 1.3, 0.86],
+    label: 'Baklava counter',
+    color: '#4CAF7D',
+    placeholder: 'box',
+    notes:
+      'Double-sided kept for the glass front, which is a single plane — ' +
+      'culling its back face would draw half a display case. Delivered ' +
+      '21.49 MB at 2 m tall; re-authored to 1.3 m and recompressed to 0.78 MB.',
+  },
+  {
+    id: 'city_gaziantep_coppersmith_workbench',
+    modelUrl: '/assets/city/city_gaziantep_coppersmith_workbench.glb',
+    checksum: '8346079f7ff37c515ed24e2a1b6061167b8c80594c277df1ac929b719c6faac3',
+    triangles: 10_007,
+    transferBytes: 817128,
+    /**
+     * Deeper than the brief asked for — 1.65 m against 1.0 — because the wall
+     * board of finished copper stands behind the bench rather than on it. The
+     * footprint follows the file, so the ring and the camera clear the whole
+     * workshop instead of only its front edge.
+     */
+    dimensions: [2.18, 1.9, 1.65],
+    label: "Coppersmith's workbench",
+    color: '#B87333',
+    placeholder: 'box',
+    notes:
+      'Delivered 23.09 MB at 2 m tall, buried 1 m below the origin. ' +
+      'Re-authored to 1.9 m standing on y = 0, recompressed to 0.78 MB.',
+  },
+  {
     id: 'kit_olive_grove',
     modelUrl: '/assets/props/kit_olive_grove.glb',
     checksum: 'cc261c1b70888a9d6ff1af090492cca68b634ed5fe38891cd39231a4aca5bfc5',

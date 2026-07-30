@@ -523,20 +523,6 @@ Katı değil — çocuk hattın üstüne çıkarsa görmediği bir araç onu dur
 **Zemin oyun alanının 26 m ötesine uzatıldı** (D-082) — cepheler gökyüzünün üstünde
 yüzüyordu. **Sokağın iki yanı on cephe sırasıyla kapatıldı** (D-083).
 
-## 5e. Yaşayan sokak
-
-**Rüzgâr** (D-084): bayrak eğiliyor, ağaç tepeleri salınıyor. İki farklı periyotta sinüs, nesne başına
-faz kayması — yirmi bir ağaç aynı anda eğilirse deprem gibi görünür. Gövdeler duruyor.
-`sway()` saf bir fonksiyon, azaltılmış hareket sıfır güç geçilerek sağlanıyor.
-
-**Tramvay hattı** (D-085): batı tarafında 120 m gidip geliyor, uçlarda dört saniye bekliyor.
-Katı değil — çocuk hattın üstüne çıkarsa görmediği bir araç onu durdurmamalı.
-
-**Kediler %50 büyüdü**: 0,40 → 0,60 m (D-086). Gösterilen kişiler bulamıyordu.
-
-**Zemin oyun alanının 26 m ötesine uzatıldı** (D-082) — cepheler gökyüzünün üstünde
-yüzüyordu. **Sokağın iki yanı on cephe sırasıyla kapatıldı** (D-083).
-
 ## 5f. Rehber konuşuyor
 
 Tarayıcının `speechSynthesis`'i her durağı açıldığında İngilizce okuyor: rehber cümlesi,
@@ -737,6 +723,42 @@ Kale katı ve **yakın kenarından** hizalı — 37 metrelik manzarayı sınır�
 
 **Zeytinlik, zeytinlik olarak kaydedildi** (D-117). Brief antep fıstığı istemişti, gelen zeytin.
 İstenen adla kaydetmek, vapuru Beyoğlu cephesi diye koyan hatanın aynısı olurdu.
+
+## 7c. Gaziantep'in üç durağı ve teması
+
+Mozaik paneli, baklava tezgâhı ve bakırcı tezgâhı geldi (D-118). Pilotun her durağı
+artık teslim edilmiş bir dosyaya bakıyor.
+
+| | Teslim | Sevk |
+|---|---|---|
+| Zeugma mozaik paneli | 26,17 MB | 2,20 MB |
+| Baklava tezgâhı | 21,49 MB | 0,78 MB |
+| Bakırcı tezgâhı | 23,09 MB | 0,78 MB |
+
+Geometriye dokunulmadı — üçü de yaklaşık on bin üçgen, yani istenen. 70 MB'ın tamamı
+haritalardaydı: dosya başına dört harita, ikisi 4096, ve tek başına 10 MB eden bir
+metalik-pürüzlülük haritası. `simplify-model.mjs` yanlış aletti: gereksiz yere geometri
+azaltıyor ve her dokuyu 1024'e indiriyor — mozaiğin kaldıramayacağı tek şey bu, çünkü
+konusu tesserae ve 1024'te taşlar taş olmaktan çıkıyor.
+
+Dokular artık `optimize-textures.mjs` içinde **role göre** boyutlanıyor. Temel renk varlık
+başına seçiliyor, normal ve metalik-pürüzlülük bir basamak altında. Mozaik 2048'de kalıyor
+ve 2,20 MB ediyor; diğer ikisi 1024'te 0,78 MB.
+
+**Siyah emissive haritası küçük bir doku değil, hiçbir şey yapmayan bir dokudur.** Meshy
+üçüne de birer tane gömmüş ve yanına `emissiveFactor: [1,1,1]` koymuş. En parlak kanalları
+255 üzerinden 5, 0 ve 3. Ölçüldükten sonra atıldı; betik eşiği geçen bir haritayı atmıyor.
+
+Çift yüzlülük geldiği gibi bırakıldı. En çok baklava kasasında önemli: cam ön yüzü tek bir
+düzlem ve arka yüzünü elemek kasanın yarısını çizmemek olurdu (D-089).
+
+**Ölçek dosyalara işlendi, motora değil.** Mozaik 4 m, baklava 2 m geldi; `AssetInstance`in
+yarım-ile-iki katı bandı ikisini de düzeltmiyor ve `scaleToBrief` hiçbir yerde okunmuyor
+(D-120). `set-model-scale.mjs` ile sokak lambasının yeniden yazıldığı gibi yeniden yazıldılar.
+
+**Tema:** *Sarı Çoraplı Yol*, 4:11, Opus/WebM 59 kbps, 1,76 MB. Kapak görseli ve metadata
+çıkarıldı. Testi artık `PLAYABLE_CITY_IDS` üzerinden dönüyor: her oynanabilir şehrin teması
+var ve hiçbiri aynı değil (D-119).
 
 ## 5. Bilinen sınırlar
 

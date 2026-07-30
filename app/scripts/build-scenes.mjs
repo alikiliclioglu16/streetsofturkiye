@@ -126,6 +126,7 @@ const VALLEY_HALF_DEPTH = 78.2 / 2;
 const CITY_THEMES = {
   istanbul: '/assets/audio/istanbul_theme.webm',
   nevsehir: '/assets/audio/nevsehir_theme.webm',
+  gaziantep: '/assets/audio/gaziantep_theme.webm',
 };
 
 /**

@@ -81,8 +81,12 @@ describe('audio channels', () => {
     const files = readdirSync(dir);
 
     // Interface cues and the ambience bed are oscillators and filtered noise,
-    // so the only file here is the city theme.
-    expect(files.sort()).toEqual(['istanbul_theme.webm', 'nevsehir_theme.webm']);
+    // so the only files here are the city themes — one per playable city.
+    expect(files.sort()).toEqual([
+      'gaziantep_theme.webm',
+      'istanbul_theme.webm',
+      'nevsehir_theme.webm',
+    ]);
     for (const file of files) {
       // Opus in WebM, streamed rather than decoded into memory.
       expect(file.endsWith('.webm'), file).toBe(true);
@@ -154,20 +158,23 @@ describe('the guide speaks', () => {
 });
 
 describe('each city has its own theme', () => {
-  it('gives İstanbul and Nevşehir different music, and neither to Gaziantep', async () => {
+  it('gives every playable city music, and no two of them the same', async () => {
     const { buildScene } = await import('@/engine/scene/buildScene');
     const { loadComposedCity } = await import('./helpers');
+    const { PLAYABLE_CITY_IDS } = await import('@/content/loaders/loadCity');
 
-    const istanbul = buildScene(loadComposedCity('istanbul'), 'high').musicUrl;
-    const nevsehir = buildScene(loadComposedCity('nevsehir'), 'high').musicUrl;
+    const themes = PLAYABLE_CITY_IDS.map(
+      (cityId) => buildScene(loadComposedCity(cityId), 'high').musicUrl,
+    );
 
-    expect(istanbul).not.toBeNull();
-    expect(nevsehir).not.toBeNull();
     // A Bosphorus song over Cappadocia is the audio equivalent of planting
-    // plane trees there.
-    expect(istanbul).not.toBe(nevsehir);
-    // Silent rather than borrowing a neighbour's.
-    expect(buildScene(loadComposedCity('gaziantep'), 'high').musicUrl).toBeNull();
+    // plane trees there. The rule this holds is that a city is silent rather
+    // than borrowing a neighbour's — so a missing theme fails here as loudly
+    // as a duplicated one.
+    for (const [index, theme] of themes.entries()) {
+      expect(theme, PLAYABLE_CITY_IDS[index]).not.toBeNull();
+    }
+    expect(new Set(themes).size).toBe(themes.length);
   });
 
   it('keeps every theme small enough to stream on a tablet', async () => {

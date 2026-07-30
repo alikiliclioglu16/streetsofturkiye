@@ -548,7 +548,12 @@ They hold their post rather than wander. `Walking` is on their whitelist because
 the model ships with it, but playing a walk cycle on the spot is exactly the
 skating the cat integration avoided.
 
-## D-054 — Simplification locks UV seams (28 Jul 2026)
+## D-054b — Simplification locks UV seams (28 Jul 2026)
+
+*Numbering note: this entry and the one above it were both written as D-054.
+Two different decisions shared one id, and the log has been referenced by id in
+three places since. The later of the two is renumbered rather than moved, so it
+stays where it belongs chronologically.*
 
 The first optimised Galata Tower came back at 34,313 triangles with 448 px
 textures and rendered as a white, holed shape with no tower in it. Two causes:
@@ -936,53 +941,6 @@ not to matter: it stands beyond the play boundary where only its front is ever
 seen, so the depth costs nothing but triangles it already had.
 
 Two instances, one along each side of the walk. 25.01 MB down to 2.55 MB.
-
-## D-082 — Ground is scenery; bounds are gameplay (29 Jul 2026)
-
-They were the same rectangle, so anything standing outside the play area stood
-off the edge of the world — the facades appeared to float over a strip of sky
-with water showing under them.
-
-The paving now runs 26 m past the boundary in every direction. The child still
-stops where they always did; the world does not stop with them.
-
-## D-083 — The street is closed on both sides (29 Jul 2026)
-
-Two facade rows left gaps of open sky between them, which read as holes in the
-city rather than as distance. Ten rows now run end to end down both sides.
-
-A street a child cannot see out of is a street. One with blue slots in its walls
-is a stage set.
-
-## D-084 — Wind (29 Jul 2026)
-
-The flag leans and the tree canopies sway: two sines at unrelated periods, so
-the motion never visibly repeats, with a phase offset per object so twenty-one
-trees do not lean in unison — which reads as an earthquake rather than a breeze.
-
-Trunks hold still. A swaying trunk reads as a tree falling over.
-
-The whole flag leans rather than its cloth rippling; rippling needs bones the
-delivered file does not have, and at six metres a lean says wind well enough.
-
-`sway()` is pure, so reduced motion is honoured by passing zero strength rather
-than by threading a flag through every component that moves.
-
-## D-085 — The tram runs its line (29 Jul 2026)
-
-A tram parked at the kerb is a model of a tram. It now runs 120 m of the west
-side, pauses four seconds at each end and comes back — which is what İstanbul's
-nostalgic tram does, one street, all day.
-
-It is not solid: a child who wanders on to the line should not be stopped by a
-vehicle they cannot see coming. The step function is pure, so a tram that never
-arrives or never turns round is a failing test rather than something to watch
-for.
-
-## D-086 — Cats are 60 cm (29 Jul 2026)
-
-Raised by half again from 40 cm. The people the street was shown to could not
-find them, which is the only measurement that mattered.
 
 ## D-082 — Ground is scenery; bounds are gameplay (29 Jul 2026)
 
@@ -1519,3 +1477,103 @@ because the name was plausible.
 Olives grow across the south and west, so it is a `kit_` asset rather than a
 Gaziantep one, and the next Aegean city already has its groves.
 
+## D-118 — Gaziantep's three stops are delivered (30 Jul 2026)
+
+The mosaic panel, the baklava counter and the coppersmith's workbench. Every
+stop in the pilot now points at a delivered file.
+
+| | Delivered | Shipped |
+|---|---|---|
+| Zeugma mosaic panel | 26.17 MB | 2.20 MB |
+| Baklava counter | 21.49 MB | 0.78 MB |
+| Coppersmith's workbench | 23.09 MB | 0.78 MB |
+
+The geometry needed nothing. All three arrived around ten thousand triangles,
+which is what was asked for, and the entire 70 MB was in the maps: four of
+them each, two at 4096 including a metallic-roughness map that was 10 MB on its
+own. `simplify-model.mjs` was the wrong tool — it reduces geometry there is no
+reason to touch, and it takes every texture to 1024, which is the one thing the
+mosaic cannot have. Its subject is the tesserae, and at 1024 the stones stop
+being stones.
+
+So textures are now sized by role in their own script, `optimize-textures.mjs`.
+Base colour is chosen per asset; normal and metallic-roughness follow one step
+below it. The mosaic keeps 2048 and costs 2.20 MB. The other two sit at 1024
+and cost 0.78 MB each.
+
+**A black emissive map is not a small texture, it is a texture doing nothing.**
+Meshy baked one into all three exports and set `emissiveFactor` to [1,1,1]
+beside it. Brightest channel of 5, 0 and 3 out of 255. Three 4096 px maps were
+being loaded to add zero. They are dropped, but only after measuring — the
+script keeps any emissive map whose brightest channel clears the threshold,
+because the next delivery may have a lantern in it.
+
+Sidedness was left exactly as delivered, which is to say double-sided on all
+three. It matters most on the baklava case, whose glass front is a single
+plane: culling its back face would draw half a display case, which is the
+mistake that tore the flags on the Maiden's Tower (D-089).
+
+## D-119 — Gaziantep has a theme (30 Jul 2026)
+
+*Sarı Çoraplı Yol*, 4 minutes 11, converted to Opus in WebM at 59 kbps and
+1.76 MB — in line with İstanbul's 1.67 and Nevşehir's 1.39. The MP3 carried an
+embedded cover image and metadata; both are stripped, because the engine
+streams this through `<audio>` and never shows it.
+
+The test that guarded this was written as "İstanbul and Nevşehir have different
+music, and Gaziantep has none". That is a description of a moment, not a rule.
+It now walks `PLAYABLE_CITY_IDS` and holds that every playable city has a theme
+and no two are the same, so a missing theme fails as loudly as a borrowed one.
+The rule was always that a city is silent rather than borrowing a neighbour's;
+the old test only enforced half of it.
+
+## D-120 — `scaleToBrief` was never wired up (30 Jul 2026)
+
+Recorded because it is found, not because it is fixed.
+
+`DeliveredProp.scaleToBrief` is documented as forcing the agreed size where a
+file disagrees. It is set on twenty-five entries and asserted in four tests.
+**Nothing reads it.** The only sizing correction in the engine is in
+`AssetInstance`, which scales a model to its recorded height and then declines
+to do so unless the factor is below a half or above two — a band meant to leave
+small deviations as the artist's intent.
+
+Most Meshy exports land inside that band, because Meshy normalises into a
+bounding box: three of the files in D-118 came back at exactly 2.00 or 4.00 m
+whatever they depicted. The mosaic was 4 m against an agreed 2.2, a factor of
+0.55, and would have passed straight through at nearly twice its size.
+
+The consequence is wider than one city. `dimensions` is also what the scene
+builder reserves footprints from and what each stop's camera distance is
+derived from (D-051, D-062). So the layout believes the registry and the
+renderer believes the file, and for sixteen delivered assets across all three
+cities those two disagree by between ten and seventy per cent:
+
+| Asset | Registry | File |
+|---|---|---|
+| `city_nevsehir_chimney_ridge` | 17 m | 10 m |
+| `city_istanbul_ferry_boat` | 9 m | 15 m |
+| `city_nevsehir_valley` | 12 m | 6 m |
+| `city_gaziantep_castle` | 18 m | 15 m |
+| `kit_turkish_flag` | 6 m | 4 m |
+| `city_nevsehir_pottery_wheel` | 1.4 m | 2.0 m |
+
+and ten more: `city_gaziantep_stone_houses`, `city_istanbul_beyoglu_row`,
+`city_istanbul_iznik_tile_panel`, `city_nevsehir_carpet_loom`,
+`city_nevsehir_underground_stone_door`, `city_istanbul_streetcar`,
+`city_istanbul_stone_dock`, `kit_wall_fountain`, `kit_hot_air_balloon`,
+`kit_olive_grove`.
+
+Two details worth keeping. The valley sits at a factor of exactly 2.0 and the
+condition is `factor > 2`, so it misses by nothing at all. And D-112 recorded
+the pottery wheel as the smallest stop object in the project at 1.4 m; it is
+drawn at 2.0.
+
+**The three new stops were not fixed this way.** Their scale is baked into the
+files instead, with `set-model-scale.mjs`, the way the street lamp was
+re-authored at 5 m. That keeps today's delivery correct without changing the
+size of sixteen objects in three finished cities in the same breath — a change
+nobody here can see the result of, and which needs its own screenshot round.
+
+The fix, when it is taken, is to make the flag live and let the renderer agree
+with the layout that was already computed from those numbers.
