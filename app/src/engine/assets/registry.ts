@@ -344,6 +344,78 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
       'beside a 1.45 m guide.',
   },
   {
+    id: 'kit_goose_standing_a',
+    modelUrl: '/assets/props/kit_goose_standing_a.glb',
+    checksum: 'd681db3b6338b76c0df3f48d86eb63b0e25602a73ca0c68c499d2811c856763a',
+    triangles: 10_426,
+    transferBytes: 626708,
+    /**
+     * A goose that stands, and does not walk.
+     *
+     * Kars's geese were going to wait for a rig. Then three more arrived, none
+     * of them rigged either, and between them they had different poses — which
+     * turned out to be worth more than one bird with a walk cycle. A flock is
+     * several animals each doing something slightly different, and that is a
+     * modelling problem before it is an animation one.
+     *
+     * Placed as dressing rather than as the city's animal, so nothing here has
+     * to move. `kit_kars_goose` still exists, still has its routes, and still
+     * draws nothing until it is rigged — at which point walking birds join
+     * these rather than replacing them.
+     */
+    dimensions: [0.33, 0.85, 0.84],
+    label: 'Goose, standing',
+    color: '#F2EFE6',
+    placeholder: 'box',
+    notes:
+      'Delivered 17.96 MB at 0.6 m; re-authored to 0.85 m, which is a grown ' +
+      'Embden, and recompressed to 0.60 MB.',
+  },
+  {
+    id: 'kit_goose_standing_b',
+    modelUrl: '/assets/props/kit_goose_standing_b.glb',
+    checksum: '30ec40269ae52c8996f1afad8f0de16a06990aee8539b3be6b487003246787c4',
+    triangles: 8_610,
+    transferBytes: 774732,
+    /**
+     * The second upright bird, and it is nearly the first: both measure 0.98
+     * long for every unit tall with their heads at the same end. The difference
+     * is 6 cm across the body. Two of them beside each other still reads better
+     * than one of them twice, which is the same reason the sky over Cappadocia
+     * uses one balloon at ten sizes.
+     */
+    dimensions: [0.39, 0.85, 0.83],
+    label: 'Goose, standing',
+    color: '#F4F1E8',
+    placeholder: 'box',
+    notes: 'Delivered 27.60 MB at 0.6 m; re-authored to 0.85 m, recompressed to 0.74 MB.',
+  },
+  {
+    id: 'kit_goose_foraging',
+    modelUrl: '/assets/props/kit_goose_foraging.glb',
+    checksum: 'c877d2721d61fed07ae0d7c8b82fce22d19c3c0d46f5709ea9c93b088ed0ece0',
+    triangles: 10_395,
+    transferBytes: 729508,
+    /**
+     * Head down, neck stretched out along the ground: 1.73 units long for every
+     * one tall, against 0.98 for the two upright birds, with the top of it a
+     * third of the way along rather than at the end.
+     *
+     * **Left at 0.6 m and not raised to 0.85 like the others.** A goose is
+     * 0.85 m tall when its neck is up; the same bird with its head down is
+     * shorter and longer, which is what this file is. Scaling it to match the
+     * uprights would have produced a goose the size of a sheep — the height is
+     * a pose, not a species.
+     */
+    dimensions: [0.4, 0.6, 1.04],
+    label: 'Goose, foraging',
+    color: '#EFEADF',
+    placeholder: 'box',
+    notes:
+      'Delivered 18.41 MB; recompressed to 0.70 MB. Scale left as delivered, ' +
+      'because 1.04 m long and 0.6 m tall is what a goose with its head down is.',
+  },
+  {
     id: 'kit_olive_grove',
     modelUrl: '/assets/props/kit_olive_grove.glb',
     checksum: 'cc261c1b70888a9d6ff1af090492cca68b634ed5fe38891cd39231a4aca5bfc5',

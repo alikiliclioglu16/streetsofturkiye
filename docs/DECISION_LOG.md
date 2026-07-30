@@ -1817,3 +1817,43 @@ with the mesh had it right and the brief had it wrong.
 walking would put a real bird in Kars now. It needs an animal with no routes,
 which the engine cannot currently express, and it is a decision about what the
 city looks like rather than an engineering one.
+
+## D-129 — Kars has geese, and none of them is rigged (30 Jul 2026)
+
+Three more geese arrived, none with a skin or an animation, as the first had
+none. Four static birds and no walk cycle between them.
+
+**Their poses were worth more than a rig.** Measured off the silhouettes rather
+than taken from the filenames:
+
+| | long per unit tall | top of the bird, along its length |
+|---|---|---|
+| Snowy | 0.98 | 89% |
+| Embden | 0.98 | 89% |
+| Foraging | 1.73 | 30% |
+
+Two upright birds with their heads at one end, and one stretched out with the
+tall part a third of the way along — a goose with its neck down. That is a flock:
+several animals each doing something slightly different. One rigged bird copied
+three times would have moved and still read as one bird, which is the mistake the
+sky over Cappadocia avoids by using one balloon at ten sizes.
+
+So they are placed as dressing rather than as the city's animal, and nothing in
+the group moves. Not solid, like the cats: getting stuck on a bird is worse than
+walking through one.
+
+**The engine needed no change for this.** A standing goose is a prop, and the
+prop system already places, grounds, scales and shadows one. The walking path is
+untouched and still reserved — `kit_kars_goose` keeps its three routes and draws
+nothing, because a briefed asset resolves to a null model. When the rig lands,
+walking birds appear on those routes beside the standing ones instead of
+replacing them.
+
+**The forager is not scaled to match the others, and that is the point.** The two
+uprights were re-authored from 0.60 m to 0.85 m, which is a grown Embden. The
+forager was left at 0.60 m and 1.04 m long. A goose is 0.85 m tall with its neck
+up and shorter with its head down; the height of this one is a pose, not a
+species, and normalising all three to one number would have put a goose the size
+of a sheep on the plateau. **Height is only a common scale between models in the
+same pose** — nothing in the pipeline knows that, so it has to be decided per
+file.

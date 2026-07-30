@@ -117,6 +117,56 @@ describe('street kit props', () => {
     expect(istanbul.some((id) => id.startsWith('city_istanbul_'))).toBe(true);
   });
 
+  it('stands a flock of geese in Kars, and no two of them the same', () => {
+    /**
+     * Three birds, three files. A flock is several animals each doing something
+     * slightly different, and with nothing rigged that difference has to come
+     * out of the models: two upright and one with its head down.
+     *
+     * The forager is deliberately the short one. A goose is 0.85 m tall with
+     * its neck up and shorter with its head down, so scaling all three to one
+     * height would have made the head-down bird the size of a sheep.
+     */
+    const scene = buildScene(loadComposedCity('kars'), 'high');
+    const geese = scene.props.filter((prop) => prop.asset.entry.id.startsWith('kit_goose'));
+    expect(geese).toHaveLength(3);
+    expect(new Set(geese.map((goose) => goose.asset.entry.id)).size).toBe(3);
+
+    // Dressing, not obstacles. Getting stuck on a bird is worse than walking
+    // through one, which is the rule the cats already follow.
+    for (const goose of geese) expect(goose.solid, goose.asset.entry.id).toBe(false);
+
+    // A flock, so close enough together to be one group.
+    for (const goose of geese) {
+      const nearest = Math.min(
+        ...geese
+          .filter((other) => other !== goose)
+          .map((other) => Math.hypot(other.position[0] - goose.position[0], other.position[2] - goose.position[2])),
+      );
+      expect(nearest, goose.asset.entry.id).toBeLessThan(6);
+    }
+
+    // Off the walk and out of every trigger ring: a goose standing in a stop's
+    // ring is a goose standing in the shot the moment that stop opens.
+    for (const goose of geese) {
+      expect(Math.abs(goose.position[0]), 'goose on the walking line').toBeGreaterThan(4);
+      for (const hotspot of scene.hotspots) {
+        const gap = Math.hypot(
+          goose.position[0] - hotspot.position[0],
+          goose.position[2] - hotspot.position[2],
+        );
+        expect(gap, `${goose.asset.entry.id} inside ${hotspot.id}`).toBeGreaterThan(
+          hotspot.triggerRadius,
+        );
+      }
+    }
+
+    // The head-down bird is the short one, and the upright pair match.
+    const byId = new Map(geese.map((goose) => [goose.asset.entry.id, goose.asset.entry.dimensions]));
+    expect(byId.get('kit_goose_foraging')![1]).toBeLessThan(byId.get('kit_goose_standing_a')![1]);
+    expect(byId.get('kit_goose_standing_a')![1]).toBe(byId.get('kit_goose_standing_b')![1]);
+  });
+
   it('lets a child walk through the bazaar gate, and not through its piers', () => {
     /**
      * The gate was solid as one rectangle, which sealed its own archway: a

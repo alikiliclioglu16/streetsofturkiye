@@ -325,6 +325,31 @@ function streetProps(cityId, stopPositions, geometry) {
   }
 
   /**
+   * Kars's geese, standing.
+   *
+   * A flock, so they are close enough together to be one group and turned
+   * differently enough not to be one bird copied — two upright, one with its
+   * head down. Six metres across, which is about what a handful of geese on a
+   * plateau occupy.
+   *
+   * They are dressing and not the city's animal, because none of them is
+   * rigged. Nothing here moves, and nothing here has to: a goose standing on
+   * grass is a goose. When the walk arrives, `kit_kars_goose` starts drawing on
+   * its routes and joins these rather than replacing them.
+   *
+   * Not solid, like the cats — a child walks through them. Getting stuck on a
+   * bird is worse than walking through one.
+   */
+  if (cityId === 'kars') {
+    const flockZ = firstZ - walkLength * 0.62;
+    candidates.push(
+      { ...prop('kit_goose_standing_a', -12.4, flockZ, 2.35, 'goose, standing'), solid: false },
+      { ...prop('kit_goose_foraging', -10.1, flockZ - 2.4, 1.05, 'goose, head down'), solid: false },
+      { ...prop('kit_goose_standing_b', -13.6, flockZ - 4.1, -0.6, 'goose, standing'), solid: false },
+    );
+  }
+
+  /**
    * The same checks that always applied: nothing inside a trigger ring, nothing
    * on the walk. Placements that fail are dropped rather than shipped.
    */

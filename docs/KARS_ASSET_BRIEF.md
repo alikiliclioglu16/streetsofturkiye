@@ -14,7 +14,7 @@ Three stops and one question, the same shape as Gaziantep. The street is 28 m.
 
 ## The whole list, in the order I would draw it
 
-Eleven files. **Part A first** — a street with placeholder stops and a real
+Ten files left. **Part A first** — a street with placeholder stops and a real
 horizon reads as a place under construction; real stops and no horizon reads as a
 diorama.
 
@@ -27,7 +27,7 @@ diorama.
 | 5 | `city_kars_ani_carved_doorway` | **stop 1** — carving, rubbing half taken | 2.6 × 3.2 × 1.0 m | 2048 |
 | 6 | `city_kars_eastern_express_platform` | **stop 2** — platform, nose of the engine | 6.0 × 3.4 × 2.6 m | 1024 |
 | 7 | `city_kars_gravyer_stall` | **stop 3** — cheese wheels, one cut | 2.2 × 1.6 × 1.1 m | 1024 |
-| 8 | `kit_kars_goose` | the animal, **rigged, `Walking` clip** — mesh delivered, rig outstanding | 0.43 × 0.85 × 0.91 m | 1024 |
+| 8 | ~~`kit_kars_goose`~~ | **done another way** — three standing birds are in, `kit_goose_standing_a/_b`, `kit_goose_foraging`. A rigged walker is now optional | — | — |
 | 9 | `collectible_kars_stone_rubbing` | reward 1 | 0.22 × 0.30 × 0.02 m | 1024 |
 | 10 | `collectible_kars_express_ticket` | reward 2 | 0.14 × 0.09 × 0.01 m | 1024 |
 | 11 | `collectible_kars_gravyer_wedge` | reward 3 | 0.20 × 0.16 × 0.14 m | 1024 |

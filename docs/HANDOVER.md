@@ -34,7 +34,7 @@ Fiber 9, Drei 10, Zustand 5, Zod 4, Vitest 4.
 | Questions | 2 | 2 | 1 | 1 |
 | Guide | Nasreddin Hodja | Keloğlan | Keloğlan | Keloğlan |
 | Ground | cobblestone | red sand | red sand | steppe |
-| Animal | 5 cats | 3 horses | 5 cats | geese (placeholder) |
+| Animal | 5 cats | 3 horses | 5 cats | 3 geese, standing |
 | Horizon | facades, sea, ferry, Maiden's Tower | chimney ridges, valley rim | stone houses, castle, olive groves, bazaar gate | **all placeholder** — Ani shells, cathedral, walls, gorge |
 | Music | *Üsküdar'a Gider İken* | *Gökyüzü Balonları* | *Sarı Çoraplı Yol* | *Kars Yaylası* |
 | Balloons | no | **yes** | no | no |
@@ -43,7 +43,7 @@ Three cities are finished end to end. **Kars is open and unbuilt** — walkable,
 with a placeholder at every stop and across its whole horizon, the way Nevşehir
 and Gaziantep were each opened. Its brief is `docs/KARS_ASSET_BRIEF.md`.
 
-`npm run gate` is green: 81 cities, 249 stops, 84 questions, **322 tests**,
+`npm run gate` is green: 81 cities, 249 stops, 84 questions, **323 tests**,
 clean lint and typecheck, 4 routes built.
 
 Assets total 70.63 MB on disk; a single city visit downloads far less because
@@ -185,6 +185,11 @@ meant to be and the renderer, the collider and the stop camera all use it.
 brief. Scaling is uniform and taken from height, so the recorded width and depth
 have to be the file's own aspect or the collider will not match what is drawn. A
 test holds this to within 8%.
+
+**Height is a common scale only between models in the same pose.** Three geese
+arrived at 0.6 m each; two were upright and one had its head down. Raising all
+three to a goose's 0.85 m would have made the head-down one the size of a sheep
+(D-129). Nothing in the pipeline knows this, so it is decided per file.
 
 **A stop object is child-scale — one to five metres.** It is something to walk up
 to, not scenery. Hagia Sophia was built as a stop and had to be moved to the
@@ -331,10 +336,11 @@ Nevşehir. This is the one change in the project that most needs a pair of eyes.
 placeholder. `docs/KARS_ASSET_BRIEF.md` lists all eleven files in the order to
 draw them: four for the horizon, three stops, the goose, three rewards.
 
-The goose mesh has arrived and is waiting on a rig — it is the only file on the
-list that needs one. `docs/KARS_GOOSE_PRERIG_REPORT.md` has what the rigger needs,
-including the two places the mesh will fight them. The clip must be called
-`Walking`, with the -ing.
+The geese are done and none of them is rigged: three static birds in different
+poses, standing as dressing (D-129). A rigged walker is optional now rather than
+blocking — `kit_kars_goose` keeps its routes and draws nothing until one exists.
+`docs/KARS_GOOSE_PRERIG_REPORT.md` has what a rigger would need, and the clip
+must be called `Walking`, with the -ing.
 
 **4. Then a fifth city.** Everything needed is in place: the shared kit, three
 regional grounds, the planting table, the animal table, the layout that handles

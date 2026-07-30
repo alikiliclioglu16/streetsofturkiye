@@ -448,6 +448,39 @@
       "rotationY": 1.421,
       "solid": true,
       "note": "fountain, near the end"
+    },
+    {
+      "assetId": "kit_goose_standing_a",
+      "position": [
+        -12.4,
+        0,
+        -34.4
+      ],
+      "rotationY": 2.35,
+      "solid": false,
+      "note": "goose, standing"
+    },
+    {
+      "assetId": "kit_goose_foraging",
+      "position": [
+        -10.1,
+        0,
+        -36.8
+      ],
+      "rotationY": 1.05,
+      "solid": false,
+      "note": "goose, head down"
+    },
+    {
+      "assetId": "kit_goose_standing_b",
+      "position": [
+        -13.6,
+        0,
+        -38.5
+      ],
+      "rotationY": -0.6,
+      "solid": false,
+      "note": "goose, standing"
     }
   ],
   "musicUrl": "/assets/audio/kars_theme.webm",
