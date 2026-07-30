@@ -89,6 +89,7 @@ export interface RuntimeCity {
   water: SceneDefinition['water'];
   musicUrl: SceneDefinition['musicUrl'];
   groundSurface: SceneDefinition['groundSurface'];
+  groundPatches: SceneDefinition['groundPatches'];
   balloons: SceneDefinition['balloons'];
   tramLine: SceneDefinition['tramLine'];
   backdrop: SceneDefinition['backdrop'];
@@ -171,6 +172,7 @@ export function composeCity(canonical: CanonicalCity, scene: SceneDefinition): R
     water: scene.water,
     musicUrl: scene.musicUrl,
     groundSurface: scene.groundSurface,
+    groundPatches: scene.groundPatches,
     balloons: scene.balloons,
     tramLine: scene.tramLine,
     backdrop: scene.backdrop,

@@ -194,18 +194,11 @@ execFileSync('python3', ['-c', SAND], { stdio: 'inherit' });
 /* ------------------------------------------------------------------ */
 
 /**
- * Dry highland steppe, for the eastern plateau.
+ * Dry highland steppe.
  *
- * Neither of the other two fits Kars. Cobbles are a street and Ani has no
- * street left; red sand is Cappadocia's tuff, and using it here would put
- * Cappadocia's ground under an Armenian cathedral for no reason but that the
- * region table happened to point at it.
- *
- * What the plateau around Ani actually is: worn basalt showing through short
- * tufted grass, with stones lying loose on it. So the structure is tufts rather
- * than dunes — clustered noise at a tight scale for the grass, a sparser field
- * of hard-edged blobs for the stones, and no ripples at all, because wind moves
- * sand and does not move turf.
+ * Written for Kars and then replaced there by the bedrock above — Ani is a rock
+ * shelf, not a meadow. Kept because it is the right ground for the rest of the
+ * eastern plateau, where the next province will not be a ruin on bare stone.
  */
 const STEPPE = `
 import numpy as np
@@ -228,35 +221,29 @@ def wrapped_noise(cells):
     sy = fy * fy * (3 - 2 * fy)
     sx = fx * fx * (3 - 2 * fx)
     top = grid[np.ix_(y0, x0)] * (1 - sx) + grid[np.ix_(y0, x1)] * sx
-    bottom = grid[np.ix_(y1, x0)] * (1 - sx) + grid[np.ix_(y1, x1)] * sx
-    return top * (1 - sy) + bottom * sy
-
-# Broad bare patches, then the tufts themselves at a tight scale.
-patches = wrapped_noise(5)
-tufts = wrapped_noise(38) * 0.6 + wrapped_noise(74) * 0.4
-turf = np.clip(patches * 0.45 + tufts * 0.55, 0, 1)
-
-# Loose stones: a sparse field, thresholded so they have edges. Grass fades in
-# and out; a stone either is there or is not, and that difference is most of
-# what makes this read as stony ground rather than as a lawn.
-stone_field = wrapped_noise(17)
-stones = np.clip((stone_field - 0.72) / 0.18, 0, 1)
-
-height = np.clip(turf * 0.7 + stones * 0.5, 0, 1)
-grain = rng.normal(0.0, 0.025, (SIZE, SIZE))
-
-# Greyscale, tinted at render time by the region ground colour, exactly as the
-# other two are. Stones sit brighter and much smoother than the turf around
-# them, which is what catches the light on a plateau.
-albedo = np.clip(0.55 + turf * 0.26 + stones * 0.22 + grain, 0, 1)
-rough = np.clip(0.97 - stones * 0.30, 0, 1)
+    bot = grid[np.ix_(y1, x0)] * (1 - sx) + grid[np.ix_(y1, x1)] * sx
+    return top * (1 - sy) + bot * sy
 
 def wrap_sobel(h):
     dzdx = (np.roll(h, -1, axis=1) - np.roll(h, 1, axis=1)) * 0.5
     dzdy = (np.roll(h, -1, axis=0) - np.roll(h, 1, axis=0)) * 0.5
     return dzdx, dzdy
 
-# Stronger than sand, weaker than paving: tufts and stones have real relief.
+patches = wrapped_noise(5)
+tufts = wrapped_noise(38) * 0.6 + wrapped_noise(74) * 0.4
+turf = np.clip(patches * 0.45 + tufts * 0.55, 0, 1)
+
+# A stone either is there or is not; grass fades in and out. That difference is
+# most of what makes this read as stony ground rather than as a lawn.
+stone_field = wrapped_noise(17)
+stones = np.clip((stone_field - 0.72) / 0.18, 0, 1)
+
+height = np.clip(turf * 0.7 + stones * 0.5, 0, 1)
+grain = rng.normal(0.0, 0.025, (SIZE, SIZE))
+
+albedo = np.clip(0.55 + turf * 0.26 + stones * 0.22 + grain, 0, 1)
+rough = np.clip(0.97 - stones * 0.30, 0, 1)
+
 STRENGTH = 1.35
 dzdx, dzdy = wrap_sobel(height)
 nx, ny = -dzdx * STRENGTH, -dzdy * STRENGTH
@@ -275,6 +262,200 @@ print(f'{SIZE}x{SIZE} highland steppe')
 `;
 
 execFileSync('python3', ['-c', STEPPE], { stdio: 'inherit' });
+
+/* ------------------------------------------------------------------ */
+
+/**
+ * Fractured bedrock, for Ani.
+ *
+ * Ani stands on a bare rock shelf. The plateau there is broken into slabs
+ * sitting at slightly different levels with crevices between them, and that
+ * unevenness is most of what a child is walking on.
+ *
+ * So this is neither the cobbles' regular cells nor the sand's continuous
+ * drift. Voronoi again, but the cells are far larger and jittered hard so no
+ * two are the same shape, and **each slab carries its own height offset** —
+ * which is the whole difference between a paved street and a rock shelf. A
+ * flat plane with cracks drawn on it reads as a floor. Crevices are cut narrow
+ * and deep rather than laid as mortar joints.
+ *
+ * Greyscale, tinted at render time by the region's ground colour, as the others
+ * are.
+ */
+const ROCK = `
+import numpy as np
+from PIL import Image
+
+SIZE = 1024
+CELLS = 5           # slabs across the tile; a 9 m repeat gives ~1.8 m plates
+rng = np.random.default_rng(20260731)
+
+def wrapped_noise(cells):
+    """Value noise on a torus, so it tiles."""
+    grid = rng.random((cells, cells))
+    ys = (np.arange(SIZE) / SIZE * cells)
+    xs = (np.arange(SIZE) / SIZE * cells)
+    y0 = np.floor(ys).astype(int) % cells
+    x0 = np.floor(xs).astype(int) % cells
+    y1 = (y0 + 1) % cells
+    x1 = (x0 + 1) % cells
+    fy = (ys - np.floor(ys))[:, None]
+    fx = (xs - np.floor(xs))[None, :]
+    sy = fy * fy * (3 - 2 * fy)
+    sx = fx * fx * (3 - 2 * fx)
+    top = grid[np.ix_(y0, x0)] * (1 - sx) + grid[np.ix_(y0, x1)] * sx
+    bot = grid[np.ix_(y1, x0)] * (1 - sx) + grid[np.ix_(y1, x1)] * sx
+    return top * (1 - sy) + bot * sy
+
+def wrap_sobel(h):
+    dzdx = (np.roll(h, -1, axis=1) - np.roll(h, 1, axis=1)) * 0.5
+    dzdy = (np.roll(h, -1, axis=0) - np.roll(h, 1, axis=0)) * 0.5
+    return dzdx, dzdy
+
+gx, gy = np.meshgrid(np.arange(CELLS), np.arange(CELLS), indexing='ij')
+seeds = np.stack([gx.ravel(), gy.ravel()], axis=1).astype(np.float64)
+seeds += rng.uniform(0.05, 0.95, seeds.shape)   # paving wants regularity; rock does not
+seeds /= CELLS
+
+ys, xs = np.meshgrid(
+    (np.arange(SIZE) + 0.5) / SIZE,
+    (np.arange(SIZE) + 0.5) / SIZE,
+    indexing='ij',
+)
+px = xs.ravel()
+py = ys.ravel()
+
+best = np.full(px.shape, 1e9)
+second = np.full(px.shape, 1e9)
+owner = np.zeros(px.shape, dtype=np.int32)
+
+for index, (sx, sy) in enumerate(seeds):
+    dx = np.abs(px - sx)
+    dy = np.abs(py - sy)
+    dx = np.minimum(dx, 1.0 - dx)       # wrapped on a torus, so the tile has no seam
+    dy = np.minimum(dy, 1.0 - dy)
+    dist = np.sqrt(dx * dx + dy * dy)
+    closer = dist < best
+    second = np.where(closer, best, np.minimum(second, dist))
+    owner = np.where(closer, index, owner)
+    best = np.where(closer, dist, best)
+
+edge = (second - best).reshape(SIZE, SIZE)
+owner = owner.reshape(SIZE, SIZE)
+
+levels = rng.uniform(0.0, 1.0, len(seeds))
+slab = levels[owner]
+crevice = np.clip(edge / 0.022, 0, 1)
+fracture = wrapped_noise(23) * 0.6 + wrapped_noise(61) * 0.4
+
+height = np.clip(slab * 0.55 + fracture * 0.45, 0, 1) * crevice
+grain = rng.normal(0.0, 0.022, (SIZE, SIZE))
+
+albedo = np.clip(0.42 + height * 0.46 + grain, 0, 1)
+rough = np.clip(0.99 - height * 0.22, 0, 1)
+
+STRENGTH = 2.6      # the strongest of the four; rock has relief you see standing up
+dzdx, dzdy = wrap_sobel(height)
+nx, ny = -dzdx * STRENGTH, -dzdy * STRENGTH
+nz = np.ones_like(nx)
+length = np.sqrt(nx * nx + ny * ny + nz * nz)
+normal = (((np.stack([nx / length, ny / length, nz / length], axis=-1)) * 0.5 + 0.5) * 255).astype(np.uint8)
+
+Image.fromarray((albedo * 255).astype(np.uint8), mode='L').convert('RGB').save(
+    'public/assets/textures/ground_rock_albedo.jpg', quality=88, optimize=True)
+Image.fromarray(normal, mode='RGB').save(
+    'public/assets/textures/ground_rock_normal.jpg', quality=88, optimize=True)
+Image.fromarray((rough * 255).astype(np.uint8), mode='L').convert('RGB').save(
+    'public/assets/textures/ground_rock_roughness.jpg', quality=85, optimize=True)
+
+print(f'{SIZE}x{SIZE} fractured bedrock')
+`;
+
+execFileSync('python3', ['-c', ROCK], { stdio: 'inherit' });
+
+/* ------------------------------------------------------------------ */
+
+/**
+ * Grass, and it exists for the geese.
+ *
+ * Rock is right for the whole site except the one corner where a flock stands.
+ * Geese graze; they do not stand on bare stone. This is drawn as a patch over
+ * the rock rather than as a city surface, so it is the only ground texture with
+ * an alpha channel — a radial falloff, so the patch fades into the rock instead
+ * of ending on a rectangle a child can see the corner of.
+ *
+ * PNG for the colour map, because the alpha is the point and JPEG has none.
+ */
+const GRASS = `
+import numpy as np
+from PIL import Image
+
+SIZE = 1024
+rng = np.random.default_rng(20260732)
+
+def wrapped_noise(cells):
+    """Value noise on a torus, so it tiles."""
+    grid = rng.random((cells, cells))
+    ys = (np.arange(SIZE) / SIZE * cells)
+    xs = (np.arange(SIZE) / SIZE * cells)
+    y0 = np.floor(ys).astype(int) % cells
+    x0 = np.floor(xs).astype(int) % cells
+    y1 = (y0 + 1) % cells
+    x1 = (x0 + 1) % cells
+    fy = (ys - np.floor(ys))[:, None]
+    fx = (xs - np.floor(xs))[None, :]
+    sy = fy * fy * (3 - 2 * fy)
+    sx = fx * fx * (3 - 2 * fx)
+    top = grid[np.ix_(y0, x0)] * (1 - sx) + grid[np.ix_(y0, x1)] * sx
+    bot = grid[np.ix_(y1, x0)] * (1 - sx) + grid[np.ix_(y1, x1)] * sx
+    return top * (1 - sy) + bot * sy
+
+def wrap_sobel(h):
+    dzdx = (np.roll(h, -1, axis=1) - np.roll(h, 1, axis=1)) * 0.5
+    dzdy = (np.roll(h, -1, axis=0) - np.roll(h, 1, axis=0)) * 0.5
+    return dzdx, dzdy
+
+blades = wrapped_noise(46) * 0.55 + wrapped_noise(97) * 0.45
+clumps = wrapped_noise(7)
+height = np.clip(clumps * 0.35 + blades * 0.65, 0, 1)
+grain = rng.normal(0.0, 0.02, (SIZE, SIZE))
+
+albedo = np.clip(0.58 + height * 0.34 + grain, 0, 1)
+rough = np.clip(0.97 - height * 0.05, 0, 1)
+
+# Radial falloff with the edge broken up by noise, so the patch does not end on
+# a clean circle either.
+yy, xx = np.mgrid[0:SIZE, 0:SIZE]
+r = np.sqrt(((xx - SIZE / 2) / (SIZE / 2)) ** 2 + ((yy - SIZE / 2) / (SIZE / 2)) ** 2)
+ragged = r + (wrapped_noise(9) - 0.5) * 0.22
+alpha = np.clip((0.95 - ragged) / 0.42, 0, 1)
+
+STRENGTH = 1.1
+dzdx, dzdy = wrap_sobel(height)
+nx, ny = -dzdx * STRENGTH, -dzdy * STRENGTH
+nz = np.ones_like(nx)
+length = np.sqrt(nx * nx + ny * ny + nz * nz)
+normal = (((np.stack([nx / length, ny / length, nz / length], axis=-1)) * 0.5 + 0.5) * 255).astype(np.uint8)
+
+rgba = np.dstack([
+    (albedo * 255).astype(np.uint8),
+    (albedo * 255).astype(np.uint8),
+    (albedo * 255).astype(np.uint8),
+    (alpha * 255).astype(np.uint8),
+])
+Image.fromarray(rgba, mode='RGBA').resize((SIZE // 2, SIZE // 2), Image.LANCZOS).save(
+    'public/assets/textures/ground_grass_albedo.png', optimize=True)
+Image.fromarray(normal, mode='RGB').resize((SIZE // 2, SIZE // 2), Image.LANCZOS).save(
+    'public/assets/textures/ground_grass_normal.jpg', quality=88, optimize=True)
+Image.fromarray((rough * 255).astype(np.uint8), mode='L').convert('RGB').resize(
+    (SIZE // 2, SIZE // 2), Image.LANCZOS).save(
+    'public/assets/textures/ground_grass_roughness.jpg', quality=85, optimize=True)
+
+print(f'{SIZE}x{SIZE} grass patch with a soft edge')
+`;
+
+execFileSync('python3', ['-c', GRASS], { stdio: 'inherit' });
+
 
 for (const file of fs.readdirSync(OUT)) {
   const bytes = fs.statSync(path.join(OUT, file)).size;

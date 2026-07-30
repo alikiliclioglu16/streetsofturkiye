@@ -98,7 +98,7 @@ export function CityScene({
         shadow-camera-bottom={-40}
       />
 
-      <Ground ground={scene.ground} surface={scene.groundSurface} />
+      <Ground ground={scene.ground} surface={scene.groundSurface} patches={scene.groundPatches} />
 
       {scene.water ? (
         <Water

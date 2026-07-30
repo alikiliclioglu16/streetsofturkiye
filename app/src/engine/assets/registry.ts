@@ -344,6 +344,103 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
       'beside a 1.45 m guide.',
   },
   {
+    id: 'city_kars_ani_chapel',
+    modelUrl: '/assets/city/city_kars_ani_chapel.glb',
+    checksum: 'da32004c9ac737e2cd7ca6dca4bf570652c188fe11bb672770dbb954a567a8ab',
+    triangles: 10_217,
+    transferBytes: 979744,
+    /**
+     * The smallest of Ani's three ruins, and the one there are most of.
+     *
+     * Ani is not a skyline and its sides are not a wall. İstanbul closes its
+     * street with rows of facades and Gaziantep with rows of houses because
+     * those are streets; Ani has not had a street for eight hundred years, so
+     * these stand apart with the plateau visible between them.
+     */
+    dimensions: [7.95, 9.0, 8.7],
+    label: 'Ani chapel ruin',
+    color: '#9E6A4E',
+    placeholder: 'box',
+    notes: 'Delivered 24.84 MB at 8 m, buried 4 m; re-authored to 9 m on y = 0, 0.93 MB.',
+  },
+  {
+    id: 'city_kars_ani_church',
+    modelUrl: '/assets/city/city_kars_ani_church.glb',
+    checksum: '6ddabe75f579779b38d6167f8fc03333f71d4d050d46f7179268cc6756ba7ef4',
+    triangles: 9_852,
+    transferBytes: 1046344,
+    /**
+     * The second ruin, two metres taller than the chapel and a different
+     * shape. Three distinct buildings turned out to be worth more than one
+     * building rotated six ways, which is what the brief asked for.
+     */
+    dimensions: [8.8, 11.0, 11.78],
+    label: 'Ani church ruin',
+    color: '#A2745A',
+    placeholder: 'box',
+    notes: 'Delivered 26.42 MB at 8 m, buried 4 m; re-authored to 11 m on y = 0, 1.00 MB.',
+  },
+  {
+    id: 'city_kars_ani_cathedral',
+    modelUrl: '/assets/city/city_kars_ani_cathedral.glb',
+    checksum: '75a81fd3a079b3a4698534862b5e0210c2b2b9795b8d4040294d3036887a6a38',
+    triangles: 10_231,
+    transferBytes: 2178408,
+    /**
+     * The one building at Ani larger than the rest, and the only one that
+     * reads from anywhere on the site. Fifteen metres, so it stands over the
+     * chapels by two thirds again — the delivered file was the widest of the
+     * three in plan, which is why it is this one and not either of the others.
+     */
+    dimensions: [20.23, 15.0, 22.15],
+    label: 'Ani cathedral',
+    color: '#A67B5B',
+    placeholder: 'box',
+    notes: 'Delivered 25.01 MB at 8 m, buried 4 m; re-authored to 15 m on y = 0, 2.08 MB.',
+  },
+  {
+    id: 'city_kars_ani_walls',
+    modelUrl: '/assets/city/city_kars_ani_walls.glb',
+    checksum: 'aa93cd4571095939503d1172dea2692eac75c08ac931de232da1f7adf60400f0',
+    triangles: 9_486,
+    transferBytes: 2057760,
+    /**
+     * What a child turns round to see, and the way in — where İstanbul has
+     * Hagia Sophia, Nevşehir its valley rim and Gaziantep its castle.
+     *
+     * The first delivery of this arrived at **1,996,651 triangles and 78.61
+     * MB**: ten times the guide, for a wall. It was not simplified in-project
+     * and it was not integrated; it was sent back. This one is the same
+     * building at 9,486.
+     */
+    dimensions: [30.96, 14.0, 20.71],
+    label: 'Ani city walls',
+    color: '#9C6B4F',
+    placeholder: 'box',
+    notes: 'Delivered 23.88 MB at 8 m, buried 4 m; re-authored to 14 m on y = 0, 1.96 MB.',
+  },
+  {
+    id: 'city_kars_ani_gorge',
+    modelUrl: '/assets/city/city_kars_ani_gorge.glb',
+    checksum: 'd65a0da3843aaf818f582dda2221f4f0b82a106955ab630c70051a77d3de07f0',
+    triangles: 10_402,
+    transferBytes: 2298972,
+    /**
+     * Where the ground stops. The front, which İstanbul answers with sea and
+     * Nevşehir with a valley.
+     *
+     * Sixty-four metres deep against forty-eight wide, so it is aligned by its
+     * near edge and never by its centre — a plate this size centred on the
+     * boundary puts the child inside the ravine, which is the mistake the
+     * Nevşehir valley made first (D-101).
+     */
+    dimensions: [47.87, 12.0, 63.66],
+    label: 'Arpaçay gorge',
+    color: '#6E6A5C',
+    placeholder: 'box',
+    notes: 'Delivered 23.80 MB at 8 m, buried 4 m; re-authored to 12 m on y = 0, 2.19 MB.',
+  },
+  {
     id: 'kit_goose_standing_a',
     modelUrl: '/assets/props/kit_goose_standing_a.glb',
     checksum: 'd681db3b6338b76c0df3f48d86eb63b0e25602a73ca0c68c499d2811c856763a',

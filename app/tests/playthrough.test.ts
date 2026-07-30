@@ -263,6 +263,80 @@ describe('a finished city stays open', () => {
  * assumes a five-stop city — the quiz gate, the layout, the route, the
  * completion — has to hold here or it holds on three cities out of eighty-one.
  */
+describe('Kars looks like Ani', () => {
+  const scene = buildScene(loadComposedCity('kars'), 'high');
+
+  it('stands three different ruins apart, and never the same one twice running', () => {
+    /**
+     * Ani is mostly sky. Its sides are separate buildings with the plateau
+     * visible between them, not the continuous run that İstanbul and Gaziantep
+     * close their streets with — those are streets, and this has not been one
+     * for eight hundred years.
+     */
+    const ruins = scene.backdrop.filter((prop) => /chapel|church/.test(prop.asset.entry.id));
+    expect(ruins.length).toBeGreaterThanOrEqual(6);
+    expect(new Set(ruins.map((r) => r.asset.entry.id)).size).toBeGreaterThan(1);
+
+    for (const side of [-1, 1]) {
+      const row = ruins
+        .filter((r) => Math.sign(r.position[0]) === side)
+        .sort((a, b) => b.position[2] - a.position[2]);
+      for (let i = 1; i < row.length; i += 1) {
+        expect(row[i]!.asset.entry.id, `two the same in a row on side ${side}`).not.toBe(
+          row[i - 1]!.asset.entry.id,
+        );
+      }
+    }
+
+    // Turned individually. A ruin has no frontage, and squaring them to the
+    // street would rebuild the city rather than leave it fallen.
+    const angles = new Set(ruins.map((r) => Math.round(r.rotationY * 100)));
+    expect(angles.size).toBe(ruins.length);
+
+    // Nothing solid on the sides: a child may walk between them.
+    for (const ruin of ruins) expect(ruin.solid, ruin.asset.entry.id).toBe(false);
+  });
+
+  it('keeps the gorge outside the play area, aligned by its near edge', () => {
+    /**
+     * Sixty-four metres deep. Centred on the boundary it would put the child
+     * inside the ravine, which is what the Nevşehir valley did first (D-101).
+     */
+    const gorges = scene.backdrop.filter((p) => p.asset.entry.id === 'city_kars_ani_gorge');
+    expect(gorges.length).toBeGreaterThan(0);
+    const playFront = Math.min(...scene.bounds.map((corner) => corner[2]));
+
+    for (const gorge of gorges) {
+      const [, , depth] = gorge.asset.entry.dimensions;
+      const nearEdge = gorge.position[2] + depth / 2;
+      expect(nearEdge, 'gorge reaches into the play area').toBeLessThanOrEqual(playFront);
+      expect(gorge.solid).toBe(true);
+    }
+  });
+
+  it('answers its four directions with nothing another city uses', () => {
+    const ids = scene.backdrop.map((prop) => prop.asset.entry.id);
+    expect(ids).toContain('city_kars_ani_walls');
+    expect(ids).toContain('city_kars_ani_cathedral');
+    expect(ids.some((id) => /istanbul|nevsehir|gaziantep/.test(id))).toBe(false);
+
+    // Bare rock, with turf only where the geese stand.
+    expect(scene.groundSurface).toBe('rock');
+    expect(scene.groundPatches).toHaveLength(1);
+    expect(scene.groundPatches[0]!.surface).toBe('grass');
+
+    const geese = scene.props.filter((p) => p.asset.entry.id.startsWith('kit_goose'));
+    const patch = scene.groundPatches[0]!;
+    for (const goose of geese) {
+      const gap = Math.hypot(
+        goose.position[0] - patch.position[0],
+        goose.position[2] - patch.position[2],
+      );
+      expect(gap, 'a goose standing off the grass').toBeLessThan(patch.radius);
+    }
+  });
+});
+
 describe('a child completes Gaziantep', () => {
   const city = loadComposedCity('gaziantep');
   const scene = buildScene(city, 'high');

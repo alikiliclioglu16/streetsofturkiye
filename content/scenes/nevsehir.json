@@ -576,6 +576,7 @@
   ],
   "musicUrl": "/assets/audio/nevsehir_theme.webm",
   "groundSurface": "redsand",
+  "groundPatches": [],
   "balloons": [
     {
       "key": "balloon-0",

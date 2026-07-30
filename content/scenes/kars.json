@@ -457,8 +457,8 @@
         -34.4
       ],
       "rotationY": 2.35,
-      "solid": false,
-      "note": "goose, standing"
+      "note": "goose, standing",
+      "solid": false
     },
     {
       "assetId": "kit_goose_foraging",
@@ -468,8 +468,8 @@
         -36.8
       ],
       "rotationY": 1.05,
-      "solid": false,
-      "note": "goose, head down"
+      "note": "goose, head down",
+      "solid": false
     },
     {
       "assetId": "kit_goose_standing_b",
@@ -479,18 +479,30 @@
         -38.5
       ],
       "rotationY": -0.6,
-      "solid": false,
-      "note": "goose, standing"
+      "note": "goose, standing",
+      "solid": false
     }
   ],
   "musicUrl": "/assets/audio/kars_theme.webm",
-  "groundSurface": "steppe",
+  "groundSurface": "rock",
+  "groundPatches": [
+    {
+      "position": [
+        -12.4,
+        0,
+        -36.6
+      ],
+      "radius": 7.5,
+      "surface": "grass",
+      "color": "#8C9A5B"
+    }
+  ],
   "balloons": [],
   "tramLine": null,
   "water": null,
   "backdrop": [
     {
-      "assetId": "city_kars_ani_church_row",
+      "assetId": "city_kars_ani_chapel",
       "position": [
         -19,
         0,
@@ -498,10 +510,10 @@
       ],
       "rotationY": 1.7907963267948965,
       "solid": false,
-      "note": "church shell west 1"
+      "note": "chapel west 1"
     },
     {
-      "assetId": "city_kars_ani_church_row",
+      "assetId": "city_kars_ani_church",
       "position": [
         -23,
         0,
@@ -509,10 +521,10 @@
       ],
       "rotationY": 1.2207963267948965,
       "solid": false,
-      "note": "church shell west 2"
+      "note": "church west 2"
     },
     {
-      "assetId": "city_kars_ani_church_row",
+      "assetId": "city_kars_ani_chapel",
       "position": [
         -18,
         0,
@@ -520,10 +532,10 @@
       ],
       "rotationY": 2.0707963267948966,
       "solid": false,
-      "note": "church shell west 3"
+      "note": "chapel west 3"
     },
     {
-      "assetId": "city_kars_ani_church_row",
+      "assetId": "city_kars_ani_church",
       "position": [
         21,
         0,
@@ -531,10 +543,10 @@
       ],
       "rotationY": -1.8507963267948966,
       "solid": false,
-      "note": "church shell east 1"
+      "note": "church east 4"
     },
     {
-      "assetId": "city_kars_ani_church_row",
+      "assetId": "city_kars_ani_chapel",
       "position": [
         19,
         0,
@@ -542,10 +554,10 @@
       ],
       "rotationY": -1.1507963267948966,
       "solid": false,
-      "note": "church shell east 2"
+      "note": "chapel east 5"
     },
     {
-      "assetId": "city_kars_ani_church_row",
+      "assetId": "city_kars_ani_church",
       "position": [
         24,
         0,
@@ -553,12 +565,12 @@
       ],
       "rotationY": -1.7307963267948965,
       "solid": false,
-      "note": "church shell east 3"
+      "note": "church east 6"
     },
     {
       "assetId": "city_kars_ani_cathedral",
       "position": [
-        -31,
+        -33,
         0,
         -32.4
       ],
@@ -571,7 +583,7 @@
       "position": [
         0,
         0,
-        35
+        36.4
       ],
       "rotationY": 3.141592653589793,
       "solid": true,
@@ -582,7 +594,7 @@
       "position": [
         0,
         0,
-        -75
+        -102.8
       ],
       "rotationY": 0,
       "solid": true,
@@ -591,22 +603,22 @@
     {
       "assetId": "city_kars_ani_gorge",
       "position": [
-        -34,
+        -40,
         0,
-        -67
+        -96.8
       ],
-      "rotationY": 0.3,
+      "rotationY": 0.28,
       "solid": true,
       "note": "the Arpaçay gorge 2"
     },
     {
       "assetId": "city_kars_ani_gorge",
       "position": [
-        33,
+        39,
         0,
-        -71
+        -100.8
       ],
-      "rotationY": -0.26,
+      "rotationY": -0.24,
       "solid": true,
       "note": "the Arpaçay gorge 3"
     }

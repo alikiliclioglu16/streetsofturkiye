@@ -11,7 +11,13 @@
  * public/assets and the original stays wherever it was delivered, so the
  * decision is reversible and the reduction is reproducible.
  *
- * Usage: node scripts/simplify-model.mjs <input.glb> <output.glb> <ratio>
+ * Usage: node scripts/simplify-model.mjs <input.glb> <output.glb> <ratio> [--geometry-only]
+ *
+ * `--geometry-only` leaves the textures untouched, for handing straight to
+ * `optimize-textures.mjs`. Without it this script also squashes every map to
+ * 1024, which predates that script and is the wrong default now: running both
+ * in sequence would compress the colour map twice, and a delivery whose colour
+ * map has to stay at 2048 cannot use this script at all.
  *   ratio 0.003 took the simit cart to 20,182 triangles and 1.45 MB.
  *   ratio 0.15 took Galata Tower to 70,462 triangles and 2.67 MB.
  *
@@ -29,6 +35,7 @@ import { MeshoptSimplifier } from 'meshoptimizer';
 import sharp from 'sharp';
 
 const [,, input, output, ratioArg] = process.argv;
+const geometryOnly = process.argv.includes('--geometry-only');
 await MeshoptSimplifier.ready;
 const io = new NodeIO().registerExtensions(ALL_EXTENSIONS);
 const doc = await io.read(input);
@@ -46,7 +53,9 @@ await doc.transform(
   // white and shapeless because its seams had been collapsed.
   simplify({ simplifier: MeshoptSimplifier, ratio: Number(ratioArg), error: 0.002, lockBorder: true }),
   // A cart seen from two metres does not need a 1024 map on every channel.
-  textureCompress({ encoder: sharp, targetFormat: 'jpeg', resize: [1024, 1024], quality: 86 }),
+  ...(geometryOnly
+    ? []
+    : [textureCompress({ encoder: sharp, targetFormat: 'jpeg', resize: [1024, 1024], quality: 86 })]),
   prune(),
 );
 

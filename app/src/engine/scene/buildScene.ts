@@ -19,6 +19,34 @@ export interface SceneHotspot {
   readonly camera: { position: Vec3; target: Vec3; durationMs: number };
 }
 
+/** Which region's surface a piece of ground is drawn with. */
+export type GroundSurface = 'cobblestone' | 'redsand' | 'steppe' | 'rock';
+
+/**
+ * Surfaces that exist only as a patch over another one.
+ *
+ * Grass is not a city surface and no province is paved with it: it is the
+ * ten metres of turf the Kars geese stand on, and its colour map carries an
+ * alpha channel that a full-city ground would have no use for.
+ */
+export type PatchSurface = 'grass';
+
+/**
+ * A circle of a different ground, laid over the city's own.
+ *
+ * One city needs two grounds: Ani is a rock shelf, and the corner where the
+ * geese stand is not, because geese graze. Blending two surfaces across the
+ * whole plane would need a splat map and a shader for a single patch in a
+ * single province, so this is a small plane laid over the big one with a
+ * soft-edged alpha.
+ */
+export interface SceneGroundPatch {
+  readonly position: Vec3;
+  readonly radius: number;
+  readonly surface: PatchSurface;
+  readonly color: string;
+}
+
 export interface SceneGround {
   readonly centerX: number;
   readonly centerZ: number;
@@ -43,18 +71,11 @@ export interface ScenePropInstance {
   readonly solid: boolean;
 }
 
-export interface ScenePropInstance {
-  readonly key: string;
-  readonly asset: ResolvedAsset;
-  readonly position: Vec3;
-  readonly rotationY: number;
-  /** False for dressing the player should walk through, like a stray cat. */
-  readonly solid: boolean;
-}
-
 export interface SceneDescription {
   readonly cityId: string;
   readonly catRoutes: readonly (readonly { x: number; z: number }[])[];
+  /** Circles of a different ground laid over the city's own. */
+  readonly groundPatches: readonly SceneGroundPatch[];
   readonly npcs: readonly {
     readonly key: string;
     readonly npc: FeaturedNpc;
@@ -270,6 +291,7 @@ export function buildScene(city: CityDefinition, quality: QualityTier): SceneDes
     tramLine: city.tramLine,
     tramAsset: city.tramLine ? resolveAsset('city_istanbul_streetcar', quality) : null,
     catRoutes: city.catRoutes,
+    groundPatches: city.groundPatches ?? [],
     npcs,
     trees,
     animal: city.animal,

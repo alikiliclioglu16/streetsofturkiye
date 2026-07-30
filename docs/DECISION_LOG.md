@@ -1857,3 +1857,77 @@ species, and normalising all three to one number would have put a goose the size
 of a sheep on the plateau. **Height is only a common scale between models in the
 same pose** — nothing in the pipeline knows that, so it has to be decided per
 file.
+
+## D-130 — Ani is built, and Kars stands on rock (30 Jul 2026)
+
+Five pieces delivered, all normalised to exactly 8 m and buried 4 m below the
+origin, all re-authored here.
+
+| | Delivered | Shipped | Height chosen |
+|---|---|---|---|
+| Chapel ruin | 24.84 MB | 0.93 MB | 9 m |
+| Church ruin | 26.42 MB | 1.00 MB | 11 m |
+| Cathedral | 25.01 MB | 2.08 MB | 15 m |
+| City walls | 23.88 MB | 1.96 MB | 14 m |
+| Arpaçay gorge | 23.80 MB | 2.19 MB | 12 m |
+
+**Three different ruins, not one repeated.** The brief asked for a single church
+shell turned six ways. Three arrived, and three silhouettes is what makes a
+ruined city read as a place rather than as a pattern. They alternate down each
+side so the same building never stands twice running, each is turned
+individually, and none is solid — a ruin has no frontage, and squaring them to
+the street would rebuild a city that has been down for eight hundred years.
+
+The cathedral was chosen from the three by its plan: it was the widest
+delivered, and at 15 m it stands over the chapels by two thirds again.
+
+**The walls came back twice.** The first delivery was 1,996,651 triangles and
+78.61 MB — ten times the guide, for a wall. It was not simplified in-project and
+not integrated; it was returned. The second is the same building at 9,486.
+
+**Kars stands on fractured bedrock.** `steppe`, written for it two entries ago,
+was tufted grass and wrong: Ani is a bare rock shelf. The new surface is Voronoi
+again, but with cells far larger, jittered hard so no two are alike, and — the
+part that matters — **each slab carries its own height offset**. A flat plane
+with cracks drawn on it reads as a floor; a shelf of rock does not. Crevices are
+cut narrow and deep rather than laid as mortar. Steppe is kept for the rest of
+the eastern plateau, where the next province will not be a ruin on bare stone.
+
+**And one city needs two grounds.** Geese graze; they do not stand on bare rock.
+Blending two surfaces across the whole plane would need a splat map and a shader
+for one patch in one province, so a `groundPatch` is a small plane lying a
+centimetre above the big one, with a soft-edged alpha so it fades into the rock
+instead of ending on a corner. It is centred on the flock rather than written
+out by hand, so the turf follows the birds.
+
+## D-131 — Two files diverged from what was written, and the audit caught it (30 Jul 2026)
+
+Recorded because it wasted a session and because the thing that caught it should
+be kept.
+
+Twice this turn a file ended up holding two versions of the same edit: a
+duplicated `ScenePropInstance`, and two blocks of Kars registry entries with
+different heights in each. A ground-patch type existed in three shapes across
+the schema, the renderer and the builder at once.
+
+The previous session stopped on this and reported the working copy as
+untrustworthy, recommending a rebuild. **That was an over-reaction.** The whole
+of it reduced to two concrete defects, and the eighteen tests that appeared to
+have vanished had not: a test *file* was failing to load, so its cases never ran
+and the total simply came out lower. Reading the count as loss rather than as a
+symptom is what turned two bugs into an alarm.
+
+What actually found it, in order:
+
+1. A duplicate-definition sweep across every source file — one grep, and it
+   named the file and the symbol.
+2. `npm run typecheck`, which reported the same object literal carrying one
+   property twice.
+3. The D-124 aspect test, which holds each recorded triple against its own GLB.
+   The divergent registry block had the chapel at 11 m where the file is 9;
+   nothing else in the suite would have noticed, and it would have shipped a
+   collider around a shape that is not there.
+
+The lesson is not "be suspicious of the working copy". It is **read back what
+you wrote before building on it**, and keep the tests that compare a record
+against the thing it records.

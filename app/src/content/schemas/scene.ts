@@ -157,7 +157,23 @@ export const sceneSchema = z
     /** The city's theme, or null where none has been chosen yet. */
     musicUrl: z.string().nullable().default(null),
     /** Which ground surface this region has. */
-    groundSurface: z.enum(['cobblestone', 'redsand', 'steppe']).default('cobblestone'),
+    groundSurface: z.enum(['cobblestone', 'redsand', 'steppe', 'rock']).default('cobblestone'),
+    /**
+     * Patches of a different ground, laid over the city's own.
+     *
+     * One surface per city is right almost everywhere. Ani is the exception:
+     * the site is bare rock and the geese need grass to stand on.
+     */
+    groundPatches: z
+      .array(
+        z.object({
+          position: vec3Schema,
+          radius: z.number().positive(),
+          surface: z.enum(['grass']),
+          color: z.string(),
+        }),
+      )
+      .default([]),
     /** Balloons drifting over the city, if it is a city that has them. */
     balloons: z
       .array(

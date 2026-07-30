@@ -463,6 +463,7 @@
   ],
   "musicUrl": "/assets/audio/gaziantep_theme.webm",
   "groundSurface": "redsand",
+  "groundPatches": [],
   "balloons": [],
   "tramLine": null,
   "water": null,

@@ -33,9 +33,9 @@ Fiber 9, Drei 10, Zustand 5, Zod 4, Vitest 4.
 | Stops | 5, all delivered | 5, all delivered | 3, all delivered | 3, **all placeholder** |
 | Questions | 2 | 2 | 1 | 1 |
 | Guide | Nasreddin Hodja | Keloğlan | Keloğlan | Keloğlan |
-| Ground | cobblestone | red sand | red sand | steppe |
+| Ground | cobblestone | red sand | red sand | bedrock, turf under the geese |
 | Animal | 5 cats | 3 horses | 5 cats | 3 geese, standing |
-| Horizon | facades, sea, ferry, Maiden's Tower | chimney ridges, valley rim | stone houses, castle, olive groves, bazaar gate | **all placeholder** — Ani shells, cathedral, walls, gorge |
+| Horizon | facades, sea, ferry, Maiden's Tower | chimney ridges, valley rim | stone houses, castle, olive groves, bazaar gate | Ani chapels and churches, cathedral, walls, gorge |
 | Music | *Üsküdar'a Gider İken* | *Gökyüzü Balonları* | *Sarı Çoraplı Yol* | *Kars Yaylası* |
 | Balloons | no | **yes** | no | no |
 
@@ -43,7 +43,7 @@ Three cities are finished end to end. **Kars is open and unbuilt** — walkable,
 with a placeholder at every stop and across its whole horizon, the way Nevşehir
 and Gaziantep were each opened. Its brief is `docs/KARS_ASSET_BRIEF.md`.
 
-`npm run gate` is green: 81 cities, 249 stops, 84 questions, **323 tests**,
+`npm run gate` is green: 81 cities, 249 stops, 84 questions, **326 tests**,
 clean lint and typecheck, 4 routes built.
 
 Assets total 70.63 MB on disk; a single city visit downloads far less because
@@ -265,6 +265,13 @@ the audio directory written out as filenames, the manifest row count, "only
 the day it was written and said nothing about whether anything worked. Write the
 rule underneath it instead — it survives the next province (D-127).
 
+**Read back what you wrote before building on it.** Two files this session ended
+up holding two versions of one edit, with different numbers in each. A
+duplicate-definition sweep, `typecheck`, and the test that holds each recorded
+size against its own GLB found all of it between them — and the last of those was
+the only thing that would have caught a collider sized for a shape that is not
+there (D-131).
+
 **The most valuable tests simulate a whole visit** using the running game's own
 functions. `playthrough.test.ts` found that the route markers led into a
 building (D-073) and that the spawn had drifted inside a mosque.
@@ -332,9 +339,9 @@ cities — all of them towards the size the layout already assumed. The maths is
 tested; what is not tested is whether a 17 m chimney ridge looks right behind
 Nevşehir. This is the one change in the project that most needs a pair of eyes.
 
-**3. Kars's art.** The city is open, it has its theme, and every model in it is a
-placeholder. `docs/KARS_ASSET_BRIEF.md` lists all eleven files in the order to
-draw them: four for the horizon, three stops, the goose, three rewards.
+**3. Kars's three stops.** Its horizon is built and so are its geese; what is
+left is the carved doorway, the Eastern Express platform and the gravyer stall,
+plus their three rewards. `docs/KARS_ASSET_BRIEF.md` has them.
 
 The geese are done and none of them is rigged: three static birds in different
 poses, standing as dressing (D-129). A rigged walker is optional now rather than

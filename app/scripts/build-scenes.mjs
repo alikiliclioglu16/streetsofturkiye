@@ -122,13 +122,25 @@ const REGION_ANIMAL = {
   'southeastern-anatolia': 'cat',
 };
 
+/**
+ * A city may overrule its region's surface.
+ *
+ * The region table is right for a region and wrong for a site. Ani is not the
+ * eastern plateau in general — it is bare volcanic rock, cracked into plates,
+ * and the ground there is as much of the ruin as the churches are. The other
+ * thirteen eastern provinces keep the steppe until one of them says otherwise.
+ */
+const CITY_SURFACE = {
+  kars: 'rock',
+};
+
 const REGION_SURFACE = {
   marmara: 'cobblestone',
   aegean: 'cobblestone',
   mediterranean: 'cobblestone',
   'black-sea': 'cobblestone',
   'central-anatolia': 'redsand',
-  'eastern-anatolia': 'steppe',
+  'eastern-anatolia': 'rock',
   'southeastern-anatolia': 'redsand',
 };
 
@@ -341,12 +353,7 @@ function streetProps(cityId, stopPositions, geometry) {
    * bird is worse than walking through one.
    */
   if (cityId === 'kars') {
-    const flockZ = firstZ - walkLength * 0.62;
-    candidates.push(
-      { ...prop('kit_goose_standing_a', -12.4, flockZ, 2.35, 'goose, standing'), solid: false },
-      { ...prop('kit_goose_foraging', -10.1, flockZ - 2.4, 1.05, 'goose, head down'), solid: false },
-      { ...prop('kit_goose_standing_b', -13.6, flockZ - 4.1, -0.6, 'goose, standing'), solid: false },
-    );
+    candidates.push(...gooseFlock(cityId, stopPositions).map((bird) => ({ ...bird, solid: false })));
   }
 
   /**
@@ -820,82 +827,110 @@ function cityBackdrop(cityId, stopPositions, metrics) {
     /**
      * A ruined city on a gorge, and the child walks through the middle of it.
      *
-     * Ani is not a skyline seen from a street — it is roofless churches
-     * standing in grass with nothing between them, so the sides are not a
-     * continuous wall the way İstanbul's facades or Antep's houses are. Church
-     * shells stand apart, staggered and turned, with gaps a child can see the
-     * plateau through. That gap is the whole character of the place: Ani is
-     * mostly sky.
+     * Ani is not a skyline. It is roofless churches standing apart in grass
+     * with nothing between them and a ravine at the edge, and most of what a
+     * child sees there is sky. So the sides are not a continuous run the way
+     * İstanbul's facades and Antep's houses are — those are streets, and Ani
+     * has not had one for eight hundred years.
      *
-     * The four directions, answered by nothing another city uses. Sides: the
-     * church shells. Behind: the city walls and the Arslan Gate the child came
-     * in through. Front: the Arpaçay gorge, which is where the ground stops.
+     * Three different buildings rather than one repeated. The brief asked for a
+     * single shell turned six ways; three arrived instead, and three distinct
+     * silhouettes is what makes a ruined city read as a place rather than as a
+     * pattern. They alternate down each side so the same building never stands
+     * twice in a row, and each is turned individually — a ruin has no frontage,
+     * and squaring them to the street would rebuild the city rather than leave
+     * it fallen.
      */
     const shells = [
-      [-19, firstZ + 6, 0.22],
-      [-23, firstZ - span * 0.34, -0.35],
-      [-18, firstZ - span * 0.78, 0.5],
-      [21, firstZ - 2, -0.28],
-      [19, firstZ - span * 0.46, 0.42],
-      [24, firstZ - span * 0.9, -0.16],
+      ['city_kars_ani_chapel', -19, firstZ + 6, 0.22],
+      ['city_kars_ani_church', -23, firstZ - span * 0.34, -0.35],
+      ['city_kars_ani_chapel', -18, firstZ - span * 0.78, 0.5],
+      ['city_kars_ani_church', 21, firstZ - 2, -0.28],
+      ['city_kars_ani_chapel', 19, firstZ - span * 0.46, 0.42],
+      ['city_kars_ani_church', 24, firstZ - span * 0.9, -0.16],
     ];
 
     return [
-      ...shells.map(([x, z, rot], i) => ({
-        assetId: 'city_kars_ani_church_row',
+      ...shells.map(([assetId, x, z, rot], i) => ({
+        assetId,
         position: [x, 0, Math.round(z * 10) / 10],
-        /**
-         * Turned individually rather than squared to the street. A ruin has no
-         * frontage — these were laid out along streets that are gone, and
-         * lining them up would rebuild the city rather than leave it fallen.
-         */
         rotationY: (x < 0 ? 1 : -1) * (Math.PI / 2) + rot,
         solid: false,
-        note: `church shell ${x < 0 ? 'west' : 'east'} ${(i % 3) + 1}`,
+        note: `${assetId.endsWith('chapel') ? 'chapel' : 'church'} ${x < 0 ? 'west' : 'east'} ${i + 1}`,
       })),
       {
         /**
-         * The cathedral stands alone and further out, because it is the one
-         * building at Ani that is bigger than the rest and reads from anywhere
-         * on the site. Off the axis so it is not a target at the end of the
-         * street — Ani has no main street to put it at the end of.
+         * The cathedral stands alone and further out — the one building at Ani
+         * bigger than the rest, and the only one that reads from anywhere on
+         * the site. Off the axis, because Ani has no main street to put it at
+         * the end of.
          */
         assetId: 'city_kars_ani_cathedral',
-        position: [-31, 0, Math.round((firstZ - span * 0.55) * 10) / 10],
+        position: [-33, 0, Math.round((firstZ - span * 0.55) * 10) / 10],
         rotationY: 1.15,
         solid: false,
         note: 'the cathedral, standing apart',
       },
       {
         /**
-         * The walls close the back, aligned by their near edge on the boundary
-         * — the rule the Nevşehir valley taught. This is what a child turns
-         * round to: the way in, with the plateau beyond it.
+         * The walls close the back and are the way in. Aligned by their near
+         * edge on the boundary, which is the rule the Nevşehir valley taught:
+         * a twenty metre deep piece centred there would swallow the square.
          */
         assetId: 'city_kars_ani_walls',
-        position: [0, 0, Math.round((behind + 9) * 10) / 10],
+        position: [0, 0, Math.round((behind + 20.71 / 2) * 10) / 10],
         rotationY: Math.PI,
         solid: true,
         note: 'the city walls and the Arslan Gate, behind',
       },
       ...[
-        [0, lastZ - 30, 0],
-        [-34, lastZ - 22, 0.3],
-        [33, lastZ - 26, -0.26],
+        [0, lastZ - 26, 0],
+        [-40, lastZ - 20, 0.28],
+        [39, lastZ - 24, -0.24],
       ].map(([x, z, rot], i) => ({
         assetId: 'city_kars_ani_gorge',
-        position: [x, 0, Math.round(z * 10) / 10],
-        rotationY: rot,
         /**
-         * Solid. A gorge is the one landscape a child must not walk into, and
-         * the Nevşehir valley rim already set that precedent.
+         * Near-edge aligned, never centred: sixty-four metres deep, and a plate
+         * that size centred on the boundary puts the child inside the ravine
+         * (D-101).
          */
+        position: [x, 0, Math.round((z - 63.66 / 2) * 10) / 10],
+        rotationY: rot,
+        // Solid. A gorge is the one landscape a child must not walk into.
         solid: true,
         note: `the Arpaçay gorge ${i + 1}`,
       })),
     ];
   }
   return [];
+}
+
+/**
+ * Kars's geese, standing.
+ *
+ * A flock: close enough together to be one group, turned differently enough not
+ * to be one bird copied — two upright, one with its head down. None of them is
+ * rigged and none of them needs to be. A goose standing on grass is a goose.
+ *
+ * Written once and read twice: the props place the birds, and the ground patch
+ * puts grass under them. Two lists of coordinates would come apart the first
+ * time one of them moved.
+ */
+function gooseFlock(cityId, stopPositions) {
+  if (cityId !== 'kars') return [];
+  const firstZ = stopPositions[0]?.[2] ?? -26;
+  const lastZ = stopPositions[stopPositions.length - 1]?.[2] ?? -70;
+  const flockZ = firstZ - Math.abs(lastZ - firstZ) * 0.62;
+  return [
+    ['kit_goose_standing_a', -12.4, flockZ, 2.35, 'goose, standing'],
+    ['kit_goose_foraging', -10.1, flockZ - 2.4, 1.05, 'goose, head down'],
+    ['kit_goose_standing_b', -13.6, flockZ - 4.1, -0.6, 'goose, standing'],
+  ].map(([assetId, x, z, rotationY, note]) => ({
+    assetId,
+    position: [x, 0, Math.round(z * 10) / 10],
+    rotationY,
+    note,
+  }));
 }
 
 /**
@@ -1097,7 +1132,31 @@ function buildScene(canonical) {
      * audio equivalent of planting plane trees there.
      */
     musicUrl: CITY_THEMES[canonical.id] ?? null,
-    groundSurface: REGION_SURFACE[canonical.regionId] ?? 'cobblestone',
+    groundSurface: CITY_SURFACE[canonical.id] ?? REGION_SURFACE[canonical.regionId] ?? 'cobblestone',
+    /**
+     * Grass under the geese, and nowhere else.
+     *
+     * Derived from where the flock actually stands rather than written as a
+     * coordinate, so the two cannot drift apart: move the birds and the grass
+     * moves with them. Eight metres across, which covers three geese and a
+     * little room around them.
+     */
+    /**
+     * Grass under the geese, and bare rock everywhere else.
+     *
+     * Centred on the flock rather than written out by hand, so the turf follows
+     * the birds if they move. A little wider than they are spread, so they
+     * stand inside it instead of on its edge.
+     */
+    groundPatches: gooseFlock(canonical.id, stopPositions)
+      .map((bird) => bird.position)
+      .slice(0, 1)
+      .map(([x, , z]) => ({
+        position: [x, 0, Math.round((z - 2.2) * 10) / 10],
+        radius: 7.5,
+        surface: 'grass',
+        color: '#8C9A5B',
+      })),
     /**
      * Balloons cross the sky over every city, and crowd it over Cappadocia.
      *
