@@ -28,22 +28,32 @@ Fiber 9, Drei 10, Zustand 5, Zod 4, Vitest 4.
 
 ## 2. Where it stands
 
-| | İstanbul | Nevşehir | Gaziantep |
-|---|---|---|---|
-| Stops | 5, all delivered | 5, all delivered | 3, all delivered |
-| Questions | 2 | 2 | 1 |
-| Guide | Nasreddin Hodja | Keloğlan | Keloğlan |
-| Ground | cobblestone | red sand | red sand |
-| Animal | 5 cats | 3 horses | 5 cats |
-| Horizon | facades, sea, ferry, Maiden's Tower | chimney ridges, valley rim | stone houses, castle, olive groves |
-| Music | *Üsküdar'a Gider İken* | *Gökyüzü Balonları* | *Sarı Çoraplı Yol* |
+| | İstanbul | Nevşehir | Gaziantep | Kars |
+|---|---|---|---|---|
+| Stops | 5, all delivered | 5, all delivered | 3, all delivered | 3, **all placeholder** |
+| Questions | 2 | 2 | 1 | 1 |
+| Guide | Nasreddin Hodja | Keloğlan | Keloğlan | Keloğlan |
+| Ground | cobblestone | red sand | red sand | steppe |
+| Animal | 5 cats | 3 horses | 5 cats | 3 horses |
+| Horizon | facades, sea, ferry, Maiden's Tower | chimney ridges, valley rim | stone houses, castle, olive groves, bazaar gate | **all placeholder** — Ani shells, cathedral, walls, gorge |
+| Music | *Üsküdar'a Gider İken* | *Gökyüzü Balonları* | *Sarı Çoraplı Yol* | **none yet** |
+| Balloons | no | **yes** | no | no |
 
-All three are open, walkable, and finished end to end. `npm run gate` is green:
-81 cities, 249 stops, 84 questions, **318 tests**, clean lint and typecheck,
-4 routes built.
+Three cities are finished end to end. **Kars is open and unbuilt** — walkable,
+with a placeholder at every stop and across its whole horizon, the way Nevşehir
+and Gaziantep were each opened. Its brief is `docs/KARS_ASSET_BRIEF.md`.
+
+`npm run gate` is green: 81 cities, 249 stops, 84 questions, **320 tests**,
+clean lint and typecheck, 4 routes built.
 
 Assets total 70.63 MB on disk; a single city visit downloads far less because
 only the resident guide and that city's art are fetched.
+
+**The pilot is still three cities.** `PILOT_CITY_IDS` is what phase 02 is judged
+against and is deliberately narrower than `PLAYABLE_CITY_IDS`. Several tests are
+scoped to it, because a city opened before its art legitimately has unresolved
+asset ids and no music, and a rule that forbids those would forbid opening a
+city at all.
 
 **Immediately outstanding:**
 
@@ -279,6 +289,12 @@ will bite:
   sequence.
 - **D-120** — `scaleToBrief` is documented, set on twenty-five entries, asserted
   in four tests, and read by nothing. Do not rely on it.
+- **D-121** — a solid object is one axis-aligned rectangle. A gate, an arch or a
+  colonnade cannot be walked through; it needs two footprints and a gap.
+- **D-122** — balloons are Nevşehir's only.
+- **D-123** — "open" is not "finished". Tests that assert completeness are
+  scoped to `PILOT_CITY_IDS`; what holds for every city is that it stays
+  walkable on placeholders.
 
 ---
 
@@ -298,10 +314,17 @@ are drawn at a size the layout does not assume. Making the flag live is a small
 change and a large visual one, so it wants to be taken deliberately, on its own,
 with screenshots of all three cities either side of it.
 
-**3. Then the fourth city.** Everything needed is in place: the shared kit, the
-regional ground and planting, the animal table, the layout that handles three
-stops as well as five. A new city needs its three-to-five stop objects, a
-horizon, a theme, and a line in `PLAYABLE_CITY_IDS`.
+**3. Kars's art.** The city is open and every model in it is a placeholder. The
+brief is written: four horizon pieces (church shell, cathedral, walls, gorge) and
+three stops (a carved doorway with a rubbing half taken, a platform with the nose
+of the Eastern Express at the end of it, a gravyer stall with one wheel cut). Then
+a theme.
+
+**4. Then a fifth city.** Everything needed is in place: the shared kit, three
+regional grounds, the planting table, the animal table, the layout that handles
+three stops as well as five. A new city needs its three-to-five stop objects, a
+horizon, a theme, and a line in `PLAYABLE_CITY_IDS`. Adding one now costs a
+morning, which it did not before Kars.
 
 **Still unbuilt:** recorded voice and ambience, a collection screen across
 cities, and any measurement of how this performs on the devices most of its

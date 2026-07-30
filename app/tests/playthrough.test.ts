@@ -339,7 +339,15 @@ describe('a child completes Gaziantep', () => {
     // they do not have to agree.
     expect(scene.groundSurface).toBe('redsand');
     expect(scene.animal).toBe('cat');
-    expect(scene.props.every((prop) => !prop.asset.entry.id.startsWith('city_'))).toBe(true);
+    // Its own landmark is allowed; another city's is not.
+    const fromAnotherCity = scene.props.filter(
+      (prop) =>
+        prop.asset.entry.id.startsWith('city_') &&
+        !prop.asset.entry.id.startsWith('city_gaziantep_'),
+    );
+    expect(fromAnotherCity).toEqual([]);
+    // And no balloons. They are Cappadocia's and nowhere else's.
+    expect(scene.balloons).toHaveLength(0);
   });
 
   it('answers its four directions its own way', () => {

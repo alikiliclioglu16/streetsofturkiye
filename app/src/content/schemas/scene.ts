@@ -157,7 +157,7 @@ export const sceneSchema = z
     /** The city's theme, or null where none has been chosen yet. */
     musicUrl: z.string().nullable().default(null),
     /** Which ground surface this region has. */
-    groundSurface: z.enum(['cobblestone', 'redsand']).default('cobblestone'),
+    groundSurface: z.enum(['cobblestone', 'redsand', 'steppe']).default('cobblestone'),
     /** Balloons drifting over the city, if it is a city that has them. */
     balloons: z
       .array(

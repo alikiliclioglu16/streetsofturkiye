@@ -10,6 +10,7 @@ import { initialTramState, stepTram } from '@/components/three/Tram';
 import { CAMERA_FOV } from '@/components/three/CityCanvas';
 import { deliveredProps, resolveAsset, trustsModelScale } from '@/engine/assets/registry';
 import { buildScene } from '@/engine/scene/buildScene';
+import { PLAYABLE_CITY_IDS } from '@/content/loaders/loadCity';
 import { loadComposedCity } from './helpers';
 
 /**
@@ -86,25 +87,72 @@ describe('street kit props', () => {
     expect(scene.unknownAssetIds).toEqual([]);
   });
 
-  it('dresses every city from the shared kit, and only İstanbul from its own', () => {
+  it('dresses every city from the shared kit, and nothing from another city', () => {
     /**
      * Dressing is derived from the walk, so a city that has never been touched
-     * by hand still gets a street. Anything city-specific stays city-specific:
-     * a Beyoğlu tram does not turn up in Nevşehir.
+     * by hand still gets a street. Anything city-specific stays city-specific.
+     *
+     * This used to be written as "only İstanbul has props of its own", which
+     * was a fact about the day it was written rather than a rule: Gaziantep's
+     * bazaar gate broke it without breaking anything. The rule underneath is
+     * that a `city_` prop belongs to exactly one city, and a Beyoğlu tram does
+     * not turn up in Nevşehir.
      */
-    for (const cityId of ['nevsehir', 'gaziantep']) {
+    for (const cityId of PLAYABLE_CITY_IDS) {
       const ids = buildScene(loadComposedCity(cityId), 'high').props.map(
         (prop) => prop.asset.entry.id,
       );
       expect(ids.length, cityId).toBeGreaterThan(5);
-      expect(ids.every((id) => id.startsWith('kit_')), cityId).toBe(true);
       expect(ids, cityId).toContain('kit_turkish_flag');
+
+      for (const id of ids) {
+        const ownedByAnother = id.startsWith('city_') && !id.startsWith(`city_${cityId}_`);
+        expect(ownedByAnother, `${cityId} is dressed with ${id}`).toBe(false);
+      }
     }
 
     const istanbul = buildScene(loadComposedCity('istanbul'), 'high').props.map(
       (prop) => prop.asset.entry.id,
     );
     expect(istanbul.some((id) => id.startsWith('city_istanbul_'))).toBe(true);
+  });
+
+  it('leaves room to walk right round the bazaar gate', () => {
+    /**
+     * The owner asked for a structure a child can circle. Clearance is
+     * therefore a rule, not a placement note — and it is checked against every
+     * other solid thing in the city rather than by eye, because the square is
+     * the one part of Gaziantep with room for this and the dressing generator
+     * is free to put a lamp anywhere it likes.
+     */
+    const scene = buildScene(loadComposedCity('gaziantep'), 'high');
+    const gate = scene.props.find((prop) => prop.asset.entry.id === 'city_gaziantep_bazaar_gate')!;
+    expect(gate).toBeDefined();
+
+    const [gateWidth, , gateDepth] = gate.asset.entry.dimensions;
+    const WALKING_ROOM = 2;
+
+    for (const other of scene.colliders) {
+      const sameThing =
+        Math.abs(other.x - gate.position[0]) < 0.01 && Math.abs(other.z - gate.position[2]) < 0.01;
+      if (sameThing) continue;
+
+      // Axis-aligned, because the collision test is.
+      const gapX = Math.abs(other.x - gate.position[0]) - (gateWidth / 2 + other.halfWidth);
+      const gapZ = Math.abs(other.z - gate.position[2]) - (gateDepth / 2 + other.halfDepth);
+      expect(
+        Math.max(gapX, gapZ),
+        `something stands ${Math.max(gapX, gapZ).toFixed(2)} m from the gate`,
+      ).toBeGreaterThan(WALKING_ROOM);
+    }
+
+    // And inside the play area on every side, or the circle runs off the map.
+    const xs = scene.bounds.map((corner) => corner[0]);
+    const zs = scene.bounds.map((corner) => corner[2]);
+    expect(gate.position[0] - gateWidth / 2 - Math.min(...xs)).toBeGreaterThan(WALKING_ROOM);
+    expect(Math.max(...xs) - (gate.position[0] + gateWidth / 2)).toBeGreaterThan(WALKING_ROOM);
+    expect(Math.max(...zs) - (gate.position[2] + gateDepth / 2)).toBeGreaterThan(WALKING_ROOM);
+    expect(gate.position[2] - gateDepth / 2 - Math.min(...zs)).toBeGreaterThan(WALKING_ROOM);
   });
 
   it('puts the flag at the same place in every city', () => {
@@ -1354,20 +1402,20 @@ describe('Cappadocia looks and sounds like Cappadocia', () => {
 describe('balloons', () => {
   const scene = buildScene(loadComposedCity('nevsehir'), 'high');
 
-  it('crowds the sky over Cappadocia and thins it elsewhere', () => {
+  it('fills the sky over Cappadocia and leaves every other sky empty', () => {
     expect(scene.balloons.length).toBeGreaterThanOrEqual(8);
     expect(scene.balloonAsset).not.toBeNull();
 
     /**
-     * Balloons fly over the whole country, so every city gets some — but the
-     * full sky is Cappadocia's, because that is the image of the place. A few
-     * passing over elsewhere is enough to make a sky look like weather rather
-     * than paint.
+     * A hot air balloon is not weather. This test used to say balloons fly over
+     * the whole country so every city gets a few, which put three of them over
+     * the Bosphorus and three over the Antep plain. They are Cappadocia's, in
+     * the same way the Bosphorus song is İstanbul's, and a few drifting
+     * anywhere else is a borrowing rather than a background.
      */
-    for (const cityId of ['istanbul', 'gaziantep']) {
+    for (const cityId of PLAYABLE_CITY_IDS.filter((id) => id !== 'nevsehir')) {
       const elsewhere = buildScene(loadComposedCity(cityId), 'high').balloons;
-      expect(elsewhere.length, cityId).toBeGreaterThan(0);
-      expect(elsewhere.length, cityId).toBeLessThan(scene.balloons.length);
+      expect(elsewhere, cityId).toHaveLength(0);
     }
   });
 

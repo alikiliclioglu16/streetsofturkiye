@@ -293,6 +293,36 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
       'Re-authored to 1.9 m standing on y = 0, recompressed to 0.78 MB.',
   },
   {
+    id: 'city_gaziantep_bazaar_gate',
+    modelUrl: '/assets/city/city_gaziantep_bazaar_gate.glb',
+    checksum: '975f71257332d952385a46549fecbc9bed91816b6fe713d5883ffba3107e1c83',
+    triangles: 10_007,
+    transferBytes: 2169636,
+    /**
+     * Named for what is in the file, not for what the file is called.
+     *
+     * It was delivered as `Gateway to the Desert`. What it contains is a
+     * limestone gate with a pointed arch, crenellations and wall lanterns, and
+     * a covered bazaar behind the opening — awnings, steps, tables. There is no
+     * desert in it. The owner's two renders are the evidence; measurement alone
+     * would not have settled it, which is the whole lesson of D-078 and D-117.
+     *
+     * The archway runs along the model's Z axis: at doorway height the vertices
+     * fall into two clusters either side of a gap in X, and are continuous
+     * through Z. So at rotationY = 0 the opening faces down the street rather
+     * than across it — the check the tram did not get (D-087).
+     */
+    dimensions: [6.72, 6.0, 5.9],
+    label: 'Bazaar gate',
+    color: '#D6C3A0',
+    placeholder: 'box',
+    notes:
+      'Delivered 24.61 MB with two 4096 maps; recompressed to 2.07 MB. Left at ' +
+      'the 6 m it arrived at: that is the exporter s number rather than an ' +
+      'authored one, but a 6 m gate with a 2.4 m opening is what this should be ' +
+      'beside a 1.45 m guide.',
+  },
+  {
     id: 'kit_olive_grove',
     modelUrl: '/assets/props/kit_olive_grove.glb',
     checksum: 'cc261c1b70888a9d6ff1af090492cca68b634ed5fe38891cd39231a4aca5bfc5',

@@ -1577,3 +1577,100 @@ nobody here can see the result of, and which needs its own screenshot round.
 
 The fix, when it is taken, is to make the flag live and let the renderer agree
 with the layout that was already computed from those numbers.
+
+## D-121 — The bazaar gate stands free, and cannot be walked through (30 Jul 2026)
+
+Delivered as `Gateway to the Desert`. What is in the file is a limestone gate
+with a pointed arch, crenellations, wall lanterns, and a covered bazaar behind
+the opening — awnings, steps, tables. No desert. Registered as
+`city_gaziantep_bazaar_gate`, for the reason the olive grove was: a file whose
+name and contents disagree gets the name of its contents (D-078, D-117).
+
+The owner's two renders settled the identity. Measurement narrowed it and would
+not have decided it, which is the whole of that lesson.
+
+Which way the arch faces was decided by measurement rather than by guessing. At
+doorway height the vertices fall into two clusters either side of a gap in X and
+run continuously through Z, so the opening is a tunnel along the model's Z axis
+and at `rotationY = 0` it faces down the street. The tram ran sideways for a
+week for want of this check (D-087).
+
+**It stands in the square behind the spawn, and a child can walk right round
+it.** The street cannot hold it: fifteen metres to a side, three trigger rings,
+lamps and stalls already on it, and a 6.7 m structure dropped in would leave a
+corridor rather than something to circle. In the square the nearest solid thing
+is the flag, 4.7 m off its corner, and the castle's mound is eleven metres
+behind. Clearance is a test rather than a placement note, checked against every
+solid object in the city, because the dressing generator is free to put a lamp
+anywhere it likes.
+
+**It is solid, so the arch cannot be walked through.** The collision test is one
+axis-aligned rectangle per object and has no way to say "solid here, open
+there". A gate with a doorway needs two footprints and a gap between them.
+Nothing is broken by this today; it is worth doing when Ani arrives, because a
+ruined city is mostly arches.
+
+## D-122 — Balloons are Cappadocia's, and nowhere else's (30 Jul 2026)
+
+The generator gave every city balloons and Nevşehir merely more of them: `many`
+for Cappadocia and `few` everywhere else. Three drifted over the Bosphorus and
+three over the Antep plain.
+
+A hot air balloon is not weather. It is one valley at dawn, and a few passing
+over İstanbul is the same borrowing as a Bosphorus song over Nevşehir or plane
+trees on the plateau — a thing the project has a rule about and three tests for,
+none of which looked at the sky.
+
+The rule was in the test, wrongly. It read "balloons fly over the whole country,
+so every city gets some", which is a sentence about balloons rather than about
+this game. Now the sky over every city but Nevşehir is empty, and the test says
+so.
+
+## D-123 — Kars is open, and the eastern plateau is not the plateau (30 Jul 2026)
+
+The fourth city, and the first outside the pilot. Three stops and one question,
+the same shape as Gaziantep; the guide is Keloğlan; every stop object and the
+whole horizon are placeholders.
+
+**Ani is the environment.** Roofless churches standing apart on both sides, the
+city walls and the Arslan Gate closing the back, and the Arpaçay gorge in front.
+Ani is mostly sky, so the sides are separate shells individually rotated rather
+than a continuous wall — İstanbul's facades and Antep's houses are rows because
+those are streets, and Ani has not had a street for eight hundred years.
+
+The three stops are the province, not the site: the ruins, the Eastern Express
+and the gravyer cheese, which in life are forty-five kilometres apart. That is
+how every city here works — İstanbul puts Hagia Sophia, Galata, the Grand
+Bazaar, a simit cart and a ferry on one street.
+
+**Two region tables were wrong, and only became visible when an eastern city
+opened.**
+
+- Eastern Anatolia resolved to red sand, which is Cappadocia's tuff. Ani stands
+  on basalt under short tufted grass. A third ground surface is generated,
+  `steppe`: clustered tufts at a tight scale and a sparse field of hard-edged
+  stones, no wind ripples at all, because wind moves sand and does not move turf.
+  Greyscale like the other two, tinted by the region's own ground colour.
+- The eastern planting row contained a cypress, which is a Mediterranean and
+  Aegean tree. Poplars line the watercourses on that plateau and the rest is
+  scrub.
+
+Neither was a bug anyone could have seen before, because no eastern province had
+ever been drawn.
+
+**Four tests confused "open" with "finished".** Opening Kars broke all four, and
+the mistake was the same in each: they iterated every scene file on disk, or
+every playable city, and asserted things that are only true of a city whose art
+has been delivered — every asset resolves, no unknown ids, a theme exists,
+playable equals pilot.
+
+Opening a city before its art is deliberate and is how Nevşehir and Gaziantep
+were both opened (D-008, D-115). So the assertions are split by scope. A pilot
+city has nothing missing. **Any** city, finished or not, must still be walkable:
+every unresolved reference falls back to a documented placeholder and the scene
+reports what it is missing instead of failing to build — which is now its own
+test, and is the guarantee that actually matters.
+
+`PILOT_CITY_IDS` deliberately still lists three. It is what phase 02 is judged
+against, and opening a province outside the pilot must not quietly widen a gate
+that has not been passed.

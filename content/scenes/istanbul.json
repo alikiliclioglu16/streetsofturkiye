@@ -587,41 +587,7 @@
   ],
   "musicUrl": "/assets/audio/istanbul_theme.webm",
   "groundSurface": "cobblestone",
-  "balloons": [
-    {
-      "key": "balloon-0",
-      "position": [
-        -26,
-        26,
-        -132
-      ],
-      "scale": 2.2,
-      "driftSpeed": 0.7,
-      "phase": 0
-    },
-    {
-      "key": "balloon-1",
-      "position": [
-        34,
-        47,
-        -194
-      ],
-      "scale": 1.1,
-      "driftSpeed": 1.06,
-      "phase": 1.37
-    },
-    {
-      "key": "balloon-2",
-      "position": [
-        -18,
-        46,
-        -266
-      ],
-      "scale": 0.6,
-      "driftSpeed": 1.42,
-      "phase": 2.74
-    }
-  ],
+  "balloons": [],
   "tramLine": {
     "from": [
       -15.5,

@@ -11,6 +11,7 @@ import {
   resolveAsset,
 } from '@/engine/assets/registry';
 import { buildScene } from '@/engine/scene/buildScene';
+import { PILOT_CITY_IDS } from '@/content/loaders/loadCity';
 import { loadComposedCity } from './helpers';
 
 const ROOT = path.resolve(process.cwd(), '..');
@@ -31,6 +32,8 @@ const cityIds = readdirSync(path.join(ROOT, 'content/scenes'))
   .map((file) => file.replace('.json', ''));
 
 const cities = cityIds.map(loadComposedCity);
+/** Cities the vertical slice declares finished, as opposed to merely open. */
+const pilotCities = cities.filter((city) => (PILOT_CITY_IDS as readonly string[]).includes(city.id));
 
 describe('asset registry alignment', () => {
   it('covers every row of the manifest', () => {
@@ -50,8 +53,17 @@ describe('asset registry alignment', () => {
     expect(manifestEntries().map((entry) => entry.id)).toEqual(manifestIdsFromCsv());
   });
 
-  it('resolves every hotspot, reward and kit reference in every pilot city', () => {
-    for (const city of cities) {
+  it('resolves every hotspot, reward and kit reference in a pilot city', () => {
+    /**
+     * Pilot cities only.
+     *
+     * This used to run over every scene file on disk and read as though the
+     * rule were "no city may reference art that does not exist". Kars broke it
+     * by being opened before its art, which is deliberate and is how Nevşehir
+     * and Gaziantep were opened too (D-008, D-115). The rule this test is
+     * actually for is that a city declared finished has nothing missing.
+     */
+    for (const city of pilotCities) {
       for (const hotspot of city.hotspots) {
         expect(resolveAsset(hotspot.assetId, 'medium').isUnknown, `${city.id}/${hotspot.assetId}`).toBe(false);
       }
@@ -63,9 +75,28 @@ describe('asset registry alignment', () => {
     }
   });
 
-  it('reports zero unknown assets when building all three pilot scenes', () => {
-    for (const city of cities) {
+  it('reports zero unknown assets when building a pilot scene', () => {
+    for (const city of pilotCities) {
       expect(buildScene(city, 'medium').unknownAssetIds, city.id).toEqual([]);
+    }
+  });
+
+  it('gives an unbuilt city a documented placeholder for everything it is missing', () => {
+    /**
+     * The guarantee that does apply everywhere. A city opened before its art
+     * must still be walkable: every unresolved reference falls back to a shape
+     * the scene can draw, and the scene reports what is missing rather than
+     * failing to build.
+     */
+    for (const city of cities) {
+      const scene = buildScene(city, 'medium');
+      expect(scene.hotspots.length, city.id).toBeGreaterThan(0);
+      for (const assetId of scene.unknownAssetIds) {
+        const asset = resolveAsset(assetId, 'medium');
+        expect(asset.isUnknown, assetId).toBe(true);
+        expect(asset.modelUrl, assetId).toBeNull();
+        expect(asset.entry.placeholder, assetId).toBeTruthy();
+      }
     }
   });
 
@@ -154,14 +185,19 @@ describe('delivered street props', () => {
     }
   });
 
-  it('dresses an untouched city entirely from the shared kit', () => {
+  it('furnishes a city from the shared kit before anything is hand-placed', () => {
     for (const cityId of ['nevsehir', 'gaziantep']) {
       const ids = buildScene(loadComposedCity(cityId), 'high').props.map(
         (prop) => prop.asset.entry.id,
       );
-      // Nothing was hand-placed here, and the street is still furnished.
-      expect(ids.every((id) => id.startsWith('kit_')), cityId).toBe(true);
-      expect(ids.length, cityId).toBeGreaterThan(5);
+      // The point is that the generator furnishes a street on its own, not that
+      // a city may never have a landmark of its own: Gaziantep's bazaar gate is
+      // hand-placed and everything around it is still generated.
+      expect(ids.filter((id) => id.startsWith('kit_')).length, cityId).toBeGreaterThan(5);
+      const fromAnotherCity = ids.filter(
+        (id) => id.startsWith('city_') && !id.startsWith(`city_${cityId}_`),
+      );
+      expect(fromAnotherCity, cityId).toEqual([]);
     }
   });
 });

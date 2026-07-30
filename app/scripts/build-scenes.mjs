@@ -26,7 +26,7 @@ const manifestById = new Map(
 const CANONICAL = path.join(ROOT, 'content/canonical');
 const OUT = path.join(ROOT, 'content/scenes');
 
-const PILOT = ['istanbul', 'nevsehir', 'gaziantep'];
+const PILOT = ['istanbul', 'nevsehir', 'gaziantep', 'kars'];
 
 const readJson = (file) => JSON.parse(fs.readFileSync(file, 'utf8'));
 const manifest = readJson(path.join(CANONICAL, 'manifest.json'));
@@ -57,6 +57,15 @@ const COMMISSIONED_ASSETS = {
   'gaziantep:muze': 'city_gaziantep_zeugma_mosaic_panel',
   'gaziantep:tatli': 'city_gaziantep_baklava_counter',
   'gaziantep:craft': 'city_gaziantep_coppersmith_workbench',
+  /**
+   * Kars, briefed and not yet delivered. Naming them here rather than leaving
+   * them graybox is what reserves each footprint and derives each camera, so
+   * the street is laid out for the objects that are coming instead of for
+   * 2.4 m cubes that will have to be laid out again.
+   */
+  'kars:antik': 'city_kars_ani_carved_doorway',
+  'kars:tren': 'city_kars_eastern_express_platform',
+  'kars:stall': 'city_kars_gravyer_stall',
 };
 
 /** Commissioned collectibles, keyed by canonical stop id. */
@@ -70,6 +79,9 @@ const COMMISSIONED_REWARDS = {
   'gaziantep-stop-01': 'collectible_gaziantep_mosaic_piece',
   'gaziantep-stop-02': 'collectible_gaziantep_baklava',
   'gaziantep-stop-03': 'collectible_gaziantep_copper_pot',
+  'kars-stop-01': 'collectible_kars_stone_rubbing',
+  'kars-stop-02': 'collectible_kars_express_ticket',
+  'kars-stop-03': 'collectible_kars_gravyer_wedge',
 };
 
 /**
@@ -116,7 +128,7 @@ const REGION_SURFACE = {
   mediterranean: 'cobblestone',
   'black-sea': 'cobblestone',
   'central-anatolia': 'redsand',
-  'eastern-anatolia': 'redsand',
+  'eastern-anatolia': 'steppe',
   'southeastern-anatolia': 'redsand',
 };
 
@@ -288,6 +300,30 @@ function streetProps(cityId, stopPositions, geometry) {
   }
 
   /**
+   * Gaziantep's gate stands free, and a child can walk right round it.
+   *
+   * The square behind the spawn is the only part of this city with room for
+   * that: the street is fifteen metres to a side and already carries lamps,
+   * stalls and three trigger rings, and a 6.7 m structure dropped into it would
+   * leave a corridor rather than something to circle. Here the nearest solid
+   * thing is the flag, 4.7 m off its corner, and the castle's mound is eleven
+   * metres behind.
+   *
+   * Twelve metres back rather than eight: it has to be far enough that a child
+   * turning round at the spawn sees a gate, not a wall.
+   *
+   * The opening faces down the street, so the view through it from the far side
+   * is the walk the child is about to take, and from the street it frames the
+   * castle. It is solid, which means the arch cannot be walked through — the
+   * collision test is a single axis-aligned rectangle per object and has no way
+   * to say "solid here, open there". Walking round it is the whole of what it
+   * offers until that changes.
+   */
+  if (cityId === 'gaziantep') {
+    candidates.push(prop('city_gaziantep_bazaar_gate', 0, 12, 0, 'the bazaar gate, standing free in the square'));
+  }
+
+  /**
    * The same checks that always applied: nothing inside a trigger ring, nothing
    * on the walk. Placements that fail are dropped rather than shipped.
    */
@@ -437,7 +473,14 @@ const REGION_PLANTING = {
   'mediterranean': ['cypress', 'plane', 'cypress', 'shrub', 'plane'],
   'central-anatolia': ['shrub', 'cypress', 'shrub', 'poplar', 'shrub'],
   'black-sea': ['plane', 'plane', 'cypress', 'plane', 'shrub'],
-  'eastern-anatolia': ['shrub', 'shrub', 'poplar', 'shrub', 'cypress'],
+  /**
+   * No cypress on the Kars plateau. A cypress is a Mediterranean and Aegean
+   * tree and it was in this row only because the table was filled in before any
+   * eastern city was open. Poplars line the watercourses there and the rest is
+   * scrub — which is also what makes Ani read as a ruin standing in open
+   * country rather than a park.
+   */
+  'eastern-anatolia': ['shrub', 'poplar', 'shrub', 'shrub', 'poplar'],
   'southeastern-anatolia': ['shrub', 'cypress', 'shrub', 'shrub', 'poplar'],
 };
 
@@ -714,17 +757,105 @@ function cityBackdrop(cityId, stopPositions, metrics) {
     ];
   }
 
+  if (cityId === 'kars') {
+    /**
+     * A ruined city on a gorge, and the child walks through the middle of it.
+     *
+     * Ani is not a skyline seen from a street — it is roofless churches
+     * standing in grass with nothing between them, so the sides are not a
+     * continuous wall the way İstanbul's facades or Antep's houses are. Church
+     * shells stand apart, staggered and turned, with gaps a child can see the
+     * plateau through. That gap is the whole character of the place: Ani is
+     * mostly sky.
+     *
+     * The four directions, answered by nothing another city uses. Sides: the
+     * church shells. Behind: the city walls and the Arslan Gate the child came
+     * in through. Front: the Arpaçay gorge, which is where the ground stops.
+     */
+    const shells = [
+      [-19, firstZ + 6, 0.22],
+      [-23, firstZ - span * 0.34, -0.35],
+      [-18, firstZ - span * 0.78, 0.5],
+      [21, firstZ - 2, -0.28],
+      [19, firstZ - span * 0.46, 0.42],
+      [24, firstZ - span * 0.9, -0.16],
+    ];
+
+    return [
+      ...shells.map(([x, z, rot], i) => ({
+        assetId: 'city_kars_ani_church_row',
+        position: [x, 0, Math.round(z * 10) / 10],
+        /**
+         * Turned individually rather than squared to the street. A ruin has no
+         * frontage — these were laid out along streets that are gone, and
+         * lining them up would rebuild the city rather than leave it fallen.
+         */
+        rotationY: (x < 0 ? 1 : -1) * (Math.PI / 2) + rot,
+        solid: false,
+        note: `church shell ${x < 0 ? 'west' : 'east'} ${(i % 3) + 1}`,
+      })),
+      {
+        /**
+         * The cathedral stands alone and further out, because it is the one
+         * building at Ani that is bigger than the rest and reads from anywhere
+         * on the site. Off the axis so it is not a target at the end of the
+         * street — Ani has no main street to put it at the end of.
+         */
+        assetId: 'city_kars_ani_cathedral',
+        position: [-31, 0, Math.round((firstZ - span * 0.55) * 10) / 10],
+        rotationY: 1.15,
+        solid: false,
+        note: 'the cathedral, standing apart',
+      },
+      {
+        /**
+         * The walls close the back, aligned by their near edge on the boundary
+         * — the rule the Nevşehir valley taught. This is what a child turns
+         * round to: the way in, with the plateau beyond it.
+         */
+        assetId: 'city_kars_ani_walls',
+        position: [0, 0, Math.round((behind + 9) * 10) / 10],
+        rotationY: Math.PI,
+        solid: true,
+        note: 'the city walls and the Arslan Gate, behind',
+      },
+      ...[
+        [0, lastZ - 30, 0],
+        [-34, lastZ - 22, 0.3],
+        [33, lastZ - 26, -0.26],
+      ].map(([x, z, rot], i) => ({
+        assetId: 'city_kars_ani_gorge',
+        position: [x, 0, Math.round(z * 10) / 10],
+        rotationY: rot,
+        /**
+         * Solid. A gorge is the one landscape a child must not walk into, and
+         * the Nevşehir valley rim already set that precedent.
+         */
+        solid: true,
+        note: `the Arpaçay gorge ${i + 1}`,
+      })),
+    ];
+  }
   return [];
 }
 
 /**
- * A sky of balloons, laid out from the walk.
+ * A sky of balloons, over Cappadocia and nowhere else.
+ *
+ * This used to run in every city, with Nevşehir merely getting more of them:
+ * three balloons drifted over the Bosphorus and three over the Antep plain
+ * because the density argument said `few` rather than `none`. A hot air balloon
+ * is not weather, it is Cappadocia — the one place in the country where a
+ * hundred of them go up at dawn — and putting a few anywhere else is the same
+ * mistake as a Bosphorus song over Nevşehir or plane trees on the plateau.
  *
  * Deliberately not random: a child who leaves and comes back should find the
- * same morning. Size does the work — one model at eleven scales, heights and
- * distances reads as a sky, where eleven identical ones read as one copied.
+ * same morning. Size does the work — one model at ten scales, heights and
+ * distances reads as a sky, where ten identical ones read as one copied.
  */
-function balloonSky(stopPositions, density) {
+function balloonSky(cityId, stopPositions) {
+  if (cityId !== 'nevsehir') return [];
+
   const firstZ = stopPositions[0]?.[2] ?? -20;
   const lastZ = stopPositions[stopPositions.length - 1]?.[2] ?? -70;
   /**
@@ -738,16 +869,13 @@ function balloonSky(stopPositions, density) {
     [-26, 34, 26, 2.2], [18, 58, 38, 1.7], [-8, 76, 31, 1.35], [34, 96, 47, 1.1],
     [-38, 118, 40, 0.92], [8, 140, 54, 0.75], [-18, 168, 46, 0.6], [26, 196, 60, 0.48],
   ];
-  // A few cross the sky elsewhere; Cappadocia gets all of them.
-  const chosen = density === 'many' ? layout : layout.filter((_, i) => i % 3 === 0);
-  const specs = chosen.map(([x, ahead, height, scale], i) => ({
+  const specs = layout.map(([x, ahead, height, scale], i) => ({
     key: `balloon-${i}`,
     position: [x, height, Math.round((lastZ - ahead) * 10) / 10],
     scale,
     driftSpeed: 0.7 + ((i * 7) % 5) * 0.18,
     phase: Math.round(i * 1.37 * 100) / 100,
   }));
-  if (density !== 'many') return specs;
 
   // Two close enough to read as balloons rather than dots on the horizon.
   specs.push(
@@ -919,7 +1047,7 @@ function buildScene(canonical) {
      * the image of the place; elsewhere a few pass over, which is enough to make
      * a sky look like weather rather than paint.
      */
-    balloons: balloonSky(stopPositions, canonical.id === 'nevsehir' ? 'many' : 'few'),
+    balloons: balloonSky(canonical.id, stopPositions),
     /**
      * The tram runs the length of the street on the west side, clear of the
      * walk. İstanbul's nostalgic tram does one street, up and down, all day.

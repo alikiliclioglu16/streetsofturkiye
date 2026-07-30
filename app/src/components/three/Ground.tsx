@@ -17,7 +17,7 @@ const TILE_METRES = 4;
  * like. Dust has no unit, so the same repeat reads as a pattern; stretching it
  * lets it read as ground.
  */
-const SURFACE_TILE = { cobblestone: 4, redsand: 9 } as const;
+const SURFACE_TILE = { cobblestone: 4, redsand: 9, steppe: 6 } as const;
 
 /**
  * How far the paving runs past the edge of the play area.
@@ -44,7 +44,7 @@ export function Ground({
 }: {
   ground: SceneGround;
   /** Which region's surface this is: paving on the coast, dust on the plateau. */
-  surface: 'cobblestone' | 'redsand';
+  surface: 'cobblestone' | 'redsand' | 'steppe';
 }) {
   const loaded = useTexture([
     `/assets/textures/ground_${surface}_albedo.jpg`,

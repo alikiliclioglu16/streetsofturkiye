@@ -9,14 +9,21 @@ import { loadComposedCity } from './helpers';
  * these tests are what make opening them safe rather than hopeful.
  */
 describe('pilot cities', () => {
-  it('opens all three pilot cities', () => {
+  it('opens every pilot city, and is allowed to open more', () => {
     /**
-     * Gaziantep's three stop objects are still placeholders, and it opens
-     * anyway. It tests something neither of the others could: three stops and
-     * one question, where they have five and two. A layout that only works for
-     * five-stop cities would fail on seventy-eight of the eighty-one.
+     * Gaziantep's three stop objects were still placeholders when it opened,
+     * and it opened anyway. It tested something neither of the others could:
+     * three stops and one question, where they have five and two.
+     *
+     * This was written as "playable is exactly the pilot", which held only for
+     * as long as no fourth city existed. Kars is open and is not a pilot city:
+     * the pilot is the scope phase 02 is judged against, and opening a province
+     * outside it must not quietly widen that. What has to stay true is that no
+     * pilot city is closed.
      */
-    expect([...PLAYABLE_CITY_IDS].sort()).toEqual([...PILOT_CITY_IDS].sort());
+    for (const cityId of PILOT_CITY_IDS) {
+      expect(PLAYABLE_CITY_IDS as readonly string[], cityId).toContain(cityId);
+    }
   });
 
   it('lays out a three-stop city as correctly as a five-stop one', () => {

@@ -74,6 +74,15 @@ export const GRAYBOX_DIMENSIONS = {
   theatre: [14, 5, 14],
   gol: [16, 0.2, 16],
   selale: [6, 10, 3],
+  /**
+   * Kars. A ruined doorway and a cheese stall are ordinary stop objects; the
+   * platform is not, and its footprint says so — a train is long, and the
+   * approach distance and trigger ring are derived from depth, so giving it a
+   * cube's footprint would park the child inside the locomotive.
+   */
+  antik: [2.6, 3.2, 1.0],
+  tren: [6.0, 3.4, 2.6],
+  stall: [2.2, 1.6, 1.1],
 };
 
 export const DEFAULT_GRAYBOX_DIMENSIONS = [2.4, 2.4, 2.4];
@@ -104,6 +113,7 @@ export const DELIVERED_DIMENSIONS = {
   city_gaziantep_zeugma_mosaic_panel: [1.82, 2.2, 0.69],
   city_gaziantep_baklava_counter: [2.26, 1.3, 0.86],
   city_gaziantep_coppersmith_workbench: [2.18, 1.9, 1.65],
+  city_gaziantep_bazaar_gate: [6.72, 6.0, 5.9],
   city_gaziantep_stone_houses: [20.7, 12.0, 12.0],
   city_gaziantep_castle: [36.8, 18.0, 37.0],
   kit_olive_grove: [13.4, 5.0, 13.8],

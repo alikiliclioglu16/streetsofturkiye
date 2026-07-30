@@ -191,6 +191,91 @@ print(f'{SIZE}x{SIZE} red sand')
 
 execFileSync('python3', ['-c', SAND], { stdio: 'inherit' });
 
+/* ------------------------------------------------------------------ */
+
+/**
+ * Dry highland steppe, for the eastern plateau.
+ *
+ * Neither of the other two fits Kars. Cobbles are a street and Ani has no
+ * street left; red sand is Cappadocia's tuff, and using it here would put
+ * Cappadocia's ground under an Armenian cathedral for no reason but that the
+ * region table happened to point at it.
+ *
+ * What the plateau around Ani actually is: worn basalt showing through short
+ * tufted grass, with stones lying loose on it. So the structure is tufts rather
+ * than dunes — clustered noise at a tight scale for the grass, a sparser field
+ * of hard-edged blobs for the stones, and no ripples at all, because wind moves
+ * sand and does not move turf.
+ */
+const STEPPE = `
+import numpy as np
+from PIL import Image
+
+SIZE = 1024
+rng = np.random.default_rng(20260730)
+
+def wrapped_noise(cells):
+    """Value noise on a torus, so it tiles."""
+    grid = rng.random((cells, cells))
+    ys = (np.arange(SIZE) / SIZE * cells)
+    xs = (np.arange(SIZE) / SIZE * cells)
+    y0 = np.floor(ys).astype(int) % cells
+    x0 = np.floor(xs).astype(int) % cells
+    y1 = (y0 + 1) % cells
+    x1 = (x0 + 1) % cells
+    fy = (ys - np.floor(ys))[:, None]
+    fx = (xs - np.floor(xs))[None, :]
+    sy = fy * fy * (3 - 2 * fy)
+    sx = fx * fx * (3 - 2 * fx)
+    top = grid[np.ix_(y0, x0)] * (1 - sx) + grid[np.ix_(y0, x1)] * sx
+    bottom = grid[np.ix_(y1, x0)] * (1 - sx) + grid[np.ix_(y1, x1)] * sx
+    return top * (1 - sy) + bottom * sy
+
+# Broad bare patches, then the tufts themselves at a tight scale.
+patches = wrapped_noise(5)
+tufts = wrapped_noise(38) * 0.6 + wrapped_noise(74) * 0.4
+turf = np.clip(patches * 0.45 + tufts * 0.55, 0, 1)
+
+# Loose stones: a sparse field, thresholded so they have edges. Grass fades in
+# and out; a stone either is there or is not, and that difference is most of
+# what makes this read as stony ground rather than as a lawn.
+stone_field = wrapped_noise(17)
+stones = np.clip((stone_field - 0.72) / 0.18, 0, 1)
+
+height = np.clip(turf * 0.7 + stones * 0.5, 0, 1)
+grain = rng.normal(0.0, 0.025, (SIZE, SIZE))
+
+# Greyscale, tinted at render time by the region ground colour, exactly as the
+# other two are. Stones sit brighter and much smoother than the turf around
+# them, which is what catches the light on a plateau.
+albedo = np.clip(0.55 + turf * 0.26 + stones * 0.22 + grain, 0, 1)
+rough = np.clip(0.97 - stones * 0.30, 0, 1)
+
+def wrap_sobel(h):
+    dzdx = (np.roll(h, -1, axis=1) - np.roll(h, 1, axis=1)) * 0.5
+    dzdy = (np.roll(h, -1, axis=0) - np.roll(h, 1, axis=0)) * 0.5
+    return dzdx, dzdy
+
+# Stronger than sand, weaker than paving: tufts and stones have real relief.
+STRENGTH = 1.35
+dzdx, dzdy = wrap_sobel(height)
+nx, ny = -dzdx * STRENGTH, -dzdy * STRENGTH
+nz = np.ones_like(nx)
+length = np.sqrt(nx * nx + ny * ny + nz * nz)
+normal = (((np.stack([nx / length, ny / length, nz / length], axis=-1)) * 0.5 + 0.5) * 255).astype(np.uint8)
+
+Image.fromarray((albedo * 255).astype(np.uint8), mode='L').convert('RGB').save(
+    'public/assets/textures/ground_steppe_albedo.jpg', quality=88, optimize=True)
+Image.fromarray(normal, mode='RGB').save(
+    'public/assets/textures/ground_steppe_normal.jpg', quality=88, optimize=True)
+Image.fromarray((rough * 255).astype(np.uint8), mode='L').convert('RGB').save(
+    'public/assets/textures/ground_steppe_roughness.jpg', quality=85, optimize=True)
+
+print(f'{SIZE}x{SIZE} highland steppe')
+`;
+
+execFileSync('python3', ['-c', STEPPE], { stdio: 'inherit' });
+
 for (const file of fs.readdirSync(OUT)) {
   const bytes = fs.statSync(path.join(OUT, file)).size;
   console.log(`  ${file}  ${(bytes / 1024).toFixed(0)} KB`);

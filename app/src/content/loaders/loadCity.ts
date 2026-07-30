@@ -45,7 +45,16 @@ const REGIONS = '/content/canonical/regions.json';
  * have five and two. A layout that only works for five-stop cities would fail
  * on seventy-eight of the eighty-one.
  */
-export const PLAYABLE_CITY_IDS = ['istanbul', 'nevsehir', 'gaziantep'] as const;
+export const PLAYABLE_CITY_IDS = ['istanbul', 'nevsehir', 'gaziantep', 'kars'] as const;
+
+/**
+ * The pilot is still the three cities the vertical slice was scoped to.
+ *
+ * Kars is playable without being one of them. `PILOT_CITY_IDS` is what the
+ * phase-02 acceptance criteria are written against and what the pilot asset
+ * manifest covers; widening it to mean "every open city" would quietly move
+ * the goalposts of a gate that has not been passed yet.
+ */
 export const PILOT_CITY_IDS = ['istanbul', 'nevsehir', 'gaziantep'] as const;
 
 async function fetchJson(path: string, signal?: AbortSignal): Promise<unknown> {
