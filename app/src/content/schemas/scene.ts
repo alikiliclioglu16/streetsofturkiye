@@ -187,7 +187,7 @@ export const sceneSchema = z
      * city. Cappadocia is named for its horses — *Katpatuka*, the land of
      * beautiful horses — and has no street cats to speak of.
      */
-    animal: z.enum(['cat', 'horse', 'none']).default('cat'),
+    animal: z.enum(['cat', 'horse', 'goose', 'none']).default('cat'),
     quizPresentation: z.object({ shuffleOptions: z.boolean() }),
     rewards: z.object({
       cityStarId: z.string(),

@@ -190,19 +190,52 @@ export function buildScene(city: CityDefinition, quality: QualityTier): SceneDes
     })),
     ...[...props, ...backdrop]
       .filter((prop) => prop.solid)
-      .map((prop) => {
+      .flatMap((prop) => {
         const [width, , depth] = prop.asset.entry.dimensions;
-        const { halfWidth, halfDepth } = rotatedFootprint(width, depth, prop.rotationY);
-        return { x: prop.position[0], z: prop.position[2], halfWidth, halfDepth };
+        const parts = prop.asset.entry.colliderParts;
+
+        /**
+         * An object that is solid in places and open in others contributes one
+         * rectangle per piece instead of one covering the whole of it.
+         *
+         * A single rectangle is right for anything a child walks round and
+         * wrong for anything they walk through: the bazaar gate is two piers
+         * with a passage between them, and drawing one box over it would seal
+         * its own archway.
+         */
+        if (!parts?.length) {
+          const { halfWidth, halfDepth } = rotatedFootprint(width, depth, prop.rotationY);
+          return [{ x: prop.position[0], z: prop.position[2], halfWidth, halfDepth }];
+        }
+
+        const cos = Math.cos(prop.rotationY);
+        const sin = Math.sin(prop.rotationY);
+        return parts.map((part) => {
+          // The piece turns with the object, and so does where it sits on it.
+          const bounds = rotatedFootprint(part.halfWidth * 2, part.halfDepth * 2, prop.rotationY);
+          return {
+            x: prop.position[0] + part.offsetX * cos + part.offsetZ * sin,
+            z: prop.position[2] - part.offsetX * sin + part.offsetZ * cos,
+            halfWidth: bounds.halfWidth,
+            halfDepth: bounds.halfDepth,
+          };
+        });
       }),
   ];
 
   /**
    * The animal that walks this street: a cat on the coast, a horse on the
-   * plateau. One component walks either — they are the same problem, and only
-   * the file, the size and the pace differ.
+   * central plateau, a goose in Kars. One component walks any of them — they
+   * are the same problem, and only the file, the size and the pace differ.
+   *
+   * A ternary held two and would have quietly given the third a cat.
    */
-  const animalId = city.animal === 'horse' ? 'kit_anatolian_horse' : 'kit_street_cat';
+  const ANIMAL_ASSETS: Record<string, string> = {
+    horse: 'kit_anatolian_horse',
+    goose: 'kit_kars_goose',
+    cat: 'kit_street_cat',
+  };
+  const animalId = ANIMAL_ASSETS[city.animal] ?? 'kit_street_cat';
   const cat = resolveAsset(animalId, quality);
 
   const npcs = city.npcs

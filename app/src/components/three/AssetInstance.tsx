@@ -61,13 +61,26 @@ function Model({ url, asset, castShadow }: ModelProps) {
   }, [model, castShadow]);
 
   /**
-   * Normalise scale, then stand the model on the ground.
+   * Scale the model to its recorded height, then stand it on the ground.
    *
-   * Meshy exports arrive at inconsistent scales and with inconsistent pivots —
-   * the first delivered prop had its origin at its own centre, so it would have
-   * floated half its height above the pavement. Rather than ask every artist to
-   * remember, the engine measures the mounted model and lifts it until its base
-   * sits at y = 0. This is automatic and applies to every prop that follows.
+   * Meshy exports arrive at inconsistent scales and with inconsistent pivots.
+   * Some have a 0.01 armature and render at centimetres; far more often the
+   * exporter normalises the model into a box and it comes back at exactly 2.00
+   * or 6.00 m whatever it depicts. Neither number is a statement about the
+   * object, so the registry's is used instead — and the registry's is used by
+   * everything else already: the scene builder reserves each footprint from it
+   * and derives each stop camera from it (D-051, D-062).
+   *
+   * This used to apply only outside a half-to-double band, on the grounds that
+   * a small deviation was the artist's intent. It is not: a normalised export
+   * lands inside that band almost every time, and sixteen delivered assets were
+   * being drawn at a size the layout did not assume — a 17 m chimney ridge at
+   * 10 m, a 9 m ferry at 15, a valley at exactly half (D-120).
+   *
+   * Scaling is uniform and taken from height, so the model keeps its own
+   * proportions. That is safe rather than lucky: every recorded triple is the
+   * file's own aspect at the intended height, and after scaling the width and
+   * depth land within 3% of what the collider was built from.
    */
   useEffect(() => {
     const group = groupRef.current;
@@ -79,11 +92,7 @@ function Model({ url, asset, castShadow }: ModelProps) {
 
     const size = new Box3().setFromObject(model).getSize(new Vector3());
     const target = asset.entry.dimensions[1];
-    if (size.y > 0.0001 && target > 0) {
-      const factor = target / size.y;
-      // Only correct gross mismatches; small deviations are the artist's intent.
-      if (factor < 0.5 || factor > 2) group.scale.setScalar(factor);
-    }
+    if (size.y > 0.0001 && target > 0) group.scale.setScalar(target / size.y);
 
     group.updateMatrixWorld(true);
     const grounded = new Box3().setFromObject(model);

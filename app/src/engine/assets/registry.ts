@@ -23,23 +23,36 @@ export interface DeliveredProp {
   readonly color: string;
   readonly placeholder: PlaceholderShape;
   /**
-   * Scale the model to `dimensions` instead of trusting the file.
+   * Footprint pieces, for an object that is solid in places and open in others.
    *
-   * Off by default: a delivered prop is normally authored at the size it means.
-   * On where the project has agreed a size the file does not match — Galata
-   * arrived at 20 m against an agreed 14.
+   * A collider is normally one rectangle covering the whole of `dimensions`,
+   * which is right for anything you walk round and wrong for anything you walk
+   * through. A gate is two piers with a gap; so is an archway, a colonnade, and
+   * most of what is left standing at Ani.
+   *
+   * Offsets and half-extents are in the object's own metres, measured from its
+   * centre, on the unrotated model. The scene builder turns them with the
+   * object.
    */
-  readonly scaleToBrief?: boolean;
+  readonly colliderParts?: readonly ColliderPart[];
   readonly notes?: string;
 }
 
+/** One rectangle of a multi-part footprint, in object-local metres. */
+export interface ColliderPart {
+  readonly offsetX: number;
+  readonly offsetZ: number;
+  readonly halfWidth: number;
+  readonly halfDepth: number;
+}
+
 /**
- * A delivered prop is authored at its intended size, and the engine trusts it.
+ * Whether a prop's own file is treated as delivered art rather than a stand-in.
  *
- * Height normalisation exists for models whose scale cannot be relied on. A
- * measured, recorded prop is not one of those: normalising a 5 m lamp and a
- * 0.9 m bench towards anything in common would flatten exactly the difference
- * that makes a street read as a street.
+ * Not a statement about scale any more. Every mounted model is scaled to its
+ * recorded height, delivered or not, because that number is what the layout was
+ * built from (D-120). What still differs is that a delivered prop is drawn from
+ * its file and a briefed one from a placeholder shape.
  */
 export function trustsModelScale(entry: AssetEntry): boolean {
   return entry.manifest.status === 'delivered';
@@ -79,7 +92,6 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
     label: 'Anatolian horse',
     color: '#8B5A3C',
     placeholder: 'box',
-    scaleToBrief: true,
     notes:
       'Delivered 4.93 MB at 10,311 triangles with a 2048 PNG; simplified to ' +
       '9,165 and 0.72 MB with the 27-joint rig and its walk clip intact.',
@@ -133,7 +145,6 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
     label: 'Fairy chimneys',
     color: '#D8C39C',
     placeholder: 'cylinder',
-    scaleToBrief: true,
     notes: 'Delivered 21.18 MB with 4096 px maps; recompressed to 2.30 MB. Double-sided kept.',
   },
   {
@@ -150,7 +161,6 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
     label: 'Fairy chimney ridge',
     color: '#D8C39C',
     placeholder: 'box',
-    scaleToBrief: true,
     notes: 'Same source as the stop-1 cluster, dressed as horizon.',
   },
   {
@@ -164,7 +174,6 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
     label: 'Derinkuyu stone door',
     color: '#C6B393',
     placeholder: 'box',
-    scaleToBrief: true,
     notes:
       'Delivered 19.70 MB with 4096 px maps; recompressed to 2.4 MB. Kept ' +
       'double-sided — the millstone disc has thin carved edges.',
@@ -179,7 +188,6 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
     label: 'Kilim loom',
     color: '#A8402F',
     placeholder: 'box',
-    scaleToBrief: true,
     notes:
       'Double-sided matters here more than anywhere: the warp threads and the ' +
       'hanging kilim are single planes, and culling their back faces would draw ' +
@@ -197,7 +205,6 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
     label: 'Avanos pottery wheel',
     color: '#B4633C',
     placeholder: 'box',
-    scaleToBrief: true,
     notes: 'Delivered 22.87 MB with 4096 px maps; recompressed to 0.9 MB.',
   },
   {
@@ -210,7 +217,6 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
     label: 'Antep stone houses',
     color: '#CBB187',
     placeholder: 'box',
-    scaleToBrief: true,
     notes: 'Backdrop. Delivered 25.85 MB; recompressed to 2.64 MB.',
   },
   {
@@ -227,7 +233,6 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
     label: 'Gaziantep Castle',
     color: '#C4B091',
     placeholder: 'box',
-    scaleToBrief: true,
     notes: 'Backdrop. Delivered 23.93 MB; recompressed to 2.55 MB.',
   },
   {
@@ -316,6 +321,22 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
     label: 'Bazaar gate',
     color: '#D6C3A0',
     placeholder: 'box',
+    /**
+     * Two piers and the passage between them, measured rather than guessed.
+     *
+     * At the height a child walks through, the vertices fall into two dense
+     * clusters with an empty band between them: stone from the west edge in to
+     * x = -0.84, nothing across to x = +0.84, stone again out to the east edge.
+     * So each pier is 2.52 m of the 6.72 m frontage and the opening is 1.68 m.
+     *
+     * Against a player radius of 0.45 m that leaves 0.78 m of walking room —
+     * narrow, and deliberately so. A gate a child has to aim at is a gate; one
+     * they drift through is a doorway-shaped decoration.
+     */
+    colliderParts: [
+      { offsetX: -2.1, offsetZ: 0, halfWidth: 1.26, halfDepth: 2.95 },
+      { offsetX: 2.1, offsetZ: 0, halfWidth: 1.26, halfDepth: 2.95 },
+    ],
     notes:
       'Delivered 24.61 MB with two 4096 maps; recompressed to 2.07 MB. Left at ' +
       'the 6 m it arrived at: that is the exporter s number rather than an ' +
@@ -341,7 +362,6 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
     label: 'Olive grove',
     color: '#6F7A4B',
     placeholder: 'box',
-    scaleToBrief: true,
     notes: 'Delivered 31.64 MB; recompressed to 1.31 MB.',
   },
   {
@@ -355,7 +375,6 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
     label: 'Cappadocian valley',
     color: '#D3B48C',
     placeholder: 'box',
-    scaleToBrief: true,
     notes: 'Backdrop. Delivered 21.62 MB; recompressed to 2.60 MB.',
   },
   {
@@ -369,7 +388,6 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
     label: 'İznik tile panel',
     color: '#1B7FA8',
     placeholder: 'plane',
-    scaleToBrief: true,
     notes: 'Delivered 20.31 MB with 4096 px maps on 5,778 triangles; recompressed to 0.7 MB.',
   },
   {
@@ -388,7 +406,6 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
     label: 'Hagia Sophia',
     color: '#C9B79A',
     placeholder: 'box',
-    scaleToBrief: true,
     notes:
       'Second delivery. The first read poorly once the mosque stood on the ' +
       'square at close range: 6,053 triangles and a 1024 colour map are enough ' +
@@ -408,7 +425,6 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
     label: 'Beyoğlu facades',
     color: '#C9A46E',
     placeholder: 'box',
-    scaleToBrief: true,
     notes: 'Backdrop only. Delivered 25.01 MB; recompressed to 2.55 MB.',
   },
   {
@@ -431,7 +447,6 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
     label: 'Bosphorus ferry',
     color: '#C8CBD0',
     placeholder: 'box',
-    scaleToBrief: true,
     notes:
       'Delivered 58.27 MB; recompressed to 2.48 MB. One instance, on the water. ' +
       'Kept double-sided for the flags on its masts.',
@@ -447,7 +462,6 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
     label: "Maiden's Tower",
     color: '#D8CFC0',
     placeholder: 'cylinder',
-    scaleToBrief: true,
     notes:
       'Stands offshore, so it needs the water plane. Kept double-sided: the flag ' +
       'on its roof is a single plane, and culling its back face tore it in half. ' +
@@ -463,7 +477,6 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
     label: 'Ferry terminal',
     color: '#B7A98F',
     placeholder: 'box',
-    scaleToBrief: true,
     notes:
       'Stands in for the ferry itself at the last stop. The boat was briefed as ' +
       'city_istanbul_ferry and never delivered; a terminal is where a child ' +
@@ -481,7 +494,6 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
     label: 'Grand Bazaar gateway',
     color: '#A8763F',
     placeholder: 'box',
-    scaleToBrief: true,
     notes:
       'Delivered at 52.08 MB with four 4096 px PNG maps on 7,793 triangles. ' +
       'Recompressed to a 2048 colour map and 1024 for the rest: 1.90 MB.',
@@ -496,7 +508,6 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
     label: 'Wall fountain',
     color: '#B9AE97',
     placeholder: 'box',
-    scaleToBrief: true,
     notes: 'Shared kit prop: 7.85 MB down to 0.49 MB.',
   },
   {
@@ -509,7 +520,6 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
     label: 'Nostalgic streetcar',
     color: '#B03A2E',
     placeholder: 'box',
-    scaleToBrief: true,
     notes: 'The red tram is Beyoğlu. 8.87 MB down to 0.73 MB.',
   },
   {
@@ -522,7 +532,6 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
     label: 'Stone dock',
     color: '#9E9382',
     placeholder: 'box',
-    scaleToBrief: true,
     notes: 'Stands at the quay, where the street meets the water. 9.65 MB down to 0.65 MB.',
   },
   {
@@ -535,7 +544,6 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
     label: 'Turkish flag',
     color: '#E30A17',
     placeholder: 'cylinder',
-    scaleToBrief: true,
     notes:
       'Stands at the same place in every one of the 81 cities, so a child ' +
       'arriving anywhere sees the same thing first. Double-sided: a flag is a ' +
@@ -560,7 +568,6 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
     label: 'Hot air balloon',
     color: '#D9532C',
     placeholder: 'cylinder',
-    scaleToBrief: true,
     notes: 'Kept double-sided: the envelope is thin where it meets the crown.',
   },
   {
@@ -573,7 +580,6 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
     label: 'Crates and barrel',
     color: '#9A7B4F',
     placeholder: 'box',
-    scaleToBrief: true,
     notes: 'Shared kit prop: 8.49 MB down to 0.62 MB at a 1024 colour map and 512 for the rest.',
   },
   {
@@ -586,7 +592,6 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
     label: 'Market stall',
     color: '#B5563C',
     placeholder: 'box',
-    scaleToBrief: true,
     notes:
       'Shared kit prop, delivered empty on purpose: the same stall becomes a ' +
       'spice stall in Gaziantep and a pottery stall in Nevşehir by what is ' +
@@ -602,7 +607,6 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
     label: 'Cypress planter',
     color: '#3E6B4A',
     placeholder: 'cylinder',
-    scaleToBrief: true,
     notes:
       'Shared kit prop, so it carries the under-2 MB rule: 8.40 MB down to ' +
       '0.65 MB at a 1024 colour map and 512 for the rest.',
@@ -659,8 +663,8 @@ export interface AssetEntry {
    * offset, and it costs nothing when the pivot is already correct.
    */
   readonly groundAlign: boolean;
-  /** Scale the mounted model to `dimensions` rather than trusting the file. */
-  readonly scaleToBrief: boolean;
+  /** Present when the object is solid in places and open in others. */
+  readonly colliderParts?: readonly ColliderPart[];
   readonly manifest: ManifestEntry;
 }
 
@@ -726,7 +730,7 @@ function propToEntry(prop: DeliveredProp): AssetEntry {
     color: prop.color,
     label: prop.label,
     groundAlign: true,
-    scaleToBrief: prop.scaleToBrief ?? false,
+    colliderParts: prop.colliderParts,
     manifest: {
       id: prop.id,
       kind: 'model',
@@ -752,7 +756,6 @@ function toAssetEntry(manifest: ManifestEntry): AssetEntry {
     color: presentation?.color ?? TIER_COLOR[manifest.tier] ?? '#9AA5B1',
     label: presentation?.label ?? manifest.id,
     groundAlign: false,
-    scaleToBrief: false,
     manifest,
   };
 }
@@ -773,7 +776,6 @@ function withDeliveredModel(entry: AssetEntry, prop: DeliveredProp): AssetEntry 
     models: { low: prop.modelUrl, medium: prop.modelUrl, high: prop.modelUrl },
     dimensions: prop.dimensions,
     groundAlign: true,
-    scaleToBrief: prop.scaleToBrief ?? false,
     manifest: { ...entry.manifest, status: 'delivered' },
   };
 }
@@ -852,7 +854,6 @@ function grayboxEntry(id: string): AssetEntry {
     color: isCollectible ? '#F2B233' : '#A89880',
     label: key.replace(/_/g, ' '),
     groundAlign: false,
-    scaleToBrief: false,
     manifest: {
       id,
       kind: 'model',
@@ -880,7 +881,6 @@ function unknownEntry(id: string): AssetEntry {
     color: '#E0322F',
     label: `Eksik varlık: ${id}`,
     groundAlign: false,
-    scaleToBrief: false,
     manifest: {
       id,
       kind: 'unknown',

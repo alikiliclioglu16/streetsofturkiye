@@ -34,7 +34,7 @@ Fiber 9, Drei 10, Zustand 5, Zod 4, Vitest 4.
 | Questions | 2 | 2 | 1 | 1 |
 | Guide | Nasreddin Hodja | Keloğlan | Keloğlan | Keloğlan |
 | Ground | cobblestone | red sand | red sand | steppe |
-| Animal | 5 cats | 3 horses | 5 cats | 3 horses |
+| Animal | 5 cats | 3 horses | 5 cats | geese (placeholder) |
 | Horizon | facades, sea, ferry, Maiden's Tower | chimney ridges, valley rim | stone houses, castle, olive groves, bazaar gate | **all placeholder** — Ani shells, cathedral, walls, gorge |
 | Music | *Üsküdar'a Gider İken* | *Gökyüzü Balonları* | *Sarı Çoraplı Yol* | **none yet** |
 | Balloons | no | **yes** | no | no |
@@ -43,7 +43,7 @@ Three cities are finished end to end. **Kars is open and unbuilt** — walkable,
 with a placeholder at every stop and across its whole horizon, the way Nevşehir
 and Gaziantep were each opened. Its brief is `docs/KARS_ASSET_BRIEF.md`.
 
-`npm run gate` is green: 81 cities, 249 stops, 84 questions, **320 tests**,
+`npm run gate` is green: 81 cities, 249 stops, 84 questions, **322 tests**,
 clean lint and typecheck, 4 routes built.
 
 Assets total 70.63 MB on disk; a single city visit downloads far less because
@@ -176,12 +176,15 @@ entirely. This is what rendered Nasreddin Hodja 1.7 cm tall (D-042).
 
 **Meshy exports arrive at inconsistent scale.** Several have had a 0.01 armature
 and render at centimetres; more often they arrive normalised into a bounding box
-and come back at exactly 2.00 or 4.00 m whatever they depict. `AssetInstance`
-measures the mounted model and scales it to the recorded height — **but only
-outside a half-to-double band**, which is where most normalised exports land.
-`scaleToBrief` reads as though it closes that gap. It does not: nothing in the
-engine reads it (D-120). Until that changes, correct a disagreeing delivery in
-the file with `set-model-scale.mjs` rather than trusting the registry to do it.
+and come back at exactly 2.00 or 4.00 m whatever they depict. Neither number
+means anything, so the registry's does: `AssetInstance` scales every mounted
+model to its recorded height, always (D-124). Record the size the object is
+meant to be and the renderer, the collider and the stop camera all use it.
+
+**Record that triple by measuring the file and scaling it**, never by copying the
+brief. Scaling is uniform and taken from height, so the recorded width and depth
+have to be the file's own aspect or the collider will not match what is drawn. A
+test holds this to within 8%.
 
 **A stop object is child-scale — one to five metres.** It is something to walk up
 to, not scenery. Hagia Sophia was built as a stop and had to be moved to the
@@ -287,14 +290,17 @@ will bite:
 - **D-094** — a finished city opens on the street, not on its summary.
 - **D-113** — the dance is gone. Both guides celebrate with a short gesture
   sequence.
-- **D-120** — `scaleToBrief` is documented, set on twenty-five entries, asserted
-  in four tests, and read by nothing. Do not rely on it.
-- **D-121** — a solid object is one axis-aligned rectangle. A gate, an arch or a
-  colonnade cannot be walked through; it needs two footprints and a gap.
+- **D-120 / D-124** — the recorded height draws every model. `scaleToBrief` and
+  the half-to-double band are both gone; one number is authoritative, and a test
+  holds each recorded triple to its file's own aspect.
+- **D-121 / D-125** — an object may declare `colliderParts` when it is solid in
+  places and open in others. The bazaar gate has two piers and a passage.
 - **D-122** — balloons are Nevşehir's only.
 - **D-123** — "open" is not "finished". Tests that assert completeness are
   scoped to `PILOT_CITY_IDS`; what holds for every city is that it stays
   walkable on placeholders.
+- **D-126** — three animals now: cat, horse, goose. Chosen from a table, not a
+  ternary.
 
 ---
 
@@ -309,10 +315,11 @@ Cappadocia — came from someone looking at it. A child looking at it will find
 more. `?debug=1` opens the performance overlay on the deployed build (D-017), so
 a tablet and a screenshot close half of this today.
 
-**2. Decide what to do about `scaleToBrief` (D-120).** Sixteen delivered assets
-are drawn at a size the layout does not assume. Making the flag live is a small
-change and a large visual one, so it wants to be taken deliberately, on its own,
-with screenshots of all three cities either side of it.
+**2. Look at the sixteen (D-124).** The recorded height now draws every model,
+which changes the on-screen size of sixteen objects across the three finished
+cities — all of them towards the size the layout already assumed. The maths is
+tested; what is not tested is whether a 17 m chimney ridge looks right behind
+Nevşehir. This is the one change in the project that most needs a pair of eyes.
 
 **3. Kars's art.** The city is open and every model in it is a placeholder. The
 brief is written: four horizon pieces (church shell, cathedral, walls, gorge) and

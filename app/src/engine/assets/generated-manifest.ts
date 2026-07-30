@@ -395,5 +395,20 @@ export const MANIFEST_ENTRIES: readonly ManifestEntry[] = [
     "textureBudget": "1K",
     "fallbackShape": "cylinder",
     "notes": "Hammered copper surface"
+  },
+  {
+    "id": "kit_kars_goose",
+    "kind": "model",
+    "tier": "midground",
+    "status": "briefed",
+    "dimensions": [
+      0.35,
+      0.85,
+      0.75
+    ],
+    "triangleBudget": 6000,
+    "textureBudget": "1K",
+    "fallbackShape": "box",
+    "notes": "Kars goose; flock animal, walk cycle, no root motion"
   }
 ] as const;

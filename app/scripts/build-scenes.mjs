@@ -118,7 +118,7 @@ const REGION_ANIMAL = {
   mediterranean: 'cat',
   'black-sea': 'cat',
   'central-anatolia': 'horse',
-  'eastern-anatolia': 'horse',
+  'eastern-anatolia': 'goose',
   'southeastern-anatolia': 'cat',
 };
 
@@ -389,6 +389,39 @@ function animalRoutes(stopPositions, geometry, animal, metrics) {
       ],
     ];
     return routes.filter((route) => route.every((point) => clearOfStops(point, 3)));
+  }
+
+  if (animal === 'goose') {
+    /**
+     * Geese, for Kars, which is known for them.
+     *
+     * A third gait, and it is not a smaller horse or a larger cat. A cat picks
+     * its way alone between the furniture; a horse walks a long line down the
+     * open edge. Geese go in a flock, slowly, over short distances, and they
+     * all go the same way — so these are three short runs close together across
+     * the same piece of open ground rather than three animals each minding
+     * their own business.
+     *
+     * Out on the grass, well off the walking line: a goose on the pavement is
+     * something a child walks into, and there is nothing in a goose's character
+     * that would make it stand aside.
+     */
+    const lane = edge - 4.5;
+    const routes = [
+      [
+        { x: -lane, z: firstZ - span * 0.2 },
+        { x: -lane + 3.5, z: firstZ - span * 0.34 },
+      ],
+      [
+        { x: -lane + 1.5, z: firstZ - span * 0.28 },
+        { x: -lane + 5, z: firstZ - span * 0.42 },
+      ],
+      [
+        { x: lane - 1, z: lastZ - 8 },
+        { x: lane - 4.5, z: lastZ - 15 },
+      ],
+    ];
+    return routes.filter((route) => route.every((point) => clearOfStops(point, 2.5)));
   }
 
   // Cats: short beats, tucked in near the pavement.

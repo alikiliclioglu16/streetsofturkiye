@@ -1674,3 +1674,80 @@ test, and is the guarantee that actually matters.
 `PILOT_CITY_IDS` deliberately still lists three. It is what phase 02 is judged
 against, and opening a province outside the pilot must not quietly widen a gate
 that has not been passed.
+
+## D-124 — The recorded height is what draws every model (30 Jul 2026)
+
+D-120 found the problem; this is the decision.
+
+`AssetInstance` scaled a mounted model to its recorded height and then declined
+to, unless the factor fell below a half or above two. `scaleToBrief` existed to
+override that and was read by nothing. Both are gone. The recorded height always
+wins.
+
+**The measurement that made this safe.** Scaling is uniform and taken from
+height, so a model keeps its own proportions — but the collider and the trigger
+ring are built from the recorded *width and depth*, and those only agree if the
+recorded triple has the file's own aspect. Every delivered asset was checked:
+after scaling to the recorded height, width and depth land within 3% of what is
+recorded, and most within 1%. The numbers were taken by measuring each delivery
+and scaling it, not typed in from a brief.
+
+So the registry was never in disagreement with the files. It recorded the size
+each object is meant to be, and the renderer was the one part of the system not
+reading it — while the scene builder reserved footprints from it and derived
+every stop camera from it.
+
+Sixteen objects change size on screen, all of them towards the size the layout
+already assumed: a 17 m chimney ridge that was drawn at 10, a 9 m ferry drawn at
+15, a valley drawn at exactly half, and the pottery wheel that D-112 recorded as
+the smallest stop object in the project at 1.4 m and that was being drawn at 2.0.
+
+That 3% is now a test rather than a note. It reads each GLB's bounds out of the
+JSON chunk — every accessor carries its own min and max, so no buffer has to be
+decoded and no glTF library has to be added to `package.json`. A triple typed in
+from a brief instead of measured would pass every other test in the suite and put
+a collider around a shape that is not there.
+
+## D-125 — A solid object can have a hole in it (30 Jul 2026)
+
+A collider was one axis-aligned rectangle covering the whole of an object's
+footprint. That is right for anything a child walks round and wrong for anything
+they walk through, and it sealed the bazaar gate's own archway.
+
+An entry may now declare `colliderParts`: rectangles in the object's own metres,
+measured from its centre, turned with the object by the scene builder. The gate
+has two, and the passage between them is what is left.
+
+**Measured, not chosen.** At walking height the gate's vertices form two dense
+clusters with an empty band between: stone from the west edge to x = -0.84,
+nothing across to x = +0.84, stone again to the east edge. Each pier is 2.52 m of
+the 6.72 m frontage and the opening is 1.68 m — 0.78 m of walking room once the
+player's 0.45 m radius is taken off. Narrow on purpose. A gate a child has to aim
+at is a gate; one they drift through is a doorway-shaped decoration.
+
+This is worth having before Ani rather than after. A ruined city is mostly
+arches.
+
+## D-126 — Kars has geese (30 Jul 2026)
+
+The region table gave the eastern plateau horses, inherited from Cappadocia.
+Kars is known for its geese.
+
+A third gait, and not a smaller horse or a larger cat. A cat picks its way alone
+between the furniture in short tight beats; a horse walks a long line down the
+open edge. Geese go in a flock, slowly, over a short distance, and all in the
+same direction — so Kars gets three short runs close together across one piece of
+open ground, rather than three animals each minding its own business. Well off
+the walking line: a goose on the pavement is something a child walks into, and
+nothing in a goose's character would make it stand aside.
+
+The animal was chosen by a ternary — horse, else cat — which would have given the
+third animal a cat without saying so. It is a table now.
+
+`kit_kars_goose` is briefed and undelivered, so it draws a placeholder like
+everything else in Kars.
+
+One more count came out of a test while doing this: the manifest was asserted to
+have exactly twenty-five rows. A number like that records the day it was written
+rather than a rule, and it fails every time a province is briefed. What is
+actually required is that the manifest has no duplicate rows.

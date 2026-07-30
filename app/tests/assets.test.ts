@@ -1,4 +1,4 @@
-import { readFileSync, readdirSync } from 'node:fs';
+import { existsSync, readFileSync, readdirSync } from 'node:fs';
 import path from 'node:path';
 import { describe, expect, it } from 'vitest';
 
@@ -13,6 +13,7 @@ import {
 import { buildScene } from '@/engine/scene/buildScene';
 import { PILOT_CITY_IDS } from '@/content/loaders/loadCity';
 import { loadComposedCity } from './helpers';
+import { readGlbBounds } from './glb-bounds';
 
 const ROOT = path.resolve(process.cwd(), '..');
 const MANIFEST = path.join(ROOT, 'asset-manifests/pilot-assets.csv');
@@ -38,7 +39,10 @@ const pilotCities = cities.filter((city) => (PILOT_CITY_IDS as readonly string[]
 describe('asset registry alignment', () => {
   it('covers every row of the manifest', () => {
     const csvIds = manifestIdsFromCsv();
-    expect(csvIds).toHaveLength(25);
+    // Not a fixed number. The manifest grows every time a province is briefed,
+    // and a count written into a test only records the day it was written.
+    expect(csvIds.length).toBeGreaterThan(20);
+    expect(new Set(csvIds).size, 'duplicate manifest rows').toBe(csvIds.length);
     // Kit props were never briefed as manifest rows, so they are extra.
     // Commissioned art that has since been delivered stays a manifest row.
     const extras = deliveredProps()
@@ -203,6 +207,40 @@ describe('delivered street props', () => {
 });
 
 describe('the registry tells the truth about the files', () => {
+  it('records a size the file can actually be scaled to', { timeout: 20_000 }, () => {
+    /**
+     * The recorded height is what draws every model now (D-120), and the
+     * recorded width and depth are what the collider and the trigger ring are
+     * built from. Scaling is uniform and taken from height, so those two only
+     * agree with each other if the recorded triple has the file's own
+     * proportions.
+     *
+     * It does, everywhere, to within a few per cent — the numbers were taken by
+     * measuring each delivery and scaling it, which is why activating the
+     * height was safe. This test is what keeps that true: a triple typed in
+     * from a brief instead of measured would pass every other test in the suite
+     * and put a collider around a shape that is not there.
+     */
+    for (const prop of deliveredProps()) {
+      const file = path.resolve(process.cwd(), 'public', prop.modelUrl.replace(/^\//, ''));
+      if (!existsSync(file)) continue;
+
+      const bounds = readGlbBounds(file);
+      expect(bounds, prop.id).not.toBeNull();
+      const [width, height, depth] = prop.dimensions;
+
+      // Skinned models are authored at armature scale and measure near nothing
+      // in bind pose; there is no aspect to compare.
+      if (!bounds || bounds.height < 0.05) continue;
+
+      const factor = height / bounds.height;
+      const widthError = Math.abs(bounds.width * factor - width) / width;
+      const depthError = Math.abs(bounds.depth * factor - depth) / depth;
+      expect(widthError, `${prop.id} width`).toBeLessThan(0.08);
+      expect(depthError, `${prop.id} depth`).toBeLessThan(0.08);
+    }
+  });
+
   it('records the byte count each delivered file actually has', { timeout: 15_000 }, async () => {
     // Two entries once drifted from disk after a re-compression, and a stale
     // checksum is worse than none: it looks like a verification.

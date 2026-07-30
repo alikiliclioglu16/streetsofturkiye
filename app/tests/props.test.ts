@@ -117,6 +117,36 @@ describe('street kit props', () => {
     expect(istanbul.some((id) => id.startsWith('city_istanbul_'))).toBe(true);
   });
 
+  it('lets a child walk through the bazaar gate, and not through its piers', () => {
+    /**
+     * The gate was solid as one rectangle, which sealed its own archway: a
+     * child could circle it but not pass under it, which is not what a gate is.
+     * It now contributes two footprints and the passage between them.
+     *
+     * Measured, not chosen. At walking height the vertices form two clusters
+     * with an empty band between them, so each pier is 2.52 m of the 6.72 m
+     * frontage and the opening is 1.68 m — 0.78 m of walking room once the
+     * player's own radius is taken off.
+     */
+    const scene = buildScene(loadComposedCity('gaziantep'), 'high');
+    const gate = scene.props.find((prop) => prop.asset.entry.id === 'city_gaziantep_bazaar_gate')!;
+    const [x, , z] = gate.position;
+
+    // Straight through the middle, front to back.
+    for (const depth of [-2.5, -1.2, 0, 1.2, 2.5]) {
+      expect(blockedBy({ x, z: z + depth }, scene.colliders), `centre at z+${depth}`).toBeNull();
+    }
+
+    // And the stone either side of it is stone.
+    for (const offset of [-2.1, 2.1]) {
+      expect(blockedBy({ x: x + offset, z }, scene.colliders), `pier at x+${offset}`).not.toBeNull();
+    }
+
+    // Two footprints, not one: something has to be solid here.
+    const parts = gate.asset.entry.colliderParts;
+    expect(parts).toHaveLength(2);
+  });
+
   it('leaves room to walk right round the bazaar gate', () => {
     /**
      * The owner asked for a structure a child can circle. Clearance is
@@ -133,9 +163,11 @@ describe('street kit props', () => {
     const WALKING_ROOM = 2;
 
     for (const other of scene.colliders) {
-      const sameThing =
-        Math.abs(other.x - gate.position[0]) < 0.01 && Math.abs(other.z - gate.position[2]) < 0.01;
-      if (sameThing) continue;
+      // The gate's own two piers are not things to keep clear of itself.
+      const isOwnPier =
+        Math.abs(other.z - gate.position[2]) < 0.01 &&
+        Math.abs(Math.abs(other.x - gate.position[0]) - 2.1) < 0.01;
+      if (isOwnPier) continue;
 
       // Axis-aligned, because the collision test is.
       const gapX = Math.abs(other.x - gate.position[0]) - (gateWidth / 2 + other.halfWidth);
@@ -205,9 +237,6 @@ describe('optimised street kit', () => {
     const benchEntry = resolveAsset('kit_bench', 'high').entry;
     expect(trustsModelScale(lampEntry)).toBe(true);
     expect(trustsModelScale(benchEntry)).toBe(true);
-    // Neither is scaled to a brief; both are authored at the size they mean.
-    expect(lampEntry.scaleToBrief).toBe(false);
-    expect(benchEntry.scaleToBrief).toBe(false);
     // Normalising these towards anything in common would flatten the very
     // difference that makes a street read as a street.
     expect(lampEntry.dimensions[1] / benchEntry.dimensions[1]).toBeGreaterThan(5);
@@ -829,25 +858,25 @@ describe('Galata Tower', () => {
     expect(tower.triangles).toBe(7_003);
     expect(tower.transferBytes).toBe(2_814_596);
     expect(tower.checksum).toHaveLength(64);
-    // Delivered already at the agreed 14 m (D-050), so nothing is rescaled.
+    // Delivered already at the agreed 14 m (D-050).
     expect(tower.dimensions[1]).toBe(14);
-    expect(tower.scaleToBrief ?? false).toBe(false);
     // The reason the first optimisation was rejected survives in the record.
     expect(tower.notes).toMatch(/34,313/);
     expect(tower.notes).toMatch(/seams/);
   });
 
-  it('needs no rescaling, because every delivered asset is authored at its size', () => {
-    // `scaleToBrief` exists for a file that disagrees with an agreed size. The
-    // third tower arrived at 14 m, so nothing uses it — which is the state to
-    // prefer.
-    for (const id of [
-      'city_istanbul_galata_tower',
-      'kit_street_lamp',
-      'kit_bench',
-      'city_istanbul_simit_cart',
-    ]) {
-      expect(resolveAsset(id, 'high').entry.scaleToBrief, id).toBe(false);
+  it('records a height for every delivered asset, because that is what draws it', () => {
+    /**
+     * There is no opt-in any more. `scaleToBrief` was a flag saying "this file
+     * disagrees with the agreed size, use the agreed one" — set on twenty-five
+     * entries, asserted in four tests, and read by nothing (D-120). Now the
+     * recorded height always wins, so it has to be there and it has to be real.
+     */
+    for (const prop of deliveredProps()) {
+      const [width, height, depth] = prop.dimensions;
+      expect(height, prop.id).toBeGreaterThan(0);
+      expect(width, prop.id).toBeGreaterThan(0);
+      expect(depth, prop.id).toBeGreaterThan(0);
     }
   });
 

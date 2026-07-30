@@ -24,3 +24,4 @@ city_gaziantep_coppersmith_workbench,model,midground,briefed,2.4x1.0x1.6,15000,1
 collectible_gaziantep_mosaic_piece,model,collectible,briefed,0.18x0.04x0.18,3000,1K,plane,Single decorative mosaic tile
 collectible_gaziantep_baklava,model,collectible,briefed,0.16x0.16x0.08,5000,1K,box,Clean layered cross-section
 collectible_gaziantep_copper_pot,model,collectible,briefed,0.20x0.20x0.22,6000,1K,cylinder,Hammered copper surface
+kit_kars_goose,model,midground,briefed,0.35x0.75x0.85,6000,1K,box,"Kars goose; flock animal, walk cycle, no root motion"
