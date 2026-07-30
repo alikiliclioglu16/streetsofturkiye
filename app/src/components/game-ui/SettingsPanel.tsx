@@ -38,7 +38,6 @@ export function SettingsPanel() {
             [
               ['voice', settings.muteVoice, ui('audioGuide', locale)],
               ['music', settings.muteMusic, ui('audioMusic', locale)],
-              ['ambience', settings.muteAmbience, ui('audioAmbient', locale)],
               ['ui', settings.muteUi, ui('audioInterface', locale)],
             ] as const
           ).map(([channel, muted, label]) => (

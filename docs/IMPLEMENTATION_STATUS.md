@@ -114,7 +114,7 @@ app/src/
 npm run lint       → temiz
 npm run typecheck  → temiz (strict, noUncheckedIndexedAccess, `any` yok)
 npm run content:check → 81 il, 249 durak, 84 soru; 1413 kanonik dizgi baseline ile eşleşti
-npm test           → 16 dosya / 306 test geçti (logic + jsdom ui)
+npm test           → 16 dosya / 309 test geçti (logic + jsdom ui)
 npm run build      → başarılı, 4 rota
 npm start          → /map ve /city/istanbul 200
 ```
@@ -625,6 +625,25 @@ Zemin payı 26'dan 44 metreye çıktı.
 
 **On balon** süzülüyor (D-102): tek model, on ayrı ölçek, yükseklik ve mesafede.
 Aynı dosya 2. durağın bağlı balonu — tek indirme, iki rol.
+
+## 6e. Yaşayan Kapadokya
+
+**Ortam sesi kaldırıldı** (D-103), sadece müzik kaldı. İki denemede de filtrelenmiş gürültü
+dalga gibi duydu; üçüncü denemek yerine durdum. Kanal ve susturma düğmesi gerçek kayıt için duruyor.
+
+**Vadi çepeçevre** (D-104): altı plaka, dört yanda, kenarları sınırda ve üst üste binmiş —
+bir plaka dizisinin tek manzara gibi görünmesini sağlayan şey bu. Peri bacaları halkanın içine
+alındı: yakında bacalar, ötede vadi.
+
+**Balonlar uçuyor** (D-105): 260 metre kat edip başa dönüyorlar, on ayrı hızda. Her şehirde var,
+Kapadokya'da gökyüzü dolu.
+
+**Duraktaki balon brülör yakıyor** (D-106): dokuz saniyede bir, iki saniye. Duran bir balon
+balondur; brülör yakan balon, kalkmak üzere olan bir balondur.
+
+**Üç NPC her şehirde ve yürüyor** (D-107): dört metrelik bir beat gidip dönüyorlar.
+Yerleşim üç denemede oturdu — durağın x'inden kaydırmak rotaya düşürdü, merkez hattından
+ölçmek durağın öbür yanına attı; doğrusu duraktan **dışa** doğru itmek.
 
 ## 5. Bilinen sınırlar
 

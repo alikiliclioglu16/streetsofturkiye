@@ -20,6 +20,11 @@ import { isApprovedClip, type FeaturedNpc as NpcDefinition } from '@/engine/npc/
  * a statue.
  */
 
+/** Metres per second. A person going about their day, not commuting. */
+export const WALK_SPEED = 0.85;
+export const PAUSE_MIN_S = 3;
+export const PAUSE_MAX_S = 7;
+
 const DWELL_MIN_S = 4;
 const DWELL_MAX_S = 9;
 
@@ -27,11 +32,21 @@ interface FeaturedNpcProps {
   npc: NpcDefinition;
   position: readonly [number, number, number];
   rotationY: number;
+  /** Far end of a short beat this person walks and returns along. */
+  walkTo?: readonly [number, number, number] | null;
+  reducedMotion?: boolean;
   /** Offsets the cycle so three NPCs do not change pose on the same beat. */
   phase?: number;
 }
 
-export function FeaturedNpcActor({ npc, position, rotationY, phase = 0 }: FeaturedNpcProps) {
+export function FeaturedNpcActor({
+  npc,
+  position,
+  rotationY,
+  walkTo = null,
+  reducedMotion = false,
+  phase = 0,
+}: FeaturedNpcProps) {
   const group = useRef<Group>(null);
   const { scene, animations } = useGLTF(npc.modelUrl);
 
@@ -44,16 +59,28 @@ export function FeaturedNpcActor({ npc, position, rotationY, phase = 0 }: Featur
   const dwell = useRef(DWELL_MIN_S + phase * (DWELL_MAX_S - DWELL_MIN_S));
 
   /**
-   * Standing clips only.
+   * Standing clips, for the pauses between walks.
    *
-   * `Walking` is on the whitelist because the model ships with it, but an NPC
-   * holding a post has no use for it — playing a walk cycle on the spot is the
-   * skating that the cat integration was careful to avoid.
+   * `Running` stays out: someone running past a stop reads as an emergency.
    */
   const standing = useMemo(
     () => npc.clips.filter((name) => name !== 'Walking' && name !== 'Running'),
     [npc.clips],
   );
+
+  /**
+   * A beat, walked and returned along.
+   *
+   * These people used to hold one spot for a whole visit, which reads as a
+   * statue of a person. They now walk a few metres and come back, pausing at
+   * each end — the application moves them and the clip only moves their legs,
+   * which is the same rule the cat and the tram follow.
+   */
+  const walk = useRef({ t: 0, forward: true, waitLeft: 2 + phase * 3 });
+  const home = useMemo(() => new Vector3(...position), [position]);
+  const away = useMemo(() => (walkTo ? new Vector3(...walkTo) : null), [walkTo]);
+  const beat = useMemo(() => (away ? home.distanceTo(away) : 0), [home, away]);
+  const walking = useRef(false);
 
   useEffect(() => {
     const node = group.current;
@@ -97,7 +124,39 @@ export function FeaturedNpcActor({ npc, position, rotationY, phase = 0 }: Featur
     const delta = Math.min(rawDelta, 0.05);
     mixer.update(delta);
 
-    if (standing.length < 2) return;
+    const node = group.current;
+    if (node && away && beat > 0.5 && !reducedMotion) {
+      const state = walk.current;
+      if (state.waitLeft > 0) {
+        state.waitLeft = Math.max(0, state.waitLeft - delta);
+        if (walking.current) {
+          walking.current = false;
+          if (standing.length > 0) play(standing[index.current % standing.length]!);
+        }
+      } else {
+        if (!walking.current) {
+          walking.current = true;
+          play('Walking');
+        }
+        state.t += ((state.forward ? 1 : -1) * WALK_SPEED * delta) / beat;
+        if (state.t >= 1) {
+          state.t = 1;
+          state.forward = false;
+          state.waitLeft = PAUSE_MIN_S + Math.random() * (PAUSE_MAX_S - PAUSE_MIN_S);
+        } else if (state.t <= 0) {
+          state.t = 0;
+          state.forward = true;
+          state.waitLeft = PAUSE_MIN_S + Math.random() * (PAUSE_MAX_S - PAUSE_MIN_S);
+        }
+        node.position.lerpVectors(home, away, state.t);
+        // Facing the way they are going, and back to their post when returning.
+        const dx = (away.x - home.x) * (state.forward ? 1 : -1);
+        const dz = (away.z - home.z) * (state.forward ? 1 : -1);
+        node.rotation.y = Math.atan2(dx, dz);
+      }
+    }
+
+    if (walking.current || standing.length < 2) return;
     dwell.current -= delta;
     if (dwell.current <= 0) {
       index.current = (index.current + 1) % standing.length;

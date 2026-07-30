@@ -119,6 +119,12 @@ export const sceneSchema = z
           npcId: z.enum(['featured_soldier', 'featured_traveler', 'featured_craftsman_male']),
           position: vec3Schema,
           rotationY: z.number().default(0),
+          /**
+           * The far end of a short beat this person walks and returns along.
+           * A person rooted to one spot for a whole visit reads as a statue of
+           * a person.
+           */
+          walkTo: vec3Schema.nullable().default(null),
           note: z.string().optional(),
         }),
       )
@@ -159,7 +165,7 @@ export const sceneSchema = z
           key: z.string(),
           position: vec3Schema,
           scale: z.number().positive(),
-          drift: z.number().nonnegative(),
+          driftSpeed: z.number().positive(),
           phase: z.number(),
         }),
       )

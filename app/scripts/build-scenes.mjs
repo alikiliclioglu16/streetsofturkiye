@@ -409,43 +409,64 @@ function streetTrees(cityId, stopPositions, geometry, regionId) {
  * standing on the pavement in front of it would turn a person into an obstacle
  * a child tries to walk through.
  */
-function featuredNpcs(cityId, stopPositions, routePoints) {
-  if (cityId !== 'istanbul') return [];
+/**
+ * Where the three featured NPCs stand, and where they walk.
+ *
+ * Beside a stop rather than in front of it, off the camera axis so they appear
+ * in the shot without covering the object. Each gets a short beat to walk: a
+ * person rooted to one spot for a whole visit reads as a statue of a person.
+ */
+function featuredNpcs(cityId, stopPositions, geometry) {
+  if (stopPositions.length < 4) return [];
 
-  const candidates = [
-    { npcId: 'featured_soldier', at: 1, offset: [4.4, 2.6], note: 'beside the tower gate' },
-    { npcId: 'featured_traveler', at: 2, offset: [4.8, 2.2], note: 'at the bazaar entrance' },
-    { npcId: 'featured_craftsman_male', at: 3, offset: [4.0, 1.8], note: 'working beside the simit cart' },
-  ];
-
-  const distanceToRoute = (x, z) => {
-    let closest = Infinity;
-    for (let i = 0; i < routePoints.length - 1; i += 1) {
-      const [ax, , az] = routePoints[i];
-      const [bx, , bz] = routePoints[i + 1];
-      const dx = bx - ax;
-      const dz = bz - az;
-      const lengthSq = dx * dx + dz * dz;
-      const t = lengthSq === 0 ? 0 : Math.max(0, Math.min(1, ((x - ax) * dx + (z - az) * dz) / lengthSq));
-      closest = Math.min(closest, Math.hypot(ax + t * dx - x, az + t * dz - z));
-    }
-    return closest;
+  const beside = (index, side, alongZ) => {
+    const [x, , z] = stopPositions[Math.min(index, stopPositions.length - 1)];
+    /**
+     * Beside their stop, pushed away from the walk.
+     *
+     * Two wrong answers came before this one. Offsetting from the stop's own x
+     * put a person on the route when the stop sat near the middle; measuring
+     * from the centreline instead put them on the far side of their own stop,
+     * belonging to nothing.
+     *
+     * So: from the stop, outward. `side` decides which way only when the stop is
+     * on the centreline; otherwise the outward direction is the one that already
+     * leads away from the walk.
+     */
+    const outward = Math.abs(x) < 1 ? side : Math.sign(x);
+    const reach = Math.max(geometry[index].triggerRadius + 1.2, 5);
+    return [
+      Math.round((x + outward * reach) * 10) / 10,
+      0,
+      Math.round((z + alongZ) * 10) / 10,
+    ];
   };
 
-  return candidates
-    .map(({ npcId, at, offset, note }) => {
-      const stop = stopPositions[at] ?? [0, 0, 0];
-      const x = Math.round((stop[0] + offset[0]) * 10) / 10;
-      const z = Math.round((stop[2] + offset[1]) * 10) / 10;
-      return {
-        npcId,
-        position: [x, 0, z],
-        // Turned back towards their stop, so an arriving child sees a face.
-        rotationY: Math.round(Math.atan2(stop[0] - x, stop[2] - z) * 100) / 100,
-        note,
-      };
-    })
-    .filter((npc) => distanceToRoute(npc.position[0], npc.position[2]) > 2.5);
+  const plan = [
+    { npcId: 'featured_soldier', at: 1, side: -1, alongZ: 3.5, rotationY: 2.4 },
+    { npcId: 'featured_traveler', at: 2, side: 1, alongZ: -3.0, rotationY: -2.1 },
+    { npcId: 'featured_craftsman_male', at: 3, side: -1, alongZ: 2.6, rotationY: 1.9 },
+  ];
+
+  return plan.map((entry) => {
+    const position = beside(entry.at, entry.side, entry.alongZ);
+    /**
+     * A beat, not a patrol. Four metres along the pavement and back is enough
+     * to read as a person going about their day; a long route turns them into
+     * traffic the child has to watch out for.
+     */
+    const walkTo = [
+      Math.round((position[0] + entry.side * 1.5) * 10) / 10,
+      0,
+      Math.round((position[2] - 4.2) * 10) / 10,
+    ];
+    return {
+      npcId: entry.npcId,
+      position,
+      rotationY: Math.round(entry.rotationY * 1000) / 1000,
+      walkTo,
+    };
+  });
 }
 
 /**
@@ -459,6 +480,7 @@ function cityBackdrop(cityId, stopPositions, metrics) {
   const lastZ = stopPositions[stopPositions.length - 1]?.[2] ?? -100;
   const span = Math.abs(lastZ - firstZ);
   const behind = metrics.behind;
+  const metricsHalfWidth = metrics.halfWidth;
 
   const wall = (assetId, x, z, note) => ({
     assetId,
@@ -494,10 +516,45 @@ function cityBackdrop(cityId, stopPositions, metrics) {
 
   if (cityId === 'nevsehir') {
     const ridgeCount = 5;
+
+    /**
+     * The valley is a rim, not a backdrop piece.
+     *
+     * One plate behind and one in front left the sides open and read as two
+     * separate landmasses. Cappadocia is a valley a street sits in, so the
+     * plates ring the whole play area with their near edges on the boundary and
+     * a generous overlap, which is what makes a row of them look like one
+     * landscape rather than several.
+     */
+    const half = VALLEY_HALF_DEPTH;
+    const inner = metricsHalfWidth;
+    const ring = [];
+
+    // Behind and ahead.
+    ring.push(
+      { x: 0, z: behind + half, rot: Math.PI, note: 'valley rim behind the square' },
+      { x: 0, z: lastZ - 14 - half, rot: 0, note: 'valley rim the street runs down to' },
+    );
+
+    // Both sides, two plates each, overlapping along the length of the walk.
+    const sideZs = [firstZ + 14, lastZ - 34];
+    for (const side of [-1, 1]) {
+      for (const [i, z] of sideZs.entries()) {
+        ring.push({
+          x: side * (inner + half),
+          z,
+          rot: side < 0 ? Math.PI / 2 : -Math.PI / 2,
+          note: `valley rim ${side < 0 ? 'west' : 'east'} ${i + 1}`,
+        });
+      }
+    }
+
     return [
-      ...[-24, 24].flatMap((x) =>
+      // Fairy chimneys stand between the street and the rim, so a child sees
+      // chimneys close and a valley beyond them.
+      ...[-19, 19].flatMap((x) =>
         Array.from({ length: ridgeCount }, (_, i) => {
-          const z = firstZ + 18 - ((span + 36) * i) / (ridgeCount - 1);
+          const z = firstZ + 14 - ((span + 30) * i) / (ridgeCount - 1);
           return wall(
             'city_nevsehir_chimney_ridge',
             x,
@@ -506,38 +563,14 @@ function cityBackdrop(cityId, stopPositions, metrics) {
           );
         }),
       ),
-      /**
-       * The valley closes both ends, standing on the ground rather than beyond
-       * it.
-       *
-       * Placed outside the play area it hung in the sky with nothing under it —
-       * the same mistake the Beyoğlu facades made before the paving was widened.
-       * These sit at the boundary and are solid, so a child walks up to the rim
-       * of a valley and stops there, which is what the rim of a valley is for.
-       */
-      /**
-       * The valley closes both ends, standing on the ground and stopping the
-       * child at its rim.
-       *
-       * Its *near edge* is aligned to the boundary, not its centre. Placing the
-       * centre there put a 78 m deep landscape over the spawn — the child
-       * appeared inside a valley. Half of it hanging past the paving is fine and
-       * expected: beyond the rim the valley is the ground.
-       */
-      {
+      ...ring.map((entry) => ({
         assetId: 'city_nevsehir_valley',
-        position: [0, 0, behind + VALLEY_HALF_DEPTH],
-        rotationY: Math.PI,
+        position: [entry.x, 0, Math.round(entry.z * 10) / 10],
+        rotationY: Math.round(entry.rot * 1000) / 1000,
+        // Solid: a child walks to the rim of a valley and stops there.
         solid: true,
-        note: 'the valley behind the square',
-      },
-      {
-        assetId: 'city_nevsehir_valley',
-        position: [0, 0, lastZ - 14 - VALLEY_HALF_DEPTH],
-        rotationY: 0,
-        solid: true,
-        note: 'the valley the street runs down to',
-      },
+        note: entry.note,
+      })),
     ];
   }
 
@@ -551,7 +584,7 @@ function cityBackdrop(cityId, stopPositions, metrics) {
  * same morning. Size does the work — one model at eleven scales, heights and
  * distances reads as a sky, where eleven identical ones read as one copied.
  */
-function balloonSky(stopPositions) {
+function balloonSky(stopPositions, density) {
   const firstZ = stopPositions[0]?.[2] ?? -20;
   const lastZ = stopPositions[stopPositions.length - 1]?.[2] ?? -70;
   /**
@@ -565,17 +598,21 @@ function balloonSky(stopPositions) {
     [-26, 34, 26, 2.2], [18, 58, 38, 1.7], [-8, 76, 31, 1.35], [34, 96, 47, 1.1],
     [-38, 118, 40, 0.92], [8, 140, 54, 0.75], [-18, 168, 46, 0.6], [26, 196, 60, 0.48],
   ];
-  const specs = layout.map(([x, ahead, height, scale], i) => ({
+  // A few cross the sky elsewhere; Cappadocia gets all of them.
+  const chosen = density === 'many' ? layout : layout.filter((_, i) => i % 3 === 0);
+  const specs = chosen.map(([x, ahead, height, scale], i) => ({
     key: `balloon-${i}`,
     position: [x, height, Math.round((lastZ - ahead) * 10) / 10],
     scale,
-    drift: 6 + (i % 3) * 3,
+    driftSpeed: 0.7 + ((i * 7) % 5) * 0.18,
     phase: Math.round(i * 1.37 * 100) / 100,
   }));
+  if (density !== 'many') return specs;
+
   // Two close enough to read as balloons rather than dots on the horizon.
   specs.push(
-    { key: 'balloon-near-a', position: [-30, 19, Math.round((firstZ - 12) * 10) / 10], scale: 2.5, drift: 5, phase: 0.4 },
-    { key: 'balloon-near-b', position: [28, 23, Math.round((lastZ + 14) * 10) / 10], scale: 2.1, drift: 7, phase: 2.1 },
+    { key: 'balloon-near-a', position: [-30, 19, Math.round((firstZ - 12) * 10) / 10], scale: 2.5, driftSpeed: 0.62, phase: 0.4 },
+    { key: 'balloon-near-b', position: [28, 23, Math.round((lastZ + 14) * 10) / 10], scale: 2.1, driftSpeed: 0.85, phase: 2.1 },
   );
   return specs;
 }
@@ -735,10 +772,14 @@ function buildScene(canonical) {
     musicUrl: CITY_THEMES[canonical.id] ?? null,
     groundSurface: REGION_SURFACE[canonical.regionId] ?? 'cobblestone',
     /**
-     * Balloons answer the front of the street the way the sea does in İstanbul:
-     * with distance rather than a wall. Cappadocia only, for now.
+     * Balloons cross the sky over every city, and crowd it over Cappadocia.
+     *
+     * They answer the front of a street the way the sea does in İstanbul: with
+     * distance rather than a wall. Nevşehir gets the full sky because that is
+     * the image of the place; elsewhere a few pass over, which is enough to make
+     * a sky look like weather rather than paint.
      */
-    balloons: canonical.id === 'nevsehir' ? balloonSky(stopPositions) : [],
+    balloons: balloonSky(stopPositions, canonical.id === 'nevsehir' ? 'many' : 'few'),
     /**
      * The tram runs the length of the street on the west side, clear of the
      * walk. İstanbul's nostalgic tram does one street, up and down, all day.
@@ -761,7 +802,7 @@ function buildScene(canonical) {
      */
     backdrop: cityBackdrop(canonical.id, stopPositions, metrics),
     catRoutes: catRoutes(stopPositions, geometry),
-    npcs: featuredNpcs(canonical.id, stopPositions, route),
+    npcs: featuredNpcs(canonical.id, stopPositions, geometry),
     trees: streetTrees(canonical.id, stopPositions, geometry, canonical.regionId),
     /**
      * Featured people, one each, standing beside the stop that suits them.

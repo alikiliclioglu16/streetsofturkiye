@@ -211,6 +211,8 @@ export function CityScene({
         <FeaturedNpcActor
           key={entry.key}
           npc={entry.npc}
+          walkTo={entry.walkTo}
+          reducedMotion={reducedMotion}
           position={entry.position}
           rotationY={entry.rotationY}
           phase={index / Math.max(1, scene.npcs.length)}

@@ -104,107 +104,20 @@ export function playCityComplete(): void {
 
 /* ------------------------------------------------------------------ */
 
-let ambienceSource: AudioBufferSourceNode | null = null;
-
 /**
- * An outdoor bed, also synthesised.
+ * There is no ambience bed.
  *
- * Filtered noise with a slow swell: not the sound of any particular thing, but
- * close enough to open air near water that a street stops feeling like a room.
- * Recorded seagulls and a ferry horn belong on top of this later; the bed
- * itself never needs to be a file.
+ * Filtered noise was tried in two flavours — a low swell for the coast, a drier
+ * high-passed wind for the plateau — and neither sounded like a place. It
+ * sounded like filtered noise, which on the coast was mistaken for the sea and
+ * on the plateau was still mistaken for the sea.
+ *
+ * A bed that has to be explained is not doing its job. The music carries the
+ * scene until real recordings exist, and the `ambience` channel is kept so they
+ * have somewhere to arrive. Its mute switch is gone until then: a control that
+ * silences nothing is worse than no control, which is why the audio toggles were
+ * removed once before (D-026).
  */
-/**
- * What the air sounds like, by region.
- *
- * The first bed was a sea wash, and it played over Cappadocia — three hundred
- * kilometres from any coast. A child who hears waves in Nevşehir is being told
- * something untrue about where they are, and the ground and the trees had
- * already been taught not to do that.
- *
- * The first attempt at telling them apart only raised the low-pass corner, and
- * Cappadocia still sounded like the sea. Raising the ceiling changes nothing
- * about a sound whose character lives in the floor: what makes a wash read as
- * surf is the rumble underneath it, and a low-pass passes that untouched.
- *
- * So the plateau profile cuts the bottom out with a high-pass, and uses far
- * less integrated noise — brown noise *is* surf, whatever you filter above it.
- * Wind over stone is mid and high, gusty rather than breathing.
- *
- * - `highpass` — where the floor is removed. This is the parameter that matters.
- * - `cutoff` — the low-pass ceiling.
- * - `brownness` — how much the noise is integrated. Low is airy, high is watery.
- * - `swell` — a slow rise and fall. Surf breathes; a plateau wind gusts.
- */
-export interface AmbienceProfile {
-  readonly highpass: number;
-  readonly cutoff: number;
-  readonly brownness: number;
-  readonly swell: number;
-  readonly level: number;
-}
-
-export const AMBIENCE_PROFILES: Readonly<Record<string, AmbienceProfile>> = {
-  coastal: { highpass: 0, cutoff: 900, brownness: 0.02, swell: 0.4, level: 3.2 },
-  plateau: { highpass: 520, cutoff: 3400, brownness: 0.16, swell: 0.16, level: 1.1 },
-};
-
-export function ambienceProfileFor(surface: 'cobblestone' | 'redsand'): AmbienceProfile {
-  return surface === 'redsand' ? AMBIENCE_PROFILES.plateau! : AMBIENCE_PROFILES.coastal!;
-}
-
-export function startAmbience(profile: AmbienceProfile = AMBIENCE_PROFILES.coastal!): void {
-  const context = audioContext();
-  const destination = channelNode('ambience');
-  if (!context || !destination || ambienceSource) return;
-
-  const seconds = 8;
-  const buffer = context.createBuffer(2, context.sampleRate * seconds, context.sampleRate);
-  for (let channel = 0; channel < 2; channel += 1) {
-    const data = buffer.getChannelData(channel);
-    let last = 0;
-    for (let i = 0; i < data.length; i += 1) {
-      // Brown-ish noise: closer to wind and water than white noise, which
-      // sounds like a broken speaker.
-      const white = Math.random() * 2 - 1;
-      last = (last + profile.brownness * white) / (1 + profile.brownness);
-      const swell = 1 - profile.swell + profile.swell * Math.sin((i / data.length) * Math.PI * 2);
-      data[i] = last * profile.level * swell;
-    }
-  }
-
-  const source = context.createBufferSource();
-  source.buffer = buffer;
-  source.loop = true;
-
-  const lowpass = context.createBiquadFilter();
-  lowpass.type = 'lowpass';
-  lowpass.frequency.value = profile.cutoff;
-
-  /**
-   * The floor.
-   *
-   * Removing the low end is what stops a noise bed sounding like water. With
-   * this at zero the plateau sounded exactly like the coast however high the
-   * ceiling went.
-   */
-  const highpass = context.createBiquadFilter();
-  highpass.type = 'highpass';
-  highpass.frequency.value = profile.highpass;
-  highpass.Q.value = 0.7;
-
-  source.connect(highpass).connect(lowpass).connect(destination);
-  source.start();
-  ambienceSource = source;
-}
-
-export function stopAmbience(): void {
-  if (!ambienceSource) return;
-  ambienceSource.stop();
-  ambienceSource.disconnect();
-  ambienceSource = null;
-}
-
 
 /* ------------------------------------------------------------------ */
 

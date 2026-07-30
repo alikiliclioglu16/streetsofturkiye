@@ -27,11 +27,8 @@ import { loadPresentation } from '@/content/loaders/loadCity';
 import { unlockAudio, stopAudio } from '@/engine/audio/engine';
 import { speak, stopSpeaking, stopNarration } from '@/engine/audio/speech';
 import {
-  ambienceProfileFor,
   playCollect,
   playCityComplete,
-  startAmbience,
-  stopAmbience,
   startMusic,
   stopMusic,
 } from '@/engine/audio/cues';
@@ -310,18 +307,15 @@ export function CityExperience({ cityId }: { cityId: string }) {
    * child revisiting a city they had finished would find it silent with nothing
    * to explain why.
    */
-  const groundSurface = scene?.groundSurface ?? 'cobblestone';
   const audioStarted = useRef(false);
   const startAudioOnce = useCallback(() => {
     if (audioStarted.current) return;
     audioStarted.current = true;
     void unlockAudio().then((ready) => {
       if (!ready) return;
-      // The air sounds like the region: surf on the coast, dry wind inland.
-      startAmbience(ambienceProfileFor(groundSurface));
       if (musicUrl) startMusic(musicUrl);
     });
-  }, [musicUrl, groundSurface]);
+  }, [musicUrl]);
 
   useEffect(() => {
     if (phase === 'intro') return;
@@ -343,7 +337,6 @@ export function CityExperience({ cityId }: { cityId: string }) {
     () => () => {
       stopSpeaking();
       stopMusic();
-      stopAmbience();
       stopAudio();
     },
     [],

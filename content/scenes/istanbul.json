@@ -554,7 +554,41 @@
   ],
   "musicUrl": "/assets/audio/istanbul_theme.webm",
   "groundSurface": "cobblestone",
-  "balloons": [],
+  "balloons": [
+    {
+      "key": "balloon-0",
+      "position": [
+        -26,
+        26,
+        -132
+      ],
+      "scale": 2.2,
+      "driftSpeed": 0.7,
+      "phase": 0
+    },
+    {
+      "key": "balloon-1",
+      "position": [
+        34,
+        47,
+        -194
+      ],
+      "scale": 1.1,
+      "driftSpeed": 1.06,
+      "phase": 1.37
+    },
+    {
+      "key": "balloon-2",
+      "position": [
+        -18,
+        46,
+        -266
+      ],
+      "scale": 0.6,
+      "driftSpeed": 1.42,
+      "phase": 2.74
+    }
+  ],
   "tramLine": {
     "from": [
       -15.5,
@@ -774,32 +808,44 @@
     {
       "npcId": "featured_soldier",
       "position": [
-        9.9,
+        12.8,
         0,
-        -41.4
+        -40.5
       ],
-      "rotationY": -2.1,
-      "note": "beside the tower gate"
+      "rotationY": 2.4,
+      "walkTo": [
+        11.3,
+        0,
+        -44.7
+      ]
     },
     {
       "npcId": "featured_traveler",
       "position": [
-        11.6,
+        13.8,
         0,
-        -59.8
+        -65
       ],
-      "rotationY": -2,
-      "note": "at the bazaar entrance"
+      "rotationY": -2.1,
+      "walkTo": [
+        15.3,
+        0,
+        -69.2
+      ]
     },
     {
       "npcId": "featured_craftsman_male",
       "position": [
-        7,
+        8.7,
         0,
-        -78.2
+        -77.4
       ],
-      "rotationY": -1.99,
-      "note": "working beside the simit cart"
+      "rotationY": 1.9,
+      "walkTo": [
+        7.2,
+        0,
+        -81.6
+      ]
     }
   ],
   "trees": [

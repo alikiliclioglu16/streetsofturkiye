@@ -419,7 +419,41 @@
   ],
   "musicUrl": null,
   "groundSurface": "redsand",
-  "balloons": [],
+  "balloons": [
+    {
+      "key": "balloon-0",
+      "position": [
+        -26,
+        26,
+        -73
+      ],
+      "scale": 2.2,
+      "driftSpeed": 0.7,
+      "phase": 0
+    },
+    {
+      "key": "balloon-1",
+      "position": [
+        34,
+        47,
+        -135
+      ],
+      "scale": 1.1,
+      "driftSpeed": 1.06,
+      "phase": 1.37
+    },
+    {
+      "key": "balloon-2",
+      "position": [
+        -18,
+        46,
+        -207
+      ],
+      "scale": 0.6,
+      "driftSpeed": 1.42,
+      "phase": 2.74
+    }
+  ],
   "tramLine": null,
   "water": null,
   "backdrop": [],

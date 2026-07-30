@@ -21,13 +21,19 @@ import type { ResolvedAsset } from '@/engine/assets/registry';
 
 export interface BalloonSpec {
   readonly key: string;
-  /** Where it drifts, in world metres. */
+  /** Where its crossing is centred, in world metres. */
   readonly position: readonly [number, number, number];
   readonly scale: number;
-  /** Metres of drift along the street before turning back. */
-  readonly drift: number;
+  /** Multiplier on the crossing speed, so they do not fly in formation. */
+  readonly driftSpeed: number;
   readonly phase: number;
 }
+
+/** Metres a balloon crosses before wrapping round to start again. */
+export const TRAVEL_SPAN = 260;
+
+/** Metres per second at the base speed. A balloon is not in a hurry. */
+export const DRIFT_SPEED = 1.15;
 
 function Balloon({
   asset,
@@ -52,20 +58,24 @@ function Balloon({
     const t = elapsed.current;
 
     /**
-     * Drifting, not flying a route.
+     * Actually flying, not swaying on the spot.
      *
-     * A balloon has no engine; it goes where the air goes. Slow lateral drift,
-     * a slower rise and fall, and a lean from the same wind that moves the flag.
+     * The first version drifted six metres either side of a fixed point, which
+     * at balloon distances is invisible: they read as pinned to the sky. A
+     * balloon crosses the sky. These travel the length of the street and wrap
+     * around to start again, so a child looking up twice sees a different sky.
+     *
+     * The travel is along x because a balloon goes where the air goes and the
+     * air here is crossing the valley, not running down the street.
      */
-    const alongZ = Math.sin(t * 0.035 + spec.phase) * spec.drift;
-    const alongX = Math.sin(t * 0.021 + spec.phase * 1.6) * spec.drift * 0.45;
-    const lift = Math.sin(t * 0.06 + spec.phase * 0.7) * 1.6;
+    const travelled = (t * DRIFT_SPEED * spec.driftSpeed + spec.phase * 40) % TRAVEL_SPAN;
+    const x = spec.position[0] - TRAVEL_SPAN / 2 + travelled;
 
-    node.position.set(
-      spec.position[0] + alongX,
-      spec.position[1] + lift,
-      spec.position[2] + alongZ,
-    );
+    // Slow rise and fall on top, at a period unrelated to the crossing.
+    const lift = Math.sin(t * 0.055 + spec.phase * 0.7) * 2.4;
+    const wander = Math.sin(t * 0.031 + spec.phase * 1.6) * 5;
+
+    node.position.set(x, spec.position[1] + lift, spec.position[2] + wander);
     const lean = sway(t * 0.35, spec.phase, gust(t)) * 0.7;
     node.rotation.set(lean * 0.5, spec.phase, lean);
   });

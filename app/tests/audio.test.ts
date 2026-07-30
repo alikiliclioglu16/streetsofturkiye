@@ -54,8 +54,6 @@ describe('audio channels', () => {
       playCorrect,
       playRetry,
       playCityComplete,
-      startAmbience,
-      stopAmbience,
       stopMusic,
     } = await import('@/engine/audio/cues');
 
@@ -69,8 +67,6 @@ describe('audio channels', () => {
       playCorrect,
       playRetry,
       playCityComplete,
-      startAmbience,
-      stopAmbience,
       stopMusic,
     ]) {
       expect(() => cue(), cue.name).not.toThrow();

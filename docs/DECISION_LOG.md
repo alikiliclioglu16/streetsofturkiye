@@ -1267,3 +1267,65 @@ air goes — slow lateral drift, a slower rise and fall, and a lean from the sam
 wind module that moves the flag. The layout is deterministic, because a child who
 leaves a city and comes back should find the same morning.
 
+## D-103 — The ambience bed is cut; music alone (30 Jul 2026)
+
+Two attempts at making synthesised ambience sound like a plateau, and the owner
+still heard waves both times. Filtered noise reads as water however it is shaped.
+
+The bed is gone. A city has its theme and nothing else, which is quieter and says
+nothing untrue about where a child is. The `ambience` channel stays, with its
+mute switch, for recorded seagulls and real wind over tuff when they exist.
+
+Knowing when to stop shaping a wrong thing is worth more than a third attempt at
+shaping it.
+
+## D-104 — The valley is a rim, not two plates (30 Jul 2026)
+
+One plate behind and one in front left the sides open and read as two separate
+landmasses. Cappadocia is a valley a street sits in, so six plates now ring the
+play area on all four sides, near edges on the boundary, overlapping — which is
+what makes a row of plates look like one landscape.
+
+The chimney ridges moved inside that ring, so a child sees chimneys close and a
+valley beyond them.
+
+## D-105 — Balloons cross the sky, everywhere (30 Jul 2026)
+
+They drifted six metres either side of a fixed point, which at balloon distances
+is invisible: they read as pinned to the sky. They now cross 260 m and wrap
+round, at ten different speeds so they never fly in formation.
+
+They also fly over every city rather than only Cappadocia — a few elsewhere,
+the full sky in Nevşehir, because that is the image of the place.
+
+## D-106 — The tethered balloon fires its burner (30 Jul 2026)
+
+Every nine seconds, for two: a ramped cone and a point light, flickering. A
+balloon standing still is a balloon; one that fires its burner is a balloon about
+to go somewhere, which is a far better thing for a child to walk up to — and the
+only way to say *this flies* about something that, at that moment, is not flying.
+
+Ramped rather than switched, because a flame at full size in one frame reads as a
+bug. No particle system: on screen two seconds in ten, a shaped flickering cone
+is enough.
+
+## D-107 — The featured NPCs walk, and stand where they belong (30 Jul 2026)
+
+All three appear in every dressed city now, not only İstanbul, and each walks a
+four metre beat and returns, pausing at both ends. A person rooted to one spot
+for a whole visit reads as a statue of a person.
+
+Placing them took three attempts, and the failures are worth recording because
+they are the same shape of mistake:
+
+1. Offset from the stop's own x — put a person on the route wherever a stop sat
+   near the middle of the street.
+2. Offset from the centreline instead — put them on the far side of their own
+   stop, belonging to nothing.
+3. From the stop, **outward** — beside their stop and clear of the walk. The
+   outward direction is chosen from the stop's own position, and only falls back
+   to a given side when the stop is on the centreline.
+
+The application moves them and the clip only moves their legs, which is the rule
+the cat and the tram already follow.
+

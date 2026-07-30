@@ -552,7 +552,7 @@
         -107
       ],
       "scale": 2.2,
-      "drift": 6,
+      "driftSpeed": 0.7,
       "phase": 0
     },
     {
@@ -563,7 +563,7 @@
         -131
       ],
       "scale": 1.7,
-      "drift": 9,
+      "driftSpeed": 1.06,
       "phase": 1.37
     },
     {
@@ -574,7 +574,7 @@
         -149
       ],
       "scale": 1.35,
-      "drift": 12,
+      "driftSpeed": 1.42,
       "phase": 2.74
     },
     {
@@ -585,7 +585,7 @@
         -169
       ],
       "scale": 1.1,
-      "drift": 6,
+      "driftSpeed": 0.8799999999999999,
       "phase": 4.11
     },
     {
@@ -596,7 +596,7 @@
         -191
       ],
       "scale": 0.92,
-      "drift": 9,
+      "driftSpeed": 1.24,
       "phase": 5.48
     },
     {
@@ -607,7 +607,7 @@
         -213
       ],
       "scale": 0.75,
-      "drift": 12,
+      "driftSpeed": 0.7,
       "phase": 6.85
     },
     {
@@ -618,7 +618,7 @@
         -241
       ],
       "scale": 0.6,
-      "drift": 6,
+      "driftSpeed": 1.06,
       "phase": 8.22
     },
     {
@@ -629,7 +629,7 @@
         -269
       ],
       "scale": 0.48,
-      "drift": 9,
+      "driftSpeed": 1.42,
       "phase": 9.59
     },
     {
@@ -640,7 +640,7 @@
         -29
       ],
       "scale": 2.5,
-      "drift": 5,
+      "driftSpeed": 0.62,
       "phase": 0.4
     },
     {
@@ -651,7 +651,7 @@
         -59
       ],
       "scale": 2.1,
-      "drift": 7,
+      "driftSpeed": 0.85,
       "phase": 2.1
     }
   ],
@@ -661,9 +661,9 @@
     {
       "assetId": "city_nevsehir_chimney_ridge",
       "position": [
-        -24,
+        -19,
         0,
-        1
+        -3
       ],
       "rotationY": 1.5707963267948966,
       "solid": false,
@@ -672,9 +672,9 @@
     {
       "assetId": "city_nevsehir_chimney_ridge",
       "position": [
-        -24,
+        -19,
         0,
-        -22
+        -24.5
       ],
       "rotationY": 1.5707963267948966,
       "solid": false,
@@ -683,9 +683,9 @@
     {
       "assetId": "city_nevsehir_chimney_ridge",
       "position": [
-        -24,
+        -19,
         0,
-        -45
+        -46
       ],
       "rotationY": 1.5707963267948966,
       "solid": false,
@@ -694,9 +694,9 @@
     {
       "assetId": "city_nevsehir_chimney_ridge",
       "position": [
-        -24,
+        -19,
         0,
-        -68
+        -67.5
       ],
       "rotationY": 1.5707963267948966,
       "solid": false,
@@ -705,9 +705,9 @@
     {
       "assetId": "city_nevsehir_chimney_ridge",
       "position": [
-        -24,
+        -19,
         0,
-        -91
+        -89
       ],
       "rotationY": 1.5707963267948966,
       "solid": false,
@@ -716,9 +716,9 @@
     {
       "assetId": "city_nevsehir_chimney_ridge",
       "position": [
-        24,
+        19,
         0,
-        1
+        -3
       ],
       "rotationY": -1.5707963267948966,
       "solid": false,
@@ -727,9 +727,9 @@
     {
       "assetId": "city_nevsehir_chimney_ridge",
       "position": [
-        24,
+        19,
         0,
-        -22
+        -24.5
       ],
       "rotationY": -1.5707963267948966,
       "solid": false,
@@ -738,9 +738,9 @@
     {
       "assetId": "city_nevsehir_chimney_ridge",
       "position": [
-        24,
+        19,
         0,
-        -45
+        -46
       ],
       "rotationY": -1.5707963267948966,
       "solid": false,
@@ -749,9 +749,9 @@
     {
       "assetId": "city_nevsehir_chimney_ridge",
       "position": [
-        24,
+        19,
         0,
-        -68
+        -67.5
       ],
       "rotationY": -1.5707963267948966,
       "solid": false,
@@ -760,9 +760,9 @@
     {
       "assetId": "city_nevsehir_chimney_ridge",
       "position": [
-        24,
+        19,
         0,
-        -91
+        -89
       ],
       "rotationY": -1.5707963267948966,
       "solid": false,
@@ -775,9 +775,9 @@
         0,
         65.1
       ],
-      "rotationY": 3.141592653589793,
+      "rotationY": 3.142,
       "solid": true,
-      "note": "the valley behind the square"
+      "note": "valley rim behind the square"
     },
     {
       "assetId": "city_nevsehir_valley",
@@ -788,7 +788,51 @@
       ],
       "rotationY": 0,
       "solid": true,
-      "note": "the valley the street runs down to"
+      "note": "valley rim the street runs down to"
+    },
+    {
+      "assetId": "city_nevsehir_valley",
+      "position": [
+        -54.1,
+        0,
+        -3
+      ],
+      "rotationY": 1.571,
+      "solid": true,
+      "note": "valley rim west 1"
+    },
+    {
+      "assetId": "city_nevsehir_valley",
+      "position": [
+        -54.1,
+        0,
+        -107
+      ],
+      "rotationY": 1.571,
+      "solid": true,
+      "note": "valley rim west 2"
+    },
+    {
+      "assetId": "city_nevsehir_valley",
+      "position": [
+        54.1,
+        0,
+        -3
+      ],
+      "rotationY": -1.571,
+      "solid": true,
+      "note": "valley rim east 1"
+    },
+    {
+      "assetId": "city_nevsehir_valley",
+      "position": [
+        54.1,
+        0,
+        -107
+      ],
+      "rotationY": -1.571,
+      "solid": true,
+      "note": "valley rim east 2"
     }
   ],
   "catRoutes": [
@@ -855,7 +899,50 @@
       }
     ]
   ],
-  "npcs": [],
+  "npcs": [
+    {
+      "npcId": "featured_soldier",
+      "position": [
+        11.1,
+        0,
+        -27.5
+      ],
+      "rotationY": 2.4,
+      "walkTo": [
+        9.6,
+        0,
+        -31.7
+      ]
+    },
+    {
+      "npcId": "featured_traveler",
+      "position": [
+        10.8,
+        0,
+        -48
+      ],
+      "rotationY": -2.1,
+      "walkTo": [
+        12.3,
+        0,
+        -52.2
+      ]
+    },
+    {
+      "npcId": "featured_craftsman_male",
+      "position": [
+        8.1,
+        0,
+        -56.4
+      ],
+      "rotationY": 1.9,
+      "walkTo": [
+        6.6,
+        0,
+        -60.6
+      ]
+    }
+  ],
   "trees": [
     {
       "key": "tree-0",

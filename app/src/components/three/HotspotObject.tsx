@@ -5,6 +5,7 @@ import { useFrame } from '@react-three/fiber';
 import type { Mesh } from 'three';
 import type { SceneHotspot } from '@/engine/scene/buildScene';
 import { AssetInstance } from '@/components/three/AssetInstance';
+import { BalloonBurner } from '@/components/three/BalloonBurner';
 
 interface HotspotObjectProps {
   hotspot: SceneHotspot;
@@ -46,6 +47,16 @@ export function HotspotObject({ hotspot, completed, inRange, reducedMotion }: Ho
       <group rotation={hotspot.rotation} scale={hotspot.scale}>
         <AssetInstance asset={hotspot.asset} emphasis={inRange && !completed} />
       </group>
+
+      {/*
+        A tethered balloon fires its burner every few seconds. A balloon standing
+        still is a balloon; one that fires is a balloon about to go somewhere,
+        which is a far better thing for a child to walk up to — and the only way
+        to say "this flies" about something that, at that moment, is not flying.
+      */}
+      {hotspot.asset.entry.id === 'kit_hot_air_balloon' ? (
+        <BalloonBurner height={hotspot.asset.entry.dimensions[1]} reducedMotion={reducedMotion} />
+      ) : null}
     </group>
   );
 }

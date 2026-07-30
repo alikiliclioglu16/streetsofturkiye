@@ -562,12 +562,29 @@ describe('landmark framing', () => {
 describe('featured NPCs', () => {
   const scene = buildScene(loadComposedCity('istanbul'), 'high');
 
-  it('places one of each, in İstanbul only', () => {
-    expect(scene.npcs).toHaveLength(3);
-    const ids = scene.npcs.map((entry) => entry.npc.id).sort();
-    expect(ids).toEqual(['featured_craftsman_male', 'featured_soldier', 'featured_traveler']);
-    for (const cityId of ['nevsehir', 'gaziantep']) {
-      expect(buildScene(loadComposedCity(cityId), 'high').npcs).toEqual([]);
+  it('places one of each, in every city, walking a short beat', () => {
+    for (const cityId of ['istanbul', 'nevsehir']) {
+      const scene = buildScene(loadComposedCity(cityId), 'high');
+      const ids = scene.npcs.map((entry) => entry.npc.id).sort();
+      expect(ids, cityId).toEqual([
+        'featured_craftsman_male',
+        'featured_soldier',
+        'featured_traveler',
+      ]);
+
+      for (const npc of scene.npcs) {
+        // A person rooted to one spot for a whole visit reads as a statue.
+        expect(npc.walkTo, `${cityId} ${npc.npc.id}`).not.toBeNull();
+        const beat = Math.hypot(
+          npc.walkTo![0] - npc.position[0],
+          npc.walkTo![2] - npc.position[2],
+        );
+        expect(beat).toBeGreaterThan(1);
+        expect(beat).toBeLessThan(12);
+
+        // Off the walk, whatever way the stops zig-zag.
+        expect(Math.abs(npc.position[0]), `${cityId} ${npc.npc.id} on the walk`).toBeGreaterThan(4);
+      }
     }
   });
 
@@ -1180,38 +1197,38 @@ describe('Cappadocia looks and sounds like Cappadocia', () => {
     // Walls on both sides, the way the Beyoğlu rows work.
     expect(ridges.some((prop) => prop.position[0] < 0)).toBe(true);
     expect(ridges.some((prop) => prop.position[0] > 0)).toBe(true);
+
+    const playHalfWidth = Math.max(...nevsehir.bounds.map((c) => Math.abs(c[0])));
     for (const ridge of ridges) {
-      expect(Math.abs(ridge.position[0])).toBeGreaterThan(22);
+      // Between the street and the valley rim: chimneys close, valley beyond.
+      expect(Math.abs(ridge.position[0])).toBeGreaterThan(playHalfWidth);
       expect(ridge.solid).toBe(false);
     }
   });
 
-  it('closes both ends with a valley, standing on the ground', () => {
+  it('rings the whole city with valley, not just its ends', () => {
     const valleys = nevsehir.backdrop.filter(
       (prop) => prop.asset.entry.id === 'city_nevsehir_valley',
     );
-    expect(valleys).toHaveLength(2);
+    /**
+     * Two plates read as two separate landmasses. Cappadocia is a valley a
+     * street sits in, so they ring the play area on all four sides with an
+     * overlap — which is what makes a row of plates look like one landscape.
+     */
+    expect(valleys.length).toBeGreaterThanOrEqual(6);
+    expect(valleys.some((v) => v.position[0] < -20)).toBe(true);
+    expect(valleys.some((v) => v.position[0] > 20)).toBe(true);
+    expect(valleys.some((v) => v.position[2] > 20)).toBe(true);
+    expect(valleys.some((v) => v.position[2] < -60)).toBe(true);
 
     const spawnZ = loadComposedCity('nevsehir').spawn.position[2];
-    const zs = nevsehir.bounds.map((corner) => corner[2]);
-    const halfDepth = valleys[0]!.asset.entry.dimensions[2] / 2;
-
-    // One behind the child, one ahead. Both solid, so a child walks up to a rim
-    // and stops there, which is what the rim of a valley is for.
-    expect(valleys.some((v) => v.position[2] > spawnZ)).toBe(true);
-    expect(valleys.some((v) => v.position[2] < spawnZ)).toBe(true);
+    // Solid, so a child walks up to a rim and stops there.
     for (const valley of valleys) {
       expect(valley.solid).toBe(true);
-      /**
-       * Aligned by its near edge, not its centre. A 78 m deep landscape centred
-       * on the boundary put the child inside a valley at spawn.
-       */
-      const nearEdge =
-        valley.position[2] > 0 ? valley.position[2] - halfDepth : valley.position[2] + halfDepth;
-      expect(Math.abs(nearEdge) ).toBeGreaterThanOrEqual(
-        Math.min(...zs.map(Math.abs)) - 0.5,
-      );
-      expect(Math.abs(nearEdge - spawnZ)).toBeGreaterThan(20);
+      const distance = Math.hypot(valley.position[0], valley.position[2] - spawnZ);
+      // Never centred on the child: a 78 m deep plate centred at the boundary
+      // once swallowed the spawn.
+      expect(distance).toBeGreaterThan(30);
     }
   });
 
@@ -1230,36 +1247,39 @@ describe('Cappadocia looks and sounds like Cappadocia', () => {
     expect(ridge.dimensions[1] / cluster.dimensions[1]).toBeGreaterThan(2.5);
   });
 
-  it('gives the plateau dry air instead of surf', async () => {
-    const { ambienceProfileFor } = await import('@/engine/audio/cues');
-    const coast = ambienceProfileFor('cobblestone');
-    const plateau = ambienceProfileFor('redsand');
-
+  it('plays music and nothing else', async () => {
     /**
-     * A child who hears waves in Nevşehir is being told something untrue about
-     * where they are.
+     * The synthesised bed was cut. Filtered noise reads as water however it is
+     * shaped: two attempts at making it sound like a plateau ended with the
+     * owner still hearing waves. A city with a theme and no bed is quieter and
+     * says nothing untrue.
      *
-     * The high-pass is the assertion that matters. Raising the low-pass ceiling
-     * alone left the plateau sounding exactly like the coast, because what makes
-     * a noise bed read as surf is the rumble underneath it.
+     * The channel is still here for recorded ambience later.
      */
-    expect(plateau.highpass).toBeGreaterThan(400);
-    expect(coast.highpass).toBe(0);
-    expect(plateau.cutoff).toBeGreaterThan(coast.cutoff);
-    expect(plateau.swell).toBeLessThan(coast.swell);
-    // Brown noise is surf whatever you filter above it.
-    expect(plateau.brownness).toBeGreaterThan(coast.brownness * 4);
+    const cues = await import('@/engine/audio/cues');
+    expect('startAmbience' in cues).toBe(false);
+    const { DEFAULT_CHANNELS } = await import('@/engine/audio/engine');
+    expect(DEFAULT_CHANNELS.ambience).toBeDefined();
   });
 });
 
 describe('balloons', () => {
   const scene = buildScene(loadComposedCity('nevsehir'), 'high');
 
-  it('fills the sky over Cappadocia and nowhere else', () => {
+  it('crowds the sky over Cappadocia and thins it elsewhere', () => {
     expect(scene.balloons.length).toBeGreaterThanOrEqual(8);
     expect(scene.balloonAsset).not.toBeNull();
+
+    /**
+     * Balloons fly over the whole country, so every city gets some — but the
+     * full sky is Cappadocia's, because that is the image of the place. A few
+     * passing over elsewhere is enough to make a sky look like weather rather
+     * than paint.
+     */
     for (const cityId of ['istanbul', 'gaziantep']) {
-      expect(buildScene(loadComposedCity(cityId), 'high').balloons, cityId).toEqual([]);
+      const elsewhere = buildScene(loadComposedCity(cityId), 'high').balloons;
+      expect(elsewhere.length, cityId).toBeGreaterThan(0);
+      expect(elsewhere.length, cityId).toBeLessThan(scene.balloons.length);
     }
   });
 
@@ -1330,5 +1350,43 @@ describe('streets after İstanbul are shorter', () => {
         );
       }
     }
+  });
+});
+
+describe('balloons actually fly', () => {
+  it('crosses the sky rather than swaying on the spot', async () => {
+    const { TRAVEL_SPAN, DRIFT_SPEED } = await import('@/components/three/Balloons');
+    /**
+     * The first version drifted six metres either side of a fixed point, which
+     * at balloon distances is invisible: they read as pinned to the sky.
+     */
+    expect(TRAVEL_SPAN).toBeGreaterThan(150);
+    // Crossing that span should take a couple of minutes, not an hour.
+    const seconds = TRAVEL_SPAN / DRIFT_SPEED;
+    expect(seconds).toBeGreaterThan(60);
+    expect(seconds).toBeLessThan(400);
+  });
+
+  it('gives each balloon a different speed, so they do not fly in formation', () => {
+    const scene = buildScene(loadComposedCity('nevsehir'), 'high');
+    const speeds = new Set(scene.balloons.map((b) => b.driftSpeed));
+    expect(speeds.size).toBeGreaterThan(3);
+  });
+
+  it('fires the burner on the tethered one in bursts, ramped not switched', async () => {
+    const { burnerIntensity, isBurning } = await import('@/components/three/BalloonBurner');
+
+    // Off most of the time: a burner that never stops is a lamp.
+    const samples = Array.from({ length: 200 }, (_, i) => isBurning(i * 0.05));
+    const burning = samples.filter(Boolean).length;
+    expect(burning).toBeGreaterThan(10);
+    expect(burning).toBeLessThan(samples.length / 2);
+
+    // Ramped: a flame at full size in one frame reads as a bug.
+    expect(burnerIntensity(0)).toBeLessThan(0.2);
+    const peak = Math.max(...Array.from({ length: 40 }, (_, i) => burnerIntensity(i * 0.05)));
+    expect(peak).toBeGreaterThan(0.7);
+    // Silent when the child asked for less motion is handled by the component.
+    expect(burnerIntensity(5.5)).toBe(0);
   });
 });

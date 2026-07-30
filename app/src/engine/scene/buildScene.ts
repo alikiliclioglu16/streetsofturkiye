@@ -60,6 +60,8 @@ export interface SceneDescription {
     readonly npc: FeaturedNpc;
     readonly position: Vec3;
     readonly rotationY: number;
+    /** Far end of a short beat this person walks and returns along. */
+    readonly walkTo: Vec3 | null;
   }[];
   readonly trees: readonly StreetTreeSpec[];
   readonly catModelUrl: string | null;
@@ -200,7 +202,13 @@ export function buildScene(city: CityDefinition, quality: QualityTier): SceneDes
     .map((entry, index) => {
       const npc = npcById(entry.npcId);
       return npc
-        ? { key: `npc-${index}`, npc, position: entry.position, rotationY: entry.rotationY }
+        ? {
+            key: `npc-${index}`,
+            npc,
+            position: entry.position,
+            rotationY: entry.rotationY,
+            walkTo: entry.walkTo,
+          }
         : null;
     })
     .filter((entry): entry is NonNullable<typeof entry> => entry !== null);
