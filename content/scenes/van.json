@@ -482,33 +482,33 @@
     {
       "from": [
         -46,
-        -87
+        -88
       ],
       "to": [
         30,
-        -84
+        -85
       ],
       "speed": 1.5
     },
     {
       "from": [
         38,
-        -95
+        -97
       ],
       "to": [
         -24,
-        -99
+        -101
       ],
       "speed": 1.1
     },
     {
       "from": [
         -52,
-        -90
+        -92
       ],
       "to": [
         46,
-        -93
+        -95
       ],
       "speed": 1.9
     }
@@ -582,28 +582,6 @@
       "position": [
         24,
         0,
-        -25
-      ],
-      "rotationY": -1.5707963267948966,
-      "solid": false,
-      "note": "townhouses east 2"
-    },
-    {
-      "assetId": "city_van_townhouses",
-      "position": [
-        24,
-        0,
-        -43
-      ],
-      "rotationY": -1.5707963267948966,
-      "solid": false,
-      "note": "townhouses east 3"
-    },
-    {
-      "assetId": "city_van_townhouses",
-      "position": [
-        24,
-        0,
         -61
       ],
       "rotationY": -1.5707963267948966,
@@ -668,13 +646,13 @@
     {
       "assetId": "city_van_citadel_ridge",
       "position": [
-        34,
+        24,
         0,
-        40
+        -24.8
       ],
-      "rotationY": 3.141592653589793,
+      "rotationY": -1.5707963267948966,
       "solid": true,
-      "note": "the citadel ridge, right of the castle"
+      "note": "the citadel ridge, running beside the street"
     },
     {
       "assetId": "kit_van_orchard",
@@ -712,11 +690,11 @@
     {
       "assetId": "city_van_citadel_ridge",
       "position": [
-        46,
+        24,
         0,
-        20
+        -38.8
       ],
-      "rotationY": 3.141592653589793,
+      "rotationY": -1.5707963267948966,
       "solid": true,
       "note": "ridge beside the castle"
     },

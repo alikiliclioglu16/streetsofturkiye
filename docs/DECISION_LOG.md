@@ -2689,3 +2689,49 @@ the near pair read as baskets with people in them.
 And Van's citadel ridge is square to the castle rather than turned. A spine is a
 long shape and only reads as one seen broadside; turned even a fifth of a radian
 it foreshortens into a lump.
+
+## D-163 — One number for a shoreline (31 Jul 2026)
+
+Van's water was typed into three places — the plane, the canoe lines, the
+island — and I changed it four times in four turns. Twice that left the boats
+sitting on grass, and the owner noticed the pattern before I did: *this moving
+water business, where did it come from.*
+
+`VAN_SHORE_Z` is one constant now and all three derive from it. The test holds
+the relationship rather than the numbers: whatever the shore is set to, no canoe
+is nearer than it and nothing that stands on land is further.
+
+**A shoreline and the things floating on it cannot be maintained separately.**
+That is the general form, and it is the same fault as a registry that records a
+size the file does not have (D-124) — two statements of one fact, kept by hand.
+
+## D-164 — The ridge runs beside the street (31 Jul 2026)
+
+It had been square to the castle across the back, where twenty-seven metres of
+spine is seen end-on and reads as a lump. Turning it did not help because the
+back has no long view.
+
+It runs down the east side of the walk now, and **two of that side's four
+townhouses were dropped to let it show.** That is Van: the citadel rock runs
+beside the town and the town is built against it, so a continuous row of houses
+with a ridge somewhere behind them shows neither.
+
+The owner offered the houses before I asked for them, which is the right trade
+and one I would have hesitated over.
+
+## D-165 — The balloons come up out of the valley (31 Jul 2026)
+
+Three attempts. First they ran from thirty-four metres past the last stop out to
+a hundred and ninety-six at heights up to sixty — a row of specks near the top
+of the sky. Then they were brought down over the walk, which was closer and
+still wrong: they hung above the street with nothing to have come from.
+
+They fly two lines now, one from each side, each starting beyond the chimney
+ridges at x = ±30 and working inward and upward across the walk. A child looking
+up sees them rising off the valley and passing over the rocks, which is what a
+morning in Cappadocia is.
+
+Four small ones stay far out. Without them the sky is eight balloons the same
+size at the same remove, which is one balloon copied — the fault the original
+layout was written to avoid, and which the variety test caught the moment the
+near line replaced everything.

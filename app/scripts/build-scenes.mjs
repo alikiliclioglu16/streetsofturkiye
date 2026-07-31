@@ -136,6 +136,19 @@ const REGION_ANIMAL = {
  * and the ground there is as much of the ruin as the churches are. The other
  * thirteen eastern provinces keep the steppe until one of them says otherwise.
  */
+/**
+ * Where Van's lake begins, in metres from the spawn.
+ *
+ * One number, and the shore, the canoes and Akdamar are all measured off it.
+ * It was typed into three places and changed four times in as many turns, which
+ * is how the boats ended up on dry land twice — a shoreline and the things
+ * floating on it cannot be maintained separately.
+ *
+ * Eighty metres: the side houses reach -74, so the ground runs out first.
+ */
+const VAN_SHORE_Z = -80;
+const VAN_LAKE_DEPTH = 200;
+
 const CITY_SURFACE = {
   kars: 'rock',
 };
@@ -1005,13 +1018,22 @@ function cityBackdrop(cityId, stopPositions, metrics) {
       ...[-1, 1].flatMap((side) =>
         Array.from({ length: houses }, (_, i) => {
           const z = firstZ + 10 - ((span + 26) * i) / (houses - 1);
-          return wall(
-            'city_van_townhouses',
-            side * 24,
-            z,
-            `townhouses ${side < 0 ? 'west' : 'east'} ${i + 1}`,
-          );
-        }),
+          return { side, z, i };
+        })
+          /**
+           * The east side gives up two of its four houses to the citadel ridge.
+           * A town built against a rock has a rock showing through it; a
+           * continuous row of houses with a ridge behind them shows neither.
+           */
+          .filter(({ side: s2, i }) => !(s2 > 0 && (i === 1 || i === 2)))
+          .map(({ side: s2, z, i }) =>
+            wall(
+              'city_van_townhouses',
+              s2 * 24,
+              z,
+              `townhouses ${s2 < 0 ? 'west' : 'east'} ${i + 1}`,
+            ),
+          ),
       ),
       // Orchards fill the gaps between the spurs, low and never solid.
       ...[
@@ -1047,31 +1069,30 @@ function cityBackdrop(cityId, stopPositions, metrics) {
          * Solid, because the far side of an island is water.
          */
         assetId: 'city_van_akdamar_island',
-        position: [-3, 0, Math.round((lastZ - 68) * 10) / 10],
+        position: [-3, 0, VAN_SHORE_Z - 33],
         rotationY: 0.35,
         solid: true,
         note: 'Akdamar, at the end of the walk',
       },
       {
         /**
-         * The rock spine, carrying on to the right of the castle.
+         * The rock spine, running down the east side of the street.
          *
-         * A citadel stands on a spine, and the spine continuing past the walls
-         * is what makes the castle read as part of the rock rather than a model
-         * set down on flat ground. The orchard opposite does the same job the
-         * other way: rock one side, trees the other, so the back is not
-         * symmetrical.
+         * It sat behind the castle across the back, where twenty-seven metres of
+         * ridge is seen end-on and reads as a lump. A spine only looks like a
+         * spine broadside, and the only place in this city with a long enough
+         * broadside view is along the walk — so it takes the east side and the
+         * townhouse that stood there has been dropped to let it show.
+         *
+         * That is also what Van is: the citadel rock runs beside the town, and
+         * the town is built against it.
          */
         assetId: 'city_van_citadel_ridge',
-        position: [34, 0, Math.round((behind + 14) * 10) / 10],
-        /**
-         * Square to the castle, not angled. A spine is a long shape and it only
-         * reads as one seen broadside — turned even a fifth of a radian it
-         * foreshortens into a lump, which is what the owner was looking at.
-         */
-        rotationY: Math.PI,
+        position: [24, 0, Math.round((firstZ - span * 0.28) * 10) / 10],
+        // Long axis down the street.
+        rotationY: -Math.PI / 2,
         solid: true,
-        note: 'the citadel ridge, right of the castle',
+        note: 'the citadel ridge, running beside the street',
       },
       /**
        * The ground either side of the castle, filled by measurement.
@@ -1086,7 +1107,7 @@ function cityBackdrop(cityId, stopPositions, metrics) {
         ['kit_van_orchard', -33, behind + 12, 0.7],
         ['kit_van_orchard', -42, behind - 4, -0.5],
         ['kit_van_orchard', -47, behind + 14, 1.4],
-        ['city_van_citadel_ridge', 46, behind - 6, Math.PI],
+        ['city_van_citadel_ridge', 24, firstZ - span * 0.78, -Math.PI / 2],
       ].map(([assetId, x, z, rot]) => ({
         assetId,
         position: [x, 0, Math.round(z * 10) / 10],
@@ -1388,8 +1409,18 @@ function balloonSky(cityId, stopPositions) {
      *
      * x, distance ahead of the last stop, height, scale.
      */
-    [-14, -46, 22, 2.2], [12, -18, 26, 1.9], [-9, 14, 21, 1.7], [17, 44, 30, 1.4],
-    [-24, 78, 34, 1.1], [8, 116, 42, 0.85], [-18, 154, 48, 0.65], [26, 192, 58, 0.5],
+    // The two lines that come in over the chimneys.
+    [-31, -52, 19, 2.1], [-26, -20, 23, 1.95], [-16, 8, 26, 1.75], [-4, 34, 29, 1.5],
+    [30, -38, 20, 2.0], [25, -6, 24, 1.8], [14, 22, 27, 1.55], [2, 52, 31, 1.3],
+    /**
+     * And a few still far out over the valley, small with distance.
+     *
+     * Without them the sky is eight balloons all the same size at the same
+     * remove, which reads as one balloon copied — the exact fault the layout was
+     * written to avoid. A Cappadocian morning has them at every distance; these
+     * are the ones that have not arrived yet.
+     */
+    [-44, 96, 38, 0.8], [36, 128, 45, 0.62], [-12, 168, 52, 0.45], [22, 208, 58, 0.34],
   ];
   const specs = layout.map(([x, ahead, height, scale], i) => ({
     key: `balloon-${i}`,
@@ -1676,9 +1707,9 @@ function buildScene(canonical) {
     canoeLines:
       canonical.id === 'van'
         ? [
-            { from: [-46, -87], to: [30, -84], speed: 1.5 },
-            { from: [38, -95], to: [-24, -99], speed: 1.1 },
-            { from: [-52, -90], to: [46, -93], speed: 1.9 },
+            { from: [-46, VAN_SHORE_Z - 8], to: [30, VAN_SHORE_Z - 5], speed: 1.5 },
+            { from: [38, VAN_SHORE_Z - 17], to: [-24, VAN_SHORE_Z - 21], speed: 1.1 },
+            { from: [-52, VAN_SHORE_Z - 12], to: [46, VAN_SHORE_Z - 15], speed: 1.9 },
           ]
         : [],
     trainLine:
@@ -1714,15 +1745,16 @@ function buildScene(canonical) {
           ? {
             centerX: 0,
             /**
-             * The shore sits past everything that stands on land.
+             * Derived from `VAN_SHORE_Z`, not typed in.
              *
-             * The side houses reach z = -74 and the water's near edge was at
-             * -59, so the last pair of them were standing in the lake. At -80
-             * the ground runs out first and the water starts after it.
+             * This number has been changed by hand four times in as many turns
+             * and the canoes were left on dry land twice by it. The shore, the
+             * boats and the island now all come off the same constant, so they
+             * cannot drift apart again.
              */
-            centerZ: -180,
+            centerZ: VAN_SHORE_Z - VAN_LAKE_DEPTH / 2,
             width: 420,
-            depth: 200,
+            depth: VAN_LAKE_DEPTH,
             color: '#3E93A0',
           }
           : null,

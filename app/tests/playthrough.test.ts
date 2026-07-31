@@ -341,6 +341,34 @@ describe('Van stands between a town and a lake', () => {
     );
   });
 
+  it('keeps the canoes on the water, whatever the shore is set to', () => {
+    /**
+     * The shoreline was typed into three places and moved four times in as many
+     * turns, and twice it left the boats sitting on grass. Shore, canoes and
+     * island all come off one constant now, so this holds the relationship
+     * rather than the numbers: whatever the shore is, nothing floats on land.
+     */
+    const shore = scene.water!.centerZ + scene.water!.depth / 2;
+
+    for (const line of scene.canoeLines) {
+      for (const [, z] of [line.from, line.to]) {
+        expect(z, 'a canoe is on dry land').toBeLessThan(shore);
+      }
+    }
+
+    // And nothing that stands on land is standing in the lake.
+    for (const piece of scene.backdrop) {
+      if (piece.asset.entry.id === 'city_van_akdamar_island') continue;
+      const [, , depth] = piece.asset.entry.dimensions;
+      const cos = Math.abs(Math.cos(piece.rotationY));
+      const sin = Math.abs(Math.sin(piece.rotationY));
+      const halfZ = (piece.asset.entry.dimensions[0] * sin + depth * cos) / 2;
+      expect(piece.position[2] - halfZ, `${piece.asset.entry.id} is in the lake`).toBeGreaterThan(
+        shore,
+      );
+    }
+  });
+
   it('answers its four directions with nothing another city uses', () => {
     const ids = scene.backdrop.map((piece) => piece.asset.entry.id);
     expect(ids).toContain('city_van_townhouses');
