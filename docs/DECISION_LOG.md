@@ -2498,3 +2498,37 @@ The test that caught it is the one from D-124 — the registry held against the
 files it describes. It has now found a wrong size, a wrong checksum and a
 duplicate id on three separate occasions. **A record that is not checked against
 the thing it records is a comment.**
+
+## D-153 — Three canoes, and a cat you can hear (31 Jul 2026)
+
+**The canoes are the tram's motion at a fifth of its speed.** Out, pause, back —
+which is also what a canoe does at the end of a crossing, so nothing new had to
+be written. `Tram` takes a speed now instead of reading a constant, and three
+lines at 1.1, 1.5 and 1.9 m/s keep the boats from moving as one object.
+
+They cross the view rather than running along it, which is the lesson the
+Eastern Express took two turns to learn (D-142), and they sit past the paving
+where the water actually shows (D-152). The point of them is a sentence the
+owner put better than the brief did: a child should be able to see that the lake
+is something you go *on*. A flat blue plane with an island on it is scenery.
+
+**The cat can be heard.** Synthesised on the same principle as the train horn
+(D-145) — the recognisable part is tonal, so it is built from tone rather than
+from noise. A meow is two glides, up into the vowel and down out of it, with a
+second voice a fifth above; triangle waves, because a sawtooth cat sounds like a
+door. Pitch and length vary a little each time so the same cat is not heard
+twice.
+
+**One timer for the city, not one per cat.** Five cats each on their own clock
+is a cattery. And the interval wanders either side of fifteen seconds, because a
+call exactly every fifteen reads as a machine inside about a minute — which is
+roughly how long a child spends on one street.
+
+Only where the animal is actually a cat. Gaziantep's dogs and Kars's geese each
+want their own voice, and a meow from a goose is worse than silence.
+
+**Two deliveries are being held.** A stone terrace bridge at 1.71 m and a
+citadel ridge at 15 m arrived without a place named for them, and the citadel
+ridge is the piece that was retired from Van's sides two turns ago (D-151).
+Guessing where they go is how the ferry became a row of facades. They are
+measured and waiting.

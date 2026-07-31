@@ -201,6 +201,105 @@ export function playTrainPass(): void {
   rumble.stop(start + 4.1);
 }
 
+/**
+ * A cat, once.
+ *
+ * Synthesised, and built the way the train horn is: a shaped tone, not filtered
+ * noise. A meow is two vowels run together — the mouth opens and closes — so
+ * this is one sawtooth voice with the pitch rising and falling under a bandpass
+ * whose centre sweeps the other way. That crossing is what makes it read as a
+ * word rather than a beep.
+ *
+ * `pitch` shifts the whole call, so the same function gives a different cat
+ * each time without a second file.
+ *
+ * On the `ambience` channel: it belongs to the street, and a parent who has had
+ * enough of cats can silence the world without silencing the guide.
+ */
+export function playMeow(pitch = 1): void {
+  const context = audioContext();
+  const destination = channelNode('ambience');
+  if (!context || !destination) return;
+
+  const start = context.currentTime + 0.01;
+  const end = start + 0.62;
+
+  const voice = context.createOscillator();
+  voice.type = 'sawtooth';
+  voice.frequency.setValueAtTime(430 * pitch, start);
+  voice.frequency.linearRampToValueAtTime(620 * pitch, start + 0.13);
+  voice.frequency.linearRampToValueAtTime(360 * pitch, end);
+
+  // The mouth: open on the way up, closing on the way down.
+  const mouth = context.createBiquadFilter();
+  mouth.type = 'bandpass';
+  mouth.Q.value = 4.5;
+  mouth.frequency.setValueAtTime(760 * pitch, start);
+  mouth.frequency.linearRampToValueAtTime(1500 * pitch, start + 0.16);
+  mouth.frequency.linearRampToValueAtTime(620 * pitch, end);
+
+  const envelope = context.createGain();
+  envelope.gain.setValueAtTime(0.0001, start);
+  envelope.gain.exponentialRampToValueAtTime(0.2, start + 0.07);
+  envelope.gain.setValueAtTime(0.2, start + 0.24);
+  envelope.gain.exponentialRampToValueAtTime(0.0001, end);
+
+  voice.connect(mouth).connect(envelope).connect(destination);
+  voice.start(start);
+  voice.stop(end + 0.03);
+}
+
+/**
+ * A cat, somewhere nearby.
+ *
+ * Synthesised on the same principle as the train horn (D-145): the recognisable
+ * part is tonal, so it is built from tone rather than from noise. A meow is two
+ * glides — up into the vowel and down out of it — with the second formant
+ * following the first a fifth above. Triangle waves, because a sawtooth cat
+ * sounds like a door.
+ *
+ * Deliberately quiet and deliberately not every cat. It is a street with cats
+ * in it, not a pet shop: one call every fifteen seconds or so is a city that has
+ * cats, and one every three would be a city being insistent about it.
+ *
+ * On the `ambience` channel, so a parent can silence the world without
+ * silencing the guide.
+ */
+export function playCatMeow(): void {
+  const context = audioContext();
+  const destination = channelNode('ambience');
+  if (!context || !destination) return;
+
+  const start = context.currentTime + 0.01;
+  // A little variation each time, so the same cat is not heard twice.
+  const pitch = 620 + Math.random() * 120;
+  const length = 0.42 + Math.random() * 0.18;
+
+  const envelope = context.createGain();
+  envelope.gain.setValueAtTime(0.0001, start);
+  envelope.gain.exponentialRampToValueAtTime(0.13, start + 0.07);
+  envelope.gain.setValueAtTime(0.13, start + length * 0.45);
+  envelope.gain.exponentialRampToValueAtTime(0.0001, start + length);
+  envelope.connect(destination);
+
+  for (const [ratio, level] of [
+    [1, 1],
+    [1.5, 0.35],
+  ] as const) {
+    const oscillator = context.createOscillator();
+    const voice = context.createGain();
+    oscillator.type = 'triangle';
+    // Up into the vowel, then down out of it.
+    oscillator.frequency.setValueAtTime(pitch * 0.72 * ratio, start);
+    oscillator.frequency.linearRampToValueAtTime(pitch * ratio, start + length * 0.3);
+    oscillator.frequency.linearRampToValueAtTime(pitch * 0.6 * ratio, start + length);
+    voice.gain.value = level;
+    oscillator.connect(voice).connect(envelope);
+    oscillator.start(start);
+    oscillator.stop(start + length + 0.05);
+  }
+}
+
 export function startMusic(url: string): void {
   const context = audioContext();
   const destination = channelNode('music');

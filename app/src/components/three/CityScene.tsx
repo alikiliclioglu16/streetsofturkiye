@@ -12,7 +12,7 @@ import { Balloons } from '@/components/three/Balloons';
 import { Ground } from '@/components/three/Ground';
 import { Water } from '@/components/three/Water';
 import { HotspotObject } from '@/components/three/HotspotObject';
-import {
+import { CatCalls,
   CAT_TURN_RATE,
   CAT_WALK_SPEED,
   HORSE_TURN_RATE,
@@ -197,6 +197,24 @@ export function CityScene({
         at all between runs — a locomotive parked at the edge of the plateau is
         a strange thing to leave in shot.
       */}
+      {/*
+        Canoes on the lake. The tram's motion, at a fifth of its speed: out,
+        pause, back. A canoe turning round at the end of its crossing is what a
+        canoe does, so nothing new had to be written for it.
+      */}
+      {scene.canoeAsset
+        ? scene.canoeLines.map((line, index) => (
+            <Tram
+              key={`canoe-${index}`}
+              asset={scene.canoeAsset!}
+              from={line.from}
+              to={line.to}
+              reducedMotion={reducedMotion}
+              speed={line.speed}
+            />
+          ))
+        : null}
+
       {scene.trainLine ? <TrainTrack from={scene.trainLine.from} to={scene.trainLine.to} /> : null}
 
       {scene.trainLine && scene.trainAsset ? (
@@ -214,6 +232,16 @@ export function CityScene({
         download — but each clone carries its own skeleton and mixer, because
         sharing either would make them move as one animal.
       */}
+      {/*
+        Heard, not seen. Only where the animal actually is a cat: Gaziantep's
+        dogs and Kars's geese would each need their own voice, and a meow from
+        a goose is worse than silence.
+      */}
+      <CatCalls
+        enabled={scene.animal === 'cat' || scene.animal === 'vancat'}
+        reducedMotion={reducedMotion}
+      />
+
       {scene.animals.map((animal, index) => (
         <StreetCat
           key={animal.key}

@@ -466,6 +466,41 @@
   "groundPatches": [],
   "balloons": [],
   "tramLine": null,
+  "canoeLines": [
+    {
+      "from": [
+        -46,
+        -118
+      ],
+      "to": [
+        30,
+        -110
+      ],
+      "speed": 1.5
+    },
+    {
+      "from": [
+        38,
+        -134
+      ],
+      "to": [
+        -24,
+        -142
+      ],
+      "speed": 1.1
+    },
+    {
+      "from": [
+        -52,
+        -152
+      ],
+      "to": [
+        46,
+        -160
+      ],
+      "speed": 1.9
+    }
+  ],
   "trainLine": null,
   "water": {
     "centerX": 0,

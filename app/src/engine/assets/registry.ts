@@ -458,6 +458,47 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
     notes: 'Delivered 13.37 MB with a 2048 colour map; recompressed to 0.59 MB.',
   },
   {
+    id: 'city_van_canoe',
+    modelUrl: '/assets/city/city_van_canoe.glb',
+    checksum: '9714a4de5d2181ace518d98a68f7c34ec1a627980039e560ff1626b09dbb9a98',
+    triangles: 9_953,
+    transferBytes: 763404,
+    /**
+     * A wooden canoe, three of them out on the lake and all three moving.
+     *
+     * Left at the 5.07 m it arrived at, which is what a canoe is — the first
+     * delivery in this project whose own scale needed no argument.
+     *
+     * They exist to say the lake is a lake you can be *on*. A flat blue plane
+     * with an island on it is scenery; three boats crossing it is a place
+     * something happens.
+     */
+    dimensions: [5.07, 1.0, 1.24],
+    label: 'Canoe',
+    color: '#9C6B43',
+    placeholder: 'box',
+    notes: 'Delivered 18.45 MB; recompressed to 0.73 MB. Scale as delivered.',
+  },
+  {
+    id: 'kit_van_orchard',
+    modelUrl: '/assets/props/kit_van_orchard.glb',
+    checksum: 'afcacc1b4e5a38c3dc7637df4db39ac8b62c0d9fe9a476d724f9e5e264d03892',
+    triangles: 6_974,
+    transferBytes: 1094804,
+    /**
+     * Fruit trees, filling the ground between the townhouses.
+     *
+     * A `kit_` asset, so it is shared and its cost is paid in every province
+     * that plants it — which is why it keeps a 1024 colour map and comes in
+     * under the 2 MB shared budget (D-036).
+     */
+    dimensions: [9.85, 4.2, 9.79],
+    label: 'Orchard',
+    color: '#6E8B4A',
+    placeholder: 'box',
+    notes: 'Delivered 28.32 MB at 3 m; re-authored to 4.2 m, 1.05 MB.',
+  },
+  {
     id: 'city_van_townhouses',
     modelUrl: '/assets/city/city_van_townhouses.glb',
     checksum: '92bf3a7d66b83dfdee26d7fbfc3dcd24562b367012eabd3f6267447de4a22686',

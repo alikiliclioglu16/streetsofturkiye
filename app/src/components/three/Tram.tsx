@@ -36,12 +36,17 @@ export function initialTramState(): TramState {
  * One step of the run. Pure, so a tram that never arrives or never turns round
  * is a failing test rather than something to watch for.
  */
-export function stepTram(state: TramState, lineLength: number, delta: number): TramState {
+export function stepTram(
+  state: TramState,
+  lineLength: number,
+  delta: number,
+  speed: number = TRAM_SPEED,
+): TramState {
   if (state.waitLeft > 0) {
     return { ...state, waitLeft: Math.max(0, state.waitLeft - delta) };
   }
 
-  const travelled = state.travelled + state.direction * TRAM_SPEED * delta;
+  const travelled = state.travelled + state.direction * speed * delta;
 
   if (travelled >= lineLength) {
     return { travelled: lineLength, direction: -1, waitLeft: TRAM_PAUSE_SECONDS };
@@ -58,9 +63,14 @@ interface TramProps {
   from: readonly [number, number];
   to: readonly [number, number];
   reducedMotion: boolean;
+  /**
+   * Metres a second. A tram works a street at walking pace; a canoe crosses a
+   * lake at rather less, and both are the same motion — out, pause, back.
+   */
+  speed?: number;
 }
 
-export function Tram({ asset, from, to, reducedMotion }: TramProps) {
+export function Tram({ asset, from, to, reducedMotion, speed = TRAM_SPEED }: TramProps) {
   const group = useRef<Group>(null);
   const state = useRef<TramState>(initialTramState());
 
@@ -92,7 +102,7 @@ export function Tram({ asset, from, to, reducedMotion }: TramProps) {
     const node = group.current;
     if (!node) return;
     if (!reducedMotion) {
-      state.current = stepTram(state.current, line.length, Math.min(rawDelta, 0.05));
+      state.current = stepTram(state.current, line.length, Math.min(rawDelta, 0.05), speed);
     }
     const { travelled, direction } = state.current;
     node.position.set(from[0] + line.dx * travelled, 0, from[1] + line.dz * travelled);

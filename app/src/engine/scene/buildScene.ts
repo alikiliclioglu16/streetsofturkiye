@@ -107,6 +107,8 @@ export interface SceneDescription {
   readonly balloonAsset: ResolvedAsset | null;
   readonly tramLine: SceneDefinition['tramLine'];
   readonly trainLine: SceneDefinition['trainLine'];
+  readonly canoeLines: SceneDefinition['canoeLines'];
+  readonly canoeAsset: ResolvedAsset | null;
   readonly trainAsset: ResolvedAsset | null;
   readonly tramAsset: ResolvedAsset | null;
   readonly sky: SceneSky;
@@ -358,6 +360,8 @@ export function buildScene(city: CityDefinition, quality: QualityTier): SceneDes
     tramLine: city.tramLine,
     tramAsset: city.tramLine ? resolveAsset('city_istanbul_streetcar', quality) : null,
     trainLine: city.trainLine,
+    canoeLines: city.canoeLines,
+    canoeAsset: city.canoeLines.length ? resolveAsset('city_van_canoe', quality) : null,
     trainAsset: city.trainLine ? resolveAsset('city_kars_eastern_express', quality) : null,
     catRoutes: city.catRoutes,
     groundPatches: city.groundPatches ?? [],

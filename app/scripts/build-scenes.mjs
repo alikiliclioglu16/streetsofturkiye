@@ -1566,6 +1566,26 @@ function buildScene(canonical) {
      * Two hundred and eighty metres end to end, both ends far outside the map,
      * so it is never seen to appear or vanish.
      */
+    /**
+     * Three canoes on the lake, all crossing, none the same length or pace.
+     *
+     * A flat blue plane with an island on it is scenery. Boats moving across it
+     * is a place where something happens, and that is the whole reason these
+     * exist: a child should be able to see that the lake is something you go
+     * *on*.
+     *
+     * They sit between the shore and Akdamar, out past the paving where the
+     * water actually shows, and they cross the view rather than running along
+     * it — the lesson the Eastern Express took two turns to learn (D-142).
+     */
+    canoeLines:
+      canonical.id === 'van'
+        ? [
+            { from: [-46, -118], to: [30, -110], speed: 1.5 },
+            { from: [38, -134], to: [-24, -142], speed: 1.1 },
+            { from: [-52, -152], to: [46, -160], speed: 1.9 },
+          ]
+        : [],
     trainLine:
       canonical.id === 'kars'
         ? { from: [-140, KARS_TRACK_Z], to: [140, KARS_TRACK_Z] }

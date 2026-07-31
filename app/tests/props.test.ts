@@ -254,6 +254,40 @@ describe('street kit props', () => {
     expect(state.travelled).toBeGreaterThan(0);
   });
 
+  it('puts three canoes on Lake Van, all of them crossing it', () => {
+    /**
+     * A flat blue plane with an island on it is scenery. Boats moving across it
+     * is a place where something happens, and that is what these are for: a
+     * child should be able to see that the lake is something you go *on*.
+     *
+     * They cross the view rather than running along it — the lesson the Eastern
+     * Express took two turns to learn (D-142) — and they sit past the paving,
+     * where the water actually shows (D-152).
+     */
+    const scene = buildScene(loadComposedCity('van'), 'high');
+    expect(scene.canoeLines).toHaveLength(3);
+    expect(scene.canoeAsset!.entry.id).toBe('city_van_canoe');
+
+    const water = scene.water!;
+    const nearWater = water.centerZ + water.depth / 2;
+    const speeds = new Set<number>();
+
+    for (const line of scene.canoeLines) {
+      for (const [x, z] of [line.from, line.to]) {
+        expect(z, 'a canoe is on dry land').toBeLessThan(nearWater);
+        expect(Math.abs(x), 'a canoe is off the edge of the lake').toBeLessThan(water.width / 2);
+      }
+      // Across, not along: more sideways travel than forward.
+      expect(Math.abs(line.to[0] - line.from[0])).toBeGreaterThan(
+        Math.abs(line.to[1] - line.from[1]),
+      );
+      speeds.add(line.speed);
+    }
+
+    // Three paces, so they do not move as one object.
+    expect(speeds.size).toBe(3);
+  });
+
   it('lets a child walk through the Ani doorway', () => {
     /**
      * Left at the 5 m it was delivered at rather than the briefed 3.2, because

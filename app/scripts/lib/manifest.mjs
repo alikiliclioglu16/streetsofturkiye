@@ -126,7 +126,6 @@ export const DELIVERED_DIMENSIONS = {
    * point's.
    */
   city_van_erek_mountain: [96.0, 30.0, 90.0],
-  kit_van_orchard: [7.0, 4.6, 7.0],
   kit_van_cat: [0.2, 0.55, 0.76],
   city_van_akdamar_jetty: [2.4, 1.8, 6.5],
   city_van_castle: [59.09, 16.0, 32.77],
@@ -134,6 +133,8 @@ export const DELIVERED_DIMENSIONS = {
   city_van_breakfast_table: [2.93, 1.3, 2.92],
   city_van_urartu_stele: [1.4, 2.6, 0.96],
   city_van_akdamar_island: [23.19, 11.0, 23.18],
+  city_van_canoe: [5.07, 1.0, 1.24],
+  kit_van_orchard: [9.85, 4.2, 9.79],
   city_van_townhouses: [26.7, 12.0, 15.34],
   city_kars_ani_carved_doorway: [3.57, 5.0, 1.06],
   city_kars_eastern_express_platform: [5.45, 3.4, 3.47],

@@ -201,6 +201,20 @@ export const sceneSchema = z
       .object({ from: z.tuple([z.number(), z.number()]), to: z.tuple([z.number(), z.number()]) })
       .nullable()
       .default(null),
+    /**
+     * Boats crossing the water, out and back. Three on Lake Van, so a child can
+     * see that the lake is something you go *on* rather than something painted
+     * at the end of the street.
+     */
+    canoeLines: z
+      .array(
+        z.object({
+          from: z.tuple([z.number(), z.number()]),
+          to: z.tuple([z.number(), z.number()]),
+          speed: z.number().positive(),
+        }),
+      )
+      .default([]),
     /** Scenery beyond the play area: never reached, never collided with. */
     backdrop: z.array(scenePropSchema).default([]),
     catRoutes: z

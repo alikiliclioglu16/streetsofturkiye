@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useRef } from 'react';
 import { useGLTF } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
+import { playCatMeow } from '@/engine/audio/cues';
 import { clone as cloneSkinned } from 'three/examples/jsm/utils/SkeletonUtils.js';
 import { AnimationMixer, Box3, LoopRepeat, Vector3, type AnimationAction, type Group } from 'three';
 
@@ -235,4 +236,37 @@ export function StreetCat({
       <primitive object={model} />
     </group>
   );
+}
+
+/**
+ * The street's cats, heard rather than seen.
+ *
+ * One timer for the whole city rather than one per cat: five cats each calling
+ * on their own clock is a cattery, and what is wanted is a street that happens
+ * to have cats in it.
+ *
+ * The interval wanders either side of fifteen seconds. A call exactly every
+ * fifteen reads as a machine within about a minute, which is roughly how long a
+ * child spends on one street.
+ */
+export function CatCalls({
+  enabled,
+  reducedMotion,
+  intervalSeconds = 15,
+}: {
+  enabled: boolean;
+  reducedMotion: boolean;
+  intervalSeconds?: number;
+}) {
+  const nextIn = useRef(intervalSeconds * 0.6);
+
+  useFrame((_, rawDelta) => {
+    if (!enabled || reducedMotion) return;
+    nextIn.current -= Math.min(rawDelta, 0.05);
+    if (nextIn.current > 0) return;
+    playCatMeow();
+    nextIn.current = intervalSeconds * (0.7 + Math.random() * 0.6);
+  });
+
+  return null;
 }
