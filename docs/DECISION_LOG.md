@@ -1991,3 +1991,70 @@ hollow between. At the recorded 5.37 m each pier is 2.01 m and the opening is
 passage in the project. It is narrow because the wooden doors stand open inside
 the arch and take up part of it, which is what a real gateway does. Widening it
 is moving two numbers if it turns out to be fiddly on a tablet.
+
+## D-135 — Kars's three stops are delivered (30 Jul 2026)
+
+| | Delivered | Shipped | Height |
+|---|---|---|---|
+| Ani carved doorway | 18.81 MB | 1.75 MB | 5.0 m, as delivered |
+| Eastern Express platform | 23.27 MB | 0.77 MB | 3.4 m |
+| Gravyer stall | 21.95 MB | 0.77 MB | 2.2 m |
+
+All three arrived buried below the origin — 2.5 m, 2 m and 1.5 m — and all three
+were re-authored standing on y = 0.
+
+**Two of the three briefed heights were wrong, and the files were right.**
+
+The doorway was briefed at 3.2 m and is left at the 5 m it came at. Its opening
+is a fixed 37.5% of its width, so at 3.2 m the gap would be 0.86 m and a child
+with a 0.45 m radius does not fit through it at all. The brief was written before
+anyone had asked for it to be walked through. Five metres is also what a church
+portal at Ani is, and it stays inside the one-to-five-metre rule for a stop by
+exactly nothing.
+
+The stall was briefed at 1.6 m, which described a counter. What arrived is a
+stall with a canopy over it, and at 1.6 m the awning would have been at the
+guide's shoulder. At 2.2 m it comes out at the briefed width of 2.2 m as well.
+
+The platform is the one that matched.
+
+## D-136 — The Eastern Express crosses Kars and leaves (30 Jul 2026)
+
+Not a stop and not scenery: a twenty metre locomotive that arrives from off the
+map, crosses the whole city and goes off the other side, then waits fifteen
+seconds and does it again.
+
+**It is not the tram's motion.** İstanbul's tram works one street all day and
+turns round at each end in front of the child, so it has a direction to flip and
+a pause to take. A train comes in from somewhere else and goes somewhere else:
+one direction, no turn, and the pause happens where nobody can see it.
+
+Both ends of the line sit outside the play area by more than the length of the
+locomotive, so it is never seen to appear or vanish, and it runs at x = 16 —
+outside the fifteen metre walking area, where İstanbul's tram sits on the other
+side of the country. A child can watch it and cannot stand on the track. A
+hundred and eighty metres at eleven metres a second is about sixteen seconds a
+pass.
+
+**Between runs it is not rendered.** Parking it at the end of the line would
+leave a locomotive standing on the edge of a plateau, in shot, for fifteen
+seconds. Reduced motion holds it off the map entirely rather than freezing it
+mid-city — zero strength, not a still frame in an odd place, the same choice
+everything else that moves here makes.
+
+The test steps a full minute of the cycle at sixty frames a second and requires
+that it crosses, leaves and comes back. A train that never arrives is otherwise
+found by standing in Kars for a minute and wondering.
+
+## D-137 — Two more things can be walked through (30 Jul 2026)
+
+The Ani doorway joins the two gates. Same measurement, same result: the middle
+37.5% of its width is empty at walking height, each pier is 1.12 m of the 3.57 m
+frontage, and the opening is 1.34 m — 0.44 m of walking room, matching the
+Kapalıçarşı exactly.
+
+Three objects now carry `colliderParts`, and the pattern is stable enough to
+state: **anything with a hole in it gets its footprint measured off the mesh,
+never estimated.** The empty band in the vertex histogram is the opening, the
+clusters either side are the piers, and the number that matters is what is left
+after the player's radius comes off.

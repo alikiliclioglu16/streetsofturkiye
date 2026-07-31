@@ -191,6 +191,16 @@ export const sceneSchema = z
       .object({ from: z.tuple([z.number(), z.number()]), to: z.tuple([z.number(), z.number()]) })
       .nullable()
       .default(null),
+    /**
+     * A line something crosses the city on and leaves, rather than works.
+     *
+     * Both ends sit outside the play area on purpose: the train is never seen
+     * to appear or vanish.
+     */
+    trainLine: z
+      .object({ from: z.tuple([z.number(), z.number()]), to: z.tuple([z.number(), z.number()]) })
+      .nullable()
+      .default(null),
     /** Scenery beyond the play area: never reached, never collided with. */
     backdrop: z.array(scenePropSchema).default([]),
     catRoutes: z

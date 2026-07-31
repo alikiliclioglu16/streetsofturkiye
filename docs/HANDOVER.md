@@ -30,7 +30,7 @@ Fiber 9, Drei 10, Zustand 5, Zod 4, Vitest 4.
 
 | | İstanbul | Nevşehir | Gaziantep | Kars |
 |---|---|---|---|---|
-| Stops | 5, all delivered | 5, all delivered | 3, all delivered | 3, **all placeholder** |
+| Stops | 5, all delivered | 5, all delivered | 3, all delivered | 3, all delivered |
 | Questions | 2 | 2 | 1 | 1 |
 | Guide | Nasreddin Hodja | Keloğlan | Keloğlan | Nasreddin Hodja |
 | Ground | cobblestone | red sand | red sand | bedrock, turf under the geese |
@@ -43,7 +43,7 @@ Three cities are finished end to end. **Kars is open and unbuilt** — walkable,
 with a placeholder at every stop and across its whole horizon, the way Nevşehir
 and Gaziantep were each opened. Its brief is `docs/KARS_ASSET_BRIEF.md`.
 
-`npm run gate` is green: 81 cities, 249 stops, 84 questions, **327 tests**,
+`npm run gate` is green: 81 cities, 249 stops, 84 questions, **329 tests**,
 clean lint and typecheck, 4 routes built.
 
 Assets total 70.63 MB on disk; a single city visit downloads far less because
@@ -318,6 +318,10 @@ will bite:
   through `GUIDE_OVERRIDES`. Canonical is never edited to say so.
 - **D-133** — a city walks a list of animals, not one. Routes take a model in
   turn.
+- **D-136** — the train crosses and leaves; the tram works a street and turns
+  round. Different motions, and neither is the other with a flag.
+- **D-137** — anything with a hole in it gets its footprint measured off the
+  mesh, never estimated.
 - **D-122** — balloons are Nevşehir's only.
 - **D-123** — "open" is not "finished". Tests that assert completeness are
   scoped to `PILOT_CITY_IDS`; what holds for every city is that it stays
@@ -344,9 +348,11 @@ cities — all of them towards the size the layout already assumed. The maths is
 tested; what is not tested is whether a 17 m chimney ridge looks right behind
 Nevşehir. This is the one change in the project that most needs a pair of eyes.
 
-**3. Kars's three stops.** Its horizon is built and so are its geese; what is
-left is the carved doorway, the Eastern Express platform and the gravyer stall,
-plus their three rewards. `docs/KARS_ASSET_BRIEF.md` has them.
+**3. Kars's three rewards.** Everything else in the city is built — horizon,
+stops, geese, theme, and a locomotive that crosses it every fifteen seconds.
+What is left is the stone rubbing, the ticket and the wedge of gravyer, all
+three small and all three still placeholders. `docs/KARS_ASSET_BRIEF.md` has
+them.
 
 The geese are done and none of them is rigged: three static birds in different
 poses, standing as dressing (D-129). A rigged walker is optional now rather than

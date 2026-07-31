@@ -599,6 +599,7 @@
       -100
     ]
   },
+  "trainLine": null,
   "water": {
     "centerX": 0,
     "centerZ": -202,

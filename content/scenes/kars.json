@@ -48,32 +48,32 @@
       [
         0,
         0,
-        -15
+        -14.97
       ],
       [
-        -3.5,
+        -3.99,
         0,
-        -19.7
+        -19.73
       ],
       [
         4.3,
         0,
-        -28.2
+        -27.76
       ],
       [
-        -0.9,
+        -0.63,
         0,
-        -34.5
+        -34.93
       ],
       [
         5.3,
         0,
-        -42.95
+        -42.91
       ],
       [
-        2,
+        1.99,
         0,
-        -47.75
+        -47.79
       ]
     ],
     "bounds": [
@@ -131,19 +131,19 @@
         ]
       },
       "collider": {
-        "halfWidth": 1.3,
-        "halfDepth": 0.5
+        "halfWidth": 1.785,
+        "halfDepth": 0.53
       },
-      "triggerRadius": 4.5,
+      "triggerRadius": 4.53,
       "camera": {
         "position": [
-          2.3,
+          2.8,
           2.4,
-          -12
+          -10.7
         ],
         "target": [
           0,
-          1.4,
+          2.2,
           -17
         ],
         "durationMs": 900
@@ -183,10 +183,10 @@
         ]
       },
       "collider": {
-        "halfWidth": 3,
-        "halfDepth": 1.3
+        "halfWidth": 2.725,
+        "halfDepth": 1.735
       },
-      "triggerRadius": 5.5,
+      "triggerRadius": 5.74,
       "camera": {
         "position": [
           6.6,
@@ -235,10 +235,10 @@
         ]
       },
       "collider": {
-        "halfWidth": 1.1,
-        "halfDepth": 0.55
+        "halfWidth": 1.105,
+        "halfDepth": 0.595
       },
-      "triggerRadius": 4.55,
+      "triggerRadius": 4.59,
       "camera": {
         "position": [
           7.6,
@@ -247,7 +247,7 @@
         ],
         "target": [
           5.3,
-          0.7,
+          1,
           -45
         ],
         "durationMs": 900
@@ -499,6 +499,16 @@
   ],
   "balloons": [],
   "tramLine": null,
+  "trainLine": {
+    "from": [
+      16,
+      40
+    ],
+    "to": [
+      16,
+      -140
+    ]
+  },
   "water": null,
   "backdrop": [
     {
@@ -660,13 +670,13 @@
     {
       "npcId": "featured_soldier",
       "position": [
-        11,
+        11.2,
         0,
         -27.5
       ],
       "rotationY": 2.4,
       "walkTo": [
-        9.5,
+        9.7,
         0,
         -31.7
       ]
@@ -674,13 +684,13 @@
     {
       "npcId": "featured_traveler",
       "position": [
-        11,
+        11.2,
         0,
         -34
       ],
       "rotationY": -2.1,
       "walkTo": [
-        12.5,
+        12.7,
         0,
         -38.2
       ]

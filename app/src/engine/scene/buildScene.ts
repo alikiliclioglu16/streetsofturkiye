@@ -106,6 +106,8 @@ export interface SceneDescription {
   readonly balloons: SceneDefinition['balloons'];
   readonly balloonAsset: ResolvedAsset | null;
   readonly tramLine: SceneDefinition['tramLine'];
+  readonly trainLine: SceneDefinition['trainLine'];
+  readonly trainAsset: ResolvedAsset | null;
   readonly tramAsset: ResolvedAsset | null;
   readonly sky: SceneSky;
   readonly colliders: readonly RectCollider[];
@@ -345,6 +347,8 @@ export function buildScene(city: CityDefinition, quality: QualityTier): SceneDes
     musicUrl: city.musicUrl,
     tramLine: city.tramLine,
     tramAsset: city.tramLine ? resolveAsset('city_istanbul_streetcar', quality) : null,
+    trainLine: city.trainLine,
+    trainAsset: city.trainLine ? resolveAsset('city_kars_eastern_express', quality) : null,
     catRoutes: city.catRoutes,
     groundPatches: city.groundPatches ?? [],
     npcs,

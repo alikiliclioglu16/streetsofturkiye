@@ -344,6 +344,97 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
       'beside a 1.45 m guide.',
   },
   {
+    id: 'city_kars_ani_carved_doorway',
+    modelUrl: '/assets/city/city_kars_ani_carved_doorway.glb',
+    checksum: '44f266ecaf83f1938acce72e333e09f9085e39e24d38483c878bb10699da5745',
+    triangles: 10_119,
+    transferBytes: 1831524,
+    /**
+     * Stop one, and a doorway a child walks through rather than up to.
+     *
+     * Left at the 5 m it arrived at instead of the briefed 3.2. The brief was
+     * written before anyone knew this would be walked through, and the opening
+     * is a fixed 37.5% of the width: at 3.2 m tall it would be 0.86 m, which is
+     * less than a child with a 0.45 m radius can fit through at all. Five
+     * metres is also what a church portal at Ani is, and it stays inside the
+     * one-to-five-metre rule for a stop object by exactly nothing.
+     *
+     * 2048 on the colour map despite the size, for the same reason the Zeugma
+     * panel keeps it: the interlace carving is the subject, and at 1024 it
+     * becomes a smudge.
+     */
+    dimensions: [3.57, 5.0, 1.06],
+    label: 'Ani carved doorway',
+    color: '#8A6248',
+    placeholder: 'box',
+    /**
+     * Measured. At walking height the vertices leave the middle 37.5% of the
+     * width empty, so each pier is 1.12 m of the 3.57 m frontage and the
+     * opening is 1.34 m — 0.44 m of walking room, the same as the Kapalıçarşı.
+     */
+    colliderParts: [
+      { offsetX: -1.23, offsetZ: 0, halfWidth: 0.56, halfDepth: 0.53 },
+      { offsetX: 1.23, offsetZ: 0, halfWidth: 0.56, halfDepth: 0.53 },
+    ],
+    notes: 'Delivered 18.81 MB buried 2.5 m; re-authored on y = 0, 1.75 MB.',
+  },
+  {
+    id: 'city_kars_eastern_express_platform',
+    modelUrl: '/assets/city/city_kars_eastern_express_platform.glb',
+    checksum: '517eae4f658900df6fe269f3353fabaaf24d7b284050ccf2773355568be91df6',
+    triangles: 9_332,
+    transferBytes: 802960,
+    /**
+     * Stop two. The platform stands still; the train is a separate object that
+     * passes it, which is what a station is — the ferry terminal stood in for
+     * the ferry the same way, except that here the ferry turned up too (D-068).
+     */
+    dimensions: [5.45, 3.4, 3.47],
+    label: 'Eastern Express platform',
+    color: '#5C6B78',
+    placeholder: 'box',
+    notes: 'Delivered 23.27 MB buried 2 m; re-authored to 3.4 m on y = 0, 0.77 MB.',
+  },
+  {
+    id: 'city_kars_gravyer_stall',
+    modelUrl: '/assets/city/city_kars_gravyer_stall.glb',
+    checksum: '17693d1a047a4fbfdc13ef2a86cba713e487eacf693814520fdf18ee656ad880',
+    triangles: 9_409,
+    transferBytes: 811356,
+    /**
+     * Stop three. Raised to 2.2 m rather than the briefed 1.6: the brief
+     * described a counter and what arrived is a stall with a canopy over it,
+     * and 1.6 m would have put the awning at the guide's shoulder. The briefed
+     * width of 2.2 m is what it comes out at.
+     */
+    dimensions: [2.21, 2.2, 1.19],
+    label: 'Gravyer stall',
+    color: '#C9A227',
+    placeholder: 'box',
+    notes: 'Delivered 21.95 MB buried 1.5 m; re-authored to 2.2 m on y = 0, 0.77 MB.',
+  },
+  {
+    id: 'city_kars_eastern_express',
+    modelUrl: '/assets/city/city_kars_eastern_express.glb',
+    checksum: 'd1a971094165992ad42cf0f091af02391efe5fc57912b9caeefbb2eb87774a1a',
+    triangles: 10_049,
+    transferBytes: 912896,
+    /**
+     * The locomotive itself, which is not a stop and not scenery: it crosses
+     * the city and leaves.
+     *
+     * Twenty metres long at 3.6 m tall. A real DE 33 000 is eighteen and a half
+     * by four and a quarter, so this is a little long for its height — that is
+     * the file's own proportion and it is left alone, because scaling to match
+     * the real ratio would have meant squashing it on one axis.
+     */
+    dimensions: [20.01, 3.6, 2.96],
+    label: 'Eastern Express locomotive',
+    color: '#1F4E79',
+    placeholder: 'box',
+    notes: 'Delivered 24.42 MB buried 1.5 m; re-authored to 3.6 m on y = 0, 0.87 MB.',
+  },
+  {
     id: 'city_kars_ani_chapel',
     modelUrl: '/assets/city/city_kars_ani_chapel.glb',
     checksum: 'da32004c9ac737e2cd7ca6dca4bf570652c188fe11bb672770dbb954a567a8ab',

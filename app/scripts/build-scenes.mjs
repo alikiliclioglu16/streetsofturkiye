@@ -1254,6 +1254,20 @@ function buildScene(canonical) {
      */
     tramLine:
       canonical.id === 'istanbul' ? { from: [-15.5, 20], to: [-15.5, -100] } : null,
+    /**
+     * The Eastern Express runs past Kars and does not stop for long.
+     *
+     * On the east side at x = 16, just outside the fifteen metre play area, so
+     * the child can watch it and never walk on to the track — the same place
+     * İstanbul's tram sits on the other side of the country. Both ends of the
+     * line are well off the map: it is never seen to appear or vanish, it
+     * arrives from behind the child, crosses the whole city and is gone.
+     *
+     * A hundred and eighty metres end to end at eleven metres a second, so a
+     * pass takes about sixteen seconds and the next one is fifteen seconds
+     * after that.
+     */
+    trainLine: canonical.id === 'kars' ? { from: [16, 40], to: [16, -140] } : null,
     water:
       canonical.id === 'istanbul'
         ? { centerX: 0, centerZ: -202, width: 320, depth: 180, color: '#2E7FA8' }

@@ -92,6 +92,7 @@ export interface RuntimeCity {
   groundPatches: SceneDefinition['groundPatches'];
   balloons: SceneDefinition['balloons'];
   tramLine: SceneDefinition['tramLine'];
+  trainLine: SceneDefinition['trainLine'];
   backdrop: SceneDefinition['backdrop'];
   /** Featured NPCs standing at their posts; carry no content. */
   npcs: SceneDefinition['npcs'];
@@ -175,6 +176,7 @@ export function composeCity(canonical: CanonicalCity, scene: SceneDefinition): R
     groundPatches: scene.groundPatches,
     balloons: scene.balloons,
     tramLine: scene.tramLine,
+    trainLine: scene.trainLine,
     backdrop: scene.backdrop,
     npcs: scene.npcs,
     trees: scene.trees,

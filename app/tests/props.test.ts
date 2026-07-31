@@ -167,6 +167,84 @@ describe('street kit props', () => {
     expect(byId.get('kit_goose_standing_a')![1]).toBe(byId.get('kit_goose_standing_b')![1]);
   });
 
+  it('runs the Eastern Express in from off the map and out the other side', async () => {
+    const { initialTrainState, stepTrain, TRAIN_INTERVAL_SECONDS, TRAIN_SPEED } = await import(
+      '@/components/three/Tram'
+    );
+    const scene = buildScene(loadComposedCity('kars'), 'high');
+    const line = scene.trainLine!;
+    expect(line).toBeTruthy();
+    expect(scene.trainAsset!.entry.id).toBe('city_kars_eastern_express');
+
+    /**
+     * Both ends off the map, so the train is never seen to appear or vanish.
+     * The play area runs to z = 26 behind and z = -59 in front; the line has to
+     * start behind the first and end past the second by more than the length of
+     * the locomotive, or it pops into being in shot.
+     */
+    const zs = scene.bounds.map((corner) => corner[2]);
+    const [, , length] = scene.trainAsset!.entry.dimensions;
+    const locoLength = Math.max(...scene.trainAsset!.entry.dimensions);
+    expect(line.from[1]).toBeGreaterThan(Math.max(...zs) + locoLength * 0.5);
+    expect(line.to[1]).toBeLessThan(Math.min(...zs) - locoLength * 0.5);
+    expect(length).toBeGreaterThan(0);
+
+    // And off the walking area sideways, so no child stands on the track.
+    const xs = scene.bounds.map((corner) => corner[0]);
+    expect(Math.abs(line.from[0])).toBeGreaterThan(Math.max(...xs));
+    expect(line.from[0]).toBe(line.to[0]);
+
+    /**
+     * One full cycle, stepped at sixty frames a second: it must arrive, cross,
+     * leave, and come back. A train that never arrives or never leaves is the
+     * failure mode worth a test — you would otherwise find it by standing in
+     * Kars for a minute.
+     */
+    const lineLength = Math.hypot(line.to[0] - line.from[0], line.to[1] - line.from[1]);
+    let state = initialTrainState();
+    let crossed = false;
+    let returnedToWaiting = false;
+    let sawMidway = false;
+    for (let frame = 0; frame < 60 * 60; frame += 1) {
+      const before = state;
+      state = stepTrain(state, lineLength, 1 / 60);
+      if (state.waitLeft === 0 && state.travelled > lineLength * 0.45 && state.travelled < lineLength * 0.55) {
+        sawMidway = true;
+      }
+      if (before.waitLeft === 0 && state.waitLeft > 0) {
+        crossed = true;
+        returnedToWaiting = true;
+      }
+    }
+    expect(sawMidway, 'the train never crossed the city').toBe(true);
+    expect(crossed, 'the train never left').toBe(true);
+    expect(returnedToWaiting, 'the train never came back').toBe(true);
+
+    // It waits between runs rather than running continuously.
+    expect(TRAIN_INTERVAL_SECONDS).toBe(15);
+    expect(lineLength / TRAIN_SPEED).toBeGreaterThan(5);
+  });
+
+  it('lets a child walk through the Ani doorway', () => {
+    /**
+     * Left at the 5 m it was delivered at rather than the briefed 3.2, because
+     * the opening is a fixed share of the width: at 3.2 m it would be 0.86 m,
+     * and a child with a 0.45 m radius does not fit through that at all.
+     */
+    const scene = buildScene(loadComposedCity('kars'), 'high');
+    const door = scene.hotspots.find(
+      (hotspot) => hotspot.asset.entry.id === 'city_kars_ani_carved_doorway',
+    )!;
+    const [x, , z] = door.position;
+
+    for (const depth of [-0.6, 0, 0.6]) {
+      expect(blockedBy({ x, z: z + depth }, scene.colliders), `passage at z+${depth}`).toBeNull();
+    }
+    for (const offset of [-1.23, 1.23]) {
+      expect(blockedBy({ x: x + offset, z }, scene.colliders), `pier at x+${offset}`).not.toBeNull();
+    }
+  });
+
   it('lets a child walk through the Kapalıçarşı gate, which is also a stop', () => {
     /**
      * A gate does not stop being a gate when it is also a stop. The
