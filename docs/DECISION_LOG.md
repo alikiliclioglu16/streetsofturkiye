@@ -2266,3 +2266,32 @@ that the tallest thing in it was 14 m and the rest was sky.
 
 Aligned by its near edge, 113 m deep, well behind the walls — centred on the
 boundary it would have put the entire city inside a mountain (D-101).
+
+## D-148 — The walls flank; the mountain fills the middle (31 Jul 2026)
+
+D-147 read "karşılıklı" as *paired across the back* and closed it completely.
+That was the wrong reading, and closing the back is precisely what put a wall in
+front of the mountain: a child turning round saw stonework across the whole view
+and Sarıkamış only through a gate arch.
+
+Facing each other means **one each side, with the middle open.**
+
+The two walls now stand at x = ±35, turned in towards the square by 0.3 radians
+so they read as two ends of one circuit rather than two flat screens. West runs
+from -52.8 to -17.2, east from 17.2 to 52.8, and **34 m of sky is left between
+them** — which the mountain, 109 m across, more than covers.
+
+The corner ruins moved out past the walls, and nothing at all now stands within
+fifteen metres of the centre line behind the square. That sightline belongs to
+Sarıkamış.
+
+The test changed with the decision rather than being loosened around it. It used
+to require no gap anywhere across the run; it now requires a gap of at least
+twenty metres, a wall on each side of the centre, and a mountain wide enough to
+span the opening and more than twice the height of the walls. It also holds the
+centre line clear, which is the assertion that would have caught D-147 on the
+day it was written.
+
+Two ruins behind the square on **each** side, counted per side rather than in
+total: six all on one side would satisfy a total and leave half the back bare,
+which is the complaint this exists to answer.

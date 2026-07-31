@@ -514,9 +514,9 @@
     {
       "assetId": "city_kars_ani_church",
       "position": [
-        -34,
+        -52,
         0,
-        30
+        42
       ],
       "rotationY": 0.9,
       "solid": false,
@@ -525,9 +525,9 @@
     {
       "assetId": "city_kars_ani_chapel",
       "position": [
-        -27,
+        -45,
         0,
-        41
+        27
       ],
       "rotationY": -1.2,
       "solid": false,
@@ -536,9 +536,9 @@
     {
       "assetId": "city_kars_ani_chapel",
       "position": [
-        -40,
+        -24,
         0,
-        45
+        17
       ],
       "rotationY": 2.1,
       "solid": false,
@@ -547,9 +547,9 @@
     {
       "assetId": "city_kars_ani_church",
       "position": [
-        33,
+        51,
         0,
-        28
+        40
       ],
       "rotationY": -0.75,
       "solid": false,
@@ -558,9 +558,9 @@
     {
       "assetId": "city_kars_ani_chapel",
       "position": [
-        27,
+        44,
         0,
-        40
+        28
       ],
       "rotationY": 1.35,
       "solid": false,
@@ -569,9 +569,9 @@
     {
       "assetId": "city_kars_ani_church",
       "position": [
-        39,
+        25,
         0,
-        46
+        20
       ],
       "rotationY": -2.35,
       "solid": false,
@@ -580,9 +580,9 @@
     {
       "assetId": "city_kars_ani_church",
       "position": [
-        -31,
+        -33,
         0,
-        18
+        12
       ],
       "rotationY": 0.35,
       "solid": false,
@@ -591,9 +591,9 @@
     {
       "assetId": "city_kars_ani_chapel",
       "position": [
-        30,
+        32,
         0,
-        21
+        14
       ],
       "rotationY": -0.55,
       "solid": false,
@@ -679,22 +679,22 @@
     {
       "assetId": "city_kars_ani_walls",
       "position": [
-        -14,
+        -35,
         0,
-        36.4
+        38
       ],
-      "rotationY": 3.141592653589793,
+      "rotationY": 2.8415926535897933,
       "solid": true,
       "note": "the city walls west"
     },
     {
       "assetId": "city_kars_ani_walls",
       "position": [
-        14,
+        35,
         0,
-        36.4
+        38
       ],
-      "rotationY": 0,
+      "rotationY": 0.3,
       "solid": true,
       "note": "the city walls east"
     },
@@ -707,7 +707,7 @@
       ],
       "rotationY": 3.141592653589793,
       "solid": false,
-      "note": "Sarıkamış, closing the sky behind the walls"
+      "note": "Sarıkamış, seen between the walls"
     },
     {
       "assetId": "city_kars_ani_gorge",

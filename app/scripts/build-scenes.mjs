@@ -977,17 +977,16 @@ function cityBackdrop(cityId, stopPositions, metrics) {
        * that is the side that has to look inhabited.
        */
       ...[
-        // Flanking the walls, both sides, filling the gaps either end of them.
-        ['city_kars_ani_church', -34, behind + 4, 0.9],
-        ['city_kars_ani_chapel', -27, behind + 15, -1.2],
-        ['city_kars_ani_chapel', -40, behind + 19, 2.1],
-        ['city_kars_ani_church', 33, behind + 2, -0.75],
-        ['city_kars_ani_chapel', 27, behind + 14, 1.35],
-        ['city_kars_ani_church', 39, behind + 20, -2.35],
-        // Two more just behind the side rows, so the back half thickens rather
-        // than ending in a line.
-        ['city_kars_ani_church', -31, behind - 8, 0.35],
-        ['city_kars_ani_chapel', 30, behind - 5, -0.55],
+        // Beyond the walls at the far edges, and short of them nearer in.
+        // Nothing on the centre line: that is the mountain's.
+        ['city_kars_ani_church', -52, behind + 16, 0.9],
+        ['city_kars_ani_chapel', -45, behind + 1, -1.2],
+        ['city_kars_ani_chapel', -24, behind - 9, 2.1],
+        ['city_kars_ani_church', 51, behind + 14, -0.75],
+        ['city_kars_ani_chapel', 44, behind + 2, 1.35],
+        ['city_kars_ani_church', 25, behind - 6, -2.35],
+        ['city_kars_ani_church', -33, behind - 14, 0.35],
+        ['city_kars_ani_chapel', 32, behind - 12, -0.55],
       ].map(([assetId, x, z, rot], i) => ({
         assetId,
         position: [x, 0, Math.round(z * 10) / 10],
@@ -1016,51 +1015,46 @@ function cityBackdrop(cityId, stopPositions, metrics) {
         note: 'the cathedral, standing apart',
       },
       /**
-       * The walls close the back — two segments, not one, facing each other
-       * across the square.
+       * The walls stand apart, one each side, and the middle is left open.
        *
-       * One 31 m run left the ground either side of it open, and that gap is
-       * the first thing a child sees when they turn round: two ruins in the
-       * distance and pale sky between them.
+       * They were centred and overlapping, which closed the back completely —
+       * and closing the back is exactly what put a wall in front of the
+       * mountain. A child turning round saw stonework across the whole view and
+       * Sarıkamış only through a gate arch.
        *
-       * Fourteen metres apart rather than sixteen. At sixteen the two runs
-       * stopped half a metre short of each other and left a slit down the
-       * middle of the back wall — one metre wide, directly ahead of a child who
-       * turns round, which is the worst metre on the map to leave open. At
-       * fourteen they overlap by three. A second segment mirrored beside
-       * the first takes the run to 63 m, which covers the whole back including
-       * the ground the corner ruins stand on.
+       * So they flank instead: thirty-five metres out, angled in towards the
+       * square, filling the two empty patches either side. Thirty metres of
+       * open sky between them, which is the gap the mountain is for.
        *
-       * Near edge on the boundary, which is the rule the Nevşehir valley
-       * taught: a twenty metre deep piece centred there would swallow the
-       * square.
+       * Near edge on the boundary in depth, as always — a twenty metre deep
+       * piece centred there would swallow the square (D-101).
        */
-      ...[-14, 14].map((x) => ({
+      ...[-1, 1].map((side) => ({
         assetId: 'city_kars_ani_walls',
-        position: [x, 0, Math.round((behind + 20.71 / 2) * 10) / 10],
-        // Mirrored, so the two are each other's reflection rather than the same
-        // wall printed twice — the gate reads once, in the middle.
-        rotationY: x < 0 ? Math.PI : 0,
+        position: [side * 35, 0, Math.round((behind + 12) * 10) / 10],
+        // Turned in towards the child rather than square to the street, so the
+        // two read as two ends of one circuit rather than as two flat screens.
+        rotationY: side < 0 ? Math.PI - 0.3 : 0.3,
         solid: true,
-        note: `the city walls ${x < 0 ? 'west' : 'east'}`,
+        note: `the city walls ${side < 0 ? 'west' : 'east'}`,
       })),
       {
         /**
-         * Sarıkamış behind all of it.
+         * Sarıkamış, seen between the walls rather than behind them.
          *
-         * The back of Kars was pale blue nothing above the ruins. This is the
-         * largest thing in the project — 109 m across, 34 m tall against walls
-         * of 14 — because a mountain that does not tower over the buildings in
-         * front of it is a hill.
+         * The largest thing in the project — 109 m across and 34 m tall,
+         * against walls of 14 — because a mountain that does not tower over the
+         * buildings in front of it is a hill. It is what fills the middle of
+         * the back now that the stonework has moved aside.
          *
-         * Near edge well behind the walls, and 113 m deep, so centring it on
-         * the boundary would put the whole city inside a mountain (D-101).
+         * Aligned by its near edge, 113 m deep: centred on the boundary it
+         * would put the whole city inside a mountain (D-101).
          */
         assetId: 'city_kars_sarikamis_mountain',
         position: [0, 0, Math.round((behind + 26 + 113.46 / 2) * 10) / 10],
         rotationY: Math.PI,
         solid: false,
-        note: 'Sarıkamış, closing the sky behind the walls',
+        note: 'Sarıkamış, seen between the walls',
       },
       ...[
         [0, lastZ - 26, 0],

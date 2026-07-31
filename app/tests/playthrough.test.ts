@@ -341,11 +341,22 @@ describe('Kars looks like Ani', () => {
     }
 
     /**
-     * And the ground around the walls is filled, which is what those are for.
-     * They all sit behind the square now: the ground by the railway is left
-     * open on purpose, because the gorge is already doing the work there.
+     * Both sides of the back are inhabited, and the ground by the railway is
+     * left open on purpose because the gorge is already doing the work there.
+     *
+     * Counted per side rather than in total: six ruins all on one side would
+     * satisfy a total and leave half the back bare, which is the complaint
+     * this is here to answer.
      */
-    expect(ruins.filter((r) => r.position[2] > back).length).toBeGreaterThanOrEqual(6);
+    for (const side of [-1, 1]) {
+      const behindOnThisSide = ruins.filter(
+        (r) => r.position[2] > back && Math.sign(r.position[0]) === side,
+      );
+      expect(behindOnThisSide.length, `nothing behind the square on side ${side}`).toBeGreaterThanOrEqual(2);
+    }
+    const walls = scene.backdrop.filter((p) => p.asset.entry.id === 'city_kars_ani_walls');
+    expect(walls.filter((w) => w.position[0] < 0)).toHaveLength(1);
+    expect(walls.filter((w) => w.position[0] > 0)).toHaveLength(1);
 
     // Turned individually. A ruin has no frontage, and squaring them to the
     // street would rebuild the city rather than leave it fallen.
@@ -356,51 +367,62 @@ describe('Kars looks like Ani', () => {
     for (const ruin of ruins) expect(ruin.solid, ruin.asset.entry.id).toBe(false);
   });
 
-  it('closes the back with no gap for a child to see sky through', () => {
+  it('leaves the middle of the back open, for the mountain to fill', () => {
     /**
-     * What a child turns round to has to be a wall, not two walls with a slit
-     * between them. The first pairing left one metre open directly on the
-     * centre line — the single worst metre on the map to leave — because two
-     * 31 m runs sixteen metres apart stop half a metre short of each other.
+     * The walls were centred and overlapping, which closed the back completely
+     * — and closing the back is what put a wall in front of Sarıkamış. A child
+     * turning round saw stonework across the whole view and the mountain only
+     * through a gate arch.
      *
-     * Held as coverage of the centre rather than as a spacing, so the numbers
-     * can move as long as the back stays closed.
+     * They flank now. What this holds is the shape of that decision: two walls,
+     * one each side, with real sky between them, and a mountain wide enough and
+     * tall enough to be what fills it.
      */
     const walls = scene.backdrop.filter((p) => p.asset.entry.id === 'city_kars_ani_walls');
-    expect(walls.length).toBeGreaterThanOrEqual(2);
+    expect(walls).toHaveLength(2);
 
-    const spans = walls
-      .map((wall) => {
-        const [width, , depth] = wall.asset.entry.dimensions;
-        const cos = Math.abs(Math.cos(wall.rotationY));
-        const sin = Math.abs(Math.sin(wall.rotationY));
-        const halfX = (width * cos + depth * sin) / 2;
-        return [wall.position[0] - halfX, wall.position[0] + halfX] as const;
-      })
-      .sort((a, b) => a[0] - b[0]);
+    const spanOf = (piece: (typeof walls)[number]) => {
+      const [width, , depth] = piece.asset.entry.dimensions;
+      const cos = Math.abs(Math.cos(piece.rotationY));
+      const sin = Math.abs(Math.sin(piece.rotationY));
+      const halfX = (width * cos + depth * sin) / 2;
+      return [piece.position[0] - halfX, piece.position[0] + halfX] as const;
+    };
+    const [west, east] = walls
+      .map(spanOf)
+      .sort((a, b) => a[0] - b[0]) as [readonly [number, number], readonly [number, number]];
 
-    // No gap anywhere across the run, and the run covers the whole street.
-    for (let i = 1; i < spans.length; i += 1) {
-      expect(spans[i]![0], 'a gap between wall segments').toBeLessThanOrEqual(spans[i - 1]![1]);
-    }
-    const halfWidth = Math.max(...scene.bounds.map((corner) => Math.abs(corner[0])));
-    expect(spans[0]![0]).toBeLessThan(-halfWidth);
-    expect(spans[spans.length - 1]![1]).toBeGreaterThan(halfWidth);
+    // One each side of the centre line, and a real gap between them.
+    expect(west[1]).toBeLessThan(0);
+    expect(east[0]).toBeGreaterThan(0);
+    expect(east[0] - west[1], 'no sky between the walls').toBeGreaterThan(20);
 
-    // And a mountain behind them, taller than they are.
     const mountain = scene.backdrop.find(
       (p) => p.asset.entry.id === 'city_kars_sarikamis_mountain',
     )!;
     expect(mountain).toBeDefined();
-    expect(mountain.asset.entry.dimensions[1]).toBeGreaterThan(
-      walls[0]!.asset.entry.dimensions[1] * 2,
-    );
-    // Behind the walls, near edge and all.
-    const [, , mountainDepth] = mountain.asset.entry.dimensions;
+
+    // Wide enough to cover the gap it is seen through, and taller than the
+    // walls by enough to read as a mountain rather than a further wall.
+    const [mountainWidth, mountainHeight, mountainDepth] = mountain.asset.entry.dimensions;
+    expect(mountain.position[0] - mountainWidth / 2).toBeLessThan(west[1]);
+    expect(mountain.position[0] + mountainWidth / 2).toBeGreaterThan(east[0]);
+    expect(mountainHeight).toBeGreaterThan(walls[0]!.asset.entry.dimensions[1] * 2);
+
+    // And behind them, near edge and all.
     const [, , wallsDepth] = walls[0]!.asset.entry.dimensions;
     expect(mountain.position[2] - mountainDepth / 2).toBeGreaterThan(
       walls[0]!.position[2] + wallsDepth / 2,
     );
+
+    // Nothing else parked on the centre line behind the square, which is the
+    // sightline the mountain is seen along.
+    const back = Math.max(...scene.bounds.map((corner) => corner[2]));
+    for (const piece of scene.backdrop) {
+      if (piece.position[2] <= back) continue;
+      if (piece.asset.entry.id === 'city_kars_sarikamis_mountain') continue;
+      expect(Math.abs(piece.position[0]), `${piece.asset.entry.id} blocks the mountain`).toBeGreaterThan(15);
+    }
   });
 
   it('keeps the gorge outside the play area, aligned by its near edge', () => {
