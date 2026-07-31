@@ -176,6 +176,20 @@ const REGION_SURFACE = {
 /** Half the depth of the valley plate, from its registered dimensions. */
 const VALLEY_HALF_DEPTH = 78.2 / 2;
 
+/**
+ * How far past the boundary the valley rim is set back.
+ *
+ * The plates were near-edge aligned exactly on the boundary, which was right
+ * while they were being drawn at 6 m: their rim stood a storey high at the edge
+ * of the street. D-124 gave them the 12 m the layout had always recorded, and a
+ * twelve metre rim fifteen metres away subtends about forty degrees from a
+ * child's eye — it leans over the street, and you can see under its lip.
+ *
+ * Twelve metres of setback puts the rim far enough back to read as the far side
+ * of a valley rather than as a ceiling.
+ */
+const VALLEY_SETBACK = 12;
+
 /** Guides the project has assigned against the source's own (D-132). */
 const GUIDE_OVERRIDES = {
   kars: 'character_nasreddin_hoca_base',
@@ -846,8 +860,8 @@ function cityBackdrop(cityId, stopPositions, metrics) {
 
     // Behind and ahead.
     ring.push(
-      { x: 0, z: behind + half, rot: Math.PI, note: 'valley rim behind the square' },
-      { x: 0, z: lastZ - 14 - half, rot: 0, note: 'valley rim the street runs down to' },
+      { x: 0, z: behind + half + VALLEY_SETBACK, rot: Math.PI, note: 'valley rim behind the square' },
+      { x: 0, z: lastZ - 14 - half - VALLEY_SETBACK, rot: 0, note: 'valley rim the street runs down to' },
     );
 
     // Both sides, two plates each, overlapping along the length of the walk.
@@ -855,7 +869,7 @@ function cityBackdrop(cityId, stopPositions, metrics) {
     for (const side of [-1, 1]) {
       for (const [i, z] of sideZs.entries()) {
         ring.push({
-          x: side * (inner + half),
+          x: side * (inner + half + VALLEY_SETBACK),
           z,
           rot: side < 0 ? Math.PI / 2 : -Math.PI / 2,
           note: `valley rim ${side < 0 ? 'west' : 'east'} ${i + 1}`,
@@ -1050,7 +1064,12 @@ function cityBackdrop(cityId, stopPositions, metrics) {
          */
         assetId: 'city_van_citadel_ridge',
         position: [34, 0, Math.round((behind + 14) * 10) / 10],
-        rotationY: -0.35,
+        /**
+         * Square to the castle, not angled. A spine is a long shape and it only
+         * reads as one seen broadside — turned even a fifth of a radian it
+         * foreshortens into a lump, which is what the owner was looking at.
+         */
+        rotationY: Math.PI,
         solid: true,
         note: 'the citadel ridge, right of the castle',
       },
@@ -1067,7 +1086,7 @@ function cityBackdrop(cityId, stopPositions, metrics) {
         ['kit_van_orchard', -33, behind + 12, 0.7],
         ['kit_van_orchard', -42, behind - 4, -0.5],
         ['kit_van_orchard', -47, behind + 14, 1.4],
-        ['city_van_citadel_ridge', 46, behind - 6, 0.55],
+        ['city_van_citadel_ridge', 46, behind - 6, Math.PI],
       ].map(([assetId, x, z, rot]) => ({
         assetId,
         position: [x, 0, Math.round(z * 10) / 10],
@@ -1353,8 +1372,24 @@ function balloonSky(cityId, stopPositions) {
    * have to be big enough to read as balloons rather than as dots.
    */
   const layout = [
-    [-26, 34, 26, 2.2], [18, 58, 38, 1.7], [-8, 76, 31, 1.35], [34, 96, 47, 1.1],
-    [-38, 118, 40, 0.92], [8, 140, 54, 0.75], [-18, 168, 46, 0.6], [26, 196, 60, 0.48],
+    /**
+     * Over the street, not out on the horizon.
+     *
+     * These used to start thirty-four metres past the last stop and run out to
+     * a hundred and ninety-six, at heights up to sixty. From the street that is
+     * a row of specks near the top of the sky, and the owner could not tell
+     * what they were.
+     *
+     * They now begin *behind* the walk and cross above it: the first four are
+     * within thirty metres of the street at twenty to thirty metres up, which
+     * is close enough that a child looking straight ahead has one in view, and
+     * near enough overhead to read as a basket with people in it. The far ones
+     * stay to give the sky depth.
+     *
+     * x, distance ahead of the last stop, height, scale.
+     */
+    [-14, -46, 22, 2.2], [12, -18, 26, 1.9], [-9, 14, 21, 1.7], [17, 44, 30, 1.4],
+    [-24, 78, 34, 1.1], [8, 116, 42, 0.85], [-18, 154, 48, 0.65], [26, 192, 58, 0.5],
   ];
   const specs = layout.map(([x, ahead, height, scale], i) => ({
     key: `balloon-${i}`,
@@ -1365,9 +1400,10 @@ function balloonSky(cityId, stopPositions) {
   }));
 
   // Two close enough to read as balloons rather than dots on the horizon.
+  // Two low over the walk itself, close enough to look up at.
   specs.push(
-    { key: 'balloon-near-a', position: [-30, 19, Math.round((firstZ - 12) * 10) / 10], scale: 2.5, driftSpeed: 0.62, phase: 0.4 },
-    { key: 'balloon-near-b', position: [28, 23, Math.round((lastZ + 14) * 10) / 10], scale: 2.1, driftSpeed: 0.85, phase: 2.1 },
+    { key: 'balloon-near-a', position: [-11, 17, Math.round((firstZ - 8) * 10) / 10], scale: 2.4, driftSpeed: 0.62, phase: 0.4 },
+    { key: 'balloon-near-b', position: [13, 19, Math.round((lastZ + 16) * 10) / 10], scale: 2.2, driftSpeed: 0.85, phase: 2.1 },
   );
   return specs;
 }
@@ -1640,9 +1676,9 @@ function buildScene(canonical) {
     canoeLines:
       canonical.id === 'van'
         ? [
-            { from: [-46, -76], to: [30, -70], speed: 1.5 },
-            { from: [38, -92], to: [-24, -97], speed: 1.1 },
-            { from: [-52, -84], to: [46, -89], speed: 1.9 },
+            { from: [-46, -87], to: [30, -84], speed: 1.5 },
+            { from: [38, -95], to: [-24, -99], speed: 1.1 },
+            { from: [-52, -90], to: [46, -93], speed: 1.9 },
           ]
         : [],
     trainLine:
@@ -1657,9 +1693,38 @@ function buildScene(canonical) {
      */
     water:
       canonical.id === 'istanbul'
-        ? { centerX: 0, centerZ: -202, width: 320, depth: 180, color: '#2E7FA8' }
+        ? {
+            centerX: 0,
+            /**
+             * The shoreline sits at the Maiden's Tower and stays there.
+             *
+             * Water is drawn over the ground now (D-154), so wherever its near
+             * edge falls is where the sea appears to begin — and at z = -112,
+             * the play boundary, it appeared to run up to the houses. The tower
+             * stands at -146 and is an island: the shore belongs just in front
+             * of it, at -142, which puts the tower in the water and the quay on
+             * land.
+             */
+            centerZ: -232,
+            width: 320,
+            depth: 180,
+            color: '#2E7FA8',
+          }
         : canonical.id === 'van'
-          ? { centerX: 0, centerZ: -159, width: 420, depth: 200, color: '#3E93A0' }
+          ? {
+            centerX: 0,
+            /**
+             * The shore sits past everything that stands on land.
+             *
+             * The side houses reach z = -74 and the water's near edge was at
+             * -59, so the last pair of them were standing in the lake. At -80
+             * the ground runs out first and the water starts after it.
+             */
+            centerZ: -180,
+            width: 420,
+            depth: 200,
+            color: '#3E93A0',
+          }
           : null,
     /**
      * Scenery beyond the play area. The Beyoğlu row stands behind the walk as

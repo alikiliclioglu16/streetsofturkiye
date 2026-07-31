@@ -581,9 +581,9 @@
     {
       "key": "balloon-0",
       "position": [
-        -26,
-        26,
-        -107
+        -14,
+        22,
+        -27
       ],
       "scale": 2.2,
       "driftSpeed": 0.7,
@@ -592,44 +592,44 @@
     {
       "key": "balloon-1",
       "position": [
-        18,
-        38,
-        -131
+        12,
+        26,
+        -55
       ],
-      "scale": 1.7,
+      "scale": 1.9,
       "driftSpeed": 1.06,
       "phase": 1.37
     },
     {
       "key": "balloon-2",
       "position": [
-        -8,
-        31,
-        -149
+        -9,
+        21,
+        -87
       ],
-      "scale": 1.35,
+      "scale": 1.7,
       "driftSpeed": 1.42,
       "phase": 2.74
     },
     {
       "key": "balloon-3",
       "position": [
-        34,
-        47,
-        -169
+        17,
+        30,
+        -117
       ],
-      "scale": 1.1,
+      "scale": 1.4,
       "driftSpeed": 0.8799999999999999,
       "phase": 4.11
     },
     {
       "key": "balloon-4",
       "position": [
-        -38,
-        40,
-        -191
+        -24,
+        34,
+        -151
       ],
-      "scale": 0.92,
+      "scale": 1.1,
       "driftSpeed": 1.24,
       "phase": 5.48
     },
@@ -637,10 +637,10 @@
       "key": "balloon-5",
       "position": [
         8,
-        54,
-        -213
+        42,
+        -189
       ],
-      "scale": 0.75,
+      "scale": 0.85,
       "driftSpeed": 0.7,
       "phase": 6.85
     },
@@ -648,10 +648,10 @@
       "key": "balloon-6",
       "position": [
         -18,
-        46,
-        -241
+        48,
+        -227
       ],
-      "scale": 0.6,
+      "scale": 0.65,
       "driftSpeed": 1.06,
       "phase": 8.22
     },
@@ -659,37 +659,39 @@
       "key": "balloon-7",
       "position": [
         26,
-        60,
-        -269
+        58,
+        -265
       ],
-      "scale": 0.48,
+      "scale": 0.5,
       "driftSpeed": 1.42,
       "phase": 9.59
     },
     {
       "key": "balloon-near-a",
       "position": [
-        -30,
-        19,
-        -29
+        -11,
+        17,
+        -25
       ],
-      "scale": 2.5,
+      "scale": 2.4,
       "driftSpeed": 0.62,
       "phase": 0.4
     },
     {
       "key": "balloon-near-b",
       "position": [
-        28,
-        23,
-        -59
+        13,
+        19,
+        -57
       ],
-      "scale": 2.1,
+      "scale": 2.2,
       "driftSpeed": 0.85,
       "phase": 2.1
     }
   ],
   "tramLine": null,
+  "ferryLine": null,
+  "canoeLines": [],
   "trainLine": null,
   "water": null,
   "backdrop": [
@@ -808,7 +810,7 @@
       "position": [
         0,
         0,
-        65.1
+        77.1
       ],
       "rotationY": 3.142,
       "solid": true,
@@ -819,7 +821,7 @@
       "position": [
         0,
         0,
-        -126.1
+        -138.1
       ],
       "rotationY": 0,
       "solid": true,
@@ -828,7 +830,7 @@
     {
       "assetId": "city_nevsehir_valley",
       "position": [
-        -54.1,
+        -66.1,
         0,
         -3
       ],
@@ -839,7 +841,7 @@
     {
       "assetId": "city_nevsehir_valley",
       "position": [
-        -54.1,
+        -66.1,
         0,
         -107
       ],
@@ -850,7 +852,7 @@
     {
       "assetId": "city_nevsehir_valley",
       "position": [
-        54.1,
+        66.1,
         0,
         -3
       ],
@@ -861,7 +863,7 @@
     {
       "assetId": "city_nevsehir_valley",
       "position": [
-        54.1,
+        66.1,
         0,
         -107
       ],

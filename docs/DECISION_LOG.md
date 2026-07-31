@@ -2645,3 +2645,47 @@ child stands.
 guessing at coordinates and the fourth time the sweep found it in one run.** The
 lesson from D-149 was written down and then not reached for. It should be the
 first thing tried, not the thing tried after three attempts.
+
+## D-161 — Cappadocia's valley leaned over the street (31 Jul 2026)
+
+The screenshot showed a brown mass across the top of the view with sky and the
+street visible underneath it.
+
+The file is 39.72 × 6 × 39.12 and the registry records 79.4 × 12 × 78.2 —
+exactly double on every axis. So the plates were drawn at half the size the
+layout had always assumed, which is why the ring was written with a generous
+overlap in the first place. D-124 gave them the size on the record, and a twelve
+metre rim aligned exactly on the boundary is about forty degrees of the sky from
+a child's eye fifteen metres away. It leans, and because a valley plate is a
+dish, you can see under its lip.
+
+Near-edge alignment was right for a six metre rim and wrong for a twelve metre
+one. The plates are set back twelve metres past the boundary now. The rule
+(D-101) has not changed — it stops a landscape swallowing the play area — but a
+piece that tall needs distance as well as alignment.
+
+## D-162 — Two shorelines, put where they belong and left there (31 Jul 2026)
+
+Water is drawn over the ground now (D-154), so wherever the plane's near edge
+falls is where the sea appears to start. Both cities had it in the wrong place
+and I had moved Van's four times in as many turns, which the owner noticed
+before I did.
+
+- **İstanbul: the shore is the Maiden's Tower.** The near edge was at the play
+  boundary, so the Bosphorus ran up to the houses. It sits at z = -142 now, four
+  metres in front of the tower, which puts the tower in the water where an
+  island belongs and the quay on land.
+- **Van: the shore is past the last house.** The side houses reach z = -74 and
+  the water started at -59, so the far pair stood in the lake. The near edge is
+  at -80. The canoes moved with it and cross between -84 and -99, on water and
+  still in front of the island.
+
+The balloons came down at the same time. They used to start thirty-four metres
+past the last stop and climb to sixty; from the street that is a row of specks
+near the top of the sky. Four of them are within thirty metres of the walk now,
+at seventeen to thirty metres up, so a child looking ahead has one in view and
+the near pair read as baskets with people in them.
+
+And Van's citadel ridge is square to the castle rather than turned. A spine is a
+long shape and only reads as one seen broadside; turned even a fifth of a radian
+it foreshortens into a lump.

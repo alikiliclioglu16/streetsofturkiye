@@ -482,33 +482,33 @@
     {
       "from": [
         -46,
-        -76
+        -87
       ],
       "to": [
         30,
-        -70
+        -84
       ],
       "speed": 1.5
     },
     {
       "from": [
         38,
-        -92
+        -95
       ],
       "to": [
         -24,
-        -97
+        -99
       ],
       "speed": 1.1
     },
     {
       "from": [
         -52,
-        -84
+        -90
       ],
       "to": [
         46,
-        -89
+        -93
       ],
       "speed": 1.9
     }
@@ -516,7 +516,7 @@
   "trainLine": null,
   "water": {
     "centerX": 0,
-    "centerZ": -159,
+    "centerZ": -180,
     "width": 420,
     "depth": 200,
     "color": "#3E93A0"
@@ -672,7 +672,7 @@
         0,
         40
       ],
-      "rotationY": -0.35,
+      "rotationY": 3.141592653589793,
       "solid": true,
       "note": "the citadel ridge, right of the castle"
     },
@@ -716,7 +716,7 @@
         0,
         20
       ],
-      "rotationY": 0.55,
+      "rotationY": 3.141592653589793,
       "solid": true,
       "note": "ridge beside the castle"
     },
