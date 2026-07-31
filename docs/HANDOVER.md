@@ -43,7 +43,7 @@ Three cities are finished end to end. **Kars is open and unbuilt** — walkable,
 with a placeholder at every stop and across its whole horizon, the way Nevşehir
 and Gaziantep were each opened. Its brief is `docs/KARS_ASSET_BRIEF.md`.
 
-`npm run gate` is green: 81 cities, 249 stops, 84 questions, **338 tests**,
+`npm run gate` is green: 81 cities, 249 stops, 84 questions, **339 tests**,
 clean lint and typecheck, 4 routes built.
 
 Assets total 70.63 MB on disk; a single city visit downloads far less because
@@ -356,7 +356,11 @@ cities — all of them towards the size the layout already assumed. The maths is
 tested; what is not tested is whether a 17 m chimney ridge looks right behind
 Nevşehir. This is the one change in the project that most needs a pair of eyes.
 
-**3. Kars's three rewards.** Everything else in the city is built — horizon,
+**3. Van's art.** The city is open and has its theme; every model in it is a
+placeholder. `docs/VAN_ASSET_BRIEF.md` lists all eleven in the order to draw
+them. The Van cat has to be rigged; nothing else does.
+
+**3b. Kars's three rewards.** Everything else in the city is built — horizon,
 stops, geese, theme, and a locomotive that crosses it every fifteen seconds.
 What is left is the stone rubbing, the ticket and the wedge of gravyer, all
 three small and all three still placeholders. `docs/KARS_ASSET_BRIEF.md` has
@@ -368,7 +372,7 @@ blocking — `kit_kars_goose` keeps its routes and draws nothing until one exist
 `docs/KARS_GOOSE_PRERIG_REPORT.md` has what a rigger would need, and the clip
 must be called `Walking`, with the -ing.
 
-**4. Then a fifth city.** Everything needed is in place: the shared kit, three
+**4. Then a sixth city.** Everything needed is in place: the shared kit, three
 regional grounds, the planting table, the animal table, the layout that handles
 three stops as well as five. A new city needs its three-to-five stop objects, a
 horizon, a theme, and a line in `PLAYABLE_CITY_IDS`. Adding one now costs a

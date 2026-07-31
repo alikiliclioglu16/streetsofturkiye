@@ -455,5 +455,80 @@ export const MANIFEST_ENTRIES: readonly ManifestEntry[] = [
     "textureBudget": "1K",
     "fallbackShape": "box",
     "notes": "Wedge with visible round holes on the cut faces"
+  },
+  {
+    "id": "kit_van_cat",
+    "kind": "model",
+    "tier": "midground",
+    "status": "briefed",
+    "dimensions": [
+      0.22,
+      0.35,
+      0.55
+    ],
+    "triangleBudget": 7000,
+    "textureBudget": "1K",
+    "fallbackShape": "box",
+    "notes": "Van cat; white long hair, odd eyes. Rigged, Walking clip, no root motion"
+  },
+  {
+    "id": "kit_van_orchard",
+    "kind": "model",
+    "tier": "midground",
+    "status": "briefed",
+    "dimensions": [
+      7,
+      4.6,
+      7
+    ],
+    "triangleBudget": 6000,
+    "textureBudget": "1K",
+    "fallbackShape": "box",
+    "notes": "Fruit orchard cluster, low and spreading"
+  },
+  {
+    "id": "collectible_van_cat_plush",
+    "kind": "model",
+    "tier": "collectible",
+    "status": "briefed",
+    "dimensions": [
+      0.16,
+      0.2,
+      0.12
+    ],
+    "triangleBudget": 4000,
+    "textureBudget": "1K",
+    "fallbackShape": "box",
+    "notes": "Soft toy Van cat, odd eyes readable"
+  },
+  {
+    "id": "collectible_van_boat_ticket",
+    "kind": "model",
+    "tier": "collectible",
+    "status": "briefed",
+    "dimensions": [
+      0.13,
+      0.09,
+      0.05
+    ],
+    "triangleBudget": 2000,
+    "textureBudget": "1K",
+    "fallbackShape": "plane",
+    "notes": "Card boat ticket, no legible text"
+  },
+  {
+    "id": "collectible_van_breakfast_plate",
+    "kind": "model",
+    "tier": "collectible",
+    "status": "briefed",
+    "dimensions": [
+      0.22,
+      0.05,
+      0.22
+    ],
+    "triangleBudget": 5000,
+    "textureBudget": "1K",
+    "fallbackShape": "box",
+    "notes": "Round plate with cheese, honey, olives"
   }
 ] as const;

@@ -26,7 +26,7 @@ const manifestById = new Map(
 const CANONICAL = path.join(ROOT, 'content/canonical');
 const OUT = path.join(ROOT, 'content/scenes');
 
-const PILOT = ['istanbul', 'nevsehir', 'gaziantep', 'kars'];
+const PILOT = ['istanbul', 'nevsehir', 'gaziantep', 'kars', 'van'];
 
 const readJson = (file) => JSON.parse(fs.readFileSync(file, 'utf8'));
 const manifest = readJson(path.join(CANONICAL, 'manifest.json'));
@@ -66,6 +66,9 @@ const COMMISSIONED_ASSETS = {
   'kars:antik': 'city_kars_ani_carved_doorway',
   'kars:tren': 'city_kars_eastern_express_platform',
   'kars:stall': 'city_kars_gravyer_stall',
+  'van:vancat': 'city_van_cat_basket',
+  'van:gol': 'city_van_akdamar_jetty',
+  'van:stall': 'city_van_breakfast_table',
 };
 
 /** Commissioned collectibles, keyed by canonical stop id. */
@@ -82,6 +85,9 @@ const COMMISSIONED_REWARDS = {
   'kars-stop-01': 'collectible_kars_stone_rubbing',
   'kars-stop-02': 'collectible_kars_express_ticket',
   'kars-stop-03': 'collectible_kars_gravyer_wedge',
+  'van-stop-01': 'collectible_van_cat_plush',
+  'van-stop-02': 'collectible_van_boat_ticket',
+  'van-stop-03': 'collectible_van_breakfast_plate',
 };
 
 /**
@@ -145,15 +151,17 @@ const KARS_TRACK_Z = -66;
 
 const ANIMAL_OVERRIDES = {
   gaziantep: 'dog',
+  van: 'vancat',
 };
 
+/** Which surface each region's streets are laid with. */
 const REGION_SURFACE = {
   marmara: 'cobblestone',
   aegean: 'cobblestone',
   mediterranean: 'cobblestone',
   'black-sea': 'cobblestone',
   'central-anatolia': 'redsand',
-  'eastern-anatolia': 'rock',
+  'eastern-anatolia': 'steppe',
   'southeastern-anatolia': 'redsand',
 };
 
@@ -170,6 +178,7 @@ const CITY_THEMES = {
   nevsehir: '/assets/audio/nevsehir_theme.webm',
   gaziantep: '/assets/audio/gaziantep_theme.webm',
   kars: '/assets/audio/kars_theme.webm',
+  van: '/assets/audio/van_theme.webm',
 };
 
 /**
@@ -533,7 +542,10 @@ function animalRoutes(stopPositions, geometry, animal, metrics) {
       .slice(0, 4);
   }
 
-  // Cats: short beats, tucked in near the pavement.
+  // Cats — İstanbul's tabbies and Van's odd-eyed whites alike: short beats,
+  // tucked in near the pavement. A Van cat is a different animal to look at
+  // and the same one to walk.
+  animal = animal === 'vancat' ? 'cat' : animal;
   const candidates = [
     [
       { x: -11.5, z: firstZ - 11 },
@@ -921,6 +933,72 @@ function cityBackdrop(cityId, stopPositions, metrics) {
         solid: false,
         note: `olive grove ${i + 1}`,
       })),
+    ];
+  }
+
+  if (cityId === 'van') {
+    /**
+     * A city between a rock and a lake.
+     *
+     * Van's four directions are its own. The sides are the Urartian citadel
+     * ridge — a long spine of bare rock with chambers cut into it, which is
+     * what Tushpa is — and orchards where the rock gives out. Ahead is the
+     * lake, and Akdamar on it. Behind is Erek, the mountain the town sits
+     * under.
+     *
+     * Nothing here is borrowed. Ani's ruins are churches standing in grass and
+     * these are galleries cut into a cliff; Kars's mountain closes a plateau
+     * and this one stands over water.
+     */
+    const spurs = 3;
+    return [
+      ...[-1, 1].flatMap((side) =>
+        Array.from({ length: spurs }, (_, i) => {
+          const z = firstZ + 8 - ((span + 24) * i) / (spurs - 1);
+          return wall(
+            'city_van_citadel_ridge',
+            side * 24,
+            z,
+            `citadel ridge ${side < 0 ? 'west' : 'east'} ${i + 1}`,
+          );
+        }),
+      ),
+      // Orchards fill the gaps between the spurs, low and never solid.
+      ...[
+        [-33, firstZ - span * 0.2],
+        [32, firstZ - span * 0.42],
+        [-31, lastZ - 12],
+        [34, lastZ - 18],
+      ].map(([x, z], i) => ({
+        assetId: 'kit_van_orchard',
+        position: [x, 0, Math.round(z * 10) / 10],
+        rotationY: Math.round(i * 1.3 * 1000) / 1000,
+        solid: false,
+        note: `orchard ${i + 1}`,
+      })),
+      {
+        /**
+         * Akdamar, out on the water and small with distance — the island is a
+         * thing to look at rather than reach, the way the Maiden's Tower is.
+         */
+        assetId: 'city_van_akdamar_island',
+        position: [-14, 0, Math.round((lastZ - 78) * 10) / 10],
+        rotationY: 0.5,
+        solid: false,
+        note: 'Akdamar out on the lake',
+      },
+      {
+        /**
+         * Erek behind the town. Aligned by its near edge, as every landscape
+         * plate is: 90 m of mountain centred on the boundary would put the
+         * square inside it (D-101).
+         */
+        assetId: 'city_van_erek_mountain',
+        position: [6, 0, Math.round((behind + 22 + 90 / 2) * 10) / 10],
+        rotationY: Math.PI - 0.2,
+        solid: false,
+        note: 'Erek, behind the town',
+      },
     ];
   }
 
@@ -1430,10 +1508,18 @@ function buildScene(canonical) {
       canonical.id === 'kars'
         ? { from: [-140, KARS_TRACK_Z], to: [140, KARS_TRACK_Z] }
         : null,
+    /**
+     * Water starts past the play boundary, so a child can see it and never
+     * walk into it. İstanbul opens on to the Bosphorus; Van opens on to the
+     * lake, which is a different colour — Van is soda water and reads paler
+     * and greener than the sea.
+     */
     water:
       canonical.id === 'istanbul'
         ? { centerX: 0, centerZ: -202, width: 320, depth: 180, color: '#2E7FA8' }
-        : null,
+        : canonical.id === 'van'
+          ? { centerX: 0, centerZ: -196, width: 340, depth: 190, color: '#3E93A0' }
+          : null,
     /**
      * Scenery beyond the play area. The Beyoğlu row stands behind the walk as
      * a skyline; the Maiden's Tower sits offshore, where it belongs.

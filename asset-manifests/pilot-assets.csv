@@ -28,3 +28,8 @@ kit_kars_goose,model,midground,briefed,0.35x0.75x0.85,6000,1K,box,"Kars goose; f
 collectible_kars_stone_rubbing,model,collectible,briefed,0.22x0.02x0.30,3000,1K,plane,"Paper rubbing of an interlace carving; slight curl"
 collectible_kars_express_ticket,model,collectible,briefed,0.14x0.01x0.09,2000,1K,plane,"Card ticket, punched, no legible text"
 collectible_kars_gravyer_wedge,model,collectible,briefed,0.20x0.14x0.16,5000,1K,box,"Wedge with visible round holes on the cut faces"
+kit_van_cat,model,midground,briefed,0.22x0.55x0.35,7000,1K,box,"Van cat; white long hair, odd eyes. Rigged, Walking clip, no root motion"
+kit_van_orchard,model,midground,briefed,7.0x7.0x4.6,6000,1K,box,"Fruit orchard cluster, low and spreading"
+collectible_van_cat_plush,model,collectible,briefed,0.16x0.12x0.20,4000,1K,box,"Soft toy Van cat, odd eyes readable"
+collectible_van_boat_ticket,model,collectible,briefed,0.13x0.01x0.09,2000,1K,plane,"Card boat ticket, no legible text"
+collectible_van_breakfast_plate,model,collectible,briefed,0.22x0.22x0.05,5000,1K,box,"Round plate with cheese, honey, olives"

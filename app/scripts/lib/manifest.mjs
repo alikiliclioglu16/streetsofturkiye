@@ -73,6 +73,12 @@ export const GRAYBOX_DIMENSIONS = {
   mosque: [12, 14, 12],
   theatre: [14, 5, 14],
   gol: [16, 0.2, 16],
+  /**
+   * Van. A cat in a basket is the smallest stop object in the project; the
+   * jetty is long rather than tall, because what a child walks up to is the
+   * boarding point and the island is out on the water.
+   */
+  vancat: [1.1, 0.9, 0.9],
   selale: [6, 10, 3],
   /**
    * Kars. A ruined doorway and a cheese stall are ordinary stop objects; the
@@ -113,6 +119,19 @@ export const DELIVERED_DIMENSIONS = {
   city_gaziantep_zeugma_mosaic_panel: [1.82, 2.2, 0.69],
   city_gaziantep_baklava_counter: [2.26, 1.3, 0.86],
   city_gaziantep_coppersmith_workbench: [2.18, 1.9, 1.65],
+  /**
+   * Van, briefed and not yet delivered. Named here so the street is laid out
+   * for the objects that are coming: `gol` would otherwise hand the jetty a
+   * sixteen metre square, which is the lake's footprint and not the boarding
+   * point's.
+   */
+  city_van_citadel_ridge: [26.0, 15.0, 14.0],
+  city_van_akdamar_island: [22.0, 11.0, 18.0],
+  city_van_erek_mountain: [96.0, 30.0, 90.0],
+  kit_van_orchard: [7.0, 4.6, 7.0],
+  city_van_cat_basket: [1.1, 0.9, 0.9],
+  city_van_akdamar_jetty: [2.4, 1.8, 6.5],
+  city_van_breakfast_table: [2.6, 1.5, 1.7],
   city_kars_ani_carved_doorway: [3.57, 5.0, 1.06],
   city_kars_eastern_express_platform: [5.45, 3.4, 3.47],
   city_kars_gravyer_stall: [2.21, 2.2, 1.19],

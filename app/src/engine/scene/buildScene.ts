@@ -295,6 +295,16 @@ export function buildScene(city: CityDefinition, quality: QualityTier): SceneDes
     horse: ['kit_anatolian_horse'],
     goose: ['kit_kars_goose'],
     dog: ['kit_street_dog_tan', 'kit_street_dog_dark'],
+    /**
+     * Van's own cat, and not the street cat with a different coat.
+     *
+     * A Van cat is white, long-haired, and famously odd-eyed — one blue, one
+     * amber. That is the answer to the city's own quiz question, and a child
+     * who has just been told it should be able to find one walking about.
+     * Reusing İstanbul's tabby would make the question unanswerable from the
+     * street.
+     */
+    vancat: ['kit_van_cat'],
     cat: ['kit_street_cat'],
   };
   const animalIds = ANIMAL_ASSETS[city.animal] ?? ['kit_street_cat'];

@@ -2335,3 +2335,40 @@ The general lesson, and it is not about Kars: when the complaint is about what
 something looks like from somewhere, measure it from there. Every earlier
 attempt here was an argument with a screenshot conducted through a coordinate
 list.
+
+## D-150 — Van is open (31 Jul 2026)
+
+The fifth city, and the second outside the pilot. Three stops and one question,
+the same shape as Gaziantep and Kars. The guide is Nasreddin Hodja and this time
+that is canonical rather than an override.
+
+Its theme is in: *Van Halayı*, 3 minutes 22, Opus at 1.46 MB. Everything else is
+a placeholder and `docs/VAN_ASSET_BRIEF.md` lists the eleven files.
+
+**Kars stopped being the eastern default.** `REGION_SURFACE` had eastern Anatolia
+resolving to `rock`, which was written for Ani — a bare volcanic shelf cracked
+into plates. Van stands on a lake shore. The region goes back to `steppe`, which
+is what that surface was kept for, and Kars becomes a per-city exception in
+`CITY_SURFACE`. Putting Ani's bedrock under Van because both provinces are
+eastern is the same mistake as red sand under Ani, one table further along.
+
+**Van has the Van cat, and it is not the street cat repainted.** A Van cat is
+white, long-haired and odd-eyed — one blue, one amber — and *What makes the Van
+cat special?* is the city's only question. A child who has just been told the
+answer should be able to find one walking about. Reusing İstanbul's tabby would
+make the question unanswerable from the street, which is a content bug wearing an
+art decision's clothes.
+
+It walks like a cat, though: short beats tucked in near the pavement. Different
+animal to look at, same one to walk, and the route generator says so in one line
+rather than growing a fourth gait.
+
+**The lake is water, and a different water.** İstanbul's sea starts past the play
+boundary so a child can see it and never walk into it; Van's lake does the same
+and is a paler, greener blue, because Van is soda water and does not look like
+the Bosphorus.
+
+**Four directions, none borrowed.** Sides: the citadel ridge — Tushpa is not a
+castle on a hill but galleries cut into a limestone spine, which is why Van's
+sides do not look like Ani's churches standing in grass. Front: the lake, with
+Akdamar out on it. Behind: Erek. Orchards fill the gaps.
