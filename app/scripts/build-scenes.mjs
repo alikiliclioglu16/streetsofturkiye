@@ -1015,17 +1015,52 @@ function cityBackdrop(cityId, stopPositions, metrics) {
         solid: false,
         note: 'the cathedral, standing apart',
       },
+      /**
+       * The walls close the back — two segments, not one, facing each other
+       * across the square.
+       *
+       * One 31 m run left the ground either side of it open, and that gap is
+       * the first thing a child sees when they turn round: two ruins in the
+       * distance and pale sky between them.
+       *
+       * Fourteen metres apart rather than sixteen. At sixteen the two runs
+       * stopped half a metre short of each other and left a slit down the
+       * middle of the back wall — one metre wide, directly ahead of a child who
+       * turns round, which is the worst metre on the map to leave open. At
+       * fourteen they overlap by three. A second segment mirrored beside
+       * the first takes the run to 63 m, which covers the whole back including
+       * the ground the corner ruins stand on.
+       *
+       * Near edge on the boundary, which is the rule the Nevşehir valley
+       * taught: a twenty metre deep piece centred there would swallow the
+       * square.
+       */
+      ...[-14, 14].map((x) => ({
+        assetId: 'city_kars_ani_walls',
+        position: [x, 0, Math.round((behind + 20.71 / 2) * 10) / 10],
+        // Mirrored, so the two are each other's reflection rather than the same
+        // wall printed twice — the gate reads once, in the middle.
+        rotationY: x < 0 ? Math.PI : 0,
+        solid: true,
+        note: `the city walls ${x < 0 ? 'west' : 'east'}`,
+      })),
       {
         /**
-         * The walls close the back and are the way in. Aligned by their near
-         * edge on the boundary, which is the rule the Nevşehir valley taught:
-         * a twenty metre deep piece centred there would swallow the square.
+         * Sarıkamış behind all of it.
+         *
+         * The back of Kars was pale blue nothing above the ruins. This is the
+         * largest thing in the project — 109 m across, 34 m tall against walls
+         * of 14 — because a mountain that does not tower over the buildings in
+         * front of it is a hill.
+         *
+         * Near edge well behind the walls, and 113 m deep, so centring it on
+         * the boundary would put the whole city inside a mountain (D-101).
          */
-        assetId: 'city_kars_ani_walls',
-        position: [0, 0, Math.round((behind + 20.71 / 2) * 10) / 10],
+        assetId: 'city_kars_sarikamis_mountain',
+        position: [0, 0, Math.round((behind + 26 + 113.46 / 2) * 10) / 10],
         rotationY: Math.PI,
-        solid: true,
-        note: 'the city walls and the Arslan Gate, behind',
+        solid: false,
+        note: 'Sarıkamış, closing the sky behind the walls',
       },
       ...[
         [0, lastZ - 26, 0],

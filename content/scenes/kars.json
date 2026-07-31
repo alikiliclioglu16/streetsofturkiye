@@ -679,13 +679,35 @@
     {
       "assetId": "city_kars_ani_walls",
       "position": [
-        0,
+        -14,
         0,
         36.4
       ],
       "rotationY": 3.141592653589793,
       "solid": true,
-      "note": "the city walls and the Arslan Gate, behind"
+      "note": "the city walls west"
+    },
+    {
+      "assetId": "city_kars_ani_walls",
+      "position": [
+        14,
+        0,
+        36.4
+      ],
+      "rotationY": 0,
+      "solid": true,
+      "note": "the city walls east"
+    },
+    {
+      "assetId": "city_kars_sarikamis_mountain",
+      "position": [
+        0,
+        0,
+        108.7
+      ],
+      "rotationY": 3.141592653589793,
+      "solid": false,
+      "note": "Sarıkamış, closing the sky behind the walls"
     },
     {
       "assetId": "city_kars_ani_gorge",

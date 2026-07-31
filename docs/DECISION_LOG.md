@@ -2238,3 +2238,31 @@ look inhabited.
 All eight sit behind the square now, flanking the walls at both ends and
 thickening the back so it does not finish in a line. The front stays as gorge,
 track and sky.
+
+## D-147 — The back of Kars is closed, and Sarıkamış stands behind it (31 Jul 2026)
+
+Turning round at the spawn showed two ruins in the distance and pale blue sky
+between them. Three things were wrong with the back and they compounded.
+
+**One wall is not a wall.** A single 31 m run left the ground either side of it
+open. Two segments now, mirrored, facing each other across the square — 59 m of
+wall, which covers the whole back including the ground the corner ruins stand
+on.
+
+**Sixteen metres apart left a slit.** Two 31 m runs centred at ±16 stop half a
+metre short of each other: a one metre gap straight down the middle, directly
+ahead of a child who turns round, which is the worst metre on the map to leave
+open. Fourteen metres apart overlaps by three.
+
+The test holds coverage rather than spacing — no gap anywhere across the run,
+and the run reaching past the street on both sides — so the numbers can move
+without the rule moving.
+
+**And there was nothing above any of it.** Sarıkamış is now the largest thing in
+the project: 109 m across and 34 m tall, against walls of 14 and a cathedral of
+15. That ratio is the whole point. A mountain that does not tower over the
+buildings in front of it is a hill, and the reason the back read as empty was
+that the tallest thing in it was 14 m and the rest was sky.
+
+Aligned by its near edge, 113 m deep, well behind the walls — centred on the
+boundary it would have put the entire city inside a mountain (D-101).

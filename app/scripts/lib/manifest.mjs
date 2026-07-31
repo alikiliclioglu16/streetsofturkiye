@@ -117,6 +117,7 @@ export const DELIVERED_DIMENSIONS = {
   city_kars_eastern_express_platform: [5.45, 3.4, 3.47],
   city_kars_gravyer_stall: [2.21, 2.2, 1.19],
   city_kars_eastern_express: [20.01, 3.6, 2.96],
+  city_kars_sarikamis_mountain: [109.36, 34.0, 113.46],
   city_kars_ani_chapel: [7.95, 9.0, 8.7],
   city_kars_ani_church: [8.8, 11.0, 11.78],
   city_kars_ani_cathedral: [20.23, 15.0, 22.15],

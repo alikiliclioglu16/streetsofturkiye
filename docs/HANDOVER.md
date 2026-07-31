@@ -35,7 +35,7 @@ Fiber 9, Drei 10, Zustand 5, Zod 4, Vitest 4.
 | Guide | Nasreddin Hodja | Keloğlan | Keloğlan | Nasreddin Hodja |
 | Ground | cobblestone | red sand | red sand | bedrock, turf under the geese |
 | Animal | 5 cats | 3 horses | 4 street dogs, two of each | 3 geese, standing |
-| Horizon | facades, sea, ferry, Maiden's Tower | chimney ridges, valley rim | stone houses, castle, olive groves, bazaar gate | Ani chapels and churches, cathedral, walls, gorge |
+| Horizon | facades, sea, ferry, Maiden's Tower | chimney ridges, valley rim | stone houses, castle, olive groves, bazaar gate | Ani ruins, cathedral, paired walls, gorge, Sarıkamış |
 | Music | *Üsküdar'a Gider İken* | *Gökyüzü Balonları* | *Sarı Çoraplı Yol* | *Kars Yaylası* |
 | Balloons | no | **yes** | no | no |
 
@@ -43,7 +43,7 @@ Three cities are finished end to end. **Kars is open and unbuilt** — walkable,
 with a placeholder at every stop and across its whole horizon, the way Nevşehir
 and Gaziantep were each opened. Its brief is `docs/KARS_ASSET_BRIEF.md`.
 
-`npm run gate` is green: 81 cities, 249 stops, 84 questions, **336 tests**,
+`npm run gate` is green: 81 cities, 249 stops, 84 questions, **337 tests**,
 clean lint and typecheck, 4 routes built.
 
 Assets total 70.63 MB on disk; a single city visit downloads far less because

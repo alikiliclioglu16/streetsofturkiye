@@ -435,6 +435,30 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
     notes: 'Delivered 24.42 MB buried 1.5 m; re-authored to 3.6 m on y = 0, 0.87 MB.',
   },
   {
+    id: 'city_kars_sarikamis_mountain',
+    modelUrl: '/assets/city/city_kars_sarikamis_mountain.glb',
+    checksum: '161248aa536fb19a42c0204b2528bdb95230591e1e5cebdd2e831f520bfab9fa',
+    triangles: 10_445,
+    transferBytes: 2486116,
+    /**
+     * Sarıkamış, standing behind the walls and closing the sky.
+     *
+     * The largest thing in the project: 109 m across and 34 m tall, against
+     * walls of 14 and a cathedral of 15. That ratio is the point — the back of
+     * Kars was pale blue nothing above the ruins, and a mountain that does not
+     * tower over the buildings in front of it is a hill.
+     *
+     * Aligned by its near edge like every other landscape plate. It is 113 m
+     * deep, so centring it on the boundary would put the whole city inside a
+     * mountain (D-101).
+     */
+    dimensions: [109.36, 34.0, 113.46],
+    label: 'Sarıkamış mountain',
+    color: '#6E7B63',
+    placeholder: 'box',
+    notes: 'Delivered 25.94 MB at 15 m, buried 7.5 m; re-authored to 34 m on y = 0, 2.37 MB.',
+  },
+  {
     id: 'city_kars_ani_chapel',
     modelUrl: '/assets/city/city_kars_ani_chapel.glb',
     checksum: 'da32004c9ac737e2cd7ca6dca4bf570652c188fe11bb672770dbb954a567a8ab',

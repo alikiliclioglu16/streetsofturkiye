@@ -356,6 +356,53 @@ describe('Kars looks like Ani', () => {
     for (const ruin of ruins) expect(ruin.solid, ruin.asset.entry.id).toBe(false);
   });
 
+  it('closes the back with no gap for a child to see sky through', () => {
+    /**
+     * What a child turns round to has to be a wall, not two walls with a slit
+     * between them. The first pairing left one metre open directly on the
+     * centre line — the single worst metre on the map to leave — because two
+     * 31 m runs sixteen metres apart stop half a metre short of each other.
+     *
+     * Held as coverage of the centre rather than as a spacing, so the numbers
+     * can move as long as the back stays closed.
+     */
+    const walls = scene.backdrop.filter((p) => p.asset.entry.id === 'city_kars_ani_walls');
+    expect(walls.length).toBeGreaterThanOrEqual(2);
+
+    const spans = walls
+      .map((wall) => {
+        const [width, , depth] = wall.asset.entry.dimensions;
+        const cos = Math.abs(Math.cos(wall.rotationY));
+        const sin = Math.abs(Math.sin(wall.rotationY));
+        const halfX = (width * cos + depth * sin) / 2;
+        return [wall.position[0] - halfX, wall.position[0] + halfX] as const;
+      })
+      .sort((a, b) => a[0] - b[0]);
+
+    // No gap anywhere across the run, and the run covers the whole street.
+    for (let i = 1; i < spans.length; i += 1) {
+      expect(spans[i]![0], 'a gap between wall segments').toBeLessThanOrEqual(spans[i - 1]![1]);
+    }
+    const halfWidth = Math.max(...scene.bounds.map((corner) => Math.abs(corner[0])));
+    expect(spans[0]![0]).toBeLessThan(-halfWidth);
+    expect(spans[spans.length - 1]![1]).toBeGreaterThan(halfWidth);
+
+    // And a mountain behind them, taller than they are.
+    const mountain = scene.backdrop.find(
+      (p) => p.asset.entry.id === 'city_kars_sarikamis_mountain',
+    )!;
+    expect(mountain).toBeDefined();
+    expect(mountain.asset.entry.dimensions[1]).toBeGreaterThan(
+      walls[0]!.asset.entry.dimensions[1] * 2,
+    );
+    // Behind the walls, near edge and all.
+    const [, , mountainDepth] = mountain.asset.entry.dimensions;
+    const [, , wallsDepth] = walls[0]!.asset.entry.dimensions;
+    expect(mountain.position[2] - mountainDepth / 2).toBeGreaterThan(
+      walls[0]!.position[2] + wallsDepth / 2,
+    );
+  });
+
   it('keeps the gorge outside the play area, aligned by its near edge', () => {
     /**
      * Sixty-four metres deep. Centred on the boundary it would put the child
