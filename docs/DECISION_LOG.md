@@ -2779,3 +2779,89 @@ frame rate has been measured on a real tablet — the browser I can drive thrott
 to nothing in the background, so the number it reports is about the browser and
 not about the game. Both have been open since the first day of this work and
 neither is something I can close from here.
+
+## D-167 — The hero carried a clip it was never allowed to play (31 Jul 2026)
+
+Asked whether the hero's triangles could come down, and the first thing the
+measurement found was not triangles at all.
+
+Nasreddin Hodja shipped with `Clapping_Run` — 13.67 seconds, 9,960 keyframes —
+which the hero registry has rejected since it was written as "not aligned with
+the character tone". It was downloaded on every visit to every city and played
+never. His agree gesture is 13 s and capped at 2.5, so ten and a half seconds of
+it were keyframes nobody could see either.
+
+Both are stripped. **4.86 MB → 4.45 MB, and nothing looks different**, because
+the engine was already refusing to play the parts that are gone. The exclusion
+entry stays in the registry so a future re-export carrying the clip again is
+still refused rather than quietly played.
+
+**A correction worth making, because it changes what to optimise.** The hero
+does not multiply by 81. It is two files, cached by the browser after the first
+city, so across a whole country a child downloads it once or twice. What
+multiplies by 81 is the per-city art, which is 8 to 18 MB and rising (D-166).
+
+Where the hero *does* count is per frame: at 88,866 triangles it is the single
+largest object in every scene and more than half the resident geometry in
+İstanbul. Simplification was measured but **not applied**, because it changes
+how the guide looks and the authored budget of 70–120k was set with the owner's
+approval (D-012, D-072):
+
+| ratio | triangles | file |
+|---|---|---|
+| as delivered | 88,866 | 4.45 MB |
+| 0.7 | 62,206 | 3.68 MB |
+| 0.5 | 44,432 | 3.06 MB |
+| 0.35 | 31,102 | 2.57 MB |
+
+The skin and every remaining clip survive all three. 0.5 halves the resident
+geometry in all 81 provinces and takes the guide below the agreed floor, which
+is the owner's call and not mine.
+
+## D-168 — Both guides re-exported: three animations, a tenth of the triangles (31 Jul 2026)
+
+The owner sent new characters with idle, walk and run only, and said plainly why:
+the guides do not celebrate, do not talk and do not wave, so the clips were not
+included. That is right, and it had been true for a while — D-113 removed the
+dance, and what was left of the gestures was a nod capped at 2.5 s and a wave.
+
+| | before | after |
+|---|---|---|
+| Nasreddin Hodja | 88,866 tris · 4.86 MB | **8,409 tris · 0.95 MB** |
+| Keloğlan | 99,966 tris · 4.34 MB | **10,307 tris · 0.91 MB** |
+
+Both arrived with 2048 px PNG maps and 11 MB of texture; sized by role to
+1024/512 JPEG they come in under a megabyte each. `alphaMode` arrived BLEND and
+is forced OPAQUE, which is what the material record already asked for.
+
+**Per-visit download, every city:**
+
+| | was | now |
+|---|---|---|
+| İstanbul | 14.8 MB | **10.9 MB** |
+| Nevşehir | 20.0 MB | **16.6 MB** |
+| Gaziantep | 20.9 MB | **17.5 MB** |
+| Van | 23.3 MB | **19.4 MB** |
+| Kars | 24.3 MB | **20.4 MB** |
+
+And the guide is no longer the largest object in any scene: it was more than
+half the resident geometry in İstanbul and is now under a tenth of it.
+
+**The mesh floor moved from 70,000 to 6,000.** 180–250k came from the delivery
+brief; 70–120k came from measuring that against a download (D-012, D-072). Both
+were arguments about how much detail a guide needs up close, and the answer —
+now that someone has simply tried it — is far less than anyone assumed. The
+floor is not a target. It is the point below which a delivery is probably the
+wrong file: a proxy, a LOD, half a character. The ceiling has not moved, because
+nothing has changed about what a download can afford.
+
+**What the system gave up, deliberately.** `celebration.clips` is empty for both
+guides and `successClip` is null. The panel still opens on a clock rather than on
+a report from an animation (D-031), which is what makes an empty celebration
+harmless — the rule written for an animation that might never arrive now covers
+one that certainly will not. `excludedClips` and `maxDurationSeconds` are both
+empty and the mechanisms stay, for the next character that arrives carrying
+thirteen seconds of something.
+
+Keloğlan ships a `Run_02` that is not mapped. One run is enough, and carrying a
+spare clip is cheaper than a rule about when to prefer it.

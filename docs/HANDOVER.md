@@ -56,8 +56,8 @@ asset ids and no music, and a rule that forbids those would forbid opening a
 city at all.
 
 **Per-visit download** — the number that decides whether a child on a tablet
-ever sees the city: İstanbul 14.8 MB, Nevşehir 20.0, Gaziantep 20.9, Van 23.3,
-Kars 24.3. It is rising with each city built and a sixth built the same way
+ever sees the city: İstanbul 10.9 MB, Nevşehir 16.6, Gaziantep 17.5, Van 19.4,
+Kars 20.4 (D-168). It is rising with each city built and a sixth built the same way
 lands near 25 MB (D-166).
 
 **Immediately outstanding:**

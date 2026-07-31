@@ -5,7 +5,6 @@ import { heroRenderMode } from '@/components/three/HeroCharacter';
 import { DEGRADATION_LADDER, HERO_POLICY, QUALITY } from '@/engine/heroes/policy';
 import {
   allHeroes,
-  allowsCelebrationReplay,
   checkHeroBudget,
   clipDurationCap,
   heroById,
@@ -32,7 +31,6 @@ import {
   celebrationCamera,
   celebrationPlan,
   celebrationReducer,
-  currentCelebrationClip,
   initialCelebration,
 } from '@/engine/heroes/celebration';
 import { clipForState } from '@/engine/heroes/animation';
@@ -194,8 +192,16 @@ describe('animation', () => {
     expect(clip).toBe('walk');
   });
 
-  it('caps the nod short enough that it is over before the child moves on', () => {
-    expect(clipDurationCap(heroById('nasreddin-hoca'), 'Agree_Gesture')).toBeLessThanOrEqual(3);
+  it('caps nothing, because there is nothing left to cap', () => {
+    /**
+     * Nasreddin Hodja's agree gesture ran 13 s and was capped at 2.5. Both are
+     * gone: the re-export ships idle, walk and run, and the guide neither nods
+     * nor waves (D-168). The cap mechanism stays for the next character that
+     * arrives with a thirteen second anything.
+     */
+    for (const hero of allHeroes()) {
+      expect(Object.keys(hero.animation.maxDurationSeconds ?? {})).toEqual([]);
+    }
   });
 
 
@@ -272,8 +278,8 @@ describe('delivered Keloğlan model', () => {
       '/assets/heroes/Meshy_AI_Little_Adventurer_biped_Meshy_AI_Meshy_Merged_Animations.glb',
     );
     expect(keloglan.checksum).toHaveLength(64);
-    expect(keloglan.triangles).toBe(99_966);
-    expect(keloglan.transferBytes).toBe(4_551_556);
+    expect(keloglan.triangles).toBe(10_307);
+    expect(keloglan.transferBytes).toBe(954_780);
     expect(keloglan.measuredHeightMeters).toBe(1.7);
   });
 
@@ -284,28 +290,27 @@ describe('delivered Keloğlan model', () => {
   it('sits inside the approved hero triangle range without decimation', () => {
     const check = checkHeroBudget(keloglan);
     expect(check.withinBudget).toBe(true);
-    expect(check.triangles).toBe(99_966);
+    expect(check.triangles).toBe(10_307);
   });
 
-  it('maps the four state clips to names that exist in the file', () => {
-    const { clips, deliveredClips } = keloglan.animation;
-    expect(clips).toEqual({
+  it('maps its three state clips to names that exist in the file', () => {
+    expect(keloglan.animation.clips).toEqual({
       idle: 'Idle_11',
       walk: 'Walking',
       run: 'Running',
-      talk: 'Talk_Passionately',
     });
-    for (const name of Object.values(clips)) {
-      expect(deliveredClips, `${name} missing from the GLB`).toContain(name);
+    for (const name of Object.values(keloglan.animation.clips)) {
+      expect(keloglan.animation.deliveredClips).toContain(name);
     }
   });
 
-  it('records all twelve delivered clips', () => {
-    // Eight dance clips were stripped from the file on 30 Jul 2026 (D-113).
-    expect(keloglan.animation.deliveredClips).toEqual([
+  it('records what the file actually ships, mapped or not', () => {
+    // `Run_02` is in the file and unmapped: one run is enough, and carrying the
+    // spare is cheaper than a rule about when to use it.
+    expect([...keloglan.animation.deliveredClips].sort()).toEqual([
       'Idle_11',
+      'Run_02',
       'Running',
-      'Talk_Passionately',
       'Walking',
     ]);
   });
@@ -399,43 +404,29 @@ describe('completion choreography', () => {
 });
 
 describe('per-character celebration policy', () => {
-  const hoca = heroById('nasreddin-hoca');
-
-
-
-
-  it('plays agree then wave then the panel for Nasreddin Hodja', () => {
-    const plan = celebrationPlan(hoca);
-    const options = { reducedMotion: false, planLength: plan.length };
-    let ctx = celebrationReducer(initialCelebration, { type: 'CITY_COMPLETED' }, options);
-    ctx = celebrationReducer(ctx, { type: 'PROGRESS_SAVED' }, options);
-    ctx = celebrationReducer(ctx, { type: 'CAMERA_FRAMED' }, options);
-    expect(currentCelebrationClip(ctx, plan)).toBe('agree');
-
-    ctx = celebrationReducer(ctx, { type: 'CLIP_FINISHED' }, options);
-    expect(ctx.state).toBe('performing');
-    expect(currentCelebrationClip(ctx, plan)).toBe('wave');
-
-    ctx = celebrationReducer(ctx, { type: 'CLIP_FINISHED' }, options);
-    expect(ctx.state).toBe('summary');
-    expect(currentCelebrationClip(ctx, plan)).toBeNull();
+  it('has no celebration to play, and reaches the panel anyway', () => {
+    /**
+     * The guides do not celebrate any more. What has to keep working is the
+     * thing D-031 protects: the panel opens on a clock, not on a report from an
+     * animation that may never arrive — and now certainly will not.
+     */
+    for (const hero of allHeroes()) {
+      expect(celebrationPlan(hero)).toEqual([]);
+    }
   });
 
 
-  it('gives both guides a short gesture sequence and no dance', () => {
+  it('gives both guides three animations and nothing else', () => {
     /**
-     * Keloğlan used to dance, from a shuffled bag of four approved clips with a
-     * persisted history so a child never saw the same one twice running. That
-     * whole subsystem is gone (D-113): the bag, the shuffle, the replay button
-     * and eight clips in the delivered file.
+     * The dance went first (D-113), then the gestures (D-168). Both guides now
+     * stand, walk and run, which is everything the game ever asked them to do —
+     * and the models came back at a tenth of the triangles for it.
      */
     for (const hero of allHeroes()) {
-      const plan = celebrationPlan(hero);
-      expect(plan.length, hero.id).toBeGreaterThan(0);
-      expect(plan.length, hero.id).toBeLessThanOrEqual(3);
-      expect(plan.every((clip) => clip !== ('dance' as never)), hero.id).toBe(true);
+      expect(Object.keys(hero.animation.clips).sort()).toEqual(['idle', 'run', 'walk']);
+      expect(hero.celebration.clips).toEqual([]);
+      expect(hero.successClip).toBeNull();
     }
-    expect(allowsCelebrationReplay()).toBe(false);
   });
 
   it('ships no dance clips in either delivered file', () => {
@@ -462,45 +453,51 @@ describe('delivered Nasreddin Hodja model', () => {
       '/assets/heroes/Meshy_AI_Teal_Robed_Sage_biped_Meshy_AI_Meshy_Merged_Animations.glb',
     );
     expect(hoca.checksum).toHaveLength(64);
-    expect(hoca.triangles).toBe(88_866);
-    expect(hoca.transferBytes).toBe(5_094_800);
+    expect(hoca.triangles).toBe(8_409);
+    expect(hoca.transferBytes).toBe(992_904);
     expect(hoca.measuredHeightMeters).toBe(1.7);
   });
 
   it('sits in the same hero technical class as Keloğlan', () => {
+    /**
+     * The floor moved from 70,000 to 6,000 (D-168). It was never a target — it
+     * is the point below which a delivery is probably the wrong file, a proxy
+     * or a LOD or half a character. Both guides came back at a tenth of the old
+     * count and hold up at a metre seven from a camera that never gets closer
+     * than about three.
+     */
     const check = checkHeroBudget(hoca);
     expect(check.withinBudget).toBe(true);
-    expect(hoca.triangles!).toBeGreaterThanOrEqual(70_000);
-    expect(hoca.triangles!).toBeLessThanOrEqual(120_000);
-  });
-
-  it('maps all six clips to names present in the file', () => {
-    const { clips, deliveredClips } = hoca.animation;
-    expect(clips).toEqual({
-      idle: 'Idle_11',
-      walk: 'Walking',
-      run: 'Running',
-      talk: 'Talk_with_Hands_Open',
-      agree: 'Agree_Gesture',
-      wave: 'Wave_One_Hand',
-    });
-    for (const name of Object.values(clips)) {
-      expect(deliveredClips, `${name} missing from the GLB`).toContain(name);
+    for (const hero of allHeroes()) {
+      expect(hero.triangles!, hero.displayName).toBeGreaterThanOrEqual(6_000);
+      expect(hero.triangles!, hero.displayName).toBeLessThanOrEqual(120_000);
     }
   });
 
-  it('never uses the excluded clapping clip', () => {
-    expect(hoca.animation.deliveredClips).toContain('Clapping_Run');
-    expect(hoca.animation.excludedClips.Clapping_Run).toBeTruthy();
-    expect(Object.values(hoca.animation.clips)).not.toContain('Clapping_Run');
-    expect(celebrationPlan(hoca).map((clip) => resolveClipName(hoca, clip as never))).not.toContain(
-      'Clapping_Run',
-    );
+  it('maps its three clips to names present in the file', () => {
+    expect(hoca.animation.clips).toEqual({
+      idle: 'Idle_11',
+      walk: 'Walking',
+      run: 'Running',
+    });
+    for (const name of Object.values(hoca.animation.clips)) {
+      expect(hoca.animation.deliveredClips).toContain(name);
+    }
   });
 
-  it('caps the 13 second agree gesture so the panel is not held back', () => {
-    expect(clipDurationCap(hoca, 'Agree_Gesture')).toBe(2.5);
-    expect(clipDurationCap(hoca, 'Wave_One_Hand')).toBeNull();
+  it('excludes nothing, because nothing unwanted is delivered any more', () => {
+    /**
+     * `Clapping_Run` was rejected as off-tone and then downloaded on every
+     * visit for weeks, unplayed. It is not in the file at all now (D-168), and
+     * neither is anything else the game does not use.
+     */
+    expect(hoca.animation.excludedClips).toEqual({});
+    expect(hoca.animation.deliveredClips).not.toContain('Clapping_Run');
+  });
+
+  it('ships no gesture to cap', () => {
+    expect(hoca.animation.deliveredClips).not.toContain('Agree_Gesture');
+    expect(clipDurationCap(hoca, 'Agree_Gesture')).toBeNull();
   });
 
   it('falls back through the documented chain when a clip is missing', () => {

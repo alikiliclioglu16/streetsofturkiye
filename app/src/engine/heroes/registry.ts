@@ -106,31 +106,31 @@ const HEROES: Readonly<Record<HeroId, HeroDefinition>> = {
      * Re-exported 30 Jul 2026 with the eight dance clips removed (D-113).
      */
     modelUrl: '/assets/heroes/Meshy_AI_Little_Adventurer_biped_Meshy_AI_Meshy_Merged_Animations.glb',
-    checksum: 'd81bc3947e8f3e59d7b015d86a6cfaf89a4cc66144a9a83f0f0d12021fe4b205',
-    triangles: 99_966,
-    transferBytes: 4551556,
+    checksum: '6bebefd8280056d1eb380c44b8b6c3fae36ff5c235b3d4eb677903c12924d1d2',
+    triangles: 10_307,
+    transferBytes: 954780,
     animation: {
       clips: {
         idle: 'Idle_11',
         walk: 'Walking',
         run: 'Running',
-        talk: 'Talk_Passionately',
       },
       excludedClips: {},
       maxDurationSeconds: {},
-      deliveredClips: ['Idle_11', 'Running', 'Talk_Passionately', 'Walking'],
+      // `Run_02` ships in the file and is not mapped: one run is enough, and a
+      // second unmapped clip is cheaper than a decision about when to use it.
+      deliveredClips: ['Idle_11', 'Run_02', 'Running', 'Walking'],
     },
     /**
-     * Keloğlan tells you about it.
+     * Nothing. He stands, walks and runs, and that is the whole character.
      *
-     * He used to dance, from a shuffled bag of four approved clips with a
-     * persisted history so a child never saw the same one twice running. All of
-     * that is gone (D-113): both guides now celebrate the same way, with a short
-     * sequence of gestures, and Keloğlan has one — an excited word about what
-     * the child just did.
+     * He used to dance from a shuffled bag of four clips (D-113 cut that to a
+     * gesture); the gesture is gone too. The re-export ships three animations
+     * because three is what the game uses — the talking and agreeing were
+     * downloaded on every visit and, once the dance went, barely surfaced.
      */
     celebration: {
-      clips: ['talk'],
+      clips: [],
     },
 
     successClip: null,
@@ -147,42 +147,32 @@ const HEROES: Readonly<Record<HeroId, HeroDefinition>> = {
      * verbatim for traceability.
      */
     modelUrl: '/assets/heroes/Meshy_AI_Teal_Robed_Sage_biped_Meshy_AI_Meshy_Merged_Animations.glb',
-    checksum: 'c536508c1dbcaa211490b01d119baceedcbed2f4e824f6900e888856b301efaa',
-    triangles: 88_866,
-    transferBytes: 5094800,
+    checksum: '600f9d9f167e406dabe046e25c76bf8bf2db2a75ce348a2674a5b4e2a6d4dfde',
+    triangles: 8_409,
+    transferBytes: 992904,
     animation: {
       clips: {
         idle: 'Idle_11',
         walk: 'Walking',
         run: 'Running',
-        talk: 'Talk_with_Hands_Open',
-        agree: 'Agree_Gesture',
-        wave: 'Wave_One_Hand',
       },
-      excludedClips: {
-        Clapping_Run: 'not aligned with the character tone',
-      },
-      /**
-       * The raw agree gesture runs 13.0 s of continuous motion. Left uncapped
-       * it held the completion panel back for 17 s, and as a per-stop nod it
-       * kept the guide in a held pose while the child was already walking.
-       * Remove this entry to play it in full.
-       */
-      maxDurationSeconds: { Agree_Gesture: 2.5 },
-      deliveredClips: [
-        'Agree_Gesture',
-        'Clapping_Run',
-        'Idle_11',
-        'Running',
-        'Talk_with_Hands_Open',
-        'Walking',
-        'Wave_One_Hand',
-      ],
+      excludedClips: {},
+      maxDurationSeconds: {},
+      deliveredClips: ['Idle_11', 'Running', 'Walking'],
     },
+    /**
+     * Nothing, and deliberately.
+     *
+     * He used to have a thirteen second agree gesture capped at 2.5, a wave and
+     * a talk, plus a clapping run the registry refused to play at all. The
+     * re-export ships three animations because three is what the game uses: the
+     * guide stands, walks and runs. Everything else was downloaded on every
+     * visit to every province and hardly ever seen.
+     */
     celebration: {
-      clips: ['agree', 'wave'],
+      clips: [],
     },
-    successClip: 'agree',
+    successClip: null,
     material: {
       forceOpaque: true,
       reason: 'alphaMode BLEND with texture alpha 210-255; measured 27 Jul 2026',

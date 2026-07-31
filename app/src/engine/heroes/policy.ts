@@ -61,7 +61,23 @@ export const HERO_POLICY: HeroCharacterPolicy = {
    * at runtime; this is a change to what is authored, not to what the renderer
    * may trade away.
    */
-  meshBudgetTriangles: { recommendedMin: 70_000, recommendedMax: 120_000 },
+  /**
+   * Revised again 31 Jul 2026, and by a long way.
+   *
+   * 180–250k came from the delivery brief. 70–120k came from measuring that
+   * against a download. Both were arguments about how much detail a guide needs
+   * to hold up close — and the answer, once the owner re-exported both
+   * characters at a tenth of the count, is far less than anyone had assumed:
+   * Nasreddin Hodja is 8,409 triangles and Keloğlan 10,307, at a metre and
+   * seven from a camera that never gets closer than about three.
+   *
+   * The floor is what matters here. It is not a target to reach; it is the
+   * point below which a delivery is probably the wrong file — a proxy, a LOD,
+   * or half a character. Six thousand is under both current heroes with room,
+   * and the ceiling stays where it was because nothing has changed about what
+   * a download can afford.
+   */
+  meshBudgetTriangles: { recommendedMin: 6_000, recommendedMax: 120_000 },
   preserveFullQualityMesh: true,
 };
 
