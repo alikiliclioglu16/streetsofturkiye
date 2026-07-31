@@ -43,11 +43,32 @@ export function Water({
     <mesh
       ref={mesh}
       rotation={[-Math.PI / 2, 0, 0]}
-      position={[centerX, -0.06, centerZ]}
+      /**
+       * Above the ground, not below it.
+       *
+       * The sea used to sit at y = -0.06 — under a paving plane that is drawn
+       * 44 m past the play boundary (D-082). Anything standing between the
+       * boundary and the edge of that paving therefore stood on stone with the
+       * sea hidden beneath: the ferry at z = -128 and the Maiden's Tower at
+       * z = -146 had been on a cobbled quay the whole time, and Van's lake
+       * looked missing for the same reason (D-152).
+       *
+       * Water over the bed is also the right way round physically. Two
+       * centimetres up plus a depth bias keeps it off the ground at distance,
+       * where either alone shows through.
+       */
+      position={[centerX, 0.02, centerZ]}
       receiveShadow
     >
       <planeGeometry args={[width, depth]} />
-      <meshStandardMaterial color={color} roughness={0.22} metalness={0.15} />
+      <meshStandardMaterial
+        color={color}
+        roughness={0.22}
+        metalness={0.15}
+        polygonOffset
+        polygonOffsetFactor={-2}
+        polygonOffsetUnits={-2}
+      />
     </mesh>
   );
 }

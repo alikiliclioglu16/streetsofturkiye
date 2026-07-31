@@ -2532,3 +2532,72 @@ citadel ridge at 15 m arrived without a place named for them, and the citadel
 ridge is the piece that was retired from Van's sides two turns ago (D-151).
 Guessing where they go is how the ferry became a row of facades. They are
 measured and waiting.
+
+## D-154 — The sea was under the pavement all along (31 Jul 2026)
+
+The owner's screenshot showed İstanbul's ferry and the Maiden's Tower standing
+on cobbles with the Bosphorus a strip on the horizon, and asked why they had
+been moved on to land.
+
+**They had not been moved.** İstanbul's scene file is byte-identical to the
+package this work started from: same water, same bounds, same backdrop, same
+positions. The ferry has always been at z = -128 and the tower at z = -146.
+
+What was wrong is older and structural. The paving is drawn 44 m past the play
+boundary (D-082), the boundary is at z = -112, and `Water` rendered at
+y = -0.06 — **under the ground**. So everything between -112 and -156 stood on
+stone with the sea hidden beneath it. Van's lake looked missing for exactly the
+same reason a few turns ago (D-152), and I fixed it there by pushing the lake
+out past the paving instead of asking why the paving was on top of it.
+
+Water is now drawn at y = +0.02 with a depth bias. That is the right way round
+physically — sea over seabed — and it fixes both cities at once. Van's lake and
+Akdamar have come back in to the end of the walk, where they were wanted.
+
+**My part in it was making it visible rather than making it.** D-124 took the
+ferry from the 15 m it was being drawn at to its recorded 9 m, and a smaller
+boat leaves more cobble showing around it.
+
+## D-155 — The ferry crosses the Bosphorus (31 Jul 2026)
+
+It stood still on the water: a twenty metre boat moored in the middle of a
+strait. It now runs the Eastern Express's motion — in from off the map, across
+everything the child is looking at, out the other side, fifteen seconds, again —
+at nine metres a second.
+
+`Train` takes its cue and its interval and its speed as props now, so the two
+differ only in the horn. The ferry's is one long low note where the locomotive's
+is two bright ones: same construction as D-145, tonal rather than noise, through
+a lowpass, taking a second to speak.
+
+## D-156 — Finished cities are not changed without asking (31 Jul 2026)
+
+Recorded because the owner had to say it.
+
+İstanbul is finished. Over the last several turns it has had its collider
+changed so the Kapalıçarşı could be walked through, its shadows renamed, its
+ferry and tower resized by D-124 and now its ferry set sailing. Some of that was
+asked for; the resizing was not, and it changed the look of a city nobody had
+complained about.
+
+**The rule from here: a city with all its art delivered is not altered unless
+the change is asked for, or is a fault being fixed and is reported as such.**
+Where a general improvement would touch one — as the water fix does — say so and
+get the nod first, which is what happened here.
+
+## D-157 — The cat is heard in Van only (31 Jul 2026)
+
+The meow went everywhere with a cat in it. The owner cut it back to Van, and it
+is the right call: İstanbul's cats are part of the furniture there, and a city
+that mews every fifteen seconds is a city insisting on itself. In Van the cat is
+the answer to the city's one question, so the sound is doing work rather than
+decorating.
+
+Three deliveries also found their places. The **jetty** is stop two — a lake is
+not child-scale, so the boarding point stands in for it, the third time this
+project has answered that problem the same way. The **citadel ridge**, retired
+from Van's sides two turns ago, is back beside the castle where a spine belongs:
+rock to the right, orchard to the left, so the back is not symmetrical. The
+**stone footbridge**, which arrived with no place named for it, is at the lake
+end of the street where the ground runs down to the shore — too small to bridge
+anything and too built to be a step, so it is used as what it is.

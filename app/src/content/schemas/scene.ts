@@ -206,6 +206,11 @@ export const sceneSchema = z
      * see that the lake is something you go *on* rather than something painted
      * at the end of the street.
      */
+    /** A boat that crosses the water and leaves, on a clock. */
+    ferryLine: z
+      .object({ from: z.tuple([z.number(), z.number()]), to: z.tuple([z.number(), z.number()]) })
+      .nullable()
+      .default(null),
     canoeLines: z
       .array(
         z.object({

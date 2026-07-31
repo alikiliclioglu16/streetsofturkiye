@@ -300,6 +300,48 @@ export function playCatMeow(): void {
   }
 }
 
+/**
+ * A ferry's horn, which is the train's an octave and a half down.
+ *
+ * Same construction as the train (D-145) — two voices sounded together, tonal
+ * rather than noise — but a ship's horn is one long low note where a locomotive
+ * is two bright ones, and it takes a good second to speak. Sounded once as the
+ * boat comes into view.
+ */
+export function playFerryHorn(): void {
+  const context = audioContext();
+  const destination = channelNode('ambience');
+  if (!context || !destination) return;
+
+  const start = context.currentTime + 0.01;
+  const horn = context.createGain();
+  horn.gain.setValueAtTime(0.0001, start);
+  horn.gain.exponentialRampToValueAtTime(0.2, start + 0.9);
+  horn.gain.setValueAtTime(0.2, start + 2.2);
+  horn.gain.exponentialRampToValueAtTime(0.0001, start + 3.6);
+  horn.connect(destination);
+
+  const shelf = context.createBiquadFilter();
+  shelf.type = 'lowpass';
+  shelf.frequency.value = 520;
+  shelf.connect(horn);
+
+  for (const [hz, level] of [
+    [104, 1],
+    [156, 0.55],
+  ] as const) {
+    const oscillator = context.createOscillator();
+    const voice = context.createGain();
+    oscillator.type = 'sawtooth';
+    oscillator.frequency.setValueAtTime(hz, start);
+    oscillator.frequency.linearRampToValueAtTime(hz * 0.97, start + 3.6);
+    voice.gain.value = level;
+    oscillator.connect(voice).connect(shelf);
+    oscillator.start(start);
+    oscillator.stop(start + 3.7);
+  }
+}
+
 export function startMusic(url: string): void {
   const context = audioContext();
   const destination = channelNode('music');

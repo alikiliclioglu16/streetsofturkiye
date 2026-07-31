@@ -148,18 +148,24 @@ export function initialTrainState(): TrainState {
  * and goes somewhere else. So there is no direction to flip and no pause at the
  * end of the line — it runs off the end, disappears, and the clock starts.
  */
-export function stepTrain(state: TrainState, lineLength: number, delta: number): TrainState {
+export function stepTrain(
+  state: TrainState,
+  lineLength: number,
+  delta: number,
+  intervalSeconds: number = TRAIN_INTERVAL_SECONDS,
+  speed: number = TRAIN_SPEED,
+): TrainState {
   if (state.waitLeft > 0) {
     return { ...state, travelled: 0, waitLeft: Math.max(0, state.waitLeft - delta) };
   }
 
-  const travelled = state.travelled + TRAIN_SPEED * delta;
+  const travelled = state.travelled + speed * delta;
   if (travelled >= lineLength) {
     // The next one comes back the other way. A line with traffic in one
     // direction only is a conveyor; Kars is on a route that runs both ways.
     return {
       travelled: 0,
-      waitLeft: TRAIN_INTERVAL_SECONDS,
+      waitLeft: intervalSeconds,
       direction: state.direction === 1 ? -1 : 1,
     };
   }
@@ -171,6 +177,12 @@ interface TrainProps {
   from: readonly [number, number];
   to: readonly [number, number];
   reducedMotion: boolean;
+  /** Sounded once as it comes into view. A ferry and a train differ here only. */
+  onEnter?: () => void;
+  /** Seconds between one leaving and the next arriving. */
+  intervalSeconds?: number;
+  /** Metres a second. */
+  speed?: number;
 }
 
 /**
@@ -186,7 +198,15 @@ interface TrainProps {
  * middle of the city, which is the same choice every other moving thing here
  * makes: zero strength, not a still frame in an odd place.
  */
-export function Train({ asset, from, to, reducedMotion }: TrainProps) {
+export function Train({
+  asset,
+  from,
+  to,
+  reducedMotion,
+  onEnter = playTrainPass,
+  intervalSeconds = TRAIN_INTERVAL_SECONDS,
+  speed = TRAIN_SPEED,
+}: TrainProps) {
   const group = useRef<Group>(null);
   const state = useRef<TrainState>(initialTrainState());
   const [running, setRunning] = useState(false);
@@ -220,7 +240,7 @@ export function Train({ asset, from, to, reducedMotion }: TrainProps) {
      * in two days on the deployed site. The node is needed to *place* the
      * train, not to advance it.
      */
-    state.current = stepTrain(state.current, line.length, Math.min(rawDelta, 0.05));
+    state.current = stepTrain(state.current, line.length, Math.min(rawDelta, 0.05), intervalSeconds, speed);
     const moving = state.current.waitLeft === 0;
     if (moving !== running) setRunning(moving);
 
@@ -231,7 +251,7 @@ export function Train({ asset, from, to, reducedMotion }: TrainProps) {
     // One horn per pass, as it comes into view rather than as it leaves.
     if (!sounded.current) {
       sounded.current = true;
-      playTrainPass();
+      onEnter();
     }
 
     const node = group.current;

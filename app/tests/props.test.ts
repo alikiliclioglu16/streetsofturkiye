@@ -1267,12 +1267,19 @@ describe('the sea', () => {
       Math.abs(prop.position[0]! - water.centerX) < water.width / 2 &&
       Math.abs(prop.position[2]! - water.centerZ) < water.depth / 2;
 
-    // A ferry beside a pavement reads as a mistake before a child can name why.
-    const ferry = scene.backdrop.find(
-      (prop) => prop.asset.entry.id === 'city_istanbul_ferry_boat',
-    )!;
-    expect(ferry, 'the ferry should be in the scene').toBeDefined();
-    expect(onWater(ferry), 'the ferry is not on the water').toBe(true);
+    /**
+     * The ferry is not scenery any more — it crosses the strait and goes — so
+     * what is held here is its line rather than its position. Both ends off the
+     * map, and every metre of the crossing over water.
+     */
+    const line = scene.ferryLine!;
+    expect(line, 'the ferry should have a line to cross').toBeTruthy();
+    for (const [x, z] of [line.from, line.to]) {
+      expect(Math.abs(z - water.centerZ), 'the ferry crosses off the water').toBeLessThan(
+        water.depth / 2,
+      );
+      expect(Math.abs(x), 'the crossing starts on the map').toBeGreaterThan(water.width / 2);
+    }
 
     const tower = scene.backdrop.find(
       (prop) => prop.asset.entry.id === 'city_istanbul_maidens_tower',
@@ -1280,14 +1287,15 @@ describe('the sea', () => {
     expect(onWater(tower)).toBe(true);
   });
 
-  it('moors one ferry, at a length that matches the terminal', () => {
+  it('sails one ferry, at a length that matches the terminal', () => {
     const scene = buildScene(loadComposedCity('istanbul'), 'high');
-    const ferries = scene.backdrop.filter(
-      (prop) => prop.asset.entry.id === 'city_istanbul_ferry_boat',
-    );
-    expect(ferries).toHaveLength(1);
+    // One boat, and it is the moving one rather than a moored copy.
+    expect(
+      scene.backdrop.filter((prop) => prop.asset.entry.id === 'city_istanbul_ferry_boat'),
+    ).toHaveLength(0);
+    expect(scene.ferryAsset!.entry.id).toBe('city_istanbul_ferry_boat');
 
-    const hull = ferries[0]!.asset.entry.dimensions[0];
+    const hull = scene.ferryAsset!.entry.dimensions[0];
     const terminal = resolveAsset('city_istanbul_ferry_terminal', 'high').entry.dimensions[0];
     // A boat longer than its own terminal by a factor reads as a cruise liner.
     expect(hull / terminal).toBeGreaterThan(1);

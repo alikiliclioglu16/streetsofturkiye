@@ -458,6 +458,69 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
     notes: 'Delivered 13.37 MB with a 2048 colour map; recompressed to 0.59 MB.',
   },
   {
+    id: 'city_van_akdamar_jetty',
+    modelUrl: '/assets/city/city_van_akdamar_jetty.glb',
+    checksum: 'f0549fa32407481793213d9b036dcffaa1f5c8271d8769cea5c1daa5555d25e6',
+    triangles: 9_999,
+    transferBytes: 965216,
+    /**
+     * Stop two: a wooden dock with a mooring post, and the boarding point for
+     * Akdamar.
+     *
+     * A lake is not child-scale, so the jetty stands in for it — the third time
+     * this project has answered that problem the same way: the terminal for the
+     * ferry (D-068), the platform for the Eastern Express (D-135), the dock for
+     * the island.
+     */
+    dimensions: [3.96, 1.8, 2.23],
+    label: 'Akdamar jetty',
+    color: '#8C6742',
+    placeholder: 'box',
+    notes: 'Delivered 4 m buried 0.5 m; re-authored to 1.8 m on y = 0, 0.92 MB.',
+  },
+  {
+    id: 'city_van_citadel_ridge',
+    modelUrl: '/assets/city/city_van_citadel_ridge.glb',
+    checksum: 'acaf903dcdfe338123c8dd44d9558cf727c633e1451b9c2c2fc2f0407e297a55',
+    triangles: 10_410,
+    transferBytes: 2320572,
+    /**
+     * The rock spine, back from retirement and in the right job.
+     *
+     * It was briefed for Van's sides and dropped when the townhouses arrived
+     * (D-151), because a street wants a town along it. Beside the castle is
+     * where it belongs: the citadel stands on a spine, and the spine carrying
+     * on past the walls is what makes the castle look like part of the rock
+     * rather than a model placed on flat ground.
+     */
+    dimensions: [26.92, 9.0, 8.44],
+    label: 'Citadel ridge',
+    color: '#A89880',
+    placeholder: 'box',
+    notes: 'Delivered 22.23 MB at 5 m buried 2.5 m; re-authored to 9 m on y = 0, 2.21 MB.',
+  },
+  {
+    id: 'kit_stone_footbridge',
+    modelUrl: '/assets/props/kit_stone_footbridge.glb',
+    checksum: 'a2fdd9444aa563c14fc2860eda2eff60812f58c80c91ce23a3f63d8f92e342ff',
+    triangles: 9_975,
+    transferBytes: 825192,
+    /**
+     * A low stone footbridge, four metres across.
+     *
+     * Delivered without a place named for it. It is too small to be a bridge
+     * over anything and too built to be a step, so it is used for what it
+     * actually is: a raised stone crossing at the lake end of Van's street,
+     * where the ground would run down to the shore. Shared, so another province
+     * with a stream can have it.
+     */
+    dimensions: [4.1, 1.2, 1.95],
+    label: 'Stone footbridge',
+    color: '#9A9186',
+    placeholder: 'box',
+    notes: 'Delivered 23.29 MB at 0.5 m buried 0.25 m; re-authored to 1.2 m on y = 0, 0.79 MB.',
+  },
+  {
     id: 'city_van_canoe',
     modelUrl: '/assets/city/city_van_canoe.glb',
     checksum: '9714a4de5d2181ace518d98a68f7c34ec1a627980039e560ff1626b09dbb9a98',

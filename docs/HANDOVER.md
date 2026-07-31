@@ -272,6 +272,9 @@ size against its own GLB found all of it between them — and the last of those 
 the only thing that would have caught a collider sized for a shape that is not
 there (D-131).
 
+**A finished city is not changed without asking** (D-156). Where a general fix
+would touch one, say so and get the nod first.
+
 **The most valuable tests simulate a whole visit** using the running game's own
 functions. `playthrough.test.ts` found that the route markers led into a
 building (D-073) and that the spawn had drifted inside a mosque.

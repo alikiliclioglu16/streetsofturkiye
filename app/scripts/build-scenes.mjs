@@ -407,6 +407,15 @@ function streetProps(cityId, stopPositions, geometry) {
       ...prop('city_van_urartu_stele', -6.5, -22, 0.45, 'an Urartian stele'),
       solid: false,
     });
+    /**
+     * A stone footbridge at the lake end of the street, where the ground would
+     * run down to the shore. It arrived without a place named for it and this
+     * is the one it fits: too small to bridge anything, too built to be a step.
+     */
+    candidates.push({
+      ...prop('kit_stone_footbridge', -8.5, -52, 0.12, 'a stone footbridge to the shore'),
+      solid: false,
+    });
   }
 
   /**
@@ -810,13 +819,6 @@ function cityBackdrop(cityId, stopPositions, metrics) {
         ),
       ),
       {
-        assetId: 'city_istanbul_ferry_boat',
-        position: [-24, 0, -128],
-        rotationY: 0.18,
-        solid: false,
-        note: 'moored off the quay',
-      },
-      {
         assetId: 'city_istanbul_maidens_tower',
         position: [22, 0, -146],
         rotationY: -0.4,
@@ -1031,10 +1033,33 @@ function cityBackdrop(cityId, stopPositions, metrics) {
          * Solid, because the far side of an island is water.
          */
         assetId: 'city_van_akdamar_island',
-        position: [-3, 0, Math.round((lastZ - 68) * 10) / 10],
+        position: [-3, 0, Math.round((lastZ - 30) * 10) / 10],
         rotationY: 0.35,
         solid: true,
         note: 'Akdamar, at the end of the walk',
+      },
+      {
+        /**
+         * The rock spine, carrying on to the right of the castle.
+         *
+         * A citadel stands on a spine, and the spine continuing past the walls
+         * is what makes the castle read as part of the rock rather than a model
+         * set down on flat ground. The orchard opposite does the same job the
+         * other way: rock one side, trees the other, so the back is not
+         * symmetrical.
+         */
+        assetId: 'city_van_citadel_ridge',
+        position: [34, 0, Math.round((behind + 14) * 10) / 10],
+        rotationY: -0.35,
+        solid: true,
+        note: 'the citadel ridge, right of the castle',
+      },
+      {
+        assetId: 'kit_van_orchard',
+        position: [-33, 0, Math.round((behind + 12) * 10) / 10],
+        rotationY: 0.7,
+        solid: false,
+        note: 'orchard, left of the castle',
       },
       {
         /**
@@ -1578,6 +1603,16 @@ function buildScene(canonical) {
      * water actually shows, and they cross the view rather than running along
      * it — the lesson the Eastern Express took two turns to learn (D-142).
      */
+    /**
+     * The ferry crosses the Bosphorus and goes, on the same clock as the
+     * Eastern Express: in from off the map, across everything the child is
+     * looking at, out the other side, fifteen seconds, again.
+     *
+     * It used to stand still on the water at z = -128 — a twenty metre boat
+     * moored in the middle of a strait. Crossing is what a Bosphorus ferry
+     * does, and it is the thing a child watching from the quay would see.
+     */
+    ferryLine: canonical.id === 'istanbul' ? { from: [-190, -134], to: [190, -128] } : null,
     canoeLines:
       canonical.id === 'van'
         ? [
@@ -1600,7 +1635,7 @@ function buildScene(canonical) {
       canonical.id === 'istanbul'
         ? { centerX: 0, centerZ: -202, width: 320, depth: 180, color: '#2E7FA8' }
         : canonical.id === 'van'
-          ? { centerX: 0, centerZ: -200, width: 420, depth: 200, color: '#3E93A0' }
+          ? { centerX: 0, centerZ: -159, width: 420, depth: 200, color: '#3E93A0' }
           : null,
     /**
      * Scenery beyond the play area. The Beyoğlu row stands behind the walk as

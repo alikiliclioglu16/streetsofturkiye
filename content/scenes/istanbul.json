@@ -599,6 +599,17 @@
       -100
     ]
   },
+  "ferryLine": {
+    "from": [
+      -190,
+      -134
+    ],
+    "to": [
+      190,
+      -128
+    ]
+  },
+  "canoeLines": [],
   "trainLine": null,
   "water": {
     "centerX": 0,
@@ -717,17 +728,6 @@
       "rotationY": -1.5707963267948966,
       "solid": false,
       "note": "facades east 5"
-    },
-    {
-      "assetId": "city_istanbul_ferry_boat",
-      "position": [
-        -24,
-        0,
-        -128
-      ],
-      "rotationY": 0.18,
-      "solid": false,
-      "note": "moored off the quay"
     },
     {
       "assetId": "city_istanbul_maidens_tower",

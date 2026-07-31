@@ -108,6 +108,8 @@ export interface SceneDescription {
   readonly tramLine: SceneDefinition['tramLine'];
   readonly trainLine: SceneDefinition['trainLine'];
   readonly canoeLines: SceneDefinition['canoeLines'];
+  readonly ferryLine: SceneDefinition['ferryLine'];
+  readonly ferryAsset: ResolvedAsset | null;
   readonly canoeAsset: ResolvedAsset | null;
   readonly trainAsset: ResolvedAsset | null;
   readonly tramAsset: ResolvedAsset | null;
@@ -361,6 +363,8 @@ export function buildScene(city: CityDefinition, quality: QualityTier): SceneDes
     tramAsset: city.tramLine ? resolveAsset('city_istanbul_streetcar', quality) : null,
     trainLine: city.trainLine,
     canoeLines: city.canoeLines,
+    ferryLine: city.ferryLine,
+    ferryAsset: city.ferryLine ? resolveAsset('city_istanbul_ferry_boat', quality) : null,
     canoeAsset: city.canoeLines.length ? resolveAsset('city_van_canoe', quality) : null,
     trainAsset: city.trainLine ? resolveAsset('city_kars_eastern_express', quality) : null,
     catRoutes: city.catRoutes,

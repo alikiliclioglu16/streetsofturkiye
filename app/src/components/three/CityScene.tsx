@@ -8,6 +8,7 @@ import type { HeroClip } from '@/engine/heroes/registry';
 import { AssetInstance } from '@/components/three/AssetInstance';
 import { WindProp } from '@/components/three/WindProp';
 import { Train, TrainTrack, Tram } from '@/components/three/Tram';
+import { playFerryHorn } from '@/engine/audio/cues';
 import { Balloons } from '@/components/three/Balloons';
 import { Ground } from '@/components/three/Ground';
 import { Water } from '@/components/three/Water';
@@ -215,6 +216,22 @@ export function CityScene({
           ))
         : null}
 
+      {/*
+        The ferry. The train's motion with a ship's horn and a slower pace —
+        it crosses the strait and goes, which is what a Bosphorus ferry does.
+      */}
+      {scene.ferryLine && scene.ferryAsset ? (
+        <Train
+          asset={scene.ferryAsset}
+          from={scene.ferryLine.from}
+          to={scene.ferryLine.to}
+          reducedMotion={reducedMotion}
+          onEnter={playFerryHorn}
+          intervalSeconds={15}
+          speed={9}
+        />
+      ) : null}
+
       {scene.trainLine ? <TrainTrack from={scene.trainLine.from} to={scene.trainLine.to} /> : null}
 
       {scene.trainLine && scene.trainAsset ? (
@@ -233,12 +250,16 @@ export function CityScene({
         sharing either would make them move as one animal.
       */}
       {/*
-        Heard, not seen. Only where the animal actually is a cat: Gaziantep's
-        dogs and Kars's geese would each need their own voice, and a meow from
-        a goose is worse than silence.
+        Heard, not seen, and in Van only.
+
+        It went everywhere with a cat at first. The owner's judgement, and it
+        is right: İstanbul's cats are part of the furniture and a city that
+        mews at you every fifteen seconds is a city insisting on itself. Van's
+        cat is the answer to the city's one question, so there it earns the
+        sound.
       */}
       <CatCalls
-        enabled={scene.animal === 'cat' || scene.animal === 'vancat'}
+        enabled={scene.animal === 'vancat'}
         reducedMotion={reducedMotion}
       />
 
