@@ -135,6 +135,72 @@ let musicSource: MediaElementAudioSourceNode | null = null;
  * instant a city loads announces itself; one that arrives underneath the
  * seagulls is just there.
  */
+/**
+ * A train going past: two horn notes and a low roll under them.
+ *
+ * Synthesised, like every other cue here, and for the same reason — it costs
+ * nothing and needs no file. But it is built the other way round from the
+ * ambience bed that was cut: **the horn is the sound and the noise is the
+ * garnish.** Filtered noise on its own reads as water whatever is done to it,
+ * which is how Cappadocia ended up sounding like the sea twice (D-103). A
+ * two-tone diesel horn is unmistakably a train, and the roll underneath only
+ * has to keep it company.
+ *
+ * The two notes are a fifth apart and sounded together, which is what a
+ * European locomotive horn actually is, and the pair falls in pitch across the
+ * pass — not real Doppler, just enough of it that the train reads as going
+ * somewhere rather than standing still and shouting.
+ *
+ * On the `ambience` channel, so a parent who has had enough of it can silence
+ * the world without silencing the guide.
+ */
+export function playTrainPass(): void {
+  const context = audioContext();
+  const destination = channelNode('ambience');
+  if (!context || !destination) return;
+
+  const start = context.currentTime + 0.01;
+  const horn = context.createGain();
+  horn.gain.setValueAtTime(0.0001, start);
+  horn.gain.exponentialRampToValueAtTime(0.22, start + 0.25);
+  horn.gain.setValueAtTime(0.22, start + 1.5);
+  horn.gain.exponentialRampToValueAtTime(0.0001, start + 2.6);
+  horn.connect(destination);
+
+  // A fifth apart, sounded together: that interval is most of why a horn
+  // sounds like a horn rather than like a note.
+  for (const [hz, level] of [
+    [311, 1],
+    [466, 0.7],
+  ] as const) {
+    const oscillator = context.createOscillator();
+    const voice = context.createGain();
+    oscillator.type = 'sawtooth';
+    oscillator.frequency.setValueAtTime(hz, start);
+    oscillator.frequency.linearRampToValueAtTime(hz * 0.94, start + 2.6);
+    voice.gain.value = level;
+    oscillator.connect(voice).connect(horn);
+    oscillator.start(start);
+    oscillator.stop(start + 2.7);
+  }
+
+  // The roll: a low tone, not noise, swelling and fading with the pass.
+  const rumble = context.createOscillator();
+  const rumbleGain = context.createGain();
+  const shelf = context.createBiquadFilter();
+  shelf.type = 'lowpass';
+  shelf.frequency.value = 180;
+  rumble.type = 'sawtooth';
+  rumble.frequency.setValueAtTime(46, start);
+  rumble.frequency.linearRampToValueAtTime(38, start + 4);
+  rumbleGain.gain.setValueAtTime(0.0001, start);
+  rumbleGain.gain.exponentialRampToValueAtTime(0.14, start + 1.2);
+  rumbleGain.gain.exponentialRampToValueAtTime(0.0001, start + 4);
+  rumble.connect(shelf).connect(rumbleGain).connect(destination);
+  rumble.start(start);
+  rumble.stop(start + 4.1);
+}
+
 export function startMusic(url: string): void {
   const context = audioContext();
   const destination = channelNode('music');

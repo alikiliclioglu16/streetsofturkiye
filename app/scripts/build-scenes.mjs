@@ -970,18 +970,24 @@ function cityBackdrop(cityId, stopPositions, metrics) {
        * about on it, so the honest way to fill them is more of the same
        * buildings, further out and turned differently, not a new asset.
        *
-       * Further out than the sides and behind them in depth, so they read as
-       * the rest of the site continuing rather than as a second row.
+       * All of them behind, around the walls. They were spread down both ends
+       * of the site, which put four of them alongside the railway — and the
+       * ground by the track wants to stay open, because the gorge is already
+       * doing the work there. The walls are what a child turns round to, so
+       * that is the side that has to look inhabited.
        */
       ...[
-        ['city_kars_ani_church', -34, behind - 6, 0.9],
-        ['city_kars_ani_chapel', -41, firstZ - span * 0.25, -1.2],
-        ['city_kars_ani_chapel', 33, behind - 2, -0.75],
-        ['city_kars_ani_church', 40, firstZ - span * 0.35, 1.35],
-        ['city_kars_ani_chapel', -37, lastZ - 10, 2.1],
-        ['city_kars_ani_church', 36, lastZ - 14, -2.35],
-        ['city_kars_ani_church', -28, lastZ - 26, 0.35],
-        ['city_kars_ani_chapel', 30, lastZ - 30, -0.55],
+        // Flanking the walls, both sides, filling the gaps either end of them.
+        ['city_kars_ani_church', -34, behind + 4, 0.9],
+        ['city_kars_ani_chapel', -27, behind + 15, -1.2],
+        ['city_kars_ani_chapel', -40, behind + 19, 2.1],
+        ['city_kars_ani_church', 33, behind + 2, -0.75],
+        ['city_kars_ani_chapel', 27, behind + 14, 1.35],
+        ['city_kars_ani_church', 39, behind + 20, -2.35],
+        // Two more just behind the side rows, so the back half thickens rather
+        // than ending in a line.
+        ['city_kars_ani_church', -31, behind - 8, 0.35],
+        ['city_kars_ani_chapel', 30, behind - 5, -0.55],
       ].map(([assetId, x, z, rot], i) => ({
         assetId,
         position: [x, 0, Math.round(z * 10) / 10],

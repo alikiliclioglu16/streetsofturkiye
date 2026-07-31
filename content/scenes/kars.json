@@ -516,7 +516,7 @@
       "position": [
         -34,
         0,
-        20
+        30
       ],
       "rotationY": 0.9,
       "solid": false,
@@ -525,9 +525,9 @@
     {
       "assetId": "city_kars_ani_chapel",
       "position": [
-        -41,
+        -27,
         0,
-        -24
+        41
       ],
       "rotationY": -1.2,
       "solid": false,
@@ -536,42 +536,42 @@
     {
       "assetId": "city_kars_ani_chapel",
       "position": [
-        33,
+        -40,
         0,
-        24
+        45
       ],
-      "rotationY": -0.75,
+      "rotationY": 2.1,
       "solid": false,
       "note": "corner ruin 3"
     },
     {
       "assetId": "city_kars_ani_church",
       "position": [
-        40,
+        33,
         0,
-        -26.8
+        28
       ],
-      "rotationY": 1.35,
+      "rotationY": -0.75,
       "solid": false,
       "note": "corner ruin 4"
     },
     {
       "assetId": "city_kars_ani_chapel",
       "position": [
-        -37,
+        27,
         0,
-        -55
+        40
       ],
-      "rotationY": 2.1,
+      "rotationY": 1.35,
       "solid": false,
       "note": "corner ruin 5"
     },
     {
       "assetId": "city_kars_ani_church",
       "position": [
-        36,
+        39,
         0,
-        -59
+        46
       ],
       "rotationY": -2.35,
       "solid": false,
@@ -580,9 +580,9 @@
     {
       "assetId": "city_kars_ani_church",
       "position": [
-        -28,
+        -31,
         0,
-        -71
+        18
       ],
       "rotationY": 0.35,
       "solid": false,
@@ -593,7 +593,7 @@
       "position": [
         30,
         0,
-        -75
+        21
       ],
       "rotationY": -0.55,
       "solid": false,

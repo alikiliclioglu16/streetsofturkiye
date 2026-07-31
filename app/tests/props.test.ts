@@ -206,27 +206,52 @@ describe('street kit props', () => {
      */
     const lineLength = Math.hypot(line.to[0] - line.from[0], line.to[1] - line.from[1]);
     let state = initialTrainState();
-    let crossed = false;
-    let returnedToWaiting = false;
     let sawMidway = false;
-    for (let frame = 0; frame < 60 * 60; frame += 1) {
+    const directions = new Set<number>();
+    let passes = 0;
+    for (let frame = 0; frame < 60 * 90; frame += 1) {
       const before = state;
       state = stepTrain(state, lineLength, 1 / 60);
-      if (state.waitLeft === 0 && state.travelled > lineLength * 0.45 && state.travelled < lineLength * 0.55) {
-        sawMidway = true;
+      if (state.waitLeft === 0) {
+        directions.add(state.direction);
+        if (state.travelled > lineLength * 0.45 && state.travelled < lineLength * 0.55) {
+          sawMidway = true;
+        }
       }
-      if (before.waitLeft === 0 && state.waitLeft > 0) {
-        crossed = true;
-        returnedToWaiting = true;
-      }
+      if (before.waitLeft === 0 && state.waitLeft > 0) passes += 1;
     }
     expect(sawMidway, 'the train never crossed the city').toBe(true);
-    expect(crossed, 'the train never left').toBe(true);
-    expect(returnedToWaiting, 'the train never came back').toBe(true);
+    expect(passes, 'the train never left and came back').toBeGreaterThanOrEqual(2);
+    // It goes and it returns: the second run comes the other way.
+    expect([...directions].sort(), 'every pass went the same way').toEqual([-1, 1]);
 
     // It waits between runs rather than running continuously.
     expect(TRAIN_INTERVAL_SECONDS).toBe(10);
     expect(lineLength / TRAIN_SPEED).toBeGreaterThan(5);
+  });
+
+  it('advances the train whether or not it is on screen', async () => {
+    /**
+     * The bug the owner reported twice: no train, ever.
+     *
+     * `Train` renders nothing while it is waiting, so its group ref is null —
+     * and the frame handler bailed out on a null ref before advancing the
+     * clock. It could never leave its opening wait, so it could never start, so
+     * the ref stayed null. Two days deployed and not one train.
+     *
+     * The step function is pure and knows nothing about refs, which is exactly
+     * why this test can hold it.
+     */
+    const { initialTrainState, stepTrain, TRAIN_INTERVAL_SECONDS } = await import(
+      '@/components/three/Tram'
+    );
+    let state = initialTrainState();
+    expect(state.waitLeft).toBe(TRAIN_INTERVAL_SECONDS);
+
+    // Eleven seconds of clock with nothing rendered: it must be moving by then.
+    for (let frame = 0; frame < 60 * 11; frame += 1) state = stepTrain(state, 280, 1 / 60);
+    expect(state.waitLeft, 'the train never started').toBe(0);
+    expect(state.travelled).toBeGreaterThan(0);
   });
 
   it('lets a child walk through the Ani doorway', () => {

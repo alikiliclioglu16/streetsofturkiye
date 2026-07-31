@@ -326,7 +326,8 @@ describe('Kars looks like Ani', () => {
      * the plateau are not a row and do not have to alternate — they are the
      * site continuing, seen all at once from a distance.
      */
-    const sideShells = ruins.filter((r) => Math.abs(r.position[0]) < 28);
+    const back = Math.max(...scene.bounds.map((corner) => corner[2]));
+    const sideShells = ruins.filter((r) => r.position[2] <= back);
     for (const side of [-1, 1]) {
       const row = sideShells
         .filter((r) => Math.sign(r.position[0]) === side)
@@ -339,8 +340,12 @@ describe('Kars looks like Ani', () => {
       }
     }
 
-    // And the corners are filled at all, which is what they are there for.
-    expect(ruins.filter((r) => Math.abs(r.position[0]) >= 28).length).toBeGreaterThanOrEqual(6);
+    /**
+     * And the ground around the walls is filled, which is what those are for.
+     * They all sit behind the square now: the ground by the railway is left
+     * open on purpose, because the gorge is already doing the work there.
+     */
+    expect(ruins.filter((r) => r.position[2] > back).length).toBeGreaterThanOrEqual(6);
 
     // Turned individually. A ruin has no frontage, and squaring them to the
     // street would rebuild the city rather than leave it fallen.

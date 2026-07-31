@@ -43,7 +43,7 @@ Three cities are finished end to end. **Kars is open and unbuilt** — walkable,
 with a placeholder at every stop and across its whole horizon, the way Nevşehir
 and Gaziantep were each opened. Its brief is `docs/KARS_ASSET_BRIEF.md`.
 
-`npm run gate` is green: 81 cities, 249 stops, 84 questions, **335 tests**,
+`npm run gate` is green: 81 cities, 249 stops, 84 questions, **336 tests**,
 clean lint and typecheck, 4 routes built.
 
 Assets total 70.63 MB on disk; a single city visit downloads far less because

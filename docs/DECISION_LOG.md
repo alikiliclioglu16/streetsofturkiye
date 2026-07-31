@@ -2190,3 +2190,51 @@ Recorded because the gap was raised as work outstanding and it is now closed by
 a decision rather than by building anything. Four rewards in İstanbul and
 Nevşehir still have no brief at all — `collectible_istanbul_3` and its like —
 and that no longer matters.
+
+## D-144 — The train could never start (30 Jul 2026)
+
+Reported twice: no train, ever. It was a deadlock, and an ugly one.
+
+`Train` renders nothing while it is waiting, so its group ref is null. The frame
+handler read `if (!node || reducedMotion) return;` **before** advancing the
+clock. So: waiting → nothing rendered → ref null → clock never advances → still
+waiting. Two days on the deployed site and not one train crossed Kars.
+
+The node is needed to *place* the train, not to advance it. The clock now runs
+whichever it is, and the ref is checked only where the position is written.
+
+The step function is pure and knows nothing about refs, which is why a test can
+hold this: eleven seconds of clock with nothing rendered must leave the train
+moving. That test would have failed the day the component was written.
+
+**And it goes both ways now.** Each pass alternates direction — a line with
+traffic one way only is a conveyor, and Kars is on a route that runs both ways.
+
+## D-145 — The train has a horn (30 Jul 2026)
+
+Synthesised, like every other cue, and built the opposite way round from the
+ambience bed that was cut.
+
+D-103 cut synthesised ambience because filtered noise reads as water however it
+is shaped — the owner heard waves over Cappadocia twice. So here **the horn is
+the sound and the roll underneath is the garnish**: two sawtooth voices a fifth
+apart, sounded together, which is what a European diesel horn actually is and is
+unmistakably a train. The pair falls in pitch across the pass, not real Doppler
+but enough of it that the train reads as going somewhere. Under it a low tone
+through a lowpass — a tone, not noise, for the reason above.
+
+One horn per pass, sounded as it comes into view rather than as it leaves. On
+the `ambience` channel, so a parent can silence the world without silencing the
+guide.
+
+## D-146 — The ruins moved to the walls, and the railway was left alone (30 Jul 2026)
+
+Eight corner ruins were spread down both ends of the site, which put four of
+them along the railway. The owner's judgement, and it is right: the ground by
+the track wants to stay open, because the gorge is already doing the work there,
+and the walls are what a child turns round to — that is the side that has to
+look inhabited.
+
+All eight sit behind the square now, flanking the walls at both ends and
+thickening the back so it does not finish in a line. The front stays as gorge,
+track and sky.

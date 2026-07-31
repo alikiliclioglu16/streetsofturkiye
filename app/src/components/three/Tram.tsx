@@ -4,6 +4,7 @@ import { useMemo, useRef, useState } from 'react';
 import { useFrame } from '@react-three/fiber';
 import type { Group } from 'three';
 import { AssetInstance } from '@/components/three/AssetInstance';
+import { playTrainPass } from '@/engine/audio/cues';
 import type { ResolvedAsset } from '@/engine/assets/registry';
 
 /**
@@ -118,12 +119,14 @@ export interface TrainState {
   travelled: number;
   /** Seconds left before the next one appears. */
   waitLeft: number;
+  /** Which way this run goes: 1 from the first end, -1 from the second. */
+  direction: 1 | -1;
 }
 
 export function initialTrainState(): TrainState {
   // Starts waiting, so a child who arrives in the city gets to see one come in
   // rather than finding one already halfway across.
-  return { travelled: 0, waitLeft: TRAIN_INTERVAL_SECONDS };
+  return { travelled: 0, waitLeft: TRAIN_INTERVAL_SECONDS, direction: 1 };
 }
 
 /**
@@ -137,14 +140,20 @@ export function initialTrainState(): TrainState {
  */
 export function stepTrain(state: TrainState, lineLength: number, delta: number): TrainState {
   if (state.waitLeft > 0) {
-    return { travelled: 0, waitLeft: Math.max(0, state.waitLeft - delta) };
+    return { ...state, travelled: 0, waitLeft: Math.max(0, state.waitLeft - delta) };
   }
 
   const travelled = state.travelled + TRAIN_SPEED * delta;
   if (travelled >= lineLength) {
-    return { travelled: 0, waitLeft: TRAIN_INTERVAL_SECONDS };
+    // The next one comes back the other way. A line with traffic in one
+    // direction only is a conveyor; Kars is on a route that runs both ways.
+    return {
+      travelled: 0,
+      waitLeft: TRAIN_INTERVAL_SECONDS,
+      direction: state.direction === 1 ? -1 : 1,
+    };
   }
-  return { travelled, waitLeft: 0 };
+  return { ...state, travelled, waitLeft: 0 };
 }
 
 interface TrainProps {
@@ -171,6 +180,7 @@ export function Train({ asset, from, to, reducedMotion }: TrainProps) {
   const group = useRef<Group>(null);
   const state = useRef<TrainState>(initialTrainState());
   const [running, setRunning] = useState(false);
+  const sounded = useRef(false);
 
   const line = useMemo(() => {
     const dx = to[0] - from[0];
@@ -189,17 +199,38 @@ export function Train({ asset, from, to, reducedMotion }: TrainProps) {
   }, [from, to, asset.entry.dimensions]);
 
   useFrame((_, rawDelta) => {
-    const node = group.current;
-    if (!node || reducedMotion) return;
+    if (reducedMotion) return;
 
+    /**
+     * The clock runs whether or not the train is on screen.
+     *
+     * This used to bail out when `group.current` was null — and the group is
+     * only rendered while the train is running, so the state could never leave
+     * its opening wait, the train could never start, and it was never once seen
+     * in two days on the deployed site. The node is needed to *place* the
+     * train, not to advance it.
+     */
     state.current = stepTrain(state.current, line.length, Math.min(rawDelta, 0.05));
     const moving = state.current.waitLeft === 0;
     if (moving !== running) setRunning(moving);
-    if (!moving) return;
 
-    const { travelled } = state.current;
-    node.position.set(from[0] + line.dx * travelled, 0, from[1] + line.dz * travelled);
-    node.rotation.y = line.heading;
+    if (!moving) {
+      sounded.current = false;
+      return;
+    }
+    // One horn per pass, as it comes into view rather than as it leaves.
+    if (!sounded.current) {
+      sounded.current = true;
+      playTrainPass();
+    }
+
+    const node = group.current;
+    if (!node) return;
+
+    const { travelled, direction } = state.current;
+    const along = direction === 1 ? travelled : line.length - travelled;
+    node.position.set(from[0] + line.dx * along, 0, from[1] + line.dz * along);
+    node.rotation.y = direction === 1 ? line.heading : line.heading + Math.PI;
   });
 
   if (reducedMotion || !running) return null;
