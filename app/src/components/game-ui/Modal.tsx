@@ -24,7 +24,20 @@ export function Modal({ labelledBy, children, onDismiss, align = 'center' }: Mod
     const focusable = node.querySelectorAll<HTMLElement>(
       'button:not([disabled]), [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
     );
-    focusable[0]?.focus();
+    /**
+     * Focus the dialog, not the first thing in it.
+     *
+     * This focused the first button, which in the quiz is the first answer —
+     * and the browser draws a focus ring around it. The options are shuffled,
+     * so on thirty-six of the eighty-four questions the correct answer lands in
+     * that slot and a child is shown a gold outline around the right answer
+     * before they have read the question. The owner spotted it on Kars.
+     *
+     * The dialog takes focus instead. A screen reader still enters the dialog
+     * and Tab still reaches every option in order; nothing is highlighted that
+     * the child did not choose.
+     */
+    node.focus();
 
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape' && onDismiss) {
@@ -67,8 +80,11 @@ export function Modal({ labelledBy, children, onDismiss, align = 'center' }: Mod
         role="dialog"
         aria-modal="true"
         aria-labelledby={labelledBy}
+        /* Focusable so the dialog itself can take focus, but not in the tab
+           order: Tab from here goes to the first real control. */
+        tabIndex={-1}
         className="panel"
-        style={{ width: 'min(560px, 100%)', padding: 'clamp(18px, 3vw, 28px)' }}
+        style={{ width: 'min(560px, 100%)', padding: 'clamp(18px, 3vw, 28px)', outline: 'none' }}
       >
         {children}
       </div>

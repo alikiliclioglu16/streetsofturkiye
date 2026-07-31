@@ -43,7 +43,7 @@ Three cities are finished end to end. **Kars is open and unbuilt** — walkable,
 with a placeholder at every stop and across its whole horizon, the way Nevşehir
 and Gaziantep were each opened. Its brief is `docs/KARS_ASSET_BRIEF.md`.
 
-`npm run gate` is green: 81 cities, 249 stops, 84 questions, **331 tests**,
+`npm run gate` is green: 81 cities, 249 stops, 84 questions, **335 tests**,
 clean lint and typecheck, 4 routes built.
 
 Assets total 70.63 MB on disk; a single city visit downloads far less because
@@ -374,6 +374,8 @@ three stops as well as five. A new city needs its three-to-five stop objects, a
 horizon, a theme, and a line in `PLAYABLE_CITY_IDS`. Adding one now costs a
 morning, which it did not before Kars.
 
-**Still unbuilt:** recorded voice and ambience, a collection screen across
-cities, and any measurement of how this performs on the devices most of its
-audience will use.
+**Still unbuilt:** recorded voice and ambience, and any measurement of how this
+performs on the devices most of its audience will use.
+
+**Not being built:** models for the collectible rewards. The collection screen
+shows each one as an emoji and a line of text, and that is the decision (D-143).

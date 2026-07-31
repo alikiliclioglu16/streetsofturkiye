@@ -182,17 +182,21 @@ describe('street kit props', () => {
      * start behind the first and end past the second by more than the length of
      * the locomotive, or it pops into being in shot.
      */
-    const zs = scene.bounds.map((corner) => corner[2]);
-    const [, , length] = scene.trainAsset!.entry.dimensions;
-    const locoLength = Math.max(...scene.trainAsset!.entry.dimensions);
-    expect(line.from[1]).toBeGreaterThan(Math.max(...zs) + locoLength * 0.5);
-    expect(line.to[1]).toBeLessThan(Math.min(...zs) - locoLength * 0.5);
-    expect(length).toBeGreaterThan(0);
-
-    // And off the walking area sideways, so no child stands on the track.
     const xs = scene.bounds.map((corner) => corner[0]);
-    expect(Math.abs(line.from[0])).toBeGreaterThan(Math.max(...xs));
-    expect(line.from[0]).toBe(line.to[0]);
+    const zs = scene.bounds.map((corner) => corner[2]);
+    const locoLength = Math.max(...scene.trainAsset!.entry.dimensions);
+
+    /**
+     * It runs across the view rather than along it. Parallel to the street it
+     * sat beside and slightly behind the child the whole time and was never
+     * once seen; across, it enters from one edge and leaves by the other.
+     */
+    expect(line.from[1]).toBe(line.to[1]);
+    expect(line.from[0]).toBeLessThan(Math.min(...xs) - locoLength);
+    expect(line.to[0]).toBeGreaterThan(Math.max(...xs) + locoLength);
+
+    // Beyond the front boundary, so the track is somewhere a child cannot walk.
+    expect(line.from[1]).toBeLessThan(Math.min(...zs));
 
     /**
      * One full cycle, stepped at sixty frames a second: it must arrive, cross,
@@ -221,7 +225,7 @@ describe('street kit props', () => {
     expect(returnedToWaiting, 'the train never came back').toBe(true);
 
     // It waits between runs rather than running continuously.
-    expect(TRAIN_INTERVAL_SECONDS).toBe(15);
+    expect(TRAIN_INTERVAL_SECONDS).toBe(10);
     expect(lineLength / TRAIN_SPEED).toBeGreaterThan(5);
   });
 

@@ -2107,3 +2107,86 @@ this is not the tool that will measure it.**
 One thing worth recording as sound: the guide loads and the scene mounts on the
 deployed build, both cities were walkable at the data level, every asset probed
 returned 200 including the newest, and there was not one console error.
+
+## D-139 — The quiz was showing a child the answer (30 Jul 2026)
+
+Found in a screenshot: the correct option outlined in gold before anything was
+chosen.
+
+It was not marked as correct. `Modal` focused the first focusable element on
+open, which in the quiz is the first answer, and the browser draws a ring around
+whatever has focus. The options are shuffled by a seeded hash — and on **36 of
+the 84 questions** that shuffle leaves the correct answer in the first slot. Not
+a Kars problem: a third of every quiz in the project.
+
+The dialog takes focus itself now, with `tabIndex={-1}` so it is not in the tab
+order. A screen reader still enters the dialog, Tab still reaches every option
+in order, and nothing is outlined that the child did not choose.
+
+Two keyboard tests were written against the old behaviour and one of them was
+worse than stale: it tabbed to the correct answer by counting through
+`item.options`, the canonical order, while the panel renders them shuffled. It
+passed by coincidence and would have gone on passing whether or not the keyboard
+ever reached the right button. It now finds the button by its text.
+
+## D-140 — Scenery had been reaching into the play area (30 Jul 2026)
+
+Cappadocia's chimney ridges stood at x = ±19. A ridge is 19 m deep and turned
+side-on, so its near edge sat at 9.5 — **four and a half metres inside** the
+fifteen metre boundary. It had swallowed the dressing along the edges and closed
+the horses' routes, which is what the owner's screenshots show.
+
+It got worse rather than started when the recorded height began to draw the
+model (D-124): the ridges went from the 10 m they were being drawn at to the
+17 m the layout had always assumed, and grew in plan by the same half again. The
+number was right. The position had been chosen by eye against the smaller thing
+that was actually on screen, and correcting the size moved a piece of scenery
+into the street.
+
+Moved to ±27, where the near edge is 17.5.
+
+**And the same test caught Kars**, whose chapels I had placed at ±18 a few hours
+earlier: near edge 13.9, a metre inside. Moved to ±21 at the closest.
+
+The rule is now held in every city: a piece of scenery standing beside the walk
+must not have its near edge inside the boundary. Touching it is right — that is
+the near-edge alignment D-101 asks for. Being inside it is a child walking into
+a church.
+
+## D-141 — Gaziantep's castle moved to the end of the walk (30 Jul 2026)
+
+It closed the back of the square, so the one thing in Gaziantep a child would
+cross a room to look at was over their shoulder from the moment they arrived,
+and the street ran out towards olive groves. Swapped: the castle closes the far
+end and grows as they walk towards it; the groves fill the square behind them.
+
+Still aligned by its near edge — a 37 m landscape centred on the boundary would
+swallow the last stop.
+
+## D-142 — The Eastern Express runs across, not alongside (30 Jul 2026)
+
+It ran parallel to the street at x = 16, which put it beside and slightly behind
+the child for its whole pass. It was deployed for a day and never once seen.
+
+It crosses now: left to right over the open ground past the gravyer stall, at
+z = -66, beyond the front boundary. It enters the view from one edge, crosses
+everything the child is looking at, and leaves by the other. Two hundred and
+eighty metres end to end, sixteen metres a second, ten seconds between runs.
+
+**And it has a track to run on.** Two rails, sleepers every 2.4 m and a ballast
+bed, built from boxes rather than briefed as a model: a straight railway is six
+numbers and a repeat, and waiting for a file would have meant waiting for it to
+say something the geometry already says. Not solid, because it lies where a
+child cannot reach.
+
+## D-143 — No models for the rewards (30 Jul 2026)
+
+The collection screen shows each reward as an emoji and a line of English, and
+the owner has looked at it and called it enough. So the sixteen collectible
+models are not being made, and the missing renderer for them is not being
+written.
+
+Recorded because the gap was raised as work outstanding and it is now closed by
+a decision rather than by building anything. Four rewards in İstanbul and
+Nevşehir still have no brief at all — `collectible_istanbul_3` and its like —
+and that no longer matters.

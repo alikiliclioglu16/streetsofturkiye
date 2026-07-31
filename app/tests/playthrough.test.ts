@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest';
+import { PLAYABLE_CITY_IDS } from '@/content/loaders/loadCity';
 import { buildScene } from '@/engine/scene/buildScene';
 import { blockedBy, stepWithCollision, RUN_SPEED } from '@/engine/controls/movement';
 import { interactionReducer, initialInteractionContext } from '@/engine/interactions/machine';
@@ -263,6 +264,48 @@ describe('a finished city stays open', () => {
  * assumes a five-stop city — the quiz gate, the layout, the route, the
  * completion — has to hold here or it holds on three cities out of eighty-one.
  */
+describe('nothing scenic reaches into the play area', () => {
+  /**
+   * Nevşehir's chimney ridges stood four and a half metres inside the boundary:
+   * they had swallowed the dressing along the edges and closed the horses'
+   * routes, and it took a screenshot to notice. Scenery is scenery — a child
+   * walking to the edge of the street should not be able to reach it.
+   *
+   * Checked in every city, because nothing about this is Cappadocian.
+   */
+  for (const cityId of PLAYABLE_CITY_IDS) {
+    it(`keeps ${cityId}'s scenery outside the walls`, () => {
+      const scene = buildScene(loadComposedCity(cityId), 'high');
+      const halfWidth = Math.max(...scene.bounds.map((corner) => Math.abs(corner[0])));
+
+      const front = Math.min(...scene.bounds.map((corner) => corner[2]));
+      const back = Math.max(...scene.bounds.map((corner) => corner[2]));
+
+      for (const piece of scene.backdrop) {
+        // Only pieces that stand beside the walk. Anything ahead of the street
+        // or behind the square is meant to span it — the sea, the walls, the
+        // castle — and is judged by its z edge instead, which D-101 covers.
+        const [, , pieceZ] = piece.position;
+        if (pieceZ > back || pieceZ < front) continue;
+        if (Math.abs(piece.position[0]) < halfWidth) continue;
+
+        const [width, , depth] = piece.asset.entry.dimensions;
+        // Axis-aligned bounds of the rotated footprint, as the collider uses.
+        const cos = Math.abs(Math.cos(piece.rotationY));
+        const sin = Math.abs(Math.sin(piece.rotationY));
+        const halfX = (width * cos + depth * sin) / 2;
+        const nearEdge = Math.abs(piece.position[0]) - halfX;
+
+        // Touching the boundary is right — that is near-edge alignment. Being
+        // inside it is what put a chimney ridge across the horses' route.
+        expect(nearEdge, `${cityId}: ${piece.asset.entry.id} reaches inside`).toBeGreaterThan(
+          halfWidth - 0.5,
+        );
+      }
+    });
+  }
+});
+
 describe('Kars looks like Ani', () => {
   const scene = buildScene(loadComposedCity('kars'), 'high');
 
@@ -277,16 +320,27 @@ describe('Kars looks like Ani', () => {
     expect(ruins.length).toBeGreaterThanOrEqual(6);
     expect(new Set(ruins.map((r) => r.asset.entry.id)).size).toBeGreaterThan(1);
 
+    /**
+     * The alternation rule is about the two rows down the street, which a child
+     * walks past one after another. The corner ruins that fill the far edges of
+     * the plateau are not a row and do not have to alternate — they are the
+     * site continuing, seen all at once from a distance.
+     */
+    const sideShells = ruins.filter((r) => Math.abs(r.position[0]) < 28);
     for (const side of [-1, 1]) {
-      const row = ruins
+      const row = sideShells
         .filter((r) => Math.sign(r.position[0]) === side)
         .sort((a, b) => b.position[2] - a.position[2]);
+      expect(row.length, `nothing down side ${side}`).toBeGreaterThan(1);
       for (let i = 1; i < row.length; i += 1) {
         expect(row[i]!.asset.entry.id, `two the same in a row on side ${side}`).not.toBe(
           row[i - 1]!.asset.entry.id,
         );
       }
     }
+
+    // And the corners are filled at all, which is what they are there for.
+    expect(ruins.filter((r) => Math.abs(r.position[0]) >= 28).length).toBeGreaterThanOrEqual(6);
 
     // Turned individually. A ruin has no frontage, and squaring them to the
     // street would rebuild the city rather than leave it fallen.
@@ -449,20 +503,30 @@ describe('a child completes Gaziantep', () => {
     }
   });
 
-  it('stands the castle on the ground behind the child, not over them', () => {
+  it('stands the castle at the end of the walk, not behind it', () => {
+    /**
+     * It used to close the back of the square, which put the one thing in
+     * Gaziantep a child would cross a room to look at over their shoulder from
+     * the moment they arrived, with the street running out towards olive
+     * groves. It closes the far end now and grows as they walk towards it.
+     */
     const castle = scene.backdrop.find(
       (prop) => prop.asset.entry.id === 'city_gaziantep_castle',
     )!;
     const spawnZ = city.spawn.position[2];
     const halfDepth = castle.asset.entry.dimensions[2] / 2;
+    const front = Math.min(...scene.bounds.map((corner) => corner[2]));
 
+    // Ahead of the child, and far enough ahead to be a destination.
+    expect(castle.position[2]).toBeLessThan(spawnZ - 40);
     // Aligned by its near edge: a 37 m landscape centred on the boundary would
     // put the child inside a castle, which is the mistake the valley made first.
-    expect(castle.position[2] - halfDepth).toBeGreaterThanOrEqual(
-      Math.max(...scene.bounds.map((corner) => corner[2])) - 0.5,
-    );
-    expect(castle.position[2]).toBeGreaterThan(spawnZ + 20);
+    expect(castle.position[2] + halfDepth).toBeLessThanOrEqual(front + 0.5);
     expect(castle.solid).toBe(true);
+
+    // And the groves it swapped with are behind the square now.
+    const groves = scene.backdrop.filter((p) => p.asset.entry.id === 'kit_olive_grove');
+    expect(groves.some((grove) => grove.position[2] > spawnZ + 20)).toBe(true);
   });
 
   it('leaves the olive groves walkable', () => {

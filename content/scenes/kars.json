@@ -501,20 +501,108 @@
   "tramLine": null,
   "trainLine": {
     "from": [
-      16,
-      40
+      -140,
+      -66
     ],
     "to": [
-      16,
-      -140
+      140,
+      -66
     ]
   },
   "water": null,
   "backdrop": [
     {
+      "assetId": "city_kars_ani_church",
+      "position": [
+        -34,
+        0,
+        20
+      ],
+      "rotationY": 0.9,
+      "solid": false,
+      "note": "corner ruin 1"
+    },
+    {
       "assetId": "city_kars_ani_chapel",
       "position": [
-        -19,
+        -41,
+        0,
+        -24
+      ],
+      "rotationY": -1.2,
+      "solid": false,
+      "note": "corner ruin 2"
+    },
+    {
+      "assetId": "city_kars_ani_chapel",
+      "position": [
+        33,
+        0,
+        24
+      ],
+      "rotationY": -0.75,
+      "solid": false,
+      "note": "corner ruin 3"
+    },
+    {
+      "assetId": "city_kars_ani_church",
+      "position": [
+        40,
+        0,
+        -26.8
+      ],
+      "rotationY": 1.35,
+      "solid": false,
+      "note": "corner ruin 4"
+    },
+    {
+      "assetId": "city_kars_ani_chapel",
+      "position": [
+        -37,
+        0,
+        -55
+      ],
+      "rotationY": 2.1,
+      "solid": false,
+      "note": "corner ruin 5"
+    },
+    {
+      "assetId": "city_kars_ani_church",
+      "position": [
+        36,
+        0,
+        -59
+      ],
+      "rotationY": -2.35,
+      "solid": false,
+      "note": "corner ruin 6"
+    },
+    {
+      "assetId": "city_kars_ani_church",
+      "position": [
+        -28,
+        0,
+        -71
+      ],
+      "rotationY": 0.35,
+      "solid": false,
+      "note": "corner ruin 7"
+    },
+    {
+      "assetId": "city_kars_ani_chapel",
+      "position": [
+        30,
+        0,
+        -75
+      ],
+      "rotationY": -0.55,
+      "solid": false,
+      "note": "corner ruin 8"
+    },
+    {
+      "assetId": "city_kars_ani_chapel",
+      "position": [
+        -21,
         0,
         -11
       ],
@@ -525,7 +613,7 @@
     {
       "assetId": "city_kars_ani_church",
       "position": [
-        -23,
+        -25,
         0,
         -26.5
       ],
@@ -536,7 +624,7 @@
     {
       "assetId": "city_kars_ani_chapel",
       "position": [
-        -18,
+        -22,
         0,
         -38.8
       ],
@@ -547,7 +635,7 @@
     {
       "assetId": "city_kars_ani_church",
       "position": [
-        21,
+        23,
         0,
         -19
       ],
@@ -558,7 +646,7 @@
     {
       "assetId": "city_kars_ani_chapel",
       "position": [
-        19,
+        21,
         0,
         -29.9
       ],
@@ -569,7 +657,7 @@
     {
       "assetId": "city_kars_ani_church",
       "position": [
-        24,
+        26,
         0,
         -42.2
       ],

@@ -562,18 +562,18 @@
       "position": [
         0,
         0,
-        44.5
+        -85.5
       ],
-      "rotationY": 3.141592653589793,
+      "rotationY": 0,
       "solid": true,
-      "note": "the castle on its mound, behind the square"
+      "note": "the castle on its mound, closing the walk"
     },
     {
       "assetId": "kit_olive_grove",
       "position": [
         -16,
         0,
-        -71
+        32
       ],
       "rotationY": 0,
       "solid": false,
@@ -584,7 +584,7 @@
       "position": [
         15,
         0,
-        -79
+        40
       ],
       "rotationY": 1.1,
       "solid": false,
@@ -595,7 +595,7 @@
       "position": [
         -4,
         0,
-        -93
+        52
       ],
       "rotationY": 2.2,
       "solid": false,

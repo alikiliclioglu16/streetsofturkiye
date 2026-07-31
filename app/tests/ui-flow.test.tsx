@@ -19,7 +19,14 @@ import { loadComposedCity } from './helpers';
 const city = loadComposedCity('istanbul');
 
 describe('modal accessibility', () => {
-  it('moves focus into the dialog on open', async () => {
+  it('moves focus to the dialog itself, not to the first answer', async () => {
+    /**
+     * This used to focus the first button, and the browser draws a ring around
+     * whatever has focus. In the quiz the first button is the first answer, the
+     * options are shuffled, and on thirty-six of the eighty-four questions the
+     * correct one lands in that slot — so a child was shown a gold outline
+     * around the right answer before reading the question (D-139).
+     */
     render(
       <Modal labelledBy="t">
         <h2 id="t">Başlık</h2>
@@ -27,7 +34,8 @@ describe('modal accessibility', () => {
         <button type="button">Son</button>
       </Modal>,
     );
-    expect(screen.getByRole('button', { name: 'İlk' })).toHaveFocus();
+    expect(screen.getByRole('dialog')).toHaveFocus();
+    expect(screen.getByRole('button', { name: 'İlk' })).not.toHaveFocus();
   });
 
   it('closes on Escape when dismissible', async () => {
@@ -50,6 +58,10 @@ describe('modal accessibility', () => {
         <button type="button">Son</button>
       </Modal>,
     );
+    // Focus starts on the dialog, so the first Tab reaches the first control
+    // and the last one wraps back to it.
+    await userEvent.tab();
+    expect(screen.getByRole('button', { name: 'İlk' })).toHaveFocus();
     await userEvent.tab();
     expect(screen.getByRole('button', { name: 'Son' })).toHaveFocus();
     await userEvent.tab();
@@ -96,8 +108,20 @@ describe('quiz gate', () => {
     const onCorrect = vi.fn();
     const item = city.quiz[1]!;
     render(<QuizPanel item={item} index={1} total={2} locale="tr" onCorrect={onCorrect} />);
-    const correctIndex = item.options.findIndex((option) => option.correct);
-    for (let i = 0; i < correctIndex; i += 1) await userEvent.tab();
+    /**
+     * Tab through what is on screen rather than through the canonical order.
+     * The panel shuffles the options, so counting from `item.options` only
+     * worked while the two happened to line up — and it would have gone on
+     * passing whether or not the keyboard reached the right button.
+     */
+    // English only (D-014): the tr strings are null and `t` falls back to en.
+    const correctOption = item.options.find((option) => option.correct)!;
+    const correctText = correctOption.text.tr ?? correctOption.text.en!;
+    const rendered = screen.getAllByRole('button');
+    const target = rendered.findIndex((button) => button.textContent?.startsWith(correctText));
+    expect(target).toBeGreaterThanOrEqual(0);
+    for (let i = 0; i <= target; i += 1) await userEvent.tab();
+    expect(rendered[target]).toHaveFocus();
     await userEvent.keyboard('{Enter}');
     expect(onCorrect).toHaveBeenCalledTimes(1);
   });

@@ -551,7 +551,7 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
      * about which walk is meant. A second clip would make that fallback a
      * guess, and the file would need renaming before it arrived.
      */
-    dimensions: [0.3, 0.55, 0.95],
+    dimensions: [0.45, 0.83, 1.43],
     label: 'Street dog, tan',
     color: '#A67B4E',
     placeholder: 'box',
@@ -568,7 +568,7 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
      * 37,30,25 against 98,73,54. Two of a kind read as a pair; four of one
      * would read as one dog copied.
      */
-    dimensions: [0.3, 0.55, 0.95],
+    dimensions: [0.45, 0.83, 1.43],
     label: 'Street dog, dark',
     color: '#3B322A',
     placeholder: 'box',

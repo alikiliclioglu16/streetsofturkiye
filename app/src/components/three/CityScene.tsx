@@ -7,7 +7,7 @@ import type { HeroStatus } from '@/components/three/HeroCharacter';
 import type { HeroClip } from '@/engine/heroes/registry';
 import { AssetInstance } from '@/components/three/AssetInstance';
 import { WindProp } from '@/components/three/WindProp';
-import { Train, Tram } from '@/components/three/Tram';
+import { Train, TrainTrack, Tram } from '@/components/three/Tram';
 import { Balloons } from '@/components/three/Balloons';
 import { Ground } from '@/components/three/Ground';
 import { Water } from '@/components/three/Water';
@@ -197,6 +197,8 @@ export function CityScene({
         at all between runs — a locomotive parked at the edge of the plateau is
         a strange thing to leave in shot.
       */}
+      {scene.trainLine ? <TrainTrack from={scene.trainLine.from} to={scene.trainLine.to} /> : null}
+
       {scene.trainLine && scene.trainAsset ? (
         <Train
           asset={scene.trainAsset}

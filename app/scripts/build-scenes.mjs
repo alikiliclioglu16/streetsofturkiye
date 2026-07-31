@@ -135,6 +135,14 @@ const CITY_SURFACE = {
 };
 
 /** Animals the project has assigned against the region default (D-133). */
+/**
+ * Where the railway lies in Kars, in metres from the spawn.
+ *
+ * Past the front boundary at z = -59, so the track is outside the play area
+ * and the train crosses beyond everything a child can reach.
+ */
+const KARS_TRACK_Z = -66;
+
 const ANIMAL_OVERRIDES = {
   gaziantep: 'dog',
 };
@@ -816,9 +824,26 @@ function cityBackdrop(cityId, stopPositions, metrics) {
     }
 
     return [
-      // Fairy chimneys stand between the street and the rim, so a child sees
-      // chimneys close and a valley beyond them.
-      ...[-19, 19].flatMap((x) =>
+      /**
+       * Fairy chimneys stand between the street and the rim, so a child sees
+       * chimneys close and a valley beyond them.
+       *
+       * Moved out from nineteen metres to twenty-seven. A ridge is 19 m deep
+       * and turned side-on, so at nineteen its near edge stood at x = 9.5 —
+       * four and a half metres *inside* the play area. It had swallowed the
+       * dressing along the edges and closed the horses' routes, which is what
+       * the owner's screenshots show.
+       *
+       * It got worse rather than started when the recorded height began to
+       * draw the model (D-124): the ridges went from 10 m to the 17 m the
+       * layout had always assumed, and grew in plan by the same half again.
+       * The number was right; the position had been chosen against the smaller
+       * thing that was actually on screen.
+       *
+       * At twenty-seven the near edge sits at 17.5 m, clear of the fifteen
+       * metre boundary with a couple of metres to spare.
+       */
+      ...[-27, 27].flatMap((x) =>
         Array.from({ length: ridgeCount }, (_, i) => {
           const z = firstZ + 14 - ((span + 30) * i) / (ridgeCount - 1);
           return wall(
@@ -863,22 +888,30 @@ function cityBackdrop(cityId, stopPositions, metrics) {
       ),
       {
         /**
-         * The castle stands on its mound behind the square, aligned by its near
-         * edge so that a thirty-seven metre landscape does not sit over the
-         * spawn — the mistake the Nevşehir valley made first.
+         * The castle stands at the end of the walk, not behind it.
+         *
+         * It was behind the square, which meant the one thing in Gaziantep a
+         * child would cross a room to look at was over their shoulder from the
+         * moment they arrived — and the street ran out towards olive groves.
+         * Swapped: the castle now closes the far end and grows as they walk
+         * towards it, and the groves fill the square they started in.
+         *
+         * Aligned by its near edge, as it always was: a thirty-seven metre
+         * landscape centred on the boundary would swallow the last stop.
          */
         assetId: 'city_gaziantep_castle',
-        position: [0, 0, Math.round((behind + 37 / 2) * 10) / 10],
-        rotationY: Math.PI,
+        position: [0, 0, Math.round((lastZ - 22 - 37 / 2) * 10) / 10],
+        rotationY: 0,
         solid: true,
-        note: 'the castle on its mound, behind the square',
+        note: 'the castle on its mound, closing the walk',
       },
-      // Groves out in front and at the far corners: low, spreading, and never
-      // solid — an olive grove is somewhere you would walk into, not a wall.
+      // Groves behind the square and at the far corners: low, spreading, and
+      // never solid — an olive grove is somewhere you would walk into, not a
+      // wall.
       ...[
-        [-16, lastZ - 26],
-        [15, lastZ - 34],
-        [-4, lastZ - 48],
+        [-16, behind + 6],
+        [15, behind + 14],
+        [-4, behind + 26],
         [-30, firstZ - 4],
         [30, firstZ - span * 0.6],
       ].map(([x, z], i) => ({
@@ -909,16 +942,53 @@ function cityBackdrop(cityId, stopPositions, metrics) {
      * and squaring them to the street would rebuild the city rather than leave
      * it fallen.
      */
+    /**
+     * Twenty-one metres out at the closest, not eighteen.
+     *
+     * A chapel is 8.7 m deep and turned, so at eighteen its near edge stood at
+     * 13.9 — a metre inside the fifteen metre boundary, where a child walking
+     * to the edge of the street walks into a church. The same mistake as
+     * Cappadocia's chimney ridges and found the same way, by a test that now
+     * holds every city to it.
+     */
     const shells = [
-      ['city_kars_ani_chapel', -19, firstZ + 6, 0.22],
-      ['city_kars_ani_church', -23, firstZ - span * 0.34, -0.35],
-      ['city_kars_ani_chapel', -18, firstZ - span * 0.78, 0.5],
-      ['city_kars_ani_church', 21, firstZ - 2, -0.28],
-      ['city_kars_ani_chapel', 19, firstZ - span * 0.46, 0.42],
-      ['city_kars_ani_church', 24, firstZ - span * 0.9, -0.16],
+      ['city_kars_ani_chapel', -21, firstZ + 6, 0.22],
+      ['city_kars_ani_church', -25, firstZ - span * 0.34, -0.35],
+      ['city_kars_ani_chapel', -22, firstZ - span * 0.78, 0.5],
+      ['city_kars_ani_church', 23, firstZ - 2, -0.28],
+      ['city_kars_ani_chapel', 21, firstZ - span * 0.46, 0.42],
+      ['city_kars_ani_church', 26, firstZ - span * 0.9, -0.16],
     ];
 
     return [
+      /**
+       * The corners, filled by repeating what is already there.
+       *
+       * Six shells down the sides left the four corners of the plateau empty,
+       * and empty ground reads as unfinished rather than as open country — the
+       * owner's screenshots show it plainly. Ani has dozens of ruins standing
+       * about on it, so the honest way to fill them is more of the same
+       * buildings, further out and turned differently, not a new asset.
+       *
+       * Further out than the sides and behind them in depth, so they read as
+       * the rest of the site continuing rather than as a second row.
+       */
+      ...[
+        ['city_kars_ani_church', -34, behind - 6, 0.9],
+        ['city_kars_ani_chapel', -41, firstZ - span * 0.25, -1.2],
+        ['city_kars_ani_chapel', 33, behind - 2, -0.75],
+        ['city_kars_ani_church', 40, firstZ - span * 0.35, 1.35],
+        ['city_kars_ani_chapel', -37, lastZ - 10, 2.1],
+        ['city_kars_ani_church', 36, lastZ - 14, -2.35],
+        ['city_kars_ani_church', -28, lastZ - 26, 0.35],
+        ['city_kars_ani_chapel', 30, lastZ - 30, -0.55],
+      ].map(([assetId, x, z, rot], i) => ({
+        assetId,
+        position: [x, 0, Math.round(z * 10) / 10],
+        rotationY: rot,
+        solid: false,
+        note: `corner ruin ${i + 1}`,
+      })),
       ...shells.map(([assetId, x, z, rot], i) => ({
         assetId,
         position: [x, 0, Math.round(z * 10) / 10],
@@ -1267,7 +1337,23 @@ function buildScene(canonical) {
      * pass takes about sixteen seconds and the next one is fifteen seconds
      * after that.
      */
-    trainLine: canonical.id === 'kars' ? { from: [16, 40], to: [16, -140] } : null,
+    /**
+     * The Eastern Express crosses the plain behind the last stop.
+     *
+     * It used to run alongside the street at x = 16, parallel to the walk —
+     * which put it beside and slightly behind the child the whole time, where
+     * it was never once seen. Across is the answer: it now runs left to right
+     * over the open ground past the gravyer stall, so it enters the view from
+     * one edge, crosses everything the child is looking at, and leaves by the
+     * other.
+     *
+     * Two hundred and eighty metres end to end, both ends far outside the map,
+     * so it is never seen to appear or vanish.
+     */
+    trainLine:
+      canonical.id === 'kars'
+        ? { from: [-140, KARS_TRACK_Z], to: [140, KARS_TRACK_Z] }
+        : null,
     water:
       canonical.id === 'istanbul'
         ? { centerX: 0, centerZ: -202, width: 320, depth: 180, color: '#2E7FA8' }

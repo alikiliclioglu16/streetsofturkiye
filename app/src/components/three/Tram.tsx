@@ -109,9 +109,9 @@ export function Tram({ asset, from, to, reducedMotion }: TramProps) {
 
 /* ------------------------------------------------------------------ */
 
-export const TRAIN_SPEED = 11;
+export const TRAIN_SPEED = 16;
 /** Seconds between one train leaving and the next arriving. */
-export const TRAIN_INTERVAL_SECONDS = 15;
+export const TRAIN_INTERVAL_SECONDS = 10;
 
 export interface TrainState {
   /** Distance along the line from the arriving end, in metres. */
@@ -207,6 +207,62 @@ export function Train({ asset, from, to, reducedMotion }: TrainProps) {
   return (
     <group ref={group}>
       <AssetInstance asset={asset} />
+    </group>
+  );
+}
+
+/**
+ * The railway the train runs on.
+ *
+ * Two rails and a run of sleepers, built from boxes rather than delivered as a
+ * model: a straight track is six numbers and a repeat, and briefing it would
+ * have meant waiting for a file to say something the geometry already says.
+ *
+ * Not solid, and it does not need to be — it lies beyond the front boundary,
+ * where a child cannot reach it. It exists so the train has somewhere to be
+ * rather than sliding across bare ground.
+ */
+export function TrainTrack({
+  from,
+  to,
+}: {
+  from: readonly [number, number];
+  to: readonly [number, number];
+}) {
+  const { length, heading, midX, midZ, sleepers } = useMemo(() => {
+    const dx = to[0] - from[0];
+    const dz = to[1] - from[1];
+    const len = Math.hypot(dx, dz);
+    // One every 2.4 m, which is about right against a 20 m locomotive.
+    const count = Math.min(160, Math.floor(len / 2.4));
+    return {
+      length: len,
+      heading: Math.atan2(dx, dz) + Math.PI / 2,
+      midX: (from[0] + to[0]) / 2,
+      midZ: (from[1] + to[1]) / 2,
+      sleepers: Array.from({ length: count }, (_, i) => (i + 0.5) * (len / count) - len / 2),
+    };
+  }, [from, to]);
+
+  return (
+    <group position={[midX, 0, midZ]} rotation={[0, heading, 0]}>
+      {/* Ballast, so the track sits on something rather than on the ground. */}
+      <mesh position={[0, 0.04, 0]} receiveShadow>
+        <boxGeometry args={[length, 0.08, 3.4]} />
+        <meshStandardMaterial color="#6B6259" roughness={1} />
+      </mesh>
+      {sleepers.map((offset) => (
+        <mesh key={offset} position={[offset, 0.11, 0]} receiveShadow>
+          <boxGeometry args={[0.28, 0.14, 2.6]} />
+          <meshStandardMaterial color="#4A3B2E" roughness={1} />
+        </mesh>
+      ))}
+      {[-0.7175, 0.7175].map((z) => (
+        <mesh key={z} position={[0, 0.21, z]} castShadow receiveShadow>
+          <boxGeometry args={[length, 0.14, 0.12]} />
+          <meshStandardMaterial color="#8A8079" roughness={0.55} metalness={0.5} />
+        </mesh>
+      ))}
     </group>
   );
 }
