@@ -20,7 +20,7 @@ just been told what makes it special should be able to find one walking about.
 
 ## The whole list, in the order I would draw it
 
-Nine files left. **Part A first** — a street with placeholder stops and a real
+Eight files left. **Part A first** — a street with placeholder stops and a real
 horizon reads as a place under construction; real stops and no horizon reads as
 a diorama.
 
@@ -29,10 +29,10 @@ a diorama.
 | 1 | ~~`city_van_citadel_ridge`~~ | **retired** — the sides are `city_van_townhouses`, delivered | — | — |
 | 2 | `kit_van_orchard` | fruit trees, low and spreading | 7 × 4.6 × 7 m | 1024 |
 | 3 | ~~`city_van_akdamar_island`~~ | **delivered** — 23 × 11 × 23, at the end of the walk | — | — |
-| 4 | `city_van_erek_mountain` | Erek, behind the town | 96 × 30 × 90 m | 2048 |
-| 5 | `city_van_cat_basket` | **stop 1** — a Van cat in a basket | 1.1 × 0.9 × 0.9 m | 2048 |
+| 4 | `city_van_erek_mountain` | Erek, behind and above the castle | 96 × 30 × 90 m | 2048 |
+| 5 | `city_van_cat_basket` | **the basket only** — the cat is delivered and stands on its own | ~1.1 × 0.35 × 0.9 m | 1024 |
 | 6 | `city_van_akdamar_jetty` | **stop 2** — the boarding point | 2.4 × 1.8 × 6.5 m | 1024 |
-| 7 | `city_van_breakfast_table` | **stop 3** — the Van breakfast | 2.6 × 1.5 × 1.7 m | 1024 |
+| 7 | ~~`city_van_breakfast_table`~~ | **delivered** — 2.93 × 1.3 × 2.92 | — | — |
 | 8 | `kit_van_cat` | the animal, **rigged, `Walking` clip** | 0.22 × 0.55 × 0.35 m | 1024 |
 | 9 | `collectible_van_cat_plush` | reward 1 | 0.16 × 0.20 × 0.12 m | 1024 |
 | 10 | `collectible_van_boat_ticket` | reward 2 | 0.13 × 0.09 × 0.01 m | 1024 |

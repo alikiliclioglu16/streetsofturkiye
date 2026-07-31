@@ -435,26 +435,27 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
     notes: 'Delivered 24.42 MB buried 1.5 m; re-authored to 3.6 m on y = 0, 0.87 MB.',
   },
   {
-    id: 'city_van_akdamar_island',
-    modelUrl: '/assets/city/city_van_akdamar_island.glb',
-    checksum: 'ed8767332527e0263ab022c6e5479bde602fe58ed681646651eb82557f876ad2',
-    triangles: 10_239,
-    transferBytes: 1920236,
+    id: 'kit_van_cat',
+    modelUrl: '/assets/props/kit_van_cat.glb',
+    checksum: '71e435df94ad99948f9e034adc8d4bfee6d7ff1736a52d675b0d1c8457aff007',
+    triangles: 10_418,
+    transferBytes: 613552,
     /**
-     * Akdamar, and the piece of lake it sits in.
+     * A Van cat: white, long-haired, one eye blue and one amber.
      *
-     * Delivered as one square plate — island and water together — which is why
-     * it stands at the end of the walk rather than far out on the horizon. It
-     * is what the street runs towards, the way İstanbul's runs towards the sea.
+     * No skin and no animation, like the four geese before it, so it is placed
+     * as dressing rather than walked (D-129). That is not a compromise here —
+     * the city's one question is *What makes the Van cat special?* and the
+     * answer is the eyes, which a child reads standing still.
      *
-     * The lake plane was moved in to meet it. A 23 m island floating on grass
-     * six metres past the boundary would be the first thing anybody noticed.
+     * 0.55 m tall against the street cat's 0.6: the same storybook scale, a
+     * little smaller because this one stands rather than prowls.
      */
-    dimensions: [23.19, 11.0, 23.18],
-    label: 'Akdamar island',
-    color: '#4E7C86',
+    dimensions: [0.2, 0.55, 0.76],
+    label: 'Van cat',
+    color: '#F4F1EA',
     placeholder: 'box',
-    notes: 'Delivered 21.42 MB at 4 m, buried 2 m; re-authored to 11 m on y = 0, 1.83 MB.',
+    notes: 'Delivered 13.37 MB with a 2048 colour map; recompressed to 0.59 MB.',
   },
   {
     id: 'city_van_townhouses',
@@ -463,19 +464,111 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
     triangles: 10_059,
     transferBytes: 2332496,
     /**
-     * Van's sides: a run of mudbrick and stone townhouses with a bastion at one
-     * end.
+     * Van's sides: mudbrick and stone townhouses with a bastion at one end.
      *
-     * This replaces the citadel ridge the brief asked for. The ridge was the
+     * This replaced the citadel ridge the brief asked for. The ridge is the
      * right idea for Tushpa and the wrong one for a street — Van's walk is a
      * town, and the rock is what the town is built against rather than what it
-     * is walled with. The brief entry is retired rather than left waiting.
+     * is walled with.
      */
     dimensions: [26.7, 12.0, 15.34],
     label: 'Van townhouses',
     color: '#B49678',
     placeholder: 'box',
-    notes: 'Delivered 25.50 MB at 8 m, buried 4 m; re-authored to 12 m on y = 0, 2.22 MB.',
+  },
+  {
+    id: 'city_van_castle',
+    modelUrl: '/assets/city/city_van_castle.glb',
+    checksum: '8f4bf028f12be6c09ec984c6230a16b5937112ec4bf1559e40d5e4ce75e9c9fd',
+    triangles: 10_402,
+    transferBytes: 2418704,
+    /**
+     * Van Kalesi, closing the back, with Erek behind and above it so the two
+     * read as rock in front of mountain rather than as two walls.
+     *
+     * Fifty-nine metres across at sixteen tall: a citadel on a spine is long
+     * rather than high, and one drawn tall and narrow would be a keep.
+     */
+    dimensions: [59.09, 16.0, 32.77],
+    label: 'Van castle',
+    color: '#B0A08C',
+    placeholder: 'box',
+  },
+  {
+    id: 'city_van_akdamar_island',
+    modelUrl: '/assets/city/city_van_akdamar_island.glb',
+    checksum: 'ed8767332527e0263ab022c6e5479bde602fe58ed681646651eb82557f876ad2',
+    triangles: 10_239,
+    transferBytes: 1920236,
+    /**
+     * Akdamar, and the piece of lake it came with.
+     *
+     * It stands past where the paving runs out, which is further than it looks:
+     * the ground is drawn 44 m beyond the boundary and the water plane is drawn
+     * below the ground, so anything nearer is an island in a car park. That is
+     * why the lake looked missing — it was there, under the paving.
+     */
+    dimensions: [23.19, 11.0, 23.18],
+    label: 'Akdamar island',
+    color: '#4E7C86',
+    placeholder: 'box',
+  },
+  {
+    id: 'city_van_odd_eyed_cat',
+    modelUrl: '/assets/city/city_van_odd_eyed_cat.glb',
+    checksum: 'aaee758696487a3838b358c09818751ccf4ac5d382d2fa0ae0c96b862ecc6c0c',
+    triangles: 10_418,
+    transferBytes: 1112984,
+    /**
+     * Stop one: a white long-haired cat, one eye blue and one amber.
+     *
+     * 2048 on the colour map for an 80 cm object, for one reason — the city's
+     * single question is *What makes the Van cat special?* and the answer is
+     * those two eyes. They have to read from two metres. A basket is coming to
+     * go under it; it stands on its own until then.
+     */
+    dimensions: [0.29, 0.8, 1.11],
+    label: 'Van cat',
+    color: '#F2F0EA',
+    placeholder: 'box',
+  },
+  {
+    id: 'city_van_breakfast_table',
+    modelUrl: '/assets/city/city_van_breakfast_table.glb',
+    checksum: '5ea69a0181f83b10bb1de2bc3f693f35a39bb3fad6eb3dcca65af7beebeaa799',
+    triangles: 10_034,
+    transferBytes: 1054212,
+    /**
+     * Stop three: a round tray table nearly three metres across.
+     *
+     * A Van breakfast is famous for the number of dishes on it, so this is wide
+     * and low rather than tall — 1.3 m puts the tea glasses at about the height
+     * of a child's chin.
+     */
+    dimensions: [2.93, 1.3, 2.92],
+    label: 'Van breakfast',
+    color: '#D9A441',
+    placeholder: 'box',
+  },
+  {
+    id: 'city_van_urartu_stele',
+    modelUrl: '/assets/city/city_van_urartu_stele.glb',
+    checksum: '5c4c6a2c45ff256580c91e9d25ed8c0a717dd3899aa95a588200ebb67c2edbff',
+    triangles: 9_211,
+    transferBytes: 2039060,
+    /**
+     * An Urartian stele, dressing the street rather than being a stop.
+     *
+     * None of Van's three stops is about Urartu: the second is Akdamar, whose
+     * text is a 1,100-year-old island church and whose reward is a boat ticket.
+     * Making this one would have a child read about a church and collect a boat
+     * ticket in front of a cuneiform stone. Tushpa is everywhere underfoot in
+     * Van and nowhere in the canonical stops, and dressing is where it belongs.
+     */
+    dimensions: [1.4, 2.6, 0.96],
+    label: 'Urartian stele',
+    color: '#8C8378',
+    placeholder: 'box',
   },
   {
     id: 'city_kars_sarikamis_mountain',

@@ -66,7 +66,7 @@ const COMMISSIONED_ASSETS = {
   'kars:antik': 'city_kars_ani_carved_doorway',
   'kars:tren': 'city_kars_eastern_express_platform',
   'kars:stall': 'city_kars_gravyer_stall',
-  'van:vancat': 'city_van_cat_basket',
+  'van:vancat': 'city_van_odd_eyed_cat',
   'van:gol': 'city_van_akdamar_jetty',
   'van:stall': 'city_van_breakfast_table',
 };
@@ -151,7 +151,15 @@ const KARS_TRACK_Z = -66;
 
 const ANIMAL_OVERRIDES = {
   gaziantep: 'dog',
-  van: 'vancat',
+  /**
+   * Van walks İstanbul's cats, which are rigged and have a walk cycle.
+   *
+   * Its own white odd-eyed cat arrived unrigged, so it sits in the basket at
+   * stop one where a child can look at it — and the tabbies do the walking
+   * until a Van cat with a `Walking` clip exists. A cat that slides across the
+   * ground with its feet still is worse than a cat of the wrong colour.
+   */
+  van: 'cat',
 };
 
 /** Which surface each region's streets are laid with. */
@@ -381,6 +389,24 @@ function streetProps(cityId, stopPositions, geometry) {
    */
   if (cityId === 'kars') {
     candidates.push(...gooseFlock(cityId, stopPositions).map((bird) => ({ ...bird, solid: false })));
+  }
+
+  /**
+   * An Urartian stone beside Van's walk.
+   *
+   * Van was the Urartian capital and a cuneiform stele by the street is the
+   * right piece of furniture for the town. It was delivered to be stop two and
+   * it is not stop two: the canonical card for that stop is about Akdamar
+   * island and hands over a boat ticket, so a child would have stood in front
+   * of a stele and read about a church on the water (D-152).
+   *
+   * Off the walking line and not solid, like the rest of the dressing.
+   */
+  if (cityId === 'van') {
+    candidates.push({
+      ...prop('city_van_urartu_stele', -6.5, -22, 0.45, 'an Urartian stele'),
+      solid: false,
+    });
   }
 
   /**
@@ -991,27 +1017,49 @@ function cityBackdrop(cityId, stopPositions, metrics) {
          * direction and the gorge is Kars's.
          *
          * It arrived as one square plate with the island and its piece of lake
-         * together, so it belongs near rather than far: at seventy metres from
-         * the spawn a child walks the whole street towards it and watches it
-         * grow. Solid, because the far side of it is water.
+         * together — but it cannot stand as near as that suggests. The ground
+         * is drawn 44 m past the boundary (D-082) and the water plane is drawn
+         * *below* the ground, so anything closer than 103 m is an island in a
+         * car park. That is why the lake looked missing: it was there and it
+         * was under the paving.
+         *
+         * So the shore is where the paving runs out, and Akdamar sits just
+         * beyond it — sixty-eight metres ahead of the last stop, filling the
+         * view a child walks towards, which is how the sea and the Maiden's
+         * Tower work in İstanbul.
+         *
+         * Solid, because the far side of an island is water.
          */
         assetId: 'city_van_akdamar_island',
-        position: [-3, 0, Math.round((lastZ - 26) * 10) / 10],
+        position: [-3, 0, Math.round((lastZ - 68) * 10) / 10],
         rotationY: 0.35,
         solid: true,
         note: 'Akdamar, at the end of the walk',
       },
       {
         /**
-         * Erek behind the town. Aligned by its near edge, as every landscape
-         * plate is: 90 m of mountain centred on the boundary would put the
-         * square inside it (D-101).
+         * Van Castle closes the back, on the boundary.
+         *
+         * Fifty-nine metres across: what a child turns round to, and the widest
+         * thing in the city. Near edge on the boundary, as always — thirty-three
+         * metres of rock centred there would swallow the square (D-101).
+         */
+        assetId: 'city_van_castle',
+        position: [0, 0, Math.round((behind + 32.77 / 2) * 10) / 10],
+        rotationY: Math.PI,
+        solid: true,
+        note: 'Van Castle on its rock, behind the town',
+      },
+      {
+        /**
+         * Erek behind the castle, and taller than it by nearly double, so the
+         * two read as rock in front of mountain rather than as two walls.
          */
         assetId: 'city_van_erek_mountain',
-        position: [6, 0, Math.round((behind + 22 + 90 / 2) * 10) / 10],
+        position: [8, 0, Math.round((behind + 52 + 90 / 2) * 10) / 10],
         rotationY: Math.PI - 0.2,
         solid: false,
-        note: 'Erek, behind the town',
+        note: 'Erek, behind the castle',
       },
     ];
   }
@@ -1532,7 +1580,7 @@ function buildScene(canonical) {
       canonical.id === 'istanbul'
         ? { centerX: 0, centerZ: -202, width: 320, depth: 180, color: '#2E7FA8' }
         : canonical.id === 'van'
-          ? { centerX: 0, centerZ: -154, width: 340, depth: 190, color: '#3E93A0' }
+          ? { centerX: 0, centerZ: -200, width: 420, depth: 200, color: '#3E93A0' }
           : null,
     /**
      * Scenery beyond the play area. The Beyoğlu row stands behind the walk as

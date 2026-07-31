@@ -349,8 +349,16 @@ describe('Van stands between a town and a lake', () => {
 
     // Steppe, not Ani's bedrock: both are eastern and that is where it stops.
     expect(scene.groundSurface).toBe('steppe');
-    // Its own cat, because the city's one question is about it.
-    expect(scene.animal).toBe('vancat');
+    /**
+     * İstanbul's rigged tabbies walk the street. Van's own white odd-eyed cat
+     * arrived without a rig, so it sits in the basket at stop one where a child
+     * can look at it — which is where the question is answered anyway. A cat
+     * sliding across the ground with its feet still would be worse than a cat
+     * of the wrong colour (D-152).
+     */
+    expect(scene.animal).toBe('cat');
+    // The cat arrived before its basket, so stop one is the cat on its own.
+    expect(scene.hotspots[0]!.asset.entry.id).toBe('city_van_odd_eyed_cat');
     expect(scene.balloons).toHaveLength(0);
   });
 });

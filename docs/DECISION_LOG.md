@@ -2404,3 +2404,97 @@ rather than by looking:
 
 Both are held by tests now: the island must sit inside the water plate on both
 axes, and the walk must run towards it.
+
+## D-152 — Van's four deliveries, and one that is not a stop (31 Jul 2026)
+
+| | Delivered | Shipped | Placed as |
+|---|---|---|---|
+| Van Kalesi | 25.91 MB | 2.31 MB | behind the square, 59 × 16 m |
+| Breakfast table | 28.78 MB | 1.01 MB | stop three |
+| White odd-eyed cat | 13.37 MB | 1.07 MB | stop one, in a basket |
+| Urartian stele | 22.72 MB | 0.70 MB | **dressing, not stop two** |
+
+**The stele is not stop two, and this is the one thing asked for that was not
+done.** Van's second stop is canonically *Akdamar Island*: the card reads "Lake
+Van is Türkiye's largest lake — big as a sea! On Akdamar Island stands a
+1,100-year-old church…" and hands over a boat ticket. A child standing in front
+of an Urartian cuneiform stone while reading that would be looking at the wrong
+object, and canonical text is read-only so the card cannot be made to agree.
+
+So it stands beside the walk instead, where it is exactly right: Van was the
+Urartian capital and a carved stone by the street is the town's own furniture.
+Nothing is wasted and one line moves it if the owner wants it as the stop
+anyway.
+
+**The basket was built rather than briefed.** A ring, a floor and a rim — 196
+triangles — generated and merged into the cat's own file. Waiting a day for a
+shape that is nine numbers and a loop would have been the wrong trade, and the
+two have to be one object regardless: a stop is a thing a child walks up to, not
+two things that happen to be in the same place.
+
+It keeps a 2048 colour map at 90 cm tall, for the same reason the Zeugma panel
+does. The city's only question is *What makes the Van cat special?* and the
+answer is the two eyes, one blue and one amber. They have to read from two
+metres or the stop teaches nothing.
+
+**Van walks İstanbul's cats.** Its own white cat arrived unrigged. A cat sliding
+across the ground with its feet still is worse than a cat of the wrong colour
+(D-043), so the rigged tabbies do the walking and the Van cat sits in the basket
+where the child is looking anyway.
+
+## D-153 — The cat says something (31 Jul 2026)
+
+A meow, synthesised, and built the way the train horn was rather than the way
+the ambience bed was.
+
+A meow is two vowels run together — the mouth opens and closes — so it is one
+sawtooth voice with the pitch rising then falling, under a bandpass whose centre
+sweeps the other way. **That crossing is what makes it a word instead of a
+beep.** A `pitch` argument shifts the whole call, so one function gives a
+different cat each time without a second file.
+
+Sounded once when the cat stop opens, because the reason a child stops there is
+to look at a cat and a cat that is silent when you crouch in front of it is a
+model of a cat. And then in the street every twenty-two to forty-eight seconds,
+irregular on purpose: something that arrives on a count becomes a metronome, and
+a cat you hear every ten seconds is a cat you start waiting for.
+
+Silent while a stop is open, so it never talks over the guide. On the `ambience`
+channel, so it can be muted without muting the guide. Off entirely under reduced
+motion.
+
+## D-152 — Van's four deliveries, and why the lake was invisible (31 Jul 2026)
+
+Castle, breakfast table, Urartian stele and the odd-eyed cat. All four
+re-authored on y = 0; three had arrived buried.
+
+**The lake was never missing. It was under the paving.** The ground is drawn 44 m
+past the play boundary (D-082) and `Water` renders at y = -0.06, *below* it. Van's
+water plane started at the boundary, so its first 44 m were hidden and Akdamar —
+placed at the end of the walk on purpose — was standing on a car park.
+
+The shore is now where the paving runs out, at z = -103, and Akdamar sits just
+past it: sixty-eight metres ahead of the last stop, filling the view a child
+walks towards. That is how the sea and the Maiden's Tower already work in
+İstanbul, and it is why İstanbul never showed the fault.
+
+**The Urartian stele is dressing, not a stop.** None of Van's three stops is
+about Urartu — the second is Akdamar, whose text is a 1,100-year-old island
+church and whose reward is a boat ticket. Making the stele that stop would have
+a child read about a church and collect a boat ticket in front of a cuneiform
+stone. Tushpa is everywhere underfoot in Van and nowhere in the canonical stops.
+
+**İstanbul's rigged cat walks Van** until the odd-eyed one is rigged. The
+delivered Van cat has no skin and no animation, so it stands as the stop object
+where its two eyes are the point, and the tabby does the walking.
+
+**The registry had to be rebuilt for this city.** Three ids ended up recorded
+twice with different byte counts and checksums, and a `city_van_cat_basket`
+entry existed for a file that had been deleted. Patching them one at a time
+failed twice. Every `city_van_*` entry was stripped and one block regenerated
+with the numbers read back off disk.
+
+The test that caught it is the one from D-124 — the registry held against the
+files it describes. It has now found a wrong size, a wrong checksum and a
+duplicate id on three separate occasions. **A record that is not checked against
+the thing it records is a comment.**
