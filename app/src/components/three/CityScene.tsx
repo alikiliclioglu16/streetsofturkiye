@@ -197,19 +197,17 @@ export function CityScene({
         download — but each clone carries its own skeleton and mixer, because
         sharing either would make them move as one animal.
       */}
-      {scene.catModelUrl
-        ? scene.catRoutes.map((route, index) => (
-            <StreetCat
-              key={`animal-${index}`}
-              url={scene.catModelUrl!}
-              route={route}
-              targetHeight={scene.catHeight}
-              phase={index / scene.catRoutes.length}
-              speed={scene.animal === 'horse' ? HORSE_WALK_SPEED : CAT_WALK_SPEED}
-              turnRate={scene.animal === 'horse' ? HORSE_TURN_RATE : CAT_TURN_RATE}
-            />
-          ))
-        : null}
+      {scene.animals.map((animal, index) => (
+        <StreetCat
+          key={animal.key}
+          url={animal.modelUrl!}
+          route={animal.route}
+          targetHeight={animal.targetHeight}
+          phase={index / Math.max(1, scene.animals.length)}
+          speed={scene.animal === 'horse' ? HORSE_WALK_SPEED : CAT_WALK_SPEED}
+          turnRate={scene.animal === 'horse' ? HORSE_TURN_RATE : CAT_TURN_RATE}
+        />
+      ))}
 
       {/* Greenery. Generated geometry, roughly 250 triangles a tree. */}
       <StreetTrees trees={scene.trees} reducedMotion={reducedMotion} />

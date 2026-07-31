@@ -1,6 +1,6 @@
 import type { RuntimeCity as CityDefinition } from '@/content/compose';
 import type { Vec3 } from '@/content/schemas/scene';
-import { kitAssetId, resolveAsset, type QualityTier, type ResolvedAsset } from '@/engine/assets/registry';
+import { ColliderPart, kitAssetId, resolveAsset, type QualityTier, type ResolvedAsset } from '@/engine/assets/registry';
 import { orderedHotspots } from '@/engine/interactions/machine';
 import type { RectCollider } from '@/engine/controls/movement';
 import type { SceneDefinition } from '@/content/schemas/scene';
@@ -87,6 +87,14 @@ export interface SceneDescription {
   readonly trees: readonly StreetTreeSpec[];
   readonly animal: SceneDefinition['animal'];
   readonly catModelUrl: string | null;
+  /** Every animal walking this street, with the model each one uses. */
+  readonly animals: readonly {
+    readonly key: string;
+    readonly asset: ResolvedAsset;
+    readonly modelUrl: string | null;
+    readonly route: readonly { x: number; z: number }[];
+    readonly targetHeight: number;
+  }[];
   /** Briefed height for a cat, in metres; the delivered rig is not at world scale. */
   readonly catHeight: number;
   readonly props: readonly ScenePropInstance[];
@@ -202,13 +210,44 @@ export function buildScene(city: CityDefinition, quality: QualityTier): SceneDes
     solid: prop.solid ?? false,
   }));
 
+  /**
+   * Turns an object's declared footprint pieces into world rectangles.
+   *
+   * Shared by props and stops, because a gate does not stop being a gate when
+   * it is also a stop: the Kapalıçarşı is both, and a single rectangle over it
+   * sealed an archway a child was looking straight through.
+   */
+  const partColliders = (
+    parts: readonly ColliderPart[],
+    position: Vec3,
+    rotationY: number,
+  ): RectCollider[] => {
+    const cos = Math.cos(rotationY);
+    const sin = Math.sin(rotationY);
+    return parts.map((part) => {
+      const bounds = rotatedFootprint(part.halfWidth * 2, part.halfDepth * 2, rotationY);
+      return {
+        x: position[0] + part.offsetX * cos + part.offsetZ * sin,
+        z: position[2] - part.offsetX * sin + part.offsetZ * cos,
+        halfWidth: bounds.halfWidth,
+        halfDepth: bounds.halfDepth,
+      };
+    });
+  };
+
   const colliders: RectCollider[] = [
-    ...hotspots.map((hotspot) => ({
-      x: hotspot.position[0],
-      z: hotspot.position[2],
-      halfWidth: hotspot.collider.halfWidth,
-      halfDepth: hotspot.collider.halfDepth,
-    })),
+    ...hotspots.flatMap((hotspot) => {
+      const parts = hotspot.asset.entry.colliderParts;
+      if (parts?.length) return partColliders(parts, hotspot.position, hotspot.rotation[1]);
+      return [
+        {
+          x: hotspot.position[0],
+          z: hotspot.position[2],
+          halfWidth: hotspot.collider.halfWidth,
+          halfDepth: hotspot.collider.halfDepth,
+        },
+      ];
+    }),
     ...[...props, ...backdrop]
       .filter((prop) => prop.solid)
       .flatMap((prop) => {
@@ -228,19 +267,7 @@ export function buildScene(city: CityDefinition, quality: QualityTier): SceneDes
           const { halfWidth, halfDepth } = rotatedFootprint(width, depth, prop.rotationY);
           return [{ x: prop.position[0], z: prop.position[2], halfWidth, halfDepth }];
         }
-
-        const cos = Math.cos(prop.rotationY);
-        const sin = Math.sin(prop.rotationY);
-        return parts.map((part) => {
-          // The piece turns with the object, and so does where it sits on it.
-          const bounds = rotatedFootprint(part.halfWidth * 2, part.halfDepth * 2, prop.rotationY);
-          return {
-            x: prop.position[0] + part.offsetX * cos + part.offsetZ * sin,
-            z: prop.position[2] - part.offsetX * sin + part.offsetZ * cos,
-            halfWidth: bounds.halfWidth,
-            halfDepth: bounds.halfDepth,
-          };
-        });
+        return partColliders(parts, prop.position, prop.rotationY);
       }),
   ];
 
@@ -251,13 +278,41 @@ export function buildScene(city: CityDefinition, quality: QualityTier): SceneDes
    *
    * A ternary held two and would have quietly given the third a cat.
    */
-  const ANIMAL_ASSETS: Record<string, string> = {
-    horse: 'kit_anatolian_horse',
-    goose: 'kit_kars_goose',
-    cat: 'kit_street_cat',
+  /**
+   * A city's animals, as a list rather than a single model.
+   *
+   * Every city used to walk one animal at several sizes. Gaziantep walks two
+   * different street dogs, one tan and one nearly black, and two of a kind read
+   * as a pair where four of one read as one dog copied — the lesson the sky
+   * over Cappadocia already taught.
+   *
+   * Routes take their model in turn, so an even number of routes gives an even
+   * split. Nothing here has to know how many of each there are.
+   */
+  const ANIMAL_ASSETS: Record<string, readonly string[]> = {
+    horse: ['kit_anatolian_horse'],
+    goose: ['kit_kars_goose'],
+    dog: ['kit_street_dog_tan', 'kit_street_dog_dark'],
+    cat: ['kit_street_cat'],
   };
-  const animalId = ANIMAL_ASSETS[city.animal] ?? 'kit_street_cat';
-  const cat = resolveAsset(animalId, quality);
+  const animalIds = ANIMAL_ASSETS[city.animal] ?? ['kit_street_cat'];
+  const animalAssets = animalIds.map((id) => resolveAsset(id, quality));
+  const cat = animalAssets[0]!;
+  const animals =
+    city.animal === 'none'
+      ? []
+      : city.catRoutes
+          .map((route, index) => {
+            const asset = animalAssets[index % animalAssets.length]!;
+            return {
+              key: `animal-${index}`,
+              asset,
+              modelUrl: asset.modelUrl,
+              route,
+              targetHeight: asset.entry.dimensions[1],
+            };
+          })
+          .filter((entry) => entry.modelUrl !== null);
 
   const npcs = city.npcs
     .map((entry, index) => {
@@ -295,6 +350,7 @@ export function buildScene(city: CityDefinition, quality: QualityTier): SceneDes
     npcs,
     trees,
     animal: city.animal,
+    animals,
     catModelUrl: city.animal === 'none' || city.catRoutes.length === 0 ? null : cat.modelUrl,
     catHeight: cat.entry.dimensions[1],
     props,

@@ -137,6 +137,8 @@ export const DELIVERED_DIMENSIONS = {
   kit_planter_cypress: [0.91, 2.5, 0.91],
   kit_crates: [1.29, 1.0, 1.19],
   kit_market_stall: [2.25, 2.5, 1.61],
+  kit_street_dog_tan: [0.3, 0.55, 0.95],
+  kit_street_dog_dark: [0.3, 0.55, 0.95],
   kit_street_cat: [0.45, 0.6, 1.05],
   kit_anatolian_horse: [0.72, 2.4, 2.97],
   kit_wall_fountain: [2.0, 3.0, 1.7],

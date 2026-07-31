@@ -1931,3 +1931,63 @@ What actually found it, in order:
 The lesson is not "be suspicious of the working copy". It is **read back what
 you wrote before building on it**, and keep the tests that compare a record
 against the thing it records.
+
+## D-132 — Kars gets the Hodja, and the source is not edited to say so (30 Jul 2026)
+
+The canonical record gives Kars Keloğlan. The project has decided otherwise, and
+the decision is recorded in the scene builder as a `GUIDE_OVERRIDES` entry rather
+than by editing `content/canonical/`, which stays read-only. Same reasoning as
+the per-hero material correction: the delivered file is not modified, the
+correction lives in code where it can be read, tested and undone (D-019).
+
+It also makes the pilot two Hodja cities and two Keloğlan cities instead of one
+and three — the first real exercise of the rule that a city loads exactly one
+hero and never preloads the other (D-012).
+
+## D-133 — Gaziantep walks dogs, and a city may walk more than one animal (30 Jul 2026)
+
+Two street dogs, rigged and skinned on the first delivery — the first animal in
+this project to arrive that way. One caramel, mean colour 98,73,54; one nearly
+black at 37,30,25. Both 27 joints, the same armature family as the cat and the
+horse, both authored at armature scale and measuring nothing in bind pose.
+
+**The animal was one model per city, and now it is a list.** Routes take a model
+in turn, so an even number of routes splits evenly and nothing has to count.
+Two of a kind read as a pair; four of one read as one dog copied, which is the
+lesson the sky over Cappadocia already taught.
+
+Their clip is named `Armature|Unreal Take|baselayer`. `StreetCat` prefers
+`Walking` and falls back to the first clip in the file, which is right here
+because there is exactly one clip and no ambiguity about which walk is meant. A
+second clip would turn that fallback into a guess, and the file would need
+renaming before it arrived.
+
+**Routes are generated for the animal that walks them.** The first attempt read
+the region default when building the routes and the override only when choosing
+the model, so Gaziantep's dogs were handed the cats' five short hops. Then four
+routes written out by eye produced two: Gaziantep's stops sit right of the
+centre line and its street is fifteen metres to a side, so a route drawn there
+lands inside a trigger ring more often than not. It now offers eight candidates
+and takes the first four that clear every ring. A city that quietly ends up with
+two dogs instead of four is the kind of thing nobody notices for a month.
+
+## D-134 — A stop can be walked through (30 Jul 2026)
+
+The owner's screenshot of İstanbul showed the Kapalıçarşı gate with its doors
+open, an inner arch visible behind it and the ferry terminal beyond that — and a
+child could not walk into any of it. The collider came from the footprint, one
+rectangle over the whole object, which sealed an archway they were looking
+straight through.
+
+`colliderParts` already existed for props (D-125). It now applies to stops too,
+through one helper both paths share: a gate does not stop being a gate when it
+is also a stop.
+
+Measured, as the Gaziantep gate was. At walking height the vertices leave an
+empty band from 37.5% to 62.5% of the width, and the same gap appears across the
+depth — this is a deep gateway with an arch at the front, another behind, and
+hollow between. At the recorded 5.37 m each pier is 2.01 m and the opening is
+1.34 m: **0.44 m of walking room** against a 0.45 m player radius, the tightest
+passage in the project. It is narrow because the wooden doors stand open inside
+the arch and take up part of it, which is what a real gateway does. Widening it
+is moving two numbers if it turns out to be fiddly on a tablet.

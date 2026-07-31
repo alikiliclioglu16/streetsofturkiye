@@ -441,6 +441,49 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
     notes: 'Delivered 23.80 MB at 8 m, buried 4 m; re-authored to 12 m on y = 0, 2.19 MB.',
   },
   {
+    id: 'kit_street_dog_tan',
+    modelUrl: '/assets/props/kit_street_dog_tan.glb',
+    checksum: 'dc3d56636e63d8a20dfc5eaa267641578a280ec2e2fa5b03319b8590f6300a7b',
+    triangles: 10_297,
+    transferBytes: 939440,
+    /**
+     * A tan street dog, and the first animal in the project that arrived
+     * rigged and walking on the first delivery.
+     *
+     * Skinned with 27 joints, the same armature family as the cat and the
+     * horse, and authored at armature scale — it measures nothing in bind pose
+     * and is scaled to this height on mount, exactly as they are.
+     *
+     * Its one clip is named `Armature|Unreal Take|baselayer`, not `Walking`.
+     * `StreetCat` prefers `Walking` and falls back to the first clip in the
+     * file, which is right here because there is exactly one and no ambiguity
+     * about which walk is meant. A second clip would make that fallback a
+     * guess, and the file would need renaming before it arrived.
+     */
+    dimensions: [0.3, 0.55, 0.95],
+    label: 'Street dog, tan',
+    color: '#A67B4E',
+    placeholder: 'box',
+    notes: 'Delivered 5.46 MB with a 2048 colour map; recompressed to 0.90 MB.',
+  },
+  {
+    id: 'kit_street_dog_dark',
+    modelUrl: '/assets/props/kit_street_dog_dark.glb',
+    checksum: '0afc645a079c3bf2484ec65891e9781d171ce8c589d4eada978f7a79b7263b7e',
+    triangles: 10_448,
+    transferBytes: 691132,
+    /**
+     * The second dog, nearly black where the first is caramel — mean colour
+     * 37,30,25 against 98,73,54. Two of a kind read as a pair; four of one
+     * would read as one dog copied.
+     */
+    dimensions: [0.3, 0.55, 0.95],
+    label: 'Street dog, dark',
+    color: '#3B322A',
+    placeholder: 'box',
+    notes: 'Delivered 3.90 MB with a 2048 colour map; recompressed to 0.66 MB.',
+  },
+  {
     id: 'kit_goose_standing_a',
     modelUrl: '/assets/props/kit_goose_standing_a.glb',
     checksum: 'd681db3b6338b76c0df3f48d86eb63b0e25602a73ca0c68c499d2811c856763a',
@@ -663,6 +706,25 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
     label: 'Grand Bazaar gateway',
     color: '#A8763F',
     placeholder: 'box',
+    /**
+     * The Kapalıçarşı gate is a gate, and a child should walk through it.
+     *
+     * Measured rather than chosen. At walking height the vertices form two
+     * clusters either side of an empty band running from 37.5% to 62.5% of the
+     * width — and the same gap appears across the depth, because this is a deep
+     * gateway with an arch at the front and another behind it, hollow between.
+     *
+     * At the recorded 5.37 m that makes each pier 2.01 m and the opening
+     * 1.34 m. Against a 0.45 m player radius that is **0.44 m of walking
+     * room**, which is tighter than Gaziantep's 0.78 and tight enough to be
+     * worth saying: the wooden doors stand open inside the arch and take up
+     * part of it, which is what a real gateway does. Pull the piers apart here
+     * if it turns out to be fiddly for a child on a tablet.
+     */
+    colliderParts: [
+      { offsetX: -1.68, offsetZ: 0, halfWidth: 1.01, halfDepth: 1.8 },
+      { offsetX: 1.68, offsetZ: 0, halfWidth: 1.01, halfDepth: 1.8 },
+    ],
     notes:
       'Delivered at 52.08 MB with four 4096 px PNG maps on 7,793 triangles. ' +
       'Recompressed to a 2048 colour map and 1024 for the rest: 1.90 MB.',

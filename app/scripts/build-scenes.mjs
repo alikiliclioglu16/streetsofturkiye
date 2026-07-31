@@ -134,6 +134,11 @@ const CITY_SURFACE = {
   kars: 'rock',
 };
 
+/** Animals the project has assigned against the region default (D-133). */
+const ANIMAL_OVERRIDES = {
+  gaziantep: 'dog',
+};
+
 const REGION_SURFACE = {
   marmara: 'cobblestone',
   aegean: 'cobblestone',
@@ -146,6 +151,11 @@ const REGION_SURFACE = {
 
 /** Half the depth of the valley plate, from its registered dimensions. */
 const VALLEY_HALF_DEPTH = 78.2 / 2;
+
+/** Guides the project has assigned against the source's own (D-132). */
+const GUIDE_OVERRIDES = {
+  kars: 'character_nasreddin_hoca_base',
+};
 
 const CITY_THEMES = {
   istanbul: '/assets/audio/istanbul_theme.webm',
@@ -455,6 +465,64 @@ function animalRoutes(stopPositions, geometry, animal, metrics) {
       ],
     ];
     return routes.filter((route) => route.every((point) => clearOfStops(point, 2.5)));
+  }
+
+  if (animal === 'dog') {
+    /**
+     * Street dogs, for Gaziantep. Four of them, so two models split evenly.
+     *
+     * Not a cat's beat and not a horse's line. A cat threads the furniture in
+     * short tight moves; a horse walks the open edge. A dog covers more ground
+     * than a cat and less carefully — longer runs, further out, crossing the
+     * open rather than hugging the pavement.
+     *
+     * Six candidates and the first four that clear every ring, rather than four
+     * written out and hoped for. Gaziantep's stops sit right of the centre line
+     * and its street is fifteen metres to a side, so a route drawn by eye on
+     * that side lands inside a trigger ring more often than not — two of the
+     * first four did, and a city that quietly ends up with two dogs instead of
+     * four is the kind of thing nobody notices for a month.
+     */
+    const lane = edge - 2.5;
+    const candidates = [
+      [
+        { x: -lane, z: firstZ - 4 },
+        { x: -lane + 4, z: firstZ - span * 0.32 },
+        { x: -lane + 0.5, z: firstZ - span * 0.58 },
+      ],
+      [
+        { x: -lane + 1, z: lastZ - 14 },
+        { x: -lane + 6, z: lastZ - 4 },
+      ],
+      [
+        { x: lane, z: firstZ - span * 0.1 },
+        { x: lane - 3.5, z: firstZ - span * 0.36 },
+      ],
+      [
+        { x: lane - 1, z: lastZ - 2 },
+        { x: lane - 5, z: lastZ - 13 },
+      ],
+      [
+        { x: -lane + 2, z: firstZ + 6 },
+        { x: -lane + 7, z: firstZ - 3 },
+      ],
+      [
+        { x: lane - 2, z: firstZ - span * 0.72 },
+        { x: lane - 6, z: lastZ - 9 },
+      ],
+      // The two gaps between stops, on the side the stops crowd.
+      [
+        { x: lane, z: firstZ - span * 0.25 },
+        { x: lane - 3, z: firstZ - span * 0.3 },
+      ],
+      [
+        { x: lane - 0.5, z: firstZ - span * 0.75 },
+        { x: lane - 4, z: firstZ - span * 0.8 },
+      ],
+    ];
+    return candidates
+      .filter((route) => route.every((point) => clearOfStops(point, 2.5)))
+      .slice(0, 4);
   }
 
   // Cats: short beats, tucked in near the pavement.
@@ -1107,10 +1175,24 @@ function buildScene(canonical) {
       groundColor: region.sourceVisual.ground,
     },
     guide: {
-      assetId:
-        canonical.legacyGuideId === 'keloglan'
+      /**
+       * Which guide walks this city.
+       *
+       * Canonical carries a `legacyGuideId` and it is the default, because the
+       * source assigned one to all eighty-one provinces. Where the project has
+       * since decided otherwise, the decision is recorded here rather than by
+       * editing canonical — the same reasoning that corrects a delivered
+       * material in the registry instead of rewriting the GLB (D-019).
+       *
+       * Kars is the first: the source gives it Keloğlan and it gets the Hodja.
+       * That also means the pilot is no longer three Keloğlan cities and one
+       * Hodja city — two each, which is the first real test of the rule that a
+       * city loads exactly one hero and never preloads the other.
+       */
+      assetId: GUIDE_OVERRIDES[canonical.id] ??
+        (canonical.legacyGuideId === 'keloglan'
           ? 'character_keloglan_base'
-          : 'character_nasreddin_hoca_base',
+          : 'character_nasreddin_hoca_base'),
     },
     /**
      * The child appears at the head of the street, facing down it. This must
@@ -1187,11 +1269,14 @@ function buildScene(canonical) {
      * the sea; Nevşehir closes with fairy chimneys and opens on to a valley.
      */
     backdrop: cityBackdrop(canonical.id, stopPositions, metrics),
-    animal: REGION_ANIMAL[canonical.regionId] ?? 'cat',
+    animal: ANIMAL_OVERRIDES[canonical.id] ?? REGION_ANIMAL[canonical.regionId] ?? 'cat',
+    // The routes have to be generated for the animal that actually walks them:
+    // a dog's run is not a cat's beat, and reading the region default here
+    // would have given Gaziantep's dogs the cats' five short hops.
     catRoutes: animalRoutes(
       stopPositions,
       geometry,
-      REGION_ANIMAL[canonical.regionId] ?? 'cat',
+      ANIMAL_OVERRIDES[canonical.id] ?? REGION_ANIMAL[canonical.regionId] ?? 'cat',
       metrics,
     ),
     npcs: featuredNpcs(canonical.id, stopPositions, geometry),

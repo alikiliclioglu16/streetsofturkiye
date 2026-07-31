@@ -167,6 +167,34 @@ describe('street kit props', () => {
     expect(byId.get('kit_goose_standing_a')![1]).toBe(byId.get('kit_goose_standing_b')![1]);
   });
 
+  it('lets a child walk through the Kapalıçarşı gate, which is also a stop', () => {
+    /**
+     * A gate does not stop being a gate when it is also a stop. The
+     * Kapalıçarşı's collider came from its footprint, one rectangle over the
+     * whole of it, which sealed an archway a child was looking straight
+     * through — the owner's screenshot is what showed it.
+     *
+     * Measured: at walking height the vertices leave an empty band from 37.5%
+     * to 62.5% of the width, so each pier is 2.01 m of the 5.37 m frontage and
+     * the opening is 1.34 m. That is 0.44 m of walking room once the player's
+     * radius comes off — the tightest passage in the project, and narrow
+     * because the wooden doors stand open inside the arch.
+     */
+    const scene = buildScene(loadComposedCity('istanbul'), 'high');
+    const gate = scene.hotspots.find(
+      (hotspot) => hotspot.asset.entry.id === 'city_istanbul_grand_bazaar',
+    )!;
+    expect(gate).toBeDefined();
+    const [x, , z] = gate.position;
+
+    for (const depth of [-2.2, -1, 0, 1, 2.2]) {
+      expect(blockedBy({ x, z: z + depth }, scene.colliders), `passage at z+${depth}`).toBeNull();
+    }
+    for (const offset of [-1.68, 1.68]) {
+      expect(blockedBy({ x: x + offset, z }, scene.colliders), `pier at x+${offset}`).not.toBeNull();
+    }
+  });
+
   it('lets a child walk through the bazaar gate, and not through its piers', () => {
     /**
      * The gate was solid as one rectangle, which sealed its own archway: a
@@ -508,6 +536,21 @@ describe('street cats', () => {
     const nevsehir = buildScene(loadComposedCity('nevsehir'), 'high');
     expect(nevsehir.animal).toBe('horse');
     expect(nevsehir.catModelUrl).toBe('/assets/props/kit_anatolian_horse.glb');
+
+    /**
+     * Gaziantep walks street dogs, which is a decision against the region
+     * default rather than the default itself — the south-east table says cat.
+     * Two models, four routes, and the routes take a model in turn so the split
+     * is even without anybody counting.
+     */
+    const gaziantep = buildScene(loadComposedCity('gaziantep'), 'high');
+    expect(gaziantep.animal).toBe('dog');
+    expect(gaziantep.animals).toHaveLength(4);
+    const byModel = new Map<string, number>();
+    for (const animal of gaziantep.animals) {
+      byModel.set(animal.asset.entry.id, (byModel.get(animal.asset.entry.id) ?? 0) + 1);
+    }
+    expect([...byModel.values()]).toEqual([2, 2]);
 
     /**
      * Cats get several short beats; horses get fewer, longer runs. A three

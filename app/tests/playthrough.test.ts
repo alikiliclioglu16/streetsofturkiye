@@ -412,7 +412,9 @@ describe('a child completes Gaziantep', () => {
     // Dust like Cappadocia, cats like İstanbul: the region decides each, and
     // they do not have to agree.
     expect(scene.groundSurface).toBe('redsand');
-    expect(scene.animal).toBe('cat');
+    // Dogs, not cats. The region default is a cat and Gaziantep overrides it.
+    expect(scene.animal).toBe('dog');
+    expect(new Set(scene.animals.map((a) => a.asset.entry.id)).size).toBe(2);
     // Its own landmark is allowed; another city's is not.
     const fromAnotherCity = scene.props.filter(
       (prop) =>

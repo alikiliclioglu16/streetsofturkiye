@@ -32,9 +32,9 @@ Fiber 9, Drei 10, Zustand 5, Zod 4, Vitest 4.
 |---|---|---|---|---|
 | Stops | 5, all delivered | 5, all delivered | 3, all delivered | 3, **all placeholder** |
 | Questions | 2 | 2 | 1 | 1 |
-| Guide | Nasreddin Hodja | Keloğlan | Keloğlan | Keloğlan |
+| Guide | Nasreddin Hodja | Keloğlan | Keloğlan | Nasreddin Hodja |
 | Ground | cobblestone | red sand | red sand | bedrock, turf under the geese |
-| Animal | 5 cats | 3 horses | 5 cats | 3 geese, standing |
+| Animal | 5 cats | 3 horses | 4 street dogs, two of each | 3 geese, standing |
 | Horizon | facades, sea, ferry, Maiden's Tower | chimney ridges, valley rim | stone houses, castle, olive groves, bazaar gate | Ani chapels and churches, cathedral, walls, gorge |
 | Music | *Üsküdar'a Gider İken* | *Gökyüzü Balonları* | *Sarı Çoraplı Yol* | *Kars Yaylası* |
 | Balloons | no | **yes** | no | no |
@@ -43,7 +43,7 @@ Three cities are finished end to end. **Kars is open and unbuilt** — walkable,
 with a placeholder at every stop and across its whole horizon, the way Nevşehir
 and Gaziantep were each opened. Its brief is `docs/KARS_ASSET_BRIEF.md`.
 
-`npm run gate` is green: 81 cities, 249 stops, 84 questions, **326 tests**,
+`npm run gate` is green: 81 cities, 249 stops, 84 questions, **327 tests**,
 clean lint and typecheck, 4 routes built.
 
 Assets total 70.63 MB on disk; a single city visit downloads far less because
@@ -311,8 +311,13 @@ will bite:
 - **D-120 / D-124** — the recorded height draws every model. `scaleToBrief` and
   the half-to-double band are both gone; one number is authoritative, and a test
   holds each recorded triple to its file's own aspect.
-- **D-121 / D-125** — an object may declare `colliderParts` when it is solid in
-  places and open in others. The bazaar gate has two piers and a passage.
+- **D-121 / D-125 / D-134** — an object may declare `colliderParts` when it is
+  solid in places and open in others. Both the Gaziantep and Kapalıçarşı gates
+  have two piers and a passage, and it applies to stops as well as props.
+- **D-132** — a guide may be assigned against the canonical `legacyGuideId`
+  through `GUIDE_OVERRIDES`. Canonical is never edited to say so.
+- **D-133** — a city walks a list of animals, not one. Routes take a model in
+  turn.
 - **D-122** — balloons are Nevşehir's only.
 - **D-123** — "open" is not "finished". Tests that assert completeness are
   scoped to `PILOT_CITY_IDS`; what holds for every city is that it stays
