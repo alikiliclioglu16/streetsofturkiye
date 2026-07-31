@@ -327,7 +327,12 @@ describe('Kars looks like Ani', () => {
      * site continuing, seen all at once from a distance.
      */
     const back = Math.max(...scene.bounds.map((corner) => corner[2]));
-    const sideShells = ruins.filter((r) => r.position[2] <= back);
+    /**
+     * The row a child walks past, which is the one the alternation is for.
+     * The outer ring beyond thirty metres is seen all at once from a distance
+     * and is not a row at all.
+     */
+    const sideShells = ruins.filter((r) => r.position[2] <= back && Math.abs(r.position[0]) < 30);
     for (const side of [-1, 1]) {
       const row = sideShells
         .filter((r) => Math.sign(r.position[0]) === side)
@@ -365,6 +370,75 @@ describe('Kars looks like Ani', () => {
 
     // Nothing solid on the sides: a child may walk between them.
     for (const ruin of ruins) expect(ruin.solid, ruin.asset.entry.id).toBe(false);
+  });
+
+  it('closes the ring of scenery, measured rather than eyeballed', () => {
+    /**
+     * Four attempts were made at "the sides look empty" by reading positions
+     * and judging them full. All four missed the same two windows, because a
+     * list of coordinates does not tell you what a child can see.
+     *
+     * This measures it: sweep the full circle from where the child stands,
+     * mark every degree some piece of scenery covers, and require no hole. Two
+     * windows either side at roughly ninety degrees had been open the whole
+     * time — the direction a child looks when they turn to the side rather
+     * than round.
+     *
+     * The front is exempt. The street runs out towards the gorge and the
+     * railway on purpose, and distance is Kars's answer to that direction the
+     * way the sea is İstanbul's.
+     */
+    const FRONT_EXEMPT = 40; // degrees either side of straight ahead
+    const viewpoints: readonly (readonly [string, number, number])[] = [
+      ['the spawn', 0, 0],
+      ['mid-street', 0, -24],
+    ];
+
+    for (const [name, vx, vz] of viewpoints) {
+      const covered = new Array(360).fill(false);
+      for (const piece of scene.backdrop) {
+        const [width, , depth] = piece.asset.entry.dimensions;
+        const cos = Math.abs(Math.cos(piece.rotationY));
+        const sin = Math.abs(Math.sin(piece.rotationY));
+        const halfX = (width * cos + depth * sin) / 2;
+        const halfZ = (width * sin + depth * cos) / 2;
+        const [x, , z] = piece.position;
+
+        const angles: number[] = [];
+        for (const cx of [x - halfX, x + halfX]) {
+          for (const cz of [z - halfZ, z + halfZ]) {
+            angles.push(((Math.atan2(cx - vx, cz - vz) * 180) / Math.PI + 360) % 360);
+          }
+        }
+        let lo = Math.min(...angles);
+        let hi = Math.max(...angles);
+        if (hi - lo > 180) {
+          const shifted = angles.map((a) => (a < 180 ? a + 360 : a));
+          lo = Math.min(...shifted);
+          hi = Math.max(...shifted);
+        }
+        for (let a = Math.floor(lo); a <= Math.ceil(hi); a += 1) {
+          covered[((a % 360) + 360) % 360] = true;
+        }
+      }
+
+      let run = 0;
+      let worst = 0;
+      let worstAt = 0;
+      for (let a = 0; a < 360; a += 1) {
+        const towardsFront = Math.min(a, 360 - a) <= FRONT_EXEMPT;
+        if (covered[a] || towardsFront) {
+          run = 0;
+          continue;
+        }
+        run += 1;
+        if (run > worst) {
+          worst = run;
+          worstAt = a;
+        }
+      }
+      expect(worst, `${name}: ${worst}° of empty horizon around ${worstAt}°`).toBeLessThan(6);
+    }
   });
 
   it('leaves the middle of the back open, for the mountain to fill', () => {

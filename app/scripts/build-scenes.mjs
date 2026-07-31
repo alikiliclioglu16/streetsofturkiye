@@ -951,13 +951,33 @@ function cityBackdrop(cityId, stopPositions, metrics) {
      * Cappadocia's chimney ridges and found the same way, by a test that now
      * holds every city to it.
      */
+    /**
+     * Both sides, the whole length of the walk, with nothing left beside the
+     * child at any point along it.
+     *
+     * The first six were spread between the stops and left holes exactly where
+     * a child stands still: beside the spawn and beside the last stop there was
+     * nothing within sixty degrees either side, so turning to look sideways
+     * gave bare ground and sky. It took three rounds of guessing from
+     * screenshots before the horizon was measured properly — a sweep from the
+     * spawn and from each stop, every ten degrees, listing which bearings have
+     * nothing in them. That audit is what these positions answer.
+     *
+     * Twenty-one metres out at the closest: a chapel is 8.7 m deep and turned,
+     * so any nearer and its near edge crosses the fifteen metre boundary into
+     * the street (D-140).
+     */
     const shells = [
-      ['city_kars_ani_chapel', -21, firstZ + 6, 0.22],
-      ['city_kars_ani_church', -25, firstZ - span * 0.34, -0.35],
-      ['city_kars_ani_chapel', -22, firstZ - span * 0.78, 0.5],
-      ['city_kars_ani_church', 23, firstZ - 2, -0.28],
-      ['city_kars_ani_chapel', 21, firstZ - span * 0.46, 0.42],
-      ['city_kars_ani_church', 26, firstZ - span * 0.9, -0.16],
+      ['city_kars_ani_chapel', -22, behind - 22, 0.22],
+      ['city_kars_ani_church', -25, firstZ + 4, -0.35],
+      ['city_kars_ani_chapel', -21, firstZ - span * 0.3, 0.5],
+      ['city_kars_ani_church', -24, firstZ - span * 0.62, -0.9],
+      ['city_kars_ani_chapel', -22, lastZ - 6, 1.4],
+      ['city_kars_ani_church', 23, behind - 20, -0.28],
+      ['city_kars_ani_chapel', 21, firstZ + 2, 0.42],
+      ['city_kars_ani_church', 26, firstZ - span * 0.36, -0.16],
+      ['city_kars_ani_chapel', 22, firstZ - span * 0.7, 1.05],
+      ['city_kars_ani_church', 25, lastZ - 9, -1.3],
     ];
 
     return [
@@ -981,12 +1001,33 @@ function cityBackdrop(cityId, stopPositions, metrics) {
         // Nothing on the centre line: that is the mountain's.
         ['city_kars_ani_church', -52, behind + 16, 0.9],
         ['city_kars_ani_chapel', -45, behind + 1, -1.2],
-        ['city_kars_ani_chapel', -24, behind - 9, 2.1],
+        // A church, not a chapel: this one stands at the head of the western
+        // row and the row alternates.
+        ['city_kars_ani_church', -24, behind - 9, 2.1],
         ['city_kars_ani_church', 51, behind + 14, -0.75],
         ['city_kars_ani_chapel', 44, behind + 2, 1.35],
-        ['city_kars_ani_church', 25, behind - 6, -2.35],
+        ['city_kars_ani_chapel', 25, behind - 6, -2.35],
         ['city_kars_ani_church', -33, behind - 14, 0.35],
         ['city_kars_ani_chapel', 32, behind - 12, -0.55],
+        /**
+         * Due east and due west of the square, and this is the pair that kept
+         * getting missed.
+         *
+         * The ring was closed everywhere except two windows either side at
+         * roughly ninety degrees — the direction a child looks when they turn
+         * to the side rather than round. Found by measuring the angular
+         * coverage from the spawn instead of by looking at the numbers and
+         * deciding they seemed full, which is what the previous three attempts
+         * did.
+         *
+         * Two apiece and staggered in depth, because a single building at forty
+         * metres subtends about twelve degrees and the western window is eight
+         * wide, the eastern eighteen.
+         */
+        ['city_kars_ani_church', 41, -4, -1.5],
+        ['city_kars_ani_chapel', 36, -16, 1.1],
+        ['city_kars_ani_church', -42, -3, 1.5],
+        ['city_kars_ani_chapel', -37, -15, -1.1],
       ].map(([assetId, x, z, rot], i) => ({
         assetId,
         position: [x, 0, Math.round(z * 10) / 10],

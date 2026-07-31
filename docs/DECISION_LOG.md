@@ -2295,3 +2295,43 @@ day it was written.
 Two ruins behind the square on **each** side, counted per side rather than in
 total: six all on one side would satisfy a total and leave half the back bare,
 which is the complaint this exists to answer.
+
+## D-149 — The horizon is measured, not eyed (31 Jul 2026)
+
+Four attempts at "the sides of Kars look empty", and all four missed the same
+two windows. Each time the method was the same: read the coordinates, decide
+they looked full, move something. A list of positions does not tell you what a
+child can see.
+
+Measuring it took one script. Sweep the full circle from where the child stands,
+mark every degree that some piece of scenery covers, print the holes:
+
+```
+spawn:        91-108   259-266
+mid-street:   none
+last stop:    85-93
+```
+
+Two windows either side at roughly ninety degrees — **the direction a child
+looks when they turn to the side rather than round**, which is why turning round
+had looked fine and the complaint kept coming back. Eighteen degrees open on one
+side and eight on the other, at the spawn, for four turns.
+
+Filled with two ruins apiece, staggered in depth: a nine metre building at forty
+metres subtends about twelve degrees, so one would not have closed the eastern
+window.
+
+The measurement is a test now, over the spawn and the middle of the street, with
+the forty degrees either side of straight ahead exempt — the street runs out
+towards the gorge and the railway on purpose, and distance is Kars's answer to
+that direction the way the sea is İstanbul's. The owner asked for that ground to
+be left alone and it is left alone.
+
+**The remaining hole is 85–93° from the last stop**, out to the east at the far
+end of the walk. It is reported rather than filled, because it sits in the
+ground that was asked to stay open.
+
+The general lesson, and it is not about Kars: when the complaint is about what
+something looks like from somewhere, measure it from there. Every earlier
+attempt here was an argument with a screenshot conducted through a coordinate
+list.
