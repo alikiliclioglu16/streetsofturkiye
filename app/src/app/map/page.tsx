@@ -70,7 +70,15 @@ export default function MapPage() {
   }, []);
 
   const pilotCities = useMemo(
-    () => cities.filter((city) => (PILOT_CITY_IDS as readonly string[]).includes(city.id)),
+    /**
+     * Every city a child can walk into, not every city the pilot is judged on.
+     *
+     * This read `PILOT_CITY_IDS`, which was the same list until Kars opened
+     * outside the pilot (D-123). The map drew a fourth province you could tap
+     * and the list below it offered three cards — so the only way into Kars was
+     * to find it on the map.
+     */
+    () => cities.filter((city) => (PLAYABLE_CITY_IDS as readonly string[]).includes(city.id)),
     [cities],
   );
 

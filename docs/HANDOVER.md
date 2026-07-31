@@ -43,7 +43,7 @@ Three cities are finished end to end. **Kars is open and unbuilt** — walkable,
 with a placeholder at every stop and across its whole horizon, the way Nevşehir
 and Gaziantep were each opened. Its brief is `docs/KARS_ASSET_BRIEF.md`.
 
-`npm run gate` is green: 81 cities, 249 stops, 84 questions, **329 tests**,
+`npm run gate` is green: 81 cities, 249 stops, 84 questions, **331 tests**,
 clean lint and typecheck, 4 routes built.
 
 Assets total 70.63 MB on disk; a single city visit downloads far less because
@@ -275,6 +275,14 @@ there (D-131).
 **The most valuable tests simulate a whole visit** using the running game's own
 functions. `playthrough.test.ts` found that the route markers led into a
 building (D-073) and that the spawn had drifted inside a mosque.
+
+**A browser can reach the deployed site, and it is worth doing.** One session
+with it found three bugs (D-138): a city whose scene named one guide while
+another walked out of it, a province on the map with no card to enter it by, and
+shadows being silently downgraded. The DOM, the console, the network and
+`?debug=1` all read cleanly. Screenshots come back blank and the frame counter
+reads the throttled tab rather than the game, so nothing visual and nothing
+about performance can be judged that way.
 
 **I cannot see the screen.** The automated browser tab renders in the background
 where animation is throttled to zero frames, so the 3D scene never mounts.

@@ -5,6 +5,7 @@ export const CAMERA_FOV = 50;
 
 import { useRef, type ReactNode } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
+import { PCFShadowMap } from 'three';
 import type { QualitySettings } from '@/engine/quality/quality';
 
 export interface PerfSample {
@@ -59,7 +60,16 @@ interface CityCanvasProps {
 export function CityCanvas({ quality, skyColor, children, onPerfSample }: CityCanvasProps) {
   return (
     <Canvas
-      shadows={quality.heroShadow || quality.shadowMapSize > 512}
+      /**
+       * `shadows` on its own asks for PCFSoft, which three.js 0.185 deprecated
+       * and silently downgrades — the console says so on every load and the
+       * shadows come out harder than they were asked for. Naming PCF outright
+       * gets the same picture without the warning, and leaves a decision to
+       * make rather than a substitution nobody chose.
+       */
+      shadows={
+        quality.heroShadow || quality.shadowMapSize > 512 ? { type: PCFShadowMap } : false
+      }
       dpr={[1, quality.maxDpr]}
       camera={{ fov: CAMERA_FOV, near: 0.1, far: 220, position: [0, 2.6, 9] }}
       gl={{ antialias: true, powerPreference: 'high-performance' }}

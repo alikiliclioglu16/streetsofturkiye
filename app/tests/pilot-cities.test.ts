@@ -1,3 +1,5 @@
+import { readFileSync } from 'node:fs';
+import path from 'node:path';
 import { describe, expect, it } from 'vitest';
 import { PILOT_CITY_IDS, PLAYABLE_CITY_IDS } from '@/content/loaders/loadCity';
 import { buildScene } from '@/engine/scene/buildScene';
@@ -9,6 +11,51 @@ import { loadComposedCity } from './helpers';
  * these tests are what make opening them safe rather than hopeful.
  */
 describe('pilot cities', () => {
+  it('offers a card for every city a child can enter', async () => {
+    /**
+     * Found on the deployed site: the map drew four provinces you could tap and
+     * the list below it offered three cards, so the only way into Kars was to
+     * find it on the map.
+     *
+     * The list filtered by `PILOT_CITY_IDS`, which was the same set until Kars
+     * opened outside the pilot (D-123). Splitting those two ideas was right;
+     * leaving a piece of UI reading the wrong one was not.
+     */
+    const source = readFileSync(
+      path.join(process.cwd(), 'src/app/map/page.tsx'),
+      'utf8',
+    );
+    const cardList = source.slice(source.indexOf('pilotCities'), source.indexOf('pilotCities') + 800);
+    expect(cardList, 'the card list still filters by the pilot').not.toMatch(
+      /filter\([^)]*PILOT_CITY_IDS/,
+    );
+  });
+
+  it('walks the guide the scene names, in every city', async () => {
+    /**
+     * Found by opening the deployed site and reading the debug overlay: Kars's
+     * scene said Nasreddin Hodja and Keloğlan walked out of it.
+     *
+     * The hero model, the loading message, the intro panel and the map
+     * portrait were all keyed off canonical's `legacyGuideId`, while the scene
+     * carried the override. Two fields, two sources, and they agreed right up
+     * until the first city was assigned a guide against the source.
+     */
+    const { loadComposedCity } = await import('./helpers');
+    const byAsset: Record<string, string> = {
+      character_nasreddin_hoca_base: 'nasreddin-hoca',
+      character_keloglan_base: 'keloglan',
+    };
+    for (const cityId of PLAYABLE_CITY_IDS) {
+      const city = loadComposedCity(cityId);
+      expect(byAsset[city.guideAssetId], `${cityId} guide asset`).toBeDefined();
+      expect(city.guideId, `${cityId}: model and guide id disagree`).toBe(
+        byAsset[city.guideAssetId],
+      );
+    }
+    expect(loadComposedCity('kars').guideId).toBe('nasreddin-hoca');
+  });
+
   it('opens every pilot city, and is allowed to open more', () => {
     /**
      * Gaziantep's three stop objects were still placeholders when it opened,

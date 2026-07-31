@@ -2058,3 +2058,52 @@ state: **anything with a hole in it gets its footprint measured off the mesh,
 never estimated.** The empty band in the vertex histogram is the opening, the
 clusters either side are the piers, and the number that matters is what is left
 after the player's radius comes off.
+
+## D-138 — Three bugs found by opening the deployed site (30 Jul 2026)
+
+The first session with a browser. Screenshots come back blank here, so nothing
+visual was judged — but the DOM, the console, the network and the `?debug=1`
+overlay all read cleanly, and they were enough.
+
+**1. Kars's scene said Nasreddin Hodja and Keloğlan walked out of it.**
+
+The overlay reports the resident hero. On İstanbul it said Nasreddin Hodja and
+the scene agreed; on Kars it said Keloğlan while `scenes/kars.json` said
+`character_nasreddin_hoca_base`.
+
+There were two guide fields read from two sources. `guideAssetId` came from the
+scene, which carried the override; `guideId` came from canonical's
+`legacyGuideId`, and that is what fed the hero model, the loading message, the
+intro panel and the map portrait. They agreed for as long as no city had ever
+been assigned a guide against the source, and stopped agreeing the moment one
+was (D-132).
+
+`guideId` is now derived from the scene's asset id, so the scene is the single
+authority and canonical is still never edited. A test holds the two together for
+every playable city.
+
+**2. Kars was on the map and had no card.**
+
+The map drew four provinces a child could tap; the list underneath offered
+three, so the only way into Kars was to find it on the map. The list filtered by
+`PILOT_CITY_IDS`, which was the same set until Kars opened outside the pilot.
+Splitting "open" from "finished" was right (D-123); leaving a piece of interface
+reading the wrong one was the cost of it, and it went unnoticed because no test
+looks at the map page.
+
+**3. The shadows were not the shadows that were asked for.** `shadows` on its
+own asks for PCFSoft, which three.js 0.185 deprecated and silently substitutes
+with PCF — it says so in the console on every single load. The type is named
+outright now: same picture, no warning, and a decision to make rather than a
+substitution nobody chose.
+
+**What could not be measured.** The overlay reported 1–2 fps and then 0, which
+is the automated tab being throttled rather than the game being slow, so it says
+nothing about performance. Triangle counts and draw calls are real: İstanbul
+draws 83 calls and 449k triangles, Kars 80–124 calls and 425–758k. The hero is
+88,866 of that, inside its authored budget. **Mobile is still unmeasured, and
+this is not the tool that will measure it.**
+
+One thing worth recording as sound: the guide loads and the scene mounts on the
+deployed build, both cities were walkable at the data level, every asset probed
+returned 200 including the newest, and there was not one console error.

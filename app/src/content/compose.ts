@@ -140,6 +140,12 @@ function composeHotspot(
   };
 }
 
+/** The inverse of the scene builder's guide table, so the two cannot drift. */
+const GUIDE_IDS_BY_ASSET: Record<string, 'nasreddin-hoca' | 'keloglan'> = {
+  character_nasreddin_hoca_base: 'nasreddin-hoca',
+  character_keloglan_base: 'keloglan',
+};
+
 export function composeCity(canonical: CanonicalCity, scene: SceneDefinition): RuntimeCity {
   if (canonical.id !== scene.contentRef.cityId) {
     throw new ContentRefError(
@@ -162,7 +168,21 @@ export function composeCity(canonical: CanonicalCity, scene: SceneDefinition): R
     id: canonical.id,
     name: canonical.name,
     regionId: canonical.regionId,
-    guideId: canonical.legacyGuideId,
+    /**
+     * One authority for which guide walks this city, and it is the scene.
+     *
+     * These were two fields read from two places: the hero model, the loading
+     * message, the intro panel and the map portrait all came from canonical's
+     * `legacyGuideId`, while `guideAssetId` came from the scene. That was
+     * harmless for as long as they always agreed, and stopped being harmless
+     * the moment a city was assigned a guide against the source (D-132) —
+     * Kars's scene said Nasreddin Hodja and Keloğlan walked out.
+     *
+     * The scene already carries the override, so the id is derived back from
+     * it. Canonical is still never edited; it is just no longer the thing that
+     * gets the last word.
+     */
+    guideId: GUIDE_IDS_BY_ASSET[scene.guide.assetId] ?? canonical.legacyGuideId,
     guideAssetId: scene.guide.assetId,
     coordinates: canonical.coordinates,
     estimatedMinutes: scene.estimatedMinutes,
