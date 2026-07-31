@@ -2601,3 +2601,47 @@ rock to the right, orchard to the left, so the back is not symmetrical. The
 **stone footbridge**, which arrived with no place named for it, is at the lake
 end of the street where the ground runs down to the shore — too small to bridge
 anything and too built to be a step, so it is used as what it is.
+
+## D-158 — Akdamar goes back where the owner put it (31 Jul 2026)
+
+I moved it and should not have.
+
+It was out at a hundred and fifteen metres because the water was hidden under
+the paving and anything nearer would have been an island in a car park. Once the
+water was drawn over the ground (D-154) I brought it in to thirty metres past
+the last stop, reasoning that a child should walk towards it. Nobody asked for
+that, and the owner had been right the first time.
+
+Near, the island's own square plate of water reads as a teal disc lying on the
+grass, because the lake plane no longer covers it. Out in the lake the plane
+does cover it, the island sits *in* the water rather than on a saucer of its
+own, and — the part I had not thought about — **the canoes pass between the
+child and the church** instead of disappearing behind it.
+
+The canoes moved with it: they now cross between the shore and the island rather
+than around and beyond it. The church is the thing being looked at; the boats
+are what is happening on the way to it.
+
+## D-159 — The ferry passes beyond the tower (31 Jul 2026)
+
+The crossing was at z = -128 and the Maiden's Tower stands at -146, so a twenty
+metre boat went between the child and the landmark. It runs at -158 to -166 now,
+beyond it, and at four metres a second rather than nine — at nine it read as a
+speedboat, and a ferry crossing a strait is slow.
+
+## D-160 — The ground beside Van's castle, measured (31 Jul 2026)
+
+The owner said both sides of the castle looked bare and I had already put an
+orchard on one and a ridge on the other. Sweeping the circle from the spawn — the
+method that found Kars's two windows (D-149) — showed thirteen degrees still
+open in the back quarter, which is what they were seeing.
+
+Two more orchards further out and further round close it, and a second ridge
+thickens the other side so the two balance without matching. Measured, then
+placed, then measured again: nothing over five degrees left open anywhere a
+child stands.
+
+**This is the fourth time a "that area looks empty" has been answered by
+guessing at coordinates and the fourth time the sweep found it in one run.** The
+lesson from D-149 was written down and then not reached for. It should be the
+first thing tried, not the thing tried after three attempts.

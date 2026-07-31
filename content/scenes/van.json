@@ -482,33 +482,33 @@
     {
       "from": [
         -46,
-        -118
+        -76
       ],
       "to": [
         30,
-        -110
+        -70
       ],
       "speed": 1.5
     },
     {
       "from": [
         38,
-        -134
+        -92
       ],
       "to": [
         -24,
-        -142
+        -97
       ],
       "speed": 1.1
     },
     {
       "from": [
         -52,
-        -152
+        -84
       ],
       "to": [
         46,
-        -160
+        -89
       ],
       "speed": 1.9
     }
@@ -659,7 +659,7 @@
       "position": [
         -3,
         0,
-        -75
+        -113
       ],
       "rotationY": 0.35,
       "solid": true,
@@ -685,7 +685,40 @@
       ],
       "rotationY": 0.7,
       "solid": false,
-      "note": "orchard, left of the castle"
+      "note": "orchard beside the castle"
+    },
+    {
+      "assetId": "kit_van_orchard",
+      "position": [
+        -42,
+        0,
+        22
+      ],
+      "rotationY": -0.5,
+      "solid": false,
+      "note": "orchard beside the castle"
+    },
+    {
+      "assetId": "kit_van_orchard",
+      "position": [
+        -47,
+        0,
+        40
+      ],
+      "rotationY": 1.4,
+      "solid": false,
+      "note": "orchard beside the castle"
+    },
+    {
+      "assetId": "city_van_citadel_ridge",
+      "position": [
+        46,
+        0,
+        20
+      ],
+      "rotationY": 0.55,
+      "solid": true,
+      "note": "ridge beside the castle"
     },
     {
       "assetId": "city_van_castle",

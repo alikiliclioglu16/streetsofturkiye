@@ -1033,7 +1033,7 @@ function cityBackdrop(cityId, stopPositions, metrics) {
          * Solid, because the far side of an island is water.
          */
         assetId: 'city_van_akdamar_island',
-        position: [-3, 0, Math.round((lastZ - 30) * 10) / 10],
+        position: [-3, 0, Math.round((lastZ - 68) * 10) / 10],
         rotationY: 0.35,
         solid: true,
         note: 'Akdamar, at the end of the walk',
@@ -1054,13 +1054,27 @@ function cityBackdrop(cityId, stopPositions, metrics) {
         solid: true,
         note: 'the citadel ridge, right of the castle',
       },
-      {
-        assetId: 'kit_van_orchard',
-        position: [-33, 0, Math.round((behind + 12) * 10) / 10],
-        rotationY: 0.7,
-        solid: false,
-        note: 'orchard, left of the castle',
-      },
+      /**
+       * The ground either side of the castle, filled by measurement.
+       *
+       * One orchard at x = -33 was not enough: sweeping the circle from the
+       * spawn left thirteen degrees open between 293 and 306, which is the
+       * back-left quarter — exactly where the owner said it looked bare. Two
+       * more further out and further round close it, and a second ridge
+       * thickens the right so the two sides balance without matching.
+       */
+      ...[
+        ['kit_van_orchard', -33, behind + 12, 0.7],
+        ['kit_van_orchard', -42, behind - 4, -0.5],
+        ['kit_van_orchard', -47, behind + 14, 1.4],
+        ['city_van_citadel_ridge', 46, behind - 6, 0.55],
+      ].map(([assetId, x, z, rot]) => ({
+        assetId,
+        position: [x, 0, Math.round(z * 10) / 10],
+        rotationY: rot,
+        solid: assetId === 'city_van_citadel_ridge',
+        note: `${assetId === 'kit_van_orchard' ? 'orchard' : 'ridge'} beside the castle`,
+      })),
       {
         /**
          * Van Castle closes the back, on the boundary.
@@ -1599,9 +1613,12 @@ function buildScene(canonical) {
      * exist: a child should be able to see that the lake is something you go
      * *on*.
      *
-     * They sit between the shore and Akdamar, out past the paving where the
-     * water actually shows, and they cross the view rather than running along
-     * it — the lesson the Eastern Express took two turns to learn (D-142).
+     * Between the shore and Akdamar, so they cross the water *in front of* the
+     * island rather than around and behind it: the church is the thing being
+     * looked at and the boats are what is happening on the way to it.
+     *
+     * They cross the view rather than running along it — the lesson the Eastern
+     * Express took two turns to learn (D-142).
      */
     /**
      * The ferry crosses the Bosphorus and goes, on the same clock as the
@@ -1612,13 +1629,20 @@ function buildScene(canonical) {
      * moored in the middle of a strait. Crossing is what a Bosphorus ferry
      * does, and it is the thing a child watching from the quay would see.
      */
-    ferryLine: canonical.id === 'istanbul' ? { from: [-190, -134], to: [190, -128] } : null,
+    /**
+     * Behind the Maiden's Tower, which stands at z = -146.
+     *
+     * The crossing was at -128, in front of it, so a twenty metre boat passed
+     * between the child and the landmark. A ferry on the Bosphorus is seen
+     * beyond the tower, not across it.
+     */
+    ferryLine: canonical.id === 'istanbul' ? { from: [-190, -166], to: [190, -158] } : null,
     canoeLines:
       canonical.id === 'van'
         ? [
-            { from: [-46, -118], to: [30, -110], speed: 1.5 },
-            { from: [38, -134], to: [-24, -142], speed: 1.1 },
-            { from: [-52, -152], to: [46, -160], speed: 1.9 },
+            { from: [-46, -76], to: [30, -70], speed: 1.5 },
+            { from: [38, -92], to: [-24, -97], speed: 1.1 },
+            { from: [-52, -84], to: [46, -89], speed: 1.9 },
           ]
         : [],
     trainLine:

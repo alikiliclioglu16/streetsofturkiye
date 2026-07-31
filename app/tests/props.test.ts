@@ -284,8 +284,41 @@ describe('street kit props', () => {
       speeds.add(line.speed);
     }
 
+    /**
+     * In front of Akdamar, not around it. The church is the thing being looked
+     * at and the boats are what is happening on the way to it — put behind, they
+     * disappear the moment the island is between them and the child.
+     */
+    const island = scene.backdrop.find(
+      (piece) => piece.asset.entry.id === 'city_van_akdamar_island',
+    )!;
+    const islandNear = island.position[2] + island.asset.entry.dimensions[2] / 2;
+    for (const line of scene.canoeLines) {
+      expect(Math.max(line.from[1], line.to[1]), 'a canoe is behind the island').toBeGreaterThan(
+        islandNear,
+      );
+    }
+
     // Three paces, so they do not move as one object.
     expect(speeds.size).toBe(3);
+  });
+
+  it('sails the ferry beyond the Maiden\'s Tower, and slowly', () => {
+    /**
+     * The crossing was at z = -128 and the tower stands at -146, so a twenty
+     * metre boat passed between the child and the landmark — and at nine
+     * metres a second it read as a speedboat. A Bosphorus ferry is seen beyond
+     * the tower, and it takes its time.
+     */
+    const scene = buildScene(loadComposedCity('istanbul'), 'high');
+    const tower = scene.backdrop.find(
+      (piece) => piece.asset.entry.id === 'city_istanbul_maidens_tower',
+    )!;
+    const towerFar = tower.position[2] - tower.asset.entry.dimensions[2] / 2;
+
+    for (const [, z] of [scene.ferryLine!.from, scene.ferryLine!.to]) {
+      expect(z, 'the ferry crosses in front of the tower').toBeLessThan(towerFar);
+    }
   });
 
   it('lets a child walk through the Ani doorway', () => {

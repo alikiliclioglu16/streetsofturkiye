@@ -228,7 +228,9 @@ export function CityScene({
           reducedMotion={reducedMotion}
           onEnter={playFerryHorn}
           intervalSeconds={15}
-          speed={9}
+          /* Four metres a second. A ferry crossing a strait is slow, and at
+             nine it read as a speedboat. */
+          speed={4}
         />
       ) : null}
 
