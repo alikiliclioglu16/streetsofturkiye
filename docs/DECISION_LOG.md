@@ -2735,3 +2735,47 @@ Four small ones stay far out. Without them the sky is eight balloons the same
 size at the same remove, which is one balloon copied — the fault the original
 layout was written to avoid, and which the variety test caught the moment the
 near line replaced everything.
+
+## D-166 — Five cities closed, and what the numbers say (31 Jul 2026)
+
+The gate: lint clean, typecheck clean, **344 tests**, build clean, four routes.
+`content:check` still fails on one thing and only one — `legacy/index.html` is
+not in the package, so the canonical SHA cannot be verified from a fresh
+extraction. It is a packaging gap, not a code fault, and it has been open since
+the first session.
+
+**Per-visit download**, which is the number that decides whether a child on a
+tablet ever sees the city:
+
+| | models | hero | audio | total |
+|---|---|---|---|---|
+| İstanbul | 8.3 MB | 4.9 MB | 1.6 MB | **14.8 MB** |
+| Nevşehir | 14.3 MB | 4.3 MB | 1.3 MB | **20.0 MB** |
+| Gaziantep | 14.8 MB | 4.3 MB | 1.8 MB | **20.9 MB** |
+| Kars | 17.6 MB | 4.9 MB | 1.8 MB | **24.3 MB** |
+| Van | 17.0 MB | 4.9 MB | 1.5 MB | **23.3 MB** |
+
+**The cities are getting heavier, and it is a trend rather than an accident.**
+İstanbul has five stops and weighs 14.8 MB; Kars has three and weighs 24.3.
+Nothing has gone wrong — the newer horizons are made of more and larger pieces,
+and every one of them was recompressed hard. But a sixth city built the same way
+lands near 25 MB, and on a 4G connection that is twenty seconds before anything
+moves. **This is the first hard limit the project has walked into that is not
+about how something looks.**
+
+Resident geometry is not the problem: 94k to 151k unique triangles per city,
+against a hero that is 89k of it. Instances drawn run 54 to 71 before balloons.
+The deployed overlay showed 83 draw calls in İstanbul and up to 124 in Kars,
+which is comfortable.
+
+**Structure holds in all five.** No trigger ring overlaps another anywhere —
+the tightest gap is 2.6 m in Nevşehir — every stop has its reward, every city
+has its own theme, its own guide, its own ground, its own animal and its own
+four answered directions. One asset is still a placeholder: Van's Erek mountain,
+which the castle now largely does the work of.
+
+**What is still not tested, after five cities.** No child has played this. No
+frame rate has been measured on a real tablet — the browser I can drive throttles
+to nothing in the background, so the number it reports is about the browser and
+not about the game. Both have been open since the first day of this work and
+neither is something I can close from here.
