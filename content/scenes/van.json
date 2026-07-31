@@ -447,36 +447,47 @@
   "trainLine": null,
   "water": {
     "centerX": 0,
-    "centerZ": -196,
+    "centerZ": -154,
     "width": 340,
     "depth": 190,
     "color": "#3E93A0"
   },
   "backdrop": [
     {
-      "assetId": "city_van_citadel_ridge",
+      "assetId": "city_van_townhouses",
       "position": [
         -24,
         0,
-        -9
+        -7
       ],
       "rotationY": 1.5707963267948966,
       "solid": false,
-      "note": "citadel ridge west 1"
+      "note": "townhouses west 1"
     },
     {
-      "assetId": "city_van_citadel_ridge",
+      "assetId": "city_van_townhouses",
       "position": [
         -24,
         0,
-        -35
+        -25
       ],
       "rotationY": 1.5707963267948966,
       "solid": false,
-      "note": "citadel ridge west 2"
+      "note": "townhouses west 2"
     },
     {
-      "assetId": "city_van_citadel_ridge",
+      "assetId": "city_van_townhouses",
+      "position": [
+        -24,
+        0,
+        -43
+      ],
+      "rotationY": 1.5707963267948966,
+      "solid": false,
+      "note": "townhouses west 3"
+    },
+    {
+      "assetId": "city_van_townhouses",
       "position": [
         -24,
         0,
@@ -484,32 +495,43 @@
       ],
       "rotationY": 1.5707963267948966,
       "solid": false,
-      "note": "citadel ridge west 3"
+      "note": "townhouses west 4"
     },
     {
-      "assetId": "city_van_citadel_ridge",
+      "assetId": "city_van_townhouses",
       "position": [
         24,
         0,
-        -9
+        -7
       ],
       "rotationY": -1.5707963267948966,
       "solid": false,
-      "note": "citadel ridge east 1"
+      "note": "townhouses east 1"
     },
     {
-      "assetId": "city_van_citadel_ridge",
+      "assetId": "city_van_townhouses",
       "position": [
         24,
         0,
-        -35
+        -25
       ],
       "rotationY": -1.5707963267948966,
       "solid": false,
-      "note": "citadel ridge east 2"
+      "note": "townhouses east 2"
     },
     {
-      "assetId": "city_van_citadel_ridge",
+      "assetId": "city_van_townhouses",
+      "position": [
+        24,
+        0,
+        -43
+      ],
+      "rotationY": -1.5707963267948966,
+      "solid": false,
+      "note": "townhouses east 3"
+    },
+    {
+      "assetId": "city_van_townhouses",
       "position": [
         24,
         0,
@@ -517,7 +539,7 @@
       ],
       "rotationY": -1.5707963267948966,
       "solid": false,
-      "note": "citadel ridge east 3"
+      "note": "townhouses east 4"
     },
     {
       "assetId": "kit_van_orchard",
@@ -566,13 +588,13 @@
     {
       "assetId": "city_van_akdamar_island",
       "position": [
-        -14,
+        -3,
         0,
-        -123
+        -71
       ],
-      "rotationY": 0.5,
-      "solid": false,
-      "note": "Akdamar out on the lake"
+      "rotationY": 0.35,
+      "solid": true,
+      "note": "Akdamar, at the end of the walk"
     },
     {
       "assetId": "city_van_erek_mountain",

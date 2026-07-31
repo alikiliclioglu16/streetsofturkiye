@@ -125,10 +125,10 @@ export const DELIVERED_DIMENSIONS = {
    * sixteen metre square, which is the lake's footprint and not the boarding
    * point's.
    */
-  city_van_citadel_ridge: [26.0, 15.0, 14.0],
-  city_van_akdamar_island: [22.0, 11.0, 18.0],
   city_van_erek_mountain: [96.0, 30.0, 90.0],
   kit_van_orchard: [7.0, 4.6, 7.0],
+  city_van_akdamar_island: [23.19, 11.0, 23.18],
+  city_van_townhouses: [26.7, 12.0, 15.34],
   city_van_cat_basket: [1.1, 0.9, 0.9],
   city_van_akdamar_jetty: [2.4, 1.8, 6.5],
   city_van_breakfast_table: [2.6, 1.5, 1.7],

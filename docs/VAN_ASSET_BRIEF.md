@@ -20,15 +20,15 @@ just been told what makes it special should be able to find one walking about.
 
 ## The whole list, in the order I would draw it
 
-Eleven files. **Part A first** — a street with placeholder stops and a real
+Nine files left. **Part A first** — a street with placeholder stops and a real
 horizon reads as a place under construction; real stops and no horizon reads as
 a diorama.
 
 | # | Asset id | What it is | Size (w × h × d) | Base colour |
 |---|---|---|---|---|
-| 1 | `city_van_citadel_ridge` | rock spine with cut chambers | 26 × 15 × 14 m | 2048 |
+| 1 | ~~`city_van_citadel_ridge`~~ | **retired** — the sides are `city_van_townhouses`, delivered | — | — |
 | 2 | `kit_van_orchard` | fruit trees, low and spreading | 7 × 4.6 × 7 m | 1024 |
-| 3 | `city_van_akdamar_island` | the island church, out on the lake | 22 × 11 × 18 m | 2048 |
+| 3 | ~~`city_van_akdamar_island`~~ | **delivered** — 23 × 11 × 23, at the end of the walk | — | — |
 | 4 | `city_van_erek_mountain` | Erek, behind the town | 96 × 30 × 90 m | 2048 |
 | 5 | `city_van_cat_basket` | **stop 1** — a Van cat in a basket | 1.1 × 0.9 × 0.9 m | 2048 |
 | 6 | `city_van_akdamar_jetty` | **stop 2** — the boarding point | 2.4 × 1.8 × 6.5 m | 1024 |

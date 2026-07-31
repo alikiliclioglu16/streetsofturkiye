@@ -950,16 +950,24 @@ function cityBackdrop(cityId, stopPositions, metrics) {
      * these are galleries cut into a cliff; Kars's mountain closes a plateau
      * and this one stands over water.
      */
-    const spurs = 3;
+    /**
+     * Townhouses down both sides, not a citadel ridge.
+     *
+     * The brief asked for the rock spine of Tushpa, which is the right idea for
+     * the castle and the wrong one for a street: Van's walk is a town, and the
+     * rock is what the town is built against rather than what it is walled
+     * with. Mudbrick and stone houses with a bastion at one end, delivered.
+     */
+    const houses = 4;
     return [
       ...[-1, 1].flatMap((side) =>
-        Array.from({ length: spurs }, (_, i) => {
-          const z = firstZ + 8 - ((span + 24) * i) / (spurs - 1);
+        Array.from({ length: houses }, (_, i) => {
+          const z = firstZ + 10 - ((span + 26) * i) / (houses - 1);
           return wall(
-            'city_van_citadel_ridge',
+            'city_van_townhouses',
             side * 24,
             z,
-            `citadel ridge ${side < 0 ? 'west' : 'east'} ${i + 1}`,
+            `townhouses ${side < 0 ? 'west' : 'east'} ${i + 1}`,
           );
         }),
       ),
@@ -978,14 +986,20 @@ function cityBackdrop(cityId, stopPositions, metrics) {
       })),
       {
         /**
-         * Akdamar, out on the water and small with distance — the island is a
-         * thing to look at rather than reach, the way the Maiden's Tower is.
+         * Akdamar at the end of the walk, on the water, and the thing the
+         * street runs towards — as the sea is İstanbul's answer to that
+         * direction and the gorge is Kars's.
+         *
+         * It arrived as one square plate with the island and its piece of lake
+         * together, so it belongs near rather than far: at seventy metres from
+         * the spawn a child walks the whole street towards it and watches it
+         * grow. Solid, because the far side of it is water.
          */
         assetId: 'city_van_akdamar_island',
-        position: [-14, 0, Math.round((lastZ - 78) * 10) / 10],
-        rotationY: 0.5,
-        solid: false,
-        note: 'Akdamar out on the lake',
+        position: [-3, 0, Math.round((lastZ - 26) * 10) / 10],
+        rotationY: 0.35,
+        solid: true,
+        note: 'Akdamar, at the end of the walk',
       },
       {
         /**
@@ -1518,7 +1532,7 @@ function buildScene(canonical) {
       canonical.id === 'istanbul'
         ? { centerX: 0, centerZ: -202, width: 320, depth: 180, color: '#2E7FA8' }
         : canonical.id === 'van'
-          ? { centerX: 0, centerZ: -196, width: 340, depth: 190, color: '#3E93A0' }
+          ? { centerX: 0, centerZ: -154, width: 340, depth: 190, color: '#3E93A0' }
           : null,
     /**
      * Scenery beyond the play area. The Beyoğlu row stands behind the walk as

@@ -2372,3 +2372,35 @@ the Bosphorus.
 castle on a hill but galleries cut into a limestone spine, which is why Van's
 sides do not look like Ani's churches standing in grass. Front: the lake, with
 Akdamar out on it. Behind: Erek. Orchards fill the gaps.
+
+## D-151 — Van's sides are a town, and its street ends at the lake (31 Jul 2026)
+
+Two deliveries, and one of them retires a brief entry.
+
+**The citadel ridge is dropped.** The brief asked for the rock spine of Tushpa
+down both sides, which is the right idea for the castle and the wrong one for a
+street: Van's walk is a town, and the rock is what the town is built against
+rather than what it is walled with. Mudbrick and stone townhouses with a bastion
+at one end arrived instead, four a side at 12 m.
+
+**Akdamar stands at the end of the walk, not out on the horizon.** It arrived as
+a single square plate — island and its own piece of lake together — which
+decides where it belongs: near enough that a child walks the whole street
+towards it and watches it grow, the way İstanbul's runs towards the sea and
+Kars's towards the gorge. Solid, because the far side of an island is water.
+
+**And the lake had to come in to meet it.** The water plane started 101 m out,
+which left a 23 m island floating on grass. Moved to a near edge of exactly
+z = -59, the play boundary, so the shore is where the child stops.
+
+Two setbacks were wrong on the first pass and both were caught by measuring
+rather than by looking:
+
+- 3.6 m of island sat past the water's near edge, on land.
+- The houses at x = ±22 put their near edge at 14.3, seventy centimetres inside
+  the boundary — the same mistake as Cappadocia's chimneys and Kars's chapels,
+  now for the third time, and the third time the standing test found it before a
+  screenshot did (D-140).
+
+Both are held by tests now: the island must sit inside the water plate on both
+axes, and the walk must run towards it.

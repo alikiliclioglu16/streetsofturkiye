@@ -435,6 +435,49 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
     notes: 'Delivered 24.42 MB buried 1.5 m; re-authored to 3.6 m on y = 0, 0.87 MB.',
   },
   {
+    id: 'city_van_akdamar_island',
+    modelUrl: '/assets/city/city_van_akdamar_island.glb',
+    checksum: 'ed8767332527e0263ab022c6e5479bde602fe58ed681646651eb82557f876ad2',
+    triangles: 10_239,
+    transferBytes: 1920236,
+    /**
+     * Akdamar, and the piece of lake it sits in.
+     *
+     * Delivered as one square plate — island and water together — which is why
+     * it stands at the end of the walk rather than far out on the horizon. It
+     * is what the street runs towards, the way İstanbul's runs towards the sea.
+     *
+     * The lake plane was moved in to meet it. A 23 m island floating on grass
+     * six metres past the boundary would be the first thing anybody noticed.
+     */
+    dimensions: [23.19, 11.0, 23.18],
+    label: 'Akdamar island',
+    color: '#4E7C86',
+    placeholder: 'box',
+    notes: 'Delivered 21.42 MB at 4 m, buried 2 m; re-authored to 11 m on y = 0, 1.83 MB.',
+  },
+  {
+    id: 'city_van_townhouses',
+    modelUrl: '/assets/city/city_van_townhouses.glb',
+    checksum: '92bf3a7d66b83dfdee26d7fbfc3dcd24562b367012eabd3f6267447de4a22686',
+    triangles: 10_059,
+    transferBytes: 2332496,
+    /**
+     * Van's sides: a run of mudbrick and stone townhouses with a bastion at one
+     * end.
+     *
+     * This replaces the citadel ridge the brief asked for. The ridge was the
+     * right idea for Tushpa and the wrong one for a street — Van's walk is a
+     * town, and the rock is what the town is built against rather than what it
+     * is walled with. The brief entry is retired rather than left waiting.
+     */
+    dimensions: [26.7, 12.0, 15.34],
+    label: 'Van townhouses',
+    color: '#B49678',
+    placeholder: 'box',
+    notes: 'Delivered 25.50 MB at 8 m, buried 4 m; re-authored to 12 m on y = 0, 2.22 MB.',
+  },
+  {
     id: 'city_kars_sarikamis_mountain',
     modelUrl: '/assets/city/city_kars_sarikamis_mountain.glb',
     checksum: '161248aa536fb19a42c0204b2528bdb95230591e1e5cebdd2e831f520bfab9fa',

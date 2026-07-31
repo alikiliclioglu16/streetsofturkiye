@@ -306,6 +306,55 @@ describe('nothing scenic reaches into the play area', () => {
   }
 });
 
+describe('Van stands between a town and a lake', () => {
+  const scene = buildScene(loadComposedCity('van'), 'high');
+
+  it('floats Akdamar on the lake and not on the grass', () => {
+    /**
+     * The island arrived as one square plate with its own piece of water, so it
+     * stands at the end of the walk rather than far out — and the lake plane
+     * has to reach it. The first placement left 3.6 m of island sitting on
+     * grass past the boundary, which would have been the first thing anybody
+     * noticed.
+     */
+    const island = scene.backdrop.find(
+      (piece) => piece.asset.entry.id === 'city_van_akdamar_island',
+    )!;
+    expect(island).toBeDefined();
+    expect(scene.water).not.toBeNull();
+
+    const [, , depth] = island.asset.entry.dimensions;
+    const islandNear = island.position[2] + depth / 2;
+    const waterNear = scene.water!.centerZ + scene.water!.depth / 2;
+    expect(islandNear, 'the island is beached').toBeLessThanOrEqual(waterNear);
+
+    // And the whole of it sits inside the water plate sideways.
+    const [width] = island.asset.entry.dimensions;
+    expect(Math.abs(island.position[0]) + width / 2).toBeLessThan(scene.water!.width / 2);
+
+    // Solid: the far side of an island is water.
+    expect(island.solid).toBe(true);
+
+    // Ahead of the child, so the street runs towards it.
+    expect(island.position[2]).toBeLessThan(
+      Math.min(...scene.bounds.map((corner) => corner[2])),
+    );
+  });
+
+  it('answers its four directions with nothing another city uses', () => {
+    const ids = scene.backdrop.map((piece) => piece.asset.entry.id);
+    expect(ids).toContain('city_van_townhouses');
+    expect(ids).toContain('city_van_akdamar_island');
+    expect(ids.some((id) => /istanbul|nevsehir|gaziantep|kars/.test(id))).toBe(false);
+
+    // Steppe, not Ani's bedrock: both are eastern and that is where it stops.
+    expect(scene.groundSurface).toBe('steppe');
+    // Its own cat, because the city's one question is about it.
+    expect(scene.animal).toBe('vancat');
+    expect(scene.balloons).toHaveLength(0);
+  });
+});
+
 describe('Kars looks like Ani', () => {
   const scene = buildScene(loadComposedCity('kars'), 'high');
 
