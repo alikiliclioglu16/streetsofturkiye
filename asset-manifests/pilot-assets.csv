@@ -33,3 +33,7 @@ kit_van_orchard,model,midground,briefed,7.0x7.0x4.6,6000,1K,box,"Fruit orchard c
 collectible_van_cat_plush,model,collectible,briefed,0.16x0.12x0.20,4000,1K,box,"Soft toy Van cat, odd eyes readable"
 collectible_van_boat_ticket,model,collectible,briefed,0.13x0.01x0.09,2000,1K,plane,"Card boat ticket, no legible text"
 collectible_van_breakfast_plate,model,collectible,briefed,0.22x0.22x0.05,5000,1K,box,"Round plate with cheese, honey, olives"
+kit_ordu_hazelnut_grove,model,midground,briefed,8.5x8.5x4.4,6000,1K,box,"Hazelnut grove; low bushy trees, shared kit"
+collectible_ordu_hazelnut_jar,model,collectible,briefed,0.12x0.12x0.16,4000,1K,cylinder,"Jar of hazelnut chocolate spread"
+collectible_ordu_cable_ticket,model,collectible,briefed,0.13x0.01x0.09,2000,1K,plane,"Card cable-car ticket, no legible text"
+collectible_ordu_sunset_photo,model,collectible,briefed,0.15x0.01x0.11,2000,1K,plane,"Printed photo of an orange sunset"

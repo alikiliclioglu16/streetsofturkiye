@@ -26,7 +26,7 @@ const manifestById = new Map(
 const CANONICAL = path.join(ROOT, 'content/canonical');
 const OUT = path.join(ROOT, 'content/scenes');
 
-const PILOT = ['istanbul', 'nevsehir', 'gaziantep', 'kars', 'van'];
+const PILOT = ['istanbul', 'nevsehir', 'gaziantep', 'kars', 'van', 'ordu'];
 
 const readJson = (file) => JSON.parse(fs.readFileSync(file, 'utf8'));
 const manifest = readJson(path.join(CANONICAL, 'manifest.json'));
@@ -69,6 +69,9 @@ const COMMISSIONED_ASSETS = {
   'van:vancat': 'city_van_odd_eyed_cat',
   'van:gol': 'city_van_akdamar_jetty',
   'van:stall': 'city_van_breakfast_table',
+  'ordu:fruit': 'city_ordu_hazelnut_stall',
+  'ordu:teleferik': 'city_ordu_cable_station',
+  'ordu:sahil': 'city_ordu_beach_deck',
 };
 
 /** Commissioned collectibles, keyed by canonical stop id. */
@@ -88,6 +91,9 @@ const COMMISSIONED_REWARDS = {
   'van-stop-01': 'collectible_van_cat_plush',
   'van-stop-02': 'collectible_van_boat_ticket',
   'van-stop-03': 'collectible_van_breakfast_plate',
+  'ordu-stop-01': 'collectible_ordu_hazelnut_jar',
+  'ordu-stop-02': 'collectible_ordu_cable_ticket',
+  'ordu-stop-03': 'collectible_ordu_sunset_photo',
 };
 
 /**
@@ -147,6 +153,14 @@ const REGION_ANIMAL = {
  * Eighty metres: the side houses reach -74, so the ground runs out first.
  */
 const VAN_SHORE_Z = -80;
+
+/**
+ * Where Ordu's beach ends and the Black Sea starts.
+ *
+ * Same discipline as Van (D-163): one constant, and the shore is measured off
+ * it rather than typed into three places.
+ */
+const ORDU_SHORE_Z = -74;
 const VAN_LAKE_DEPTH = 200;
 
 const CITY_SURFACE = {
@@ -991,6 +1005,64 @@ function cityBackdrop(cityId, stopPositions, metrics) {
     ];
   }
 
+  if (cityId === 'ordu') {
+    /**
+     * A green coast: houses under a hill, hazelnuts behind them, sea in front.
+     *
+     * Ordu's four directions are the wettest in the project and none of them is
+     * borrowed. The sides are timber houses with deep eaves and the hazelnut
+     * groves that start where the town stops — on the Black Sea the orchard
+     * comes down to the back gardens. Ahead is the sea, and it is a beach
+     * rather than a quay. Behind is Boztepe, the hill the cable car climbs.
+     *
+     * Nothing here looks like Van's lake shore: that is a bare plateau meeting
+     * water, and this is a forest doing it.
+     */
+    const houses = 4;
+    return [
+      ...[-1, 1].flatMap((side) =>
+        Array.from({ length: houses }, (_, i) => {
+          const z = firstZ + 10 - ((span + 24) * i) / (houses - 1);
+          return wall(
+            'city_ordu_timber_houses',
+            side * 23,
+            z,
+            `timber houses ${side < 0 ? 'west' : 'east'} ${i + 1}`,
+          );
+        }),
+      ),
+      // Groves behind the houses, climbing the slope. Never solid: a hazelnut
+      // grove is somewhere you would walk into.
+      ...[
+        [-36, firstZ + 4],
+        [34, firstZ - span * 0.3],
+        [-38, firstZ - span * 0.72],
+        [37, firstZ - span * 0.95],
+        [-30, behind + 10],
+        [31, behind + 16],
+      ].map(([x, z], i) => ({
+        assetId: 'kit_ordu_hazelnut_grove',
+        position: [x, 0, Math.round(z * 10) / 10],
+        rotationY: Math.round(i * 1.1 * 1000) / 1000,
+        solid: false,
+        note: `hazelnut grove ${i + 1}`,
+      })),
+      {
+        /**
+         * Boztepe closes the back — the hill the cable car goes up, and the
+         * reason stop two exists. Aligned by its near edge like every landscape
+         * plate: sixty metres of hill centred on the boundary would swallow the
+         * square (D-101).
+         */
+        assetId: 'city_ordu_boztepe_hill',
+        position: [4, 0, Math.round((behind + 30) * 10) / 10],
+        rotationY: Math.PI - 0.1,
+        solid: true,
+        note: 'Boztepe, behind the town',
+      },
+    ];
+  }
+
   if (cityId === 'van') {
     /**
      * A city between a rock and a lake.
@@ -1741,6 +1813,21 @@ function buildScene(canonical) {
             depth: 180,
             color: '#2E7FA8',
           }
+        : canonical.id === 'ordu'
+          ? {
+              centerX: 0,
+              /**
+               * The Black Sea, and it is not the Bosphorus.
+               *
+               * Ordu's shore is a Blue Flag beach — sand, not a quay — so the
+               * water starts where the street runs out, and the colour is the
+               * greener, colder blue the region's own palette asks for.
+               */
+              centerZ: ORDU_SHORE_Z - 100,
+              width: 400,
+              depth: 200,
+              color: '#2F7C93',
+            }
         : canonical.id === 'van'
           ? {
             centerX: 0,

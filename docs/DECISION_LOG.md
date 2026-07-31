@@ -2865,3 +2865,36 @@ thirteen seconds of something.
 
 Keloğlan ships a `Run_02` that is not mapped. One run is enough, and carrying a
 spare clip is cheaper than a rule about when to prefer it.
+
+## D-169 — Ordu is open (31 Jul 2026)
+
+The sixth city, and the first on the Black Sea. Three stops and one question,
+the same shape as the last three; the guide is Keloğlan, from canonical.
+
+Cobbles, cats and plane trees all come from the region tables without an
+override — the first city that has needed none. The region's own palette does
+the rest: the ground tints towards moss and the sky towards pale grey-green, so
+a cobbled street reads as a wet one without a new surface being drawn.
+
+**Four directions, and the wettest set in the project.** Sides: timber houses
+with deep eaves, and hazelnut groves coming down to the back gardens, which is
+what that coast does. Ahead: the sea, and it is a **beach** rather than a quay —
+Ordu's shores fly the Blue Flag and the canonical text makes a point of the
+surprise. Behind: Boztepe, the hill the cable car climbs, which is also why stop
+two exists.
+
+Nothing is borrowed from Van, and the reason is worth stating because both are
+cities on water: Van's shore is a bare plateau meeting a lake, and Ordu's is a
+forest meeting a sea. Boztepe is green to the summit where Sarıkamış is snow and
+Erek is scree — three mountains that would otherwise be one mountain in three
+colours.
+
+`ORDU_SHORE_Z` is a constant and the water is measured off it, following the
+discipline Van's four moved shorelines forced (D-163).
+
+**The cable car is briefed as optional and should be built.** Every city has one
+thing that moves and is not an animal — İstanbul's tram and ferry, Kars's train,
+Van's canoes, Cappadocia's balloons — and Ordu's is already in the canonical
+text: *glide from the seaside up to Boztepe*. The motion needs nothing new: it is
+the tram's, which goes out, pauses and comes back, which is what a cable car
+does.

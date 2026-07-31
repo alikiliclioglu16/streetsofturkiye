@@ -132,6 +132,17 @@ export const DELIVERED_DIMENSIONS = {
   city_van_breakfast_table: [2.93, 1.3, 2.92],
   city_van_urartu_stele: [1.4, 2.6, 0.96],
   city_van_akdamar_island: [23.19, 11.0, 23.18],
+  /**
+   * Ordu, briefed and not yet delivered. Named so the street is laid out for
+   * what is coming: the beach deck is wide and low, the cable station is tall,
+   * and `fruit` would otherwise hand all three the same cube.
+   */
+  city_ordu_hazelnut_stall: [2.4, 2.0, 1.3],
+  city_ordu_cable_station: [4.2, 4.4, 3.6],
+  city_ordu_beach_deck: [4.6, 1.4, 3.2],
+  city_ordu_timber_houses: [24.0, 11.0, 13.0],
+  city_ordu_boztepe_hill: [78.0, 26.0, 60.0],
+  kit_ordu_hazelnut_grove: [8.5, 4.4, 8.5],
   city_van_akdamar_jetty: [3.96, 1.8, 2.23],
   city_van_citadel_ridge: [26.92, 9.0, 8.44],
   kit_stone_footbridge: [4.1, 1.2, 1.95],

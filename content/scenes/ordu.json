@@ -1,0 +1,890 @@
+{
+  "schemaVersion": "2.0.0",
+  "id": "ordu",
+  "contentRef": {
+    "cityId": "ordu"
+  },
+  "canonicalSource": {
+    "sha256": "ed74da639543bd1847d3e970f114e006ec9be8a8d441197a1968afca5a07f995"
+  },
+  "environment": {
+    "kitId": "black-sea-green-timber",
+    "timeOfDay": "midday",
+    "ambientAudioId": "ambient_black_sea",
+    "skyPreset": [
+      "#B8DCE8",
+      "#E9F5EE"
+    ],
+    "groundColor": "#B9CC96"
+  },
+  "guide": {
+    "assetId": "character_keloglan_base"
+  },
+  "spawn": {
+    "position": [
+      0,
+      0,
+      0
+    ],
+    "rotation": [
+      0,
+      3.141592653589793,
+      0
+    ],
+    "scale": [
+      1,
+      1,
+      1
+    ]
+  },
+  "route": {
+    "mode": "guided-loop",
+    "points": [
+      [
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        -14.85
+      ],
+      [
+        -3.4,
+        0,
+        -19.85
+      ],
+      [
+        4.3,
+        0,
+        -27.7
+      ],
+      [
+        0,
+        0,
+        -35
+      ],
+      [
+        5.3,
+        0,
+        -41.9
+      ],
+      [
+        0.8,
+        0,
+        -48.8
+      ]
+    ],
+    "bounds": [
+      [
+        -15,
+        0,
+        26
+      ],
+      [
+        15,
+        0,
+        26
+      ],
+      [
+        15,
+        0,
+        -59
+      ],
+      [
+        -15,
+        0,
+        -59
+      ]
+    ]
+  },
+  "intro": {
+    "cameraSequenceId": null,
+    "skippable": true
+  },
+  "hotspots": [
+    {
+      "id": "ordu-hotspot-01",
+      "order": 1,
+      "contentRef": {
+        "stopId": "ordu-stop-01"
+      },
+      "sceneStatus": "ready",
+      "assetId": "city_ordu_hazelnut_stall",
+      "assetStatus": "commissioned",
+      "transform": {
+        "position": [
+          0,
+          0,
+          -17
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "collider": {
+        "halfWidth": 1.2,
+        "halfDepth": 0.65
+      },
+      "triggerRadius": 4.65,
+      "camera": {
+        "position": [
+          2.3,
+          2.4,
+          -12
+        ],
+        "target": [
+          0,
+          0.9,
+          -17
+        ],
+        "durationMs": 900
+      },
+      "presentation": {
+        "style": "fact-card"
+      },
+      "rewardAssetId": "collectible_ordu_hazelnut_jar",
+      "audio": {
+        "onSuccessId": "sfx_reward_chime"
+      }
+    },
+    {
+      "id": "ordu-hotspot-02",
+      "order": 2,
+      "contentRef": {
+        "stopId": "ordu-stop-02"
+      },
+      "sceneStatus": "ready",
+      "assetId": "city_ordu_cable_station",
+      "assetStatus": "commissioned",
+      "transform": {
+        "position": [
+          4.3,
+          0,
+          -31
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "collider": {
+        "halfWidth": 2.1,
+        "halfDepth": 1.8
+      },
+      "triggerRadius": 5.8,
+      "camera": {
+        "position": [
+          6.8,
+          2.4,
+          -25.4
+        ],
+        "target": [
+          4.3,
+          2,
+          -31
+        ],
+        "durationMs": 900
+      },
+      "presentation": {
+        "style": "fact-card"
+      },
+      "rewardAssetId": "collectible_ordu_cable_ticket",
+      "audio": {
+        "onSuccessId": "sfx_reward_chime"
+      }
+    },
+    {
+      "id": "ordu-hotspot-03",
+      "order": 3,
+      "contentRef": {
+        "stopId": "ordu-stop-03"
+      },
+      "sceneStatus": "ready",
+      "assetId": "city_ordu_beach_deck",
+      "assetStatus": "commissioned",
+      "transform": {
+        "position": [
+          5.3,
+          0,
+          -45
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "collider": {
+        "halfWidth": 2.3,
+        "halfDepth": 1.6
+      },
+      "triggerRadius": 5.6,
+      "camera": {
+        "position": [
+          7.6,
+          2.4,
+          -40
+        ],
+        "target": [
+          5.3,
+          0.6,
+          -45
+        ],
+        "durationMs": 900
+      },
+      "presentation": {
+        "style": "fact-card"
+      },
+      "rewardAssetId": "collectible_ordu_sunset_photo",
+      "audio": {
+        "onSuccessId": "sfx_reward_chime"
+      }
+    }
+  ],
+  "props": [
+    {
+      "assetId": "kit_turkish_flag",
+      "position": [
+        7.5,
+        0,
+        4
+      ],
+      "rotationY": -0.35,
+      "solid": true,
+      "note": "the flag, same place in every city"
+    },
+    {
+      "assetId": "kit_street_lamp",
+      "position": [
+        -11,
+        0,
+        -19.8
+      ],
+      "rotationY": -1.751,
+      "solid": true,
+      "note": "street lamp 1"
+    },
+    {
+      "assetId": "kit_street_lamp",
+      "position": [
+        12,
+        0,
+        -25.4
+      ],
+      "rotationY": 1.691,
+      "solid": true,
+      "note": "street lamp 2"
+    },
+    {
+      "assetId": "kit_street_lamp",
+      "position": [
+        -13,
+        0,
+        -31
+      ],
+      "rotationY": -1.751,
+      "solid": true,
+      "note": "street lamp 3"
+    },
+    {
+      "assetId": "kit_street_lamp",
+      "position": [
+        11,
+        0,
+        -36.6
+      ],
+      "rotationY": 1.691,
+      "solid": true,
+      "note": "street lamp 4"
+    },
+    {
+      "assetId": "kit_street_lamp",
+      "position": [
+        -12,
+        0,
+        -42.2
+      ],
+      "rotationY": -1.751,
+      "solid": true,
+      "note": "street lamp 5"
+    },
+    {
+      "assetId": "kit_bench",
+      "position": [
+        8.2,
+        0,
+        -24.9
+      ],
+      "rotationY": 1.351,
+      "solid": true,
+      "note": "bench 1"
+    },
+    {
+      "assetId": "kit_planter_cypress",
+      "position": [
+        -7.4,
+        0,
+        -29.9
+      ],
+      "rotationY": 0.3,
+      "solid": true,
+      "note": "planter 1"
+    },
+    {
+      "assetId": "kit_bench",
+      "position": [
+        -8.2,
+        0,
+        -34.3
+      ],
+      "rotationY": -1.791,
+      "solid": true,
+      "note": "bench 2"
+    },
+    {
+      "assetId": "kit_planter_cypress",
+      "position": [
+        7.4,
+        0,
+        -39.3
+      ],
+      "rotationY": -0.3,
+      "solid": true,
+      "note": "planter 2"
+    },
+    {
+      "assetId": "kit_planter_cypress",
+      "position": [
+        -7.4,
+        0,
+        -48.6
+      ],
+      "rotationY": 0.3,
+      "solid": true,
+      "note": "planter 3"
+    },
+    {
+      "assetId": "kit_market_stall",
+      "position": [
+        -11,
+        0,
+        -29.4
+      ],
+      "rotationY": 1.221,
+      "solid": true,
+      "note": "stall, west"
+    },
+    {
+      "assetId": "kit_market_stall",
+      "position": [
+        12.5,
+        0,
+        -36.4
+      ],
+      "rotationY": -1.291,
+      "solid": true,
+      "note": "stall, east"
+    },
+    {
+      "assetId": "kit_crates",
+      "position": [
+        -9.2,
+        0,
+        -33.4
+      ],
+      "rotationY": 0.55,
+      "solid": true,
+      "note": "crates by the west stall"
+    },
+    {
+      "assetId": "kit_crates",
+      "position": [
+        11.2,
+        0,
+        -39.4
+      ],
+      "rotationY": -0.9,
+      "solid": true,
+      "note": "crates by the east stall"
+    },
+    {
+      "assetId": "kit_wall_fountain",
+      "position": [
+        9.5,
+        0,
+        -20.4
+      ],
+      "rotationY": -1.371,
+      "solid": true,
+      "note": "fountain, near the start"
+    },
+    {
+      "assetId": "kit_wall_fountain",
+      "position": [
+        -10.5,
+        0,
+        -40
+      ],
+      "rotationY": 1.421,
+      "solid": true,
+      "note": "fountain, near the end"
+    }
+  ],
+  "musicUrl": null,
+  "groundSurface": "cobblestone",
+  "groundPatches": [],
+  "balloons": [],
+  "tramLine": null,
+  "ferryLine": null,
+  "canoeLines": [],
+  "trainLine": null,
+  "water": {
+    "centerX": 0,
+    "centerZ": -174,
+    "width": 400,
+    "depth": 200,
+    "color": "#2F7C93"
+  },
+  "backdrop": [
+    {
+      "assetId": "city_ordu_timber_houses",
+      "position": [
+        -23,
+        0,
+        -7
+      ],
+      "rotationY": 1.5707963267948966,
+      "solid": false,
+      "note": "timber houses west 1"
+    },
+    {
+      "assetId": "city_ordu_timber_houses",
+      "position": [
+        -23,
+        0,
+        -24.3
+      ],
+      "rotationY": 1.5707963267948966,
+      "solid": false,
+      "note": "timber houses west 2"
+    },
+    {
+      "assetId": "city_ordu_timber_houses",
+      "position": [
+        -23,
+        0,
+        -41.7
+      ],
+      "rotationY": 1.5707963267948966,
+      "solid": false,
+      "note": "timber houses west 3"
+    },
+    {
+      "assetId": "city_ordu_timber_houses",
+      "position": [
+        -23,
+        0,
+        -59
+      ],
+      "rotationY": 1.5707963267948966,
+      "solid": false,
+      "note": "timber houses west 4"
+    },
+    {
+      "assetId": "city_ordu_timber_houses",
+      "position": [
+        23,
+        0,
+        -7
+      ],
+      "rotationY": -1.5707963267948966,
+      "solid": false,
+      "note": "timber houses east 1"
+    },
+    {
+      "assetId": "city_ordu_timber_houses",
+      "position": [
+        23,
+        0,
+        -24.3
+      ],
+      "rotationY": -1.5707963267948966,
+      "solid": false,
+      "note": "timber houses east 2"
+    },
+    {
+      "assetId": "city_ordu_timber_houses",
+      "position": [
+        23,
+        0,
+        -41.7
+      ],
+      "rotationY": -1.5707963267948966,
+      "solid": false,
+      "note": "timber houses east 3"
+    },
+    {
+      "assetId": "city_ordu_timber_houses",
+      "position": [
+        23,
+        0,
+        -59
+      ],
+      "rotationY": -1.5707963267948966,
+      "solid": false,
+      "note": "timber houses east 4"
+    },
+    {
+      "assetId": "kit_ordu_hazelnut_grove",
+      "position": [
+        -36,
+        0,
+        -13
+      ],
+      "rotationY": 0,
+      "solid": false,
+      "note": "hazelnut grove 1"
+    },
+    {
+      "assetId": "kit_ordu_hazelnut_grove",
+      "position": [
+        34,
+        0,
+        -25.4
+      ],
+      "rotationY": 1.1,
+      "solid": false,
+      "note": "hazelnut grove 2"
+    },
+    {
+      "assetId": "kit_ordu_hazelnut_grove",
+      "position": [
+        -38,
+        0,
+        -37.2
+      ],
+      "rotationY": 2.2,
+      "solid": false,
+      "note": "hazelnut grove 3"
+    },
+    {
+      "assetId": "kit_ordu_hazelnut_grove",
+      "position": [
+        37,
+        0,
+        -43.6
+      ],
+      "rotationY": 3.3,
+      "solid": false,
+      "note": "hazelnut grove 4"
+    },
+    {
+      "assetId": "kit_ordu_hazelnut_grove",
+      "position": [
+        -30,
+        0,
+        36
+      ],
+      "rotationY": 4.4,
+      "solid": false,
+      "note": "hazelnut grove 5"
+    },
+    {
+      "assetId": "kit_ordu_hazelnut_grove",
+      "position": [
+        31,
+        0,
+        42
+      ],
+      "rotationY": 5.5,
+      "solid": false,
+      "note": "hazelnut grove 6"
+    },
+    {
+      "assetId": "city_ordu_boztepe_hill",
+      "position": [
+        4,
+        0,
+        56
+      ],
+      "rotationY": 3.041592653589793,
+      "solid": true,
+      "note": "Boztepe, behind the town"
+    }
+  ],
+  "animal": "cat",
+  "catRoutes": [
+    [
+      {
+        "x": -11.5,
+        "z": -28
+      },
+      {
+        "x": -6,
+        "z": -31.5
+      },
+      {
+        "x": -10,
+        "z": -36
+      }
+    ],
+    [
+      {
+        "x": 12,
+        "z": -24
+      },
+      {
+        "x": 16.5,
+        "z": -28.5
+      }
+    ],
+    [
+      {
+        "x": -13,
+        "z": -39
+      },
+      {
+        "x": -7.5,
+        "z": -43
+      },
+      {
+        "x": -12.5,
+        "z": -47.5
+      }
+    ],
+    [
+      {
+        "x": 13,
+        "z": -3
+      },
+      {
+        "x": 17,
+        "z": -8
+      }
+    ],
+    [
+      {
+        "x": 13,
+        "z": -38
+      },
+      {
+        "x": 17,
+        "z": -42
+      },
+      {
+        "x": 12.5,
+        "z": -46
+      }
+    ]
+  ],
+  "npcs": [
+    {
+      "npcId": "featured_soldier",
+      "position": [
+        11.3,
+        0,
+        -27.5
+      ],
+      "rotationY": 2.4,
+      "walkTo": [
+        9.8,
+        0,
+        -31.7
+      ]
+    },
+    {
+      "npcId": "featured_traveler",
+      "position": [
+        11.3,
+        0,
+        -34
+      ],
+      "rotationY": -2.1,
+      "walkTo": [
+        12.8,
+        0,
+        -38.2
+      ]
+    },
+    {
+      "npcId": "featured_craftsman_male",
+      "position": [
+        12.1,
+        0,
+        -42.4
+      ],
+      "rotationY": 1.9,
+      "walkTo": [
+        10.6,
+        0,
+        -46.6
+      ]
+    }
+  ],
+  "trees": [
+    {
+      "key": "tree-0",
+      "position": [
+        -11,
+        0,
+        -1
+      ],
+      "kind": "plane",
+      "scale": 0.8,
+      "rotationY": 0
+    },
+    {
+      "key": "tree-1",
+      "position": [
+        14.2,
+        0,
+        -8.4
+      ],
+      "kind": "plane",
+      "scale": 1.1,
+      "rotationY": 0.646
+    },
+    {
+      "key": "tree-2",
+      "position": [
+        -17.4,
+        0,
+        -15.7
+      ],
+      "kind": "cypress",
+      "scale": 0.9,
+      "rotationY": 1.292
+    },
+    {
+      "key": "tree-3",
+      "position": [
+        12.6,
+        0,
+        -18
+      ],
+      "kind": "plane",
+      "scale": 1.2,
+      "rotationY": 1.937
+    },
+    {
+      "key": "tree-4",
+      "position": [
+        -15.8,
+        0,
+        -25.4
+      ],
+      "kind": "shrub",
+      "scale": 1,
+      "rotationY": 2.583
+    },
+    {
+      "key": "tree-5",
+      "position": [
+        11,
+        0,
+        -32.7
+      ],
+      "kind": "plane",
+      "scale": 0.8,
+      "rotationY": 3.229
+    },
+    {
+      "key": "tree-6",
+      "position": [
+        -14.2,
+        0,
+        -35
+      ],
+      "kind": "plane",
+      "scale": 1.1,
+      "rotationY": 3.875
+    },
+    {
+      "key": "tree-7",
+      "position": [
+        17.4,
+        0,
+        -42.4
+      ],
+      "kind": "cypress",
+      "scale": 0.9,
+      "rotationY": 4.52
+    },
+    {
+      "key": "tree-8",
+      "position": [
+        -12.6,
+        0,
+        -49.7
+      ],
+      "kind": "plane",
+      "scale": 1.2,
+      "rotationY": 5.166
+    },
+    {
+      "key": "tree-9",
+      "position": [
+        15.8,
+        0,
+        -52
+      ],
+      "kind": "shrub",
+      "scale": 1,
+      "rotationY": 5.812
+    },
+    {
+      "key": "tree-10",
+      "position": [
+        -11,
+        0,
+        -59.4
+      ],
+      "kind": "plane",
+      "scale": 0.8,
+      "rotationY": 0.175
+    },
+    {
+      "key": "tree-11",
+      "position": [
+        14.2,
+        0,
+        -66.7
+      ],
+      "kind": "plane",
+      "scale": 1.1,
+      "rotationY": 0.82
+    }
+  ],
+  "quizPresentation": {
+    "shuffleOptions": true
+  },
+  "rewards": {
+    "cityStarId": "star_ordu",
+    "collectibleAssetIds": [
+      "collectible_ordu_hazelnut_jar",
+      "collectible_ordu_cable_ticket",
+      "collectible_ordu_sunset_photo"
+    ]
+  },
+  "estimatedMinutes": 3
+}

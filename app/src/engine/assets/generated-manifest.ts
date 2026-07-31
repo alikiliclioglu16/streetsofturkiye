@@ -530,5 +530,65 @@ export const MANIFEST_ENTRIES: readonly ManifestEntry[] = [
     "textureBudget": "1K",
     "fallbackShape": "box",
     "notes": "Round plate with cheese, honey, olives"
+  },
+  {
+    "id": "kit_ordu_hazelnut_grove",
+    "kind": "model",
+    "tier": "midground",
+    "status": "briefed",
+    "dimensions": [
+      8.5,
+      4.4,
+      8.5
+    ],
+    "triangleBudget": 6000,
+    "textureBudget": "1K",
+    "fallbackShape": "box",
+    "notes": "Hazelnut grove; low bushy trees, shared kit"
+  },
+  {
+    "id": "collectible_ordu_hazelnut_jar",
+    "kind": "model",
+    "tier": "collectible",
+    "status": "briefed",
+    "dimensions": [
+      0.12,
+      0.16,
+      0.12
+    ],
+    "triangleBudget": 4000,
+    "textureBudget": "1K",
+    "fallbackShape": "cylinder",
+    "notes": "Jar of hazelnut chocolate spread"
+  },
+  {
+    "id": "collectible_ordu_cable_ticket",
+    "kind": "model",
+    "tier": "collectible",
+    "status": "briefed",
+    "dimensions": [
+      0.13,
+      0.09,
+      0.05
+    ],
+    "triangleBudget": 2000,
+    "textureBudget": "1K",
+    "fallbackShape": "plane",
+    "notes": "Card cable-car ticket, no legible text"
+  },
+  {
+    "id": "collectible_ordu_sunset_photo",
+    "kind": "model",
+    "tier": "collectible",
+    "status": "briefed",
+    "dimensions": [
+      0.15,
+      0.11,
+      0.05
+    ],
+    "triangleBudget": 2000,
+    "textureBudget": "1K",
+    "fallbackShape": "plane",
+    "notes": "Printed photo of an orange sunset"
   }
 ] as const;
