@@ -341,7 +341,12 @@ describe('street kit props', () => {
     expect(new Set(heights).size).toBe(3);
     expect(new Set(scene.paragliders.map((g) => g.scale)).size).toBe(3);
 
-    // They come off the hill: the highest is the one furthest back.
+    /**
+     * Descending as they come forward: they have launched off Boztepe behind
+     * the town and are drifting out over it, so the one nearest the sea is the
+     * lowest. Where exactly they sit is the visibility test's business
+     * (D-179); this only holds that they are still going somewhere.
+     */
     const sorted = [...scene.paragliders].sort((a, b) => b.position[2] - a.position[2]);
     expect(sorted[0]!.position[1]).toBeGreaterThan(sorted[2]!.position[1]);
 

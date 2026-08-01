@@ -1104,13 +1104,20 @@ function cityBackdrop(cityId, stopPositions, metrics) {
          * shown the underside, which is unlit — a black hole in the sky, which
          * is exactly what the owner's screenshot shows.
          *
-         * The pivot sits at fourteen metres, which puts the near lip 2.7 m
-         * *below* ground and the far edge at thirty. So it grows out of the
-         * earth and rises away, rather than hanging in the air.
+         * **The near TOP corner is the one that matters**, not the near lip.
+         * The lip was buried at -2.7 and the plate still floated, because the
+         * corner above it stood at +10.3 — ten metres of rock hanging at eye
+         * level with sky underneath. The pivot is below ground now, at -5, so
+         * that corner lands at -2.5 and the land climbs out of the earth to
+         * thirty-five at the far rim.
+         *
+         * Tipped less as well, 0.28 rather than 0.38: a plate this large no
+         * longer needs a steep tilt to show its surface, and a gentler one
+         * reads as a slope rather than as a ramp.
          */
-        position: [-4, 14, Math.round((lastZ - 10 - 90.3 / 2) * 10) / 10],
+        position: [-4, -5, Math.round((lastZ - 24 - (141.9 / 2) * 0.961) * 10) / 10],
         rotationY: 0.18,
-        rotationX: 0.38,
+        rotationX: 0.28,
         solid: true,
         note: 'Perşembe Yaylası, tilted so its surface reads',
       },
@@ -1129,6 +1136,22 @@ function cityBackdrop(cityId, stopPositions, metrics) {
         solid: true,
         note: 'the cable station at the foot of the plateau',
       },
+      /**
+       * The flank the plateau sits on.
+       *
+       * A yayla is the flat top of a mountain, and a tilted plate meeting flat
+       * ground has a seam where the two touch however deep it is buried. Three
+       * hills stand along that line — the same Boztepe plate, lower and
+       * overlapping — so the ground climbs into the plateau instead of stopping
+       * at it.
+       */
+      ...[-38, 0, 38].map((x, i) => ({
+        assetId: 'city_ordu_boztepe_hill',
+        position: [x, 0, Math.round((lastZ - 20 - i % 2 * 5) * 10) / 10],
+        rotationY: Math.PI + (i - 1) * 0.4,
+        solid: true,
+        note: `the mountain flank under the plateau ${i + 1}`,
+      })),
       /**
        * Boztepe closes the back — the hill the cable car goes up, and the
        * reason stop two exists.
@@ -1815,13 +1838,18 @@ function buildScene(canonical) {
      * over the town, which is the other half of what it is for — the cable car
      * takes them up and this is what comes back down.
      *
-     * So they fly over the hill itself, between twenty and forty metres behind
-     * the square at thirty-seven to forty-four up. Two earlier attempts got
-     * this wrong in opposite directions: 23 to 34 m put them among the
-     * rooftops, and 42 to 58 over the street put them outside the camera
-     * entirely — a child looking down a street does not look ninety degrees
-     * up. Over Boztepe they are where the launch is, and a child turning round
-     * sees them against the hill they came off.
+     * Three attempts and the lesson is about the camera, not about height.
+     * 23 to 34 m put them among the rooftops. 42 to 58 over the street put them
+     * out of frame — a child walking down a street does not look ninety degrees
+     * up. Over Boztepe at 37 to 44 they were behind the child for the whole
+     * walk.
+     *
+     * What matters is the **elevation angle from where the child stands**: high
+     * enough to be sky, shallow enough to be in shot. These sit at twenty to
+     * twenty-five metres, thirty to fifty out, ahead and to the sides — between
+     * twenty-five and thirty-five degrees up, which is a glance rather than a
+     * craned neck. They have come off Boztepe and are drifting out over the
+     * town, which is what paragliders there actually do.
      *
      * They use the balloon's motion, which is already drift, lift and lean; a
      * canopy hanging in the air and a balloon hanging in the air are the same
@@ -1830,9 +1858,9 @@ function buildScene(canonical) {
     paragliders:
       canonical.id === 'ordu'
         ? [
-            { key: 'glider-0', position: [-22, 44, 40], scale: 2.0, driftSpeed: 1.3, phase: 0.4 },
-            { key: 'glider-1', position: [12, 40, 31], scale: 1.8, driftSpeed: 1.05, phase: 2.2 },
-            { key: 'glider-2', position: [-6, 37, 20], scale: 1.6, driftSpeed: 1.5, phase: 4.1 },
+            { key: 'glider-0', position: [-21, 24, -28], scale: 1.7, driftSpeed: 1.3, phase: 0.4 },
+            { key: 'glider-1', position: [17, 22, -34], scale: 1.5, driftSpeed: 1.05, phase: 2.2 },
+            { key: 'glider-2', position: [-26, 26, -20], scale: 1.9, driftSpeed: 1.5, phase: 4.1 },
           ]
         : [],
     /**

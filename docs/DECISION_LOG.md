@@ -3113,3 +3113,47 @@ They fly over the hill now — twenty to forty metres behind the square, at
 thirty-seven to forty-four up. That is where the launch is, and it is where a
 child turning round finds them: against the hill they came off, which is the
 half of Boztepe the cable car does not tell.
+
+## D-179 — The near *top* corner is what floats (1 Aug 2026)
+
+The plateau still hung in the sky after the tilt was corrected, and the reason
+is a geometry mistake I had made twice: I checked where the near **lip** landed
+and not where the near **top corner** did.
+
+Tilted forward, the lip drops and the corner above it rises. The lip was buried
+at -2.7 m and the corner stood at **+10.3** — ten metres of rock at eye level
+with sky underneath it, which is precisely a floating island.
+
+Three changes together:
+
+- **Half again as large.** 82 m across becomes 129, and 90 deep becomes 142. A
+  plate that is going to be the horizon has to be bigger than the things in
+  front of it.
+- **Pivot below ground**, at -5 rather than +14, which puts the near top corner
+  at -3.5 and the far rim at 35.8. The land now climbs out of the earth.
+- **Tipped less**, 0.28 rather than 0.38. A plate this size does not need a
+  steep tilt to show its surface, and a gentler one reads as a slope rather
+  than a ramp.
+
+**And it sits on a mountain now.** A tilted plate meeting flat ground has a seam
+however deep it is buried, so three Boztepe plates stand along that line —
+lower, overlapping, turned — and the ground climbs into the plateau instead of
+stopping at it. That is what the owner asked for and it is also what a yayla is:
+the flat top of a mountain, not a shelf in the air.
+
+## D-180 — Where a paraglider goes is a camera question (1 Aug 2026)
+
+Four placements. 23–34 m: among the rooftops, because Boztepe is 26. 42–58 m
+over the street: out of frame, because a child walking down a street does not
+look ninety degrees up. 37–44 m over the hill: behind the child for the whole
+walk.
+
+The number that decides it is not height and not distance but the **elevation
+angle from where the child stands**. They now sit at 22 to 26 m, twenty to
+thirty-five metres out, ahead and to the sides — between 27° and 36°, which is a
+glance rather than a craned neck.
+
+The test measures that angle rather than a height, requires 12° to 40°, and
+separately requires each canopy to clear anything standing within thirty-five
+metres of it. Height alone had already passed three times while the thing was
+invisible.

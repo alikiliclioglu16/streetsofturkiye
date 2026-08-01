@@ -399,19 +399,41 @@ describe('Ordu stands under a hill', () => {
     expect(nearEdge, 'the plateau is floating').toBeLessThanOrEqual(0);
   });
 
-  it('flies the paragliders above everything in the city', () => {
+  it('flies the paragliders where a child can actually see them', () => {
     /**
-     * The first pass put them at 23 to 34 metres, which sounds like sky and is
-     * not: Boztepe is 26 m and the houses are 11, so a canopy at 23 was among
-     * the rooftops. They have to clear the tallest thing on the ground.
+     * Three placements, wrong in three different ways, and none of them was
+     * about height on its own.
+     *
+     * 23 to 34 m put them among the rooftops — Boztepe is 26. 42 to 58 over the
+     * street put them out of frame, because a child walking down a street does
+     * not look ninety degrees up. Over the hill at 37 to 44 they spent the whole
+     * walk behind the child.
+     *
+     * What decides it is the **elevation angle from where the child stands**:
+     * high enough to be sky, shallow enough to be in shot. So that is what is
+     * measured, along with clearing whatever stands near them.
      */
-    const tallest = Math.max(
-      ...scene.backdrop.map((piece) => piece.position[1] + piece.asset.entry.dimensions[1]),
-    );
+    const EYE = 2.6;
+    expect(scene.paragliders.length).toBeGreaterThan(0);
+
     for (const glider of scene.paragliders) {
-      expect(glider.position[1], 'a paraglider is down among the roofs').toBeGreaterThan(
-        tallest + 8,
-      );
+      const distance = Math.hypot(glider.position[0], glider.position[2]);
+      const elevation = (Math.atan2(glider.position[1] - EYE, distance) * 180) / Math.PI;
+      expect(elevation, 'a paraglider is too low to be sky').toBeGreaterThan(12);
+      expect(elevation, 'a paraglider is overhead and out of frame').toBeLessThan(40);
+
+      // And clear of anything standing near it.
+      for (const piece of scene.backdrop) {
+        const gap = Math.hypot(
+          piece.position[0] - glider.position[0],
+          piece.position[2] - glider.position[2],
+        );
+        if (gap > 35) continue;
+        const top = piece.position[1] + piece.asset.entry.dimensions[1];
+        expect(glider.position[1], `a paraglider is inside ${piece.asset.entry.id}`).toBeGreaterThan(
+          top + 6,
+        );
+      }
     }
   });
 });

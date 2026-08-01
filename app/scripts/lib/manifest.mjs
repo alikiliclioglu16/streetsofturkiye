@@ -141,7 +141,7 @@ export const DELIVERED_DIMENSIONS = {
   city_ordu_paraglider: [5.55, 4.5, 3.03],
   city_ordu_beach_deck: [4.29, 1.6, 4.44],
   city_ordu_cable_station: [9.01, 4.4, 8.91],
-  city_ordu_persembe_plateau: [82.17, 14.0, 90.3],
+  city_ordu_persembe_plateau: [129.13, 22.0, 141.9],
   kit_ordu_hazelnut_grove: [7.63, 4.4, 7.86],
   city_ordu_timber_houses: [24.13, 11.0, 15.23],
   city_ordu_boztepe_hill: [43.57, 26.0, 45.09],

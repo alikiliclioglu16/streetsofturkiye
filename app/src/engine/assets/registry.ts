@@ -649,7 +649,7 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
   {
     id: 'city_ordu_persembe_plateau',
     modelUrl: '/assets/city/city_ordu_persembe_plateau.glb',
-    checksum: '6c03508dc39bea746c24c411b6b6db8d1b04888a6369cefe1d678ffe7306d36e',
+    checksum: '84c964a75029e80f51e2186d3e025b58517a0d9efd12029cde7ef807855fab83',
     triangles: 10_366,
     transferBytes: 1623528,
     /**
@@ -661,10 +661,13 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
      * that. The plateau replaces both. Ordu is a coast *and* a highland, and
      * the highland is the half a child can walk out into.
      *
-     * Eighty-two metres across at fourteen tall — a plateau is broad and low,
-     * and one drawn tall would be another Boztepe.
+     * A hundred and twenty-nine metres across at twenty-two tall. It was
+     * eighty-two and it read as a floating disc: tilted, its near *top* corner
+     * stood ten metres above eye level, so the child saw an object hanging in
+     * the sky rather than land rising away. Half again as large, tipped less
+     * and set into the ground, it becomes the horizon instead of a thing on it.
      */
-    dimensions: [82.17, 14.0, 90.3],
+    dimensions: [129.13, 22.0, 141.9],
     label: 'Perşembe plateau',
     color: '#6E8A52',
     placeholder: 'box',
