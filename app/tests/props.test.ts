@@ -350,40 +350,42 @@ describe('street kit props', () => {
     }
   });
 
-  it('runs the cable car from its station up to Boztepe', () => {
+  it('runs the cable car from its station up to Boztepe, and back', () => {
     /**
-     * The line ran along the east verge from nowhere to nowhere at first — a
-     * cabin sliding beside the street. What the stop describes is a journey:
-     * the cars glide from the seaside up to Boztepe hill. So the line has to
-     * start at the station a child is standing in front of and end at the hill
-     * behind the town, and it has to climb, because a cable car that stays
-     * level is a tram on stilts.
+     * What the stop describes is a journey: the cars glide from the seaside up
+     * to Boztepe hill. So the line has to start at the station and end at the
+     * hill behind the town, and it has to climb — a cable car that stays level
+     * is a tram on stilts.
+     *
+     * The station used to be stop two and is scenery now: a nine metre building
+     * is a place rather than something to walk up to, and the stop is better
+     * served by the cabin itself, which is what a child is looking at.
      */
     const scene = buildScene(loadComposedCity('ordu'), 'high');
     const line = scene.cableCarLine!;
     expect(line).toBeTruthy();
     expect(scene.cableCarAsset!.entry.id).toBe('city_ordu_cable_car');
 
-    const station = scene.hotspots.find(
-      (hotspot) => hotspot.asset.entry.id === 'city_ordu_cable_station',
+    // The cabin is the stop; the station is the building it leaves from.
+    expect(scene.hotspots[1]!.asset.entry.id).toBe('city_ordu_cable_car');
+    const station = scene.backdrop.find(
+      (piece) => piece.asset.entry.id === 'city_ordu_cable_station',
     )!;
-    const [stationWidth] = station.asset.entry.dimensions;
+    expect(station, 'the station is not in the scene').toBeDefined();
 
-    // Starts beside the station, and outside it.
+    const [stationWidth] = station.asset.entry.dimensions;
     const fromStation = Math.hypot(
       line.from[0] - station.position[0],
       line.from[1] - station.position[2],
     );
     expect(fromStation, 'the cable car starts nowhere near its station').toBeLessThan(12);
-    expect(fromStation, 'the cabin starts inside the station').toBeGreaterThan(stationWidth / 2);
 
     // Ends at the hill, behind the square.
-    const hills = scene.backdrop.filter(
-      (piece) => piece.asset.entry.id === 'city_ordu_boztepe_hill',
-    );
-    expect(hills.length).toBeGreaterThan(0);
     const back = Math.max(...scene.bounds.map((corner) => corner[2]));
     expect(line.to[1], 'the line does not reach the hill').toBeGreaterThan(back);
+    expect(
+      scene.backdrop.some((piece) => piece.asset.entry.id === 'city_ordu_boztepe_hill'),
+    ).toBe(true);
 
     // Clear of the walking area for its whole run.
     const halfWidth = Math.max(...scene.bounds.map((corner) => Math.abs(corner[0])));

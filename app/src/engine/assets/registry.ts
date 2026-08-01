@@ -647,26 +647,48 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
     notes: 'Delivered 25.95 MB at 3 m buried 1.5 m; re-authored to 4.4 m on y = 0, 2.11 MB.',
   },
   {
-    id: 'city_ordu_altinordu_seafront',
-    modelUrl: '/assets/city/city_ordu_altinordu_seafront.glb',
-    checksum: 'fb7a48c450d8bdadeb55e7b4ea2a043c9a142a25bdd8b0d328e1e356015c14cf',
-    triangles: 10_210,
-    transferBytes: 1949128,
+    id: 'city_ordu_persembe_plateau',
+    modelUrl: '/assets/city/city_ordu_persembe_plateau.glb',
+    checksum: '6c03508dc39bea746c24c411b6b6db8d1b04888a6369cefe1d678ffe7306d36e',
+    triangles: 10_366,
+    transferBytes: 1623528,
     /**
-     * The Altınordu seafront, out across the water opposite Boztepe.
+     * Perşembe Yaylası, and Ordu no longer has a sea.
      *
-     * It was briefly registered as stop three, which was a misreading on my
-     * part: a twenty-two metre stretch of coast with a promenade on it is
-     * something you look at across a bay, not something a child walks up to.
-     * Ordu curls round its own bay and this is the far arm of it, so it answers
-     * the front the way Akdamar answers Van's and the Maiden's Tower answers
-     * İstanbul's.
+     * The city ran out to water with the Altınordu seafront across the bay,
+     * which was correct and read badly: a twenty-two metre plate on an infinite
+     * blue plane floated like a raft, and the owner's screenshot shows exactly
+     * that. The plateau replaces both. Ordu is a coast *and* a highland, and
+     * the highland is the half a child can walk out into.
+     *
+     * Eighty-two metres across at fourteen tall — a plateau is broad and low,
+     * and one drawn tall would be another Boztepe.
      */
-    dimensions: [21.75, 6.0, 21.31],
-    label: 'Altınordu seafront',
-    color: '#9BA88A',
+    dimensions: [82.17, 14.0, 90.3],
+    label: 'Perşembe plateau',
+    color: '#6E8A52',
     placeholder: 'box',
-    notes: 'Delivered 22.44 MB at 2 m; re-authored to 6 m, 1.86 MB.',
+    notes: 'Delivered 18.10 MB at 8 m buried 4 m; re-authored to 14 m on y = 0, 1.55 MB.',
+  },
+  {
+    id: 'kit_ordu_hazelnut_grove',
+    modelUrl: '/assets/props/kit_ordu_hazelnut_grove.glb',
+    checksum: '254f2c073ca343b4bbc54a0f3d6bb5917ccf5ebb7ee18397a4f3a0d5d0e24d9e',
+    triangles: 7_637,
+    transferBytes: 1071668,
+    /**
+     * Hazelnut, and drawn as the multi-stemmed shrub it is rather than as a
+     * round-crowned tree — which is what keeps Ordu's planting from becoming
+     * generic greenery in the one city that is world champion at this.
+     *
+     * A `kit_` asset, so its cost is paid in every province that plants it:
+     * under the 2 MB shared budget at 1.02 (D-036).
+     */
+    dimensions: [7.63, 4.4, 7.86],
+    label: 'Hazelnut grove',
+    color: '#6E8B4A',
+    placeholder: 'box',
+    notes: 'Delivered 28.99 MB at 1 m buried 0.5 m; re-authored to 4.4 m on y = 0, 1.02 MB.',
   },
   {
     id: 'city_ordu_cable_car',

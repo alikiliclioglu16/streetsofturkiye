@@ -70,7 +70,7 @@ const COMMISSIONED_ASSETS = {
   'van:gol': 'city_van_akdamar_jetty',
   'van:stall': 'city_van_breakfast_table',
   'ordu:fruit': 'city_ordu_hazelnut_stall',
-  'ordu:teleferik': 'city_ordu_cable_station',
+  'ordu:teleferik': 'city_ordu_cable_car',
   'ordu:sahil': 'city_ordu_beach_deck',
 };
 
@@ -153,14 +153,6 @@ const REGION_ANIMAL = {
  * Eighty metres: the side houses reach -74, so the ground runs out first.
  */
 const VAN_SHORE_Z = -80;
-
-/**
- * Where Ordu's beach ends and the Black Sea starts.
- *
- * Same discipline as Van (D-163): one constant, and the shore is measured off
- * it rather than typed into three places.
- */
-const ORDU_SHORE_Z = -74;
 const VAN_LAKE_DEPTH = 200;
 
 const CITY_SURFACE = {
@@ -1034,13 +1026,27 @@ function cityBackdrop(cityId, stopPositions, metrics) {
       ),
       // Groves behind the houses, climbing the slope. Never solid: a hazelnut
       // grove is somewhere you would walk into.
+      /**
+       * Groves along both sides and, especially, in the gap between the last
+       * houses and the hill.
+       *
+       * The houses stop at the boundary and Boztepe starts twenty-two metres
+       * behind it, which left bare ground either side of the square — the
+       * owner's complaint, and on this coast the orchard is exactly what fills
+       * it: hazelnut comes right down to the back gardens.
+       */
       ...[
         [-36, firstZ + 4],
         [34, firstZ - span * 0.3],
         [-38, firstZ - span * 0.72],
         [37, firstZ - span * 0.95],
-        [-30, behind + 10],
-        [31, behind + 16],
+        // The gap between the houses and the hill, both sides.
+        [-31, behind + 6],
+        [-24, behind + 17],
+        [-39, behind + 20],
+        [30, behind + 5],
+        [23, behind + 16],
+        [38, behind + 19],
       ].map(([x, z], i) => ({
         assetId: 'kit_ordu_hazelnut_grove',
         position: [x, 0, Math.round(z * 10) / 10],
@@ -1050,20 +1056,36 @@ function cityBackdrop(cityId, stopPositions, metrics) {
       })),
       {
         /**
-         * The Altınordu seafront, out across the bay and opposite Boztepe.
+         * Perşembe Yaylası, closing the front where the sea used to be.
          *
-         * Ordu curls round its own bay: the hill is behind the town and the far
-         * arm of the coast is in front of it, across the water. That is what
-         * this answers — the way Akdamar answers Van's front and the Maiden's
-         * Tower answers İstanbul's.
+         * Ordu ran out to water with a twenty-two metre seafront plate across
+         * the bay. It floated: an infinite blue plane with an island on it, and
+         * the owner's screenshot showed it plainly. Ordu is a coast *and* a
+         * highland, and the highland is the half a child can walk out into.
          *
-         * Past the shore, so it stands in the sea rather than on the sand.
+         * Near-edge aligned like every landscape plate — ninety metres of
+         * plateau centred on the boundary would swallow the last stop (D-101).
          */
-        assetId: 'city_ordu_altinordu_seafront',
-        position: [-9, 0, ORDU_SHORE_Z - 34],
-        rotationY: 0.22,
+        assetId: 'city_ordu_persembe_plateau',
+        position: [-4, 0, Math.round((lastZ - 16 - 90.3 / 2) * 10) / 10],
+        rotationY: 0.18,
         solid: true,
-        note: 'the Altınordu seafront across the bay',
+        note: 'Perşembe Yaylası, closing the front',
+      },
+      {
+        /**
+         * The cable station, standing where the street meets the plateau.
+         *
+         * It was stop two and is scenery now: a nine metre building is a place
+         * rather than a thing to walk up to, and the stop is better served by
+         * the cabin itself. The line still starts here, so the child watches
+         * the car leave the building it belongs to.
+         */
+        assetId: 'city_ordu_cable_station',
+        position: [13, 0, Math.round((lastZ - 6) * 10) / 10],
+        rotationY: -0.4,
+        solid: true,
+        note: 'the cable station at the foot of the plateau',
       },
       /**
        * Boztepe closes the back — the hill the cable car goes up, and the
@@ -1848,7 +1870,7 @@ function buildScene(canonical) {
      * it passes clear of the fifteen metre walking area on its way up.
      */
     cableCarLine:
-      canonical.id === 'ordu' ? { from: [11, -34], to: [22, 46] } : null,
+      canonical.id === 'ordu' ? { from: [16, -49], to: [24, 46] } : null,
     ferryLine: canonical.id === 'istanbul' ? { from: [-190, -166], to: [190, -158] } : null,
     canoeLines:
       canonical.id === 'van'
@@ -1887,21 +1909,6 @@ function buildScene(canonical) {
             depth: 180,
             color: '#2E7FA8',
           }
-        : canonical.id === 'ordu'
-          ? {
-              centerX: 0,
-              /**
-               * The Black Sea, and it is not the Bosphorus.
-               *
-               * Ordu's shore is a Blue Flag beach — sand, not a quay — so the
-               * water starts where the street runs out, and the colour is the
-               * greener, colder blue the region's own palette asks for.
-               */
-              centerZ: ORDU_SHORE_Z - 100,
-              width: 400,
-              depth: 200,
-              color: '#2F7C93',
-            }
         : canonical.id === 'van'
           ? {
             centerX: 0,

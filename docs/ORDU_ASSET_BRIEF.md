@@ -19,14 +19,14 @@ sky towards pale grey-green.
 
 ## The whole list, in the order I would draw it
 
-Four files left — the hazelnut grove and the three rewards. **Part A first** — a street with placeholder stops and a real horizon
+Three files left — the three rewards. **Part A first** — a street with placeholder stops and a real horizon
 reads as a place under construction; real stops and no horizon reads as a
 diorama.
 
 | # | Asset id | What it is | Size (w × h × d) | Base colour |
 |---|---|---|---|---|
 | 1 | ~~`city_ordu_timber_houses`~~ | **delivered** — 24.1 × 11 × 15.2 | — | — |
-| 2 | `kit_ordu_hazelnut_grove` | hazelnut grove, shared kit | 8.5 × 4.4 × 8.5 m | 1024 |
+| 2 | ~~`kit_ordu_hazelnut_grove`~~ | **delivered** — 7.6 × 4.4 × 7.9 | — | — |
 | 3 | ~~`city_ordu_boztepe_hill`~~ | **delivered** — 43.6 × 26 × 45.1, placed as three | — | — |
 | 4 | ~~`city_ordu_hazelnut_stall`~~ | **delivered** — 2.5 × 2.0 × 1.9 | — | — |
 | 5 | ~~`city_ordu_cable_station`~~ | **delivered** — 9.0 × 4.4 × 8.9, line runs to Boztepe | — | — |

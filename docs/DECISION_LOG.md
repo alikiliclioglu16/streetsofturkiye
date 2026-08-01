@@ -2989,3 +2989,37 @@ borrowing that rule exists to stop.
 
 The canopy is 4.5 m tall against a 2.4 m cable car. One drawn at a person's size
 reads as a bird.
+
+## D-173 — Ordu loses its sea and gains a plateau (1 Aug 2026)
+
+The owner's screenshot showed the Altınordu seafront across the bay looking
+like a raft: a twenty-two metre plate of coast sitting on an infinite blue
+plane, with nothing between it and the horizon. It was the right idea and it
+read badly, and the fix is not a better island.
+
+**Perşembe Yaylası closes the front instead, and Ordu has no water at all.**
+That province is a coast *and* a highland, and the highland is the half a child
+can walk out into: eighty-two metres across at fourteen tall, near-edge aligned
+like every landscape plate.
+
+It also removes the only thing that had been fragile about this city. Water is
+drawn as one flat plane over the ground (D-154) and every object standing near
+it has to be checked against a shoreline that has moved five times across two
+cities (D-163). Ordu now has no shoreline to maintain.
+
+**The cable station is scenery and the cabin is stop two.** Nine metres of
+building is a place rather than something to walk up to, and what a child at
+that stop is actually looking at is the red car. The station stands where the
+street meets the plateau, the line still starts there, and the cabin they have
+just read about leaves the building in front of them and climbs to Boztepe.
+
+**And the gap behind the houses is orchard.** The houses stop at the boundary
+and Boztepe starts twenty-two metres past it, which left bare ground either side
+of the square — the owner's complaint. On this coast that is exactly what fills
+it: hazelnut comes right down to the back gardens. Six more groves, three a
+side, and the circle sweep now reports nothing open over five degrees from
+either the spawn or the middle of the street.
+
+The grove arrived drawn as a multi-stemmed shrub rather than a round-crowned
+tree, which is what the brief asked for and what keeps the planting in the one
+world-champion hazelnut province from reading as generic greenery.
