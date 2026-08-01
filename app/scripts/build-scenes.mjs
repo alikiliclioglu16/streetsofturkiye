@@ -71,7 +71,7 @@ const COMMISSIONED_ASSETS = {
   'van:stall': 'city_van_breakfast_table',
   'ordu:fruit': 'city_ordu_hazelnut_stall',
   'ordu:teleferik': 'city_ordu_cable_car',
-  'ordu:sahil': 'city_ordu_beach_deck',
+  'ordu:sahil': 'city_ordu_beach_front',
 };
 
 /** Commissioned collectibles, keyed by canonical stop id. */
@@ -179,6 +179,16 @@ const ANIMAL_OVERRIDES = {
    * ground with its feet still is worse than a cat of the wrong colour.
    */
   van: 'cat',
+  /**
+   * No animal in Ordu.
+   *
+   * The Black Sea row gives the region cats, which is there because İstanbul's
+   * are famous and the table was filled in from the coast that had them. They
+   * are not what Ordu is about, and borrowed street furniture reads as a city
+   * nobody looked at — the same fault as a Bosphorus song over Cappadocia
+   * (D-119). Its moving life is the cable cars and the paragliders.
+   */
+  ordu: 'none',
 };
 
 /** Which surface each region's streets are laid with. */
@@ -212,6 +222,21 @@ const VALLEY_SETBACK = 12;
 /** Guides the project has assigned against the source's own (D-132). */
 const GUIDE_OVERRIDES = {
   kars: 'character_nasreddin_hoca_base',
+};
+
+/**
+ * Palettes the project has brightened against the region's own.
+ *
+ * Canonical carries a `sourceVisual` per region and it is the default. The
+ * Black Sea's is a muted olive under a pale sky, which is honest about the
+ * weather there and wrong for a children's game: Ordu came out grey-green and
+ * flat where the province is one of the greenest places in the country.
+ *
+ * Recorded here rather than by editing canonical, like the guide overrides
+ * (D-132).
+ */
+const CITY_PALETTE = {
+  ordu: { sky: ['#8FD3EC', '#DFF3F7'], ground: '#7FBF5A' },
 };
 
 const CITY_THEMES = {
@@ -1025,7 +1050,7 @@ function cityBackdrop(cityId, stopPositions, metrics) {
           .map(({ i, z }) =>
             wall(
               'city_ordu_timber_houses',
-              side * 23,
+              side * 31,
               z,
               `timber houses ${side < 0 ? 'west' : 'east'} ${i + 1}`,
             ),
@@ -1045,11 +1070,21 @@ function cityBackdrop(cityId, stopPositions, metrics) {
        */
       ...[-1, 1].flatMap((side) =>
         [
+          /**
+           * A third pair, level with the spawn.
+           *
+           * The rows start ahead of the child and the back corner sits behind
+           * them, which left a slice due east and west with nothing in it — the
+           * elevation sweep found 74° open above 3.8°, because the only thing
+           * out there was a four metre orchard forty-four metres away. A house
+           * at eleven metres covers it.
+           */
+          [-14, 0.2],
           [8, 0.55],
           [24, 1.0],
         ].map(([ahead, turn], i) => ({
           assetId: 'city_ordu_timber_houses',
-          position: [side * (26 - i * 4), 0, Math.round((behind + ahead) * 10) / 10],
+          position: [side * (36 - i * 4), 0, Math.round((behind + ahead) * 10) / 10],
           rotationY: side * (Math.PI / 2 - turn),
           solid: true,
           note: `back corner houses ${side < 0 ? 'west' : 'east'} ${i + 1}`,
@@ -1076,6 +1111,25 @@ function cityBackdrop(cityId, stopPositions, metrics) {
         [30, behind + 5],
         [23, behind + 16],
         [38, behind + 19],
+        /**
+         * And the flanks themselves, now that the houses stand at thirty-one
+         * rather than twenty-three. Moving the rows out to widen the street
+         * opened seventy-four degrees of bare sky behind and to the side — the
+         * elevation sweep found it at once (D-174). Orchard is what fills it
+         * here, as it fills everything else on this coast.
+         */
+        [-44, firstZ + 12],
+        [43, firstZ + 8],
+        // Due east and west of the spawn: the row starts ahead of it and the
+        // back corner sits behind it, so this slice had nothing in it at all.
+        [-42, 12],
+        [42, 12],
+        [-40, 24],
+        [40, 24],
+        [-46, firstZ - span * 0.5],
+        [45, firstZ - span * 0.62],
+        [-42, behind + 30],
+        [41, behind + 32],
       ].map(([x, z], i) => ({
         assetId: 'kit_ordu_hazelnut_grove',
         position: [x, 0, Math.round(z * 10) / 10],
@@ -1136,9 +1190,9 @@ function cityBackdrop(cityId, stopPositions, metrics) {
          * longer needs a steep tilt to show its surface, and a gentler one
          * reads as a slope rather than as a ramp.
          */
-        position: [-4, -5, Math.round((lastZ - 24 - (141.9 / 2) * 0.961) * 10) / 10],
+        position: [-4, 2, Math.round((lastZ - 24 - (141.9 / 2) * 0.929) * 10) / 10],
         rotationY: 0.18,
-        rotationX: 0.28,
+        rotationX: 0.38,
         solid: true,
         note: 'Perşembe Yaylası, tilted so its surface reads',
       },
@@ -1785,8 +1839,8 @@ function buildScene(canonical) {
       kitId: KIT_BY_REGION[canonical.regionId],
       timeOfDay: 'midday',
       ambientAudioId: `ambient_${canonical.regionId.replace(/-/g, '_')}`,
-      skyPreset: region.sourceVisual.sky,
-      groundColor: region.sourceVisual.ground,
+      skyPreset: CITY_PALETTE[canonical.id]?.sky ?? region.sourceVisual.sky,
+      groundColor: CITY_PALETTE[canonical.id]?.ground ?? region.sourceVisual.ground,
     },
     guide: {
       /**
@@ -1909,9 +1963,9 @@ function buildScene(canonical) {
     paragliders:
       canonical.id === 'ordu'
         ? [
-            { key: 'glider-0', position: [-3, 9, -40], scale: 1.2, driftSpeed: 1.3, phase: 0.4, driftAmplitude: 4 },
-            { key: 'glider-1', position: [3, 10, -42], scale: 1.15, driftSpeed: 1.05, phase: 2.2, driftAmplitude: 4 },
-            { key: 'glider-2', position: [-1, 8, -36], scale: 1.05, driftSpeed: 1.5, phase: 4.1, driftAmplitude: 4 },
+            { key: 'glider-0', position: [-4, 13, -56], scale: 1.2, driftSpeed: 1.3, phase: 0.4, driftAmplitude: 5 },
+            { key: 'glider-1', position: [4, 14, -62], scale: 1.15, driftSpeed: 1.05, phase: 2.2, driftAmplitude: 5 },
+            { key: 'glider-2', position: [-1, 12, -52], scale: 1.05, driftSpeed: 1.5, phase: 4.1, driftAmplitude: 5 },
           ]
         : [],
     /**
@@ -1998,7 +2052,7 @@ function buildScene(canonical) {
      * it passes clear of the fifteen metre walking area on its way up.
      */
     cableCarLine:
-      canonical.id === 'ordu' ? { from: [16, -49], to: [24, 46] } : null,
+      canonical.id === 'ordu' ? { from: [18, -54], to: [26, 44] } : null,
     ferryLine: canonical.id === 'istanbul' ? { from: [-190, -166], to: [190, -158] } : null,
     canoeLines:
       canonical.id === 'van'

@@ -7,7 +7,7 @@ import type { HeroStatus } from '@/components/three/HeroCharacter';
 import type { HeroClip } from '@/engine/heroes/registry';
 import { AssetInstance } from '@/components/three/AssetInstance';
 import { WindProp } from '@/components/three/WindProp';
-import { Train, TrainTrack, Tram } from '@/components/three/Tram';
+import { CableCarLine, Train, TrainTrack, Tram } from '@/components/three/Tram';
 import { playFerryHorn } from '@/engine/audio/cues';
 import { Balloons } from '@/components/three/Balloons';
 import { Ground } from '@/components/three/Ground';
@@ -237,15 +237,13 @@ export function CityScene({
         as a tram working a street.
       */}
       {scene.cableCarLine && scene.cableCarAsset ? (
-        <Tram
+        <CableCarLine
           asset={scene.cableCarAsset}
           from={scene.cableCarLine.from}
           to={scene.cableCarLine.to}
+          /* Leaves the station at roof height and reaches Boztepe's shoulder. */
+          heights={[5, 24]}
           reducedMotion={reducedMotion}
-          speed={1.8}
-          /* Leaves the station at roof height and arrives near Boztepe's
-             shoulder — a cable car that stays level is a tram on stilts. */
-          heights={[4.2, 19]}
         />
       ) : null}
 

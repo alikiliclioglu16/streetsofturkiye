@@ -367,6 +367,49 @@ describe('street kit props', () => {
     }
   });
 
+  it('keeps ten cabins on the cable, one away every five seconds', async () => {
+    /**
+     * A single cabin sliding up a hill is one lonely box, and that is what the
+     * tram's out-and-back motion gave. A real line is a loop of cabins evenly
+     * spaced on a moving cable: ten in the air at once and one leaving every
+     * few seconds, which is what the owner asked for and what Ordu's actually
+     * looks like.
+     *
+     * The progress function is pure, so this is arithmetic rather than
+     * something to sit and watch.
+     */
+    const { cableCarProgress, CABLE_CAR_COUNT, CABLE_CAR_HEADWAY } = await import(
+      '@/components/three/Tram'
+    );
+
+    // Every cabin is somewhere on the line, all the time.
+    for (let t = 0; t < 120; t += 0.5) {
+      for (let i = 0; i < CABLE_CAR_COUNT; i += 1) {
+        const along = cableCarProgress(i, CABLE_CAR_COUNT, t);
+        expect(along).toBeGreaterThanOrEqual(0);
+        expect(along).toBeLessThanOrEqual(1);
+      }
+    }
+
+    // And they are spread out rather than bunched: at any moment no two are in
+    // the same place.
+    const spread = new Set(
+      Array.from({ length: CABLE_CAR_COUNT }, (_, i) =>
+        Math.round(cableCarProgress(i, CABLE_CAR_COUNT, 3.2) * 100),
+      ),
+    );
+    expect(spread.size).toBe(CABLE_CAR_COUNT);
+
+    // One leaves the station every headway: cabin i is at the bottom exactly
+    // when cabin i-1 was, one headway earlier.
+    for (let i = 1; i < CABLE_CAR_COUNT; i += 1) {
+      expect(cableCarProgress(i, CABLE_CAR_COUNT, 0)).toBeCloseTo(
+        cableCarProgress(i - 1, CABLE_CAR_COUNT, CABLE_CAR_HEADWAY),
+        5,
+      );
+    }
+  });
+
   it('runs the cable car from its station up to Boztepe, and back', () => {
     /**
      * What the stop describes is a journey: the cars glide from the seaside up

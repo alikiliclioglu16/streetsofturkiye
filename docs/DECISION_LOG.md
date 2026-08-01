@@ -3230,3 +3230,46 @@ Two things fell out of looking properly:
   z = -36 — inside the walk. Rotation is what hid it: a turned box covers more
   ground than the box. Same fault as Cappadocia's chimneys (D-140), found this
   time by a paraglider colliding with it.
+
+## D-184 — Ordu reworked (1 Aug 2026)
+
+The owner said plainly that the city had disappointed them. Seven changes.
+
+**Brighter.** The Black Sea's canonical palette is a muted olive under a pale
+sky — honest about the weather there and wrong for a children's game. Ordu came
+out grey-green and flat, in one of the greenest provinces in the country.
+`CITY_PALETTE` overrides it to a strong green under a clear blue, recorded in
+the builder rather than by editing canonical, like the guide overrides (D-132).
+
+**The street is wider.** Houses moved from x = ±23 to ±31. Eight metres either
+side does not sound like much and it is the difference between a lane and a
+square.
+
+**No cats.** The region table gives the Black Sea cats because İstanbul's are
+famous and the row was filled in from the coast that had them. Borrowed street
+furniture reads as a city nobody looked at — the same fault as a Bosphorus song
+over Cappadocia. Ordu's moving life is the cable cars and the paragliders.
+
+**The cable car is a line, not a cabin.** Ten cabins evenly spaced on a loop,
+one leaving every five seconds, climbing from the station at five metres to
+Boztepe's shoulder at twenty-four. The tram's out-and-back motion had given one
+lonely box sliding up a hill; a cable car is a *system*, and it only reads as one
+when the sky is full of them.
+
+**Stop three is the beach.** It has been the wooden deck for three turns while
+the text talked about Blue Flag shores. The beach model is the stop now.
+
+**The plateau shows its surface.** Tilt from 0.28 to 0.38 — the far rim rises to
+48.7 m, which at that distance sits just inside the top of the frame, so the
+river and cart tracks read without the mountain being cut off.
+
+**And the paragliders are five metres higher**, at twelve to fourteen, which is
+where they should have been: high enough to be flying, still inside the
+thirteen-degree frame ceiling (D-183).
+
+**Widening the street opened the sides.** Moving the houses out left
+seventy-four degrees of bare sky due east of the spawn — the rows start ahead of
+the child, the back corner sits behind, and nothing stood between. Filled with a
+third pair of houses level with the spawn and six more orchards. Orchard alone
+was not enough at that range: four metres at forty-four is 3.8° of cover, and
+the rule wants eight.

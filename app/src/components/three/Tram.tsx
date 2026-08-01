@@ -346,3 +346,95 @@ export function TrainTrack({
     </group>
   );
 }
+
+/* ------------------------------------------------------------------ */
+
+/** Cabins on the line at once. */
+export const CABLE_CAR_COUNT = 10;
+/** Seconds between one cabin leaving the station and the next. */
+export const CABLE_CAR_HEADWAY = 5;
+
+/**
+ * Where a cabin is along its line, as a fraction from 0 to 1.
+ *
+ * A cable car is not a tram. The tram runs one vehicle out and back with a
+ * pause at each end, which is what a tram does and what a single cabin sliding
+ * up a hill looked like: one lonely box. A real line is a loop of cabins evenly
+ * spaced along a moving cable, so ten of them are always in the air and one
+ * leaves every few seconds.
+ *
+ * So each cabin rides the same cable at the same speed, offset by its index —
+ * and the ones on the return half come back down. Pure, so "does a cabin leave
+ * every five seconds" is arithmetic rather than something to sit and watch.
+ */
+export function cableCarProgress(index: number, count: number, seconds: number): number {
+  const cycle = count * CABLE_CAR_HEADWAY;
+  const t = (seconds + index * CABLE_CAR_HEADWAY) % cycle;
+  const half = cycle / 2;
+  // First half of the loop climbs, second half returns.
+  return t < half ? t / half : 2 - t / half;
+}
+
+/**
+ * A working cable car line: ten cabins, one away every five seconds.
+ *
+ * Heights are interpolated along the run, so the cabins climb — a line that
+ * stays level is a row of boxes on a wire.
+ */
+export function CableCarLine({
+  asset,
+  from,
+  to,
+  heights,
+  reducedMotion,
+  count = CABLE_CAR_COUNT,
+}: {
+  asset: ResolvedAsset;
+  from: readonly [number, number];
+  to: readonly [number, number];
+  heights: readonly [number, number];
+  reducedMotion: boolean;
+  count?: number;
+}) {
+  const cabins = useRef<(Group | null)[]>([]);
+  const elapsed = useRef(0);
+
+  const line = useMemo(() => {
+    const dx = to[0] - from[0];
+    const dz = to[1] - from[1];
+    const [width, , depth] = asset.entry.dimensions;
+    return { dx, dz, heading: Math.atan2(dx, dz) + (width > depth ? Math.PI / 2 : 0) };
+  }, [from, to, asset.entry.dimensions]);
+
+  useFrame((_, rawDelta) => {
+    if (reducedMotion) return;
+    elapsed.current += Math.min(rawDelta, 0.05);
+
+    for (let i = 0; i < count; i += 1) {
+      const node = cabins.current[i];
+      if (!node) continue;
+      const along = cableCarProgress(i, count, elapsed.current);
+      node.position.set(
+        from[0] + line.dx * along,
+        heights[0] + (heights[1] - heights[0]) * along,
+        from[1] + line.dz * along,
+      );
+      node.rotation.y = line.heading;
+    }
+  });
+
+  return (
+    <group>
+      {Array.from({ length: count }, (_, i) => (
+        <group
+          key={`cabin-${i}`}
+          ref={(node) => {
+            cabins.current[i] = node;
+          }}
+        >
+          <AssetInstance asset={asset} />
+        </group>
+      ))}
+    </group>
+  );
+}
