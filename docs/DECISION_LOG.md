@@ -2931,3 +2931,36 @@ hill.
 Ordu is 9.4 MB a visit with three assets still to come, against İstanbul's 10.9
 finished. The lighter heroes are most of that, and the horizon being three
 pieces rather than a dozen is the rest.
+
+## D-171 — The cable car goes somewhere (31 Jul 2026)
+
+Two corrections, and the second is mine.
+
+**The seaside diorama was not stop three.** I registered it as the beach deck,
+and it is a twenty-two metre stretch of coast with a promenade on it — something
+you look at across a bay, not something a child walks up to. It is
+`city_ordu_altinordu_seafront` now, standing out on the water opposite Boztepe.
+That is the shape of the city: Ordu curls round its own bay, with the hill
+behind the town and the far arm of the coast in front of it. It answers the
+front the way Akdamar answers Van's and the Maiden's Tower answers İstanbul's.
+
+The actual deck arrived this turn: 4.3 × 1.6 × 4.4, which is what the brief
+asked for.
+
+**The cable car ran from nowhere to nowhere.** It worked the east verge on a
+line I placed before the station existed — a red cabin sliding along beside the
+street. The station is now at the shore end of the walk and the line starts just
+off its east edge and climbs to Boztepe behind the town, so a child standing at
+stop two watches the thing they have just read about leave the building in front
+of them and go where the text says it goes.
+
+**And it hangs.** `Tram` put everything at y = 0, which is right for a tram and
+a canoe and wrong for a cable car — it was sliding along the ground. The motion
+now takes an optional pair of heights and interpolates between them: the cabin
+leaves the station at 4.2 m and reaches the hill at 19. A cable car that stays
+level is a tram on stilts.
+
+The station is nine metres across, the widest stop object in the project, so its
+trigger ring comes out at 8.5 m. That is correct rather than a problem — the
+ring is derived from the footprint, and a station is a building rather than a
+piece of furniture.

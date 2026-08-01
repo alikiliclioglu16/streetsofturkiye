@@ -1048,6 +1048,23 @@ function cityBackdrop(cityId, stopPositions, metrics) {
         solid: false,
         note: `hazelnut grove ${i + 1}`,
       })),
+      {
+        /**
+         * The Altınordu seafront, out across the bay and opposite Boztepe.
+         *
+         * Ordu curls round its own bay: the hill is behind the town and the far
+         * arm of the coast is in front of it, across the water. That is what
+         * this answers — the way Akdamar answers Van's front and the Maiden's
+         * Tower answers İstanbul's.
+         *
+         * Past the shore, so it stands in the sea rather than on the sand.
+         */
+        assetId: 'city_ordu_altinordu_seafront',
+        position: [-9, 0, ORDU_SHORE_Z - 34],
+        rotationY: 0.22,
+        solid: true,
+        note: 'the Altınordu seafront across the bay',
+      },
       /**
        * Boztepe closes the back — the hill the cable car goes up, and the
        * reason stop two exists.
@@ -1798,8 +1815,20 @@ function buildScene(canonical) {
      * side clear of the walk, from the shore end up past the boundary towards
      * Boztepe.
      */
+    /**
+     * From the station to the hill, which is the journey the stop describes.
+     *
+     * It ran from nowhere to nowhere on the east verge before — a cabin sliding
+     * along beside the street. Now it starts at the cable station at the shore
+     * end of the walk and climbs to Boztepe behind the town, so a child
+     * standing at stop two can watch the thing they have just read about leave
+     * from the building in front of them and go where it says it goes.
+     *
+     * Started just off the station's east edge so the cabin is beside it and not inside it, and
+     * it passes clear of the fifteen metre walking area on its way up.
+     */
     cableCarLine:
-      canonical.id === 'ordu' ? { from: [18, -40], to: [26, 44] } : null,
+      canonical.id === 'ordu' ? { from: [11, -34], to: [22, 46] } : null,
     ferryLine: canonical.id === 'istanbul' ? { from: [-190, -166], to: [190, -158] } : null,
     canoeLines:
       canonical.id === 'van'

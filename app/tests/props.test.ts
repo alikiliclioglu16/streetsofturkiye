@@ -321,6 +321,50 @@ describe('street kit props', () => {
     }
   });
 
+  it('runs the cable car from its station up to Boztepe', () => {
+    /**
+     * The line ran along the east verge from nowhere to nowhere at first — a
+     * cabin sliding beside the street. What the stop describes is a journey:
+     * the cars glide from the seaside up to Boztepe hill. So the line has to
+     * start at the station a child is standing in front of and end at the hill
+     * behind the town, and it has to climb, because a cable car that stays
+     * level is a tram on stilts.
+     */
+    const scene = buildScene(loadComposedCity('ordu'), 'high');
+    const line = scene.cableCarLine!;
+    expect(line).toBeTruthy();
+    expect(scene.cableCarAsset!.entry.id).toBe('city_ordu_cable_car');
+
+    const station = scene.hotspots.find(
+      (hotspot) => hotspot.asset.entry.id === 'city_ordu_cable_station',
+    )!;
+    const [stationWidth] = station.asset.entry.dimensions;
+
+    // Starts beside the station, and outside it.
+    const fromStation = Math.hypot(
+      line.from[0] - station.position[0],
+      line.from[1] - station.position[2],
+    );
+    expect(fromStation, 'the cable car starts nowhere near its station').toBeLessThan(12);
+    expect(fromStation, 'the cabin starts inside the station').toBeGreaterThan(stationWidth / 2);
+
+    // Ends at the hill, behind the square.
+    const hills = scene.backdrop.filter(
+      (piece) => piece.asset.entry.id === 'city_ordu_boztepe_hill',
+    );
+    expect(hills.length).toBeGreaterThan(0);
+    const back = Math.max(...scene.bounds.map((corner) => corner[2]));
+    expect(line.to[1], 'the line does not reach the hill').toBeGreaterThan(back);
+
+    // Clear of the walking area for its whole run.
+    const halfWidth = Math.max(...scene.bounds.map((corner) => Math.abs(corner[0])));
+    for (const [x] of [line.from, line.to]) {
+      expect(Math.abs(x), 'the cable car crosses the street').toBeGreaterThan(
+        halfWidth - stationWidth / 2,
+      );
+    }
+  });
+
   it('lets a child walk through the Ani doorway', () => {
     /**
      * Left at the 5 m it was delivered at rather than the briefed 3.2, because

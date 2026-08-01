@@ -565,23 +565,67 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
   {
     id: 'city_ordu_beach_deck',
     modelUrl: '/assets/city/city_ordu_beach_deck.glb',
-    checksum: '5f7fa6dfac104131d3c391fb137f74848a0ee2150a8bc140b06c1d7bb70b852b',
-    triangles: 10_210,
-    transferBytes: 913132,
+    checksum: '66fb7dcadc5c1c5572293cc8f7936a129dde1749990fee0572ff62af8a6feccf',
+    triangles: 9_063,
+    transferBytes: 941492,
     /**
      * Stop three, the Blue Flag beach.
      *
-     * Delivered as a seaside diorama — nearly square at 5.8 by 5.7 — rather
-     * than the narrow deck the brief asked for, so it takes a wider footprint
-     * and a bigger trigger ring than a stop usually gets. Left at 1.6 m: a
-     * child should see the sea over it, and anything taller stands in the way
-     * of the thing the stop is about.
+     * This id first pointed at the seaside diorama, which was the wrong file
+     * for it: a twenty metre stretch of coast is scenery, not something a child
+     * walks up to. That model is now `city_ordu_altinordu_seafront` and this is
+     * the deck it was always supposed to be.
+     *
+     * Left at 1.6 m — a child has to see the sea over it, and anything taller
+     * stands in front of the thing the stop is about.
      */
-    dimensions: [5.8, 1.6, 5.68],
+    dimensions: [4.29, 1.6, 4.44],
     label: 'Blue Flag beach',
     color: '#D9C9A3',
     placeholder: 'box',
-    notes: 'Delivered 22.44 MB at 2 m; re-authored to 1.6 m, 0.87 MB.',
+    notes: 'Delivered 24.05 MB at 2 m buried 1 m; re-authored to 1.6 m on y = 0, 0.90 MB.',
+  },
+  {
+    id: 'city_ordu_cable_station',
+    modelUrl: '/assets/city/city_ordu_cable_station.glb',
+    checksum: '1fdb26dd6a334d7a247298e7c7db845216e22074faf985cffd0320efc4a3ffc6',
+    triangles: 8_639,
+    transferBytes: 2214264,
+    /**
+     * Stop two: the bottom station of the cable car, standing at the shore end
+     * of the street with the line running from it up to Boztepe.
+     *
+     * Nine metres across, which is the widest stop object in the project — a
+     * station is a building rather than a piece of furniture, and the layout
+     * derives its trigger ring from the footprint, so it gets a wide one.
+     */
+    dimensions: [9.01, 4.4, 8.91],
+    label: 'Cable car station',
+    color: '#7E8B93',
+    placeholder: 'box',
+    notes: 'Delivered 25.95 MB at 3 m buried 1.5 m; re-authored to 4.4 m on y = 0, 2.11 MB.',
+  },
+  {
+    id: 'city_ordu_altinordu_seafront',
+    modelUrl: '/assets/city/city_ordu_altinordu_seafront.glb',
+    checksum: 'fb7a48c450d8bdadeb55e7b4ea2a043c9a142a25bdd8b0d328e1e356015c14cf',
+    triangles: 10_210,
+    transferBytes: 1949128,
+    /**
+     * The Altınordu seafront, out across the water opposite Boztepe.
+     *
+     * It was briefly registered as stop three, which was a misreading on my
+     * part: a twenty-two metre stretch of coast with a promenade on it is
+     * something you look at across a bay, not something a child walks up to.
+     * Ordu curls round its own bay and this is the far arm of it, so it answers
+     * the front the way Akdamar answers Van's and the Maiden's Tower answers
+     * İstanbul's.
+     */
+    dimensions: [21.75, 6.0, 21.31],
+    label: 'Altınordu seafront',
+    color: '#9BA88A',
+    placeholder: 'box',
+    notes: 'Delivered 22.44 MB at 2 m; re-authored to 6 m, 1.86 MB.',
   },
   {
     id: 'city_ordu_cable_car',

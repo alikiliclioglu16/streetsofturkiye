@@ -19,7 +19,7 @@ sky towards pale grey-green.
 
 ## The whole list, in the order I would draw it
 
-Six files left. **Part A first** — a street with placeholder stops and a real horizon
+Four files left. **Part A first** — a street with placeholder stops and a real horizon
 reads as a place under construction; real stops and no horizon reads as a
 diorama.
 
@@ -29,8 +29,8 @@ diorama.
 | 2 | `kit_ordu_hazelnut_grove` | hazelnut grove, shared kit | 8.5 × 4.4 × 8.5 m | 1024 |
 | 3 | ~~`city_ordu_boztepe_hill`~~ | **delivered** — 43.6 × 26 × 45.1, placed as three | — | — |
 | 4 | `city_ordu_hazelnut_stall` | **stop 1** — hazelnuts drying | 2.4 × 2.0 × 1.3 m | 1024 |
-| 5 | `city_ordu_cable_station` | **stop 2** — the cable car | 4.2 × 4.4 × 3.6 m | 2048 |
-| 6 | ~~`city_ordu_beach_deck`~~ | **delivered** — 5.8 × 1.6 × 5.7 | — | — |
+| 5 | ~~`city_ordu_cable_station`~~ | **delivered** — 9.0 × 4.4 × 8.9, line runs to Boztepe | — | — |
+| 6 | ~~`city_ordu_beach_deck`~~ | **delivered** — 4.3 × 1.6 × 4.4 | — | — |
 | 7 | ~~`city_ordu_cable_car`~~ | **delivered and running** — 2.4 × 2.4 × 2.3 | — | — |
 | 8 | `collectible_ordu_hazelnut_jar` | reward 1 | 0.12 × 0.16 × 0.12 m | 1024 |
 | 9 | `collectible_ordu_cable_ticket` | reward 2 | 0.13 × 0.09 × 0.01 m | 1024 |

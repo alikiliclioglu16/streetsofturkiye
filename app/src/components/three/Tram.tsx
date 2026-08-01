@@ -68,9 +68,25 @@ interface TramProps {
    * lake at rather less, and both are the same motion — out, pause, back.
    */
   speed?: number;
+  /**
+   * Height at each end of the line, in metres.
+   *
+   * A tram and a canoe both run at y = 0 and always did. A cable car does not:
+   * it hangs, and it climbs. Given two heights the cabin is lifted and
+   * interpolated between them, so it leaves the station low and arrives at the
+   * hilltop high — which is the whole of what the stop describes.
+   */
+  heights?: readonly [number, number];
 }
 
-export function Tram({ asset, from, to, reducedMotion, speed = TRAM_SPEED }: TramProps) {
+export function Tram({
+  asset,
+  from,
+  to,
+  reducedMotion,
+  speed = TRAM_SPEED,
+  heights,
+}: TramProps) {
   const group = useRef<Group>(null);
   const state = useRef<TramState>(initialTramState());
 
@@ -105,7 +121,10 @@ export function Tram({ asset, from, to, reducedMotion, speed = TRAM_SPEED }: Tra
       state.current = stepTram(state.current, line.length, Math.min(rawDelta, 0.05), speed);
     }
     const { travelled, direction } = state.current;
-    node.position.set(from[0] + line.dx * travelled, 0, from[1] + line.dz * travelled);
+    // Lifted and climbing where a line has heights; flat where it has none.
+    const along = line.length > 0 ? travelled / line.length : 0;
+    const y = heights ? heights[0] + (heights[1] - heights[0]) * along : 0;
+    node.position.set(from[0] + line.dx * travelled, y, from[1] + line.dz * travelled);
     // The tram faces the way it is going; İstanbul's has a driver's cab at both
     // ends, so turning round is a heading flip and not a manoeuvre.
     node.rotation.y = direction > 0 ? line.heading : line.heading + Math.PI;

@@ -232,6 +232,9 @@ export function CityScene({
           to={scene.cableCarLine.to}
           reducedMotion={reducedMotion}
           speed={1.8}
+          /* Leaves the station at roof height and arrives near Boztepe's
+             shoulder — a cable car that stays level is a tram on stilts. */
+          heights={[4.2, 19]}
         />
       ) : null}
 
