@@ -1166,10 +1166,20 @@ function cityBackdrop(cityId, stopPositions, metrics) {
        * overlapping — so the ground climbs into the plateau instead of stopping
        * at it.
        */
-      ...[-38, 0, 38].map((x, i) => ({
+      ...[-34, 0, 34].map((x, i) => ({
         assetId: 'city_ordu_boztepe_hill',
-        position: [x, 0, Math.round((lastZ - 20 - i % 2 * 5) * 10) / 10],
-        rotationY: Math.PI + (i - 1) * 0.4,
+        /**
+         * Well past the boundary, and square rather than fanned.
+         *
+         * They were twenty metres past the last stop and turned ±0.4 rad, which
+         * widened their axis-aligned reach to twenty-nine metres — enough for
+         * the west one to poke back into the street at x = -9 and z = -36,
+         * inside the play area. Scenery that reaches into the walk is the
+         * mistake Cappadocia's chimneys made (D-140), and the rotation is what
+         * hid it: a turned box covers more ground than the box.
+         */
+        position: [x, 0, Math.round((lastZ - 50 + (i % 2) * 6) * 10) / 10],
+        rotationY: Math.PI,
         solid: true,
         note: `the mountain flank under the plateau ${i + 1}`,
       })),
@@ -1871,8 +1881,22 @@ function buildScene(canonical) {
      * across, so wherever they were put they spent most of the time outside the
      * frame. They wander eight to eleven metres now.
      *
-     * The rest is the **elevation angle from where the child stands**: high
-     * enough to be sky, shallow enough to be in shot. These sit at twenty to
+     * And the angle that matters is not "shallow enough to be in shot" by
+     * eye — it is measured off the camera. The follow camera sits 2.3 m up,
+     * 5.2 m back, and looks at the guide's chest, so it tilts **down** by
+     * twelve degrees; with a fifty degree vertical field that puts the top of
+     * the frame just **thirteen degrees above horizontal**. Every placement so
+     * far sat between 27° and 47°, which is to say above the picture.
+     *
+     * These fly between eight and eleven degrees and **down the middle of the
+     * street**, between the two rows of houses rather than beside them. At ten
+     * metres a canopy is level with an eleven metre roof: out over the rows it
+     * would be tangled in them, and down the centre it is framed by them.
+     *
+     * A canopy is 6.4 m across at this scale and the street is 21.8 m between
+     * the house fronts, so the wander is four metres rather than nine — three
+     * of them abreast have to fit in a gap narrower than any of the earlier
+     * placements assumed. These sit at twenty to
      * twenty-five metres, thirty to fifty out, ahead and to the sides — between
      * twenty-five and thirty-five degrees up, which is a glance rather than a
      * craned neck. They have come off Boztepe and are drifting out over the
@@ -1885,9 +1909,9 @@ function buildScene(canonical) {
     paragliders:
       canonical.id === 'ordu'
         ? [
-            { key: 'glider-0', position: [-16, 22, -26], scale: 1.7, driftSpeed: 1.3, phase: 0.4, driftAmplitude: 9 },
-            { key: 'glider-1', position: [15, 20, -34], scale: 1.5, driftSpeed: 1.05, phase: 2.2, driftAmplitude: 11 },
-            { key: 'glider-2', position: [-26, 25, -30], scale: 1.9, driftSpeed: 1.5, phase: 4.1, driftAmplitude: 8 },
+            { key: 'glider-0', position: [-3, 9, -40], scale: 1.2, driftSpeed: 1.3, phase: 0.4, driftAmplitude: 4 },
+            { key: 'glider-1', position: [3, 10, -42], scale: 1.15, driftSpeed: 1.05, phase: 2.2, driftAmplitude: 4 },
+            { key: 'glider-2', position: [-1, 8, -36], scale: 1.05, driftSpeed: 1.5, phase: 4.1, driftAmplitude: 4 },
           ]
         : [],
     /**

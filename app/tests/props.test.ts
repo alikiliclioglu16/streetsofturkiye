@@ -335,20 +335,32 @@ describe('street kit props', () => {
     expect(scene.paragliders).toHaveLength(3);
     expect(scene.paragliderAsset!.entry.id).toBe('city_ordu_paraglider');
 
-    // High enough to be sky rather than street furniture, and each different.
+    /**
+     * Above the street rather than in it, and each different.
+     *
+     * Not "above everything in the city": the follow camera's frame stops
+     * thirteen degrees above horizontal, so a canopy high enough to clear
+     * Boztepe is a canopy nobody sees (D-183). Where they may fly is the
+     * visibility test's business; this holds only that they are airborne.
+     */
     const heights = scene.paragliders.map((glider) => glider.position[1]);
-    for (const height of heights) expect(height).toBeGreaterThan(15);
+    for (const height of heights) expect(height).toBeGreaterThan(6);
     expect(new Set(heights).size).toBe(3);
     expect(new Set(scene.paragliders.map((g) => g.scale)).size).toBe(3);
 
     /**
-     * Descending as they come forward: they have launched off Boztepe behind
-     * the town and are drifting out over it, so the one nearest the sea is the
-     * lowest. Where exactly they sit is the visibility test's business
-     * (D-179); this only holds that they are still going somewhere.
+     * No claim about which is highest.
+     *
+     * This used to require them to descend as they came forward — a nice story
+     * about launching off Boztepe, and one that stopped being true when the
+     * camera turned out to allow only thirteen degrees of sky (D-183). They fly
+     * down the street between the house rows now, at heights a couple of metres
+     * apart, and which one leads is not something worth constraining.
+     *
+     * What still matters is that they are not one canopy stamped three times,
+     * and that is held by the distinct heights, scales and paces above.
      */
-    const sorted = [...scene.paragliders].sort((a, b) => b.position[2] - a.position[2]);
-    expect(sorted[0]!.position[1]).toBeGreaterThan(sorted[2]!.position[1]);
+    expect(new Set(scene.paragliders.map((glider) => glider.driftSpeed)).size).toBe(3);
 
     for (const cityId of PLAYABLE_CITY_IDS.filter((id) => id !== 'ordu')) {
       expect(buildScene(loadComposedCity(cityId), 'high').paragliders, cityId).toHaveLength(0);

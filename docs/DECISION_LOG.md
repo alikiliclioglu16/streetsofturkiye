@@ -3193,3 +3193,40 @@ house loop instead of Ordu's — same shape of code, two hundred lines apart —
 and quietly deleted one of Van's east houses. Caught by reading the generated
 scene for both cities rather than the one being worked on. When two cities share
 a structure, a change to one has to be checked against the other.
+
+## D-183 — The camera can only see thirteen degrees of sky (1 Aug 2026)
+
+Five placements of the paragliders, three packages, and the owner still saw
+nothing. The deployed site had every change — data, files, all of it — so the
+fault was not delivery and was not the positions either.
+
+**The follow camera sits 2.3 m up and 5.2 m back and looks at the guide's
+chest, so it tilts down about twelve degrees. With a fifty degree vertical
+field, the top of the frame is only thirteen degrees above horizontal.** Every
+placement had been between 27° and 47°: above the picture, every one of them.
+
+They now fly at eight to eleven degrees — nine to ten metres up, thirty-six to
+forty-two out — and **down the middle of the street** rather than beside it. At
+ten metres a canopy is level with an eleven metre roof, so out over the rows it
+would be tangled in them and down the centre it is framed by them. A canopy is
+6 m across at this scale against 21.8 m between the house fronts, which is why
+the wander is four metres and not nine.
+
+**The test now derives its limit from the camera** — `FOLLOW_HEIGHT`,
+`FOLLOW_DISTANCE` and `CAMERA_FOV` — instead of the 40° I had invented. That
+invented number passed three times while nothing was on screen. It is the third
+time in this project a test has been written to agree with my own output rather
+than with a requirement (D-139, D-177), and the first where the requirement was
+sitting in the codebase as three constants I could have read.
+
+Two things fell out of looking properly:
+
+- **The clearance check was measuring the wrong thing.** It required a canopy to
+  clear anything within thirty-five metres, which forbids flying down a street
+  it cannot possibly hit. It compares footprints now, and accounts for the
+  plateau's tilt shortening its footprint.
+- **A flank hill was reaching into the play area.** Turned 0.4 rad, its
+  axis-aligned reach widened to twenty-nine metres and it poked back to x = -9,
+  z = -36 — inside the walk. Rotation is what hid it: a turned box covers more
+  ground than the box. Same fault as Cappadocia's chimneys (D-140), found this
+  time by a paraglider colliding with it.

@@ -1,5 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { PLAYABLE_CITY_IDS } from '@/content/loaders/loadCity';
+import { FOLLOW_DISTANCE, FOLLOW_HEIGHT } from '@/engine/camera/anchors';
+import { CAMERA_FOV } from '@/components/three/CityCanvas';
 import { buildScene } from '@/engine/scene/buildScene';
 import { blockedBy, stepWithCollision, RUN_SPEED } from '@/engine/controls/movement';
 import { interactionReducer, initialInteractionContext } from '@/engine/interactions/machine';
@@ -413,14 +415,37 @@ describe('Ordu stands under a hill', () => {
      * high enough to be sky, shallow enough to be in shot. So that is what is
      * measured, along with clearing whatever stands near them.
      */
-    const EYE = 2.6;
+    /**
+     * Measured off the camera, not off a guess.
+     *
+     * The follow camera sits 2.3 m up and 5.2 m back and looks at the guide's
+     * chest, so it tilts **down** about twelve degrees. With a fifty degree
+     * vertical field that puts the top of the frame roughly thirteen degrees
+     * above horizontal — and every earlier placement sat between 27° and 47°,
+     * which is above the picture.
+     *
+     * The old assertion allowed anything under 40° and so passed three times
+     * while nothing was on screen. A limit invented rather than derived tests
+     * the inventor's guess.
+     */
+    /** How far a glider can be from where it is defined, at the extreme. */
+    const swingOf = (glider: { driftAmplitude?: number }) => glider.driftAmplitude ?? 45;
+
+    const EYE = FOLLOW_HEIGHT;
+    const LOOK_AT_HEIGHT = 1.2;
+    const pitchDown =
+      (Math.atan2(FOLLOW_HEIGHT - LOOK_AT_HEIGHT, FOLLOW_DISTANCE) * 180) / Math.PI;
+    const frameTop = CAMERA_FOV / 2 - pitchDown;
     expect(scene.paragliders.length).toBeGreaterThan(0);
 
     for (const glider of scene.paragliders) {
-      const distance = Math.hypot(glider.position[0], glider.position[2]);
+      const distance = Math.hypot(glider.position[0], glider.position[2] + FOLLOW_DISTANCE);
       const elevation = (Math.atan2(glider.position[1] - EYE, distance) * 180) / Math.PI;
-      expect(elevation, 'a paraglider is too low to be sky').toBeGreaterThan(12);
-      expect(elevation, 'a paraglider is overhead and out of frame').toBeLessThan(40);
+      expect(elevation, 'a paraglider is down at street level').toBeGreaterThan(4);
+      expect(
+        elevation,
+        `a paraglider sits at ${elevation.toFixed(1)}°, above the ${frameTop.toFixed(1)}° top of frame`,
+      ).toBeLessThan(frameTop);
 
       /**
        * And it stays in frame while it moves.
@@ -437,20 +462,42 @@ describe('Ordu stands under a hill', () => {
         const swungDistance = Math.hypot(x, glider.position[2]);
         const swungElevation =
           (Math.atan2(glider.position[1] - EYE, swungDistance) * 180) / Math.PI;
-        expect(swungElevation, 'a paraglider drifts out of shot').toBeLessThan(48);
+        expect(swungElevation, 'a paraglider drifts out of shot').toBeLessThan(frameTop);
         expect(Math.abs(x), 'a paraglider drifts off the map').toBeLessThan(60);
       }
 
-      // And clear of anything standing near it.
+      /**
+       * And not inside anything.
+       *
+       * Checked against footprints rather than radial distance. A canopy ten
+       * metres up over the middle of the street is level with the roofs either
+       * side of it and perfectly fine — framed by them. The earlier version
+       * measured "within thirty-five metres" and so refused a paraglider flying
+       * down a street it could not possibly hit.
+       */
+      const [canopyWidth, , canopyDepth] = scene.paragliderAsset!.entry.dimensions;
+      const halfCanopyX = (canopyWidth * glider.scale) / 2;
+      const halfCanopyZ = (canopyDepth * glider.scale) / 2;
+
       for (const piece of scene.backdrop) {
-        const gap = Math.hypot(
-          piece.position[0] - glider.position[0],
-          piece.position[2] - glider.position[2],
-        );
-        if (gap > 35) continue;
-        const top = piece.position[1] + piece.asset.entry.dimensions[1];
+        const [width, height, rawDepth] = piece.asset.entry.dimensions;
+        // A tilted plate covers less ground than a flat one: the plateau is
+        // tipped 0.28 rad, so its footprint is shorter in z than its depth.
+        const depth = rawDepth * Math.cos(piece.rotationX);
+        const cos = Math.abs(Math.cos(piece.rotationY));
+        const sin = Math.abs(Math.sin(piece.rotationY));
+        const halfX = (width * cos + depth * sin) / 2;
+        const halfZ = (width * sin + depth * cos) / 2;
+
+        const overlapsX =
+          Math.abs(piece.position[0] - (glider.position[0] + swingOf(glider))) <
+          halfX + halfCanopyX;
+        const overlapsZ = Math.abs(piece.position[2] - glider.position[2]) < halfZ + halfCanopyZ;
+        if (!overlapsX || !overlapsZ) continue;
+
+        const top = piece.position[1] + height;
         expect(glider.position[1], `a paraglider is inside ${piece.asset.entry.id}`).toBeGreaterThan(
-          top + 6,
+          top + 3,
         );
       }
     }
