@@ -19,19 +19,19 @@ sky towards pale grey-green.
 
 ## The whole list, in the order I would draw it
 
-Ten files. **Part A first** — a street with placeholder stops and a real horizon
+Six files left. **Part A first** — a street with placeholder stops and a real horizon
 reads as a place under construction; real stops and no horizon reads as a
 diorama.
 
 | # | Asset id | What it is | Size (w × h × d) | Base colour |
 |---|---|---|---|---|
-| 1 | `city_ordu_timber_houses` | Black Sea timber houses | 24 × 11 × 13 m | 2048 |
+| 1 | ~~`city_ordu_timber_houses`~~ | **delivered** — 24.1 × 11 × 15.2 | — | — |
 | 2 | `kit_ordu_hazelnut_grove` | hazelnut grove, shared kit | 8.5 × 4.4 × 8.5 m | 1024 |
-| 3 | `city_ordu_boztepe_hill` | Boztepe, behind the town | 78 × 26 × 60 m | 2048 |
+| 3 | ~~`city_ordu_boztepe_hill`~~ | **delivered** — 43.6 × 26 × 45.1, placed as three | — | — |
 | 4 | `city_ordu_hazelnut_stall` | **stop 1** — hazelnuts drying | 2.4 × 2.0 × 1.3 m | 1024 |
 | 5 | `city_ordu_cable_station` | **stop 2** — the cable car | 4.2 × 4.4 × 3.6 m | 2048 |
-| 6 | `city_ordu_beach_deck` | **stop 3** — the Blue Flag beach | 4.6 × 1.4 × 3.2 m | 1024 |
-| 7 | `city_ordu_cable_car` | *optional* — a cabin that moves | 2.6 × 2.4 × 2.2 m | 1024 |
+| 6 | ~~`city_ordu_beach_deck`~~ | **delivered** — 5.8 × 1.6 × 5.7 | — | — |
+| 7 | ~~`city_ordu_cable_car`~~ | **delivered and running** — 2.4 × 2.4 × 2.3 | — | — |
 | 8 | `collectible_ordu_hazelnut_jar` | reward 1 | 0.12 × 0.16 × 0.12 m | 1024 |
 | 9 | `collectible_ordu_cable_ticket` | reward 2 | 0.13 × 0.09 × 0.01 m | 1024 |
 | 10 | `collectible_ordu_sunset_photo` | reward 3 | 0.15 × 0.11 × 0.01 m | 1024 |
@@ -40,8 +40,7 @@ Normal and roughness always one step below the base colour. **Do not fight the
 exporter over sizes** — deliver at whatever scale comes out, say what it is, and
 it is re-authored here in one command.
 
-**Still needed from you:** a theme. Anything from the region; it converts to
-Opus and lands at about 1.5 MB.
+**Theme delivered:** *Ordu'nun Kıyısı*, 3:55, Opus at 1.72 MB.
 
 ---
 

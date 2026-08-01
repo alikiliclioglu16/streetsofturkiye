@@ -95,6 +95,7 @@ export interface RuntimeCity {
   trainLine: SceneDefinition['trainLine'];
   canoeLines: SceneDefinition['canoeLines'];
   ferryLine: SceneDefinition['ferryLine'];
+  cableCarLine: SceneDefinition['cableCarLine'];
   backdrop: SceneDefinition['backdrop'];
   /** Featured NPCs standing at their posts; carry no content. */
   npcs: SceneDefinition['npcs'];
@@ -201,6 +202,7 @@ export function composeCity(canonical: CanonicalCity, scene: SceneDefinition): R
     trainLine: scene.trainLine,
     canoeLines: scene.canoeLines,
     ferryLine: scene.ferryLine,
+    cableCarLine: scene.cableCarLine,
     backdrop: scene.backdrop,
     npcs: scene.npcs,
     trees: scene.trees,

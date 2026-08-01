@@ -206,6 +206,11 @@ export const sceneSchema = z
      * see that the lake is something you go *on* rather than something painted
      * at the end of the street.
      */
+    /** A cable car working a line up a hill: out, pause, back. */
+    cableCarLine: z
+      .object({ from: z.tuple([z.number(), z.number()]), to: z.tuple([z.number(), z.number()]) })
+      .nullable()
+      .default(null),
     /** A boat that crosses the water and leaves, on a clock. */
     ferryLine: z
       .object({ from: z.tuple([z.number(), z.number()]), to: z.tuple([z.number(), z.number()]) })

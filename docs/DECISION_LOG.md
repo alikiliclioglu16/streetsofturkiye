@@ -2898,3 +2898,36 @@ Van's canoes, Cappadocia's balloons — and Ordu's is already in the canonical
 text: *glide from the seaside up to Boztepe*. The motion needs nothing new: it is
 the tram's, which goes out, pauses and comes back, which is what a cable car
 does.
+
+## D-170 — Ordu's horizon and its cable car (31 Jul 2026)
+
+Four deliveries and the theme. *Ordu'nun Kıyısı*, 3:55, Opus at 1.72 MB.
+
+**The houses arrived one centimetre cubed** — 0.01 m on every axis, a Meshy
+armature exported at centimetre scale. Nothing in the file said so; only the
+measurement did. That is the whole reason every delivery is measured before it
+is placed, and it is the most extreme case yet: a factor of 1,100.
+
+**Boztepe came 44 m across where the brief asked for 78**, so it is placed as
+three overlapping plates at different angles rather than one. Two were tried
+first and the circle sweep found thirteen degrees of sky still open straight
+behind the spawn — the method that has now found this class of fault four times
+(D-149, D-160) and should be the first thing reached for, not the third.
+
+Its palette confirms what it is without a look: green outweighs red in the
+colour map, where Sarıkamış and Erek both run the other way. Three mountains
+that would otherwise have been one mountain in three colours.
+
+**The beach deck arrived as a square diorama** — 5.8 by 5.7 rather than the
+narrow deck briefed — so it takes a wider footprint and a larger trigger ring
+than a stop usually gets. Left at 1.6 m: a child has to see the sea over it, and
+anything taller stands in front of the thing the stop is about.
+
+**The cable car runs.** It is the tram's motion at half pace — out, pause, back —
+because that is what a cable car does, so nothing new was written. It works the
+east side clear of the walk, from the shore end up past the boundary towards the
+hill.
+
+Ordu is 9.4 MB a visit with three assets still to come, against İstanbul's 10.9
+finished. The lighter heroes are most of that, and the horizon being three
+pieces rather than a dozen is the rest.

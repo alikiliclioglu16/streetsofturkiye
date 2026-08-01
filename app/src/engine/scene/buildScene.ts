@@ -109,6 +109,8 @@ export interface SceneDescription {
   readonly trainLine: SceneDefinition['trainLine'];
   readonly canoeLines: SceneDefinition['canoeLines'];
   readonly ferryLine: SceneDefinition['ferryLine'];
+  readonly cableCarLine: SceneDefinition['cableCarLine'];
+  readonly cableCarAsset: ResolvedAsset | null;
   readonly ferryAsset: ResolvedAsset | null;
   readonly canoeAsset: ResolvedAsset | null;
   readonly trainAsset: ResolvedAsset | null;
@@ -364,6 +366,8 @@ export function buildScene(city: CityDefinition, quality: QualityTier): SceneDes
     trainLine: city.trainLine,
     canoeLines: city.canoeLines,
     ferryLine: city.ferryLine,
+    cableCarLine: city.cableCarLine,
+    cableCarAsset: city.cableCarLine ? resolveAsset('city_ordu_cable_car', quality) : null,
     ferryAsset: city.ferryLine ? resolveAsset('city_istanbul_ferry_boat', quality) : null,
     canoeAsset: city.canoeLines.length ? resolveAsset('city_van_canoe', quality) : null,
     trainAsset: city.trainLine ? resolveAsset('city_kars_eastern_express', quality) : null,

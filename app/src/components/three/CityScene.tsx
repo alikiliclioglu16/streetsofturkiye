@@ -220,6 +220,21 @@ export function CityScene({
         The ferry. The train's motion with a ship's horn and a slower pace —
         it crosses the strait and goes, which is what a Bosphorus ferry does.
       */}
+      {/*
+        The cable car. The tram's motion at half its pace — a cabin climbing a
+        hill goes out, pauses at the top and comes back, which is the same shape
+        as a tram working a street.
+      */}
+      {scene.cableCarLine && scene.cableCarAsset ? (
+        <Tram
+          asset={scene.cableCarAsset}
+          from={scene.cableCarLine.from}
+          to={scene.cableCarLine.to}
+          reducedMotion={reducedMotion}
+          speed={1.8}
+        />
+      ) : null}
+
       {scene.ferryLine && scene.ferryAsset ? (
         <Train
           asset={scene.ferryAsset}

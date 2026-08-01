@@ -137,11 +137,12 @@ export const DELIVERED_DIMENSIONS = {
    * what is coming: the beach deck is wide and low, the cable station is tall,
    * and `fruit` would otherwise hand all three the same cube.
    */
+  city_ordu_timber_houses: [24.13, 11.0, 15.23],
+  city_ordu_boztepe_hill: [43.57, 26.0, 45.09],
+  city_ordu_beach_deck: [5.8, 1.6, 5.68],
+  city_ordu_cable_car: [2.4, 2.4, 2.26],
   city_ordu_hazelnut_stall: [2.4, 2.0, 1.3],
   city_ordu_cable_station: [4.2, 4.4, 3.6],
-  city_ordu_beach_deck: [4.6, 1.4, 3.2],
-  city_ordu_timber_houses: [24.0, 11.0, 13.0],
-  city_ordu_boztepe_hill: [78.0, 26.0, 60.0],
   kit_ordu_hazelnut_grove: [8.5, 4.4, 8.5],
   city_van_akdamar_jetty: [3.96, 1.8, 2.23],
   city_van_citadel_ridge: [26.92, 9.0, 8.44],

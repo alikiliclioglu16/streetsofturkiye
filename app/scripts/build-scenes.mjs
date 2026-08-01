@@ -228,6 +228,7 @@ const CITY_THEMES = {
   gaziantep: '/assets/audio/gaziantep_theme.webm',
   kars: '/assets/audio/kars_theme.webm',
   van: '/assets/audio/van_theme.webm',
+  ordu: '/assets/audio/ordu_theme.webm',
 };
 
 /**
@@ -1047,19 +1048,33 @@ function cityBackdrop(cityId, stopPositions, metrics) {
         solid: false,
         note: `hazelnut grove ${i + 1}`,
       })),
-      {
-        /**
-         * Boztepe closes the back — the hill the cable car goes up, and the
-         * reason stop two exists. Aligned by its near edge like every landscape
-         * plate: sixty metres of hill centred on the boundary would swallow the
-         * square (D-101).
-         */
+      /**
+       * Boztepe closes the back — the hill the cable car goes up, and the
+       * reason stop two exists.
+       *
+       * Three plates rather than one, because it arrived 44 m across where the
+       * brief asked for 78. Two left thirteen degrees of sky open straight
+       * behind the spawn and nine more to the left of it — found by sweeping
+       * the circle rather than by looking, which is the method that should be
+       * reached for first (D-149, D-160).
+       *
+       * Overlapping and at different angles, so the three read as a headland
+       * with shoulders rather than as the same hill printed three times.
+       *
+       * Near-edge aligned, like every landscape plate: 45 m of hill centred on
+       * the boundary would swallow the square (D-101).
+       */
+      ...[
+        [-26, 0.3],
+        [0, 0],
+        [26, -0.3],
+      ].map(([x, rot], i) => ({
         assetId: 'city_ordu_boztepe_hill',
-        position: [4, 0, Math.round((behind + 30) * 10) / 10],
-        rotationY: Math.PI - 0.1,
+        position: [x, 0, Math.round((behind + 45.09 / 2 + i * 4) * 10) / 10],
+        rotationY: Math.PI + rot,
         solid: true,
-        note: 'Boztepe, behind the town',
-      },
+        note: `Boztepe ${i + 1}`,
+      })),
     ];
   }
 
@@ -1775,6 +1790,16 @@ function buildScene(canonical) {
      * between the child and the landmark. A ferry on the Bosphorus is seen
      * beyond the tower, not across it.
      */
+    /**
+     * The cable car, running from beside the street up the hill behind it.
+     *
+     * The tram's motion — out, pause, back — because that is what a cable car
+     * does, and slower than a tram because it is climbing. It runs on the east
+     * side clear of the walk, from the shore end up past the boundary towards
+     * Boztepe.
+     */
+    cableCarLine:
+      canonical.id === 'ordu' ? { from: [18, -40], to: [26, 44] } : null,
     ferryLine: canonical.id === 'istanbul' ? { from: [-190, -166], to: [190, -158] } : null,
     canoeLines:
       canonical.id === 'van'

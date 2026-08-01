@@ -521,6 +521,90 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
     notes: 'Delivered 23.29 MB at 0.5 m buried 0.25 m; re-authored to 1.2 m on y = 0, 0.79 MB.',
   },
   {
+    id: 'city_ordu_timber_houses',
+    modelUrl: '/assets/city/city_ordu_timber_houses.glb',
+    checksum: 'a95af8828b1989cb4c30b3ca9b372eb09057ca5b9081649d310e0706b260d9f9',
+    triangles: 9_875,
+    transferBytes: 2882420,
+    /**
+     * Ordu's sides: Black Sea houses, timber over stone, with the deep eaves
+     * that coast builds against the rain.
+     *
+     * **Delivered one centimetre cubed** — 0.01 m on every axis, a Meshy
+     * armature exported at centimetre scale. Nothing about the file said so
+     * except the measurement, which is the whole reason every delivery is
+     * measured before it is placed.
+     */
+    dimensions: [24.13, 11.0, 15.23],
+    label: 'Ordu timber houses',
+    color: '#8A6B47',
+    placeholder: 'box',
+    notes: 'Delivered 31.54 MB at 0.01 m; re-authored to 11 m, 2.75 MB.',
+  },
+  {
+    id: 'city_ordu_boztepe_hill',
+    modelUrl: '/assets/city/city_ordu_boztepe_hill.glb',
+    checksum: '654db332aed1d9157b483e4d83f8f271f609a009811b7f1c4e9c5c3edf5209c7',
+    triangles: 10_402,
+    transferBytes: 2438080,
+    /**
+     * Boztepe, and green to the summit.
+     *
+     * Narrower than briefed — 44 m across rather than 78 — so it stands as a
+     * pair rather than one plate, which suits it: Boztepe is a headland with a
+     * shoulder, not a wall. Its palette confirms what it is without a look:
+     * green outweighs red in the colour map, where Sarıkamış and Erek both run
+     * the other way.
+     */
+    dimensions: [43.57, 26.0, 45.09],
+    label: 'Boztepe',
+    color: '#5E7A4A',
+    placeholder: 'box',
+    notes: 'Delivered 27.27 MB at 20 m buried 10 m; re-authored to 26 m on y = 0, 2.33 MB.',
+  },
+  {
+    id: 'city_ordu_beach_deck',
+    modelUrl: '/assets/city/city_ordu_beach_deck.glb',
+    checksum: '5f7fa6dfac104131d3c391fb137f74848a0ee2150a8bc140b06c1d7bb70b852b',
+    triangles: 10_210,
+    transferBytes: 913132,
+    /**
+     * Stop three, the Blue Flag beach.
+     *
+     * Delivered as a seaside diorama — nearly square at 5.8 by 5.7 — rather
+     * than the narrow deck the brief asked for, so it takes a wider footprint
+     * and a bigger trigger ring than a stop usually gets. Left at 1.6 m: a
+     * child should see the sea over it, and anything taller stands in the way
+     * of the thing the stop is about.
+     */
+    dimensions: [5.8, 1.6, 5.68],
+    label: 'Blue Flag beach',
+    color: '#D9C9A3',
+    placeholder: 'box',
+    notes: 'Delivered 22.44 MB at 2 m; re-authored to 1.6 m, 0.87 MB.',
+  },
+  {
+    id: 'city_ordu_cable_car',
+    modelUrl: '/assets/city/city_ordu_cable_car.glb',
+    checksum: '0d65a89175f56911b0b685c648793d29483443b7fbbe7d12c844c6cffe6aea12',
+    triangles: 9_917,
+    transferBytes: 821332,
+    /**
+     * The red cabin, and Ordu's one moving thing that is not an animal.
+     *
+     * Every city has one — İstanbul's tram and ferry, Kars's train, Van's
+     * canoes, Cappadocia's balloons — and this one was already in the canonical
+     * text: the cars glide from the seaside up to Boztepe. It runs the tram's
+     * motion, which goes out, pauses and comes back, because that is what a
+     * cable car does.
+     */
+    dimensions: [2.4, 2.4, 2.26],
+    label: 'Cable car cabin',
+    color: '#C4302B',
+    placeholder: 'box',
+    notes: 'Delivered 23.58 MB at 2 m; re-authored to 2.4 m, 0.78 MB.',
+  },
+  {
     id: 'city_van_canoe',
     modelUrl: '/assets/city/city_van_canoe.glb',
     checksum: '9714a4de5d2181ace518d98a68f7c34ec1a627980039e560ff1626b09dbb9a98',
