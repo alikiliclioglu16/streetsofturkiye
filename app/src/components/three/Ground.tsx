@@ -25,7 +25,7 @@ const TILE_METRES = 4;
  * roughly two metres across, so its tile has to be wide enough to hold several
  * without any of them becoming a motif.
  */
-const SURFACE_TILE = { cobblestone: 4, redsand: 9, steppe: 6, rock: 9 } as const;
+const SURFACE_TILE = { cobblestone: 4, redsand: 9, steppe: 6, rock: 9, forest: 7 } as const;
 
 /**
  * How far the paving runs past the edge of the play area.

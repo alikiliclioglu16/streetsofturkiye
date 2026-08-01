@@ -376,6 +376,88 @@ execFileSync('python3', ['-c', ROCK], { stdio: 'inherit' });
 /* ------------------------------------------------------------------ */
 
 /**
+ * Forest floor, for Bolu.
+ *
+ * Bolu and Ordu are both Black Sea provinces and could not look less alike:
+ * Ordu is a coast under hazelnut, Bolu is deep inland forest that turns red and
+ * gold in autumn. Giving them the same cobbles would make the region look like
+ * one place drawn twice, which is the fault the whole four-directions rule
+ * exists to prevent.
+ *
+ * So this is not paving at all. Packed earth and needle litter underneath, with
+ * fallen leaves lying on it — the leaves as broad soft blobs at a low count,
+ * because a leaf you can count is a leaf, and a hundred of them are texture.
+ * Tinted at render time by the city's own autumn ground colour, so the same
+ * greyscale reads as leaf-fall rather than as mud.
+ */
+const FOREST = `
+import numpy as np
+from PIL import Image
+
+SIZE = 1024
+rng = np.random.default_rng(20260801)
+
+def wrapped_noise(cells):
+    grid = rng.random((cells, cells))
+    ys = (np.arange(SIZE) / SIZE * cells)
+    xs = (np.arange(SIZE) / SIZE * cells)
+    y0 = np.floor(ys).astype(int) % cells
+    x0 = np.floor(xs).astype(int) % cells
+    y1 = (y0 + 1) % cells
+    x1 = (x0 + 1) % cells
+    fy = (ys - np.floor(ys))[:, None]
+    fx = (xs - np.floor(xs))[None, :]
+    sy = fy * fy * (3 - 2 * fy)
+    sx = fx * fx * (3 - 2 * fx)
+    top = grid[np.ix_(y0, x0)] * (1 - sx) + grid[np.ix_(y0, x1)] * sx
+    bot = grid[np.ix_(y1, x0)] * (1 - sx) + grid[np.ix_(y1, x1)] * sx
+    return top * (1 - sy) + bot * sy
+
+def wrap_sobel(h):
+    dzdx = (np.roll(h, -1, axis=1) - np.roll(h, 1, axis=1)) * 0.5
+    dzdy = (np.roll(h, -1, axis=0) - np.roll(h, 1, axis=0)) * 0.5
+    return dzdx, dzdy
+
+# The floor: damp earth with needle litter worked into it.
+earth = wrapped_noise(6) * 0.5 + wrapped_noise(19) * 0.5
+needles = wrapped_noise(83)
+
+# Leaves: a sparse field thresholded so each one has an edge. Broad and few —
+# a leaf you can pick out is a leaf; a thousand small ones are noise.
+leaf_field = wrapped_noise(13)
+leaves = np.clip((leaf_field - 0.60) / 0.16, 0, 1)
+leaf_veins = wrapped_noise(52) * leaves
+
+height = np.clip(earth * 0.4 + needles * 0.12 + leaves * 0.62, 0, 1)
+grain = rng.normal(0.0, 0.02, (SIZE, SIZE))
+
+# Leaves sit brighter than the earth and much smoother — wet leaves catch the
+# light, and that contrast is most of what makes this read as autumn.
+albedo = np.clip(0.36 + earth * 0.16 + leaves * 0.46 + leaf_veins * 0.08 + grain, 0, 1)
+rough = np.clip(0.99 - leaves * 0.34, 0, 1)
+
+STRENGTH = 1.6
+dzdx, dzdy = wrap_sobel(height)
+nx, ny = -dzdx * STRENGTH, -dzdy * STRENGTH
+nz = np.ones_like(nx)
+length = np.sqrt(nx * nx + ny * ny + nz * nz)
+normal = (((np.stack([nx / length, ny / length, nz / length], axis=-1)) * 0.5 + 0.5) * 255).astype(np.uint8)
+
+Image.fromarray((albedo * 255).astype(np.uint8), mode='L').convert('RGB').save(
+    'public/assets/textures/ground_forest_albedo.jpg', quality=88, optimize=True)
+Image.fromarray(normal, mode='RGB').save(
+    'public/assets/textures/ground_forest_normal.jpg', quality=88, optimize=True)
+Image.fromarray((rough * 255).astype(np.uint8), mode='L').convert('RGB').save(
+    'public/assets/textures/ground_forest_roughness.jpg', quality=85, optimize=True)
+
+print(f'{SIZE}x{SIZE} forest floor')
+`;
+
+execFileSync('python3', ['-c', FOREST], { stdio: 'inherit' });
+
+/* ------------------------------------------------------------------ */
+
+/**
  * Grass, and it exists for the geese.
  *
  * Rock is right for the whole site except the one corner where a flock stands.

@@ -137,6 +137,19 @@ export const DELIVERED_DIMENSIONS = {
    * what is coming: the beach deck is wide and low, the cable station is tall,
    * and `fruit` would otherwise hand all three the same cube.
    */
+  /**
+   * Bolu, briefed and not yet delivered. Named here so the street is laid out
+   * for what is coming: `gol` would otherwise hand the jetty the lake's own
+   * sixteen metre square and a twelve metre trigger ring.
+   */
+  city_bolu_yedigoller_jetty: [3.2, 1.9, 5.4],
+  city_bolu_mengen_kitchen: [3.0, 2.4, 1.8],
+  city_bolu_ski_lift_station: [4.6, 4.2, 4.0],
+  city_bolu_forest_row: [26.0, 14.0, 12.0],
+  city_bolu_lake_forest: [70.0, 12.0, 60.0],
+  city_bolu_kartalkaya_peak: [86.0, 30.0, 62.0],
+  kit_bolu_fir: [5.0, 9.0, 5.0],
+  kit_bolu_deer: [0.6, 1.4, 1.7],
   city_ordu_hazelnut_stall: [2.49, 2.0, 1.93],
   city_ordu_paraglider: [5.55, 4.5, 3.03],
   city_ordu_beach_deck: [4.29, 1.6, 4.44],

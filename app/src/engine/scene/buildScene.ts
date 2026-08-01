@@ -20,7 +20,7 @@ export interface SceneHotspot {
 }
 
 /** Which region's surface a piece of ground is drawn with. */
-export type GroundSurface = 'cobblestone' | 'redsand' | 'steppe' | 'rock';
+export type GroundSurface = 'cobblestone' | 'redsand' | 'steppe' | 'rock' | 'forest';
 
 /**
  * Surfaces that exist only as a patch over another one.
@@ -316,6 +316,7 @@ export function buildScene(city: CityDefinition, quality: QualityTier): SceneDes
      * street.
      */
     vancat: ['kit_van_cat'],
+    deer: ['kit_bolu_deer'],
     cat: ['kit_street_cat'],
   };
   const animalIds = ANIMAL_ASSETS[city.animal] ?? ['kit_street_cat'];

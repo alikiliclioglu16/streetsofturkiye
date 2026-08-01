@@ -166,7 +166,7 @@ export const sceneSchema = z
     /** The city's theme, or null where none has been chosen yet. */
     musicUrl: z.string().nullable().default(null),
     /** Which ground surface this region has. */
-    groundSurface: z.enum(['cobblestone', 'redsand', 'steppe', 'rock']).default('cobblestone'),
+    groundSurface: z.enum(['cobblestone', 'redsand', 'steppe', 'rock', 'forest']).default('cobblestone'),
     /**
      * Patches of a different ground, laid over the city's own.
      *
@@ -264,7 +264,7 @@ export const sceneSchema = z
      * city. Cappadocia is named for its horses — *Katpatuka*, the land of
      * beautiful horses — and has no street cats to speak of.
      */
-    animal: z.enum(['cat', 'horse', 'goose', 'dog', 'vancat', 'none']).default('cat'),
+    animal: z.enum(['cat', 'horse', 'goose', 'dog', 'vancat', 'deer', 'none']).default('cat'),
     quizPresentation: z.object({ shuffleOptions: z.boolean() }),
     rewards: z.object({
       cityStarId: z.string(),

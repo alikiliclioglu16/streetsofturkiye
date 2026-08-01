@@ -37,3 +37,8 @@ kit_ordu_hazelnut_grove,model,midground,briefed,8.5x8.5x4.4,6000,1K,box,"Hazelnu
 collectible_ordu_hazelnut_jar,model,collectible,briefed,0.12x0.12x0.16,4000,1K,cylinder,"Jar of hazelnut chocolate spread"
 collectible_ordu_cable_ticket,model,collectible,briefed,0.13x0.01x0.09,2000,1K,plane,"Card cable-car ticket, no legible text"
 collectible_ordu_sunset_photo,model,collectible,briefed,0.15x0.01x0.11,2000,1K,plane,"Printed photo of an orange sunset"
+kit_bolu_fir,model,midground,briefed,5.0x5.0x9.0,6000,1K,box,"Tall fir; shared kit, dark evergreen"
+kit_bolu_deer,model,midground,briefed,0.6x1.7x1.4,8000,1K,box,"Roe deer; rigged, Walking clip, no root motion"
+collectible_bolu_autumn_leaf,model,collectible,briefed,0.14x0.01x0.12,2000,1K,plane,"Golden maple leaf, veins readable"
+collectible_bolu_chef_hat,model,collectible,briefed,0.14x0.20x0.14,4000,1K,cylinder,"White pleated toque"
+collectible_bolu_snowboard_sticker,model,collectible,briefed,0.11x0.01x0.14,2000,1K,plane,"Die-cut sticker, no legible text"

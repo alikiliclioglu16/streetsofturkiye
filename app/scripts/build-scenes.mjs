@@ -26,7 +26,7 @@ const manifestById = new Map(
 const CANONICAL = path.join(ROOT, 'content/canonical');
 const OUT = path.join(ROOT, 'content/scenes');
 
-const PILOT = ['istanbul', 'nevsehir', 'gaziantep', 'kars', 'van', 'ordu'];
+const PILOT = ['istanbul', 'nevsehir', 'gaziantep', 'kars', 'van', 'ordu', 'bolu'];
 
 const readJson = (file) => JSON.parse(fs.readFileSync(file, 'utf8'));
 const manifest = readJson(path.join(CANONICAL, 'manifest.json'));
@@ -72,6 +72,9 @@ const COMMISSIONED_ASSETS = {
   'ordu:fruit': 'city_ordu_hazelnut_stall',
   'ordu:teleferik': 'city_ordu_cable_car',
   'ordu:sahil': 'city_ordu_beach_front',
+  'bolu:gol': 'city_bolu_yedigoller_jetty',
+  'bolu:stall': 'city_bolu_mengen_kitchen',
+  'bolu:dag': 'city_bolu_ski_lift_station',
 };
 
 /** Commissioned collectibles, keyed by canonical stop id. */
@@ -94,6 +97,9 @@ const COMMISSIONED_REWARDS = {
   'ordu-stop-01': 'collectible_ordu_hazelnut_jar',
   'ordu-stop-02': 'collectible_ordu_cable_ticket',
   'ordu-stop-03': 'collectible_ordu_sunset_photo',
+  'bolu-stop-01': 'collectible_bolu_autumn_leaf',
+  'bolu-stop-02': 'collectible_bolu_chef_hat',
+  'bolu-stop-03': 'collectible_bolu_snowboard_sticker',
 };
 
 /**
@@ -153,9 +159,23 @@ const REGION_ANIMAL = {
  * Eighty metres: the side houses reach -74, so the ground runs out first.
  */
 const VAN_SHORE_Z = -80;
+
+/**
+ * Where Bolu's street runs out and Yedigöller begins.
+ *
+ * One constant, and everything on the water is measured off it — the discipline
+ * Van's four moved shorelines forced (D-163).
+ */
+const BOLU_SHORE_Z = -74;
 const VAN_LAKE_DEPTH = 200;
 
 const CITY_SURFACE = {
+  /**
+   * Bolu and Ordu are both Black Sea and could not look less alike: a coast
+   * under hazelnut, and deep inland forest that turns red and gold. Cobbles in
+   * both would make the region read as one place drawn twice.
+   */
+  bolu: 'forest',
   kars: 'rock',
 };
 
@@ -189,6 +209,12 @@ const ANIMAL_OVERRIDES = {
    * (D-119). Its moving life is the cable cars and the paragliders.
    */
   ordu: 'none',
+  /**
+   * Deer in Bolu's forest. Briefed and not delivered, so the routes are
+   * reserved and nothing is drawn until a model exists — the way Kars's geese
+   * were held (D-129).
+   */
+  bolu: 'deer',
 };
 
 /** Which surface each region's streets are laid with. */
@@ -237,6 +263,13 @@ const GUIDE_OVERRIDES = {
  */
 const CITY_PALETTE = {
   ordu: { sky: ['#8FD3EC', '#DFF3F7'], ground: '#7FBF5A' },
+  /**
+   * Bolu in autumn: the leaf ground tinted amber and the sky the thin cold blue
+   * you get over a forest in October. Same region as Ordu, opposite half of the
+   * year — which is the cheapest way to make two provinces in one table look
+   * like two places.
+   */
+  bolu: { sky: ['#A8D8E8', '#EDE4CE'], ground: '#C98A3C' },
 };
 
 const CITY_THEMES = {
@@ -510,6 +543,20 @@ function streetProps(cityId, stopPositions, geometry) {
  * they grew to their proper size.
  */
 function animalRoutes(stopPositions, geometry, animal, metrics) {
+  /**
+   * Gaits, before anything else looks at the name.
+   *
+   * A Van cat is a different animal to look at and the same one to walk. A deer
+   * crosses rather than patrols, which is a horse's route: few, long, out on
+   * the open ground — a large animal picking its way between market stalls is
+   * not a large animal.
+   *
+   * These used to sit further down, after the horse and goose branches, so a
+   * deer fell past every one of them and came out with a cat's five short hops.
+   */
+  if (animal === 'vancat') animal = 'cat';
+  if (animal === 'deer') animal = 'horse';
+
   const firstZ = stopPositions[0]?.[2] ?? -20;
   const lastZ = stopPositions[stopPositions.length - 1]?.[2] ?? -70;
   const span = Math.abs(lastZ - firstZ);
@@ -1020,6 +1067,75 @@ function cityBackdrop(cityId, stopPositions, metrics) {
         solid: false,
         note: `olive grove ${i + 1}`,
       })),
+    ];
+  }
+
+  if (cityId === 'bolu') {
+    /**
+     * A forest town between a lake and a mountain.
+     *
+     * Bolu shares a region with Ordu and answers its four directions with
+     * nothing Ordu uses. Sides: forest — pine standing dark against beech that
+     * has turned. Ahead: Yedigöller, the seven lakes, which is where stop one
+     * is and the only still water in the project. Behind: Kartalkaya under
+     * snow, with the chairlift climbing it.
+     *
+     * Ordu is a coast in high summer and this is a forest in late October. Two
+     * provinces from one region table, and the only way they read as two places
+     * is if nothing at all is shared.
+     */
+    const stands = 4;
+    return [
+      ...[-1, 1].flatMap((side) =>
+        Array.from({ length: stands }, (_, i) => {
+          const z = firstZ + 12 - ((span + 26) * i) / (stands - 1);
+          return wall(
+            'city_bolu_forest_row',
+            side * 27,
+            z,
+            `forest ${side < 0 ? 'west' : 'east'} ${i + 1}`,
+          );
+        }),
+      ),
+      // Single firs filling the ground between the stands and behind the square.
+      ...[
+        [-38, firstZ + 8],
+        [37, firstZ - span * 0.28],
+        [-40, firstZ - span * 0.66],
+        [39, firstZ - span * 0.94],
+        [-34, behind + 8],
+        [33, behind + 12],
+        [-42, 14],
+        [42, 14],
+      ].map(([x, z], i) => ({
+        assetId: 'kit_bolu_fir',
+        position: [x, 0, Math.round(z * 10) / 10],
+        rotationY: Math.round(i * 0.9 * 1000) / 1000,
+        solid: false,
+        note: `fir ${i + 1}`,
+      })),
+      {
+        /**
+         * The far shore of Yedigöller, across the water the street runs out to.
+         * Near-edge aligned like every landscape plate (D-101).
+         */
+        assetId: 'city_bolu_lake_forest',
+        position: [-6, 0, Math.round((lastZ - 30 - 60 / 2) * 10) / 10],
+        rotationY: 0.14,
+        solid: true,
+        note: 'the far shore of Yedigöller',
+      },
+      {
+        /**
+         * Kartalkaya closes the back — Eagle Rock, and the reason stop three
+         * exists. The chairlift climbs it.
+         */
+        assetId: 'city_bolu_kartalkaya_peak',
+        position: [3, 0, Math.round((behind + 28) * 10) / 10],
+        rotationY: Math.PI - 0.12,
+        solid: true,
+        note: 'Kartalkaya, behind the town',
+      },
     ];
   }
 
@@ -2051,8 +2167,15 @@ function buildScene(canonical) {
      * Started just off the station's east edge so the cabin is beside it and not inside it, and
      * it passes clear of the fifteen metre walking area on its way up.
      */
+    /**
+     * Bolu's chairlift is the same machine as Ordu's cable car and is doing a
+     * different job: this one carries skiers up Kartalkaya, which is what stop
+     * three is about. Ten chairs on the loop, one away every five seconds.
+     */
     cableCarLine:
-      canonical.id === 'ordu' ? { from: [18, -54], to: [26, 44] } : null,
+      canonical.id === 'bolu'
+        ? { from: [21, -40], to: [27, 48] }
+        : canonical.id === 'ordu' ? { from: [18, -54], to: [26, 44] } : null,
     ferryLine: canonical.id === 'istanbul' ? { from: [-190, -166], to: [190, -158] } : null,
     canoeLines:
       canonical.id === 'van'
@@ -2091,6 +2214,19 @@ function buildScene(canonical) {
             depth: 180,
             color: '#2E7FA8',
           }
+        : canonical.id === 'bolu'
+          ? {
+              centerX: 0,
+              /**
+               * Yedigöller: the only still water in the project. Its near edge
+               * sits past the last stop, so a child walks the street towards a
+               * lake and stops at its shore.
+               */
+              centerZ: BOLU_SHORE_Z - 100,
+              width: 300,
+              depth: 200,
+              color: '#4A7C6B',
+            }
         : canonical.id === 'van'
           ? {
             centerX: 0,

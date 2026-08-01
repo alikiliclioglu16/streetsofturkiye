@@ -3306,3 +3306,42 @@ inserted in its place (D-173). The stop resolved to an unknown id for three
 turns and drew a red placeholder cube, which is exactly what the owner has been
 looking at and calling empty. Re-registered at 9.4 m — large for a stop and
 right for a piece of coast.
+
+## D-186 — Bolu is open, and shares a region without sharing anything else (1 Aug 2026)
+
+The seventh city, and the first time two provinces have come out of the same
+region table. That is the thing most likely to make the country feel repetitive,
+so nothing at all is shared with Ordu.
+
+**Its own ground.** A fifth surface, `forest`: packed earth and needle litter
+with fallen leaves lying on it — the leaves as broad blobs at a low count,
+because a leaf you can pick out is a leaf and a thousand small ones are noise.
+Ordu keeps the region's cobbles.
+
+**Its own palette.** Amber earth under a thin cold blue, against Ordu's strong
+green. Same region, opposite half of the year, which is the cheapest way to make
+two provinces look like two places.
+
+**Its own animal.** Deer, briefed and not delivered, so the routes are reserved
+and nothing is drawn until a model exists (D-129). They walk a horse's route
+rather than a cat's: a deer crosses, it does not patrol.
+
+**Four directions, none of them Ordu's.** Sides: forest, firs behind turned
+beech. Ahead: Yedigöller, the only still water in the project, with stop one on
+its shore. Behind: Kartalkaya under snow, which the chairlift climbs — snow on
+the mountain and leaves in the valley, both true of that province at once, and
+three mountains now that are green, bare rock and snow rather than one mountain
+in three colours.
+
+**The chairlift is Ordu's cable car doing a different job**, and that is the one
+thing the two do have in common. Ten chairs on a loop, one away every five
+seconds (D-184), carrying skiers where Ordu's carries sightseers.
+
+**A gait was falling through.** The `vancat` → `cat` mapping sat *after* the
+horse, goose and dog branches, so a deer fell past every one of them and came
+out with a cat's five short hops. Both mappings are at the top of the function
+now, before anything looks at the name.
+
+With the briefed sizes in place the horizon sweep gives a lowest elevation of
+19.4° away from the front, against the 8° the rule wants — so the layout holds
+before any art arrives.

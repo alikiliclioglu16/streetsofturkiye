@@ -590,5 +590,80 @@ export const MANIFEST_ENTRIES: readonly ManifestEntry[] = [
     "textureBudget": "1K",
     "fallbackShape": "plane",
     "notes": "Printed photo of an orange sunset"
+  },
+  {
+    "id": "kit_bolu_fir",
+    "kind": "model",
+    "tier": "midground",
+    "status": "briefed",
+    "dimensions": [
+      5,
+      9,
+      5
+    ],
+    "triangleBudget": 6000,
+    "textureBudget": "1K",
+    "fallbackShape": "box",
+    "notes": "Tall fir; shared kit, dark evergreen"
+  },
+  {
+    "id": "kit_bolu_deer",
+    "kind": "model",
+    "tier": "midground",
+    "status": "briefed",
+    "dimensions": [
+      0.6,
+      1.4,
+      1.7
+    ],
+    "triangleBudget": 8000,
+    "textureBudget": "1K",
+    "fallbackShape": "box",
+    "notes": "Roe deer; rigged, Walking clip, no root motion"
+  },
+  {
+    "id": "collectible_bolu_autumn_leaf",
+    "kind": "model",
+    "tier": "collectible",
+    "status": "briefed",
+    "dimensions": [
+      0.14,
+      0.12,
+      0.05
+    ],
+    "triangleBudget": 2000,
+    "textureBudget": "1K",
+    "fallbackShape": "plane",
+    "notes": "Golden maple leaf, veins readable"
+  },
+  {
+    "id": "collectible_bolu_chef_hat",
+    "kind": "model",
+    "tier": "collectible",
+    "status": "briefed",
+    "dimensions": [
+      0.14,
+      0.14,
+      0.2
+    ],
+    "triangleBudget": 4000,
+    "textureBudget": "1K",
+    "fallbackShape": "cylinder",
+    "notes": "White pleated toque"
+  },
+  {
+    "id": "collectible_bolu_snowboard_sticker",
+    "kind": "model",
+    "tier": "collectible",
+    "status": "briefed",
+    "dimensions": [
+      0.11,
+      0.14,
+      0.05
+    ],
+    "triangleBudget": 2000,
+    "textureBudget": "1K",
+    "fallbackShape": "plane",
+    "notes": "Die-cut sticker, no legible text"
   }
 ] as const;

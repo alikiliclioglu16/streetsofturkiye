@@ -1,0 +1,906 @@
+{
+  "schemaVersion": "2.0.0",
+  "id": "bolu",
+  "contentRef": {
+    "cityId": "bolu"
+  },
+  "canonicalSource": {
+    "sha256": "ed74da639543bd1847d3e970f114e006ec9be8a8d441197a1968afca5a07f995"
+  },
+  "environment": {
+    "kitId": "black-sea-green-timber",
+    "timeOfDay": "midday",
+    "ambientAudioId": "ambient_black_sea",
+    "skyPreset": [
+      "#A8D8E8",
+      "#EDE4CE"
+    ],
+    "groundColor": "#C98A3C"
+  },
+  "guide": {
+    "assetId": "character_keloglan_base"
+  },
+  "spawn": {
+    "position": [
+      0,
+      0,
+      0
+    ],
+    "rotation": [
+      0,
+      3.141592653589793,
+      0
+    ],
+    "scale": [
+      1,
+      1,
+      1
+    ]
+  },
+  "route": {
+    "mode": "guided-loop",
+    "points": [
+      [
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        -12.8
+      ],
+      [
+        -3.8,
+        0,
+        -21.9
+      ],
+      [
+        4.3,
+        0,
+        -28.6
+      ],
+      [
+        0.6,
+        0,
+        -34.1
+      ],
+      [
+        5.3,
+        0,
+        -41.5
+      ],
+      [
+        0.8,
+        0,
+        -49.2
+      ]
+    ],
+    "bounds": [
+      [
+        -15,
+        0,
+        26
+      ],
+      [
+        15,
+        0,
+        26
+      ],
+      [
+        15,
+        0,
+        -59
+      ],
+      [
+        -15,
+        0,
+        -59
+      ]
+    ]
+  },
+  "intro": {
+    "cameraSequenceId": null,
+    "skippable": true
+  },
+  "hotspots": [
+    {
+      "id": "bolu-hotspot-01",
+      "order": 1,
+      "contentRef": {
+        "stopId": "bolu-stop-01"
+      },
+      "sceneStatus": "ready",
+      "assetId": "city_bolu_yedigoller_jetty",
+      "assetStatus": "commissioned",
+      "transform": {
+        "position": [
+          0,
+          0,
+          -17
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "collider": {
+        "halfWidth": 1.6,
+        "halfDepth": 2.7
+      },
+      "triggerRadius": 6.7,
+      "camera": {
+        "position": [
+          2.3,
+          2.4,
+          -12
+        ],
+        "target": [
+          0,
+          0.9,
+          -17
+        ],
+        "durationMs": 900
+      },
+      "presentation": {
+        "style": "fact-card"
+      },
+      "rewardAssetId": "collectible_bolu_autumn_leaf",
+      "audio": {
+        "onSuccessId": "sfx_reward_chime"
+      }
+    },
+    {
+      "id": "bolu-hotspot-02",
+      "order": 2,
+      "contentRef": {
+        "stopId": "bolu-stop-02"
+      },
+      "sceneStatus": "ready",
+      "assetId": "city_bolu_mengen_kitchen",
+      "assetStatus": "commissioned",
+      "transform": {
+        "position": [
+          4.3,
+          0,
+          -31
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "collider": {
+        "halfWidth": 1.5,
+        "halfDepth": 0.9
+      },
+      "triggerRadius": 4.9,
+      "camera": {
+        "position": [
+          6.6,
+          2.4,
+          -26
+        ],
+        "target": [
+          4.3,
+          1.1,
+          -31
+        ],
+        "durationMs": 900
+      },
+      "presentation": {
+        "style": "fact-card"
+      },
+      "rewardAssetId": "collectible_bolu_chef_hat",
+      "audio": {
+        "onSuccessId": "sfx_reward_chime"
+      }
+    },
+    {
+      "id": "bolu-hotspot-03",
+      "order": 3,
+      "contentRef": {
+        "stopId": "bolu-stop-03"
+      },
+      "sceneStatus": "ready",
+      "assetId": "city_bolu_ski_lift_station",
+      "assetStatus": "commissioned",
+      "transform": {
+        "position": [
+          5.3,
+          0,
+          -45
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "collider": {
+        "halfWidth": 2.3,
+        "halfDepth": 2
+      },
+      "triggerRadius": 6,
+      "camera": {
+        "position": [
+          7.699999999999999,
+          2.4,
+          -39.7
+        ],
+        "target": [
+          5.3,
+          1.9,
+          -45
+        ],
+        "durationMs": 900
+      },
+      "presentation": {
+        "style": "fact-card"
+      },
+      "rewardAssetId": "collectible_bolu_snowboard_sticker",
+      "audio": {
+        "onSuccessId": "sfx_reward_chime"
+      }
+    }
+  ],
+  "props": [
+    {
+      "assetId": "kit_turkish_flag",
+      "position": [
+        7.5,
+        0,
+        4
+      ],
+      "rotationY": -0.35,
+      "solid": true,
+      "note": "the flag, same place in every city"
+    },
+    {
+      "assetId": "kit_street_lamp",
+      "position": [
+        -11,
+        0,
+        -19.8
+      ],
+      "rotationY": -1.751,
+      "solid": true,
+      "note": "street lamp 1"
+    },
+    {
+      "assetId": "kit_street_lamp",
+      "position": [
+        12,
+        0,
+        -25.4
+      ],
+      "rotationY": 1.691,
+      "solid": true,
+      "note": "street lamp 2"
+    },
+    {
+      "assetId": "kit_street_lamp",
+      "position": [
+        -13,
+        0,
+        -31
+      ],
+      "rotationY": -1.751,
+      "solid": true,
+      "note": "street lamp 3"
+    },
+    {
+      "assetId": "kit_street_lamp",
+      "position": [
+        11,
+        0,
+        -36.6
+      ],
+      "rotationY": 1.691,
+      "solid": true,
+      "note": "street lamp 4"
+    },
+    {
+      "assetId": "kit_street_lamp",
+      "position": [
+        -12,
+        0,
+        -42.2
+      ],
+      "rotationY": -1.751,
+      "solid": true,
+      "note": "street lamp 5"
+    },
+    {
+      "assetId": "kit_bench",
+      "position": [
+        8.2,
+        0,
+        -24.9
+      ],
+      "rotationY": 1.351,
+      "solid": true,
+      "note": "bench 1"
+    },
+    {
+      "assetId": "kit_planter_cypress",
+      "position": [
+        -7.4,
+        0,
+        -29.9
+      ],
+      "rotationY": 0.3,
+      "solid": true,
+      "note": "planter 1"
+    },
+    {
+      "assetId": "kit_bench",
+      "position": [
+        -8.2,
+        0,
+        -34.3
+      ],
+      "rotationY": -1.791,
+      "solid": true,
+      "note": "bench 2"
+    },
+    {
+      "assetId": "kit_planter_cypress",
+      "position": [
+        7.4,
+        0,
+        -39.3
+      ],
+      "rotationY": -0.3,
+      "solid": true,
+      "note": "planter 2"
+    },
+    {
+      "assetId": "kit_planter_cypress",
+      "position": [
+        -7.4,
+        0,
+        -48.6
+      ],
+      "rotationY": 0.3,
+      "solid": true,
+      "note": "planter 3"
+    },
+    {
+      "assetId": "kit_market_stall",
+      "position": [
+        -11,
+        0,
+        -29.4
+      ],
+      "rotationY": 1.221,
+      "solid": true,
+      "note": "stall, west"
+    },
+    {
+      "assetId": "kit_market_stall",
+      "position": [
+        12.5,
+        0,
+        -36.4
+      ],
+      "rotationY": -1.291,
+      "solid": true,
+      "note": "stall, east"
+    },
+    {
+      "assetId": "kit_crates",
+      "position": [
+        -9.2,
+        0,
+        -33.4
+      ],
+      "rotationY": 0.55,
+      "solid": true,
+      "note": "crates by the west stall"
+    },
+    {
+      "assetId": "kit_crates",
+      "position": [
+        11.2,
+        0,
+        -39.4
+      ],
+      "rotationY": -0.9,
+      "solid": true,
+      "note": "crates by the east stall"
+    },
+    {
+      "assetId": "kit_wall_fountain",
+      "position": [
+        9.5,
+        0,
+        -20.4
+      ],
+      "rotationY": -1.371,
+      "solid": true,
+      "note": "fountain, near the start"
+    },
+    {
+      "assetId": "kit_wall_fountain",
+      "position": [
+        -10.5,
+        0,
+        -40
+      ],
+      "rotationY": 1.421,
+      "solid": true,
+      "note": "fountain, near the end"
+    }
+  ],
+  "musicUrl": null,
+  "groundSurface": "forest",
+  "groundPatches": [],
+  "balloons": [],
+  "paragliders": [],
+  "tramLine": null,
+  "cableCarLine": {
+    "from": [
+      21,
+      -40
+    ],
+    "to": [
+      27,
+      48
+    ]
+  },
+  "ferryLine": null,
+  "canoeLines": [],
+  "trainLine": null,
+  "water": {
+    "centerX": 0,
+    "centerZ": -174,
+    "width": 300,
+    "depth": 200,
+    "color": "#4A7C6B"
+  },
+  "backdrop": [
+    {
+      "assetId": "city_bolu_forest_row",
+      "position": [
+        -27,
+        0,
+        -5
+      ],
+      "rotationY": 1.5707963267948966,
+      "solid": false,
+      "note": "forest west 1"
+    },
+    {
+      "assetId": "city_bolu_forest_row",
+      "position": [
+        -27,
+        0,
+        -23
+      ],
+      "rotationY": 1.5707963267948966,
+      "solid": false,
+      "note": "forest west 2"
+    },
+    {
+      "assetId": "city_bolu_forest_row",
+      "position": [
+        -27,
+        0,
+        -41
+      ],
+      "rotationY": 1.5707963267948966,
+      "solid": false,
+      "note": "forest west 3"
+    },
+    {
+      "assetId": "city_bolu_forest_row",
+      "position": [
+        -27,
+        0,
+        -59
+      ],
+      "rotationY": 1.5707963267948966,
+      "solid": false,
+      "note": "forest west 4"
+    },
+    {
+      "assetId": "city_bolu_forest_row",
+      "position": [
+        27,
+        0,
+        -5
+      ],
+      "rotationY": -1.5707963267948966,
+      "solid": false,
+      "note": "forest east 1"
+    },
+    {
+      "assetId": "city_bolu_forest_row",
+      "position": [
+        27,
+        0,
+        -23
+      ],
+      "rotationY": -1.5707963267948966,
+      "solid": false,
+      "note": "forest east 2"
+    },
+    {
+      "assetId": "city_bolu_forest_row",
+      "position": [
+        27,
+        0,
+        -41
+      ],
+      "rotationY": -1.5707963267948966,
+      "solid": false,
+      "note": "forest east 3"
+    },
+    {
+      "assetId": "city_bolu_forest_row",
+      "position": [
+        27,
+        0,
+        -59
+      ],
+      "rotationY": -1.5707963267948966,
+      "solid": false,
+      "note": "forest east 4"
+    },
+    {
+      "assetId": "kit_bolu_fir",
+      "position": [
+        -38,
+        0,
+        -9
+      ],
+      "rotationY": 0,
+      "solid": false,
+      "note": "fir 1"
+    },
+    {
+      "assetId": "kit_bolu_fir",
+      "position": [
+        37,
+        0,
+        -24.8
+      ],
+      "rotationY": 0.9,
+      "solid": false,
+      "note": "fir 2"
+    },
+    {
+      "assetId": "kit_bolu_fir",
+      "position": [
+        -40,
+        0,
+        -35.5
+      ],
+      "rotationY": 1.8,
+      "solid": false,
+      "note": "fir 3"
+    },
+    {
+      "assetId": "kit_bolu_fir",
+      "position": [
+        39,
+        0,
+        -43.3
+      ],
+      "rotationY": 2.7,
+      "solid": false,
+      "note": "fir 4"
+    },
+    {
+      "assetId": "kit_bolu_fir",
+      "position": [
+        -34,
+        0,
+        34
+      ],
+      "rotationY": 3.6,
+      "solid": false,
+      "note": "fir 5"
+    },
+    {
+      "assetId": "kit_bolu_fir",
+      "position": [
+        33,
+        0,
+        38
+      ],
+      "rotationY": 4.5,
+      "solid": false,
+      "note": "fir 6"
+    },
+    {
+      "assetId": "kit_bolu_fir",
+      "position": [
+        -42,
+        0,
+        14
+      ],
+      "rotationY": 5.4,
+      "solid": false,
+      "note": "fir 7"
+    },
+    {
+      "assetId": "kit_bolu_fir",
+      "position": [
+        42,
+        0,
+        14
+      ],
+      "rotationY": 6.3,
+      "solid": false,
+      "note": "fir 8"
+    },
+    {
+      "assetId": "city_bolu_lake_forest",
+      "position": [
+        -6,
+        0,
+        -105
+      ],
+      "rotationY": 0.14,
+      "solid": true,
+      "note": "the far shore of Yedigöller"
+    },
+    {
+      "assetId": "city_bolu_kartalkaya_peak",
+      "position": [
+        3,
+        0,
+        54
+      ],
+      "rotationY": 3.021592653589793,
+      "solid": true,
+      "note": "Kartalkaya, behind the town"
+    }
+  ],
+  "animal": "deer",
+  "catRoutes": [
+    [
+      {
+        "x": -11.5,
+        "z": -11
+      },
+      {
+        "x": -9.5,
+        "z": -29.6
+      },
+      {
+        "x": -11.5,
+        "z": -42.2
+      }
+    ],
+    [
+      {
+        "x": 11.5,
+        "z": -24
+      },
+      {
+        "x": 9.5,
+        "z": -55
+      }
+    ],
+    [
+      {
+        "x": -10.5,
+        "z": -51
+      },
+      {
+        "x": 7.5,
+        "z": -63
+      }
+    ]
+  ],
+  "npcs": [
+    {
+      "npcId": "featured_soldier",
+      "position": [
+        10.4,
+        0,
+        -27.5
+      ],
+      "rotationY": 2.4,
+      "walkTo": [
+        8.9,
+        0,
+        -31.7
+      ]
+    },
+    {
+      "npcId": "featured_traveler",
+      "position": [
+        10.4,
+        0,
+        -34
+      ],
+      "rotationY": -2.1,
+      "walkTo": [
+        11.9,
+        0,
+        -38.2
+      ]
+    },
+    {
+      "npcId": "featured_craftsman_male",
+      "position": [
+        12.5,
+        0,
+        -42.4
+      ],
+      "rotationY": 1.9,
+      "walkTo": [
+        11,
+        0,
+        -46.6
+      ]
+    }
+  ],
+  "trees": [
+    {
+      "key": "tree-0",
+      "position": [
+        -11,
+        0,
+        -1
+      ],
+      "kind": "plane",
+      "scale": 0.8,
+      "rotationY": 0
+    },
+    {
+      "key": "tree-1",
+      "position": [
+        14.2,
+        0,
+        -8.4
+      ],
+      "kind": "plane",
+      "scale": 1.1,
+      "rotationY": 0.646
+    },
+    {
+      "key": "tree-2",
+      "position": [
+        -17.4,
+        0,
+        -15.7
+      ],
+      "kind": "cypress",
+      "scale": 0.9,
+      "rotationY": 1.292
+    },
+    {
+      "key": "tree-3",
+      "position": [
+        12.6,
+        0,
+        -18
+      ],
+      "kind": "plane",
+      "scale": 1.2,
+      "rotationY": 1.937
+    },
+    {
+      "key": "tree-4",
+      "position": [
+        -15.8,
+        0,
+        -25.4
+      ],
+      "kind": "shrub",
+      "scale": 1,
+      "rotationY": 2.583
+    },
+    {
+      "key": "tree-5",
+      "position": [
+        11,
+        0,
+        -32.7
+      ],
+      "kind": "plane",
+      "scale": 0.8,
+      "rotationY": 3.229
+    },
+    {
+      "key": "tree-6",
+      "position": [
+        -14.2,
+        0,
+        -35
+      ],
+      "kind": "plane",
+      "scale": 1.1,
+      "rotationY": 3.875
+    },
+    {
+      "key": "tree-7",
+      "position": [
+        17.4,
+        0,
+        -42.4
+      ],
+      "kind": "cypress",
+      "scale": 0.9,
+      "rotationY": 4.52
+    },
+    {
+      "key": "tree-8",
+      "position": [
+        -12.6,
+        0,
+        -49.7
+      ],
+      "kind": "plane",
+      "scale": 1.2,
+      "rotationY": 5.166
+    },
+    {
+      "key": "tree-9",
+      "position": [
+        15.8,
+        0,
+        -52
+      ],
+      "kind": "shrub",
+      "scale": 1,
+      "rotationY": 5.812
+    },
+    {
+      "key": "tree-10",
+      "position": [
+        -11,
+        0,
+        -59.4
+      ],
+      "kind": "plane",
+      "scale": 0.8,
+      "rotationY": 0.175
+    },
+    {
+      "key": "tree-11",
+      "position": [
+        14.2,
+        0,
+        -66.7
+      ],
+      "kind": "plane",
+      "scale": 1.1,
+      "rotationY": 0.82
+    }
+  ],
+  "quizPresentation": {
+    "shuffleOptions": true
+  },
+  "rewards": {
+    "cityStarId": "star_bolu",
+    "collectibleAssetIds": [
+      "collectible_bolu_autumn_leaf",
+      "collectible_bolu_chef_hat",
+      "collectible_bolu_snowboard_sticker"
+    ]
+  },
+  "estimatedMinutes": 3
+}
