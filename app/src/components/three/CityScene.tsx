@@ -114,7 +114,7 @@ export function CityScene({
 
       {/* Scenery beyond the play area: never solid, never reached. */}
       {scene.backdrop.map((prop) => (
-        <group key={prop.key} position={prop.position} rotation={[0, prop.rotationY, 0]}>
+        <group key={prop.key} position={prop.position} rotation={[prop.rotationX, prop.rotationY, 0]}>
           <AssetInstance asset={prop.asset} castShadow={false} />
         </group>
       ))}
@@ -152,7 +152,7 @@ export function CityScene({
             reducedMotion={reducedMotion}
           />
         ) : (
-          <group key={prop.key} position={prop.position} rotation={[0, prop.rotationY, 0]}>
+          <group key={prop.key} position={prop.position} rotation={[prop.rotationX, prop.rotationY, 0]}>
             <AssetInstance asset={prop.asset} />
           </group>
         ),
@@ -171,7 +171,7 @@ export function CityScene({
             reducedMotion={reducedMotion}
           />
         ) : (
-          <group key={prop.key} position={prop.position} rotation={[0, prop.rotationY, 0]}>
+          <group key={prop.key} position={prop.position} rotation={[prop.rotationX, prop.rotationY, 0]}>
             <AssetInstance asset={prop.asset} />
           </group>
         ),

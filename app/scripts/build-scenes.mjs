@@ -1027,6 +1027,28 @@ function cityBackdrop(cityId, stopPositions, metrics) {
       // Groves behind the houses, climbing the slope. Never solid: a hazelnut
       // grove is somewhere you would walk into.
       /**
+       * The back corners, where the house row stops and the hill has not begun.
+       *
+       * The rows run to the boundary and Boztepe starts twenty-two metres past
+       * it, so the square behind the spawn had eleven metres of house on each
+       * flank and then nothing but four-metre groves — plan coverage without
+       * height, which is what the owner is looking at when they say it is
+       * empty. Two more houses a side, turned in towards the square, because a
+       * town under a hill wraps round rather than stopping in a line.
+       */
+      ...[-1, 1].flatMap((side) =>
+        [
+          [8, 0.55],
+          [24, 1.0],
+        ].map(([ahead, turn], i) => ({
+          assetId: 'city_ordu_timber_houses',
+          position: [side * (26 - i * 4), 0, Math.round((behind + ahead) * 10) / 10],
+          rotationY: side * (Math.PI / 2 - turn),
+          solid: true,
+          note: `back corner houses ${side < 0 ? 'west' : 'east'} ${i + 1}`,
+        })),
+      ),
+      /**
        * Groves along both sides and, especially, in the gap between the last
        * houses and the hill.
        *
@@ -1067,10 +1089,23 @@ function cityBackdrop(cityId, stopPositions, metrics) {
          * plateau centred on the boundary would swallow the last stop (D-101).
          */
         assetId: 'city_ordu_persembe_plateau',
-        position: [-4, 0, Math.round((lastZ - 16 - 90.3 / 2) * 10) / 10],
+        /**
+         * Tilted twenty-two degrees, and lifted so its lip clears the town.
+         *
+         * The plate is a disc seen from above — a river winding across it,
+         * cart tracks, farmhouses, pines — and stood upright a child sees a rim
+         * and nothing else. Tilting it towards them turns the top surface into
+         * a hillside, which is also what a yayla is from the coast: a highland
+         * whose flank you look up at.
+         *
+         * Raised eleven metres so the near lip sits above the roofline rather
+         * than cutting the street off at eye level.
+         */
+        position: [-4, 11, Math.round((lastZ - 10 - 90.3 / 2) * 10) / 10],
         rotationY: 0.18,
+        rotationX: -0.38,
         solid: true,
-        note: 'Perşembe Yaylası, closing the front',
+        note: 'Perşembe Yaylası, tilted so its surface reads',
       },
       {
         /**
@@ -1774,16 +1809,22 @@ function buildScene(canonical) {
      * takes them up and this is what comes back down.
      *
      * So all three start behind the walk, near the hill and high, and work
-     * forward and lower towards the sea. They use the balloon's motion, which
-     * is already drift, lift and lean; a canopy hanging in the air and a
-     * balloon hanging in the air are the same problem.
+     * forward and lower — but *high*. The first pass put them at 23 to 34
+     * metres, which sounds like sky and is not: Boztepe is 26 m and the timber
+     * houses are 11, so a canopy at 23 was among the rooftops. They fly at 42
+     * to 58 now, clear of everything in the city, and half again as large so
+     * they read at that distance.
+     *
+     * They use the balloon's motion, which is already drift, lift and lean; a
+     * canopy hanging in the air and a balloon hanging in the air are the same
+     * problem.
      */
     paragliders:
       canonical.id === 'ordu'
         ? [
-            { key: 'glider-0', position: [-19, 34, 22], scale: 1.15, driftSpeed: 1.3, phase: 0.4 },
-            { key: 'glider-1', position: [14, 28, -6], scale: 1.0, driftSpeed: 1.05, phase: 2.2 },
-            { key: 'glider-2', position: [-8, 23, -30], scale: 0.88, driftSpeed: 1.5, phase: 4.1 },
+            { key: 'glider-0', position: [-21, 58, 18], scale: 2.0, driftSpeed: 1.3, phase: 0.4 },
+            { key: 'glider-1', position: [16, 49, -12], scale: 1.7, driftSpeed: 1.05, phase: 2.2 },
+            { key: 'glider-2', position: [-10, 42, -38], scale: 1.45, driftSpeed: 1.5, phase: 4.1 },
           ]
         : [],
     /**

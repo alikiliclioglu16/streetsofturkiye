@@ -67,6 +67,7 @@ export interface ScenePropInstance {
   readonly asset: ResolvedAsset;
   readonly position: Vec3;
   readonly rotationY: number;
+  readonly rotationX: number;
   /** False for dressing the player should walk through, like a stray cat. */
   readonly solid: boolean;
 }
@@ -189,6 +190,7 @@ export function buildScene(city: CityDefinition, quality: QualityTier): SceneDes
     asset: resolveAsset(prop.assetId, quality),
     position: prop.position,
     rotationY: prop.rotationY,
+    rotationX: prop.rotationX ?? 0,
     solid: prop.solid ?? true,
   }));
 
@@ -217,6 +219,7 @@ export function buildScene(city: CityDefinition, quality: QualityTier): SceneDes
     asset: resolveAsset(prop.assetId, quality),
     position: prop.position,
     rotationY: prop.rotationY,
+    rotationX: prop.rotationX ?? 0,
     solid: prop.solid ?? false,
   }));
 

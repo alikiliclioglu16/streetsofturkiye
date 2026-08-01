@@ -306,6 +306,96 @@ describe('nothing scenic reaches into the play area', () => {
   }
 });
 
+describe('Ordu stands under a hill', () => {
+  const scene = buildScene(loadComposedCity('ordu'), 'high');
+
+  it('keeps the horizon high enough to read as a place, in every direction but ahead', () => {
+    /**
+     * The angular sweep (D-149) finds holes in plan. It found none in Ordu and
+     * the owner could still see through the back corners, because a grove
+     * covers the angle at four metres where a house covers it at eleven —
+     * **plan coverage without height**.
+     *
+     * So this measures elevation: how high the tallest thing in each direction
+     * stands above a child's eye. Ahead is exempt, as it is in Kars, because
+     * the street runs out to the plateau on purpose.
+     */
+    const EYE = 1.5;
+    const AHEAD_EXEMPT = 45;
+    const highest = new Array(360).fill(0);
+
+    for (const piece of [...scene.backdrop, ...scene.props]) {
+      const [width, height, depth] = piece.asset.entry.dimensions;
+      const cos = Math.abs(Math.cos(piece.rotationY));
+      const sin = Math.abs(Math.sin(piece.rotationY));
+      const halfX = (width * cos + depth * sin) / 2;
+      const halfZ = (width * sin + depth * cos) / 2;
+      const [x, y, z] = piece.position;
+      const distance = Math.max(1, Math.hypot(x, z));
+      const elevation = (Math.atan2(y + height - EYE, distance) * 180) / Math.PI;
+
+      const angles: number[] = [];
+      for (const cx of [x - halfX, x + halfX]) {
+        for (const cz of [z - halfZ, z + halfZ]) {
+          angles.push(((Math.atan2(cx, cz) * 180) / Math.PI + 360) % 360);
+        }
+      }
+      let lo = Math.min(...angles);
+      let hi = Math.max(...angles);
+      if (hi - lo > 180) {
+        const shifted = angles.map((a) => (a < 180 ? a + 360 : a));
+        lo = Math.min(...shifted);
+        hi = Math.max(...shifted);
+      }
+      for (let a = Math.floor(lo); a <= Math.ceil(hi); a += 1) {
+        const index = ((a % 360) + 360) % 360;
+        if (elevation > highest[index]) highest[index] = elevation;
+      }
+    }
+
+    for (let a = 0; a < 360; a += 1) {
+      if (Math.abs(a - 180) <= AHEAD_EXEMPT) continue;
+      expect(highest[a], `${a}° of Ordu is open sky above ${highest[a].toFixed(1)}°`).toBeGreaterThan(
+        8,
+      );
+    }
+  });
+
+  it('tilts the plateau so a child sees across it rather than at its rim', () => {
+    /**
+     * Perşembe Yaylası is a disc with a river, cart tracks, farmhouses and
+     * pines laid across its *top*. Stood upright like every other landscape
+     * plate, a child at eye height sees a rim and nothing else.
+     *
+     * Tilting it turns that surface into a hillside — which is also what a
+     * yayla is from the coast, a highland whose flank you look up at.
+     */
+    const plateau = scene.backdrop.find(
+      (piece) => piece.asset.entry.id === 'city_ordu_persembe_plateau',
+    )!;
+    expect(plateau).toBeDefined();
+    expect(plateau.rotationX, 'the plateau is standing upright').toBeLessThan(-0.2);
+    // Lifted, so its near lip clears the roofline instead of cutting the street.
+    expect(plateau.position[1]).toBeGreaterThan(8);
+  });
+
+  it('flies the paragliders above everything in the city', () => {
+    /**
+     * The first pass put them at 23 to 34 metres, which sounds like sky and is
+     * not: Boztepe is 26 m and the houses are 11, so a canopy at 23 was among
+     * the rooftops. They have to clear the tallest thing on the ground.
+     */
+    const tallest = Math.max(
+      ...scene.backdrop.map((piece) => piece.position[1] + piece.asset.entry.dimensions[1]),
+    );
+    for (const glider of scene.paragliders) {
+      expect(glider.position[1], 'a paraglider is down among the roofs').toBeGreaterThan(
+        tallest + 8,
+      );
+    }
+  });
+});
+
 describe('Van stands between a town and a lake', () => {
   const scene = buildScene(loadComposedCity('van'), 'high');
 

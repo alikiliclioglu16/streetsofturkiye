@@ -71,6 +71,15 @@ export const scenePropSchema = z.object({
   assetId: z.string(),
   position: vec3Schema,
   rotationY: z.number().default(0),
+  /**
+   * Tilt about the X axis, in radians. Almost always zero.
+   *
+   * A landscape plate is a wall seen edge-on and that is right for a ridge, a
+   * cliff or a row of houses. It is wrong for a plate whose subject is its
+   * *top* — Perşembe Yaylası is a disc with a river, paths and farmhouses laid
+   * across it, and stood upright a child sees only its rim.
+   */
+  rotationX: z.number().default(0),
   /** False for dressing the player walks through, like a stray cat. */
   solid: z.boolean().default(true),
 });

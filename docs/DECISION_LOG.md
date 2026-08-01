@@ -3023,3 +3023,53 @@ either the spawn or the middle of the street.
 The grove arrived drawn as a multi-stemmed shrub rather than a round-crowned
 tree, which is what the brief asked for and what keeps the planting in the one
 world-champion hazelnut province from reading as generic greenery.
+
+## D-174 — Plan coverage is not height coverage (1 Aug 2026)
+
+The owner said the back of Ordu looked empty. The angular sweep (D-149) —
+the method that has found this class of fault five times — reported nothing open
+over five degrees from any of four viewpoints. It was right and it was not
+enough.
+
+**A grove covers the angle at four metres where a house covers it at eleven.**
+The sweep marks a direction as filled if anything at all stands in it; a child
+sees over the top of the short thing and finds sky. Ordu's house rows stop at
+the boundary and Boztepe starts twenty-two metres past it, so the square behind
+the spawn had eleven metres of house on each flank and then four-metre groves.
+
+So there is a second measurement now: the elevation of the tallest thing in each
+direction above a child's eye. It is a test, ahead exempt as it is in Kars,
+requiring eight degrees everywhere else. Ordu's back quarter was under that and
+is now at 21.5.
+
+Filled with four more timber houses, two a side, turned in towards the square —
+a town under a hill wraps round rather than stopping in a line.
+
+## D-175 — A plate whose subject is its top has to be tilted (1 Aug 2026)
+
+Perşembe Yaylası arrived as a disc seen from above: a river winding across it,
+cart tracks, farmhouses, pines. Every landscape plate in this project until now
+has been a wall — a ridge, a cliff, a row of houses, a mountain — and standing
+this one upright showed a child its rim and nothing else.
+
+Scene props now take an optional `rotationX`. The plateau is tilted twenty-two
+degrees towards the town and lifted eleven metres so its near lip clears the
+roofline instead of cutting the street off at eye level.
+
+That is not a trick to make a model legible. It is what a yayla is from the
+coast: a highland whose flank you look up at. The tilt makes the geometry agree
+with the thing it depicts.
+
+## D-176 — The paragliders were among the rooftops (1 Aug 2026)
+
+Placed at 23 to 34 metres, which sounds like sky and is not. Boztepe is 26 m
+tall and the timber houses are 11, so the lowest canopy was level with the hill
+and the highest only eight metres over it — from the street they read as
+something on the ground rather than something flying.
+
+They fly at 42 to 58 now, clear of everything in the city, and half again as
+large so they still read at that distance: canopies of 6.5 to 9 m against a
+2.4 m cable car.
+
+Held by a test that measures them against the tallest thing standing in the
+scene rather than against a number, so the rule survives a taller hill.
