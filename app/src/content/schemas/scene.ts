@@ -209,6 +209,7 @@ export const sceneSchema = z
           scale: z.number().positive(),
           driftSpeed: z.number().positive(),
           phase: z.number(),
+          driftAmplitude: z.number().positive().optional(),
         }),
       )
       .default([]),

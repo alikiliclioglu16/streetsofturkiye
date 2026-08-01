@@ -447,35 +447,38 @@
     {
       "key": "glider-0",
       "position": [
-        -21,
-        24,
-        -28
+        -16,
+        22,
+        -26
       ],
       "scale": 1.7,
       "driftSpeed": 1.3,
-      "phase": 0.4
+      "phase": 0.4,
+      "driftAmplitude": 9
     },
     {
       "key": "glider-1",
       "position": [
-        17,
-        22,
+        15,
+        20,
         -34
       ],
       "scale": 1.5,
       "driftSpeed": 1.05,
-      "phase": 2.2
+      "phase": 2.2,
+      "driftAmplitude": 11
     },
     {
       "key": "glider-2",
       "position": [
         -26,
-        26,
-        -20
+        25,
+        -30
       ],
       "scale": 1.9,
       "driftSpeed": 1.5,
-      "phase": 4.1
+      "phase": 4.1,
+      "driftAmplitude": 8
     }
   ],
   "tramLine": null,
@@ -559,17 +562,6 @@
       "rotationY": -1.5707963267948966,
       "solid": false,
       "note": "timber houses east 2"
-    },
-    {
-      "assetId": "city_ordu_timber_houses",
-      "position": [
-        23,
-        0,
-        -41.7
-      ],
-      "rotationY": -1.5707963267948966,
-      "solid": false,
-      "note": "timber houses east 3"
     },
     {
       "assetId": "city_ordu_timber_houses",
@@ -735,6 +727,17 @@
       "rotationY": 9.9,
       "solid": false,
       "note": "hazelnut grove 10"
+    },
+    {
+      "assetId": "city_ordu_beach_front",
+      "position": [
+        24,
+        0,
+        -41.6
+      ],
+      "rotationY": -1.3,
+      "solid": true,
+      "note": "the beach beside stop three"
     },
     {
       "assetId": "city_ordu_persembe_plateau",

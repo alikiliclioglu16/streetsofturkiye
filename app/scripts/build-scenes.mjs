@@ -1014,15 +1014,22 @@ function cityBackdrop(cityId, stopPositions, metrics) {
     const houses = 4;
     return [
       ...[-1, 1].flatMap((side) =>
-        Array.from({ length: houses }, (_, i) => {
-          const z = firstZ + 10 - ((span + 24) * i) / (houses - 1);
-          return wall(
-            'city_ordu_timber_houses',
-            side * 23,
-            z,
-            `timber houses ${side < 0 ? 'west' : 'east'} ${i + 1}`,
-          );
-        }),
+        Array.from({ length: houses }, (_, i) => ({ i, z: firstZ + 10 - ((span + 24) * i) / (houses - 1) }))
+          /**
+           * The east row opens at its third house, and the beach stands in the
+           * gap. A coastal town breaks where it meets the shore, and stop three
+           * is about Ordu's Blue Flag beaches — the deck alone reads as a deck
+           * on grass.
+           */
+          .filter(({ i }) => !(side > 0 && i === 2))
+          .map(({ i, z }) =>
+            wall(
+              'city_ordu_timber_houses',
+              side * 23,
+              z,
+              `timber houses ${side < 0 ? 'west' : 'east'} ${i + 1}`,
+            ),
+          ),
       ),
       // Groves behind the houses, climbing the slope. Never solid: a hazelnut
       // grove is somewhere you would walk into.
@@ -1076,6 +1083,20 @@ function cityBackdrop(cityId, stopPositions, metrics) {
         solid: false,
         note: `hazelnut grove ${i + 1}`,
       })),
+      {
+        /**
+         * The beach the Blue Flag deck stands on, in the gap in the east row.
+         *
+         * Stop three is about Ordu's Blue Flag shores and the deck alone reads
+         * as a deck on grass. This is the shoreline it belongs to — the model
+         * carries its own sand and water, so it works with no sea in the city.
+         */
+        assetId: 'city_ordu_beach_front',
+        position: [24, 0, Math.round((firstZ - span * 0.88) * 10) / 10],
+        rotationY: -1.3,
+        solid: true,
+        note: 'the beach beside stop three',
+      },
       {
         /**
          * Perşembe Yaylası, closing the front where the sea used to be.
@@ -1844,7 +1865,13 @@ function buildScene(canonical) {
      * up. Over Boztepe at 37 to 44 they were behind the child for the whole
      * walk.
      *
-     * What matters is the **elevation angle from where the child stands**: high
+     * And the drift was what actually hid them. A balloon wanders forty-five
+     * metres either side, which suits a valley and does not suit a street:
+     * these were placed within thirty metres of the walk and carried ninety
+     * across, so wherever they were put they spent most of the time outside the
+     * frame. They wander eight to eleven metres now.
+     *
+     * The rest is the **elevation angle from where the child stands**: high
      * enough to be sky, shallow enough to be in shot. These sit at twenty to
      * twenty-five metres, thirty to fifty out, ahead and to the sides — between
      * twenty-five and thirty-five degrees up, which is a glance rather than a
@@ -1858,9 +1885,9 @@ function buildScene(canonical) {
     paragliders:
       canonical.id === 'ordu'
         ? [
-            { key: 'glider-0', position: [-21, 24, -28], scale: 1.7, driftSpeed: 1.3, phase: 0.4 },
-            { key: 'glider-1', position: [17, 22, -34], scale: 1.5, driftSpeed: 1.05, phase: 2.2 },
-            { key: 'glider-2', position: [-26, 26, -20], scale: 1.9, driftSpeed: 1.5, phase: 4.1 },
+            { key: 'glider-0', position: [-16, 22, -26], scale: 1.7, driftSpeed: 1.3, phase: 0.4, driftAmplitude: 9 },
+            { key: 'glider-1', position: [15, 20, -34], scale: 1.5, driftSpeed: 1.05, phase: 2.2, driftAmplitude: 11 },
+            { key: 'glider-2', position: [-26, 25, -30], scale: 1.9, driftSpeed: 1.5, phase: 4.1, driftAmplitude: 8 },
           ]
         : [],
     /**

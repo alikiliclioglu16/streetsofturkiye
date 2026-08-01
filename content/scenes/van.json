@@ -476,7 +476,9 @@
   "groundSurface": "steppe",
   "groundPatches": [],
   "balloons": [],
+  "paragliders": [],
   "tramLine": null,
+  "cableCarLine": null,
   "ferryLine": null,
   "canoeLines": [
     {

@@ -3157,3 +3157,39 @@ The test measures that angle rather than a height, requires 12° to 40°, and
 separately requires each canopy to clear anything standing within thirty-five
 metres of it. Height alone had already passed three times while the thing was
 invisible.
+
+## D-181 — The drift was hiding the paragliders, not the position (1 Aug 2026)
+
+Four placements and the owner still could not see them. It was never where they
+were put.
+
+`balloonOffsetAt` wanders **forty-five metres either side** of a balloon's
+resting position, along x. That is right over a Cappadocian valley, which is
+what it was written for. Ordu's paragliders sat within thirty metres of a
+fifteen-metre-wide street, so the wander carried them ninety metres across and
+they spent most of their time outside the frame — whatever height they were at.
+
+`driftAmplitude` is optional on a spec now, forty-five by default. Ordu's fly
+with eight to eleven, over the town where they were first put.
+
+The test grew a clause for it, and the clause matters more than the placement:
+elevation is checked **at both extremes of the wander**, not at the resting
+position. A thing that looks right where it is defined and wrong for the rest of
+the minute passes any check made at rest.
+
+## D-182 — The beach model finds its third and correct job (1 Aug 2026)
+
+The seaside diorama has been stop three, then the Altınordu seafront across the
+bay, and it went when the sea did. It is scenery beside stop three now, standing
+in a gap opened in the east row of houses — a coastal town breaks where it meets
+the shore.
+
+That is what the stop needed. Its text is about Ordu's Blue Flag beaches and it
+had a wooden deck standing on grass. The model carries its own sand and water,
+so it reads as a beach in a city that no longer has a sea.
+
+**And a mistake worth recording.** The edit that opened the gap landed in Van's
+house loop instead of Ordu's — same shape of code, two hundred lines apart —
+and quietly deleted one of Van's east houses. Caught by reading the generated
+scene for both cities rather than the one being worked on. When two cities share
+a structure, a change to one has to be checked against the other.

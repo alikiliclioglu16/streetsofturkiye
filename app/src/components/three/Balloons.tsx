@@ -27,6 +27,16 @@ export interface BalloonSpec {
   /** Multiplier on the crossing speed, so they do not fly in formation. */
   readonly driftSpeed: number;
   readonly phase: number;
+  /**
+   * How far it wanders either side of where it belongs, in metres.
+   *
+   * Forty-five by default, which is right over a Cappadocian valley and wrong
+   * over a street: Ordu's paragliders were placed within thirty metres of the
+   * walk and the drift carried them ninety metres across, so most of the time
+   * they were outside the frame. Three placements were tried before the drift
+   * turned out to be what was hiding them.
+   */
+  readonly driftAmplitude?: number;
 }
 
 /**
@@ -57,7 +67,8 @@ export const DRIFT_RATE = 0.067;
  * something to sit and watch for.
  */
 export function balloonOffsetAt(spec: BalloonSpec, seconds: number): number {
-  return Math.sin(seconds * DRIFT_RATE * spec.driftSpeed + spec.phase) * DRIFT_AMPLITUDE;
+  const amplitude = spec.driftAmplitude ?? DRIFT_AMPLITUDE;
+  return Math.sin(seconds * DRIFT_RATE * spec.driftSpeed + spec.phase) * amplitude;
 }
 
 function Balloon({

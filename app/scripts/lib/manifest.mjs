@@ -140,6 +140,7 @@ export const DELIVERED_DIMENSIONS = {
   city_ordu_hazelnut_stall: [2.49, 2.0, 1.93],
   city_ordu_paraglider: [5.55, 4.5, 3.03],
   city_ordu_beach_deck: [4.29, 1.6, 4.44],
+  city_ordu_beach_front: [14.5, 4.0, 14.2],
   city_ordu_cable_station: [9.01, 4.4, 8.91],
   city_ordu_persembe_plateau: [129.13, 22.0, 141.9],
   kit_ordu_hazelnut_grove: [7.63, 4.4, 7.86],

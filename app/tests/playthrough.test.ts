@@ -422,6 +422,25 @@ describe('Ordu stands under a hill', () => {
       expect(elevation, 'a paraglider is too low to be sky').toBeGreaterThan(12);
       expect(elevation, 'a paraglider is overhead and out of frame').toBeLessThan(40);
 
+      /**
+       * And it stays in frame while it moves.
+       *
+       * This is what actually hid them through three placements: a balloon
+       * wanders forty-five metres either side of where it belongs, which suits
+       * a Cappadocian valley and does not suit a street. Held at the extreme of
+       * the wander rather than at the resting position, because that is where
+       * a thing spends most of its time looking wrong.
+       */
+      const amplitude = glider.driftAmplitude ?? 45;
+      for (const swing of [-amplitude, amplitude]) {
+        const x = glider.position[0] + swing;
+        const swungDistance = Math.hypot(x, glider.position[2]);
+        const swungElevation =
+          (Math.atan2(glider.position[1] - EYE, swungDistance) * 180) / Math.PI;
+        expect(swungElevation, 'a paraglider drifts out of shot').toBeLessThan(48);
+        expect(Math.abs(x), 'a paraglider drifts off the map').toBeLessThan(60);
+      }
+
       // And clear of anything standing near it.
       for (const piece of scene.backdrop) {
         const gap = Math.hypot(
