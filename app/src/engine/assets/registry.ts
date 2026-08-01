@@ -563,6 +563,47 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
     notes: 'Delivered 27.27 MB at 20 m buried 10 m; re-authored to 26 m on y = 0, 2.33 MB.',
   },
   {
+    id: 'city_ordu_hazelnut_stall',
+    modelUrl: '/assets/city/city_ordu_hazelnut_stall.glb',
+    checksum: '792b6642d05ba238c4ad09fdfc3402c69549800e1c942b8dc37f5cb8cfc671f4',
+    triangles: 9_563,
+    transferBytes: 991264,
+    /**
+     * Stop one. More hazelnuts grow around Ordu than anywhere on the planet,
+     * and this is the stall that says so.
+     *
+     * Two metres, which came out exactly as briefed for once — the delivered
+     * file needed only lifting on to y = 0.
+     */
+    dimensions: [2.49, 2.0, 1.93],
+    label: 'Hazelnut stall',
+    color: '#8B6A3F',
+    placeholder: 'box',
+    notes: 'Delivered 25.94 MB at 2 m buried 1 m; re-authored on y = 0, 0.95 MB.',
+  },
+  {
+    id: 'city_ordu_paraglider',
+    modelUrl: '/assets/city/city_ordu_paraglider.glb',
+    checksum: '853b3ddea165a78705a874b74984eb205d8f97cb1aa0144a5b6266f1549128ff',
+    triangles: 10_053,
+    transferBytes: 917040,
+    /**
+     * A paraglider, and Ordu's second moving thing.
+     *
+     * Boztepe is a launch site — people run off the top of it and circle down
+     * over the town, which is the other half of what that hill is for. The
+     * cable car takes them up and this is what comes back down.
+     *
+     * 4.5 m tall against a 2.4 m cable car: a canopy is large, and one drawn at
+     * a person's size reads as a bird.
+     */
+    dimensions: [5.55, 4.5, 3.03],
+    label: 'Paraglider',
+    color: '#D95C34',
+    placeholder: 'box',
+    notes: 'Delivered 21.71 MB at 1.5 m buried 0.75 m; re-authored to 4.5 m on y = 0, 0.87 MB.',
+  },
+  {
     id: 'city_ordu_beach_deck',
     modelUrl: '/assets/city/city_ordu_beach_deck.glb',
     checksum: '66fb7dcadc5c1c5572293cc8f7936a129dde1749990fee0572ff62af8a6feccf',

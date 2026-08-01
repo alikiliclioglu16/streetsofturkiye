@@ -91,6 +91,7 @@ export interface RuntimeCity {
   groundSurface: SceneDefinition['groundSurface'];
   groundPatches: SceneDefinition['groundPatches'];
   balloons: SceneDefinition['balloons'];
+  paragliders: SceneDefinition['paragliders'];
   tramLine: SceneDefinition['tramLine'];
   trainLine: SceneDefinition['trainLine'];
   canoeLines: SceneDefinition['canoeLines'];
@@ -198,6 +199,7 @@ export function composeCity(canonical: CanonicalCity, scene: SceneDefinition): R
     groundSurface: scene.groundSurface,
     groundPatches: scene.groundPatches,
     balloons: scene.balloons,
+    paragliders: scene.paragliders,
     tramLine: scene.tramLine,
     trainLine: scene.trainLine,
     canoeLines: scene.canoeLines,

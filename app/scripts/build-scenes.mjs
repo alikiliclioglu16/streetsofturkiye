@@ -1745,6 +1745,26 @@ function buildScene(canonical) {
      */
     balloons: balloonSky(canonical.id, stopPositions),
     /**
+     * Three paragliders over Ordu, and they come off Boztepe.
+     *
+     * That hill is a launch site: people run off the top of it and circle down
+     * over the town, which is the other half of what it is for — the cable car
+     * takes them up and this is what comes back down.
+     *
+     * So all three start behind the walk, near the hill and high, and work
+     * forward and lower towards the sea. They use the balloon's motion, which
+     * is already drift, lift and lean; a canopy hanging in the air and a
+     * balloon hanging in the air are the same problem.
+     */
+    paragliders:
+      canonical.id === 'ordu'
+        ? [
+            { key: 'glider-0', position: [-19, 34, 22], scale: 1.15, driftSpeed: 1.3, phase: 0.4 },
+            { key: 'glider-1', position: [14, 28, -6], scale: 1.0, driftSpeed: 1.05, phase: 2.2 },
+            { key: 'glider-2', position: [-8, 23, -30], scale: 0.88, driftSpeed: 1.5, phase: 4.1 },
+          ]
+        : [],
+    /**
      * The tram runs the length of the street on the west side, clear of the
      * walk. İstanbul's nostalgic tram does one street, up and down, all day.
      */

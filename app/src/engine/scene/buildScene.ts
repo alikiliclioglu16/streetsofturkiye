@@ -104,6 +104,8 @@ export interface SceneDescription {
   readonly musicUrl: string | null;
   readonly groundSurface: SceneDefinition['groundSurface'];
   readonly balloons: SceneDefinition['balloons'];
+  readonly paragliders: SceneDefinition['paragliders'];
+  readonly paragliderAsset: ResolvedAsset | null;
   readonly balloonAsset: ResolvedAsset | null;
   readonly tramLine: SceneDefinition['tramLine'];
   readonly trainLine: SceneDefinition['trainLine'];
@@ -393,6 +395,8 @@ export function buildScene(city: CityDefinition, quality: QualityTier): SceneDes
     },
     groundSurface: city.groundSurface,
     balloons: city.balloons,
+    paragliders: city.paragliders,
+    paragliderAsset: city.paragliders.length ? resolveAsset('city_ordu_paraglider', quality) : null,
     balloonAsset: city.balloons.length > 0 ? resolveAsset('kit_hot_air_balloon', quality) : null,
     sky: {
       top: city.environment.skyPreset?.[0] ?? '#BFE4F2',

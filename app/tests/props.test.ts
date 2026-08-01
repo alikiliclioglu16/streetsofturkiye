@@ -321,6 +321,35 @@ describe('street kit props', () => {
     }
   });
 
+  it('flies three paragliders off Boztepe, and nowhere else', () => {
+    /**
+     * The hill is a launch site: people run off the top and circle down over
+     * the town, which is the other half of what Boztepe is for — the cable car
+     * takes them up and this is what comes back down.
+     *
+     * They reuse the balloon motion, so what has to be held is that they belong
+     * to Ordu the way the balloons belong to Cappadocia (D-122). A canopy over
+     * the Bosphorus would be the same borrowing.
+     */
+    const scene = buildScene(loadComposedCity('ordu'), 'high');
+    expect(scene.paragliders).toHaveLength(3);
+    expect(scene.paragliderAsset!.entry.id).toBe('city_ordu_paraglider');
+
+    // High enough to be sky rather than street furniture, and each different.
+    const heights = scene.paragliders.map((glider) => glider.position[1]);
+    for (const height of heights) expect(height).toBeGreaterThan(15);
+    expect(new Set(heights).size).toBe(3);
+    expect(new Set(scene.paragliders.map((g) => g.scale)).size).toBe(3);
+
+    // They come off the hill: the highest is the one furthest back.
+    const sorted = [...scene.paragliders].sort((a, b) => b.position[2] - a.position[2]);
+    expect(sorted[0]!.position[1]).toBeGreaterThan(sorted[2]!.position[1]);
+
+    for (const cityId of PLAYABLE_CITY_IDS.filter((id) => id !== 'ordu')) {
+      expect(buildScene(loadComposedCity(cityId), 'high').paragliders, cityId).toHaveLength(0);
+    }
+  });
+
   it('runs the cable car from its station up to Boztepe', () => {
     /**
      * The line ran along the east verge from nowhere to nowhere at first — a

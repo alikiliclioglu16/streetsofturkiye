@@ -186,6 +186,23 @@ export const sceneSchema = z
         }),
       )
       .default([]),
+    /**
+     * Paragliders circling over the city, if it is a city that has them.
+     *
+     * Same shape as a balloon because it is the same motion — something light
+     * hanging in the air, drifting and turning. Only the model differs.
+     */
+    paragliders: z
+      .array(
+        z.object({
+          key: z.string(),
+          position: vec3Schema,
+          scale: z.number().positive(),
+          driftSpeed: z.number().positive(),
+          phase: z.number(),
+        }),
+      )
+      .default([]),
     /** Both ends of the tram line, in world metres. Absent where there is no tram. */
     tramLine: z
       .object({ from: z.tuple([z.number(), z.number()]), to: z.tuple([z.number(), z.number()]) })

@@ -183,6 +183,17 @@ export function CityScene({
         reducedMotion={reducedMotion}
       />
 
+      {/*
+        Paragliders off Boztepe. The balloon component, with a different model:
+        both are something light hanging in the air that drifts, lifts and
+        leans, and there was no second behaviour to write.
+      */}
+      <Balloons
+        asset={scene.paragliderAsset}
+        specs={scene.paragliders}
+        reducedMotion={reducedMotion}
+      />
+
       {scene.tramLine && scene.tramAsset ? (
         <Tram
           asset={scene.tramAsset}

@@ -2964,3 +2964,28 @@ The station is nine metres across, the widest stop object in the project, so its
 trigger ring comes out at 8.5 m. That is correct rather than a problem — the
 ring is derived from the footprint, and a station is a building rather than a
 piece of furniture.
+
+## D-172 — Paragliders off Boztepe (31 Jul 2026)
+
+Stop one is delivered — the hazelnut stall, 2.5 × 2.0 × 1.9, and the first
+model in this project that arrived at the briefed size and needed nothing but
+lifting on to y = 0.
+
+**And Ordu has a second moving thing.** Boztepe is a launch site: people run off
+the top and circle down over the town, which is the other half of what that hill
+is for. The cable car takes them up; this is what comes back down. Three of
+them, starting high and behind the walk near the hill, working forward and lower
+towards the sea.
+
+**No new behaviour was written.** They use the balloon component — drift, lift,
+lean, and a seeded phase so no two move together. A canopy hanging in the air
+and a balloon hanging in the air are the same problem, and the only thing that
+differs is the model. `paragliders` is the same shape as `balloons` for the same
+reason.
+
+Held by a test in the form D-122 established for the balloons: they belong to
+Ordu and appear nowhere else. A canopy over the Bosphorus would be exactly the
+borrowing that rule exists to stop.
+
+The canopy is 4.5 m tall against a 2.4 m cable car. One drawn at a person's size
+reads as a bird.
