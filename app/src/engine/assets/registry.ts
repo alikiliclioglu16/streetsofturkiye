@@ -604,6 +604,32 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
     notes: 'Delivered 21.71 MB at 1.5 m buried 0.75 m; re-authored to 4.5 m on y = 0, 0.87 MB.',
   },
   {
+    id: 'city_ordu_beach_front',
+    modelUrl: '/assets/city/city_ordu_beach_front.glb',
+    checksum: '19bdf58ab45aecd5f45e703ba904c0e7c719776261c98e0bb0e2b65f7a4039b6',
+    triangles: 10_210,
+    transferBytes: 913132,
+    /**
+     * Stop three: a strip of Ordu's Blue Flag coast, sand and water and all.
+     *
+     * This model has had four jobs and this is the one it was drawn for. It was
+     * registered as stop three and swapped out for a wooden deck; became the
+     * Altınordu seafront across the bay; went when the sea did (D-173); and was
+     * re-registered as scenery — an entry that was then overwritten by the
+     * plateau's, so for three turns the stop pointed at an id that did not
+     * exist and a child got a red placeholder cube.
+     *
+     * Nine metres and a bit, which is large for a stop and right for this one:
+     * it is a piece of coast, and the trigger ring is derived from the
+     * footprint so it gets a wide one.
+     */
+    dimensions: [9.43, 2.6, 9.23],
+    label: 'Ordu beach',
+    color: '#C9BE96',
+    placeholder: 'box',
+    notes: 'Delivered 22.44 MB at 2 m; re-authored to 2.6 m, 0.87 MB.',
+  },
+  {
     id: 'city_ordu_beach_deck',
     modelUrl: '/assets/city/city_ordu_beach_deck.glb',
     checksum: '66fb7dcadc5c1c5572293cc8f7936a129dde1749990fee0572ff62af8a6feccf',

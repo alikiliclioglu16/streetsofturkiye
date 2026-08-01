@@ -3273,3 +3273,36 @@ the child, the back corner sits behind, and nothing stood between. Filled with a
 third pair of houses level with the spawn and six more orchards. Orchard alone
 was not enough at that range: four metres at forty-four is 3.8° of cover, and
 the rule wants eight.
+
+## D-185 — Everything mounted in a raised group was being pulled to the floor (1 Aug 2026)
+
+Four paraglider placements looked identical on screen and I moved them each
+time. The positions were never the problem.
+
+`AssetInstance` grounds a model by measuring it with `Box3.setFromObject` and
+lifting until its base sits at zero. **That box is in world space**, so it
+already included whatever height the parent group had — and the correction then
+subtracted it. Anything mounted inside a positioned group was dragged straight
+back down to y = 0.
+
+Ordu's paragliders sat at eleven and twelve metres in the scene data and were
+drawn lying on the cobbles. The cable cars never showed it because they set
+their own group position each frame after the effect had run, and the balloons
+never showed it because the sky is far enough off that nobody questions a
+height.
+
+The box is now taken relative to the group's own world origin, so the
+correction means "lift the mesh until its base meets the group's origin" —
+which is what was always intended, and leaves the parent alone.
+
+Held by a test that builds the group hierarchy in plain three.js and asserts a
+model in a parent at twelve metres is drawn at twelve metres. No canvas needed:
+it is arithmetic about matrices, and it would have failed the day the effect was
+written.
+
+**And stop three was pointing at nothing.** `city_ordu_beach_front` was
+registered, then its entry was overwritten wholesale when the plateau's was
+inserted in its place (D-173). The stop resolved to an unknown id for three
+turns and drew a red placeholder cube, which is exactly what the owner has been
+looking at and calling empty. Re-registered at 9.4 m — large for a stop and
+right for a piece of coast.

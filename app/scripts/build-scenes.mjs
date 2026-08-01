@@ -1963,9 +1963,9 @@ function buildScene(canonical) {
     paragliders:
       canonical.id === 'ordu'
         ? [
-            { key: 'glider-0', position: [-4, 13, -56], scale: 1.2, driftSpeed: 1.3, phase: 0.4, driftAmplitude: 5 },
-            { key: 'glider-1', position: [4, 14, -62], scale: 1.15, driftSpeed: 1.05, phase: 2.2, driftAmplitude: 5 },
-            { key: 'glider-2', position: [-1, 12, -52], scale: 1.05, driftSpeed: 1.5, phase: 4.1, driftAmplitude: 5 },
+            { key: 'glider-0', position: [-4, 11, -44], scale: 1.2, driftSpeed: 1.3, phase: 0.4, driftAmplitude: 5 },
+            { key: 'glider-1', position: [4, 12, -50], scale: 1.15, driftSpeed: 1.05, phase: 2.2, driftAmplitude: 5 },
+            { key: 'glider-2', position: [-1, 10, -42], scale: 1.05, driftSpeed: 1.5, phase: 4.1, driftAmplitude: 5 },
           ]
         : [],
     /**

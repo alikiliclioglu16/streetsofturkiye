@@ -367,6 +367,48 @@ describe('street kit props', () => {
     }
   });
 
+  it('draws a mounted model at the height it was put, not on the floor', async () => {
+    /**
+     * The bug that made four paraglider placements look identical.
+     *
+     * `AssetInstance` grounds a model by measuring it with `Box3.setFromObject`
+     * and lifting until the base sits at zero. That box is in **world** space,
+     * so it already included whatever height the parent group had — and the
+     * correction then cancelled it. Anything mounted inside a positioned group
+     * was pulled straight back down to y = 0.
+     *
+     * Balloons never showed it: the sky is far enough off that nobody questions
+     * a height. Ordu's paragliders sat at eleven and twelve metres in the scene
+     * data and were drawn lying on the cobbles, through three packages of me
+     * moving them around.
+     *
+     * The regression is held here as arithmetic, because the renderer needs a
+     * canvas and this does not: grounding must be relative to the group's own
+     * origin, so a parent at height h leaves the model at height h.
+     */
+    const { Box3, Group, Mesh, BoxGeometry, MeshBasicMaterial, Vector3 } = await import('three');
+
+    const parent = new Group();
+    parent.position.set(0, 12, 0);
+    const inner = new Group();
+    parent.add(inner);
+    const mesh = new Mesh(new BoxGeometry(1, 2, 1), new MeshBasicMaterial());
+    // Authored with its base at the origin, like every delivered model.
+    mesh.position.setY(1);
+    inner.add(mesh);
+    parent.updateMatrixWorld(true);
+
+    // The correction as it is written now.
+    const box = new Box3().setFromObject(mesh);
+    const worldOrigin = new Vector3();
+    inner.getWorldPosition(worldOrigin);
+    inner.position.setY(-(box.min.y - worldOrigin.y));
+    parent.updateMatrixWorld(true);
+
+    const drawn = new Box3().setFromObject(mesh);
+    expect(drawn.min.y, 'the model was dragged down to the floor').toBeCloseTo(12, 5);
+  });
+
   it('keeps ten cabins on the cable, one away every five seconds', async () => {
     /**
      * A single cabin sliding up a hill is one lonely box, and that is what the

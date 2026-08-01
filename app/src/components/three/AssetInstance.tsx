@@ -95,8 +95,30 @@ function Model({ url, asset, castShadow }: ModelProps) {
     if (size.y > 0.0001 && target > 0) group.scale.setScalar(target / size.y);
 
     group.updateMatrixWorld(true);
+
+    /**
+     * Stand it on its own origin, not on the world's floor.
+     *
+     * `Box3.setFromObject` measures in **world** space, so this used to read a
+     * box that already included wherever the parent had put the model — and
+     * then cancelled it. Anything mounted inside a group with a height had that
+     * height subtracted straight back out: Ordu's paragliders sat at twelve and
+     * fourteen metres in the scene data and were drawn lying on the cobbles,
+     * through four placements and three packages of me moving them.
+     *
+     * Balloons never showed it because the sky is far enough away that nobody
+     * questions the height, and the cable cars do not use this path at all.
+     *
+     * The box is taken relative to the group instead, so the correction is
+     * "lift the mesh until its base meets the group's origin" — which is what
+     * was always meant, and leaves the parent's position alone.
+     */
     const grounded = new Box3().setFromObject(model);
-    if (Number.isFinite(grounded.min.y)) group.position.setY(-grounded.min.y);
+    if (Number.isFinite(grounded.min.y)) {
+      const worldOrigin = new Vector3();
+      group.getWorldPosition(worldOrigin);
+      group.position.setY(-(grounded.min.y - worldOrigin.y));
+    }
   }, [model, asset.entry.dimensions]);
 
   return (
