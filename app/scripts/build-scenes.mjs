@@ -1098,12 +1098,19 @@ function cityBackdrop(cityId, stopPositions, metrics) {
          * a hillside, which is also what a yayla is from the coast: a highland
          * whose flank you look up at.
          *
-         * Raised eleven metres so the near lip sits above the roofline rather
-         * than cutting the street off at eye level.
+         * **The sign matters and I had it backwards.** A tilt about X turns the
+         * top normal to (0, cos θ, sin θ); the child stands at greater z, so
+         * the surface only faces them when θ is positive. At -0.38 they were
+         * shown the underside, which is unlit — a black hole in the sky, which
+         * is exactly what the owner's screenshot shows.
+         *
+         * The pivot sits at fourteen metres, which puts the near lip 2.7 m
+         * *below* ground and the far edge at thirty. So it grows out of the
+         * earth and rises away, rather than hanging in the air.
          */
-        position: [-4, 11, Math.round((lastZ - 10 - 90.3 / 2) * 10) / 10],
+        position: [-4, 14, Math.round((lastZ - 10 - 90.3 / 2) * 10) / 10],
         rotationY: 0.18,
-        rotationX: -0.38,
+        rotationX: 0.38,
         solid: true,
         note: 'Perşembe Yaylası, tilted so its surface reads',
       },
@@ -1808,12 +1815,13 @@ function buildScene(canonical) {
      * over the town, which is the other half of what it is for — the cable car
      * takes them up and this is what comes back down.
      *
-     * So all three start behind the walk, near the hill and high, and work
-     * forward and lower — but *high*. The first pass put them at 23 to 34
-     * metres, which sounds like sky and is not: Boztepe is 26 m and the timber
-     * houses are 11, so a canopy at 23 was among the rooftops. They fly at 42
-     * to 58 now, clear of everything in the city, and half again as large so
-     * they read at that distance.
+     * So they fly over the hill itself, between twenty and forty metres behind
+     * the square at thirty-seven to forty-four up. Two earlier attempts got
+     * this wrong in opposite directions: 23 to 34 m put them among the
+     * rooftops, and 42 to 58 over the street put them outside the camera
+     * entirely — a child looking down a street does not look ninety degrees
+     * up. Over Boztepe they are where the launch is, and a child turning round
+     * sees them against the hill they came off.
      *
      * They use the balloon's motion, which is already drift, lift and lean; a
      * canopy hanging in the air and a balloon hanging in the air are the same
@@ -1822,9 +1830,9 @@ function buildScene(canonical) {
     paragliders:
       canonical.id === 'ordu'
         ? [
-            { key: 'glider-0', position: [-21, 58, 18], scale: 2.0, driftSpeed: 1.3, phase: 0.4 },
-            { key: 'glider-1', position: [16, 49, -12], scale: 1.7, driftSpeed: 1.05, phase: 2.2 },
-            { key: 'glider-2', position: [-10, 42, -38], scale: 1.45, driftSpeed: 1.5, phase: 4.1 },
+            { key: 'glider-0', position: [-22, 44, 40], scale: 2.0, driftSpeed: 1.3, phase: 0.4 },
+            { key: 'glider-1', position: [12, 40, 31], scale: 1.8, driftSpeed: 1.05, phase: 2.2 },
+            { key: 'glider-2', position: [-6, 37, 20], scale: 1.6, driftSpeed: 1.5, phase: 4.1 },
           ]
         : [],
     /**

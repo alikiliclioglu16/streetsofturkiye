@@ -3073,3 +3073,43 @@ large so they still read at that distance: canopies of 6.5 to 9 m against a
 
 Held by a test that measures them against the tallest thing standing in the
 scene rather than against a number, so the rule survives a taller hill.
+
+## D-177 — The tilt was the wrong way round, and so was the test (1 Aug 2026)
+
+Perşembe Yaylası came out as a black hole in the sky. The tilt introduced last
+turn (D-175) had the wrong sign.
+
+A rotation about X turns the top normal to (0, cos θ, sin θ). The child stands
+at greater z than the plateau, so the surface faces them only when sin θ is
+positive. At -0.38 the disc was tipped away and what showed was its underside,
+which has no lighting and no texture worth speaking of.
+
+It is +0.38 now, and the pivot moved from eleven metres to fourteen: the near
+lip sits 2.7 m below ground and the far edge at thirty, so the plateau grows out
+of the earth and rises away instead of hanging in the air.
+
+**The test confirmed the bug rather than catching it.** I wrote
+`expect(rotationX).toBeLessThan(-0.2)` — an assertion copied from the value on
+screen instead of derived from what it should be. It now computes the normal and
+requires it to face the child, and separately requires the near edge to reach
+the ground. Both are statements about the world; the old one was a statement
+about my own output.
+
+That is the second time in this project a test has been written to agree with
+the code instead of with the requirement (D-139 was the first, tabbing through
+the canonical option order while the panel shuffled). **A test derived from the
+current behaviour tests nothing.**
+
+## D-178 — The paragliders fly over Boztepe (1 Aug 2026)
+
+Three placements, wrong in two opposite directions before this one.
+
+At 23 to 34 metres they were among the rooftops — Boztepe is 26 m. Raised to 42
+to 58 over the street, they left the frame entirely: a child walking down a
+street does not look ninety degrees up, so canopies directly overhead are
+canopies nobody sees.
+
+They fly over the hill now — twenty to forty metres behind the square, at
+thirty-seven to forty-four up. That is where the launch is, and it is where a
+child turning round finds them: against the hill they came off, which is the
+half of Boztepe the cable car does not tell.

@@ -374,9 +374,29 @@ describe('Ordu stands under a hill', () => {
       (piece) => piece.asset.entry.id === 'city_ordu_persembe_plateau',
     )!;
     expect(plateau).toBeDefined();
-    expect(plateau.rotationX, 'the plateau is standing upright').toBeLessThan(-0.2);
-    // Lifted, so its near lip clears the roofline instead of cutting the street.
-    expect(plateau.position[1]).toBeGreaterThan(8);
+
+    /**
+     * The direction is the whole of it, and my first test got this as wrong as
+     * the placement did — it asserted a negative tilt, which is what was on
+     * screen, so it confirmed the bug instead of catching it.
+     *
+     * A tilt about X turns the top normal to (0, cos θ, sin θ). The child
+     * stands at greater z than the plateau, so the surface faces them only when
+     * **sin θ is positive**. At -0.38 they were shown the underside, which is
+     * unlit: a black hole in the sky.
+     */
+    const topFacesTheChild = Math.sin(plateau.rotationX);
+    expect(topFacesTheChild, 'the child is being shown the underside').toBeGreaterThan(0.15);
+    expect(plateau.position[2]).toBeLessThan(0);
+
+    /**
+     * And it grows out of the ground rather than hanging over it. Tilted, the
+     * near edge drops by half the depth times sin θ; that has to end up at or
+     * below ground level or the plate floats.
+     */
+    const [, , depth] = plateau.asset.entry.dimensions;
+    const nearEdge = plateau.position[1] - (depth / 2) * Math.sin(plateau.rotationX);
+    expect(nearEdge, 'the plateau is floating').toBeLessThanOrEqual(0);
   });
 
   it('flies the paragliders above everything in the city', () => {
