@@ -321,6 +321,26 @@ export const sceneSchema = z
      * second wanted either. A `kit_` asset is shared by definition; *which* one
      * a city uses is the city's business and belongs in its scene.
      */
+    /**
+     * Statues: a delivered model standing on a drawn plinth.
+     *
+     * The plinth is not an asset. A pedestal is a box with a lip on it, and
+     * commissioning one would cost a registry entry and thirty megabytes of
+     * baked texture to get a cuboid — the play bounds are drawn as primitives
+     * for the same reason.
+     */
+    statues: z
+      .array(
+        z.object({
+          assetId: z.string(),
+          position: vec3Schema,
+          rotationY: z.number(),
+          plinthHeight: z.number().positive(),
+          plinthWidth: z.number().positive(),
+          stoneColor: z.string(),
+        }),
+      )
+      .default([]),
     birdAssetId: z.string().nullable().default(null),
     boatAssetId: z.string().nullable().default(null),
     birdPaths: z

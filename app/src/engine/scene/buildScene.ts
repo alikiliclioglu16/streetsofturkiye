@@ -6,6 +6,7 @@ import type { RectCollider } from '@/engine/controls/movement';
 import type { SceneDefinition } from '@/content/schemas/scene';
 import { npcById, type FeaturedNpc } from '@/engine/npc/registry';
 import type { StreetTreeSpec } from '@/components/three/StreetTree';
+import type { StatueMount } from '@/components/three/Statue';
 
 export interface SceneHotspot {
   readonly id: string;
@@ -101,6 +102,7 @@ export interface SceneDescription {
   readonly props: readonly ScenePropInstance[];
   /** Scenery beyond the play area; never solid. */
   readonly backdrop: readonly ScenePropInstance[];
+  readonly statues: readonly StatueMount[];
   readonly water: SceneDefinition['water'];
   readonly musicUrl: string | null;
   readonly groundSurface: SceneDefinition['groundSurface'];
@@ -219,6 +221,16 @@ export function buildScene(city: CityDefinition, quality: QualityTier): SceneDes
       halfDepth: halfW * sin + halfD * cos,
     };
   };
+
+  const statues: StatueMount[] = city.statues.map((statue, index) => ({
+    key: `statue-${index}`,
+    asset: resolveAsset(statue.assetId, quality),
+    position: statue.position,
+    rotationY: statue.rotationY,
+    plinthHeight: statue.plinthHeight,
+    plinthWidth: statue.plinthWidth,
+    stoneColor: statue.stoneColor,
+  }));
 
   const backdrop: ScenePropInstance[] = city.backdrop.map((prop, index) => ({
     key: `backdrop-${index}`,
@@ -371,6 +383,7 @@ export function buildScene(city: CityDefinition, quality: QualityTier): SceneDes
   return {
     cityId: city.id,
     backdrop,
+    statues,
     water: city.water,
     musicUrl: city.musicUrl,
     tramLine: city.tramLine,

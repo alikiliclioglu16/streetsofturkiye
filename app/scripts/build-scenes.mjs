@@ -238,6 +238,42 @@ const MARDIN_PLAIN_SURFACE_FRACTION = 0.3;
  * it by design, and birds turning over a drop are the one thing that can be out
  * there without filling it in.
  */
+/**
+ * A dove at each end of the street, on a plinth.
+ *
+ * Canonical hands Mardin a peace dove for finishing, and gives it a line about
+ * mosques, churches and a monastery standing side by side. A monument at either
+ * end of the walk says that; a bird crossing the sky would not, and neither
+ * delivery is rigged to fly anyway.
+ *
+ * One a side as well as one an end, so they bracket the street diagonally
+ * rather than facing off across it: the open-winged bird stands on the town
+ * side at the monastery end, the carved one on the escarpment side by the
+ * spawn. Each is turned to face down the street a child is walking, because the
+ * carved dove is only 0.71 m deep and edge-on it disappears.
+ *
+ * Both clear of the walking line and of every trigger ring — 2.4 m of plinth
+ * plus a bird is not something to bump into on the way to a stop (D-070).
+ */
+const MARDIN_STATUES = [
+  {
+    assetId: 'kit_mardin_dove_perched',
+    position: [10.5, 0, 18],
+    rotationY: Math.PI,
+    plinthHeight: 2.4,
+    plinthWidth: 1.1,
+    stoneColor: '#C9BFA3',
+  },
+  {
+    assetId: 'kit_mardin_dove_flight',
+    position: [-9.5, 0, -55],
+    rotationY: 0,
+    plinthHeight: 2.4,
+    plinthWidth: 1.1,
+    stoneColor: '#C9BFA3',
+  },
+];
+
 const MARDIN_BIRDS = [
   { centre: [62, 9, -20], radius: 26, rate: 0.036, phase: 0.3, bob: 1.4 },
   { centre: [78, 13, -58], radius: 30, rate: -0.027, phase: 2.4, bob: 1.8 },
@@ -475,14 +511,19 @@ const CITY_SURFACE = {
    */
   bolu: 'forest',
   /**
-   * Cut stone, not red sand.
+   * Sand, and the difference from Gaziantep is carried by colour alone.
    *
-   * Red sand is the region default and it is Gaziantep's street and Nevşehir's.
-   * Mardin's alleys are limestone flags — the same stone the houses are cut
-   * from — so it takes the paving texture and is told apart from the other four
-   * cobbled cities by its colour rather than by its surface.
+   * Cut stone was the reasoned choice — Mardin's alleys are limestone flags —
+   * and the owner looked at it and wanted sand. That settles it: the paving
+   * came from an argument about what Mardin is made of, and the ground is what
+   * a child sees for the whole walk.
+   *
+   * It does put this street on the same texture as Gaziantep's and Nevşehir's,
+   * so the palette is now doing all the work of telling them apart: `#CBBE9A`
+   * here against Gaziantep's `#E0BC7E`, greyer and paler, under a sky that
+   * bleaches toward the horizon rather than warming.
    */
-  mardin: 'cobblestone',
+  mardin: 'redsand',
   kars: 'rock',
 };
 
@@ -3033,6 +3074,7 @@ function buildScene(canonical) {
           ? 'kit_balikesir_pelican'
           : null,
     birdAssetId: ['trabzon', 'balikesir', 'mardin'].includes(canonical.id) ? 'kit_gull' : null,
+    statues: canonical.id === 'mardin' ? MARDIN_STATUES : [],
     birdPaths:
       canonical.id === 'trabzon'
         ? TRABZON_BIRDS

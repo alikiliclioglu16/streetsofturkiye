@@ -451,7 +451,7 @@
     }
   ],
   "musicUrl": "/assets/audio/mardin_theme.webm",
-  "groundSurface": "cobblestone",
+  "groundSurface": "redsand",
   "groundPatches": [],
   "balloons": [],
   "paragliders": [],
@@ -466,6 +466,32 @@
   "boatLines": [],
   "boatAssetId": null,
   "birdAssetId": "kit_gull",
+  "statues": [
+    {
+      "assetId": "kit_mardin_dove_perched",
+      "position": [
+        10.5,
+        0,
+        18
+      ],
+      "rotationY": 3.141592653589793,
+      "plinthHeight": 2.4,
+      "plinthWidth": 1.1,
+      "stoneColor": "#C9BFA3"
+    },
+    {
+      "assetId": "kit_mardin_dove_flight",
+      "position": [
+        -9.5,
+        0,
+        -55
+      ],
+      "rotationY": 0,
+      "plinthHeight": 2.4,
+      "plinthWidth": 1.1,
+      "stoneColor": "#C9BFA3"
+    }
+  ],
   "birdPaths": [
     {
       "centre": [

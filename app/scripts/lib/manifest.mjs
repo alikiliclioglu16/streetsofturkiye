@@ -170,6 +170,8 @@ export const DELIVERED_DIMENSIONS = {
   city_balikesir_cunda_island: [37.68, 16.0, 28.77],
   city_balikesir_manyas_reeds: [13.24, 4.5, 7.24],
   city_balikesir_manyas_islet: [26.52, 5.0, 24.34],
+  kit_mardin_dove_flight: [2.14, 1.6, 2.42],
+  kit_mardin_dove_perched: [2.04, 1.6, 0.71],
   city_mardin_terrace_houses: [15.17, 14.0, 16.11],
   city_mardin_parapet: [3.54, 1.4, 0.55],
   city_mardin_plain: [148.72, 14.0, 139.14],

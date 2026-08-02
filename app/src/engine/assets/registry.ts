@@ -1701,6 +1701,52 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
     notes: 'Delivered 10 m buried 5 m, 29.15 MB; re-authored to 26 m on y = 0 at 2048 base colour, 2.56 MB.',
   },
   {
+    id: 'kit_mardin_dove_flight',
+    modelUrl: '/assets/props/kit_mardin_dove_flight.glb',
+    checksum: '4ce4e5b5cb96d66c9f7db3e2764440c66fc2a953a9164d1fb9d902eda864567b',
+    triangles: 10_325,
+    transferBytes: 731_380,
+    /**
+     * A dove with its wings open, on a plinth at the head of the street.
+     *
+     * Not the flying bird the brief asked for — unrigged, so it cannot be
+     * flown, and it is a statue instead. That is the better idea anyway:
+     * canonical gives Mardin a peace dove as its third reward and a city of
+     * three faiths standing side by side, and a monument says that where a bird
+     * crossing the sky does not.
+     *
+     * Two doves came, and they are genuinely different: this one is 1.5 m deep
+     * with its wings out in three dimensions, the other is 0.45 m deep and
+     * almost a relief. One at each end of the street, so a child meets a
+     * different bird coming and going.
+     */
+    dimensions: [2.14, 1.6, 2.42],
+    label: 'Dove statue, wings open',
+    color: '#DCD8CE',
+    placeholder: 'box',
+    notes: 'Delivered 1 m buried 0.5 m, 18.15 MB; re-authored to 1.6 m on y = 0, 0.70 MB.',
+  },
+  {
+    id: 'kit_mardin_dove_perched',
+    modelUrl: '/assets/props/kit_mardin_dove_perched.glb',
+    checksum: '208ee8eb89bc81939f303b6a08df4c3b1a25dd56d0d157490627f8111bff5e7e',
+    triangles: 10_187,
+    transferBytes: 801_956,
+    /**
+     * The second dove, at the other end of the street.
+     *
+     * Half a metre deep against the other's metre and a half — a carved panel
+     * rather than a bird in the round. It is turned to face along the street
+     * for that reason: seen from the side it is thin, and seen from the front
+     * it reads.
+     */
+    dimensions: [2.04, 1.6, 0.71],
+    label: 'Dove statue, carved',
+    color: '#D8CDBA',
+    placeholder: 'box',
+    notes: 'Delivered 1 m buried 0.5 m, 49.28 MB; re-authored to 1.6 m on y = 0, 0.76 MB.',
+  },
+  {
     id: 'city_mardin_terrace_houses',
     modelUrl: '/assets/city/city_mardin_terrace_houses.glb',
     checksum: '0f95e849f056c3cff90db80e8d7320b11f9f297bb5e69879f4b3cf1097472136',

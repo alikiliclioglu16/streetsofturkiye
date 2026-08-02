@@ -10,6 +10,7 @@ import { WindProp } from '@/components/three/WindProp';
 import { WindSlope } from '@/components/three/WindSlope';
 import { Mist } from '@/components/three/Mist';
 import { Birds } from '@/components/three/Birds';
+import { Statue } from '@/components/three/Statue';
 import { CableCarLine, Train, TrainTrack, Tram } from '@/components/three/Tram';
 import { playFerryHorn } from '@/engine/audio/cues';
 import { Balloons } from '@/components/three/Balloons';
@@ -139,6 +140,11 @@ export function CityScene({
           </group>
         ),
       )}
+
+      {/* Statues: a delivered model on a drawn plinth. */}
+      {scene.statues.map((mount) => (
+        <Statue key={mount.key} mount={mount} />
+      ))}
 
       {/* Cloud crossing Sümela. Weather, so it has to move or it is a stain. */}
       <Mist bands={scene.mistBands} reducedMotion={reducedMotion} />
