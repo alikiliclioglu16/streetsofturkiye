@@ -1,0 +1,699 @@
+{
+  "schemaVersion": "2.0.0",
+  "id": "erzurum",
+  "contentRef": {
+    "cityId": "erzurum"
+  },
+  "canonicalSource": {
+    "sha256": "ed74da639543bd1847d3e970f114e006ec9be8a8d441197a1968afca5a07f995"
+  },
+  "environment": {
+    "kitId": "eastern-anatolia-highland",
+    "timeOfDay": "midday",
+    "ambientAudioId": "ambient_eastern_anatolia",
+    "skyPreset": [
+      "#C4E2F2",
+      "#F0F9FD"
+    ],
+    "groundColor": "#D5C79E"
+  },
+  "guide": {
+    "assetId": "character_keloglan_base"
+  },
+  "spawn": {
+    "position": [
+      0,
+      0,
+      0
+    ],
+    "rotation": [
+      0,
+      3.141592653589793,
+      0
+    ],
+    "scale": [
+      1,
+      1,
+      1
+    ]
+  },
+  "route": {
+    "mode": "guided-loop",
+    "points": [
+      [
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        -14.3
+      ],
+      [
+        -3.4,
+        0,
+        -20.4
+      ],
+      [
+        4.3,
+        0,
+        -28.3
+      ],
+      [
+        0.9,
+        0,
+        -34.4
+      ],
+      [
+        5.3,
+        0,
+        -42.3
+      ],
+      [
+        1.9,
+        0,
+        -48.4
+      ]
+    ],
+    "bounds": [
+      [
+        -15,
+        0,
+        26
+      ],
+      [
+        15,
+        0,
+        26
+      ],
+      [
+        15,
+        0,
+        -59
+      ],
+      [
+        -15,
+        0,
+        -59
+      ]
+    ]
+  },
+  "intro": {
+    "cameraSequenceId": null,
+    "skippable": true
+  },
+  "hotspots": [
+    {
+      "id": "erzurum-hotspot-01",
+      "order": 1,
+      "contentRef": {
+        "stopId": "erzurum-stop-01"
+      },
+      "sceneStatus": "ready",
+      "assetId": "graybox_cami",
+      "assetStatus": "graybox",
+      "transform": {
+        "position": [
+          0,
+          0,
+          -17
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "collider": {
+        "halfWidth": 1.2,
+        "halfDepth": 1.2
+      },
+      "triggerRadius": 5.2,
+      "camera": {
+        "position": [
+          2.3,
+          2.4,
+          -12
+        ],
+        "target": [
+          0,
+          1.1,
+          -17
+        ],
+        "durationMs": 900
+      },
+      "presentation": {
+        "style": "fact-card"
+      },
+      "rewardAssetId": "collectible_erzurum_1",
+      "audio": {
+        "onSuccessId": "sfx_reward_chime"
+      }
+    },
+    {
+      "id": "erzurum-hotspot-02",
+      "order": 2,
+      "contentRef": {
+        "stopId": "erzurum-stop-02"
+      },
+      "sceneStatus": "ready",
+      "assetId": "graybox_dag",
+      "assetStatus": "graybox",
+      "transform": {
+        "position": [
+          4.3,
+          0,
+          -31
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "collider": {
+        "halfWidth": 1.2,
+        "halfDepth": 1.2
+      },
+      "triggerRadius": 5.2,
+      "camera": {
+        "position": [
+          6.6,
+          2.4,
+          -26
+        ],
+        "target": [
+          4.3,
+          1.1,
+          -31
+        ],
+        "durationMs": 900
+      },
+      "presentation": {
+        "style": "fact-card"
+      },
+      "rewardAssetId": "collectible_erzurum_2",
+      "audio": {
+        "onSuccessId": "sfx_reward_chime"
+      }
+    },
+    {
+      "id": "erzurum-hotspot-03",
+      "order": 3,
+      "contentRef": {
+        "stopId": "erzurum-stop-03"
+      },
+      "sceneStatus": "ready",
+      "assetId": "graybox_craft",
+      "assetStatus": "graybox",
+      "transform": {
+        "position": [
+          5.3,
+          0,
+          -45
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "collider": {
+        "halfWidth": 1.2,
+        "halfDepth": 1.2
+      },
+      "triggerRadius": 5.2,
+      "camera": {
+        "position": [
+          7.6,
+          2.4,
+          -40
+        ],
+        "target": [
+          5.3,
+          1.1,
+          -45
+        ],
+        "durationMs": 900
+      },
+      "presentation": {
+        "style": "fact-card"
+      },
+      "rewardAssetId": "collectible_erzurum_3",
+      "audio": {
+        "onSuccessId": "sfx_reward_chime"
+      }
+    }
+  ],
+  "props": [
+    {
+      "assetId": "kit_turkish_flag",
+      "position": [
+        7.5,
+        0,
+        4
+      ],
+      "rotationY": -0.35,
+      "solid": true,
+      "note": "the flag, same place in every city"
+    },
+    {
+      "assetId": "kit_street_lamp",
+      "position": [
+        -11,
+        0,
+        -19.8
+      ],
+      "rotationY": -1.751,
+      "solid": true,
+      "note": "street lamp 1"
+    },
+    {
+      "assetId": "kit_street_lamp",
+      "position": [
+        12,
+        0,
+        -25.4
+      ],
+      "rotationY": 1.691,
+      "solid": true,
+      "note": "street lamp 2"
+    },
+    {
+      "assetId": "kit_street_lamp",
+      "position": [
+        -13,
+        0,
+        -31
+      ],
+      "rotationY": -1.751,
+      "solid": true,
+      "note": "street lamp 3"
+    },
+    {
+      "assetId": "kit_street_lamp",
+      "position": [
+        11,
+        0,
+        -36.6
+      ],
+      "rotationY": 1.691,
+      "solid": true,
+      "note": "street lamp 4"
+    },
+    {
+      "assetId": "kit_street_lamp",
+      "position": [
+        -12,
+        0,
+        -42.2
+      ],
+      "rotationY": -1.751,
+      "solid": true,
+      "note": "street lamp 5"
+    },
+    {
+      "assetId": "kit_bench",
+      "position": [
+        8.2,
+        0,
+        -24.9
+      ],
+      "rotationY": 1.351,
+      "solid": true,
+      "note": "bench 1"
+    },
+    {
+      "assetId": "kit_planter_cypress",
+      "position": [
+        -7.4,
+        0,
+        -29.9
+      ],
+      "rotationY": 0.3,
+      "solid": true,
+      "note": "planter 1"
+    },
+    {
+      "assetId": "kit_bench",
+      "position": [
+        -8.2,
+        0,
+        -34.3
+      ],
+      "rotationY": -1.791,
+      "solid": true,
+      "note": "bench 2"
+    },
+    {
+      "assetId": "kit_planter_cypress",
+      "position": [
+        7.4,
+        0,
+        -39.3
+      ],
+      "rotationY": -0.3,
+      "solid": true,
+      "note": "planter 2"
+    },
+    {
+      "assetId": "kit_planter_cypress",
+      "position": [
+        -7.4,
+        0,
+        -48.6
+      ],
+      "rotationY": 0.3,
+      "solid": true,
+      "note": "planter 3"
+    },
+    {
+      "assetId": "kit_market_stall",
+      "position": [
+        -11,
+        0,
+        -29.4
+      ],
+      "rotationY": 1.221,
+      "solid": true,
+      "note": "stall, west"
+    },
+    {
+      "assetId": "kit_market_stall",
+      "position": [
+        12.5,
+        0,
+        -36.4
+      ],
+      "rotationY": -1.291,
+      "solid": true,
+      "note": "stall, east"
+    },
+    {
+      "assetId": "kit_crates",
+      "position": [
+        -9.2,
+        0,
+        -33.4
+      ],
+      "rotationY": 0.55,
+      "solid": true,
+      "note": "crates by the west stall"
+    },
+    {
+      "assetId": "kit_crates",
+      "position": [
+        11.2,
+        0,
+        -39.4
+      ],
+      "rotationY": -0.9,
+      "solid": true,
+      "note": "crates by the east stall"
+    },
+    {
+      "assetId": "kit_wall_fountain",
+      "position": [
+        9.5,
+        0,
+        -20.4
+      ],
+      "rotationY": -1.371,
+      "solid": true,
+      "note": "fountain, near the start"
+    },
+    {
+      "assetId": "kit_wall_fountain",
+      "position": [
+        -10.5,
+        0,
+        -40
+      ],
+      "rotationY": 1.421,
+      "solid": true,
+      "note": "fountain, near the end"
+    }
+  ],
+  "musicUrl": null,
+  "groundSurface": "steppe",
+  "groundPatches": [],
+  "balloons": [],
+  "paragliders": [],
+  "tramLine": null,
+  "cableCarLine": null,
+  "ferryLine": null,
+  "groundPad": {
+    "x": 2,
+    "front": 2,
+    "back": 2
+  },
+  "boatLines": [],
+  "boatAssetId": null,
+  "birdAssetId": null,
+  "statues": [],
+  "birdPaths": [],
+  "mistBands": [],
+  "canoeLines": [],
+  "trainLine": null,
+  "water": null,
+  "backdrop": [],
+  "animal": "goose",
+  "catRoutes": [
+    [
+      {
+        "x": -10.5,
+        "z": -22.6
+      },
+      {
+        "x": -7,
+        "z": -26.520000000000003
+      }
+    ],
+    [
+      {
+        "x": -9,
+        "z": -24.84
+      },
+      {
+        "x": -5.5,
+        "z": -28.759999999999998
+      }
+    ],
+    [
+      {
+        "x": 9.5,
+        "z": -53
+      },
+      {
+        "x": 6,
+        "z": -60
+      }
+    ]
+  ],
+  "npcs": [
+    {
+      "npcId": "featured_soldier",
+      "position": [
+        10.7,
+        0,
+        -27.5
+      ],
+      "rotationY": 2.4,
+      "walkTo": [
+        9.2,
+        0,
+        -31.7
+      ]
+    },
+    {
+      "npcId": "featured_traveler",
+      "position": [
+        10.7,
+        0,
+        -34
+      ],
+      "rotationY": -2.1,
+      "walkTo": [
+        12.2,
+        0,
+        -38.2
+      ]
+    },
+    {
+      "npcId": "featured_craftsman_male",
+      "position": [
+        11.7,
+        0,
+        -42.4
+      ],
+      "rotationY": 1.9,
+      "walkTo": [
+        10.2,
+        0,
+        -46.6
+      ]
+    }
+  ],
+  "trees": [
+    {
+      "key": "tree-0",
+      "position": [
+        -11,
+        0,
+        -1
+      ],
+      "kind": "shrub",
+      "scale": 0.8,
+      "rotationY": 0
+    },
+    {
+      "key": "tree-1",
+      "position": [
+        14.2,
+        0,
+        -8.4
+      ],
+      "kind": "poplar",
+      "scale": 1.1,
+      "rotationY": 0.646
+    },
+    {
+      "key": "tree-2",
+      "position": [
+        -17.4,
+        0,
+        -15.7
+      ],
+      "kind": "shrub",
+      "scale": 0.9,
+      "rotationY": 1.292
+    },
+    {
+      "key": "tree-3",
+      "position": [
+        12.6,
+        0,
+        -18
+      ],
+      "kind": "shrub",
+      "scale": 1.2,
+      "rotationY": 1.937
+    },
+    {
+      "key": "tree-4",
+      "position": [
+        -15.8,
+        0,
+        -25.4
+      ],
+      "kind": "poplar",
+      "scale": 1,
+      "rotationY": 2.583
+    },
+    {
+      "key": "tree-5",
+      "position": [
+        11,
+        0,
+        -32.7
+      ],
+      "kind": "shrub",
+      "scale": 0.8,
+      "rotationY": 3.229
+    },
+    {
+      "key": "tree-6",
+      "position": [
+        -14.2,
+        0,
+        -35
+      ],
+      "kind": "poplar",
+      "scale": 1.1,
+      "rotationY": 3.875
+    },
+    {
+      "key": "tree-7",
+      "position": [
+        17.4,
+        0,
+        -42.4
+      ],
+      "kind": "shrub",
+      "scale": 0.9,
+      "rotationY": 4.52
+    },
+    {
+      "key": "tree-8",
+      "position": [
+        -12.6,
+        0,
+        -49.7
+      ],
+      "kind": "shrub",
+      "scale": 1.2,
+      "rotationY": 5.166
+    },
+    {
+      "key": "tree-9",
+      "position": [
+        15.8,
+        0,
+        -52
+      ],
+      "kind": "poplar",
+      "scale": 1,
+      "rotationY": 5.812
+    },
+    {
+      "key": "tree-10",
+      "position": [
+        -11,
+        0,
+        -59.4
+      ],
+      "kind": "shrub",
+      "scale": 0.8,
+      "rotationY": 0.175
+    },
+    {
+      "key": "tree-11",
+      "position": [
+        14.2,
+        0,
+        -66.7
+      ],
+      "kind": "poplar",
+      "scale": 1.1,
+      "rotationY": 0.82
+    }
+  ],
+  "quizPresentation": {
+    "shuffleOptions": true
+  },
+  "rewards": {
+    "cityStarId": "star_erzurum",
+    "collectibleAssetIds": [
+      "collectible_erzurum_1",
+      "collectible_erzurum_2",
+      "collectible_erzurum_3"
+    ]
+  },
+  "estimatedMinutes": 3
+}
