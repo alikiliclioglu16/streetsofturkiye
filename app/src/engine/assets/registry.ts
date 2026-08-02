@@ -1810,6 +1810,161 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
     notes: 'Delivered 2 m buried 1 m, 24.69 MB; re-authored to 4.6 m on y = 0, 2.28 MB.',
   },
   {
+    id: 'city_izmir_konak_facades',
+    modelUrl: '/assets/city/city_izmir_konak_facades.glb',
+    checksum: 'c571316fdb94f0964187eeb2d8fec76c7ef67d25874f8da1cdc365566899587a',
+    triangles: 10_033,
+    transferBytes: 1_048_004,
+    /**
+     * The west flank: nineteenth-century Levantine İzmir.
+     *
+     * Shallow — 7.7 m deep against 22 wide — which is what a facade row is and
+     * the opposite of Mardin's terraces. Seven of them to line a 129 m street.
+     */
+    dimensions: [21.99, 13.0, 7.66],
+    label: 'Konak facades',
+    color: '#D9C9A8',
+    placeholder: 'box',
+    notes: 'Delivered 4 m on y = 0, 27.12 MB; re-authored to 13 m, 1.00 MB.',
+  },
+  {
+    id: 'city_izmir_alacati',
+    modelUrl: '/assets/city/city_izmir_alacati.glb',
+    checksum: '45e00255f9330a046c75c1f9d92277d63e231d27531963d2a3007f258c18c238',
+    triangles: 10_028,
+    transferBytes: 1_121_912,
+    /**
+     * Alaçatı: whitewashed stone with blue shutters, and not in the brief.
+     *
+     * It arrived anyway and it earned its place. A 129 m street lined end to
+     * end with one facade row reads as one block copied seven times; with this
+     * the walk *changes* — a child leaves the city and arrives in a village
+     * before the ruins start. Nine metres against Konak's thirteen, so the
+     * skyline drops as they go, which is the same thing said again in
+     * silhouette.
+     */
+    dimensions: [20.97, 9.0, 8.67],
+    label: 'Alaçatı houses',
+    color: '#E6E4DC',
+    placeholder: 'box',
+    notes: 'Delivered 4 m buried 2 m, 27.25 MB; re-authored to 9 m on y = 0, 1.07 MB.',
+  },
+  {
+    id: 'city_izmir_kordon_edge',
+    modelUrl: '/assets/city/city_izmir_kordon_edge.glb',
+    checksum: '67b7572b9db1909d3bd6e0cd3858be0e5387362f44c02344d3714a148743d3d1',
+    triangles: 9_919,
+    transferBytes: 1_117_280,
+    /**
+     * The east flank: the promenade, and the one piece that must not close.
+     *
+     * Seven metres rather than the nine the brief asked for. The gulf is on
+     * this side and a child has to see it between the palm trunks — the ceiling
+     * at 26 m out is 8.3 m, so nine would have been a wall with sky above it
+     * and no water below.
+     */
+    dimensions: [16.45, 7.0, 4.76],
+    label: 'Kordon edge',
+    color: '#BFCBA8',
+    placeholder: 'box',
+    notes: 'Delivered 3 m buried 1.5 m, 29.13 MB; re-authored to 7 m on y = 0, 1.07 MB.',
+  },
+  {
+    id: 'city_izmir_ephesus',
+    modelUrl: '/assets/city/city_izmir_ephesus.glb',
+    checksum: '3df92a8c14c10b3a056c814e59c0b2c8daf2f19dee28cfda863d999f1296d33c',
+    triangles: 10_336,
+    transferBytes: 2_362_232,
+    /**
+     * Ephesus, at the head of a 129 m street.
+     *
+     * Twenty metres and not more, and the reason is the far clip rather than
+     * the ceiling. It is 92 m deep, so its centre sits 46 m past the line it is
+     * aligned to; at 24 m tall the piece grows to 110 m deep and its far edge
+     * lands beyond the camera's 220 m plane, which would cut the hillside off
+     * in mid-air. Twenty puts the far edge at 209 m — inside, with eleven to
+     * spare.
+     *
+     * From the square it is 117 m off against a 29.3 m ceiling, so it stands
+     * whole; at the last stop it is 28 m off against 8.8 m, so a child ends the
+     * walk underneath it.
+     */
+    dimensions: [87.49, 20.0, 92.17],
+    label: 'Ephesus',
+    color: '#CFC6A8',
+    placeholder: 'box',
+    notes: 'Delivered 4 m buried 2 m, 25.20 MB; re-authored to 20 m on y = 0 at 2048 base colour, 2.25 MB.',
+  },
+  {
+    id: 'city_izmir_gulf_shore',
+    modelUrl: '/assets/city/city_izmir_gulf_shore.glb',
+    checksum: 'e99096b244cd5e899c0a3c3252d549464962570d0a81f117763d4b229a133bbd',
+    triangles: 10_110,
+    transferBytes: 855_336,
+    /**
+     * The far side of the bay.
+     *
+     * Square in plan and almost flat — 86 m each way for 12 of height — which
+     * is right for something seen edge-on at a hundred and fifty metres and
+     * would be useless anywhere nearer.
+     *
+     * This is what stops İzmir being Trabzon. Trabzon's sea runs to the horizon
+     * and answers its direction with emptiness; here there is a shore across
+     * the water with buildings on it, and the water is a strait rather than an
+     * ocean.
+     */
+    dimensions: [86.46, 12.0, 86.43],
+    label: 'Gulf far shore',
+    color: '#B8BFB4',
+    placeholder: 'box',
+    notes: 'Delivered 0.26 m tall, 18.87 MB; re-authored to 12 m on y = 0, 0.82 MB.',
+  },
+  {
+    id: 'city_izmir_clock_tower',
+    modelUrl: '/assets/city/city_izmir_clock_tower.glb',
+    checksum: '17fd2df4dd2c1df013ee3d5d5f2da5fb260469028ff319f7708ef6751984357e',
+    triangles: 10_068,
+    transferBytes: 2_338_624,
+    /**
+     * The clock tower, and where it stands is arithmetic rather than taste.
+     *
+     * Eighteen metres needs `(18 - 2.3) / tan 13°` = 68 m of distance before
+     * its cap is inside the frame, and a landmark with its clock face cropped
+     * is a chimney — the same rule the Çifte Minareli Medrese was held to. That
+     * rules out both flanks: at 26 or 34 m out the ceiling is 8 to 10 m.
+     *
+     * So it goes behind the spawn at 70 m, which is where Konak Square is in
+     * the real city anyway — at the seaward end of the Kordon. A child turns
+     * round from the first stop and it is the thing they see.
+     */
+    dimensions: [12.26, 18.0, 12.26],
+    label: 'Konak clock tower',
+    color: '#E8E4DA',
+    placeholder: 'box',
+    notes: 'Delivered 3 m buried 1.5 m, 25.87 MB; re-authored to 18 m on y = 0 at 2048 base colour, 2.23 MB.',
+  },
+  {
+    id: 'kit_izmir_doves_ruin',
+    modelUrl: '/assets/props/kit_izmir_doves_ruin.glb',
+    checksum: 'c53a430f906c9ca90d8b134f5c0a8c1ec543f23e393efed5b96571e1d3d3c8aa',
+    triangles: 10_136,
+    transferBytes: 1_180_728,
+    /**
+     * Doves on a piece of fallen marble — one object rather than birds and
+     * stone placed separately, which is why it can sit in the street rather
+     * than waiting for Konak's square to exist the way the loose pigeons are.
+     *
+     * Two of them, near the clock tower stop, because canonical promises a
+     * child that the square is full of birds and the fact card should not be
+     * the only place that is true.
+     */
+    dimensions: [4.1, 2.0, 4.09],
+    label: 'Doves on ruins',
+    color: '#C9C4B6',
+    placeholder: 'box',
+    notes: 'Delivered 2 m buried 1 m, 28.92 MB; re-authored to 2 m on y = 0, 1.13 MB.',
+  },
+  {
     id: 'kit_izmir_pigeon_walking',
     modelUrl: '/assets/props/kit_izmir_pigeon_walking.glb',
     checksum: 'ceb0065b9d10a810244c94f73ee9b0b1bfc70a9ce587d6fc5c006b8276b350e4',

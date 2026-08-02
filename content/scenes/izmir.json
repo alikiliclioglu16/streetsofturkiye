@@ -550,7 +550,7 @@
   "cableCarLine": null,
   "ferryLine": null,
   "groundPad": {
-    "x": 2,
+    "x": 17,
     "front": 2,
     "back": 2
   },
@@ -630,8 +630,313 @@
   "mistBands": [],
   "canoeLines": [],
   "trainLine": null,
-  "water": null,
-  "backdrop": [],
+  "water": {
+    "centerX": 119,
+    "centerZ": -38,
+    "width": 170,
+    "depth": 320,
+    "color": "#2F8FA8",
+    "still": true
+  },
+  "backdrop": [
+    {
+      "assetId": "city_izmir_konak_facades",
+      "position": [
+        -26,
+        0,
+        24
+      ],
+      "rotationY": 1.5707963267948966,
+      "solid": false,
+      "note": "konak 1"
+    },
+    {
+      "assetId": "city_izmir_konak_facades",
+      "position": [
+        -26,
+        0,
+        4
+      ],
+      "rotationY": 1.5707963267948966,
+      "solid": false,
+      "note": "konak 2"
+    },
+    {
+      "assetId": "city_izmir_konak_facades",
+      "position": [
+        -26,
+        0,
+        -16
+      ],
+      "rotationY": 1.5707963267948966,
+      "solid": false,
+      "note": "konak 3"
+    },
+    {
+      "assetId": "city_izmir_konak_facades",
+      "position": [
+        -26,
+        0,
+        -36
+      ],
+      "rotationY": 1.5707963267948966,
+      "solid": false,
+      "note": "konak 4"
+    },
+    {
+      "assetId": "city_izmir_konak_facades",
+      "position": [
+        -26,
+        0,
+        -56
+      ],
+      "rotationY": 1.5707963267948966,
+      "solid": false,
+      "note": "konak 5"
+    },
+    {
+      "assetId": "city_izmir_alacati",
+      "position": [
+        -26,
+        0,
+        -78
+      ],
+      "rotationY": 1.5707963267948966,
+      "solid": false,
+      "note": "alaçatı 1"
+    },
+    {
+      "assetId": "city_izmir_alacati",
+      "position": [
+        -26,
+        0,
+        -98
+      ],
+      "rotationY": 1.5707963267948966,
+      "solid": false,
+      "note": "alaçatı 2"
+    },
+    {
+      "assetId": "city_izmir_alacati",
+      "position": [
+        -26,
+        0,
+        -118
+      ],
+      "rotationY": 1.5707963267948966,
+      "solid": false,
+      "note": "alaçatı 3"
+    },
+    {
+      "assetId": "city_izmir_alacati",
+      "position": [
+        -26,
+        0,
+        -138
+      ],
+      "rotationY": 1.5707963267948966,
+      "solid": false,
+      "note": "alaçatı 4"
+    },
+    {
+      "assetId": "city_izmir_alacati",
+      "position": [
+        -26,
+        0,
+        -158
+      ],
+      "rotationY": 1.5707963267948966,
+      "solid": false,
+      "note": "alaçatı 5"
+    },
+    {
+      "assetId": "city_izmir_kordon_edge",
+      "position": [
+        26,
+        0,
+        26
+      ],
+      "rotationY": -1.5707963267948966,
+      "solid": false,
+      "note": "kordon 1"
+    },
+    {
+      "assetId": "city_izmir_kordon_edge",
+      "position": [
+        26,
+        0,
+        8
+      ],
+      "rotationY": -1.5707963267948966,
+      "solid": false,
+      "note": "kordon 2"
+    },
+    {
+      "assetId": "city_izmir_kordon_edge",
+      "position": [
+        26,
+        0,
+        -10
+      ],
+      "rotationY": -1.5707963267948966,
+      "solid": false,
+      "note": "kordon 3"
+    },
+    {
+      "assetId": "city_izmir_kordon_edge",
+      "position": [
+        26,
+        0,
+        -28
+      ],
+      "rotationY": -1.5707963267948966,
+      "solid": false,
+      "note": "kordon 4"
+    },
+    {
+      "assetId": "city_izmir_kordon_edge",
+      "position": [
+        26,
+        0,
+        -46
+      ],
+      "rotationY": -1.5707963267948966,
+      "solid": false,
+      "note": "kordon 5"
+    },
+    {
+      "assetId": "city_izmir_kordon_edge",
+      "position": [
+        26,
+        0,
+        -64
+      ],
+      "rotationY": -1.5707963267948966,
+      "solid": false,
+      "note": "kordon 6"
+    },
+    {
+      "assetId": "city_izmir_kordon_edge",
+      "position": [
+        26,
+        0,
+        -82
+      ],
+      "rotationY": -1.5707963267948966,
+      "solid": false,
+      "note": "kordon 7"
+    },
+    {
+      "assetId": "city_izmir_kordon_edge",
+      "position": [
+        26,
+        0,
+        -100
+      ],
+      "rotationY": -1.5707963267948966,
+      "solid": false,
+      "note": "kordon 8"
+    },
+    {
+      "assetId": "city_izmir_gulf_shore",
+      "position": [
+        150,
+        0,
+        -140
+      ],
+      "rotationY": 0,
+      "solid": false,
+      "note": "far shore 1"
+    },
+    {
+      "assetId": "city_izmir_gulf_shore",
+      "position": [
+        150,
+        0,
+        -20
+      ],
+      "rotationY": 3.141592653589793,
+      "solid": false,
+      "note": "far shore 2"
+    },
+    {
+      "assetId": "city_izmir_gulf_shore",
+      "position": [
+        150,
+        0,
+        100
+      ],
+      "rotationY": 0.4,
+      "solid": false,
+      "note": "far shore 3"
+    },
+    {
+      "assetId": "city_izmir_ephesus",
+      "position": [
+        -4,
+        0,
+        -158.09
+      ],
+      "rotationY": 0.05,
+      "solid": true,
+      "note": "Ephesus at the head of the street"
+    },
+    {
+      "assetId": "city_izmir_clock_tower",
+      "position": [
+        -8,
+        0,
+        70
+      ],
+      "rotationY": 0.15,
+      "solid": true,
+      "note": "Konak clock tower"
+    },
+    {
+      "assetId": "city_izmir_konak_facades",
+      "position": [
+        -30,
+        0,
+        44
+      ],
+      "rotationY": 3.241592653589793,
+      "solid": false,
+      "note": "konak back 1"
+    },
+    {
+      "assetId": "city_izmir_konak_facades",
+      "position": [
+        16,
+        0,
+        44
+      ],
+      "rotationY": 3.061592653589793,
+      "solid": false,
+      "note": "konak back 2"
+    },
+    {
+      "assetId": "kit_izmir_doves_ruin",
+      "position": [
+        -19,
+        0,
+        -48
+      ],
+      "rotationY": 0.6,
+      "solid": false,
+      "note": "doves 1"
+    },
+    {
+      "assetId": "kit_izmir_doves_ruin",
+      "position": [
+        19,
+        0,
+        -58
+      ],
+      "rotationY": -1.1,
+      "solid": false,
+      "note": "doves 2"
+    }
+  ],
   "animal": "dog",
   "catRoutes": [
     [

@@ -313,6 +313,42 @@ const ERZURUM_SKIER_LINES = [
  */
 const ERZURUM_WOLF = { position: [-0.73, 26.2, -149.1], rotationY: 0 };
 
+/**
+ * İzmir's two distances, in metres from the spawn. Near-edge lines (D-101).
+ *
+ * The tower's is derived: 18 m of clock tower needs 68 m before its cap clears
+ * the 13° frame, so seventy is the nearest it can stand.
+ */
+const IZMIR_RUINS_NEAR_Z = -112;
+const IZMIR_TOWER_Z = 70;
+
+/**
+ * The Gulf of İzmir, on the **east flank** rather than behind.
+ *
+ * Third water plane after İstanbul's and the two that followed, and the first
+ * one beside the street instead of at the end of it. That is what the Kordon
+ * is — a promenade the length of a bay — and it is also what keeps this city
+ * from being Trabzon a second time.
+ *
+ * Starts at x = 34, four metres past the Kordon's outer edge, and runs to 204;
+ * the far clip is 220 m from the camera, so the water ends at the horizon
+ * rather than at a cut line. Depth covers the whole 129 m street and 90 m
+ * beyond it at each end, because a child at the last stop still has water
+ * beside them.
+ *
+ * Still, like Trabzon's and Balıkesir's: a plane this size rising and falling
+ * as one slab reads as a lid lifting.
+ */
+const IZMIR_GULF = {
+  centerX: 119,
+  centerZ: -38,
+  width: 170,
+  depth: 320,
+  /** Aegean blue: greener and lighter than the Black Sea. */
+  color: '#2F8FA8',
+  still: true,
+};
+
 const ERZURUM_MOUNTAIN_NEAR_Z = -92;
 
 /**
@@ -1854,6 +1890,122 @@ function cityBackdrop(cityId, stopPositions, metrics) {
         rotationY: Math.round(i * 1.1 * 1000) / 1000,
         solid: false,
         note: `olive grove ${i + 1}`,
+      })),
+    ];
+  }
+
+  if (cityId === 'izmir') {
+    /**
+     * A promenade with the gulf on one side and the city on the other.
+     *
+     * First Aegean city, so for once no region table had to be argued with.
+     * The layout is the one decision that mattered, and it moved: the water was
+     * going to sit behind the spawn like Trabzon's and Balıkesir's, and that is
+     * both a third repeat and geographically wrong. **The Kordon runs *along*
+     * the bay** and Konak Square sits at the seaward end of it, so the gulf is
+     * the east flank and the clock tower is what a child turns round to.
+     *
+     * That also solved the tower. Eighteen metres needs 68 m of distance to
+     * keep its cap in frame (D-183) and neither flank offers half of it; behind
+     * the spawn there is as much as it needs.
+     *
+     * Five stops make this street 129 m rather than 85, which is why the flanks
+     * take seven pieces a side and why the walk changes halfway: Konak for the
+     * first two thirds, Alaçatı for the last.
+     */
+    return [
+      /**
+       * Konak's facades, five of them down the near two thirds of the west
+       * flank. Shallow pieces at 20 m centres for a 22 m width, so they overlap
+       * and read as a terrace rather than as five buildings.
+       */
+      ...Array.from({ length: 5 }, (_, i) =>
+        wall('city_izmir_konak_facades', -26, 24 - i * 20, `konak ${i + 1}`),
+      ),
+      /**
+       * Alaçatı takes over past the third stop and runs to the ruins.
+       *
+       * Nine metres against Konak's thirteen, so the skyline steps down as a
+       * child walks out of the city. That is the whole reason to have two
+       * different flanks rather than one repeated.
+       *
+       * It starts at -78 rather than -84 because the sweep found six and a half
+       * metres of bare sky between the last Konak piece and the first of these
+       * — and the fourth stop sits in that gap, which is the worst place in the
+       * street for a hole nobody would see on a plan (D-149).
+       */
+      ...Array.from({ length: 5 }, (_, i) =>
+        wall('city_izmir_alacati', -26, -78 - i * 20, `alaçatı ${i + 1}`),
+      ),
+      /**
+       * The Kordon, seven pieces down the whole east flank.
+       *
+       * Seven metres tall against an 8.3 m ceiling at this distance, so the
+       * palms fill the frame's top edge and the gulf shows underneath them.
+       * Anything taller and the water is gone.
+       */
+      ...Array.from({ length: 8 }, (_, i) =>
+        wall('city_izmir_kordon_edge', 26, 26 - i * 18, `kordon ${i + 1}`),
+      ),
+      /**
+       * The far shore, three plates at x = 150.
+       *
+       * Almost flat and seen edge-on at that range, which is what the delivery
+       * is shaped for. It closes the water without filling it — 12 m at 150 m
+       * is four degrees, a line of buildings on the horizon rather than a wall.
+       */
+      ...[-140, -20, 100].map((z, i) => ({
+        assetId: 'city_izmir_gulf_shore',
+        position: [150, 0, z],
+        rotationY: [0, Math.PI, 0.4][i],
+        solid: false,
+        note: `far shore ${i + 1}`,
+      })),
+      /**
+       * Ephesus, near edge on IZMIR_RUINS_NEAR_Z (D-101). Its centre sits 46 m
+       * further out, which is what pins its height — see the registry note.
+       */
+      {
+        assetId: 'city_izmir_ephesus',
+        position: [-4, 0, IZMIR_RUINS_NEAR_Z - 46.09],
+        rotationY: 0.05,
+        solid: true,
+        note: 'Ephesus at the head of the street',
+      },
+      /**
+       * The clock tower, 70 m behind the spawn — the distance its own height
+       * demands, and where Konak Square is anyway.
+       */
+      {
+        assetId: 'city_izmir_clock_tower',
+        position: [-8, 0, IZMIR_TOWER_Z],
+        rotationY: 0.15,
+        solid: true,
+        note: 'Konak clock tower',
+      },
+      /** Konak's terrace wraps the back, flanking the tower. */
+      ...[-30, 16].map((x, i) => ({
+        assetId: 'city_izmir_konak_facades',
+        position: [x, 0, 44],
+        rotationY: Math.PI + (i === 0 ? 0.1 : -0.08),
+        solid: false,
+        note: `konak back ${i + 1}`,
+      })),
+      /**
+       * Doves on fallen marble, twice, beside the clock tower stop.
+       *
+       * Canonical promises a child that Konak's square is full of birds, and
+       * the fact card should not be the only place that is true. Out at x = 19
+       * so their footprint clears the walking area — a 4.1 m piece placed by
+       * eye is how Balıkesir's olive stands failed their test by twenty
+       * centimetres.
+       */
+      ...[[-19, -48], [19, -58]].map(([x, z], i) => ({
+        assetId: 'kit_izmir_doves_ruin',
+        position: [x, 0, z],
+        rotationY: [0.6, -1.1][i],
+        solid: false,
+        note: `doves ${i + 1}`,
       })),
     ];
   }
@@ -3430,7 +3582,10 @@ function buildScene(canonical) {
                * them or they slide along the edge of nothing.
                */
               { x: 6, front: 2, back: 2 }
-            : { x: 2, front: 2, back: 2 },
+            : canonical.id === 'izmir'
+              ? /** Paving out to the Kordon's palms; the gulf is drawn over its last two metres. */
+                { x: 17, front: 2, back: 2 }
+              : { x: 2, front: 2, back: 2 },
     /**
      * Everything that works a line, in one list.
      *
@@ -3499,7 +3654,9 @@ function buildScene(canonical) {
      * and greener than the sea.
      */
     water:
-      canonical.id === 'balikesir'
+      canonical.id === 'izmir'
+        ? IZMIR_GULF
+        : canonical.id === 'balikesir'
         ? BALIKESIR_LAKE
         : canonical.id === 'trabzon'
           ? TRABZON_SEA
