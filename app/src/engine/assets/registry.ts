@@ -521,8 +521,8 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
     notes: 'Delivered 23.29 MB at 0.5 m buried 0.25 m; re-authored to 1.2 m on y = 0, 0.79 MB.',
   },
   {
-    id: 'city_bolu_chairlift_chair',
-    modelUrl: '/assets/city/city_bolu_chairlift_chair.glb',
+    id: 'kit_chairlift_chair',
+    modelUrl: '/assets/props/kit_chairlift_chair.glb',
     checksum: 'c4eb7b8683082e01b72b3d005ddf76cabf2cb0caaa60e0b93d8bae841dc12e76',
     triangles: 9_956,
     transferBytes: 762404,
@@ -608,9 +608,9 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
   {
     id: 'city_bolu_kartalkaya_peak',
     modelUrl: '/assets/city/city_bolu_kartalkaya_peak.glb',
-    checksum: '32a4b65cfd02cc688627ef35b57ade3c13c5918e06842b1721154f7ef7953f77',
-    triangles: 10_381,
-    transferBytes: 2540868,
+    checksum: '9f0a5627f0c3551a717f2ecf26d4c38729c9629339f31d35a00c4e360cd10e30',
+    triangles: 10_354,
+    transferBytes: 2_601_344,
     /**
      * Kartalkaya, snow on it while the valley below is still turning.
      *
@@ -619,7 +619,21 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
      * Kars's Sarıkamış is bare rock, Van's Erek is scree. Four provinces, four
      * mountains, no two the same colour.
      */
-    dimensions: [72.29, 30.0, 68.5],
+    /**
+     * Twenty-seven metres and change, where it used to be thirty.
+     *
+     * The delivery had a cross standing on its summit — 52 vertices in a
+     * 3.4 by 1.9 m box between y 26.8 and 30, which is a Christian symbol on a
+     * Turkish ski mountain and not a thing anyone asked for. Twenty-seven
+     * triangles were cut out of the mesh and the orphaned vertices pruned, so
+     * the file now measures what it draws.
+     *
+     * The mountain itself has not changed size. Its own summit was always at
+     * 27.67 and the last 2.3 m of the old record was the cross; rescaling to
+     * thirty would have made Bolu's mountain grow, so the number came down
+     * instead of the model going up.
+     */
+    dimensions: [72.3, 27.67, 68.51],
     label: 'Kartalkaya',
     color: '#8FA6B5',
     placeholder: 'box',
@@ -1944,28 +1958,41 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
   {
     id: 'city_erzurum_cifte_minareli',
     modelUrl: '/assets/city/city_erzurum_cifte_minareli.glb',
-    checksum: '1b964668fed996cf6b5d1c841e2c0f749217725de3ee2ce356daa502bd8f0b9b',
+    checksum: 'e218334d6aebaa0841ee4f63c15b7885d59a3bbae294b05166c28c6817eb2af7',
     triangles: 9_665,
     transferBytes: 2_785_932,
     /**
      * The Çifte Minareli Medrese, behind the spawn.
      *
-     * **The one model in this city that must not be cropped.** Palandöken loses
-     * its summit on purpose; a minaret with its finial out of frame is a
-     * chimney. Sixteen metres was a ceiling in the brief rather than a
-     * preference — at 58 m back the frame stops at 16.8 m — and the delivery is
-     * held to it.
+     * Twenty-two metres at 55 m back, and the top seven are outside the default
+     * frame. That is a deliberate reversal.
      *
-     * It came back narrow: 1.16 wide for every one high against a briefed 1.88,
-     * so it is 18.6 m across rather than 30 and cannot close the direction on
-     * its own. The townhouses run a piece past the spawn on both sides to carry
-     * the shoulders.
+     * It went in at sixteen so that nothing was cropped, on the reasoning that
+     * a minaret with its finial out of frame is a chimney. On screen it was too
+     * small to read the carving, and the arithmetic says why: inside the 13°
+     * ceiling (D-183) the largest this can ever be is about 17° of frame — the
+     * ceiling grows with distance at exactly the rate that cancels the gain, so
+     * moving it closer buys almost nothing. Fourteen degrees was already near
+     * the limit.
+     *
+     * So the choice is not *how big* but *whether the tops are cropped*, and it
+     * is the owner's. Twenty-two gives 21.7° — half again as large — and costs
+     * the finials at the default pitch. A child turning round to look at it can
+     * still tilt up to find them.
+     *
+     * Back to sixteen at `ERZURUM_MEDRESE_NEAR_Z = 58` if the crop reads badly;
+     * that is two numbers.
+     *
+     * The delivery is the same mesh as the first one, re-exported into a bigger
+     * normalising box — identical triangle count and identical aspect. The box
+     * a model arrives in has never affected how large it draws (D-124); only
+     * the recorded height does.
      */
-    dimensions: [18.6, 16.0, 10.13],
+    dimensions: [25.57, 22.0, 13.93],
     label: 'Çifte Minareli Medrese',
     color: '#A9906B',
     placeholder: 'box',
-    notes: 'Delivered 6 m buried 3 m, 28.24 MB; re-authored to 16 m on y = 0 at 2048 base colour, 2.66 MB.',
+    notes: 'Delivered 10 m buried 5 m, 28.24 MB; re-authored to 22 m on y = 0 at 2048 base colour, 2.66 MB.',
   },
   {
     id: 'kit_mardin_sweets_cart',

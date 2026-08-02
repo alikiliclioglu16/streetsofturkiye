@@ -355,7 +355,7 @@ describe('Bolu is a forest, not a town with trees in it', () => {
 
   it('carries a chair on its lift, not Ordu\'s gondola', () => {
     expect(scene.cableCarLine).toBeTruthy();
-    expect(scene.cableCarAsset!.entry.id).toBe('city_bolu_chairlift_chair');
+    expect(scene.cableCarAsset!.entry.id).toBe('kit_chairlift_chair');
 
     const ordu = buildScene(loadComposedCity('ordu'), 'high');
     expect(ordu.cableCarAsset!.entry.id).toBe('city_ordu_cable_car');

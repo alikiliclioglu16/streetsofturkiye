@@ -338,6 +338,15 @@ export const sceneSchema = z
      * A flag rather than a shape: there is nothing to place and nothing to
      * measure, and a city either is in winter or is not.
      */
+    /**
+     * Which cabin rides the cable here.
+     *
+     * Resolved from a hard-wired pair until Erzurum wanted a chairlift too —
+     * Bolu's chair or, failing that, Ordu's gondola, which would have hung a
+     * Black Sea cable car over a ski piste. Same generalisation the birds and
+     * the shuttles needed, and for the same reason: the asset is not the motion.
+     */
+    cableCarAssetId: z.string().nullable().default(null),
     snowfall: z.boolean().default(false),
     /**
      * Statues: a delivered model standing on a drawn plinth.

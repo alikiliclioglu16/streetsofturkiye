@@ -714,7 +714,11 @@
     "front": 2,
     "back": 2
   },
-  "boatLines": [],
+  "shuttleLines": [],
+  "birdAssetId": null,
+  "statues": [],
+  "cableCarAssetId": "kit_chairlift_chair",
+  "snowfall": false,
   "birdPaths": [],
   "mistBands": [],
   "canoeLines": [],

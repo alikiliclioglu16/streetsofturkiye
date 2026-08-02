@@ -100,6 +100,7 @@ export interface RuntimeCity {
   birdAssetId: SceneDefinition['birdAssetId'];
   statues: SceneDefinition['statues'];
   shuttleLines: SceneDefinition['shuttleLines'];
+  cableCarAssetId: SceneDefinition['cableCarAssetId'];
   snowfall: SceneDefinition['snowfall'];
   groundPad: SceneDefinition['groundPad'];
   ferryLine: SceneDefinition['ferryLine'];
@@ -215,6 +216,7 @@ export function composeCity(canonical: CanonicalCity, scene: SceneDefinition): R
     birdAssetId: scene.birdAssetId,
     statues: scene.statues,
     shuttleLines: scene.shuttleLines,
+    cableCarAssetId: scene.cableCarAssetId,
     snowfall: scene.snowfall,
     groundPad: scene.groundPad,
     ferryLine: scene.ferryLine,

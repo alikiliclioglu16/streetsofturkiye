@@ -423,12 +423,10 @@ export function buildScene(city: CityDefinition, quality: QualityTier): SceneDes
      * on a ski hill is exactly the borrowing the four-directions rule exists to
      * stop.
      */
-    cableCarAsset: city.cableCarLine
-      ? resolveAsset(
-          city.id === 'bolu' ? 'city_bolu_chairlift_chair' : 'city_ordu_cable_car',
-          quality,
-        )
-      : null,
+    cableCarAsset:
+      city.cableCarLine && city.cableCarAssetId
+        ? resolveAsset(city.cableCarAssetId, quality)
+        : null,
     ferryAsset: city.ferryLine ? resolveAsset('city_istanbul_ferry_boat', quality) : null,
     canoeAsset: city.canoeLines.length ? resolveAsset('city_van_canoe', quality) : null,
     mistBands: city.mistBands,

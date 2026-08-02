@@ -234,6 +234,26 @@ const TRABZON_ROCK_NEAR_Z = -88;
  * runs to ±21 so they read as being *in* the street, and there is no moment
  * where a skier passes through a six-year-old.
  */
+/**
+ * The chairlift up Palandöken.
+ *
+ * Erzurum is a ski province and canonical says Olympic athletes train here, so
+ * the way up the mountain should be visible. Bolu has the same fitting and this
+ * is deliberately the same chair — a chair on a wire is generic, and inventing
+ * a second one would be the borrowed-street-furniture mistake in reverse.
+ *
+ * What is not shared is the line. Bolu's runs across the flank of its hill at
+ * an angle to the street; this one runs **away from the child, straight at the
+ * mountain**, which is what a lift out of a town does and what makes the
+ * mountain feel like somewhere you could go.
+ *
+ * It starts at z = -56, past the end of the play area. There is no bottom
+ * station model for Erzurum yet, and chairs appearing out of nothing beside a
+ * child would be worse than chairs appearing out of nothing sixty metres away.
+ * A station is one to order.
+ */
+const ERZURUM_CHAIRLIFT = { from: [22, -56], to: [8, -92], heights: [6, 25] };
+
 const ERZURUM_SKIER_LINES = [
   {
     assetId: 'kit_erzurum_skier_a',
@@ -270,7 +290,22 @@ const ERZURUM_SKIER_LINES = [
 const ERZURUM_WOLF = { position: [-0.3, 30.5, -147.9], rotationY: 2.4 };
 
 const ERZURUM_MOUNTAIN_NEAR_Z = -92;
-const ERZURUM_MEDRESE_NEAR_Z = 58;
+
+/**
+ * How far Palandöken is sunk below the street.
+ *
+ * The delivery has a black rock plinth under its snow: measured band by band,
+ * the bottom tenth of the model is 72–94% dark and everything above about 15%
+ * is white. Standing it on y = 0 put that plinth on the snow like a slab on a
+ * table, which is what the first screenshot showed.
+ *
+ * Five and a half metres buries it. The mountain loses nothing a child can see
+ * — the snow line lands on the street instead of four metres above it — and the
+ * summit still stands 26.5 m up against a 24.7 m ceiling, so it is cropped from
+ * the square exactly as it was.
+ */
+const ERZURUM_MOUNTAIN_SINK = -5.5;
+const ERZURUM_MEDRESE_NEAR_Z = 50;
 
 const MARDIN_MONASTERY_NEAR_Z = -88;
 const MARDIN_CITADEL_NEAR_Z = 55;
@@ -1797,7 +1832,7 @@ function cityBackdrop(cityId, stopPositions, metrics) {
        */
       {
         assetId: 'city_erzurum_palandoken',
-        position: [2, 0, ERZURUM_MOUNTAIN_NEAR_Z - 38.83],
+        position: [2, ERZURUM_MOUNTAIN_SINK, ERZURUM_MOUNTAIN_NEAR_Z - 38.83],
         rotationY: -0.07,
         solid: true,
         note: 'Palandöken at the head of the street',
@@ -1841,7 +1876,7 @@ function cityBackdrop(cityId, stopPositions, metrics) {
        */
       {
         assetId: 'city_erzurum_cifte_minareli',
-        position: [-3, 0, ERZURUM_MEDRESE_NEAR_Z + 5.07],
+        position: [-3, 0, ERZURUM_MEDRESE_NEAR_Z + 6.97],
         rotationY: 3.05,
         solid: true,
         note: 'Çifte Minareli Medrese',
@@ -3288,6 +3323,9 @@ function buildScene(canonical) {
      * three is about. Ten chairs on the loop, one away every five seconds.
      */
     cableCarLine:
+      canonical.id === 'erzurum'
+        ? ERZURUM_CHAIRLIFT
+        :
       canonical.id === 'bolu'
         ? { from: [21, -40], to: [27, 48] }
         : canonical.id === 'ordu' ? { from: [18, -54], to: [26, 44] } : null,
@@ -3332,6 +3370,18 @@ function buildScene(canonical) {
               : [],
     birdAssetId: ['trabzon', 'balikesir', 'mardin'].includes(canonical.id) ? 'kit_gull' : null,
     statues: canonical.id === 'mardin' ? MARDIN_STATUES : [],
+    /**
+     * Bolu's chair now rides Erzurum's cable too, so it stopped being Bolu's.
+     * Renamed `city_bolu_chairlift_chair` -> `kit_chairlift_chair`: a chair on
+     * a wire is a fitting, not a landmark, and a province name inside a shared
+     * asset is a promise the file cannot keep — the same call the gull needed.
+     */
+    cableCarAssetId:
+      canonical.id === 'ordu'
+        ? 'city_ordu_cable_car'
+        : ['bolu', 'erzurum'].includes(canonical.id)
+          ? 'kit_chairlift_chair'
+          : null,
     snowfall: canonical.id === 'erzurum',
     birdPaths:
       canonical.id === 'trabzon'

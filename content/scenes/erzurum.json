@@ -456,7 +456,20 @@
   "balloons": [],
   "paragliders": [],
   "tramLine": null,
-  "cableCarLine": null,
+  "cableCarLine": {
+    "from": [
+      22,
+      -56
+    ],
+    "to": [
+      8,
+      -92
+    ],
+    "heights": [
+      6,
+      25
+    ]
+  },
   "ferryLine": null,
   "groundPad": {
     "x": 6,
@@ -499,6 +512,7 @@
   ],
   "birdAssetId": null,
   "statues": [],
+  "cableCarAssetId": "kit_chairlift_chair",
   "snowfall": true,
   "birdPaths": [],
   "mistBands": [],
@@ -664,7 +678,7 @@
       "assetId": "city_erzurum_palandoken",
       "position": [
         2,
-        0,
+        -5.5,
         -130.82999999999998
       ],
       "rotationY": -0.07,
@@ -698,7 +712,7 @@
       "position": [
         -3,
         0,
-        63.07
+        56.97
       ],
       "rotationY": 3.05,
       "solid": true,

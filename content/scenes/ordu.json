@@ -630,7 +630,11 @@
     "front": 2,
     "back": 2
   },
-  "boatLines": [],
+  "shuttleLines": [],
+  "birdAssetId": null,
+  "statues": [],
+  "cableCarAssetId": "city_ordu_cable_car",
+  "snowfall": false,
   "birdPaths": [],
   "mistBands": [],
   "canoeLines": [],
