@@ -169,6 +169,37 @@ const VAN_SHORE_Z = -80;
 const BOLU_SHORE_Z = -74;
 const VAN_LAKE_DEPTH = 200;
 
+/**
+ * Trabzon's three distances, in metres from the spawn.
+ *
+ * All three are **near-edge** lines: the face of the thing that stands there,
+ * not its centre. Every piece placed against them adds its own half-depth. A
+ * 78 m valley centred on the boundary is what swallowed Nevşehir's spawn, and
+ * the rule has held since (D-101).
+ *
+ * They are typed once here because Van's shoreline was typed into three places
+ * and moved four times in as many sittings (D-163).
+ */
+const TRABZON_CLIFF_NEAR_Z = -90;
+const TRABZON_WHARF_NEAR_Z = 30;
+
+/**
+ * Where Trabzon's sea begins, fourteen metres out past the wharf.
+ *
+ * **Reserved and not drawn.** The delivered wharf carries no water at all —
+ * not one vertex of it samples blue — so the shore exists and the sea does not.
+ * A long lake plate is coming for this line, and until it does the fishing
+ * boats are held rather than floated on grass, the way Kars's geese and Bolu's
+ * deer were held (D-129).
+ *
+ * When it arrives this is the constant everything on the water is measured off:
+ * the boats, the route they work, and the waterline itself. The owner wants the
+ * plate tilted so its surface reads rather than foreshortening to a sliver, so
+ * the line below is the **near** edge — the hinge it tilts about, and the only
+ * height on it that is still zero.
+ */
+const TRABZON_SEA_NEAR_Z = 44;
+
 const CITY_SURFACE = {
   /**
    * Bolu and Ordu are both Black Sea and could not look less alike: a coast
@@ -215,6 +246,19 @@ const ANIMAL_OVERRIDES = {
    * were held (D-129).
    */
   bolu: 'deer',
+  /**
+   * No animal in Trabzon.
+   *
+   * The Black Sea row gives the region cats, and they were walking here only
+   * because the table said so. Three of the eight open cities would then walk
+   * the same tabbies — İstanbul's, which are famous, Van's, which stand in for
+   * a cat that arrived unrigged, and Trabzon's, which have no reason at all.
+   * Borrowed street furniture reads as a city nobody looked at (D-119), and
+   * Ordu was emptied for exactly this reason.
+   *
+   * Its moving life is the sea behind it: the hamsi boats working the shore.
+   */
+  trabzon: 'none',
 };
 
 /** Which surface each region's streets are laid with. */
@@ -302,6 +346,7 @@ const CITY_THEMES = {
   van: '/assets/audio/van_theme.webm',
   ordu: '/assets/audio/ordu_theme.webm',
   bolu: '/assets/audio/bolu_theme.webm',
+  trabzon: '/assets/audio/trabzon_theme.webm',
 };
 
 /**
@@ -1176,6 +1221,109 @@ function cityBackdrop(cityId, stopPositions, metrics) {
         rotationY: Math.round(i * 1.1 * 1000) / 1000,
         solid: false,
         note: `olive grove ${i + 1}`,
+      })),
+    ];
+  }
+
+  if (cityId === 'trabzon') {
+    /**
+     * A harbour town with its back to the sea, walking up a valley.
+     *
+     * The third province out of the Black Sea table and the one that had to try
+     * hardest, because Ordu already used the coast. So the street runs the other
+     * way: a child spawns on the wharf with the sea *behind* them and walks
+     * inland, and the thing waiting at the far end is rock. Ordu walks toward
+     * its coast with its hill on the flank; this walks away from its coast with
+     * the hill in front.
+     *
+     * Sides: tea terraced into a slope — not Ordu's hazelnut and not Bolu's
+     * forest. Ahead: the Sümela rock with the monastery standing against it.
+     * Behind: the wharf, and the sea it stands on is still missing.
+     */
+    const slopes = 7;
+    /**
+     * The wharf has to stand clear of the water line.
+     *
+     * Its far face is 11.21 m past the line it is aligned to, and if that ever
+     * reaches TRABZON_SEA_NEAR_Z the quay will be standing in the sea the day
+     * the plate arrives. Checked here rather than noticed in a screenshot,
+     * because the two numbers are edited months apart.
+     */
+    if (TRABZON_WHARF_NEAR_Z + 11.21 > TRABZON_SEA_NEAR_Z) {
+      throw new Error('trabzon: the wharf overruns the reserved water line');
+    }
+    return [
+      /**
+       * Seven a side, spaced fourteen metres for a piece that is 15.7 across.
+       *
+       * The overlap is deliberate. This slope tapers to a third of its width by
+       * the top, so spacing it by its own width would close the street at knee
+       * height and leave sky between the shoulders — plan coverage without
+       * height, which is the hole the elevation sweep exists to find (D-149).
+       */
+      ...[-1, 1].flatMap((side) =>
+        Array.from({ length: slopes }, (_, i) =>
+          wall(
+            'city_trabzon_tea_slope',
+            side * 31,
+            24 - i * 14,
+            `tea slope ${side < 0 ? 'west' : 'east'} ${i + 1}`,
+          ),
+        ),
+      ),
+      /**
+       * The rock ahead, near edge aligned on TRABZON_CLIFF_NEAR_Z.
+       *
+       * Aligned by its near face and not its centre: a plate centred on the
+       * boundary is what swallowed Nevşehir's spawn (D-101). The piece is 22 m
+       * deep, so its centre sits 11 m further out than the line it is measured
+       * to.
+       *
+       * Three of them at 29 m centres for a piece 30.75 m across, so they
+       * overlap by about two metres and read as one ridge rather than three
+       * copies of a hill. The overlap is doing more work here than usual: the
+       * delivery is a crag where a sheer face was briefed, and a single crag
+       * would have been the project's fifth rounded mountain.
+       */
+      ...[-29, 0, 29].map((x, i) => ({
+        assetId: 'city_trabzon_sumela_cliff',
+        position: [x, 0, TRABZON_CLIFF_NEAR_Z - 11.02],
+        rotationY: [-0.14, 0.05, 0.19][i],
+        solid: true,
+        note: `Sümela rock ${i + 1}`,
+      })),
+      /**
+       * The monastery, standing at the foot of the rock rather than on it.
+       *
+       * It was briefed onto a ledge at y = 8. The file does not measure like a
+       * building — it tapers the way the crag does — so it is stood on the
+       * ground until a screenshot says otherwise. Twelve metres tall at z = -86
+       * is under the 13.0 m the camera can see from the last stop, so it is in
+       * frame for the whole walk either way.
+       */
+      {
+        assetId: 'city_trabzon_sumela_monastery',
+        position: [-7, 0, -86],
+        rotationY: 0.22,
+        solid: true,
+        note: 'Sümela, against the rock',
+      },
+      /**
+       * The wharf behind the spawn, near edge on TRABZON_WHARF_NEAR_Z.
+       *
+       * Four across at 14.6 m centres for a 14.71 m piece. Seven metres tall
+       * against a ceiling of 10.4 m when a child turns round at the spawn, so
+       * it closes the fourth direction without leaning over the square.
+       *
+       * There is no water in it. The sea belongs beyond TRABZON_SEA_NEAR_Z and
+       * nothing is drawn there yet.
+       */
+      ...[-22, -7.4, 7.2, 21.8].map((x, i) => ({
+        assetId: 'city_trabzon_harbour',
+        position: [x, 0, TRABZON_WHARF_NEAR_Z + 5.61],
+        rotationY: [0.06, -0.03, 0.04, -0.07][i],
+        solid: true,
+        note: `wharf ${i + 1}`,
       })),
     ];
   }

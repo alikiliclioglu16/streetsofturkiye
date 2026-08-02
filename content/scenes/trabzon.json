@@ -450,7 +450,7 @@
       "note": "fountain, near the end"
     }
   ],
-  "musicUrl": null,
+  "musicUrl": "/assets/audio/trabzon_theme.webm",
   "groundSurface": "cobblestone",
   "groundPatches": [],
   "balloons": [],
@@ -461,8 +461,251 @@
   "canoeLines": [],
   "trainLine": null,
   "water": null,
-  "backdrop": [],
-  "animal": "cat",
+  "backdrop": [
+    {
+      "assetId": "city_trabzon_tea_slope",
+      "position": [
+        -31,
+        0,
+        24
+      ],
+      "rotationY": 1.5707963267948966,
+      "solid": false,
+      "note": "tea slope west 1"
+    },
+    {
+      "assetId": "city_trabzon_tea_slope",
+      "position": [
+        -31,
+        0,
+        10
+      ],
+      "rotationY": 1.5707963267948966,
+      "solid": false,
+      "note": "tea slope west 2"
+    },
+    {
+      "assetId": "city_trabzon_tea_slope",
+      "position": [
+        -31,
+        0,
+        -4
+      ],
+      "rotationY": 1.5707963267948966,
+      "solid": false,
+      "note": "tea slope west 3"
+    },
+    {
+      "assetId": "city_trabzon_tea_slope",
+      "position": [
+        -31,
+        0,
+        -18
+      ],
+      "rotationY": 1.5707963267948966,
+      "solid": false,
+      "note": "tea slope west 4"
+    },
+    {
+      "assetId": "city_trabzon_tea_slope",
+      "position": [
+        -31,
+        0,
+        -32
+      ],
+      "rotationY": 1.5707963267948966,
+      "solid": false,
+      "note": "tea slope west 5"
+    },
+    {
+      "assetId": "city_trabzon_tea_slope",
+      "position": [
+        -31,
+        0,
+        -46
+      ],
+      "rotationY": 1.5707963267948966,
+      "solid": false,
+      "note": "tea slope west 6"
+    },
+    {
+      "assetId": "city_trabzon_tea_slope",
+      "position": [
+        -31,
+        0,
+        -60
+      ],
+      "rotationY": 1.5707963267948966,
+      "solid": false,
+      "note": "tea slope west 7"
+    },
+    {
+      "assetId": "city_trabzon_tea_slope",
+      "position": [
+        31,
+        0,
+        24
+      ],
+      "rotationY": -1.5707963267948966,
+      "solid": false,
+      "note": "tea slope east 1"
+    },
+    {
+      "assetId": "city_trabzon_tea_slope",
+      "position": [
+        31,
+        0,
+        10
+      ],
+      "rotationY": -1.5707963267948966,
+      "solid": false,
+      "note": "tea slope east 2"
+    },
+    {
+      "assetId": "city_trabzon_tea_slope",
+      "position": [
+        31,
+        0,
+        -4
+      ],
+      "rotationY": -1.5707963267948966,
+      "solid": false,
+      "note": "tea slope east 3"
+    },
+    {
+      "assetId": "city_trabzon_tea_slope",
+      "position": [
+        31,
+        0,
+        -18
+      ],
+      "rotationY": -1.5707963267948966,
+      "solid": false,
+      "note": "tea slope east 4"
+    },
+    {
+      "assetId": "city_trabzon_tea_slope",
+      "position": [
+        31,
+        0,
+        -32
+      ],
+      "rotationY": -1.5707963267948966,
+      "solid": false,
+      "note": "tea slope east 5"
+    },
+    {
+      "assetId": "city_trabzon_tea_slope",
+      "position": [
+        31,
+        0,
+        -46
+      ],
+      "rotationY": -1.5707963267948966,
+      "solid": false,
+      "note": "tea slope east 6"
+    },
+    {
+      "assetId": "city_trabzon_tea_slope",
+      "position": [
+        31,
+        0,
+        -60
+      ],
+      "rotationY": -1.5707963267948966,
+      "solid": false,
+      "note": "tea slope east 7"
+    },
+    {
+      "assetId": "city_trabzon_sumela_cliff",
+      "position": [
+        -29,
+        0,
+        -101.02
+      ],
+      "rotationY": -0.14,
+      "solid": true,
+      "note": "Sümela rock 1"
+    },
+    {
+      "assetId": "city_trabzon_sumela_cliff",
+      "position": [
+        0,
+        0,
+        -101.02
+      ],
+      "rotationY": 0.05,
+      "solid": true,
+      "note": "Sümela rock 2"
+    },
+    {
+      "assetId": "city_trabzon_sumela_cliff",
+      "position": [
+        29,
+        0,
+        -101.02
+      ],
+      "rotationY": 0.19,
+      "solid": true,
+      "note": "Sümela rock 3"
+    },
+    {
+      "assetId": "city_trabzon_sumela_monastery",
+      "position": [
+        -7,
+        0,
+        -86
+      ],
+      "rotationY": 0.22,
+      "solid": true,
+      "note": "Sümela, against the rock"
+    },
+    {
+      "assetId": "city_trabzon_harbour",
+      "position": [
+        -22,
+        0,
+        35.61
+      ],
+      "rotationY": 0.06,
+      "solid": true,
+      "note": "wharf 1"
+    },
+    {
+      "assetId": "city_trabzon_harbour",
+      "position": [
+        -7.4,
+        0,
+        35.61
+      ],
+      "rotationY": -0.03,
+      "solid": true,
+      "note": "wharf 2"
+    },
+    {
+      "assetId": "city_trabzon_harbour",
+      "position": [
+        7.2,
+        0,
+        35.61
+      ],
+      "rotationY": 0.04,
+      "solid": true,
+      "note": "wharf 3"
+    },
+    {
+      "assetId": "city_trabzon_harbour",
+      "position": [
+        21.8,
+        0,
+        35.61
+      ],
+      "rotationY": -0.07,
+      "solid": true,
+      "note": "wharf 4"
+    }
+  ],
+  "animal": "none",
   "catRoutes": [
     [
       {

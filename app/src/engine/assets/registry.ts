@@ -1640,6 +1640,134 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
     placeholder: 'box',
     notes: 'Root scale 0.9, origin already on the ground.',
   },
+  {
+    id: 'city_trabzon_tea_slope',
+    modelUrl: '/assets/city/city_trabzon_tea_slope.glb',
+    checksum: 'f6288e5ab0f367f9679883f9be6c367884b1d73dfcce1b7b105c56ee0642add5',
+    triangles: 10_406,
+    transferBytes: 860_156,
+    /**
+     * Trabzon's sides: tea terraced into a green slope.
+     *
+     * Deeper than it is wide — 15.7 across for 21.2 back — which is the file's
+     * own proportion and the opposite of what a side piece usually wants. Bolu's
+     * forest row is 3.2 wide for every one high and closes a street in four
+     * pieces; this is 1.2, so it takes six a side. Kept anyway, because the
+     * depth is what a hillside has: the terraces run back away from the street
+     * instead of standing against it like a fence.
+     *
+     * It also tapers hard — full width at the base, a third of it at the top —
+     * so the instances are spaced closer than their width to overlap at height.
+     * A cone-shaped side piece spaced by its own width leaves sky between the
+     * shoulders, which is the hole the elevation sweep looks for.
+     */
+    dimensions: [15.74, 13.0, 21.16],
+    label: 'Tea terraces',
+    color: '#5E8046',
+    placeholder: 'box',
+    notes: 'Delivered 12 m buried 6 m, 23.32 MB; re-authored to 13 m on y = 0, 0.82 MB.',
+  },
+  {
+    id: 'city_trabzon_sumela_cliff',
+    modelUrl: '/assets/city/city_trabzon_sumela_cliff.glb',
+    checksum: 'e025a723f9c0c88faed1a6dd3f001e1ec7877737b64c55c2cd04842770996092',
+    triangles: 10_343,
+    transferBytes: 1_028_636,
+    /**
+     * The rock ahead.
+     *
+     * Briefed as a sheer wall, 2.9 wide for every one high. The file is 1.4 and
+     * its silhouette tapers from full width at the base to about half at the
+     * top, so it is a crag rather than a face. That is a real loss: vertical
+     * was what set Trabzon apart from four rounded mountains elsewhere in the
+     * project, and this is a fifth rounded mass unless three of them stand
+     * shoulder to shoulder and read as one ridge.
+     *
+     * Twenty-two metres, against a ceiling of 24.3 m from the spawn (D-183), so
+     * it stands whole at the start of the street and is cropped by the time a
+     * child reaches the last stop — which is what makes it feel tall.
+     */
+    dimensions: [30.75, 22.0, 22.03],
+    label: 'Sümela rock',
+    color: '#8A8578',
+    placeholder: 'box',
+    notes: 'Delivered 10 m buried 5 m, 29.15 MB; re-authored to 22 m on y = 0, 0.98 MB.',
+  },
+  {
+    id: 'city_trabzon_sumela_monastery',
+    modelUrl: '/assets/city/city_trabzon_sumela_monastery.glb',
+    checksum: 'b204b157fbe6f243265823875dbe02ecc6704774b8953ba40ef975b4be271ab9',
+    triangles: 10_330,
+    transferBytes: 1_030_852,
+    /**
+     * The monastery.
+     *
+     * Briefed at 9 × 4 × 4 to be mounted on a ledge at y = 8. The file measures
+     * 0.98 wide for every one high and tapers like the crag does, which is not
+     * the proportion of a building — it profiles as rock with something built
+     * into it rather than as a building on its own.
+     *
+     * So it stands on the ground in front of the crag at twelve metres instead
+     * of being lifted onto a face that may not be there. Twelve is under the
+     * 13.9 m ceiling at the last stop, so it survives the whole approach either
+     * way, and if a screenshot shows it wants raising that is one number here
+     * and a group offset in the backdrop (D-185).
+     */
+    dimensions: [11.76, 12.0, 9.65],
+    label: 'Sümela Monastery',
+    color: '#9B9083',
+    placeholder: 'box',
+    notes: 'Delivered 10 m buried 5 m, 27.55 MB; re-authored to 12 m on y = 0, 0.98 MB.',
+  },
+  {
+    id: 'city_trabzon_harbour',
+    modelUrl: '/assets/city/city_trabzon_harbour.glb',
+    checksum: '20a9431ba57bfdfa6c2bd5d1a4d0a7851819d5f3004338d61faa2a4f12c0e2b0',
+    triangles: 10_159,
+    transferBytes: 932_300,
+    /**
+     * The wharf behind the spawn.
+     *
+     * **It has no water in it.** Not one vertex of it samples blue, where the
+     * fishing boat is a third blue and the briefed harbour was to carry its own
+     * sea the way every city's water is carried except İstanbul's (D-154).
+     * What arrived is the quay and what stands on it: full width at the base,
+     * narrowing to two fifths for the middle of its height, and a mast or a
+     * derrick in the top tenth.
+     *
+     * So it is the shore and not the sea, and the sea is still missing.
+     */
+    dimensions: [14.71, 7.0, 11.21],
+    label: 'Fishing wharf',
+    color: '#8C8071',
+    placeholder: 'box',
+    notes: 'Delivered 3 m buried 1.5 m, 24.35 MB; re-authored to 7 m on y = 0, 0.89 MB.',
+  },
+  {
+    id: 'kit_trabzon_fishing_boat',
+    modelUrl: '/assets/props/kit_trabzon_fishing_boat.glb',
+    checksum: '7b1ec6506b370eb4dfb9371c55f55e9da18a723cb715b66cf996a9089c457030',
+    triangles: 9_801,
+    transferBytes: 993_272,
+    /**
+     * A hamsi boat, and the only one of the five whose measurements match what
+     * was asked for: 6.05 long against a briefed 7, on a 1.78 aspect.
+     *
+     * Its colour profile reads as a boat without a look — blue through the hull
+     * bands, bare timber in the bottom fifth where a keel is, and a narrow top
+     * tenth that is the wheelhouse. It is the one delivery here that is not
+     * resting on its file name.
+     *
+     * Not placed yet. It has nothing to float on until the lake arrives, and a
+     * boat sitting on grass is worse than no boat — the way Kars's geese and
+     * Bolu's deer were held until they had somewhere to be (D-129).
+     */
+    dimensions: [6.05, 3.4, 2.44],
+    label: 'Hamsi boat',
+    color: '#2E6E9E',
+    placeholder: 'box',
+    notes: 'Delivered 2 m buried 1 m, 24.28 MB; re-authored to 3.4 m on y = 0, 0.95 MB.',
+  },
 ];
 
 export function deliveredProps(): readonly DeliveredProp[] {
