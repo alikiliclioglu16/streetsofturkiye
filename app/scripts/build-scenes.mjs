@@ -81,6 +81,9 @@ const COMMISSIONED_ASSETS = {
   'balikesir:dag': 'city_balikesir_mossy_cascade',
   'balikesir:agac': 'city_balikesir_olive_press',
   'balikesir:tatli': 'city_balikesir_hosmerim_counter',
+  'mardin:ev': 'city_mardin_stone_doorway',
+  'mardin:craft': 'city_mardin_telkari_bench',
+  'mardin:cami': 'city_mardin_minaret_courtyard',
 };
 
 /** Commissioned collectibles, keyed by canonical stop id. */

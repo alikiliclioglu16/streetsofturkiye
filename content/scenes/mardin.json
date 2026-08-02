@@ -48,32 +48,32 @@
       [
         0,
         0,
-        -14.3
+        -15.09
       ],
       [
-        -3.4,
+        -3.49,
         0,
-        -20.4
+        -19.61
       ],
       [
         4.3,
         0,
-        -28.3
+        -28.52
       ],
       [
-        0.9,
+        0.88,
         0,
-        -34.4
+        -34.17
       ],
       [
         5.3,
         0,
-        -42.3
+        -40.84
       ],
       [
-        1.9,
+        0.96,
         0,
-        -48.4
+        -49.86
       ]
     ],
     "bounds": [
@@ -111,8 +111,8 @@
         "stopId": "mardin-stop-01"
       },
       "sceneStatus": "ready",
-      "assetId": "graybox_ev",
-      "assetStatus": "graybox",
+      "assetId": "city_mardin_stone_doorway",
+      "assetStatus": "commissioned",
       "transform": {
         "position": [
           0,
@@ -131,10 +131,10 @@
         ]
       },
       "collider": {
-        "halfWidth": 1.2,
-        "halfDepth": 1.2
+        "halfWidth": 1.295,
+        "halfDepth": 0.41
       },
-      "triggerRadius": 5.2,
+      "triggerRadius": 4.41,
       "camera": {
         "position": [
           2.3,
@@ -143,7 +143,7 @@
         ],
         "target": [
           0,
-          1.1,
+          1.6,
           -17
         ],
         "durationMs": 900
@@ -163,8 +163,8 @@
         "stopId": "mardin-stop-02"
       },
       "sceneStatus": "ready",
-      "assetId": "graybox_craft",
-      "assetStatus": "graybox",
+      "assetId": "city_mardin_telkari_bench",
+      "assetStatus": "commissioned",
       "transform": {
         "position": [
           4.3,
@@ -183,10 +183,10 @@
         ]
       },
       "collider": {
-        "halfWidth": 1.2,
-        "halfDepth": 1.2
+        "halfWidth": 1.215,
+        "halfDepth": 0.975
       },
-      "triggerRadius": 5.2,
+      "triggerRadius": 4.98,
       "camera": {
         "position": [
           6.6,
@@ -195,7 +195,7 @@
         ],
         "target": [
           4.3,
-          1.1,
+          1,
           -31
         ],
         "durationMs": 900
@@ -215,8 +215,8 @@
         "stopId": "mardin-stop-03"
       },
       "sceneStatus": "ready",
-      "assetId": "graybox_cami",
-      "assetStatus": "graybox",
+      "assetId": "city_mardin_minaret_courtyard",
+      "assetStatus": "commissioned",
       "transform": {
         "position": [
           5.3,
@@ -235,19 +235,19 @@
         ]
       },
       "collider": {
-        "halfWidth": 1.2,
-        "halfDepth": 1.2
+        "halfWidth": 2.14,
+        "halfDepth": 2.66
       },
-      "triggerRadius": 5.2,
+      "triggerRadius": 6.66,
       "camera": {
         "position": [
-          7.6,
+          7.9,
           2.4,
-          -40
+          -39.2
         ],
         "target": [
           5.3,
-          1.1,
+          2.1,
           -45
         ],
         "durationMs": 900
@@ -360,17 +360,6 @@
       "rotationY": -1.791,
       "solid": true,
       "note": "bench 2"
-    },
-    {
-      "assetId": "kit_planter_cypress",
-      "position": [
-        7.4,
-        0,
-        -39.3
-      ],
-      "rotationY": -0.3,
-      "solid": true,
-      "note": "planter 2"
     },
     {
       "assetId": "kit_planter_cypress",
@@ -998,13 +987,13 @@
     {
       "npcId": "featured_soldier",
       "position": [
-        10.7,
+        10.5,
         0,
         -27.5
       ],
       "rotationY": 2.4,
       "walkTo": [
-        9.2,
+        9,
         0,
         -31.7
       ]
@@ -1012,13 +1001,13 @@
     {
       "npcId": "featured_traveler",
       "position": [
-        10.7,
+        10.5,
         0,
         -34
       ],
       "rotationY": -2.1,
       "walkTo": [
-        12.2,
+        12,
         0,
         -38.2
       ]
@@ -1026,13 +1015,13 @@
     {
       "npcId": "featured_craftsman_male",
       "position": [
-        11.7,
+        13.2,
         0,
         -42.4
       ],
       "rotationY": 1.9,
       "walkTo": [
-        10.2,
+        11.7,
         0,
         -46.6
       ]

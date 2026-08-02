@@ -1701,6 +1701,101 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
     notes: 'Delivered 10 m buried 5 m, 29.15 MB; re-authored to 26 m on y = 0 at 2048 base colour, 2.56 MB.',
   },
   {
+    id: 'city_mardin_stone_doorway',
+    modelUrl: '/assets/city/city_mardin_stone_doorway.glb',
+    checksum: '0fe401c6aea3cab2cf55934853c409497aff160af973274f91c292f0705cbf6a',
+    triangles: 9_914,
+    transferBytes: 2_275_432,
+    /**
+     * Stop one: the carved doorway.
+     *
+     * The climbing houses are the whole north flank at 14 m; this is the piece
+     * of that a child can stand nose to nose with, which in Mardin is always
+     * the door — the carving is what the city is known for close up.
+     *
+     * A panel rather than a porch: 0.82 m deep against 2.59 wide, and it holds
+     * full width at every height, so there is no reveal to walk into. Turned
+     * square to the street for that reason.
+     *
+     * Its colour census came back three quarters warm red-brown rather than the
+     * honey limestone the brief described. That may be an ornate arch reading
+     * warm, or it may be the wrong stone for a city whose whole subject is
+     * golden light — worth a look on the first screenshot, because a red arch
+     * is Gaziantep's colour and this city is fighting to not be Gaziantep.
+     */
+    dimensions: [2.59, 3.6, 0.82],
+    label: 'Carved doorway',
+    color: '#B98A5C',
+    placeholder: 'box',
+    notes: 'Delivered 2 m buried 1 m, 24.94 MB; re-authored to 3.6 m on y = 0, 2.17 MB.',
+  },
+  {
+    id: 'city_mardin_telkari_bench',
+    modelUrl: '/assets/city/city_mardin_telkari_bench.glb',
+    checksum: '60d44f53c9788ea9d104dade02c79f79244444aca98c97b936615a79651be920',
+    triangles: 9_988,
+    transferBytes: 2_026_944,
+    /**
+     * Stop two: the silversmith's bench.
+     *
+     * The closest of the three to its brief — 1.1 wide for every one high
+     * against a briefed 1.09 — and the one that had the most riding on being
+     * different, because Gaziantep eighty kilometres away has a coppersmith's
+     * bench and the two provinces share a region table.
+     *
+     * The measurements say they are different objects: this is timber and
+     * bright metal with the widest part at three quarters height, where the
+     * copper bench is red through and heaviest at the middle. The silver is
+     * only 6% of the surface and all of it in the top band, which is right —
+     * filigree is small, and that is the point of it.
+     *
+     * 2048, because the Zeugma mosaic taught that fine work at 1024 becomes a
+     * smear (D-057), and telkâri is the finest work in the project.
+     */
+    dimensions: [2.43, 2.2, 1.95],
+    label: 'Telkâri bench',
+    color: '#8A7350',
+    placeholder: 'box',
+    notes: 'Delivered 2 m buried 1 m, 25.59 MB; re-authored to 2.2 m on y = 0, 1.93 MB.',
+  },
+  {
+    id: 'city_mardin_minaret_courtyard',
+    modelUrl: '/assets/city/city_mardin_minaret_courtyard.glb',
+    checksum: 'a36377a7aaf7c12ec5493bb96ebdad7948ee34586c9a45a29b611d259fc9aff5',
+    triangles: 9_663,
+    transferBytes: 2_391_216,
+    /**
+     * Stop three: the courtyard, and **it may only have one tower in it.**
+     *
+     * The canonical line is that mosques, churches and the monastery have stood
+     * side by side for centuries, and the brief asked for two towers of equal
+     * height for exactly that reason — a minaret and a bell tower, neither
+     * bigger than the other, because squashing either one tells a different
+     * story.
+     *
+     * The delivered silhouette does not obviously carry that. Sliced into ten
+     * bands it is full width up to 30%, thin to 50%, **empty between 50 and
+     * 70%**, and then one slender shaft at 11–16% width from 70% to the top.
+     * That reads as a courtyard with a single minaret rising out of it. If
+     * there is a bell tower it is short and it is down among the walls, which
+     * is not side by side.
+     *
+     * Kept and integrated, because it is plainly a minaret courtyard and the
+     * stop works. But this is the one thing in Mardin that a screenshot has to
+     * settle: if there is one tower, the fact card says something the street
+     * does not.
+     *
+     * The largest stop in the project — 4.28 by 5.32 on the ground, which gives
+     * it a 6.7 m trigger ring. The spacing check in `layout` has the last word
+     * on that (D-100).
+     */
+    dimensions: [4.28, 4.6, 5.32],
+    label: 'Minaret courtyard',
+    color: '#C3AC80',
+    placeholder: 'box',
+    notes: 'Delivered 2 m buried 1 m, 24.69 MB; re-authored to 4.6 m on y = 0, 2.28 MB.',
+  },
+  {
     id: 'kit_mardin_dove_flight',
     modelUrl: '/assets/props/kit_mardin_dove_flight.glb',
     checksum: '4ce4e5b5cb96d66c9f7db3e2764440c66fc2a953a9164d1fb9d902eda864567b',
