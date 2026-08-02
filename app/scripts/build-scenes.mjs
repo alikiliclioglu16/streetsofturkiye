@@ -202,6 +202,50 @@ const TRABZON_ROCK_NEAR_Z = -88;
  * its centre (D-101). Typed once, because Van's shoreline was typed into three
  * places and moved four times in as many sittings (D-163).
  */
+/**
+ * Mardin's distances, in metres from the spawn. Near-edge lines (D-101), typed
+ * once (D-163).
+ */
+const MARDIN_MONASTERY_NEAR_Z = -88;
+const MARDIN_CITADEL_NEAR_Z = 55;
+/** The cliff edge. The parapet stands on it and everything past it is air. */
+const MARDIN_PARAPET_X = 16.5;
+
+/**
+ * How far the plain sits below the street, and how far out it starts.
+ *
+ * Mardin is on an escarpment, so this is the one horizon piece in the project
+ * that lives under y = 0. Its own surface is 30% of the way up the model, so
+ * grounding it normally would put the fields 4.2 m above the terrace a child is
+ * standing on — the plateau-in-the-sky failure, in a city where it would be
+ * especially absurd.
+ *
+ * Minus one and a half is shallow on purpose. Deeper looks more like a cliff
+ * and shows less of the plain, because the parapet's top edge is the hinge the
+ * whole view pivots on: at 1.4 m of wall and 16.5 m of street, the eye line
+ * meets the surface 70 m out. Sink it to -6 and that becomes 190 m and there is
+ * nothing left to see.
+ */
+const MARDIN_PLAIN_SURFACE_Y = -1.5;
+const MARDIN_PLAIN_SURFACE_FRACTION = 0.3;
+
+/**
+ * Gulls over Mardin, on the same reasoning as Trabzon's and Balıkesir's: the
+ * frame stops 13° above horizontal (D-183), so a bird overhead is never in it
+ * and the rings have to sit out on the flanks.
+ *
+ * Four of the five are over the plain. That side of the street has nothing in
+ * it by design, and birds turning over a drop are the one thing that can be out
+ * there without filling it in.
+ */
+const MARDIN_BIRDS = [
+  { centre: [62, 9, -20], radius: 26, rate: 0.036, phase: 0.3, bob: 1.4 },
+  { centre: [78, 13, -58], radius: 30, rate: -0.027, phase: 2.4, bob: 1.8 },
+  { centre: [56, 11, 24], radius: 22, rate: 0.031, phase: 4.1, bob: 1.2 },
+  { centre: [-50, 15, -40], radius: 24, rate: -0.022, phase: 5.6, bob: 1.6 },
+  { centre: [90, 10, -6], radius: 28, rate: 0.019, phase: 1.4, bob: 1.1 },
+];
+
 const BALIKESIR_MOUNTAIN_NEAR_Z = -96;
 const BALIKESIR_SHORE_Z = 30;
 /**
@@ -430,6 +474,15 @@ const CITY_SURFACE = {
    * both would make the region read as one place drawn twice.
    */
   bolu: 'forest',
+  /**
+   * Cut stone, not red sand.
+   *
+   * Red sand is the region default and it is Gaziantep's street and Nevşehir's.
+   * Mardin's alleys are limestone flags — the same stone the houses are cut
+   * from — so it takes the paving texture and is told apart from the other four
+   * cobbled cities by its colour rather than by its surface.
+   */
+  mardin: 'cobblestone',
   kars: 'rock',
 };
 
@@ -491,6 +544,15 @@ const ANIMAL_OVERRIDES = {
    * pelicans on the water.
    */
   balikesir: 'none',
+  /**
+   * No cat in Mardin.
+   *
+   * The Southeastern row gives it cats and İstanbul and Van already walk them.
+   * Its moving life is birds over the rooftops, which is what moves over a
+   * stone city with no water in it — and canonical hands over a dove as the
+   * third reward.
+   */
+  mardin: 'none',
 };
 
 /** Which surface each region's streets are laid with. */
@@ -579,6 +641,20 @@ const CITY_PALETTE = {
    * the paving texture, and anything much below 65% lightness swallows it.
    */
   balikesir: { sky: ['#A6D2E4', '#EDE9D6'], ground: '#C3BC9C' },
+  /**
+   * Mardin, bleached.
+   *
+   * Second city out of the Southeastern table and the default is Gaziantep's
+   * to the hex — the same apricot sky and the same warm sand. Eighty kilometres
+   * apart and the same picture.
+   *
+   * What separates them is the light. Gaziantep is a bazaar and reads warm;
+   * Mardin is a terrace over a plain at noon, and its sky bleaches out toward
+   * the horizon so that the far edge of Mesopotamia dissolves into it rather
+   * than ending at a line. Hence the low contrast between the two sky stops and
+   * the paler, greyer stone underfoot.
+   */
+  mardin: { sky: ['#CFDCE2', '#F4EEDF'], ground: '#CBBE9A' },
 };
 
 const CITY_THEMES = {
@@ -591,6 +667,7 @@ const CITY_THEMES = {
   bolu: '/assets/audio/bolu_theme.webm',
   trabzon: '/assets/audio/trabzon_theme.webm',
   balikesir: '/assets/audio/balikesir_theme.webm',
+  mardin: '/assets/audio/mardin_theme.webm',
 };
 
 /**
@@ -1485,6 +1562,90 @@ function cityBackdrop(cityId, stopPositions, metrics) {
         solid: false,
         note: `olive grove ${i + 1}`,
       })),
+    ];
+  }
+
+  if (cityId === 'mardin') {
+    /**
+     * A street along the lip of an escarpment.
+     *
+     * Second Southeastern city, and the region table dressed it as Gaziantep to
+     * the hex — same kit, same red sand, same sky, same ground. Two stone towns
+     * eighty kilometres apart with a metalworking stop each, which is the
+     * closest two provinces have come to being one place drawn twice.
+     *
+     * What separates them is that **one side of this street is empty**. Every
+     * other city closes at least three directions with something tall; Mardin
+     * has the town climbing on the north flank and, on the south, a waist-high
+     * wall and then Mesopotamia. That asymmetry is the city.
+     */
+    const plainDrop =
+      MARDIN_PLAIN_SURFACE_Y - MARDIN_PLAIN_SURFACE_FRACTION * 14;
+    return [
+      /**
+       * The town, eight pieces up the north flank.
+       *
+       * Briefed five at 30 m across; the delivery came back near cubic at 15,
+       * so it takes nine. They run three pieces past the last stop because
+       * Deyrulzafaran is only 34 m wide and cannot fill the front on its own —
+       * the ninth is there because the sweep found a two-degree slit of bare
+       * sky between the monastery's left edge and the eighth house, which is
+       * exactly the kind of hole a plan reading would never show (D-149).
+       */
+      ...Array.from({ length: 9 }, (_, i) =>
+        wall('city_mardin_terrace_houses', -32, 24 - i * 14, `terrace ${i + 1}`),
+      ),
+      /**
+       * The parapet, twenty pieces end to end along the drop.
+       *
+       * Turned a quarter turn so its 3.5 m length runs with the street. Not
+       * solid: the play bounds already stop a child at x = 15 and a collider on
+       * a knee-high wall would only make them bump into something they can see
+       * over.
+       */
+      ...Array.from({ length: 20 }, (_, i) => ({
+        assetId: 'city_mardin_parapet',
+        position: [MARDIN_PARAPET_X, 0, 26 - i * 4.3],
+        rotationY: Math.PI / 2,
+        solid: false,
+        note: `parapet ${i + 1}`,
+      })),
+      /**
+       * Mesopotamia, three plates end to end and sunk below the street.
+       *
+       * Near edge at x = 36 and far edge at 184, which is inside the camera's
+       * 220 m far plane — so the plain runs out to the horizon rather than
+       * stopping at a cut line. Everything closer than 70 m is behind the
+       * parapet anyway.
+       */
+      ...[-120, 0, 120].map((z, i) => ({
+        assetId: 'city_mardin_plain',
+        position: [110, Math.round(plainDrop * 100) / 100, z],
+        rotationY: [0, Math.PI, 0][i],
+        solid: false,
+        note: `plain ${i + 1}`,
+      })),
+      /**
+       * The citadel behind the town, near edge on MARDIN_CITADEL_NEAR_Z.
+       *
+       * Its centre sits 39.8 m further back than the line it is measured to,
+       * because near-edge alignment is the rule (D-101).
+       */
+      {
+        assetId: 'city_mardin_citadel_rock',
+        position: [-6, 0, MARDIN_CITADEL_NEAR_Z + 39.84],
+        rotationY: 0.09,
+        solid: true,
+        note: 'citadel above the town',
+      },
+      /** Deyrulzafaran at the head of the street, near edge aligned. */
+      {
+        assetId: 'city_mardin_deyrulzafaran',
+        position: [-4, 0, MARDIN_MONASTERY_NEAR_Z - 16.96],
+        rotationY: -0.12,
+        solid: true,
+        note: 'Deyrulzafaran',
+      },
     ];
   }
 
@@ -2871,14 +3032,15 @@ function buildScene(canonical) {
         : canonical.id === 'balikesir'
           ? 'kit_balikesir_pelican'
           : null,
-    birdAssetId:
-      canonical.id === 'trabzon' || canonical.id === 'balikesir' ? 'kit_gull' : null,
+    birdAssetId: ['trabzon', 'balikesir', 'mardin'].includes(canonical.id) ? 'kit_gull' : null,
     birdPaths:
       canonical.id === 'trabzon'
         ? TRABZON_BIRDS
         : canonical.id === 'balikesir'
           ? BALIKESIR_BIRDS
-          : [],
+          : canonical.id === 'mardin'
+            ? MARDIN_BIRDS
+            : [],
     mistBands:
       canonical.id === 'trabzon'
         ? TRABZON_MIST

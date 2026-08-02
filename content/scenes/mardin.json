@@ -12,10 +12,10 @@
     "timeOfDay": "midday",
     "ambientAudioId": "ambient_southeastern_anatolia",
     "skyPreset": [
-      "#FFE0B8",
-      "#FFF3DE"
+      "#CFDCE2",
+      "#F4EEDF"
     ],
-    "groundColor": "#E0BC7E"
+    "groundColor": "#CBBE9A"
   },
   "guide": {
     "assetId": "character_keloglan_base"
@@ -450,8 +450,8 @@
       "note": "fountain, near the end"
     }
   ],
-  "musicUrl": null,
-  "groundSurface": "redsand",
+  "musicUrl": "/assets/audio/mardin_theme.webm",
+  "groundSurface": "cobblestone",
   "groundPatches": [],
   "balloons": [],
   "paragliders": [],
@@ -465,14 +465,445 @@
   },
   "boatLines": [],
   "boatAssetId": null,
-  "birdAssetId": null,
-  "birdPaths": [],
+  "birdAssetId": "kit_gull",
+  "birdPaths": [
+    {
+      "centre": [
+        62,
+        9,
+        -20
+      ],
+      "radius": 26,
+      "rate": 0.036,
+      "phase": 0.3,
+      "bob": 1.4
+    },
+    {
+      "centre": [
+        78,
+        13,
+        -58
+      ],
+      "radius": 30,
+      "rate": -0.027,
+      "phase": 2.4,
+      "bob": 1.8
+    },
+    {
+      "centre": [
+        56,
+        11,
+        24
+      ],
+      "radius": 22,
+      "rate": 0.031,
+      "phase": 4.1,
+      "bob": 1.2
+    },
+    {
+      "centre": [
+        -50,
+        15,
+        -40
+      ],
+      "radius": 24,
+      "rate": -0.022,
+      "phase": 5.6,
+      "bob": 1.6
+    },
+    {
+      "centre": [
+        90,
+        10,
+        -6
+      ],
+      "radius": 28,
+      "rate": 0.019,
+      "phase": 1.4,
+      "bob": 1.1
+    }
+  ],
   "mistBands": [],
   "canoeLines": [],
   "trainLine": null,
   "water": null,
-  "backdrop": [],
-  "animal": "cat",
+  "backdrop": [
+    {
+      "assetId": "city_mardin_terrace_houses",
+      "position": [
+        -32,
+        0,
+        24
+      ],
+      "rotationY": 1.5707963267948966,
+      "solid": false,
+      "note": "terrace 1"
+    },
+    {
+      "assetId": "city_mardin_terrace_houses",
+      "position": [
+        -32,
+        0,
+        10
+      ],
+      "rotationY": 1.5707963267948966,
+      "solid": false,
+      "note": "terrace 2"
+    },
+    {
+      "assetId": "city_mardin_terrace_houses",
+      "position": [
+        -32,
+        0,
+        -4
+      ],
+      "rotationY": 1.5707963267948966,
+      "solid": false,
+      "note": "terrace 3"
+    },
+    {
+      "assetId": "city_mardin_terrace_houses",
+      "position": [
+        -32,
+        0,
+        -18
+      ],
+      "rotationY": 1.5707963267948966,
+      "solid": false,
+      "note": "terrace 4"
+    },
+    {
+      "assetId": "city_mardin_terrace_houses",
+      "position": [
+        -32,
+        0,
+        -32
+      ],
+      "rotationY": 1.5707963267948966,
+      "solid": false,
+      "note": "terrace 5"
+    },
+    {
+      "assetId": "city_mardin_terrace_houses",
+      "position": [
+        -32,
+        0,
+        -46
+      ],
+      "rotationY": 1.5707963267948966,
+      "solid": false,
+      "note": "terrace 6"
+    },
+    {
+      "assetId": "city_mardin_terrace_houses",
+      "position": [
+        -32,
+        0,
+        -60
+      ],
+      "rotationY": 1.5707963267948966,
+      "solid": false,
+      "note": "terrace 7"
+    },
+    {
+      "assetId": "city_mardin_terrace_houses",
+      "position": [
+        -32,
+        0,
+        -74
+      ],
+      "rotationY": 1.5707963267948966,
+      "solid": false,
+      "note": "terrace 8"
+    },
+    {
+      "assetId": "city_mardin_terrace_houses",
+      "position": [
+        -32,
+        0,
+        -88
+      ],
+      "rotationY": 1.5707963267948966,
+      "solid": false,
+      "note": "terrace 9"
+    },
+    {
+      "assetId": "city_mardin_parapet",
+      "position": [
+        16.5,
+        0,
+        26
+      ],
+      "rotationY": 1.5707963267948966,
+      "solid": false,
+      "note": "parapet 1"
+    },
+    {
+      "assetId": "city_mardin_parapet",
+      "position": [
+        16.5,
+        0,
+        21.7
+      ],
+      "rotationY": 1.5707963267948966,
+      "solid": false,
+      "note": "parapet 2"
+    },
+    {
+      "assetId": "city_mardin_parapet",
+      "position": [
+        16.5,
+        0,
+        17.4
+      ],
+      "rotationY": 1.5707963267948966,
+      "solid": false,
+      "note": "parapet 3"
+    },
+    {
+      "assetId": "city_mardin_parapet",
+      "position": [
+        16.5,
+        0,
+        13.100000000000001
+      ],
+      "rotationY": 1.5707963267948966,
+      "solid": false,
+      "note": "parapet 4"
+    },
+    {
+      "assetId": "city_mardin_parapet",
+      "position": [
+        16.5,
+        0,
+        8.8
+      ],
+      "rotationY": 1.5707963267948966,
+      "solid": false,
+      "note": "parapet 5"
+    },
+    {
+      "assetId": "city_mardin_parapet",
+      "position": [
+        16.5,
+        0,
+        4.5
+      ],
+      "rotationY": 1.5707963267948966,
+      "solid": false,
+      "note": "parapet 6"
+    },
+    {
+      "assetId": "city_mardin_parapet",
+      "position": [
+        16.5,
+        0,
+        0.20000000000000284
+      ],
+      "rotationY": 1.5707963267948966,
+      "solid": false,
+      "note": "parapet 7"
+    },
+    {
+      "assetId": "city_mardin_parapet",
+      "position": [
+        16.5,
+        0,
+        -4.099999999999998
+      ],
+      "rotationY": 1.5707963267948966,
+      "solid": false,
+      "note": "parapet 8"
+    },
+    {
+      "assetId": "city_mardin_parapet",
+      "position": [
+        16.5,
+        0,
+        -8.399999999999999
+      ],
+      "rotationY": 1.5707963267948966,
+      "solid": false,
+      "note": "parapet 9"
+    },
+    {
+      "assetId": "city_mardin_parapet",
+      "position": [
+        16.5,
+        0,
+        -12.699999999999996
+      ],
+      "rotationY": 1.5707963267948966,
+      "solid": false,
+      "note": "parapet 10"
+    },
+    {
+      "assetId": "city_mardin_parapet",
+      "position": [
+        16.5,
+        0,
+        -17
+      ],
+      "rotationY": 1.5707963267948966,
+      "solid": false,
+      "note": "parapet 11"
+    },
+    {
+      "assetId": "city_mardin_parapet",
+      "position": [
+        16.5,
+        0,
+        -21.299999999999997
+      ],
+      "rotationY": 1.5707963267948966,
+      "solid": false,
+      "note": "parapet 12"
+    },
+    {
+      "assetId": "city_mardin_parapet",
+      "position": [
+        16.5,
+        0,
+        -25.599999999999994
+      ],
+      "rotationY": 1.5707963267948966,
+      "solid": false,
+      "note": "parapet 13"
+    },
+    {
+      "assetId": "city_mardin_parapet",
+      "position": [
+        16.5,
+        0,
+        -29.9
+      ],
+      "rotationY": 1.5707963267948966,
+      "solid": false,
+      "note": "parapet 14"
+    },
+    {
+      "assetId": "city_mardin_parapet",
+      "position": [
+        16.5,
+        0,
+        -34.199999999999996
+      ],
+      "rotationY": 1.5707963267948966,
+      "solid": false,
+      "note": "parapet 15"
+    },
+    {
+      "assetId": "city_mardin_parapet",
+      "position": [
+        16.5,
+        0,
+        -38.5
+      ],
+      "rotationY": 1.5707963267948966,
+      "solid": false,
+      "note": "parapet 16"
+    },
+    {
+      "assetId": "city_mardin_parapet",
+      "position": [
+        16.5,
+        0,
+        -42.8
+      ],
+      "rotationY": 1.5707963267948966,
+      "solid": false,
+      "note": "parapet 17"
+    },
+    {
+      "assetId": "city_mardin_parapet",
+      "position": [
+        16.5,
+        0,
+        -47.099999999999994
+      ],
+      "rotationY": 1.5707963267948966,
+      "solid": false,
+      "note": "parapet 18"
+    },
+    {
+      "assetId": "city_mardin_parapet",
+      "position": [
+        16.5,
+        0,
+        -51.39999999999999
+      ],
+      "rotationY": 1.5707963267948966,
+      "solid": false,
+      "note": "parapet 19"
+    },
+    {
+      "assetId": "city_mardin_parapet",
+      "position": [
+        16.5,
+        0,
+        -55.7
+      ],
+      "rotationY": 1.5707963267948966,
+      "solid": false,
+      "note": "parapet 20"
+    },
+    {
+      "assetId": "city_mardin_plain",
+      "position": [
+        110,
+        -5.7,
+        -120
+      ],
+      "rotationY": 0,
+      "solid": false,
+      "note": "plain 1"
+    },
+    {
+      "assetId": "city_mardin_plain",
+      "position": [
+        110,
+        -5.7,
+        0
+      ],
+      "rotationY": 3.141592653589793,
+      "solid": false,
+      "note": "plain 2"
+    },
+    {
+      "assetId": "city_mardin_plain",
+      "position": [
+        110,
+        -5.7,
+        120
+      ],
+      "rotationY": 0,
+      "solid": false,
+      "note": "plain 3"
+    },
+    {
+      "assetId": "city_mardin_citadel_rock",
+      "position": [
+        -6,
+        0,
+        94.84
+      ],
+      "rotationY": 0.09,
+      "solid": true,
+      "note": "citadel above the town"
+    },
+    {
+      "assetId": "city_mardin_deyrulzafaran",
+      "position": [
+        -4,
+        0,
+        -104.96000000000001
+      ],
+      "rotationY": -0.12,
+      "solid": true,
+      "note": "Deyrulzafaran"
+    }
+  ],
+  "animal": "none",
   "catRoutes": [
     [
       {

@@ -1701,6 +1701,141 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
     notes: 'Delivered 10 m buried 5 m, 29.15 MB; re-authored to 26 m on y = 0 at 2048 base colour, 2.56 MB.',
   },
   {
+    id: 'city_mardin_terrace_houses',
+    modelUrl: '/assets/city/city_mardin_terrace_houses.glb',
+    checksum: '0f95e849f056c3cff90db80e8d7320b11f9f297bb5e69879f4b3cf1097472136',
+    triangles: 9_447,
+    transferBytes: 1_087_196,
+    /**
+     * The north flank: houses stepped up a hillside.
+     *
+     * Briefed 30 m across on a 2.1 aspect and delivered near cubic, so at 14 m
+     * tall it is 15 wide rather than 30 — eight a side instead of five. The
+     * height is what matters and it is kept: anything under about ten metres on
+     * a flank is sky, and this flank has to hold up the whole city.
+     *
+     * Twenty-one degrees from the middle of the street, which is the hardest
+     * any flank in the project closes. That is deliberate — the other side has
+     * nothing at all on it.
+     */
+    dimensions: [15.17, 14.0, 16.11],
+    label: 'Terrace houses',
+    color: '#C9A870',
+    placeholder: 'box',
+    notes: 'Delivered 4 m buried 2 m, 25.59 MB; re-authored to 14 m on y = 0, 1.04 MB.',
+  },
+  {
+    id: 'city_mardin_parapet',
+    modelUrl: '/assets/city/city_mardin_parapet.glb',
+    checksum: '2c7a986fc21c1f003edbce175136d5ca3ded88ab54f4d795b82aa21e4920750f',
+    triangles: 9_436,
+    transferBytes: 830_620,
+    /**
+     * The south edge of the street, and the height is a sightline rather than a
+     * taste.
+     *
+     * A child's camera is 2.3 m up and 16.5 m in from this wall, so the wall
+     * decides where the plain starts being visible: the eye line grazing its
+     * top hits the plain's surface at `(2.3 + 1.5) / ((2.3 − h) / 16.5)` metres
+     * out. At 1.1 m that is 57 m, at 1.4 m it is 70, at 1.6 m it is 90 and at
+     * 2 m the plain is gone entirely.
+     *
+     * One point four. High enough to say *there is a drop here*, low enough
+     * that two thirds of Mesopotamia is still in the frame.
+     *
+     * Delivered on a 2.5 aspect against a briefed 10.9, so it is 3.5 m long
+     * rather than 12 and takes twenty pieces to run the street. That is twenty
+     * draw calls for a wall, which is worth watching after the duplicate prop
+     * pass just gave some back.
+     */
+    dimensions: [3.54, 1.4, 0.55],
+    label: 'Terrace parapet',
+    color: '#C4B18A',
+    placeholder: 'box',
+    notes: 'Delivered 2 m buried 1 m, 22.06 MB; re-authored to 1.4 m on y = 0, 0.79 MB.',
+  },
+  {
+    id: 'city_mardin_plain',
+    modelUrl: '/assets/city/city_mardin_plain.glb',
+    checksum: '9a97a708ce18b647ee4e2d56dc9ea8106b817b2d1fc66f85637d83a65f1983ec',
+    triangles: 10_227,
+    transferBytes: 548_544,
+    /**
+     * Mesopotamia. The lightest file in the project and the most important
+     * model in the city.
+     *
+     * **It is not flat.** Measured: the up-facing surface spans 92% of the
+     * model's own height, so the relief is a fixed 8.7% of its width whatever
+     * scale it is drawn at — 13 m of rise across 149 m. That is rolling country
+     * rather than a table, and at seventy metres and below eye level it reads
+     * as flat enough. It would not at close range, which is why the parapet
+     * hides everything nearer than 70 m.
+     *
+     * Its surface sits at 30% of its height, not at its base, so grounding it
+     * normally would put the fields 4.2 m above the street. It is sunk instead
+     * (D-185): the one horizon piece in the project that lives under y = 0.
+     *
+     * Three of them end to end. The far edge lands at 184 m, inside the 220 m
+     * far clip, so the plain ends at the horizon rather than at a cut line.
+     */
+    dimensions: [148.72, 14.0, 139.14],
+    label: 'Mesopotamian plain',
+    color: '#C6BB8E',
+    placeholder: 'box',
+    notes: 'Delivered 0.5 m buried 0.25 m, 13.26 MB; re-authored to 14 m on y = 0, 0.52 MB.',
+  },
+  {
+    id: 'city_mardin_citadel_rock',
+    modelUrl: '/assets/city/city_mardin_citadel_rock.glb',
+    checksum: '9606f254d509c7238d5e8795ca1daafec638b5b3d87be4628a90df44c0e391d6',
+    triangles: 10_388,
+    transferBytes: 900_016,
+    /**
+     * The citadel above the town, behind the spawn.
+     *
+     * Twenty-four metres with its near face 60 m from the square, where the
+     * camera can see 16.2 (D-183) — so its top eight metres are out of frame
+     * from the start and stay out. Cropped on purpose: that is what standing
+     * under a citadel looks like, and it is the same reasoning Sümela and
+     * Kartalkaya are placed on.
+     *
+     * Eighth tall thing in the project and the eighth colour: bleached
+     * limestone, not the red-brown of Gaziantep's castle mound eighty
+     * kilometres away.
+     */
+    dimensions: [75.92, 24.0, 79.67],
+    label: 'Citadel rock',
+    color: '#B8AD8E',
+    placeholder: 'box',
+    notes: 'Delivered 4 m buried 2 m, 21.94 MB; re-authored to 24 m on y = 0, 0.86 MB.',
+  },
+  {
+    id: 'city_mardin_deyrulzafaran',
+    modelUrl: '/assets/city/city_mardin_deyrulzafaran.glb',
+    checksum: '7ec0ae563e0155aae46c08700db573466094b5f5f8bad72ed26905aeabf50c7b',
+    triangles: 9_919,
+    transferBytes: 2_436_452,
+    /**
+     * The Saffron Monastery, at the head of the street.
+     *
+     * Eighteen metres against a ceiling of 27.7 m from the spawn, so it stands
+     * whole from the square and is cropped as a child walks up to it. One
+     * piece at 2048, because it is the only thing at the end of the street and
+     * three copies of one file read as three copies of one file — which is what
+     * Sümela's crag did before it was made single.
+     *
+     * Delivered at 1.9 wide for every one high against a briefed 2.6, so it is
+     * 34 across rather than 46 and does not fill the front on its own. The
+     * terrace houses run two pieces further forward than the street needs for
+     * exactly that reason.
+     */
+    dimensions: [33.77, 18.0, 33.92],
+    label: 'Deyrulzafaran',
+    color: '#C79B52',
+    placeholder: 'box',
+    notes: 'Delivered 4 m buried 2 m, 24.86 MB; re-authored to 18 m on y = 0 at 2048 base colour, 2.32 MB.',
+  },
+  {
     id: 'city_balikesir_mossy_cascade',
     modelUrl: '/assets/city/city_balikesir_mossy_cascade.glb',
     checksum: 'de52a4f922f6a8d2adb48cbf5cd5c7aa8a676c2cd4369eddf041a5b1d0ffb485',
