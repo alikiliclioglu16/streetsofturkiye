@@ -185,36 +185,78 @@ const VAN_LAKE_DEPTH = 200;
 const TRABZON_ROCK_NEAR_Z = -88;
 
 /**
- * Where the paving stops and Uzungöl begins.
+ * Where the paving stops and Uzungöl's water begins.
  *
- * The ground is drawn to the play bounds plus four metres, so this is that
- * edge and not a number of its own: the lake's near face meets the last row of
- * cobbles with nothing between them. The wharf used to stand two metres past
- * it, which is why it read as ruins floating on the edge of nothing.
+ * The ground is drawn to the play bounds plus four metres, so this is that edge
+ * and not a number of its own: the last row of cobbles and the waterline are
+ * the same line.
  */
-const TRABZON_LAKE_NEAR_Z = 28;
+const TRABZON_LAKE_WATERLINE_Z = 28;
 
 /**
- * How far Uzungöl is tilted back, in radians.
+ * How far Uzungöl is tilted back, in radians. **Negative on purpose.**
  *
  * A bowl seen from a camera 2.3 m off the ground shows its near bank and
- * nothing else. The bank stands 16% of the model's height above its own water
- * and it recedes at the same rate as the lake does, so moving the plate back
- * never uncovers the surface — this is not a distance problem and cannot be
- * solved like one.
+ * nothing else, and moving the plate back never uncovers the surface because
+ * the bank recedes with it. Tilting is the only thing that works.
  *
- * Tilting about the near edge lifts the water without lifting the bank, which
- * is at the hinge. Working the sightline over the bank crest: below about nine
- * degrees no part of the surface clears it, at fourteen degrees a little under
- * two thirds of the water is in view, and past twenty the far mountains start
- * leaving the top of the frame. Fourteen.
+ * The sign is the whole of it, and the first attempt got it backwards. Three's
+ * default Euler order is XYZ, so `rotationY` turns the model and then X tilts
+ * the result about the group's own axis — with the lake behind the child, a
+ * positive angle lifts the *near* edge. It hung in the sky with its underside
+ * showing. Ordu's plateau takes a positive tilt for exactly the opposite
+ * reason: it stands ahead of the child rather than behind them, and the test
+ * that holds it warns that a sign asserted off what is on screen confirms the
+ * bug instead of catching it.
  *
- * The cost is honest and worth writing down: the water is not level. It rises
- * about eight metres over the length of the lake. From this street, which is a
- * corridor and only ever looks at it down one line, it reads as a valley going
- * up and away. From anywhere else it would read as broken.
+ * Fourteen degrees puts 6.8° of water in the frame, about a seventh of its
+ * height. Ten gives 3.9° and reads as a strip; twenty gives 10.5° and takes
+ * eighteen metres off the top of the far mountains.
  */
-const TRABZON_LAKE_TILT = (14 * Math.PI) / 180;
+const TRABZON_LAKE_TILT = (-14 * Math.PI) / 180;
+
+/**
+ * Uzungöl's height, and where the water and the near bank sit inside the file.
+ *
+ * Both fractions are measured, not briefed: 398 vertices whose normals point
+ * straight up form one flat disc at 18% of the model's height, and the bank
+ * that rings it crests at 34%.
+ */
+const TRABZON_LAKE_HEIGHT = 26;
+const TRABZON_LAKE_WATER_FRACTION = 0.18;
+const TRABZON_LAKE_BANK_FRACTION = 0.34;
+
+/**
+ * Sink the rock and let the water out from under the paving.
+ *
+ * Rather than typing a height and a distance and hoping they still agree with
+ * the tilt, both come out of it. Two conditions, solved:
+ *
+ *  1. the near bank crests 0.3 m *below* the ground plane, so the rock is
+ *     buried under the square and what a child sees over the last cobble is
+ *     water and not a rim;
+ *  2. the water surface crosses y = 0 exactly at the edge of the paving.
+ *
+ * Van's shoreline was typed into three places and moved four times in as many
+ * sittings (D-163). This is the same lesson taken one step further: the numbers
+ * are not typed at all.
+ */
+function trabzonLake() {
+  const h = TRABZON_LAKE_HEIGHT;
+  const half = 58.68 / 2;
+  const sin = Math.sin(-TRABZON_LAKE_TILT);
+  const cos = Math.cos(-TRABZON_LAKE_TILT);
+  const water = TRABZON_LAKE_WATER_FRACTION * h;
+  const bank = TRABZON_LAKE_BANK_FRACTION * h;
+
+  // 1 — bury the bank crest, which sits at the model's near edge.
+  const y = -0.3 - (bank * cos - half * sin);
+  // 2 — put the waterline on the edge of the paving.
+  const zLocal = -(y + water * cos) / sin;
+  const z = TRABZON_LAKE_WATERLINE_Z - (-water * sin + zLocal * cos);
+
+  return { y: Math.round(y * 100) / 100, z: Math.round(z * 100) / 100 };
+}
 
 const CITY_SURFACE = {
   /**
@@ -1257,10 +1299,7 @@ function cityBackdrop(cityId, stopPositions, metrics) {
      * lake, tilted so a child can see its surface rather than its bank.
      */
     const slopes = 9;
-    /** The lake meets the last row of cobbles; nothing stands between them. */
-    if (TRABZON_LAKE_NEAR_Z !== 26 + 2) {
-      throw new Error('trabzon: the lake no longer meets the edge of the paving');
-    }
+    const lake = trabzonLake();
     return [
       /**
        * Nine a side, spaced fourteen metres for a piece that is 15.7 across.
@@ -1315,31 +1354,24 @@ function cityBackdrop(cityId, stopPositions, metrics) {
         note: 'Sümela, at the head of the valley',
       },
       /**
-       * Uzungöl, hinged on the edge of the paving and tilted back.
+       * Uzungöl, sunk until its rock is under the square.
        *
-       * Three numbers, and each of them is derived rather than chosen:
+       * Everything about where it sits is derived in `trabzonLake()` rather
+       * than typed: the tilt is the one number chosen, and the height and the
+       * distance fall out of it. Change the angle and the lake stays welded to
+       * the edge of the paving.
        *
-       * - **rotationY = π.** The file is a wedge, low at one end and high at
-       *   the other, with the water in the low half. Turned this way the water
-       *   is near and the mountains are far, which is the composition anyway.
-       * - **rotationX = 14°.** See TRABZON_LAKE_TILT. Under nine degrees the
-       *   surface is entirely behind its own bank.
-       * - **y = 0.98.** The lake is 26 m tall and its water sits 4.68 m up
-       *   inside it; the tilt drops the near shore by 23.4 · sin 14° = 5.66 m.
-       *   The difference is what puts the waterline exactly on the ground plane
-       *   where a child stands, so the cobbles run into the water instead of
-       *   ending above it.
-       *
-       * Solid, so a child cannot walk out into the lake. The bounds already
-       * stop them 2 m short of it, and this is the belt to that brace.
+       * `solid` is false. The model reaches 16 m back under the square once it
+       * is sunk, and a collider on it would wall a child off inside their own
+       * spawn. The play bounds already stop them two metres short of the water.
        */
       {
         assetId: 'city_trabzon_uzungol',
-        position: [0, 0.98, TRABZON_LAKE_NEAR_Z + 29.34],
+        position: [0, lake.y, lake.z],
         rotationY: Math.PI,
         rotationX: TRABZON_LAKE_TILT,
-        solid: true,
-        note: 'Uzungöl, tilted 14° so its surface reads',
+        solid: false,
+        note: 'Uzungöl, rock buried, water out from under the paving',
       },
     ];
   }

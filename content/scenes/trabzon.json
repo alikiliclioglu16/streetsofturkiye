@@ -719,13 +719,13 @@
       "assetId": "city_trabzon_uzungol",
       "position": [
         0,
-        0.98,
-        57.34
+        -1.78,
+        40.21
       ],
       "rotationY": 3.141592653589793,
-      "rotationX": 0.24434609527920614,
-      "solid": true,
-      "note": "Uzungöl, tilted 14° so its surface reads"
+      "rotationX": -0.24434609527920614,
+      "solid": false,
+      "note": "Uzungöl, rock buried, water out from under the paving"
     }
   ],
   "animal": "none",
