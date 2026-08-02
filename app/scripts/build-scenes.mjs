@@ -170,35 +170,48 @@ const BOLU_SHORE_Z = -74;
 const VAN_LAKE_DEPTH = 200;
 
 /**
- * Trabzon's three distances, in metres from the spawn.
+ * Trabzon's two distances, in metres from the spawn.
  *
- * All three are **near-edge** lines: the face of the thing that stands there,
- * not its centre. Every piece placed against them adds its own half-depth. A
- * 78 m valley centred on the boundary is what swallowed Nevşehir's spawn, and
- * the rule has held since (D-101).
+ * Both are **near-edge** lines: the face of the thing that stands there, not
+ * its centre. Every piece placed against them adds its own half-depth. A 78 m
+ * valley centred on the boundary is what swallowed Nevşehir's spawn (D-101).
  *
  * They are typed once here because Van's shoreline was typed into three places
  * and moved four times in as many sittings (D-163).
  */
-const TRABZON_CLIFF_NEAR_Z = -90;
-const TRABZON_WHARF_NEAR_Z = 30;
+const TRABZON_ROCK_NEAR_Z = -88;
 
 /**
- * Where Trabzon's sea begins, fourteen metres out past the wharf.
+ * Where the paving stops and Uzungöl begins.
  *
- * **Reserved and not drawn.** The delivered wharf carries no water at all —
- * not one vertex of it samples blue — so the shore exists and the sea does not.
- * A long lake plate is coming for this line, and until it does the fishing
- * boats are held rather than floated on grass, the way Kars's geese and Bolu's
- * deer were held (D-129).
- *
- * When it arrives this is the constant everything on the water is measured off:
- * the boats, the route they work, and the waterline itself. The owner wants the
- * plate tilted so its surface reads rather than foreshortening to a sliver, so
- * the line below is the **near** edge — the hinge it tilts about, and the only
- * height on it that is still zero.
+ * The ground is drawn to the play bounds plus four metres, so this is that
+ * edge and not a number of its own: the lake's near face meets the last row of
+ * cobbles with nothing between them. The wharf used to stand two metres past
+ * it, which is why it read as ruins floating on the edge of nothing.
  */
-const TRABZON_SEA_NEAR_Z = 44;
+const TRABZON_LAKE_NEAR_Z = 28;
+
+/**
+ * How far Uzungöl is tilted back, in radians.
+ *
+ * A bowl seen from a camera 2.3 m off the ground shows its near bank and
+ * nothing else. The bank stands 16% of the model's height above its own water
+ * and it recedes at the same rate as the lake does, so moving the plate back
+ * never uncovers the surface — this is not a distance problem and cannot be
+ * solved like one.
+ *
+ * Tilting about the near edge lifts the water without lifting the bank, which
+ * is at the hinge. Working the sightline over the bank crest: below about nine
+ * degrees no part of the surface clears it, at fourteen degrees a little under
+ * two thirds of the water is in view, and past twenty the far mountains start
+ * leaving the top of the frame. Fourteen.
+ *
+ * The cost is honest and worth writing down: the water is not level. It rises
+ * about eight metres over the length of the lake. From this street, which is a
+ * corridor and only ever looks at it down one line, it reads as a valley going
+ * up and away. From anywhere else it would read as broken.
+ */
+const TRABZON_LAKE_TILT = (14 * Math.PI) / 180;
 
 const CITY_SURFACE = {
   /**
@@ -1227,39 +1240,36 @@ function cityBackdrop(cityId, stopPositions, metrics) {
 
   if (cityId === 'trabzon') {
     /**
-     * A harbour town with its back to the sea, walking up a valley.
+     * A lake town with its back to the water, walking up a valley.
      *
      * The third province out of the Black Sea table and the one that had to try
      * hardest, because Ordu already used the coast. So the street runs the other
-     * way: a child spawns on the wharf with the sea *behind* them and walks
-     * inland, and the thing waiting at the far end is rock. Ordu walks toward
-     * its coast with its hill on the flank; this walks away from its coast with
-     * the hill in front.
+     * way: a child spawns with Uzungöl *behind* them and walks inland, and the
+     * thing waiting at the far end is Sümela. Ordu walks toward its water with
+     * its hill on the flank; this walks away from its water with the rock in
+     * front.
      *
-     * Sides: tea terraced into a slope — not Ordu's hazelnut and not Bolu's
-     * forest. Ahead: the Sümela rock with the monastery standing against it.
-     * Behind: the wharf, and the sea it stands on is still missing.
+     * Sides: tea terraced into a slope, nine a side, closing in as the valley
+     * narrows toward the rock. Ahead: Sümela, one piece and large. Behind: the
+     * lake, tilted so a child can see its surface rather than its bank.
      */
-    const slopes = 7;
-    /**
-     * The wharf has to stand clear of the water line.
-     *
-     * Its far face is 11.21 m past the line it is aligned to, and if that ever
-     * reaches TRABZON_SEA_NEAR_Z the quay will be standing in the sea the day
-     * the plate arrives. Checked here rather than noticed in a screenshot,
-     * because the two numbers are edited months apart.
-     */
-    if (TRABZON_WHARF_NEAR_Z + 11.21 > TRABZON_SEA_NEAR_Z) {
-      throw new Error('trabzon: the wharf overruns the reserved water line');
+    const slopes = 9;
+    /** The lake meets the last row of cobbles; nothing stands between them. */
+    if (TRABZON_LAKE_NEAR_Z !== 26 + 2) {
+      throw new Error('trabzon: the lake no longer meets the edge of the paving');
     }
     return [
       /**
-       * Seven a side, spaced fourteen metres for a piece that is 15.7 across.
+       * Nine a side, spaced fourteen metres for a piece that is 15.7 across.
        *
        * The overlap is deliberate. This slope tapers to a third of its width by
        * the top, so spacing it by its own width would close the street at knee
        * height and leave sky between the shoulders — plan coverage without
        * height, which is the hole the elevation sweep exists to find (D-149).
+       *
+       * Seven became nine when the three rocks ahead became one: a single 36 m
+       * mass leaves the front corners open where 92 m of ridge did not, and the
+       * last two a side are what the valley narrows to.
        */
       ...[-1, 1].flatMap((side) =>
         Array.from({ length: slopes }, (_, i) =>
@@ -1272,59 +1282,62 @@ function cityBackdrop(cityId, stopPositions, metrics) {
         ),
       ),
       /**
-       * The rock ahead, near edge aligned on TRABZON_CLIFF_NEAR_Z.
+       * Two more a side flanking the lake, pushed out to x = ±36.
        *
-       * Aligned by its near face and not its centre: a plate centred on the
-       * boundary is what swallowed Nevşehir's spawn (D-101). The piece is 22 m
-       * deep, so its centre sits 11 m further out than the line it is measured
-       * to.
+       * The sweep found twenty-eight degrees of open sky behind the spawn: the
+       * slopes stopped at z = +24 and the lake is only 55 m across, so the back
+       * corners were the gap between them. Out at 36 rather than 31 because the
+       * slope is 21 m deep and would otherwise sit seven metres inside the
+       * lake's outer bank.
        *
-       * Three of them at 29 m centres for a piece 30.75 m across, so they
-       * overlap by about two metres and read as one ridge rather than three
-       * copies of a hill. The overlap is doing more work here than usual: the
-       * delivery is a crag where a sheer face was briefed, and a single crag
-       * would have been the project's fifth rounded mountain.
+       * It is also what the place looks like. Tea comes down to the water at
+       * Uzungöl; that is the whole postcard.
        */
-      ...[-29, 0, 29].map((x, i) => ({
-        assetId: 'city_trabzon_sumela_cliff',
-        position: [x, 0, TRABZON_CLIFF_NEAR_Z - 11.02],
-        rotationY: [-0.14, 0.05, 0.19][i],
-        solid: true,
-        note: `Sümela rock ${i + 1}`,
-      })),
+      ...[-1, 1].flatMap((side) =>
+        [38, 52].map((z, i) =>
+          wall('city_trabzon_tea_slope', side * 36, z, `lakeside tea ${side < 0 ? 'west' : 'east'} ${i + 1}`),
+        ),
+      ),
       /**
-       * The monastery, standing at the foot of the rock rather than on it.
+       * Sümela: one piece, near edge on TRABZON_ROCK_NEAR_Z.
        *
-       * It was briefed onto a ledge at y = 8. The file does not measure like a
-       * building — it tapers the way the crag does — so it is stood on the
-       * ground until a screenshot says otherwise. Twelve metres tall at z = -86
-       * is under the 13.0 m the camera can see from the last stop, so it is in
-       * frame for the whole walk either way.
+       * Aligned by its near face and not its centre (D-101), so its centre sits
+       * 13 m further out than the line it is measured to.
        */
       {
-        assetId: 'city_trabzon_sumela_monastery',
-        position: [-7, 0, -86],
-        rotationY: 0.22,
+        assetId: 'city_trabzon_sumela_cliff',
+        position: [0, 0, TRABZON_ROCK_NEAR_Z - 13.02],
+        rotationY: 0.06,
         solid: true,
-        note: 'Sümela, against the rock',
+        note: 'Sümela, at the head of the valley',
       },
       /**
-       * The wharf behind the spawn, near edge on TRABZON_WHARF_NEAR_Z.
+       * Uzungöl, hinged on the edge of the paving and tilted back.
        *
-       * Four across at 14.6 m centres for a 14.71 m piece. Seven metres tall
-       * against a ceiling of 10.4 m when a child turns round at the spawn, so
-       * it closes the fourth direction without leaning over the square.
+       * Three numbers, and each of them is derived rather than chosen:
        *
-       * There is no water in it. The sea belongs beyond TRABZON_SEA_NEAR_Z and
-       * nothing is drawn there yet.
+       * - **rotationY = π.** The file is a wedge, low at one end and high at
+       *   the other, with the water in the low half. Turned this way the water
+       *   is near and the mountains are far, which is the composition anyway.
+       * - **rotationX = 14°.** See TRABZON_LAKE_TILT. Under nine degrees the
+       *   surface is entirely behind its own bank.
+       * - **y = 0.98.** The lake is 26 m tall and its water sits 4.68 m up
+       *   inside it; the tilt drops the near shore by 23.4 · sin 14° = 5.66 m.
+       *   The difference is what puts the waterline exactly on the ground plane
+       *   where a child stands, so the cobbles run into the water instead of
+       *   ending above it.
+       *
+       * Solid, so a child cannot walk out into the lake. The bounds already
+       * stop them 2 m short of it, and this is the belt to that brace.
        */
-      ...[-22, -7.4, 7.2, 21.8].map((x, i) => ({
-        assetId: 'city_trabzon_harbour',
-        position: [x, 0, TRABZON_WHARF_NEAR_Z + 5.61],
-        rotationY: [0.06, -0.03, 0.04, -0.07][i],
+      {
+        assetId: 'city_trabzon_uzungol',
+        position: [0, 0.98, TRABZON_LAKE_NEAR_Z + 29.34],
+        rotationY: Math.PI,
+        rotationX: TRABZON_LAKE_TILT,
         solid: true,
-        note: `wharf ${i + 1}`,
-      })),
+        note: 'Uzungöl, tilted 14° so its surface reads',
+      },
     ];
   }
 

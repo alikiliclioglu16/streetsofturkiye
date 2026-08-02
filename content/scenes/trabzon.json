@@ -542,6 +542,28 @@
     {
       "assetId": "city_trabzon_tea_slope",
       "position": [
+        -31,
+        0,
+        -74
+      ],
+      "rotationY": 1.5707963267948966,
+      "solid": false,
+      "note": "tea slope west 8"
+    },
+    {
+      "assetId": "city_trabzon_tea_slope",
+      "position": [
+        -31,
+        0,
+        -88
+      ],
+      "rotationY": 1.5707963267948966,
+      "solid": false,
+      "note": "tea slope west 9"
+    },
+    {
+      "assetId": "city_trabzon_tea_slope",
+      "position": [
         31,
         0,
         24
@@ -617,15 +639,70 @@
       "note": "tea slope east 7"
     },
     {
-      "assetId": "city_trabzon_sumela_cliff",
+      "assetId": "city_trabzon_tea_slope",
       "position": [
-        -29,
+        31,
         0,
-        -101.02
+        -74
       ],
-      "rotationY": -0.14,
-      "solid": true,
-      "note": "Sümela rock 1"
+      "rotationY": -1.5707963267948966,
+      "solid": false,
+      "note": "tea slope east 8"
+    },
+    {
+      "assetId": "city_trabzon_tea_slope",
+      "position": [
+        31,
+        0,
+        -88
+      ],
+      "rotationY": -1.5707963267948966,
+      "solid": false,
+      "note": "tea slope east 9"
+    },
+    {
+      "assetId": "city_trabzon_tea_slope",
+      "position": [
+        -36,
+        0,
+        38
+      ],
+      "rotationY": 1.5707963267948966,
+      "solid": false,
+      "note": "lakeside tea west 1"
+    },
+    {
+      "assetId": "city_trabzon_tea_slope",
+      "position": [
+        -36,
+        0,
+        52
+      ],
+      "rotationY": 1.5707963267948966,
+      "solid": false,
+      "note": "lakeside tea west 2"
+    },
+    {
+      "assetId": "city_trabzon_tea_slope",
+      "position": [
+        36,
+        0,
+        38
+      ],
+      "rotationY": -1.5707963267948966,
+      "solid": false,
+      "note": "lakeside tea east 1"
+    },
+    {
+      "assetId": "city_trabzon_tea_slope",
+      "position": [
+        36,
+        0,
+        52
+      ],
+      "rotationY": -1.5707963267948966,
+      "solid": false,
+      "note": "lakeside tea east 2"
     },
     {
       "assetId": "city_trabzon_sumela_cliff",
@@ -633,76 +710,22 @@
         0,
         0,
         -101.02
-      ],
-      "rotationY": 0.05,
-      "solid": true,
-      "note": "Sümela rock 2"
-    },
-    {
-      "assetId": "city_trabzon_sumela_cliff",
-      "position": [
-        29,
-        0,
-        -101.02
-      ],
-      "rotationY": 0.19,
-      "solid": true,
-      "note": "Sümela rock 3"
-    },
-    {
-      "assetId": "city_trabzon_sumela_monastery",
-      "position": [
-        -7,
-        0,
-        -86
-      ],
-      "rotationY": 0.22,
-      "solid": true,
-      "note": "Sümela, against the rock"
-    },
-    {
-      "assetId": "city_trabzon_harbour",
-      "position": [
-        -22,
-        0,
-        35.61
       ],
       "rotationY": 0.06,
       "solid": true,
-      "note": "wharf 1"
+      "note": "Sümela, at the head of the valley"
     },
     {
-      "assetId": "city_trabzon_harbour",
+      "assetId": "city_trabzon_uzungol",
       "position": [
-        -7.4,
         0,
-        35.61
+        0.98,
+        57.34
       ],
-      "rotationY": -0.03,
+      "rotationY": 3.141592653589793,
+      "rotationX": 0.24434609527920614,
       "solid": true,
-      "note": "wharf 2"
-    },
-    {
-      "assetId": "city_trabzon_harbour",
-      "position": [
-        7.2,
-        0,
-        35.61
-      ],
-      "rotationY": 0.04,
-      "solid": true,
-      "note": "wharf 3"
-    },
-    {
-      "assetId": "city_trabzon_harbour",
-      "position": [
-        21.8,
-        0,
-        35.61
-      ],
-      "rotationY": -0.07,
-      "solid": true,
-      "note": "wharf 4"
+      "note": "Uzungöl, tilted 14° so its surface reads"
     }
   ],
   "animal": "none",

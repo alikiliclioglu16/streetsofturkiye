@@ -1670,78 +1670,67 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
   {
     id: 'city_trabzon_sumela_cliff',
     modelUrl: '/assets/city/city_trabzon_sumela_cliff.glb',
-    checksum: 'e025a723f9c0c88faed1a6dd3f001e1ec7877737b64c55c2cd04842770996092',
+    checksum: '2817f830eb629620028be254ae5738f5b9368c6e74ba4e47dde0ed99bfdd7069',
     triangles: 10_343,
-    transferBytes: 1_028_636,
+    transferBytes: 2_679_536,
     /**
-     * The rock ahead.
+     * The rock ahead, and the monastery is in it.
      *
-     * Briefed as a sheer wall, 2.9 wide for every one high. The file is 1.4 and
-     * its silhouette tapers from full width at the base to about half at the
-     * top, so it is a crag rather than a face. That is a real loss: vertical
-     * was what set Trabzon apart from four rounded mountains elsewhere in the
-     * project, and this is a fifth rounded mass unless three of them stand
-     * shoulder to shoulder and read as one ridge.
+     * It went in as three of these shoulder to shoulder, on the reading that a
+     * crag standing alone would be the project's fifth rounded mountain. That
+     * was wrong in the way a plan reading usually is: three copies of one file
+     * side by side read as three copies of one file, and the monastery — which
+     * is the whole subject — was a third of the size it could have been in each
+     * of them.
      *
-     * Twenty-two metres, against a ceiling of 24.3 m from the spawn (D-183), so
-     * it stands whole at the start of the street and is cropped by the time a
-     * child reaches the last stop — which is what makes it feel tall.
+     * One piece at 26 m, and the base colour went back up to 2048 with it. The
+     * texture budget was set when this was one of three pieces of scenery; it
+     * is now the only thing at the end of the street and the only place a child
+     * sees Sümela at all, so it is a stop object in everything but name.
+     *
+     * Twenty-six is the tallest it can be and still show its buildings from the
+     * square: they sit between two fifths and three quarters of its height, so
+     * their top is at 19.5 m against a ceiling of 23.8 m from the spawn (D-183).
+     * Walking up to it crops the upper half, which is the right way round —
+     * a child ends up standing under it.
      */
-    dimensions: [30.75, 22.0, 22.03],
-    label: 'Sümela rock',
+    dimensions: [36.34, 26.0, 26.03],
+    label: 'Sümela',
     color: '#8A8578',
     placeholder: 'box',
-    notes: 'Delivered 10 m buried 5 m, 29.15 MB; re-authored to 22 m on y = 0, 0.98 MB.',
+    notes: 'Delivered 10 m buried 5 m, 29.15 MB; re-authored to 26 m on y = 0 at 2048 base colour, 2.56 MB.',
   },
   {
-    id: 'city_trabzon_sumela_monastery',
-    modelUrl: '/assets/city/city_trabzon_sumela_monastery.glb',
-    checksum: 'b204b157fbe6f243265823875dbe02ecc6704774b8953ba40ef975b4be271ab9',
-    triangles: 10_330,
-    transferBytes: 1_030_852,
+    id: 'city_trabzon_uzungol',
+    modelUrl: '/assets/city/city_trabzon_uzungol.glb',
+    checksum: '5941e5a5e11cce77f04fc382b296ae775fda7d446cac7cfb3ef2994357feb7db',
+    triangles: 10_332,
+    transferBytes: 1_028_764,
     /**
-     * The monastery.
+     * Uzungöl, and it replaces the wharf entirely.
      *
-     * Briefed at 9 × 4 × 4 to be mounted on a ledge at y = 8. The file measures
-     * 0.98 wide for every one high and tapers like the crag does, which is not
-     * the proportion of a building — it profiles as rock with something built
-     * into it rather than as a building on its own.
+     * The wharf read as neither a wharf nor as facing anywhere, and it had no
+     * water in it, so the direction a child turns round to was a row of dark
+     * ruins standing on the edge of nothing. This is the whole answer instead:
+     * a lake with its valley and the mountains behind it.
      *
-     * So it stands on the ground in front of the crag at twelve metres instead
-     * of being lifted onto a face that may not be there. Twelve is under the
-     * 13.9 m ceiling at the last stop, so it survives the whole approach either
-     * way, and if a screenshot shows it wants raising that is one number here
-     * and a group offset in the backdrop (D-185).
+     * **It is a bowl, and bowls are the case rotationX exists for.** The flat
+     * water reads at 18% of the model's height with a bank standing 16% above
+     * it all the way round — from a camera 2.3 m off the ground the near bank
+     * hides the water completely, and no amount of moving it back helps because
+     * the bank recedes with it. Measured, not guessed: below about nine degrees
+     * of tilt not one square metre of the surface is visible.
+     *
+     * The water is green rather than blue and almost nothing in the file
+     * samples as water by colour. What identifies it is the geometry — 398
+     * vertices whose normals point straight up, clustered in one flat disc
+     * across two thirds of the footprint. A lake is the only thing that is.
      */
-    dimensions: [11.76, 12.0, 9.65],
-    label: 'Sümela Monastery',
-    color: '#9B9083',
+    dimensions: [55.1, 26.0, 58.68],
+    label: 'Uzungöl',
+    color: '#5C7A4E',
     placeholder: 'box',
-    notes: 'Delivered 10 m buried 5 m, 27.55 MB; re-authored to 12 m on y = 0, 0.98 MB.',
-  },
-  {
-    id: 'city_trabzon_harbour',
-    modelUrl: '/assets/city/city_trabzon_harbour.glb',
-    checksum: '20a9431ba57bfdfa6c2bd5d1a4d0a7851819d5f3004338d61faa2a4f12c0e2b0',
-    triangles: 10_159,
-    transferBytes: 932_300,
-    /**
-     * The wharf behind the spawn.
-     *
-     * **It has no water in it.** Not one vertex of it samples blue, where the
-     * fishing boat is a third blue and the briefed harbour was to carry its own
-     * sea the way every city's water is carried except İstanbul's (D-154).
-     * What arrived is the quay and what stands on it: full width at the base,
-     * narrowing to two fifths for the middle of its height, and a mast or a
-     * derrick in the top tenth.
-     *
-     * So it is the shore and not the sea, and the sea is still missing.
-     */
-    dimensions: [14.71, 7.0, 11.21],
-    label: 'Fishing wharf',
-    color: '#8C8071',
-    placeholder: 'box',
-    notes: 'Delivered 3 m buried 1.5 m, 24.35 MB; re-authored to 7 m on y = 0, 0.89 MB.',
+    notes: 'Delivered 1 m buried 0.5 m, 26.45 MB; re-authored to 26 m on y = 0, 0.98 MB.',
   },
   {
     id: 'kit_trabzon_fishing_boat',
