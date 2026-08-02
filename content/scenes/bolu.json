@@ -726,6 +726,18 @@
   "water": null,
   "backdrop": [
     {
+      "assetId": "city_bolu_yedigoller_lake",
+      "position": [
+        0,
+        -9.2,
+        -87.2
+      ],
+      "rotationY": 0.08,
+      "rotationX": 0.4886921905584123,
+      "solid": true,
+      "note": "Yedigöller, tilted so its water reads"
+    },
+    {
       "assetId": "city_bolu_forest_row",
       "position": [
         -31,

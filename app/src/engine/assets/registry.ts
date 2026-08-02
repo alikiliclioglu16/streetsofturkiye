@@ -606,6 +606,43 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
     notes: 'Delivered 4 m buried 2 m; re-authored to 9 m on y = 0, 0.99 MB.',
   },
   {
+    id: 'city_bolu_yedigoller_lake',
+    modelUrl: '/assets/city/city_bolu_yedigoller_lake.glb',
+    checksum: 'bfe2ef1e0de7b545c6f3001e6ff687ca1454aaf635577d792b913d05a7b16fe4',
+    triangles: 10_147,
+    transferBytes: 2_928_040,
+    /**
+     * Yedigöller, opposite Kartalkaya.
+     *
+     * Bolu's backdrop has named the far shore of this lake since the city
+     * opened — three forest rows at z = -108 and -115 with `the far shore of
+     * Yedigöller` written in their note — and there has never been a lake in
+     * front of them. This is it.
+     *
+     * **It is a bowl, and bowls do not stand on the ground.** Measured: the
+     * water lies at 31% of the model's height and the rim around it crests
+     * between 87% and 95%, so the shore is more than half the model's height
+     * above its own water. Set flat on y = 0 a child sees a snowy bank and
+     * nothing inside it — which is what Uzungöl was, and this is the same file
+     * family that taught it.
+     *
+     * So it is tilted 28°, and every other number falls out of that: the near
+     * rim lands on the ground at z = -60, just past the play bounds, and the
+     * far rim reaches -107, one metre in front of the forest rows that have
+     * been waiting for it. 76% of the water surface clears the sightline over
+     * its own near rim.
+     *
+     * 2048 is earned rather than assumed: 51 m of lake at 50 m away is 54° of
+     * frame, about 1,555 pixels, so 2048 is only 1.3× oversampled. Halving it
+     * would be the one place in the recent trim where detail was actually lost.
+     */
+    dimensions: [51.27, 11.0, 51.21],
+    label: 'Yedigöller',
+    color: '#8FA3A8',
+    placeholder: 'box',
+    notes: 'Delivered 0.41 m tall, 35.83 MB; re-authored to 11 m on y = 0 at 2048 base colour, 2.79 MB.',
+  },
+  {
     id: 'city_bolu_kartalkaya_peak',
     modelUrl: '/assets/city/city_bolu_kartalkaya_peak.glb',
     checksum: '9f0a5627f0c3551a717f2ecf26d4c38729c9629339f31d35a00c4e360cd10e30',

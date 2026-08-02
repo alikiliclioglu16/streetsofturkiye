@@ -2588,7 +2588,39 @@ function cityBackdrop(cityId, stopPositions, metrics) {
      * close a street that would have taken four narrower pieces.
      */
     const stands = 3;
+    /**
+     * Yedigöller, at last.
+     *
+     * The far shore has been in this scene since Bolu opened — three forest
+     * rows with `the far shore of Yedigöller` in their note — with nothing in
+     * front of them. The lake was measured then and set aside: it is snow-white
+     * where this street is October amber, and that has not changed. The owner
+     * has looked at both and asked for it, which is the call that matters here.
+     *
+     * The placement is the part that had to be right. It is a bowl whose water
+     * sits at 31% of its height inside a rim cresting at 87–95%, so laid flat
+     * it shows a bank and nothing else. Twenty-eight degrees of tilt, and the
+     * rest is solved from it:
+     *
+     *  - the near rim lands on the ground at z = -60, a metre past the bounds;
+     *  - the far rim reaches -107, one metre short of the forest rows;
+     *  - 76% of the water clears the sightline over its own near rim.
+     *
+     * The y is 17.9 m lower than a section drawing gives, because
+     * `AssetInstance` grounds on the box *after* the tilt — the same 
+     * correction Ephesus needed, and the same one that had a wolf hanging in
+     * the sky over Palandöken.
+     */
     return [
+      {
+        assetId: 'city_bolu_yedigoller_lake',
+        position: [0, -9.2, -87.2],
+        rotationY: 0.08,
+        rotationX: (28 * Math.PI) / 180,
+        solid: true,
+        note: 'Yedigöller, tilted so its water reads',
+      },
+
       ...[-1, 1].flatMap((side) =>
         Array.from({ length: stands }, (_, i) => {
           const z = firstZ + 14 - ((span + 30) * i) / (stands - 1);
