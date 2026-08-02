@@ -1810,6 +1810,99 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
     notes: 'Delivered 2 m buried 1 m, 24.69 MB; re-authored to 4.6 m on y = 0, 2.28 MB.',
   },
   {
+    id: 'kit_izmir_pigeon_walking',
+    modelUrl: '/assets/props/kit_izmir_pigeon_walking.glb',
+    checksum: 'ceb0065b9d10a810244c94f73ee9b0b1bfc70a9ce587d6fc5c006b8276b350e4',
+    triangles: 21_523,
+    transferBytes: 1_068_924,
+    /**
+     * A pigeon on the ground, for Konak square.
+     *
+     * It arrived at **497,423 triangles** — fifty times anything else in the
+     * project and forty-five megabytes, a print mesh rather than a game one.
+     * Simplified to 2% of that; twenty-one thousand is still the second
+     * heaviest mesh here and it stays because the bytes are what the budget
+     * counts and one megabyte is inside a `kit_` asset's two.
+     *
+     * **Registered and not yet placed.** Konak's square does not exist until
+     * the clock tower and the facades arrive, and a pigeon standing on nothing
+     * is the same mistake as a pelican on grass (D-129).
+     */
+    dimensions: [0.28, 0.34, 0.56],
+    label: 'Pigeon, walking',
+    color: '#8A8C90',
+    placeholder: 'box',
+    notes: 'Delivered 497,423 tris at 45.17 MB; simplified to 2% and re-authored to 0.34 m on y = 0, 1.02 MB.',
+  },
+  {
+    id: 'kit_izmir_pigeon_flying',
+    modelUrl: '/assets/props/kit_izmir_pigeon_flying.glb',
+    checksum: '8d3320e54ee8253041154d8d3a4895540fe2a1e857a765cd60f17fba3a4d4780',
+    triangles: 10_063,
+    transferBytes: 730_924,
+    /**
+     * The second pigeon, wings out.
+     *
+     * Two poses rather than one repeated, which is the lesson Manyas's five
+     * identical pelicans taught and Kars's geese taught before that: a flock is
+     * several animals each doing something slightly different, and one pose
+     * copied is wallpaper.
+     *
+     * Unrigged, so it does not fly — it is the bird caught mid-hop that a flock
+     * on a paved square always has one or two of. Also held until the square
+     * exists.
+     */
+    dimensions: [0.34, 0.3, 0.29],
+    label: 'Pigeon, wings out',
+    color: '#8A8C90',
+    placeholder: 'box',
+    notes: 'Delivered 0.7 m buried 0.35 m, 11.13 MB; re-authored to 0.30 m on y = 0, 0.70 MB.',
+  },
+  {
+    id: 'kit_izmir_surfer_a',
+    modelUrl: '/assets/props/kit_izmir_surfer_a.glb',
+    checksum: '989a5dadbee41016a2e7dbdebdbe70699961a9ac2379bd0707d7c28130c4442c',
+    triangles: 9_613,
+    transferBytes: 560_596,
+    /**
+     * A surfer for the gulf. Wider than deep — 2.27 against 0.82 — so the board
+     * lies along X and `Tram` will turn it to run with its line.
+     *
+     * Held until the water exists. İzmir's gulf is a plane that has not been
+     * drawn yet, and a surfer on dry land is worse than no surfer.
+     */
+    dimensions: [2.27, 1.8, 0.82],
+    label: 'Surfer',
+    color: '#1F7A8C',
+    placeholder: 'box',
+    notes: 'Delivered 2 m buried 1 m, 5.26 MB; re-authored to 1.8 m on y = 0, 0.53 MB.',
+  },
+  {
+    id: 'kit_izmir_surfer_b',
+    modelUrl: '/assets/props/kit_izmir_surfer_b.glb',
+    checksum: '6dc4c5cf3898aa303f362dd869d4c9a757c77ecde2cd50d505fcf64c405036e1',
+    triangles: 9_996,
+    transferBytes: 607_588,
+    /**
+     * The second surfer, standing upright on a board that runs fore and aft —
+     * 0.66 wide against 1.75 deep, the opposite of the first, so `Tram` leaves
+     * this one pointing along its line rather than turning it.
+     *
+     * That the two need opposite handling is exactly why the rule reads the
+     * footprint instead of remembering a per-asset convention.
+     *
+     * **Human size, and it stays there.** At forty metres a person is about two
+     * and a half degrees tall. If that reads small the answer is more of them,
+     * not bigger ones: a boat can be exaggerated because nothing tells a child
+     * how big a boat is, and a person cannot.
+     */
+    dimensions: [0.66, 1.75, 1.75],
+    label: 'Surfer, upright',
+    color: '#2E86C1',
+    placeholder: 'box',
+    notes: 'Delivered 1.5 m buried 0.75 m, 1.49 MB; re-authored to 1.75 m on y = 0, 0.58 MB.',
+  },
+  {
     id: 'kit_erzurum_oak',
     modelUrl: '/assets/props/kit_erzurum_oak.glb',
     checksum: 'fbd9bf9a1d6a285518294f5fd2829be894eb1ced05997174ec3fdeda1667812c',

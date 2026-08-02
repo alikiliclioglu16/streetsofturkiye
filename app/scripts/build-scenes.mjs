@@ -429,6 +429,28 @@ const MARDIN_STATUES = [
   },
 ];
 
+/**
+ * Gulls over İzmir, and gulls rather than the pigeons that arrived with them.
+ *
+ * The pigeons belong on the ground in Konak — canonical says a child can hold
+ * out seeds and have one land on their arm, which only means anything if they
+ * are down where a child is. What wheels over a gulf is a gull.
+ *
+ * Six rings rather than five, because this street is 129 m rather than 85 and
+ * five would have left the far end of it empty. Pushed out to the flanks and
+ * over the water on the same reasoning as the other three cities: the frame
+ * stops 13° above horizontal (D-183), so a bird overhead is never in shot and
+ * one at ten metres is only in it from 42 m away.
+ */
+const IZMIR_BIRDS = [
+  { centre: [-56, 11, -16], radius: 26, rate: 0.034, phase: 0.2, bob: 1.4 },
+  { centre: [54, 12, -44], radius: 24, rate: -0.028, phase: 2.0, bob: 1.6 },
+  { centre: [-50, 13, -76], radius: 28, rate: 0.024, phase: 3.7, bob: 1.5 },
+  { centre: [48, 10, 34], radius: 22, rate: -0.031, phase: 5.2, bob: 1.2 },
+  { centre: [-16, 14, 62], radius: 30, rate: 0.019, phase: 1.3, bob: 1.8 },
+  { centre: [58, 11, -104], radius: 25, rate: -0.022, phase: 4.4, bob: 1.3 },
+];
+
 const MARDIN_BIRDS = [
   { centre: [62, 9, -20], radius: 26, rate: 0.036, phase: 0.3, bob: 1.4 },
   { centre: [78, 13, -58], radius: 30, rate: -0.027, phase: 2.4, bob: 1.8 },
@@ -775,6 +797,19 @@ const ANIMAL_OVERRIDES = {
    * other province has.
    */
   erzurum: 'none',
+  /**
+   * Dogs in İzmir, the same pair that walks Gaziantep.
+   *
+   * Sharing an animal is not the fault the overrides above keep avoiding. What
+   * reads as a province nobody looked at is a city walking a neighbour's animal
+   * *because the region table said so* — Erzurum taking Kars's geese, Mardin
+   * taking İstanbul's cats. This is the other thing: two cities eight hundred
+   * kilometres apart that both genuinely have street dogs, and `kit_street_dog`
+   * is a shared asset whose cost is already paid.
+   *
+   * The Aegean row would have given İzmir cats, which would have made three.
+   */
+  izmir: 'dog',
 };
 
 /** Which surface each region's streets are laid with. */
@@ -3414,7 +3449,7 @@ function buildScene(canonical) {
             : canonical.id === 'erzurum'
               ? ERZURUM_SKIER_LINES
               : [],
-    birdAssetId: ['trabzon', 'balikesir', 'mardin'].includes(canonical.id) ? 'kit_gull' : null,
+    birdAssetId: ['trabzon', 'balikesir', 'mardin', 'izmir'].includes(canonical.id) ? 'kit_gull' : null,
     statues: canonical.id === 'mardin' ? MARDIN_STATUES : [],
     /**
      * Bolu's chair now rides Erzurum's cable too, so it stopped being Bolu's.
@@ -3436,7 +3471,9 @@ function buildScene(canonical) {
           ? BALIKESIR_BIRDS
           : canonical.id === 'mardin'
             ? MARDIN_BIRDS
-            : [],
+            : canonical.id === 'izmir'
+              ? IZMIR_BIRDS
+              : [],
     mistBands:
       canonical.id === 'trabzon'
         ? TRABZON_MIST
