@@ -1701,38 +1701,6 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
     notes: 'Delivered 10 m buried 5 m, 29.15 MB; re-authored to 26 m on y = 0 at 2048 base colour, 2.56 MB.',
   },
   {
-    id: 'city_trabzon_uzungol',
-    modelUrl: '/assets/city/city_trabzon_uzungol.glb',
-    checksum: '5941e5a5e11cce77f04fc382b296ae775fda7d446cac7cfb3ef2994357feb7db',
-    triangles: 10_332,
-    transferBytes: 1_028_764,
-    /**
-     * Uzungöl, and it replaces the wharf entirely.
-     *
-     * The wharf read as neither a wharf nor as facing anywhere, and it had no
-     * water in it, so the direction a child turns round to was a row of dark
-     * ruins standing on the edge of nothing. This is the whole answer instead:
-     * a lake with its valley and the mountains behind it.
-     *
-     * **It is a bowl, and bowls are the case rotationX exists for.** The flat
-     * water reads at 18% of the model's height with a bank standing 16% above
-     * it all the way round — from a camera 2.3 m off the ground the near bank
-     * hides the water completely, and no amount of moving it back helps because
-     * the bank recedes with it. Measured, not guessed: below about nine degrees
-     * of tilt not one square metre of the surface is visible.
-     *
-     * The water is green rather than blue and almost nothing in the file
-     * samples as water by colour. What identifies it is the geometry — 398
-     * vertices whose normals point straight up, clustered in one flat disc
-     * across two thirds of the footprint. A lake is the only thing that is.
-     */
-    dimensions: [55.1, 26.0, 58.68],
-    label: 'Uzungöl',
-    color: '#5C7A4E',
-    placeholder: 'box',
-    notes: 'Delivered 1 m buried 0.5 m, 26.45 MB; re-authored to 26 m on y = 0, 0.98 MB.',
-  },
-  {
     id: 'kit_trabzon_trabzonspor_crest',
     modelUrl: '/assets/props/kit_trabzon_trabzonspor_crest.glb',
     checksum: '28226d4463347e81dbb4f6cf87b73c5a91c633c339f48fccc2e670a46fa0716e',
@@ -1778,6 +1746,31 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
     color: '#5A5148',
     placeholder: 'box',
     notes: 'Delivered unmodified. Armature at 0.01; the mesh is 0.53 m across the wings and Birds scales it to 1.6.',
+  },
+  {
+    id: 'city_trabzon_harbour',
+    modelUrl: '/assets/city/city_trabzon_harbour.glb',
+    checksum: '7e9db31fef113e69b27b6de4b315f2d5730dcb9b5ad4f1acf4d1adb21d99a96c',
+    triangles: 10_159,
+    transferBytes: 932_252,
+    /**
+     * The wharf, standing on the shoreline with the sea behind it.
+     *
+     * The same mesh as the delivery that was pulled: identical triangle count
+     * and an identical colour profile band for band, re-exported into a
+     * different normalising box. What changed is not the model — it is that
+     * there is now water behind it. It failed the first time because it stood
+     * on the edge of a ground plane with sky underneath, which no amount of
+     * detail survives.
+     *
+     * Still no water in it, and that is now correct: Trabzon's sea is a plane
+     * and the shoreline is one constant everything is measured off (D-163).
+     */
+    dimensions: [10.51, 5.0, 8.01],
+    label: 'Fishing wharf',
+    color: '#8C8071',
+    placeholder: 'box',
+    notes: 'Delivered 2 m buried 1 m, 24.35 MB; re-authored to 5 m on y = 0, 0.89 MB.',
   },
   {
     id: 'city_trabzon_sumela_fresco_door',
@@ -1856,9 +1849,9 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
   {
     id: 'kit_trabzon_fishing_boat',
     modelUrl: '/assets/props/kit_trabzon_fishing_boat.glb',
-    checksum: 'f65014e52b5a1fcf86265baebdb05d8a71a9b2bbdf36df97e7821b766089d838',
+    checksum: '8622cf60d8fb9ad9f052f3845b1b0e5bc52a891fa70ea0f98d0f2637110d64b3',
     triangles: 9_801,
-    transferBytes: 993_272,
+    transferBytes: 993_276,
     /**
      * A hamsi boat, and the only one of the five whose measurements match what
      * was asked for: 6.05 long against a briefed 7, on a 1.78 aspect.
@@ -1872,11 +1865,11 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
      * boat sitting on grass is worse than no boat — the way Kars's geese and
      * Bolu's deer were held until they had somewhere to be (D-129).
      */
-    dimensions: [12.45, 7.0, 5.02],
+    dimensions: [8.0, 4.5, 3.22],
     label: 'Hamsi boat',
     color: '#2E6E9E',
     placeholder: 'box',
-    notes: 'Delivered 2 m buried 1 m, 24.28 MB; re-authored to 7 m on y = 0, 0.95 MB.',
+    notes: 'Delivered 2 m buried 1 m, 24.28 MB; re-authored to 4.5 m on y = 0, 0.95 MB.',
   },
 ];
 

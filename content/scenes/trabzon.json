@@ -459,40 +459,40 @@
   "cableCarLine": null,
   "ferryLine": null,
   "groundPad": {
-    "x": 13,
+    "x": 2,
     "front": 2,
-    "back": 30
+    "back": 4
   },
   "boatLines": [
     {
       "from": [
-        18.72,
-        60.94
+        -34,
+        56
       ],
       "to": [
-        -9.36,
-        60.94
+        32,
+        56
       ],
       "heights": [
-        1.23,
-        1.23
+        -0.4,
+        -0.4
       ],
-      "speed": 1.6
+      "speed": 2.2
     },
     {
       "from": [
-        -7.28,
-        65.48
+        30,
+        88
       ],
       "to": [
-        15.6,
-        65.48
+        -28,
+        88
       ],
       "heights": [
-        2.36,
-        2.36
+        -0.4,
+        -0.4
       ],
-      "speed": 1.1
+      "speed": 1.5
     }
   ],
   "birdPaths": [
@@ -589,7 +589,13 @@
   ],
   "canoeLines": [],
   "trainLine": null,
-  "water": null,
+  "water": {
+    "centerX": 0,
+    "centerZ": 118,
+    "width": 420,
+    "depth": 180,
+    "color": "#256B80"
+  },
   "backdrop": [
     {
       "assetId": "city_trabzon_tea_slope",
@@ -867,16 +873,48 @@
       "note": "Trabzonspor crest east"
     },
     {
-      "assetId": "city_trabzon_uzungol",
+      "assetId": "city_trabzon_harbour",
       "position": [
+        -26,
         0,
-        -2.68,
-        62.45
+        31
       ],
-      "rotationY": 3.141592653589793,
-      "rotationX": -0.24434609527920614,
+      "rotationY": 0.05,
       "solid": false,
-      "note": "Uzungöl, rock buried, water out from under the paving"
+      "note": "wharf 1"
+    },
+    {
+      "assetId": "city_trabzon_harbour",
+      "position": [
+        -9,
+        0,
+        31
+      ],
+      "rotationY": -0.03,
+      "solid": false,
+      "note": "wharf 2"
+    },
+    {
+      "assetId": "city_trabzon_harbour",
+      "position": [
+        9,
+        0,
+        31
+      ],
+      "rotationY": 0.04,
+      "solid": false,
+      "note": "wharf 3"
+    },
+    {
+      "assetId": "city_trabzon_harbour",
+      "position": [
+        26,
+        0,
+        31
+      ],
+      "rotationY": -0.06,
+      "solid": false,
+      "note": "wharf 4"
     }
   ],
   "animal": "none",
