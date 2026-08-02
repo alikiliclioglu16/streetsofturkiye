@@ -554,7 +554,72 @@
     "front": 2,
     "back": 2
   },
-  "shuttleLines": [],
+  "shuttleLines": [
+    {
+      "assetId": "kit_izmir_surfer_a",
+      "from": [
+        40,
+        8
+      ],
+      "to": [
+        40,
+        -34
+      ],
+      "heights": [
+        -0.3,
+        -0.3
+      ],
+      "speed": 3.4
+    },
+    {
+      "assetId": "kit_izmir_surfer_b",
+      "from": [
+        46,
+        -50
+      ],
+      "to": [
+        46,
+        -10
+      ],
+      "heights": [
+        -0.3,
+        -0.3
+      ],
+      "speed": 2.8
+    },
+    {
+      "assetId": "kit_izmir_surfer_a",
+      "from": [
+        58,
+        -88
+      ],
+      "to": [
+        58,
+        -46
+      ],
+      "heights": [
+        -0.3,
+        -0.3
+      ],
+      "speed": 3.9
+    },
+    {
+      "assetId": "kit_izmir_surfer_b",
+      "from": [
+        52,
+        24
+      ],
+      "to": [
+        52,
+        60
+      ],
+      "heights": [
+        -0.3,
+        -0.3
+      ],
+      "speed": 3.1
+    }
+  ],
   "birdAssetId": "kit_gull",
   "statues": [],
   "cableCarAssetId": null,
@@ -874,12 +939,13 @@
       "assetId": "city_izmir_ephesus",
       "position": [
         -4,
-        0,
-        -158.09
+        12.1,
+        -150.8
       ],
       "rotationY": 0.05,
+      "rotationX": 0.3839724354387525,
       "solid": true,
-      "note": "Ephesus at the head of the street"
+      "note": "Ephesus, tilted so its plan reads"
     },
     {
       "assetId": "city_izmir_clock_tower",

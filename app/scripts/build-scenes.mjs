@@ -319,7 +319,30 @@ const ERZURUM_WOLF = { position: [-0.73, 26.2, -149.1], rotationY: 0 };
  * The tower's is derived: 18 m of clock tower needs 68 m before its cap clears
  * the 13° frame, so seventy is the nearest it can stand.
  */
-const IZMIR_RUINS_NEAR_Z = -112;
+/**
+ * Ephesus: tilt, height and distance, solved as one.
+ *
+ * The tilt is the number chosen and the other two fall out of it. Two
+ * conditions:
+ *
+ *  1. the near lip of the ruins lands on the edge of the paving at z = -106,
+ *     so a child walks off the street straight into the site rather than across
+ *     a gap;
+ *  2. the surface's near end sits at y = 0, so the plate neither stands on the
+ *     ground like a slab nor sinks into a pit.
+ *
+ * Twenty-two degrees gives a 22.8° view onto the plan — enough for the theatre
+ * bowl and the colonnaded street to read — and takes 1.4 m off the far top
+ * edge, which is the diorama's own cut rim and better hidden than shown.
+ * Eighteen keeps everything in frame at 18.8°, thirty reaches 31° and starts to
+ * read as a wall of ruins leaning back.
+ *
+ * The steepness is not a lie, either: Ephesus is built up a hillside, so a
+ * plate that rises away is what the place actually does.
+ */
+const IZMIR_RUINS_TILT = (22 * Math.PI) / 180;
+const IZMIR_RUINS_Y = 12.1;
+const IZMIR_RUINS_Z = -150.8;
 const IZMIR_TOWER_Z = 70;
 
 /**
@@ -478,6 +501,34 @@ const MARDIN_STATUES = [
  * stops 13° above horizontal (D-183), so a bird overhead is never in shot and
  * one at ten metres is only in it from 42 m away.
  */
+/**
+ * Four surfers on the gulf.
+ *
+ * They are on the water and not in the sky, which sounds obvious and is the
+ * whole of why the first pair could not be seen: nothing had been placed at
+ * all — the models were registered and held while the gulf was still a plan.
+ *
+ * Two of each delivery, and the two behave differently on purpose. Surfer A is
+ * 2.27 m wide against 0.82 deep, so `Tram` reads its footprint and turns it to
+ * run along its line; surfer B is the opposite and is left alone. Putting both
+ * on the water is the cheapest test there is of whether that rule holds.
+ *
+ * The near pair sit at x = 40, which is six metres past the Kordon's outer edge
+ * — as close to the promenade as the water gets. At about 40 m from the walking
+ * line a person is two and a half degrees tall, and that is as large as a
+ * person is allowed to be: a boat can be exaggerated because nothing tells a
+ * child how big a boat is, and a person cannot.
+ *
+ * Sunk 0.3 m so the board sits *in* the water. A hull resting exactly on zero
+ * skates over the top of a plane that breathes a few centimetres.
+ */
+const IZMIR_SURFER_LINES = [
+  { assetId: 'kit_izmir_surfer_a', from: [40, 8], to: [40, -34], heights: [-0.3, -0.3], speed: 3.4 },
+  { assetId: 'kit_izmir_surfer_b', from: [46, -50], to: [46, -10], heights: [-0.3, -0.3], speed: 2.8 },
+  { assetId: 'kit_izmir_surfer_a', from: [58, -88], to: [58, -46], heights: [-0.3, -0.3], speed: 3.9 },
+  { assetId: 'kit_izmir_surfer_b', from: [52, 24], to: [52, 60], heights: [-0.3, -0.3], speed: 3.1 },
+];
+
 const IZMIR_BIRDS = [
   { centre: [-56, 11, -16], radius: 26, rate: 0.034, phase: 0.2, bob: 1.4 },
   { centre: [54, 12, -44], radius: 24, rate: -0.028, phase: 2.0, bob: 1.6 },
@@ -1962,15 +2013,29 @@ function cityBackdrop(cityId, stopPositions, metrics) {
         note: `far shore ${i + 1}`,
       })),
       /**
-       * Ephesus, near edge on IZMIR_RUINS_NEAR_Z (D-101). Its centre sits 46 m
-       * further out, which is what pins its height — see the registry note.
+       * Ephesus, tilted 22° so a child can see what it is.
+       *
+       * Laid flat it was invisible: the delivery is a **diorama built to be
+       * looked down on** — a marble street, a theatre cut into a slope, the
+       * whole plan of a city on the top face of a 92 m plate. From a camera
+       * 2.3 m off the ground and 160 m away that face is seen at 0.8°, which
+       * is edge-on, and what a child got was a beige lump.
+       *
+       * Exactly Uzungöl's problem and the same tool, with the sign the other
+       * way round: that lake sat behind the child and needed a negative tilt,
+       * this stands ahead and needs a positive one. Ordu's plateau is the
+       * precedent and its test warns that a sign copied off what is on screen
+       * confirms the bug rather than catching it.
+       *
+       * All three numbers are solved together in IZMIR_RUINS_TILT.
        */
       {
         assetId: 'city_izmir_ephesus',
-        position: [-4, 0, IZMIR_RUINS_NEAR_Z - 46.09],
+        position: [-4, IZMIR_RUINS_Y, IZMIR_RUINS_Z],
         rotationY: 0.05,
+        rotationX: IZMIR_RUINS_TILT,
         solid: true,
-        note: 'Ephesus at the head of the street',
+        note: 'Ephesus, tilted so its plan reads',
       },
       /**
        * The clock tower, 70 m behind the spawn — the distance its own height
@@ -3603,7 +3668,9 @@ function buildScene(canonical) {
             ? MARDIN_CART_LINE
             : canonical.id === 'erzurum'
               ? ERZURUM_SKIER_LINES
-              : [],
+              : canonical.id === 'izmir'
+                ? IZMIR_SURFER_LINES
+                : [],
     birdAssetId: ['trabzon', 'balikesir', 'mardin', 'izmir'].includes(canonical.id) ? 'kit_gull' : null,
     statues: canonical.id === 'mardin' ? MARDIN_STATUES : [],
     /**
