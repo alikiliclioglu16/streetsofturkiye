@@ -731,7 +731,41 @@
       "bob": 1.9
     }
   ],
-  "mistBands": [],
+  "mistBands": [
+    {
+      "centre": [
+        -6,
+        11,
+        -92
+      ],
+      "width": 52,
+      "height": 9,
+      "drift": 0.9,
+      "opacity": 0.36
+    },
+    {
+      "centre": [
+        8,
+        17,
+        -89
+      ],
+      "width": 44,
+      "height": 7,
+      "drift": -0.6,
+      "opacity": 0.26
+    },
+    {
+      "centre": [
+        -2,
+        21.5,
+        -93
+      ],
+      "width": 36,
+      "height": 6,
+      "drift": 1.4,
+      "opacity": 0.18
+    }
+  ],
   "canoeLines": [],
   "trainLine": null,
   "water": {

@@ -251,6 +251,28 @@ const BALIKESIR_LAKE = {
  * use: the frame stops 13° above horizontal (D-183), so a bird at ten metres is
  * only in shot from 42 m away and one directly overhead is never in it at all.
  */
+/**
+ * Cloud on Kaz Dağları.
+ *
+ * Briefed with the horizon models — "mist will be drifted across it in code,
+ * nothing needs to be drawn for that" — and then not wired up, which a pass
+ * over the deployed scenes found: three bands on Sümela and none here. The
+ * component was already written; only the numbers were missing.
+ *
+ * The mountain's near face is at z = -96 and it stands 32 m, so the bands hang
+ * a little in front of it and across the middle of its height. Slower and
+ * wider than Trabzon's, because this is a range rather than a cliff and cloud
+ * on a broad forested mountain sits rather than races.
+ *
+ * Kept thin. The canonical line is that people come here to breathe the air,
+ * which is not an argument for hiding the mountain in it.
+ */
+const BALIKESIR_MIST = [
+  { centre: [-6, 11, -92], width: 52, height: 9, drift: 0.9, opacity: 0.36 },
+  { centre: [8, 17, -89], width: 44, height: 7, drift: -0.6, opacity: 0.26 },
+  { centre: [-2, 21.5, -93], width: 36, height: 6, drift: 1.4, opacity: 0.18 },
+];
+
 const BALIKESIR_BIRDS = [
   { centre: [-54, 11, -24], radius: 24, rate: 0.038, phase: 0.4, bob: 1.3 },
   { centre: [52, 13, -50], radius: 26, rate: -0.029, phase: 2.2, bob: 1.7 },
@@ -2857,7 +2879,12 @@ function buildScene(canonical) {
         : canonical.id === 'balikesir'
           ? BALIKESIR_BIRDS
           : [],
-    mistBands: canonical.id === 'trabzon' ? TRABZON_MIST : [],
+    mistBands:
+      canonical.id === 'trabzon'
+        ? TRABZON_MIST
+        : canonical.id === 'balikesir'
+          ? BALIKESIR_MIST
+          : [],
     canoeLines:
       canonical.id === 'van'
         ? [

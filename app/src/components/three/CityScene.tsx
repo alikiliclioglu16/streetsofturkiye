@@ -171,7 +171,19 @@ export function CityScene({
         </mesh>
       ))}
 
-      {/* Street dressing: static, no state, no interaction. */}
+      {/*
+        Street dressing: static, shared across cities, no interaction.
+
+        This block was in the file twice, identical but for its comment, so
+        every lamp, bench, fountain and tree in every city was drawn twice —
+        two draw calls, two shadow casts and two depth writes for one object a
+        child sees once. Two versions of one edit, which is the fault D-131
+        names: the fix is to read what is already there before adding to it.
+
+        The cost was real and measurable. Kars runs 200 draw calls and 20 of
+        them were this; Bolu carries 39 props and Balıkesir 29, so those two
+        were paying the most for it. Nothing about the scene changes on screen.
+      */}
       {scene.props.map((prop) =>
         // The flag is the one prop whose stillness would be conspicuous.
         prop.asset.entry.id === 'kit_turkish_flag' ? (
@@ -189,24 +201,6 @@ export function CityScene({
         ),
       )}
 
-
-      {/* Street dressing: static, shared across cities, no interaction. */}
-      {scene.props.map((prop) =>
-        // The flag is the one prop whose stillness would be conspicuous.
-        prop.asset.entry.id === 'kit_turkish_flag' ? (
-          <WindProp
-            key={prop.key}
-            asset={prop.asset}
-            position={prop.position}
-            rotationY={prop.rotationY}
-            reducedMotion={reducedMotion}
-          />
-        ) : (
-          <group key={prop.key} position={prop.position} rotation={[prop.rotationX, prop.rotationY, 0]}>
-            <AssetInstance asset={prop.asset} />
-          </group>
-        ),
-      )}
 
       <Balloons
         asset={scene.balloonAsset}
