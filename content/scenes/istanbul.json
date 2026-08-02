@@ -589,6 +589,7 @@
   "groundSurface": "cobblestone",
   "groundPatches": [],
   "balloons": [],
+  "paragliders": [],
   "tramLine": {
     "from": [
       -15.5,
@@ -599,6 +600,7 @@
       -100
     ]
   },
+  "cableCarLine": null,
   "ferryLine": {
     "from": [
       -190,
@@ -609,6 +611,12 @@
       -158
     ]
   },
+  "groundPad": {
+    "x": 2,
+    "z": 2
+  },
+  "boatLines": [],
+  "mistBands": [],
   "canoeLines": [],
   "trainLine": null,
   "water": {

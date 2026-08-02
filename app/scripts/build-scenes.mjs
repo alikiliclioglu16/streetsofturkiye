@@ -184,12 +184,49 @@ const VAN_LAKE_DEPTH = 200;
  */
 const TRABZON_ROCK_NEAR_Z = -88;
 
+const TRABZON_LAKE_HEIGHT = 26;
+const TRABZON_LAKE_DEPTH = 58.68;
+
 /**
- * Where the paving stops and Uzungöl's water begins.
+ * Uzungöl, measured off the file rather than briefed.
  *
- * The ground is drawn to the play bounds plus four metres, so this is that edge
- * and not a number of its own: the last row of cobbles and the waterline are
- * the same line.
+ * Every fraction below is a normalised model coordinate read out of the GLB:
+ * the water is the 114 vertices whose normals point straight up and whose
+ * height agrees to within 0.03, and the bank is the crest of the rim around it.
+ *
+ * The water is not a rectangle and the boat has to stay on it, so its outline
+ * is kept as well: the disc runs from z -0.25 to 1.03 and from x -0.98 to 0.52
+ * in the file's own units, where one unit is the model's height.
+ */
+const TRABZON_LAKE = {
+  waterY: -0.34,
+  bankY: -0.16,
+  baseY: -0.5,
+  waterZ: [-0.25, 1.03],
+  waterX: [-0.98, 0.52],
+};
+
+/**
+ * How deep the near rim sits under the paving, and how far the lake stands off.
+ *
+ * These are the two knobs. It first went in with the rim 0.3 m under and no
+ * setback, which welded the waterline to the last row of cobbles — right in
+ * section, and wrong on screen: the lake is 55 m across where the paving is 34,
+ * so its cut sides stood clear of the ground on both flanks and the whole thing
+ * read as a model on a table.
+ *
+ * Deeper burial alone pulls the lake *towards* the child, because the water
+ * plane climbs and meets y = 0 sooner. So the setback is separate, and what
+ * lies between the edge of the square and the waterline is a foreshore — the
+ * model's own bank, below the paving, shelving down to the water. Which is what
+ * a lake shore is.
+ */
+const TRABZON_LAKE_BURY = 1.2;
+const TRABZON_LAKE_SETBACK = 10;
+
+/**
+ * Where the paving stops. The ground is drawn to the play bounds plus four
+ * metres, so this is that edge and not a number of its own.
  */
 const TRABZON_LAKE_WATERLINE_Z = 28;
 
@@ -208,55 +245,110 @@ const TRABZON_LAKE_WATERLINE_Z = 28;
  * reason: it stands ahead of the child rather than behind them, and the test
  * that holds it warns that a sign asserted off what is on screen confirms the
  * bug instead of catching it.
- *
- * Fourteen degrees puts 6.8° of water in the frame, about a seventh of its
- * height. Ten gives 3.9° and reads as a strip; twenty gives 10.5° and takes
- * eighteen metres off the top of the far mountains.
  */
 const TRABZON_LAKE_TILT = (-14 * Math.PI) / 180;
 
 /**
- * Uzungöl's height, and where the water and the near bank sit inside the file.
+ * The lake's placement, and a way to put things on its water.
  *
- * Both fractions are measured, not briefed: 398 vertices whose normals point
- * straight up form one flat disc at 18% of the model's height, and the bank
- * that rings it crests at 34%.
- */
-const TRABZON_LAKE_HEIGHT = 26;
-const TRABZON_LAKE_WATER_FRACTION = 0.18;
-const TRABZON_LAKE_BANK_FRACTION = 0.34;
-
-/**
- * Sink the rock and let the water out from under the paving.
- *
- * Rather than typing a height and a distance and hoping they still agree with
- * the tilt, both come out of it. Two conditions, solved:
- *
- *  1. the near bank crests 0.3 m *below* the ground plane, so the rock is
- *     buried under the square and what a child sees over the last cobble is
- *     water and not a rim;
- *  2. the water surface crosses y = 0 exactly at the edge of the paving.
+ * Nothing here is typed twice. The group's height and distance are solved from
+ * the tilt and the two knobs above; `onWater` then runs a point on the water
+ * disc through the same rotation the renderer will apply, so a boat floats
+ * because it is standing on the surface that was measured, not on a number
+ * somebody remembered.
  *
  * Van's shoreline was typed into three places and moved four times in as many
- * sittings (D-163). This is the same lesson taken one step further: the numbers
- * are not typed at all.
+ * sittings (D-163). This is that lesson taken one step further.
  */
 function trabzonLake() {
   const h = TRABZON_LAKE_HEIGHT;
-  const half = 58.68 / 2;
-  const sin = Math.sin(-TRABZON_LAKE_TILT);
-  const cos = Math.cos(-TRABZON_LAKE_TILT);
-  const water = TRABZON_LAKE_WATER_FRACTION * h;
-  const bank = TRABZON_LAKE_BANK_FRACTION * h;
+  const unit = h; // one model unit is its height
+  const half = TRABZON_LAKE_DEPTH / 2;
+  const theta = -TRABZON_LAKE_TILT;
+  const sin = Math.sin(theta);
+  const cos = Math.cos(theta);
 
-  // 1 — bury the bank crest, which sits at the model's near edge.
-  const y = -0.3 - (bank * cos - half * sin);
-  // 2 — put the waterline on the edge of the paving.
-  const zLocal = -(y + water * cos) / sin;
-  const z = TRABZON_LAKE_WATERLINE_Z - (-water * sin + zLocal * cos);
+  const metres = (fraction) => (fraction - TRABZON_LAKE.baseY) * unit;
+  const water = metres(TRABZON_LAKE.waterY);
+  const bank = metres(TRABZON_LAKE.bankY);
 
-  return { y: Math.round(y * 100) / 100, z: Math.round(z * 100) / 100 };
+  // The rim crests at the model's near edge; bury it.
+  const y = -TRABZON_LAKE_BURY - (bank * cos - half * sin);
+  // Put the waterline on the edge of the paving, then stand the lake off it.
+  // Y = y + water*cos - mz*sin = 0 at the waterline.
+  const zLocal = (y + water * cos) / sin;
+  const z =
+    TRABZON_LAKE_WATERLINE_Z + water * sin + zLocal * cos + TRABZON_LAKE_SETBACK;
+
+  /**
+   * A point on the water disc, in world metres.
+   *
+   * `rotationY` is π, which flips x and z; then the X tilt. Written out rather
+   * than trusted to intuition, because the sign of that tilt has already been
+   * wrong once.
+   */
+  const onWater = (xFraction, zFraction) => {
+    const mx = xFraction * unit;
+    const mz = zFraction * unit;
+    return {
+      x: Math.round(-mx * 100) / 100,
+      y: Math.round((y + water * cos - mz * sin) * 100) / 100,
+      z: Math.round((z - water * sin - mz * cos) * 100) / 100,
+    };
+  };
+
+  return { y: Math.round(y * 100) / 100, z: Math.round(z * 100) / 100, onWater };
 }
+
+/**
+ * Two hamsi boats working the part of Uzungöl a child can actually see.
+ *
+ * Derived, not placed. `onWater` runs each end through the same rotation the
+ * renderer applies, so the boats sit on the surface that was measured rather
+ * than at a height somebody remembered — and if the tilt or the setback moves,
+ * they move with it instead of sinking or flying.
+ *
+ * They cross the lake rather than run its length. Along the length they would
+ * be climbing the tilt straight away from the child, which foreshortens to
+ * nothing; across it they hold one height and stay broadside. `Tram` already
+ * does out-pause-back, which is what a boat working a shore does, so there is
+ * no new motion here (D-136).
+ *
+ * Different lines, different speeds: two boats in step read as one boat and its
+ * reflection.
+ */
+function trabzonBoatLines() {
+  const { onWater } = trabzonLake();
+  /** Only the water standing above the paving; the rest is under the square. */
+  const a1 = onWater(-0.72, 0.02);
+  const a2 = onWater(0.36, 0.02);
+  const b1 = onWater(0.28, -0.16);
+  const b2 = onWater(-0.6, -0.16);
+
+  return [
+    { from: [a1.x, a1.z], to: [a2.x, a2.z], heights: [a1.y, a2.y], speed: 1.6 },
+    { from: [b1.x, b1.z], to: [b2.x, b2.z], heights: [b1.y, b2.y], speed: 1.1 },
+  ];
+}
+
+/**
+ * Cloud crossing the face of Sümela.
+ *
+ * The rock's near face is at z = -88 and its buildings sit between about ten
+ * and twenty metres, so the bands hang just in front of it across that height.
+ * The lowest is the widest and slowest, the highest thin and quick — which is
+ * how cloud on a mountain behaves, and also stops the three reading as one
+ * curtain being drawn.
+ *
+ * The opacities are low on purpose. Mist that hides the monastery defeats the
+ * stop it belongs to; this is meant to pass across it, not cover it.
+ */
+const TRABZON_MIST = [
+  { centre: [0, 9, -85.5], width: 40, height: 7.5, drift: 1.3, opacity: 0.42 },
+  { centre: [-4, 14.5, -83.5], width: 34, height: 6, drift: -0.85, opacity: 0.3 },
+  { centre: [3, 19, -86.5], width: 28, height: 5, drift: 2.0, opacity: 0.22 },
+];
+
 
 const CITY_SURFACE = {
   /**
@@ -2495,6 +2587,18 @@ function buildScene(canonical) {
         ? { from: [21, -40], to: [27, 48] }
         : canonical.id === 'ordu' ? { from: [18, -54], to: [26, 44] } : null,
     ferryLine: canonical.id === 'istanbul' ? { from: [-190, -166], to: [190, -158] } : null,
+    groundPad:
+      canonical.id === 'trabzon'
+        ? /**
+           * Uzungöl's rim has to be under the square, and buried is only buried
+           * if there is paving on top of it. Thirteen a side takes the ground
+           * out to x = ±28 for a lake 55 m across; twelve at the back takes it
+           * to the waterline at z = 38.
+           */
+          { x: 13, z: 12 }
+        : { x: 2, z: 2 },
+    boatLines: canonical.id === 'trabzon' ? trabzonBoatLines() : [],
+    mistBands: canonical.id === 'trabzon' ? TRABZON_MIST : [],
     canoeLines:
       canonical.id === 'van'
         ? [

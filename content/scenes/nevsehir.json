@@ -733,8 +733,16 @@
       "phase": 2.1
     }
   ],
+  "paragliders": [],
   "tramLine": null,
+  "cableCarLine": null,
   "ferryLine": null,
+  "groundPad": {
+    "x": 2,
+    "z": 2
+  },
+  "boatLines": [],
+  "mistBands": [],
   "canoeLines": [],
   "trainLine": null,
   "water": null,

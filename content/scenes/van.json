@@ -480,6 +480,12 @@
   "tramLine": null,
   "cableCarLine": null,
   "ferryLine": null,
+  "groundPad": {
+    "x": 2,
+    "z": 2
+  },
+  "boatLines": [],
+  "mistBands": [],
   "canoeLines": [
     {
       "from": [

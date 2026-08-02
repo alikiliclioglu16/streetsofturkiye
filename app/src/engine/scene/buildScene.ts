@@ -116,6 +116,10 @@ export interface SceneDescription {
   readonly cableCarAsset: ResolvedAsset | null;
   readonly ferryAsset: ResolvedAsset | null;
   readonly canoeAsset: ResolvedAsset | null;
+  readonly boatLines: SceneDefinition['boatLines'];
+  /** Trabzon's hamsi boat. Null anywhere without a boat line. */
+  readonly boatAsset: ResolvedAsset | null;
+  readonly mistBands: SceneDefinition['mistBands'];
   readonly trainAsset: ResolvedAsset | null;
   readonly tramAsset: ResolvedAsset | null;
   readonly sky: SceneSky;
@@ -389,6 +393,9 @@ export function buildScene(city: CityDefinition, quality: QualityTier): SceneDes
       : null,
     ferryAsset: city.ferryLine ? resolveAsset('city_istanbul_ferry_boat', quality) : null,
     canoeAsset: city.canoeLines.length ? resolveAsset('city_van_canoe', quality) : null,
+    boatLines: city.boatLines,
+    boatAsset: city.boatLines.length ? resolveAsset('kit_trabzon_fishing_boat', quality) : null,
+    mistBands: city.mistBands,
     trainAsset: city.trainLine ? resolveAsset('city_kars_eastern_express', quality) : null,
     catRoutes: city.catRoutes,
     groundPatches: city.groundPatches ?? [],
@@ -406,8 +413,8 @@ export function buildScene(city: CityDefinition, quality: QualityTier): SceneDes
     ground: {
       centerX: (minX + maxX) / 2,
       centerZ: (minZ + maxZ) / 2,
-      width: maxX - minX + 4,
-      depth: maxZ - minZ + 4,
+      width: maxX - minX + city.groundPad.x * 2,
+      depth: maxZ - minZ + city.groundPad.z * 2,
       color: city.environment.groundColor ?? '#D9CFBC',
     },
     groundSurface: city.groundSurface,

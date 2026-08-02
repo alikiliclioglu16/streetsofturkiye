@@ -7,6 +7,8 @@ import type { HeroStatus } from '@/components/three/HeroCharacter';
 import type { HeroClip } from '@/engine/heroes/registry';
 import { AssetInstance } from '@/components/three/AssetInstance';
 import { WindProp } from '@/components/three/WindProp';
+import { WindSlope } from '@/components/three/WindSlope';
+import { Mist } from '@/components/three/Mist';
 import { CableCarLine, Train, TrainTrack, Tram } from '@/components/three/Tram';
 import { playFerryHorn } from '@/engine/audio/cues';
 import { Balloons } from '@/components/three/Balloons';
@@ -113,11 +115,31 @@ export function CityScene({
       ) : null}
 
       {/* Scenery beyond the play area: never solid, never reached. */}
-      {scene.backdrop.map((prop) => (
-        <group key={prop.key} position={prop.position} rotation={[prop.rotationX, prop.rotationY, 0]}>
-          <AssetInstance asset={prop.asset} castShadow={false} />
-        </group>
-      ))}
+      {scene.backdrop.map((prop) =>
+        /*
+          Tea terraces move. A hillside is the wrong thing to rotate and
+          `WindSlope` says so at length — but a green flank that is perfectly
+          still against a sky reads as a painted backdrop, and a fifteenth of
+          the flag's sway is enough to stop that. Everything else in the
+          backdrop is rock, forest edge or water and stays where it is put.
+        */
+        prop.asset.entry.id === 'city_trabzon_tea_slope' ? (
+          <WindSlope
+            key={prop.key}
+            asset={prop.asset}
+            position={prop.position}
+            rotationY={prop.rotationY}
+            reducedMotion={reducedMotion}
+          />
+        ) : (
+          <group key={prop.key} position={prop.position} rotation={[prop.rotationX, prop.rotationY, 0]}>
+            <AssetInstance asset={prop.asset} castShadow={false} />
+          </group>
+        ),
+      )}
+
+      {/* Cloud crossing Sümela. Weather, so it has to move or it is a stain. */}
+      <Mist bands={scene.mistBands} reducedMotion={reducedMotion} />
 
       {/* Boundary posts: the play area is visible rather than an invisible wall.
           Corner posts are essential; decorative density is applied to props. */}
@@ -221,6 +243,25 @@ export function CityScene({
               asset={scene.canoeAsset!}
               from={line.from}
               to={line.to}
+              reducedMotion={reducedMotion}
+              speed={line.speed}
+            />
+          ))
+        : null}
+
+      {/*
+        Hamsi boats on Uzungöl. The tram's motion again — out, pause, back —
+        but on a lifted line, because Trabzon's water is a tilted plate and its
+        height depends on where along it you are.
+      */}
+      {scene.boatAsset
+        ? scene.boatLines.map((line, index) => (
+            <Tram
+              key={`boat-${index}`}
+              asset={scene.boatAsset!}
+              from={line.from}
+              to={line.to}
+              heights={line.heights}
               reducedMotion={reducedMotion}
               speed={line.speed}
             />

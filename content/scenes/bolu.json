@@ -709,6 +709,12 @@
     ]
   },
   "ferryLine": null,
+  "groundPad": {
+    "x": 2,
+    "z": 2
+  },
+  "boatLines": [],
+  "mistBands": [],
   "canoeLines": [],
   "trainLine": null,
   "water": null,

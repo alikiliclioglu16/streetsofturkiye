@@ -95,6 +95,9 @@ export interface RuntimeCity {
   tramLine: SceneDefinition['tramLine'];
   trainLine: SceneDefinition['trainLine'];
   canoeLines: SceneDefinition['canoeLines'];
+  boatLines: SceneDefinition['boatLines'];
+  mistBands: SceneDefinition['mistBands'];
+  groundPad: SceneDefinition['groundPad'];
   ferryLine: SceneDefinition['ferryLine'];
   cableCarLine: SceneDefinition['cableCarLine'];
   backdrop: SceneDefinition['backdrop'];
@@ -203,6 +206,9 @@ export function composeCity(canonical: CanonicalCity, scene: SceneDefinition): R
     tramLine: scene.tramLine,
     trainLine: scene.trainLine,
     canoeLines: scene.canoeLines,
+    boatLines: scene.boatLines,
+    mistBands: scene.mistBands,
+    groundPad: scene.groundPad,
     ferryLine: scene.ferryLine,
     cableCarLine: scene.cableCarLine,
     backdrop: scene.backdrop,

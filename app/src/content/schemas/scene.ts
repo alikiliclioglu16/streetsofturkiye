@@ -166,6 +166,21 @@ export const sceneSchema = z
     /** The city's theme, or null where none has been chosen yet. */
     musicUrl: z.string().nullable().default(null),
     /** Which ground surface this region has. */
+    /**
+     * How far the ground is drawn past the play bounds, in metres a side.
+     *
+     * Two everywhere, which is the four-metre overrun every city has had. Not a
+     * style choice: paving is scenery and bounds are gameplay, and things placed
+     * outside the play area used to float over sky (D-082).
+     *
+     * Trabzon needs much more of it. Uzungöl is 55 m across against a 30 m
+     * street, and its rim has to be *under* the square for a child to see water
+     * over the last cobble rather than a bank. Buried is only buried if there
+     * is ground on top of it, so the paving reaches the waterline.
+     */
+    groundPad: z
+      .object({ x: z.number().nonnegative(), z: z.number().nonnegative() })
+      .default({ x: 2, z: 2 }),
     groundSurface: z.enum(['cobblestone', 'redsand', 'steppe', 'rock', 'forest']).default('cobblestone'),
     /**
      * Patches of a different ground, laid over the city's own.
@@ -249,6 +264,43 @@ export const sceneSchema = z
           from: z.tuple([z.number(), z.number()]),
           to: z.tuple([z.number(), z.number()]),
           speed: z.number().positive(),
+        }),
+      )
+      .default([]),
+    /**
+     * Boats working a lake that is not at y = 0.
+     *
+     * Van's canoes cross a lake whose surface is the ground plane, so a line
+     * with two ends is enough for them. Trabzon's water is a tilted plate and
+     * its height depends on where you are on it, so a boat here carries the two
+     * heights its line runs between — which is the lifted line the cable car
+     * already uses, not a new kind of motion (D-136).
+     */
+    boatLines: z
+      .array(
+        z.object({
+          from: z.tuple([z.number(), z.number()]),
+          to: z.tuple([z.number(), z.number()]),
+          heights: z.tuple([z.number(), z.number()]),
+          speed: z.number().positive(),
+        }),
+      )
+      .default([]),
+    /**
+     * Bands of mist drifting across something, in world metres.
+     *
+     * Cloud on the face of Sümela is the one thing the canonical description
+     * leans on that no model can carry: it is weather, and it has to move or it
+     * is a grey smear painted on a rock.
+     */
+    mistBands: z
+      .array(
+        z.object({
+          centre: vec3Schema,
+          width: z.number().positive(),
+          height: z.number().positive(),
+          drift: z.number(),
+          opacity: z.number().min(0).max(1),
         }),
       )
       .default([]),
