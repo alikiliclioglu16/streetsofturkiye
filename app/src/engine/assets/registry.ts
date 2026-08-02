@@ -1733,6 +1733,80 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
     notes: 'Delivered 1 m buried 0.5 m, 26.45 MB; re-authored to 26 m on y = 0, 0.98 MB.',
   },
   {
+    id: 'city_trabzon_sumela_fresco_door',
+    modelUrl: '/assets/city/city_trabzon_sumela_fresco_door.glb',
+    checksum: 'b3fb6028d5391a90486389d85b5d9764de9f2e775f507689f9083b423423cda1',
+    triangles: 10_105,
+    transferBytes: 2_094_524,
+    /**
+     * Stop one: the rock-cut doorway, painted.
+     *
+     * Sümela itself is 88 m up the valley and 26 m tall, because a child cannot
+     * climb 300 m and a stop object is something to walk up to (D-066). This is
+     * the half of it that can be stood in front of.
+     *
+     * **It is hollow.** Gridding the lower half of the mesh shows two solid
+     * piers with a void between them and a recess behind — an arch, not a slab.
+     * The recorded footprint is the file's own and the collider is a single box
+     * over the whole of it, which is right while the doorway is something a
+     * child looks at. If it should be something they can step *into*, that is
+     * `colliderParts` with two piers and a passage, the way both the Gaziantep
+     * and Kapalıçarşı gates are built (D-121 / D-125 / D-134).
+     */
+    dimensions: [2.92, 4.2, 2.41],
+    label: 'Frescoed doorway',
+    color: '#8C7355',
+    placeholder: 'box',
+    notes: 'Delivered 2 m buried 1 m, 23.77 MB; re-authored to 4.2 m on y = 0, 2.00 MB.',
+  },
+  {
+    id: 'city_trabzon_kemence_stand',
+    modelUrl: '/assets/city/city_trabzon_kemence_stand.glb',
+    checksum: '82d3f6c6daf7bb18a85360a65ab7f63c5943fed874e0f33c40264d20a6d798d1',
+    triangles: 9_711,
+    transferBytes: 1_623_376,
+    /**
+     * Stop two: the kemençe, upright on its stand.
+     *
+     * Briefed as a village bandstand 2.4 m across. What arrived is 0.46 wide
+     * for every one high and holds that width at every height — one tall narrow
+     * object rather than a platform with things on it. So it is the instrument
+     * on a stand and not the stage, which is the smaller idea but the clearer
+     * one: a child walks up to the thing that makes the sound.
+     *
+     * Two point two metres is above a real one and that is deliberate — it is
+     * a stop, and the stop camera pulls back off the recorded height (D-050 /
+     * D-051), so an instrument at its true size would be framed from a metre
+     * away and read as a prop the guide happened to drop.
+     */
+    dimensions: [1.01, 2.2, 1.12],
+    label: 'Kemençe',
+    color: '#93552C',
+    placeholder: 'box',
+    notes: 'Delivered 2 m buried 1 m, 19.71 MB; re-authored to 2.2 m on y = 0, 1.55 MB.',
+  },
+  {
+    id: 'city_trabzon_hamsi_stall',
+    modelUrl: '/assets/city/city_trabzon_hamsi_stall.glb',
+    checksum: '246ee9a4e97ad5fa5c38ea1fad6369c198ba60547917dc4d33b874b9dde2ebaa',
+    triangles: 9_649,
+    transferBytes: 2_375_352,
+    /**
+     * Stop three: hamsi and kuymak under an awning.
+     *
+     * The only one of the three whose proportion came back close to what was
+     * asked for — 1.18 wide for every one high against a briefed 1.08 — and its
+     * colour bands say it is what the brief described without needing a look:
+     * blue through the awning at two thirds height, white on the tray at half,
+     * timber everywhere else.
+     */
+    dimensions: [2.83, 2.4, 2.36],
+    label: 'Hamsi stall',
+    color: '#7E5C3A',
+    placeholder: 'box',
+    notes: 'Delivered 2 m buried 1 m, 27.42 MB; re-authored to 2.4 m on y = 0, 2.27 MB.',
+  },
+  {
     id: 'kit_trabzon_fishing_boat',
     modelUrl: '/assets/props/kit_trabzon_fishing_boat.glb',
     checksum: '7b1ec6506b370eb4dfb9371c55f55e9da18a723cb715b66cf996a9089c457030',

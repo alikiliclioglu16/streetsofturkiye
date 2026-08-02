@@ -48,32 +48,32 @@
       [
         0,
         0,
-        -14.3
+        -14.29
       ],
       [
-        -3.4,
+        -3.66,
         0,
         -20.4
       ],
       [
         4.3,
         0,
-        -28.3
+        -28.94
       ],
       [
-        0.9,
+        1.59,
         0,
-        -34.4
+        -33.76
       ],
       [
         5.3,
         0,
-        -42.95
+        -42.32
       ],
       [
-        2,
+        1.68,
         0,
-        -47.75
+        -48.38
       ]
     ],
     "bounds": [
@@ -111,8 +111,8 @@
         "stopId": "trabzon-stop-01"
       },
       "sceneStatus": "ready",
-      "assetId": "graybox_manastir",
-      "assetStatus": "graybox",
+      "assetId": "city_trabzon_sumela_fresco_door",
+      "assetStatus": "commissioned",
       "transform": {
         "position": [
           0,
@@ -131,19 +131,19 @@
         ]
       },
       "collider": {
-        "halfWidth": 1.2,
-        "halfDepth": 1.2
+        "halfWidth": 1.46,
+        "halfDepth": 1.205
       },
-      "triggerRadius": 5.2,
+      "triggerRadius": 5.21,
       "camera": {
         "position": [
-          2.3,
           2.4,
-          -12
+          2.4,
+          -11.7
         ],
         "target": [
           0,
-          1.1,
+          1.9,
           -17
         ],
         "durationMs": 900
@@ -163,8 +163,8 @@
         "stopId": "trabzon-stop-02"
       },
       "sceneStatus": "ready",
-      "assetId": "graybox_muzik",
-      "assetStatus": "graybox",
+      "assetId": "city_trabzon_kemence_stand",
+      "assetStatus": "commissioned",
       "transform": {
         "position": [
           4.3,
@@ -183,10 +183,10 @@
         ]
       },
       "collider": {
-        "halfWidth": 1.2,
-        "halfDepth": 1.2
+        "halfWidth": 0.505,
+        "halfDepth": 0.56
       },
-      "triggerRadius": 5.2,
+      "triggerRadius": 4.56,
       "camera": {
         "position": [
           6.6,
@@ -195,7 +195,7 @@
         ],
         "target": [
           4.3,
-          1.1,
+          1,
           -31
         ],
         "durationMs": 900
@@ -215,8 +215,8 @@
         "stopId": "trabzon-stop-03"
       },
       "sceneStatus": "ready",
-      "assetId": "graybox_stall",
-      "assetStatus": "graybox",
+      "assetId": "city_trabzon_hamsi_stall",
+      "assetStatus": "commissioned",
       "transform": {
         "position": [
           5.3,
@@ -235,10 +235,10 @@
         ]
       },
       "collider": {
-        "halfWidth": 1.1,
-        "halfDepth": 0.55
+        "halfWidth": 1.415,
+        "halfDepth": 1.18
       },
-      "triggerRadius": 4.55,
+      "triggerRadius": 5.18,
       "camera": {
         "position": [
           7.6,
@@ -247,7 +247,7 @@
         ],
         "target": [
           5.3,
-          0.7,
+          1.1,
           -45
         ],
         "durationMs": 900
@@ -797,13 +797,13 @@
     {
       "npcId": "featured_soldier",
       "position": [
-        10.7,
+        10.1,
         0,
         -27.5
       ],
       "rotationY": 2.4,
       "walkTo": [
-        9.2,
+        8.6,
         0,
         -31.7
       ]
@@ -811,13 +811,13 @@
     {
       "npcId": "featured_traveler",
       "position": [
-        10.7,
+        10.1,
         0,
         -34
       ],
       "rotationY": -2.1,
       "walkTo": [
-        12.2,
+        11.6,
         0,
         -38.2
       ]
@@ -825,13 +825,13 @@
     {
       "npcId": "featured_craftsman_male",
       "position": [
-        11.1,
+        11.7,
         0,
         -42.4
       ],
       "rotationY": 1.9,
       "walkTo": [
-        9.6,
+        10.2,
         0,
         -46.6
       ]

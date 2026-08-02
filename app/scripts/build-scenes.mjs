@@ -75,6 +75,9 @@ const COMMISSIONED_ASSETS = {
   'bolu:gol': 'city_bolu_yedigoller_jetty',
   'bolu:stall': 'city_bolu_mengen_kitchen',
   'bolu:dag': 'city_bolu_ski_lift_station',
+  'trabzon:manastir': 'city_trabzon_sumela_fresco_door',
+  'trabzon:muzik': 'city_trabzon_kemence_stand',
+  'trabzon:stall': 'city_trabzon_hamsi_stall',
 };
 
 /** Commissioned collectibles, keyed by canonical stop id. */

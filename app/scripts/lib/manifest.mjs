@@ -162,6 +162,21 @@ export const DELIVERED_DIMENSIONS = {
   city_ordu_timber_houses: [24.13, 11.0, 15.23],
   city_ordu_boztepe_hill: [43.57, 26.0, 45.09],
   city_ordu_cable_car: [2.4, 2.4, 2.26],
+  /**
+   * Trabzon, measured off the delivered files.
+   *
+   * All eight came back on a proportion of their own rather than the brief's,
+   * which is what these rows are for: the collider, the parking spot and the
+   * trigger ring all come off this footprint, and the fresco doorway is 2.92
+   * across where the graybox cube it replaced was 2.4.
+   */
+  city_trabzon_sumela_fresco_door: [2.92, 4.2, 2.41],
+  city_trabzon_kemence_stand: [1.01, 2.2, 1.12],
+  city_trabzon_hamsi_stall: [2.83, 2.4, 2.36],
+  city_trabzon_tea_slope: [15.74, 13.0, 21.16],
+  city_trabzon_sumela_cliff: [36.34, 26.0, 26.03],
+  city_trabzon_uzungol: [55.1, 26.0, 58.68],
+  kit_trabzon_fishing_boat: [6.05, 3.4, 2.44],
   city_van_akdamar_jetty: [3.96, 1.8, 2.23],
   city_van_citadel_ridge: [26.92, 9.0, 8.44],
   kit_stone_footbridge: [4.1, 1.2, 1.95],
