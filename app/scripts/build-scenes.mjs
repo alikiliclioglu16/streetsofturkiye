@@ -265,7 +265,7 @@ const BALIKESIR_BIRDS = [
  * working a stretch of water and turning round is what a pelican does, so
  * nothing new had to be written (D-136).
  *
- * Four of them, none in step, all on the near half of the lake where a metre
+ * Five of them, none in step, all on the near half of the lake where a metre
  * of bird still subtends something. `heights` are flat because the lake is.
  */
 function balikesirPelicanLines() {
@@ -275,6 +275,7 @@ function balikesirPelicanLines() {
     { from: [16, 42], to: [30, 42], heights: [y, y], speed: 0.24 },
     { from: [4, 48], to: [-10, 48], heights: [y, y], speed: 0.28 },
     { from: [-30, 36], to: [-42, 36], heights: [y, y], speed: 0.2 },
+    { from: [22, 51], to: [8, 51], heights: [y, y], speed: 0.36 },
   ];
 }
 
@@ -1468,21 +1469,41 @@ function cityBackdrop(cityId, stopPositions, metrics) {
      */
     return [
       /**
-       * Olive terraces, four a side at 30 m centres for a piece 35 across.
+       * Olives down one side, Cunda down the other.
        *
-       * The brief planned six a side at 26 m; the delivery came back 35 wide
-       * and 34.7 deep, so four cover the same street with two fewer pieces.
-       * They run past the last stop to z = -84 because the mountain is only 71
-       * across and would otherwise leave the front corners open.
+       * It went in with terraces facing terraces, which is the symmetry every
+       * other city in the project avoids: İstanbul closes with facades both
+       * sides because it is a street, and everywhere else the two flanks answer
+       * different questions. Here they now do — a working hillside on the west
+       * and a town on the east, with the lake those houses belong to behind.
+       *
+       * Four terraces at 30 m centres for a piece 35 across, so they overlap by
+       * five and close at height as well as in plan (D-149).
        */
-      ...[-1, 1].flatMap((side) =>
-        Array.from({ length: 4 }, (_, i) =>
-          wall('city_balikesir_olive_terrace', side * 34, 22 - i * 30, `olive ${side < 0 ? 'west' : 'east'} ${i + 1}`),
-        ),
+      ...Array.from({ length: 4 }, (_, i) =>
+        wall('city_balikesir_olive_terrace', -34, 22 - i * 30, `olive west ${i + 1}`),
       ),
-      /** Single stands of olive in front of the terraces, on the shared kit. */
+      /**
+       * The east side is Cunda's houses, four of them down the street.
+       *
+       * The same model that stands across the water. That is deliberate rather
+       * than thrifty: it is one town, and a child walking past its houses and
+       * then turning round to see the rest of it across the lake is the whole
+       * idea. Sixteen metres at 34 m out subtends 23°, so this flank closes
+       * harder than the olive side — which suits a town against a hillside.
+       */
+      ...Array.from({ length: 4 }, (_, i) =>
+        wall('city_balikesir_cunda_island', 34, 22 - i * 30, `Cunda houses east ${i + 1}`),
+      ),
+      /**
+       * Single stands of olive, west side only.
+       *
+       * They used to alternate across the street, which no longer makes sense:
+       * an olive grove in front of a row of town houses is a garden nobody
+       * planted. The east side's dressing is the houses themselves.
+       */
       ...[
-        [-24, 6], [25, -8], [-26, -36], [24, -50], [-25, -64], [26, 12],
+        [-24, 6], [-26, -20], [-25, -44], [-24, -68], [-26, 18],
       ].map(([x, z], i) => ({
         assetId: 'kit_olive_grove',
         position: [x, 0, z],

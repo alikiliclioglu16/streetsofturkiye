@@ -523,6 +523,21 @@
         -0.25
       ],
       "speed": 0.2
+    },
+    {
+      "from": [
+        22,
+        51
+      ],
+      "to": [
+        8,
+        51
+      ],
+      "heights": [
+        -0.25,
+        -0.25
+      ],
+      "speed": 0.36
     }
   ],
   "boatAssetId": "kit_balikesir_pelican",
@@ -641,7 +656,7 @@
       "note": "olive west 4"
     },
     {
-      "assetId": "city_balikesir_olive_terrace",
+      "assetId": "city_balikesir_cunda_island",
       "position": [
         34,
         0,
@@ -649,10 +664,10 @@
       ],
       "rotationY": -1.5707963267948966,
       "solid": false,
-      "note": "olive east 1"
+      "note": "Cunda houses east 1"
     },
     {
-      "assetId": "city_balikesir_olive_terrace",
+      "assetId": "city_balikesir_cunda_island",
       "position": [
         34,
         0,
@@ -660,10 +675,10 @@
       ],
       "rotationY": -1.5707963267948966,
       "solid": false,
-      "note": "olive east 2"
+      "note": "Cunda houses east 2"
     },
     {
-      "assetId": "city_balikesir_olive_terrace",
+      "assetId": "city_balikesir_cunda_island",
       "position": [
         34,
         0,
@@ -671,10 +686,10 @@
       ],
       "rotationY": -1.5707963267948966,
       "solid": false,
-      "note": "olive east 3"
+      "note": "Cunda houses east 3"
     },
     {
-      "assetId": "city_balikesir_olive_terrace",
+      "assetId": "city_balikesir_cunda_island",
       "position": [
         34,
         0,
@@ -682,7 +697,7 @@
       ],
       "rotationY": -1.5707963267948966,
       "solid": false,
-      "note": "olive east 4"
+      "note": "Cunda houses east 4"
     },
     {
       "assetId": "kit_olive_grove",
@@ -698,9 +713,9 @@
     {
       "assetId": "kit_olive_grove",
       "position": [
-        25,
+        -26,
         0,
-        -8
+        -20
       ],
       "rotationY": 1.1,
       "solid": false,
@@ -709,9 +724,9 @@
     {
       "assetId": "kit_olive_grove",
       "position": [
-        -26,
+        -25,
         0,
-        -36
+        -44
       ],
       "rotationY": 2.2,
       "solid": false,
@@ -720,9 +735,9 @@
     {
       "assetId": "kit_olive_grove",
       "position": [
-        24,
+        -24,
         0,
-        -50
+        -68
       ],
       "rotationY": 3.3,
       "solid": false,
@@ -731,24 +746,13 @@
     {
       "assetId": "kit_olive_grove",
       "position": [
-        -25,
+        -26,
         0,
-        -64
+        18
       ],
       "rotationY": 4.4,
       "solid": false,
       "note": "olive stand 5"
-    },
-    {
-      "assetId": "kit_olive_grove",
-      "position": [
-        26,
-        0,
-        12
-      ],
-      "rotationY": 5.5,
-      "solid": false,
-      "note": "olive stand 6"
     },
     {
       "assetId": "city_balikesir_kaz_daglari",
