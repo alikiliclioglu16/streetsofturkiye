@@ -1701,6 +1701,32 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
     notes: 'Delivered 10 m buried 5 m, 29.15 MB; re-authored to 26 m on y = 0 at 2048 base colour, 2.56 MB.',
   },
   {
+    id: 'kit_ordu_hazelnut_tree',
+    modelUrl: '/assets/props/kit_ordu_hazelnut_tree.glb',
+    checksum: 'ae4d9b9d202f15b39fc86bca0107b7239fdbf94b35c1e52846e8174434ce8371',
+    triangles: 8_447,
+    transferBytes: 1_162_396,
+    /**
+     * Ordu's own street tree: a hazelnut.
+     *
+     * The street was lined with the procedural shapes — instanced boxes for a
+     * trunk and a canopy — which are cheap and look like exactly what they are.
+     * That was fine while every city used them and stopped being fine the day
+     * Bolu got a delivered fir, because a green blob beside a drawn forest
+     * reads as two games in one shot (the reason `CITY_STREET_TREE` exists).
+     *
+     * Ordu is the province hazelnut is named for in this country, and it had
+     * hazelnut groves on its horizon and boxes on its pavement. Four and a half
+     * metres: a hazelnut is a many-stemmed bush that grows to about that, not a
+     * shade tree, and Bolu's nine metre fir would be absurd here.
+     */
+    dimensions: [4.3, 4.5, 4.4],
+    label: 'Hazelnut tree',
+    color: '#4E7A3A',
+    placeholder: 'box',
+    notes: 'Delivered 3 m buried 1.5 m, 30.92 MB; re-authored to 4.5 m on y = 0, 1.11 MB.',
+  },
+  {
     id: 'kit_trabzon_trabzonspor_crest',
     modelUrl: '/assets/props/kit_trabzon_trabzonspor_crest.glb',
     checksum: '28226d4463347e81dbb4f6cf87b73c5a91c633c339f48fccc2e670a46fa0716e',

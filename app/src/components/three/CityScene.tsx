@@ -111,6 +111,7 @@ export function CityScene({
           width={scene.water.width}
           depth={scene.water.depth}
           color={scene.water.color}
+          still={scene.water.still}
           reducedMotion={reducedMotion}
         />
       ) : null}

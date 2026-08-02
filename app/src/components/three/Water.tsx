@@ -21,6 +21,7 @@ export function Water({
   width,
   depth,
   color,
+  still = false,
   reducedMotion,
 }: {
   centerX: number;
@@ -28,13 +29,19 @@ export function Water({
   width: number;
   depth: number;
   color: string;
+  still?: boolean;
   reducedMotion: boolean;
 }) {
   const mesh = useRef<Mesh>(null);
   const elapsed = useRef(0);
 
   useFrame((_, delta) => {
-    if (reducedMotion || !mesh.current) return;
+    /**
+     * A still sea is still, and that is a per-city decision rather than a
+     * motion preference: reduced motion already stops it for everyone who asks,
+     * and `still` stops it because the swell was wrong for this sea.
+     */
+    if (still || reducedMotion || !mesh.current) return;
     elapsed.current += delta;
     mesh.current.position.y = Math.sin(elapsed.current * 0.6) * 0.04 - 0.06;
   });

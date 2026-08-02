@@ -437,6 +437,138 @@
       "rotationY": 1.421,
       "solid": true,
       "note": "fountain, near the end"
+    },
+    {
+      "assetId": "kit_ordu_hazelnut_tree",
+      "position": [
+        -11,
+        0,
+        -1
+      ],
+      "rotationY": 0,
+      "solid": true,
+      "note": "street tree 1"
+    },
+    {
+      "assetId": "kit_ordu_hazelnut_tree",
+      "position": [
+        14.2,
+        0,
+        -8.7
+      ],
+      "rotationY": 0.646,
+      "solid": true,
+      "note": "street tree 2"
+    },
+    {
+      "assetId": "kit_ordu_hazelnut_tree",
+      "position": [
+        -17.4,
+        0,
+        -16.4
+      ],
+      "rotationY": 1.292,
+      "solid": true,
+      "note": "street tree 3"
+    },
+    {
+      "assetId": "kit_ordu_hazelnut_tree",
+      "position": [
+        12.6,
+        0,
+        -19
+      ],
+      "rotationY": 1.937,
+      "solid": true,
+      "note": "street tree 4"
+    },
+    {
+      "assetId": "kit_ordu_hazelnut_tree",
+      "position": [
+        -15.8,
+        0,
+        -26.7
+      ],
+      "rotationY": 2.583,
+      "solid": true,
+      "note": "street tree 5"
+    },
+    {
+      "assetId": "kit_ordu_hazelnut_tree",
+      "position": [
+        11,
+        0,
+        -34.4
+      ],
+      "rotationY": 3.229,
+      "solid": true,
+      "note": "street tree 6"
+    },
+    {
+      "assetId": "kit_ordu_hazelnut_tree",
+      "position": [
+        -14.2,
+        0,
+        -37
+      ],
+      "rotationY": 3.875,
+      "solid": true,
+      "note": "street tree 7"
+    },
+    {
+      "assetId": "kit_ordu_hazelnut_tree",
+      "position": [
+        17.4,
+        0,
+        -44.7
+      ],
+      "rotationY": 4.52,
+      "solid": true,
+      "note": "street tree 8"
+    },
+    {
+      "assetId": "kit_ordu_hazelnut_tree",
+      "position": [
+        -12.6,
+        0,
+        -52.4
+      ],
+      "rotationY": 5.166,
+      "solid": true,
+      "note": "street tree 9"
+    },
+    {
+      "assetId": "kit_ordu_hazelnut_tree",
+      "position": [
+        15.8,
+        0,
+        -55
+      ],
+      "rotationY": 5.812,
+      "solid": true,
+      "note": "street tree 10"
+    },
+    {
+      "assetId": "kit_ordu_hazelnut_tree",
+      "position": [
+        -11,
+        0,
+        -62.7
+      ],
+      "rotationY": 0.175,
+      "solid": true,
+      "note": "street tree 11"
+    },
+    {
+      "assetId": "kit_ordu_hazelnut_tree",
+      "position": [
+        14.2,
+        0,
+        -70.4
+      ],
+      "rotationY": 0.82,
+      "solid": true,
+      "note": "street tree 12"
     }
   ],
   "musicUrl": "/assets/audio/ordu_theme.webm",
@@ -1064,140 +1196,7 @@
       ]
     }
   ],
-  "trees": [
-    {
-      "key": "tree-0",
-      "position": [
-        -11,
-        0,
-        -1
-      ],
-      "kind": "plane",
-      "scale": 0.8,
-      "rotationY": 0
-    },
-    {
-      "key": "tree-1",
-      "position": [
-        14.2,
-        0,
-        -8.7
-      ],
-      "kind": "plane",
-      "scale": 1.1,
-      "rotationY": 0.646
-    },
-    {
-      "key": "tree-2",
-      "position": [
-        -17.4,
-        0,
-        -16.4
-      ],
-      "kind": "cypress",
-      "scale": 0.9,
-      "rotationY": 1.292
-    },
-    {
-      "key": "tree-3",
-      "position": [
-        12.6,
-        0,
-        -19
-      ],
-      "kind": "plane",
-      "scale": 1.2,
-      "rotationY": 1.937
-    },
-    {
-      "key": "tree-4",
-      "position": [
-        -15.8,
-        0,
-        -26.7
-      ],
-      "kind": "shrub",
-      "scale": 1,
-      "rotationY": 2.583
-    },
-    {
-      "key": "tree-5",
-      "position": [
-        11,
-        0,
-        -34.4
-      ],
-      "kind": "plane",
-      "scale": 0.8,
-      "rotationY": 3.229
-    },
-    {
-      "key": "tree-6",
-      "position": [
-        -14.2,
-        0,
-        -37
-      ],
-      "kind": "plane",
-      "scale": 1.1,
-      "rotationY": 3.875
-    },
-    {
-      "key": "tree-7",
-      "position": [
-        17.4,
-        0,
-        -44.7
-      ],
-      "kind": "cypress",
-      "scale": 0.9,
-      "rotationY": 4.52
-    },
-    {
-      "key": "tree-8",
-      "position": [
-        -12.6,
-        0,
-        -52.4
-      ],
-      "kind": "plane",
-      "scale": 1.2,
-      "rotationY": 5.166
-    },
-    {
-      "key": "tree-9",
-      "position": [
-        15.8,
-        0,
-        -55
-      ],
-      "kind": "shrub",
-      "scale": 1,
-      "rotationY": 5.812
-    },
-    {
-      "key": "tree-10",
-      "position": [
-        -11,
-        0,
-        -62.7
-      ],
-      "kind": "plane",
-      "scale": 0.8,
-      "rotationY": 0.175
-    },
-    {
-      "key": "tree-11",
-      "position": [
-        14.2,
-        0,
-        -70.4
-      ],
-      "kind": "plane",
-      "scale": 1.1,
-      "rotationY": 0.82
-    }
-  ],
+  "trees": [],
   "quizPresentation": {
     "shuffleOptions": true
   },

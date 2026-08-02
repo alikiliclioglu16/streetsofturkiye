@@ -162,6 +162,7 @@ export const DELIVERED_DIMENSIONS = {
   city_ordu_timber_houses: [24.13, 11.0, 15.23],
   city_ordu_boztepe_hill: [43.57, 26.0, 45.09],
   city_ordu_cable_car: [2.4, 2.4, 2.26],
+  kit_ordu_hazelnut_tree: [4.3, 4.5, 4.4],
   /**
    * Trabzon, measured off the delivered files.
    *

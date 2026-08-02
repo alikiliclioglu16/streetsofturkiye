@@ -214,12 +214,33 @@ const TRABZON_SHORE_Z = 30;
  */
 const TRABZON_SEA = {
   centerX: 0,
-  centerZ: TRABZON_SHORE_Z - 2 + 90,
+  /**
+   * The waterline starts **behind** the wharf, not in front of it.
+   *
+   * It began at the shoreline, which put the sea at the wharf's feet and — with
+   * the paving only 34 m wide against a 420 m sea — let the water come forward
+   * down both flanks of the square. The wharf stood in it, and a boat two
+   * hundred metres out read as a boat on a cobbled tongue between two inlets.
+   *
+   * So: paving to z = 36, the wharf on it, and the sea beginning one metre past
+   * the wharf's back face. Drawn over the last two metres of stone so the join
+   * is a join (D-154).
+   */
+  centerZ: TRABZON_SHORE_Z + 6 + 90,
   width: 420,
   depth: 180,
   /** Darker and greener than the Bosphorus. It is a different sea. */
   color: '#256B80',
+  /**
+   * Still.
+   *
+   * İstanbul's swell works because its sea is a strip past the far boundary.
+   * Here the whole surface is in frame from the square, and a 420 by 180 metre
+   * plane rising and falling as one slab reads as a lid being lifted.
+   */
+  still: true,
 };
+
 
 /**
  * Two hamsi boats working the sea.
@@ -953,6 +974,15 @@ const REGION_PLANTING = {
  */
 const CITY_STREET_TREE = {
   bolu: 'kit_bolu_fir',
+  /**
+   * Ordu walks under hazelnut.
+   *
+   * It had `kit_ordu_hazelnut_grove` on its horizon and procedural boxes on its
+   * pavement, which is the split this table exists to close. The grove stays
+   * where it is — a stand of trees at distance and a single tree beside a child
+   * are different objects.
+   */
+  ordu: 'kit_ordu_hazelnut_tree',
 };
 
 /** Scatter laid along the street, on top of the ground texture. */
@@ -1406,20 +1436,23 @@ function cityBackdrop(cityId, stopPositions, metrics) {
         note: `Trabzonspor crest ${side < 0 ? 'west' : 'east'}`,
       })),
       /**
-       * The wharf on the shoreline, four of them with the sea between.
+       * The wharf, two of them flanking the view out to sea.
        *
-       * Not a wall. Ten and a half metres across at seventeen metre centres
-       * leaves six metres of water showing between each pair, which is what
-       * stops a row of sheds reading as a fence across the back of the square.
+       * It went in as four across the whole back of the square, at x = ±26 and
+       * ±9. The paving is only 34 m wide, so the outer pair stood off the end of
+       * it in open water — which is what made the sea look like it came forward
+       * down both sides. Two at ±11 sit wholly on stone and leave eleven metres
+       * of open water between them, which frames the sea rather than fencing it.
        *
        * Five metres tall against a ceiling of 10.7 m when a child turns round
-       * at the spawn (D-183), so it closes the fourth direction without leaning
-       * over them.
+       * at the spawn (D-183), so it dresses the fourth direction without
+       * closing it — and closing it would be wrong, because the answer to that
+       * direction is the horizon.
        */
-      ...[-26, -9, 9, 26].map((x, i) => ({
+      ...[-11, 11].map((x, i) => ({
         assetId: 'city_trabzon_harbour',
-        position: [x, 0, TRABZON_SHORE_Z + 1],
-        rotationY: [0.05, -0.03, 0.04, -0.06][i],
+        position: [x, 0, TRABZON_SHORE_Z],
+        rotationY: [0.05, -0.06][i],
         solid: false,
         note: `wharf ${i + 1}`,
       })),
@@ -2548,11 +2581,11 @@ function buildScene(canonical) {
     groundPad:
       canonical.id === 'trabzon'
         ? /**
-           * Four at the back rather than two, so the paving reaches the
-           * shoreline and the sea is drawn over its last two metres. The wide
-           * pad Uzungöl needed went with it.
+           * Ten at the back, so the paving carries the wharf and runs on two
+           * metres under the waterline. The wide side pad Uzungöl needed is
+           * gone with it — the wharf moved inside the street instead.
            */
-          { x: 2, front: 2, back: 4 }
+          { x: 2, front: 2, back: 10 }
         : { x: 2, front: 2, back: 2 },
     boatLines: canonical.id === 'trabzon' ? trabzonBoatLines() : [],
     birdPaths: canonical.id === 'trabzon' ? TRABZON_BIRDS : [],

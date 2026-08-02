@@ -160,6 +160,15 @@ export const sceneSchema = z
         width: z.number().positive(),
         depth: z.number().positive(),
         color: z.string(),
+        /**
+         * Still water.
+         *
+         * The plane breathes a few centimetres by default, which reads as sea
+         * at fifty metres and costs two triangles. It does not read as sea when
+         * the whole surface is in frame at once and the far edge is 180 m out:
+         * a plane that size moving as one slab is a lid lifting, not a swell.
+         */
+        still: z.boolean().default(false),
       })
       .nullable()
       .default(null),

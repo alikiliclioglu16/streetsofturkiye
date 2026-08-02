@@ -461,7 +461,7 @@
   "groundPad": {
     "x": 2,
     "front": 2,
-    "back": 4
+    "back": 10
   },
   "boatLines": [
     {
@@ -591,10 +591,11 @@
   "trainLine": null,
   "water": {
     "centerX": 0,
-    "centerZ": 118,
+    "centerZ": 126,
     "width": 420,
     "depth": 180,
-    "color": "#256B80"
+    "color": "#256B80",
+    "still": true
   },
   "backdrop": [
     {
@@ -875,9 +876,9 @@
     {
       "assetId": "city_trabzon_harbour",
       "position": [
-        -26,
+        -11,
         0,
-        31
+        30
       ],
       "rotationY": 0.05,
       "solid": false,
@@ -886,35 +887,13 @@
     {
       "assetId": "city_trabzon_harbour",
       "position": [
-        -9,
+        11,
         0,
-        31
-      ],
-      "rotationY": -0.03,
-      "solid": false,
-      "note": "wharf 2"
-    },
-    {
-      "assetId": "city_trabzon_harbour",
-      "position": [
-        9,
-        0,
-        31
-      ],
-      "rotationY": 0.04,
-      "solid": false,
-      "note": "wharf 3"
-    },
-    {
-      "assetId": "city_trabzon_harbour",
-      "position": [
-        26,
-        0,
-        31
+        30
       ],
       "rotationY": -0.06,
       "solid": false,
-      "note": "wharf 4"
+      "note": "wharf 2"
     }
   ],
   "animal": "none",
