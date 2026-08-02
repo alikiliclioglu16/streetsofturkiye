@@ -1810,6 +1810,47 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
     notes: 'Delivered 2 m buried 1 m, 24.69 MB; re-authored to 4.6 m on y = 0, 2.28 MB.',
   },
   {
+    id: 'kit_izmir_poplar',
+    modelUrl: '/assets/props/kit_izmir_poplar.glb',
+    checksum: 'fa32d75a5740de400935349c41809e17ca5a84add1bc06a28d1e7a32a9f008fb',
+    triangles: 10_353,
+    transferBytes: 1_077_304,
+    /**
+     * İzmir's street tree: a poplar.
+     *
+     * Fifth city out of `CITY_STREET_TREE`, and the tallest and narrowest of
+     * the five: eleven metres on a 3.3 m footprint against Bolu's nine metre
+     * fir, Balıkesir's five and a half metre olive, Ordu's four and a half
+     * metre hazelnut and Erzurum's six and a half metre oak. A column rather
+     * than a canopy, which is what a poplar is and what a 129 m promenade
+     * wants — it lines the walk without roofing it.
+     */
+    dimensions: [3.35, 11.0, 3.33],
+    label: 'Poplar',
+    color: '#5F7A42',
+    placeholder: 'box',
+    notes: 'Delivered 2 m on y = 0, 25.34 MB; re-authored to 11 m, 1.03 MB.',
+  },
+  {
+    id: 'city_izmir_kumru_stall',
+    modelUrl: '/assets/city/city_izmir_kumru_stall.glb',
+    checksum: 'fb4780fe1e770a58d55878095ef90abfcd1799a1e8788ea2c90ea08b276ab791',
+    triangles: 9_245,
+    transferBytes: 1_752_276,
+    /**
+     * A kumru stall on the Kordon.
+     *
+     * Dressing, not a stop: it hands over nothing and asks nothing. İzmir's
+     * fifth stop is already a boyoz cart, and a city can have two things to eat
+     * in it without both of them being errands.
+     */
+    dimensions: [3.52, 2.6, 2.35],
+    label: 'Kumru stall',
+    color: '#B07A46',
+    placeholder: 'box',
+    notes: 'Delivered 2 m buried 1 m, 24.09 MB; re-authored to 2.6 m on y = 0, 1.67 MB.',
+  },
+  {
     id: 'city_izmir_konak_facades',
     modelUrl: '/assets/city/city_izmir_konak_facades.glb',
     checksum: 'c571316fdb94f0964187eeb2d8fec76c7ef67d25874f8da1cdc365566899587a',

@@ -173,6 +173,8 @@ export const DELIVERED_DIMENSIONS = {
   city_mardin_stone_doorway: [2.59, 3.6, 0.82],
   city_mardin_telkari_bench: [2.43, 2.2, 1.95],
   city_mardin_minaret_courtyard: [4.28, 4.6, 5.32],
+  kit_izmir_poplar: [3.35, 11.0, 3.33],
+  city_izmir_kumru_stall: [3.52, 2.6, 2.35],
   city_izmir_konak_facades: [21.99, 13.0, 7.66],
   city_izmir_alacati: [20.97, 9.0, 8.67],
   city_izmir_kordon_edge: [16.45, 7.0, 4.76],

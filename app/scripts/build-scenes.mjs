@@ -339,9 +339,23 @@ const ERZURUM_WOLF = { position: [-0.73, 26.2, -149.1], rotationY: 0 };
  *
  * The steepness is not a lie, either: Ephesus is built up a hillside, so a
  * plate that rises away is what the place actually does.
+ *
+ * **The height is 17.27 m lower than the section drawing says, and that is not
+ * a fudge.** `AssetInstance` grounds a model by measuring `Box3.setFromObject`
+ * in **world** space, so the box it stands on is the box *after* this tilt —
+ * the lowest corner of the rotated plate is what meets the group's origin, not
+ * the untilted base. Tilting a 92 m plate by 22° drops that corner 17.27 m, and
+ * the grounding hands all of it straight back. It hung in the sky by exactly
+ * that, and the first pass computed the section correctly and the mounting
+ * wrongly.
+ *
+ * So: anything with a `rotationX` has to have `half-depth · sin θ` taken off
+ * its y. Ordu's plateau was tuned by eye and never showed it; this is the first
+ * piece where the number was derived, which is why it is the first one where
+ * the discrepancy had somewhere to hide.
  */
 const IZMIR_RUINS_TILT = (22 * Math.PI) / 180;
-const IZMIR_RUINS_Y = 12.1;
+const IZMIR_RUINS_Y = -5.19;
 const IZMIR_RUINS_Z = -150.8;
 const IZMIR_TOWER_Z = 70;
 
@@ -1569,6 +1583,11 @@ const CITY_STREET_TREE = {
    * low-poly, it is the wrong season.
    */
   erzurum: 'kit_erzurum_oak',
+  /**
+   * İzmir walks under poplars — the tallest and thinnest of the five, which is
+   * what lines a promenade without roofing it.
+   */
+  izmir: 'kit_izmir_poplar',
 };
 
 /** Scatter laid along the street, on top of the ground texture. */
@@ -1579,6 +1598,21 @@ const CITY_STREET_SCATTER = {
    * at arm's length.
    */
   erzurum: 'kit_erzurum_snow_drift',
+  /**
+   * İzmir's pigeons, and **two poses rather than one**.
+   *
+   * This table took a single id until now, which was fine for leaf fall and
+   * snow banks — a drift is a drift. Birds are not: one pose repeated down a
+   * street is wallpaper, and that is the lesson Kars's geese and Manyas's five
+   * identical pelicans both taught (D-129).
+   *
+   * They go in the scatter rather than the backdrop because scatter is the only
+   * thing in this generator that stands *inside* the play area. A 34 cm bird
+   * pushed out past x = 15 with the rest of the scenery would be one degree
+   * tall and might as well not exist — and canonical promises a child that one
+   * might land on their arm.
+   */
+  izmir: ['kit_izmir_pigeon_walking', 'kit_izmir_pigeon_flying'],
   bolu: 'kit_bolu_leaf_fall',
 };
 
@@ -1673,7 +1707,7 @@ function streetTreeProps(cityId, stopPositions, geometry) {
       const z = firstZ + 18 - (span * i) / drifts - ((i % 4) * 1.3);
       if (!clearOfStops(x, z, 0.5)) continue;
       out.push({
-        assetId: scatterId,
+        assetId: Array.isArray(scatterId) ? scatterId[i % scatterId.length] : scatterId,
         position: [Math.round(x * 10) / 10, 0, Math.round(z * 10) / 10],
         rotationY: Math.round(((i * 61) % 360) * (Math.PI / 180) * 1000) / 1000,
         solid: false,
@@ -1970,9 +2004,17 @@ function cityBackdrop(cityId, stopPositions, metrics) {
        * flank. Shallow pieces at 20 m centres for a 22 m width, so they overlap
        * and read as a terrace rather than as five buildings.
        */
-      ...Array.from({ length: 5 }, (_, i) =>
-        wall('city_izmir_konak_facades', -26, 24 - i * 20, `konak ${i + 1}`),
-      ),
+      /**
+       * One Konak facade only, beside the clock tower.
+       *
+       * The west flank was five of these and then Alaçatı; on screen the
+       * Levantine terrace read as the city and the village never arrived,
+       * because a child spends most of the walk in front of it. Now it is the
+       * other way round — Alaçatı the length of the street, and this single
+       * piece where the tower stands, so Konak Square is the one place in İzmir
+       * that looks like the city rather than the coast.
+       */
+      wall('city_izmir_konak_facades', -26, 20, 'konak by the tower'),
       /**
        * Alaçatı takes over past the third stop and runs to the ruins.
        *
@@ -1980,13 +2022,13 @@ function cityBackdrop(cityId, stopPositions, metrics) {
        * child walks out of the city. That is the whole reason to have two
        * different flanks rather than one repeated.
        *
-       * It starts at -78 rather than -84 because the sweep found six and a half
-       * metres of bare sky between the last Konak piece and the first of these
-       * — and the fourth stop sits in that gap, which is the worst place in the
-       * street for a hole nobody would see on a plan (D-149).
+       * Eight of them at 19 m centres for a 21 m width, running from the spawn
+       * to the ruins. They overlap by two metres, which is what closes the
+       * flank at height as well as in plan — the sweep found six metres of bare
+       * sky in the first version, with the fourth stop sitting in it (D-149).
        */
-      ...Array.from({ length: 5 }, (_, i) =>
-        wall('city_izmir_alacati', -26, -78 - i * 20, `alaçatı ${i + 1}`),
+      ...Array.from({ length: 8 }, (_, i) =>
+        wall('city_izmir_alacati', -26, 0 - i * 19, `alaçatı ${i + 1}`),
       ),
       /**
        * The Kordon, seven pieces down the whole east flank.
@@ -2056,6 +2098,19 @@ function cityBackdrop(cityId, stopPositions, metrics) {
         solid: false,
         note: `konak back ${i + 1}`,
       })),
+      /**
+       * A kumru stall on the promenade side, between the second and third
+       * stops. Out at x = 20 so its 3.5 m footprint clears the walking area
+       * with room — a piece placed by eye is how Balıkesir's olive stands
+       * failed their test by twenty centimetres.
+       */
+      {
+        assetId: 'city_izmir_kumru_stall',
+        position: [20, 0, -44],
+        rotationY: -Math.PI / 2 + 0.12,
+        solid: false,
+        note: 'kumru stall',
+      },
       /**
        * Doves on fallen marble, twice, beside the clock tower stop.
        *

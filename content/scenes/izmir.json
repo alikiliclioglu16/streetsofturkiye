@@ -539,6 +539,369 @@
       "rotationY": 1.421,
       "solid": true,
       "note": "fountain, near the end"
+    },
+    {
+      "assetId": "kit_izmir_poplar",
+      "position": [
+        -11,
+        0,
+        -1
+      ],
+      "rotationY": 0,
+      "solid": true,
+      "note": "street tree 1"
+    },
+    {
+      "assetId": "kit_izmir_poplar",
+      "position": [
+        14.2,
+        0,
+        -9.7
+      ],
+      "rotationY": 0.646,
+      "solid": true,
+      "note": "street tree 2"
+    },
+    {
+      "assetId": "kit_izmir_poplar",
+      "position": [
+        -17.4,
+        0,
+        -18.4
+      ],
+      "rotationY": 1.292,
+      "solid": true,
+      "note": "street tree 3"
+    },
+    {
+      "assetId": "kit_izmir_poplar",
+      "position": [
+        12.6,
+        0,
+        -22
+      ],
+      "rotationY": 1.937,
+      "solid": true,
+      "note": "street tree 4"
+    },
+    {
+      "assetId": "kit_izmir_poplar",
+      "position": [
+        -15.8,
+        0,
+        -30.7
+      ],
+      "rotationY": 2.583,
+      "solid": true,
+      "note": "street tree 5"
+    },
+    {
+      "assetId": "kit_izmir_poplar",
+      "position": [
+        -14.2,
+        0,
+        -43
+      ],
+      "rotationY": 3.875,
+      "solid": true,
+      "note": "street tree 7"
+    },
+    {
+      "assetId": "kit_izmir_poplar",
+      "position": [
+        17.4,
+        0,
+        -51.7
+      ],
+      "rotationY": 4.52,
+      "solid": true,
+      "note": "street tree 8"
+    },
+    {
+      "assetId": "kit_izmir_poplar",
+      "position": [
+        -12.6,
+        0,
+        -60.4
+      ],
+      "rotationY": 5.166,
+      "solid": true,
+      "note": "street tree 9"
+    },
+    {
+      "assetId": "kit_izmir_poplar",
+      "position": [
+        15.8,
+        0,
+        -64
+      ],
+      "rotationY": 5.812,
+      "solid": true,
+      "note": "street tree 10"
+    },
+    {
+      "assetId": "kit_izmir_poplar",
+      "position": [
+        -11,
+        0,
+        -72.7
+      ],
+      "rotationY": 0.175,
+      "solid": true,
+      "note": "street tree 11"
+    },
+    {
+      "assetId": "kit_izmir_poplar",
+      "position": [
+        14.2,
+        0,
+        -81.4
+      ],
+      "rotationY": 0.82,
+      "solid": true,
+      "note": "street tree 12"
+    },
+    {
+      "assetId": "kit_izmir_poplar",
+      "position": [
+        -17.4,
+        0,
+        -85
+      ],
+      "rotationY": 1.466,
+      "solid": true,
+      "note": "street tree 13"
+    },
+    {
+      "assetId": "kit_izmir_poplar",
+      "position": [
+        12.6,
+        0,
+        -93.7
+      ],
+      "rotationY": 2.112,
+      "solid": true,
+      "note": "street tree 14"
+    },
+    {
+      "assetId": "kit_izmir_poplar",
+      "position": [
+        -15.8,
+        0,
+        -102.4
+      ],
+      "rotationY": 2.758,
+      "solid": true,
+      "note": "street tree 15"
+    },
+    {
+      "assetId": "kit_izmir_poplar",
+      "position": [
+        11,
+        0,
+        -106
+      ],
+      "rotationY": 3.403,
+      "solid": true,
+      "note": "street tree 16"
+    },
+    {
+      "assetId": "kit_izmir_pigeon_walking",
+      "position": [
+        -4.5,
+        0,
+        1
+      ],
+      "rotationY": 0,
+      "solid": false,
+      "note": "leaf drift 1"
+    },
+    {
+      "assetId": "kit_izmir_pigeon_flying",
+      "position": [
+        8.9,
+        0,
+        -5.4
+      ],
+      "rotationY": 1.065,
+      "solid": false,
+      "note": "leaf drift 2"
+    },
+    {
+      "assetId": "kit_izmir_pigeon_walking",
+      "position": [
+        -5.6,
+        0,
+        -11.8
+      ],
+      "rotationY": 2.129,
+      "solid": false,
+      "note": "leaf drift 3"
+    },
+    {
+      "assetId": "kit_izmir_pigeon_flying",
+      "position": [
+        10,
+        0,
+        -18.2
+      ],
+      "rotationY": 3.194,
+      "solid": false,
+      "note": "leaf drift 4"
+    },
+    {
+      "assetId": "kit_izmir_pigeon_walking",
+      "position": [
+        -6.7,
+        0,
+        -19.4
+      ],
+      "rotationY": 4.259,
+      "solid": false,
+      "note": "leaf drift 5"
+    },
+    {
+      "assetId": "kit_izmir_pigeon_walking",
+      "position": [
+        -7.8,
+        0,
+        -32.1
+      ],
+      "rotationY": 0.105,
+      "solid": false,
+      "note": "leaf drift 7"
+    },
+    {
+      "assetId": "kit_izmir_pigeon_walking",
+      "position": [
+        -8.9,
+        0,
+        -39.7
+      ],
+      "rotationY": 2.234,
+      "solid": false,
+      "note": "leaf drift 9"
+    },
+    {
+      "assetId": "kit_izmir_pigeon_walking",
+      "position": [
+        -10,
+        0,
+        -52.5
+      ],
+      "rotationY": 4.363,
+      "solid": false,
+      "note": "leaf drift 11"
+    },
+    {
+      "assetId": "kit_izmir_pigeon_flying",
+      "position": [
+        6.7,
+        0,
+        -58.9
+      ],
+      "rotationY": 5.428,
+      "solid": false,
+      "note": "leaf drift 12"
+    },
+    {
+      "assetId": "kit_izmir_pigeon_walking",
+      "position": [
+        -11.1,
+        0,
+        -60.1
+      ],
+      "rotationY": 0.209,
+      "solid": false,
+      "note": "leaf drift 13"
+    },
+    {
+      "assetId": "kit_izmir_pigeon_flying",
+      "position": [
+        7.8,
+        0,
+        -66.5
+      ],
+      "rotationY": 1.274,
+      "solid": false,
+      "note": "leaf drift 14"
+    },
+    {
+      "assetId": "kit_izmir_pigeon_walking",
+      "position": [
+        -4.5,
+        0,
+        -72.9
+      ],
+      "rotationY": 2.339,
+      "solid": false,
+      "note": "leaf drift 15"
+    },
+    {
+      "assetId": "kit_izmir_pigeon_flying",
+      "position": [
+        8.9,
+        0,
+        -79.3
+      ],
+      "rotationY": 3.403,
+      "solid": false,
+      "note": "leaf drift 16"
+    },
+    {
+      "assetId": "kit_izmir_pigeon_walking",
+      "position": [
+        -5.6,
+        0,
+        -80.5
+      ],
+      "rotationY": 4.468,
+      "solid": false,
+      "note": "leaf drift 17"
+    },
+    {
+      "assetId": "kit_izmir_pigeon_flying",
+      "position": [
+        10,
+        0,
+        -86.8
+      ],
+      "rotationY": 5.533,
+      "solid": false,
+      "note": "leaf drift 18"
+    },
+    {
+      "assetId": "kit_izmir_pigeon_flying",
+      "position": [
+        11.1,
+        0,
+        -99.6
+      ],
+      "rotationY": 1.379,
+      "solid": false,
+      "note": "leaf drift 20"
+    },
+    {
+      "assetId": "kit_izmir_pigeon_walking",
+      "position": [
+        -7.8,
+        0,
+        -100.8
+      ],
+      "rotationY": 2.443,
+      "solid": false,
+      "note": "leaf drift 21"
+    },
+    {
+      "assetId": "kit_izmir_pigeon_flying",
+      "position": [
+        4.5,
+        0,
+        -107.2
+      ],
+      "rotationY": 3.508,
+      "solid": false,
+      "note": "leaf drift 22"
     }
   ],
   "musicUrl": null,
@@ -709,62 +1072,18 @@
       "position": [
         -26,
         0,
-        24
+        20
       ],
       "rotationY": 1.5707963267948966,
       "solid": false,
-      "note": "konak 1"
-    },
-    {
-      "assetId": "city_izmir_konak_facades",
-      "position": [
-        -26,
-        0,
-        4
-      ],
-      "rotationY": 1.5707963267948966,
-      "solid": false,
-      "note": "konak 2"
-    },
-    {
-      "assetId": "city_izmir_konak_facades",
-      "position": [
-        -26,
-        0,
-        -16
-      ],
-      "rotationY": 1.5707963267948966,
-      "solid": false,
-      "note": "konak 3"
-    },
-    {
-      "assetId": "city_izmir_konak_facades",
-      "position": [
-        -26,
-        0,
-        -36
-      ],
-      "rotationY": 1.5707963267948966,
-      "solid": false,
-      "note": "konak 4"
-    },
-    {
-      "assetId": "city_izmir_konak_facades",
-      "position": [
-        -26,
-        0,
-        -56
-      ],
-      "rotationY": 1.5707963267948966,
-      "solid": false,
-      "note": "konak 5"
+      "note": "konak by the tower"
     },
     {
       "assetId": "city_izmir_alacati",
       "position": [
         -26,
         0,
-        -78
+        0
       ],
       "rotationY": 1.5707963267948966,
       "solid": false,
@@ -775,7 +1094,7 @@
       "position": [
         -26,
         0,
-        -98
+        -19
       ],
       "rotationY": 1.5707963267948966,
       "solid": false,
@@ -786,7 +1105,7 @@
       "position": [
         -26,
         0,
-        -118
+        -38
       ],
       "rotationY": 1.5707963267948966,
       "solid": false,
@@ -797,7 +1116,7 @@
       "position": [
         -26,
         0,
-        -138
+        -57
       ],
       "rotationY": 1.5707963267948966,
       "solid": false,
@@ -808,11 +1127,44 @@
       "position": [
         -26,
         0,
-        -158
+        -76
       ],
       "rotationY": 1.5707963267948966,
       "solid": false,
       "note": "alaçatı 5"
+    },
+    {
+      "assetId": "city_izmir_alacati",
+      "position": [
+        -26,
+        0,
+        -95
+      ],
+      "rotationY": 1.5707963267948966,
+      "solid": false,
+      "note": "alaçatı 6"
+    },
+    {
+      "assetId": "city_izmir_alacati",
+      "position": [
+        -26,
+        0,
+        -114
+      ],
+      "rotationY": 1.5707963267948966,
+      "solid": false,
+      "note": "alaçatı 7"
+    },
+    {
+      "assetId": "city_izmir_alacati",
+      "position": [
+        -26,
+        0,
+        -133
+      ],
+      "rotationY": 1.5707963267948966,
+      "solid": false,
+      "note": "alaçatı 8"
     },
     {
       "assetId": "city_izmir_kordon_edge",
@@ -939,7 +1291,7 @@
       "assetId": "city_izmir_ephesus",
       "position": [
         -4,
-        12.1,
+        -5.19,
         -150.8
       ],
       "rotationY": 0.05,
@@ -979,6 +1331,17 @@
       "rotationY": 3.061592653589793,
       "solid": false,
       "note": "konak back 2"
+    },
+    {
+      "assetId": "city_izmir_kumru_stall",
+      "position": [
+        20,
+        0,
+        -44
+      ],
+      "rotationY": -1.4507963267948965,
+      "solid": false,
+      "note": "kumru stall"
     },
     {
       "assetId": "kit_izmir_doves_ruin",
@@ -1084,173 +1447,7 @@
       ]
     }
   ],
-  "trees": [
-    {
-      "key": "tree-0",
-      "position": [
-        -11,
-        0,
-        -1
-      ],
-      "kind": "cypress",
-      "scale": 0.8,
-      "rotationY": 0
-    },
-    {
-      "key": "tree-1",
-      "position": [
-        14.2,
-        0,
-        -9.7
-      ],
-      "kind": "plane",
-      "scale": 1.1,
-      "rotationY": 0.646
-    },
-    {
-      "key": "tree-2",
-      "position": [
-        -17.4,
-        0,
-        -18.4
-      ],
-      "kind": "shrub",
-      "scale": 0.9,
-      "rotationY": 1.292
-    },
-    {
-      "key": "tree-3",
-      "position": [
-        12.6,
-        0,
-        -22
-      ],
-      "kind": "cypress",
-      "scale": 1.2,
-      "rotationY": 1.937
-    },
-    {
-      "key": "tree-4",
-      "position": [
-        -15.8,
-        0,
-        -30.7
-      ],
-      "kind": "plane",
-      "scale": 1,
-      "rotationY": 2.583
-    },
-    {
-      "key": "tree-6",
-      "position": [
-        -14.2,
-        0,
-        -43
-      ],
-      "kind": "plane",
-      "scale": 1.1,
-      "rotationY": 3.875
-    },
-    {
-      "key": "tree-7",
-      "position": [
-        17.4,
-        0,
-        -51.7
-      ],
-      "kind": "shrub",
-      "scale": 0.9,
-      "rotationY": 4.52
-    },
-    {
-      "key": "tree-8",
-      "position": [
-        -12.6,
-        0,
-        -60.4
-      ],
-      "kind": "cypress",
-      "scale": 1.2,
-      "rotationY": 5.166
-    },
-    {
-      "key": "tree-9",
-      "position": [
-        15.8,
-        0,
-        -64
-      ],
-      "kind": "plane",
-      "scale": 1,
-      "rotationY": 5.812
-    },
-    {
-      "key": "tree-10",
-      "position": [
-        -11,
-        0,
-        -72.7
-      ],
-      "kind": "cypress",
-      "scale": 0.8,
-      "rotationY": 0.175
-    },
-    {
-      "key": "tree-11",
-      "position": [
-        14.2,
-        0,
-        -81.4
-      ],
-      "kind": "plane",
-      "scale": 1.1,
-      "rotationY": 0.82
-    },
-    {
-      "key": "tree-12",
-      "position": [
-        -17.4,
-        0,
-        -85
-      ],
-      "kind": "shrub",
-      "scale": 0.9,
-      "rotationY": 1.466
-    },
-    {
-      "key": "tree-13",
-      "position": [
-        12.6,
-        0,
-        -93.7
-      ],
-      "kind": "cypress",
-      "scale": 1.2,
-      "rotationY": 2.112
-    },
-    {
-      "key": "tree-14",
-      "position": [
-        -15.8,
-        0,
-        -102.4
-      ],
-      "kind": "plane",
-      "scale": 1,
-      "rotationY": 2.758
-    },
-    {
-      "key": "tree-15",
-      "position": [
-        11,
-        0,
-        -106
-      ],
-      "kind": "cypress",
-      "scale": 0.8,
-      "rotationY": 3.403
-    }
-  ],
+  "trees": [],
   "quizPresentation": {
     "shuffleOptions": true
   },
