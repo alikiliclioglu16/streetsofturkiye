@@ -373,7 +373,20 @@ export function buildScene(city: CityDefinition, quality: QualityTier): SceneDes
     canoeLines: city.canoeLines,
     ferryLine: city.ferryLine,
     cableCarLine: city.cableCarLine,
-    cableCarAsset: city.cableCarLine ? resolveAsset('city_ordu_cable_car', quality) : null,
+    /**
+     * Each line carries its own vehicle.
+     *
+     * Ordu's is a red gondola and Bolu's is an open two-person chair. They are
+     * the same machine doing different jobs, and putting a sightseeing gondola
+     * on a ski hill is exactly the borrowing the four-directions rule exists to
+     * stop.
+     */
+    cableCarAsset: city.cableCarLine
+      ? resolveAsset(
+          city.id === 'bolu' ? 'city_bolu_chairlift_chair' : 'city_ordu_cable_car',
+          quality,
+        )
+      : null,
     ferryAsset: city.ferryLine ? resolveAsset('city_istanbul_ferry_boat', quality) : null,
     canoeAsset: city.canoeLines.length ? resolveAsset('city_van_canoe', quality) : null,
     trainAsset: city.trainLine ? resolveAsset('city_kars_eastern_express', quality) : null,

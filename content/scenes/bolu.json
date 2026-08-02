@@ -437,6 +437,259 @@
       "rotationY": 1.421,
       "solid": true,
       "note": "fountain, near the end"
+    },
+    {
+      "assetId": "kit_bolu_fir",
+      "position": [
+        -11,
+        0,
+        -1
+      ],
+      "rotationY": 0,
+      "solid": true,
+      "note": "street tree 1"
+    },
+    {
+      "assetId": "kit_bolu_fir",
+      "position": [
+        14.2,
+        0,
+        -8.5
+      ],
+      "rotationY": 0.646,
+      "solid": true,
+      "note": "street tree 2"
+    },
+    {
+      "assetId": "kit_bolu_fir",
+      "position": [
+        -17.4,
+        0,
+        -16.1
+      ],
+      "rotationY": 1.292,
+      "solid": true,
+      "note": "street tree 3"
+    },
+    {
+      "assetId": "kit_bolu_fir",
+      "position": [
+        12.6,
+        0,
+        -18.5
+      ],
+      "rotationY": 1.937,
+      "solid": true,
+      "note": "street tree 4"
+    },
+    {
+      "assetId": "kit_bolu_fir",
+      "position": [
+        -15.8,
+        0,
+        -26
+      ],
+      "rotationY": 2.583,
+      "solid": true,
+      "note": "street tree 5"
+    },
+    {
+      "assetId": "kit_bolu_fir",
+      "position": [
+        11,
+        0,
+        -33.6
+      ],
+      "rotationY": 3.229,
+      "solid": true,
+      "note": "street tree 6"
+    },
+    {
+      "assetId": "kit_bolu_fir",
+      "position": [
+        -14.2,
+        0,
+        -36
+      ],
+      "rotationY": 3.875,
+      "solid": true,
+      "note": "street tree 7"
+    },
+    {
+      "assetId": "kit_bolu_fir",
+      "position": [
+        17.4,
+        0,
+        -43.5
+      ],
+      "rotationY": 4.52,
+      "solid": true,
+      "note": "street tree 8"
+    },
+    {
+      "assetId": "kit_bolu_fir",
+      "position": [
+        -12.6,
+        0,
+        -51.1
+      ],
+      "rotationY": 5.166,
+      "solid": true,
+      "note": "street tree 9"
+    },
+    {
+      "assetId": "kit_bolu_fir",
+      "position": [
+        15.8,
+        0,
+        -53.5
+      ],
+      "rotationY": 5.812,
+      "solid": true,
+      "note": "street tree 10"
+    },
+    {
+      "assetId": "kit_bolu_fir",
+      "position": [
+        -11,
+        0,
+        -61
+      ],
+      "rotationY": 0.175,
+      "solid": true,
+      "note": "street tree 11"
+    },
+    {
+      "assetId": "kit_bolu_fir",
+      "position": [
+        14.2,
+        0,
+        -68.6
+      ],
+      "rotationY": 0.82,
+      "solid": true,
+      "note": "street tree 12"
+    },
+    {
+      "assetId": "kit_bolu_leaf_fall",
+      "position": [
+        -4.5,
+        0,
+        1
+      ],
+      "rotationY": 0,
+      "solid": false,
+      "note": "leaf drift 1"
+    },
+    {
+      "assetId": "kit_bolu_leaf_fall",
+      "position": [
+        8.9,
+        0,
+        -5.3
+      ],
+      "rotationY": 1.065,
+      "solid": false,
+      "note": "leaf drift 2"
+    },
+    {
+      "assetId": "kit_bolu_leaf_fall",
+      "position": [
+        10,
+        0,
+        -17.9
+      ],
+      "rotationY": 3.194,
+      "solid": false,
+      "note": "leaf drift 4"
+    },
+    {
+      "assetId": "kit_bolu_leaf_fall",
+      "position": [
+        11.1,
+        0,
+        -25.3
+      ],
+      "rotationY": 5.323,
+      "solid": false,
+      "note": "leaf drift 6"
+    },
+    {
+      "assetId": "kit_bolu_leaf_fall",
+      "position": [
+        -7.8,
+        0,
+        -31.6
+      ],
+      "rotationY": 0.105,
+      "solid": false,
+      "note": "leaf drift 7"
+    },
+    {
+      "assetId": "kit_bolu_leaf_fall",
+      "position": [
+        4.5,
+        0,
+        -37.9
+      ],
+      "rotationY": 1.169,
+      "solid": false,
+      "note": "leaf drift 8"
+    },
+    {
+      "assetId": "kit_bolu_leaf_fall",
+      "position": [
+        -8.9,
+        0,
+        -39
+      ],
+      "rotationY": 2.234,
+      "solid": false,
+      "note": "leaf drift 9"
+    },
+    {
+      "assetId": "kit_bolu_leaf_fall",
+      "position": [
+        -10,
+        0,
+        -51.6
+      ],
+      "rotationY": 4.363,
+      "solid": false,
+      "note": "leaf drift 11"
+    },
+    {
+      "assetId": "kit_bolu_leaf_fall",
+      "position": [
+        6.7,
+        0,
+        -57.9
+      ],
+      "rotationY": 5.428,
+      "solid": false,
+      "note": "leaf drift 12"
+    },
+    {
+      "assetId": "kit_bolu_leaf_fall",
+      "position": [
+        -11.1,
+        0,
+        -59
+      ],
+      "rotationY": 0.209,
+      "solid": false,
+      "note": "leaf drift 13"
+    },
+    {
+      "assetId": "kit_bolu_leaf_fall",
+      "position": [
+        7.8,
+        0,
+        -65.3
+      ],
+      "rotationY": 1.274,
+      "solid": false,
+      "note": "leaf drift 14"
     }
   ],
   "musicUrl": "/assets/audio/bolu_theme.webm",
@@ -458,13 +711,7 @@
   "ferryLine": null,
   "canoeLines": [],
   "trainLine": null,
-  "water": {
-    "centerX": 0,
-    "centerZ": -174,
-    "width": 300,
-    "depth": 200,
-    "color": "#4A7C6B"
-  },
+  "water": null,
   "backdrop": [
     {
       "assetId": "city_bolu_forest_row",
@@ -746,140 +993,7 @@
       ]
     }
   ],
-  "trees": [
-    {
-      "key": "tree-0",
-      "position": [
-        -11,
-        0,
-        -1
-      ],
-      "kind": "plane",
-      "scale": 0.8,
-      "rotationY": 0
-    },
-    {
-      "key": "tree-1",
-      "position": [
-        14.2,
-        0,
-        -8.5
-      ],
-      "kind": "plane",
-      "scale": 1.1,
-      "rotationY": 0.646
-    },
-    {
-      "key": "tree-2",
-      "position": [
-        -17.4,
-        0,
-        -16.1
-      ],
-      "kind": "cypress",
-      "scale": 0.9,
-      "rotationY": 1.292
-    },
-    {
-      "key": "tree-3",
-      "position": [
-        12.6,
-        0,
-        -18.5
-      ],
-      "kind": "plane",
-      "scale": 1.2,
-      "rotationY": 1.937
-    },
-    {
-      "key": "tree-4",
-      "position": [
-        -15.8,
-        0,
-        -26
-      ],
-      "kind": "shrub",
-      "scale": 1,
-      "rotationY": 2.583
-    },
-    {
-      "key": "tree-5",
-      "position": [
-        11,
-        0,
-        -33.6
-      ],
-      "kind": "plane",
-      "scale": 0.8,
-      "rotationY": 3.229
-    },
-    {
-      "key": "tree-6",
-      "position": [
-        -14.2,
-        0,
-        -36
-      ],
-      "kind": "plane",
-      "scale": 1.1,
-      "rotationY": 3.875
-    },
-    {
-      "key": "tree-7",
-      "position": [
-        17.4,
-        0,
-        -43.5
-      ],
-      "kind": "cypress",
-      "scale": 0.9,
-      "rotationY": 4.52
-    },
-    {
-      "key": "tree-8",
-      "position": [
-        -12.6,
-        0,
-        -51.1
-      ],
-      "kind": "plane",
-      "scale": 1.2,
-      "rotationY": 5.166
-    },
-    {
-      "key": "tree-9",
-      "position": [
-        15.8,
-        0,
-        -53.5
-      ],
-      "kind": "shrub",
-      "scale": 1,
-      "rotationY": 5.812
-    },
-    {
-      "key": "tree-10",
-      "position": [
-        -11,
-        0,
-        -61
-      ],
-      "kind": "plane",
-      "scale": 0.8,
-      "rotationY": 0.175
-    },
-    {
-      "key": "tree-11",
-      "position": [
-        14.2,
-        0,
-        -68.6
-      ],
-      "kind": "plane",
-      "scale": 1.1,
-      "rotationY": 0.82
-    }
-  ],
+  "trees": [],
   "quizPresentation": {
     "shuffleOptions": true
   },

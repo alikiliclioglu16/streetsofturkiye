@@ -3394,3 +3394,38 @@ against the 8° the rule wants.
 **Still missing: a chair for the chairlift.** The line runs and draws nothing,
 because Ordu's red gondola would be wrong on a ski hill and reusing it is the
 kind of borrowing the whole four-directions rule exists to stop.
+
+## D-188 — Bolu's street is planted with trees rather than tree shapes (2 Aug 2026)
+
+`StreetTrees` builds trunks and canopy blobs out of instanced boxes. It is cheap,
+it looks like what it is, and it was fine while every city used it. Bolu is a
+forest: a street lined with green blobs standing beside a delivered forest edge
+reads as two different games in one shot, and the owner's screenshot shows
+exactly that.
+
+A city may now name a tree model. The placer emits props at exactly the
+positions it would have used, so the spacing, the clearance from every trigger
+ring and the rule that nothing stands where the child walks are all still its
+own work — only the geometry changes. Bolu gets twelve firs; everywhere else is
+untouched.
+
+**And leaf drifts down both sides.** The forest floor texture already draws leaf
+litter and a texture is flat; drifts standing on it catch the light from the
+side, which is what makes leaves read as leaves. Eleven of them, never on the
+walking line, never solid — a drift is something a child walks through.
+
+Three more corrections in the same pass:
+
+- **The deer is twice the briefed size**, 2.8 m rather than 1.4. A roe deer is
+  1.1 m at the shoulder and at that size it was a speck on a street lined with
+  nine metre firs. Everything in this project is a little larger than life at
+  child scale, and an animal you cannot pick out may as well not be there.
+- **Bolu has no water.** The lake plane was appearing and disappearing at the
+  edge of the frame; stop one carries its own water and the far shore is forest,
+  so the plane was doing nothing but flicker. Ordu lost its sea for the same
+  reason (D-173) — the flat plane earns its place in İstanbul and nowhere else
+  so far.
+- **The lift carries a chair.** `cableCarAsset` is per city now: Ordu's red
+  gondola and Bolu's open two-person chair are the same machine doing different
+  jobs, and a sightseeing gondola on a ski hill is the borrowing the whole
+  four-directions rule exists to stop.

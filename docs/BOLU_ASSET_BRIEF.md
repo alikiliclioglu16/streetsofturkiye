@@ -30,7 +30,7 @@ If a model here could plausibly be dropped into Ordu, it is wrong.
 
 ## The whole list, in the order I would draw it
 
-Four files left — three rewards and a chairlift chair. **Part A first** — a street with placeholder stops and a real
+Three files left — the rewards. **Part A first** — a street with placeholder stops and a real
 horizon reads as a place under construction; real stops and no horizon reads as
 a diorama.
 
@@ -54,10 +54,9 @@ re-authored here in one command.
 
 **Theme delivered:** *Yedigöller Yolu*.
 
-**Still wanted:** a single chairlift chair, so the line above the town carries
-something. It runs already and draws nothing — Ordu's red gondola would be wrong
-on a ski hill. Two-person chair with a raised safety bar, roughly 1.6 × 1.8 ×
-1.2 m, 1024 colour map.
+**Chair delivered** — the lift now carries ten of them.
+
+**Three files left: the rewards.**
 
 ---
 

@@ -308,6 +308,60 @@ describe('nothing scenic reaches into the play area', () => {
   }
 });
 
+describe('Bolu is a forest, not a town with trees in it', () => {
+  const scene = buildScene(loadComposedCity('bolu'), 'high');
+
+  it('lines the street with the delivered fir rather than the procedural shapes', () => {
+    /**
+     * `StreetTrees` builds trunks and canopy blobs from instanced boxes. That
+     * is cheap and looks like what it is, and it was fine while every city used
+     * it — but a forest street lined with green blobs beside a delivered forest
+     * edge reads as two different games in one shot.
+     *
+     * A city may name a tree model; the placer then emits props at exactly the
+     * positions it would have used, so the spacing, the clearance from trigger
+     * rings and the walking line are all still its own work.
+     */
+    expect(scene.trees).toHaveLength(0);
+
+    const firs = scene.props.filter((prop) => prop.asset.entry.id === 'kit_bolu_fir');
+    expect(firs.length).toBeGreaterThan(8);
+
+    // Still off the walk, and still clear of every ring.
+    for (const fir of firs) {
+      expect(Math.abs(fir.position[0]), 'a fir stands in the street').toBeGreaterThan(6);
+      for (const hotspot of scene.hotspots) {
+        const gap = Math.hypot(
+          fir.position[0] - hotspot.position[0],
+          fir.position[2] - hotspot.position[2],
+        );
+        expect(gap, `a fir stands in ${hotspot.id}`).toBeGreaterThan(hotspot.triggerRadius);
+      }
+    }
+  });
+
+  it('scatters leaf drifts down both sides and none underfoot', () => {
+    const drifts = scene.props.filter((prop) => prop.asset.entry.id === 'kit_bolu_leaf_fall');
+    expect(drifts.length).toBeGreaterThan(6);
+    expect(drifts.some((drift) => drift.position[0] < 0)).toBe(true);
+    expect(drifts.some((drift) => drift.position[0] > 0)).toBe(true);
+
+    for (const drift of drifts) {
+      // Never on the walking line, and never something to trip over.
+      expect(Math.abs(drift.position[0]), 'a drift lies on the walk').toBeGreaterThan(3);
+      expect(drift.solid).toBe(false);
+    }
+  });
+
+  it('carries a chair on its lift, not Ordu\'s gondola', () => {
+    expect(scene.cableCarLine).toBeTruthy();
+    expect(scene.cableCarAsset!.entry.id).toBe('city_bolu_chairlift_chair');
+
+    const ordu = buildScene(loadComposedCity('ordu'), 'high');
+    expect(ordu.cableCarAsset!.entry.id).toBe('city_ordu_cable_car');
+  });
+});
+
 describe('Ordu stands under a hill', () => {
   const scene = buildScene(loadComposedCity('ordu'), 'high');
 

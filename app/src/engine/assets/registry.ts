@@ -521,6 +521,48 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
     notes: 'Delivered 23.29 MB at 0.5 m buried 0.25 m; re-authored to 1.2 m on y = 0, 0.79 MB.',
   },
   {
+    id: 'city_bolu_chairlift_chair',
+    modelUrl: '/assets/city/city_bolu_chairlift_chair.glb',
+    checksum: 'c4eb7b8683082e01b72b3d005ddf76cabf2cb0caaa60e0b93d8bae841dc12e76',
+    triangles: 9_956,
+    transferBytes: 762404,
+    /**
+     * The chair on Bolu's lift, and the thing that stops Ordu's red gondola
+     * being borrowed for a ski hill.
+     *
+     * Ten of them ride the loop, one away every five seconds (D-184). The line
+     * has been running and drawing nothing since the city opened.
+     */
+    dimensions: [1.54, 1.9, 0.9],
+    label: 'Chairlift chair',
+    color: '#3F5B70',
+    placeholder: 'box',
+    notes: 'Delivered 1 m buried 0.5 m; re-authored to 1.9 m on y = 0, 0.73 MB.',
+  },
+  {
+    id: 'kit_bolu_leaf_fall',
+    modelUrl: '/assets/props/kit_bolu_leaf_fall.glb',
+    checksum: 'f770f4abb1070327f0b92795e1cd17f4d517ee74f5bece4980515698487648cb',
+    triangles: 10_093,
+    transferBytes: 1147748,
+    /**
+     * A patch of fallen leaves, scattered the length of the street.
+     *
+     * The forest floor texture already draws leaf litter, and a texture is flat.
+     * These sit on top of it and catch the light from the side, which is what
+     * makes a drift of leaves look like leaves rather than like a pattern —
+     * the same reason the cobbles have a bench and a lamp standing on them.
+     *
+     * Fourteen centimetres tall and a metre and a third across: a drift, not a
+     * leaf. Shared, so any province with an autumn can have it.
+     */
+    dimensions: [1.35, 0.14, 1.34],
+    label: 'Fallen leaves',
+    color: '#B4632A',
+    placeholder: 'plane',
+    notes: 'Delivered 0.12 m; re-authored to 0.14 m, 1.09 MB.',
+  },
+  {
     id: 'city_bolu_forest_row',
     modelUrl: '/assets/city/city_bolu_forest_row.glb',
     checksum: 'a9e654587693d3977f647b976ecd6980614f9a8e41eed39c47ae1bc25fc57c8d',
@@ -659,7 +701,16 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
      * one, so the fallback to the first clip is unambiguous — the same
      * situation as the dogs (D-133).
      */
-    dimensions: [0.6, 1.4, 1.7],
+    /**
+     * Doubled from the briefed 1.4 m to 2.8 at the owner's word.
+     *
+     * A roe deer is 1.1 m at the shoulder and at that size it was a speck on a
+     * forest street — the guide is 1.45 m and the trees are nine. This is a red
+     * deer's height rather than a roe's, and the street reads better for it: at
+     * child scale everything in this project is a little larger than life, and
+     * an animal you cannot pick out is an animal that may as well not be there.
+     */
+    dimensions: [1.2, 2.8, 3.4],
     label: 'Deer',
     color: '#6B4A2F',
     placeholder: 'box',

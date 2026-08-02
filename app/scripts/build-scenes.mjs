@@ -780,7 +780,32 @@ const REGION_PLANTING = {
   'southeastern-anatolia': ['shrub', 'cypress', 'shrub', 'shrub', 'poplar'],
 };
 
+/**
+ * Cities whose street planting is a delivered model rather than the procedural
+ * shapes, and the leaf litter that goes with it.
+ *
+ * `StreetTrees` builds trunks and canopy blobs from instanced boxes, which is
+ * cheap and looks like what it is: a low-poly tree. That was fine while every
+ * city used it. Bolu is a forest, and a forest street lined with green blobs
+ * beside a delivered forest edge reads as two different games in one shot.
+ *
+ * So a city may name a model, and the generator emits props at the same
+ * positions instead of tree specs. Nothing else changes: the spacing, the
+ * clearance from trigger rings and the walking line are all still the tree
+ * placer's.
+ */
+const CITY_STREET_TREE = {
+  bolu: 'kit_bolu_fir',
+};
+
+/** Scatter laid along the street, on top of the ground texture. */
+const CITY_STREET_SCATTER = {
+  bolu: 'kit_bolu_leaf_fall',
+};
+
 function streetTrees(cityId, stopPositions, geometry, regionId) {
+  // A city with a delivered tree gets props instead; see `streetTreeProps`.
+  if (CITY_STREET_TREE[cityId]) return [];
   const kinds = REGION_PLANTING[regionId] ?? REGION_PLANTING['marmara'];
   const firstZ = stopPositions[0]?.[2] ?? -26;
   const lastZ = stopPositions[stopPositions.length - 1]?.[2] ?? -100;
@@ -809,6 +834,68 @@ function streetTrees(cityId, stopPositions, geometry, regionId) {
     });
   }
   return trees;
+}
+
+/**
+ * The same placement as the street trees, emitted as delivered models.
+ *
+ * And leaf litter scattered between them: the ground texture already draws
+ * fallen leaves, but a texture is flat. Drifts standing on it catch the light
+ * from the side, which is what makes leaves read as leaves — the same reason
+ * the cobbles have a bench and a lamp standing on them.
+ */
+function streetTreeProps(cityId, stopPositions, geometry) {
+  const treeId = CITY_STREET_TREE[cityId];
+  if (!treeId) return [];
+
+  const firstZ = stopPositions[0]?.[2] ?? -26;
+  const lastZ = stopPositions[stopPositions.length - 1]?.[2] ?? -100;
+  const span = Math.abs(lastZ - firstZ) + 40;
+  const out = [];
+
+  const clearOfStops = (x, z, margin) =>
+    stopPositions.every((stop, index) => {
+      const gap = Math.hypot(x - stop[0], z - stop[2]);
+      return gap > geometry[index].triggerRadius + margin;
+    });
+
+  const count = Math.max(12, Math.round(span / 7));
+  for (let i = 0; i < count; i += 1) {
+    const side = i % 2 === 0 ? -1 : 1;
+    const z = firstZ + 16 - (span * i) / count - ((i % 3) * 1.7);
+    const x = side * (11 + ((i * 7) % 5) * 1.6);
+    if (!clearOfStops(x, z, 1)) continue;
+    out.push({
+      assetId: treeId,
+      position: [Math.round(x * 10) / 10, 0, Math.round(z * 10) / 10],
+      rotationY: Math.round(((i * 37) % 360) * (Math.PI / 180) * 1000) / 1000,
+      solid: true,
+      note: `street tree ${i + 1}`,
+    });
+  }
+
+  const scatterId = CITY_STREET_SCATTER[cityId];
+  if (scatterId) {
+    // Down both sides of the walking line and never on it: a drift underfoot is
+    // something a child walks through, and nothing stands where they walk
+    // (D-070).
+    const drifts = Math.max(14, Math.round(span / 5));
+    for (let i = 0; i < drifts; i += 1) {
+      const side = i % 2 === 0 ? -1 : 1;
+      const x = side * (4.5 + ((i * 11) % 7) * 1.1);
+      const z = firstZ + 18 - (span * i) / drifts - ((i % 4) * 1.3);
+      if (!clearOfStops(x, z, 0.5)) continue;
+      out.push({
+        assetId: scatterId,
+        position: [Math.round(x * 10) / 10, 0, Math.round(z * 10) / 10],
+        rotationY: Math.round(((i * 61) % 360) * (Math.PI / 180) * 1000) / 1000,
+        solid: false,
+        note: `leaf drift ${i + 1}`,
+      });
+    }
+  }
+
+  return out;
 }
 
 /**
@@ -1997,7 +2084,10 @@ function buildScene(canonical) {
     route: { mode: 'guided-loop', points: route, bounds },
     intro: { cameraSequenceId: null, skippable: true },
     hotspots,
-    props: streetProps(canonical.id, stopPositions, geometry),
+    props: [
+      ...streetProps(canonical.id, stopPositions, geometry),
+      ...streetTreeProps(canonical.id, stopPositions, geometry),
+    ],
     /**
      * İstanbul is the only pilot city on the water. The sea starts past the
      * play boundary, so a child can see it and never walk into it.
@@ -2224,19 +2314,6 @@ function buildScene(canonical) {
             depth: 180,
             color: '#2E7FA8',
           }
-        : canonical.id === 'bolu'
-          ? {
-              centerX: 0,
-              /**
-               * Yedigöller: the only still water in the project. Its near edge
-               * sits past the last stop, so a child walks the street towards a
-               * lake and stops at its shore.
-               */
-              centerZ: BOLU_SHORE_Z - 100,
-              width: 300,
-              depth: 200,
-              color: '#4A7C6B',
-            }
         : canonical.id === 'van'
           ? {
             centerX: 0,
