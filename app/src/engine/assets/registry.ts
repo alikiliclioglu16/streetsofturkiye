@@ -1701,6 +1701,36 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
     notes: 'Delivered 10 m buried 5 m, 29.15 MB; re-authored to 26 m on y = 0 at 2048 base colour, 2.56 MB.',
   },
   {
+    id: 'kit_balikesir_pelican',
+    modelUrl: '/assets/props/kit_balikesir_pelican.glb',
+    checksum: '1bb4e0b914905fcf446a63e8b60dabf09aadff290fa04bb368ffbbce7aeab40e',
+    triangles: 9_851,
+    transferBytes: 779_780,
+    /**
+     * A pelican for Manyas. White, with black wingtips and an orange bill —
+     * measured, not assumed: white runs through every height band, black sits
+     * in the middle where the wingtips are and orange in the band above it.
+     *
+     * **Not rigged, and not the flying bird the brief asked for.** Its box is
+     * near cubic, so the wings are folded rather than out; what arrived is a
+     * bird at rest, which is the right thing for a lake and the wrong thing for
+     * the sky. It floats.
+     *
+     * **Registered and not yet placed.** Manyas has no water until the lake
+     * model arrives, and a pelican standing on grass is worse than no pelican —
+     * the way Kars's geese and Bolu's deer were held (D-129).
+     *
+     * One metre high on the water. A great white pelican is a big bird and this
+     * is the part of it above the waterline, which is why the number looks
+     * small for something that stands over a metre and a half on land.
+     */
+    dimensions: [1.08, 1.0, 1.0],
+    label: 'Pelican',
+    color: '#E4E2DC',
+    placeholder: 'box',
+    notes: 'Delivered 10.35 MB at 0.7 m; re-authored to 1.0 m on y = 0, 0.74 MB. Three files uploaded, one distinct mesh.',
+  },
+  {
     id: 'kit_ordu_hazelnut_tree',
     modelUrl: '/assets/props/kit_ordu_hazelnut_tree.glb',
     checksum: 'ae4d9b9d202f15b39fc86bca0107b7239fdbf94b35c1e52846e8174434ce8371',

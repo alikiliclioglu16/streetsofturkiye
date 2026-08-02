@@ -458,6 +458,7 @@ const CITY_THEMES = {
   ordu: '/assets/audio/ordu_theme.webm',
   bolu: '/assets/audio/bolu_theme.webm',
   trabzon: '/assets/audio/trabzon_theme.webm',
+  balikesir: '/assets/audio/balikesir_theme.webm',
 };
 
 /**
