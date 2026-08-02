@@ -84,6 +84,9 @@ const COMMISSIONED_ASSETS = {
   'mardin:ev': 'city_mardin_stone_doorway',
   'mardin:craft': 'city_mardin_telkari_bench',
   'mardin:cami': 'city_mardin_minaret_courtyard',
+  'erzurum:cami': 'city_erzurum_lace_portal',
+  'erzurum:dag': 'city_erzurum_ski_gear',
+  'erzurum:craft': 'city_erzurum_oltu_workbench',
 };
 
 /** Commissioned collectibles, keyed by canonical stop id. */
@@ -247,12 +250,24 @@ const TRABZON_ROCK_NEAR_Z = -88;
  * mountain**, which is what a lift out of a town does and what makes the
  * mountain feel like somewhere you could go.
  *
- * It starts at z = -56, past the end of the play area. There is no bottom
- * station model for Erzurum yet, and chairs appearing out of nothing beside a
- * child would be worse than chairs appearing out of nothing sixty metres away.
- * A station is one to order.
+ * The first attempt stopped at z = -92, which is the mountain's *near face* —
+ * the bottom of the slope — so the chairs climbed to twenty-five metres and
+ * ended in mid-air over the foot of the hill. A lift that does not reach the
+ * top is worse than no lift.
+ *
+ * This one runs to the summit, checked against the mountain rather than drawn
+ * on a plan. Slicing the mesh gives the surface along the climb: about 8 m at
+ * world z = -100, 8 m again at -119, 20 m at -131 and 26 m at the summit near
+ * -149 — a long flat apron and then a steep last third. A straight cable from
+ * (18, -66) at 3 m to (0, -145) at 27 m clears it the whole way: five metres
+ * over the apron, one at the top, which is what a cable does.
+ *
+ * It starts at z = -66, past the play area. There is no bottom station model
+ * for Erzurum yet, and chairs appearing out of nothing beside a child would be
+ * worse than chairs appearing out of nothing seventy metres away. A station is
+ * one to order.
  */
-const ERZURUM_CHAIRLIFT = { from: [22, -56], to: [8, -92], heights: [6, 25] };
+const ERZURUM_CHAIRLIFT = { from: [18, -66], to: [0, -145], heights: [3, 27] };
 
 const ERZURUM_SKIER_LINES = [
   {
@@ -274,11 +289,20 @@ const ERZURUM_SKIER_LINES = [
 /**
  * The wolf on the summit.
  *
- * Placed from the mountain's own geometry rather than by eye: the mesh's top
- * 67 vertices average to a point which, run through the piece's rotation and
- * position, lands at x = -0.3, z = -147.9 in the world. That is the ridge, not
- * a single spike, so the wolf stands on the skyline instead of balancing on a
- * needle.
+ * It floated the first time, and the reason is worth writing down: the wolf was
+ * placed on the summit, and *then* the mountain was sunk 5.5 m to bury its rock
+ * plinth. The wolf stayed where it was put. Two correct edits made in the wrong
+ * order, and the screenshot showed a wolf hanging in the sky.
+ *
+ * So this is derived. Slicing the mountain's mesh along its own z puts the
+ * summit at local y = 32 around local z = -18; through the piece's rotation,
+ * position and the 5.5 m sink that lands at (-0.73, 26.5, -149.1) in the world.
+ * The wolf is set 0.3 m into it so it stands on the rock rather than on top of
+ * it.
+ *
+ * `rotationY = 0` faces the city, measured rather than guessed: the mesh's +z
+ * quarter averages 2.46 m high against 1.05 m at the -z end, so the head is at
+ * +z — and the town is at +z from a wolf standing at z = -149.
  *
  * **Three and a half metres, which is deliberately far too big.** Everything
  * inside a 32 m mountain standing in for a real one is at mountain scale, so a
@@ -287,7 +311,7 @@ const ERZURUM_SKIER_LINES = [
  * was asked for. The lake taught this the other way round: a real-scale boat
  * inside a miniature village could not be seen at all.
  */
-const ERZURUM_WOLF = { position: [-0.3, 30.5, -147.9], rotationY: 2.4 };
+const ERZURUM_WOLF = { position: [-0.73, 26.2, -149.1], rotationY: 0 };
 
 const ERZURUM_MOUNTAIN_NEAR_Z = -92;
 
@@ -1419,6 +1443,12 @@ const CITY_STREET_TREE = {
 
 /** Scatter laid along the street, on top of the ground texture. */
 const CITY_STREET_SCATTER = {
+  /**
+   * Snow banks down Erzurum's street. The ground texture and the falling snow
+   * both read at a distance; this is the only one of the three a child passes
+   * at arm's length.
+   */
+  erzurum: 'kit_erzurum_snow_drift',
   bolu: 'kit_bolu_leaf_fall',
 };
 
@@ -1465,7 +1495,16 @@ function streetTrees(cityId, stopPositions, geometry, regionId) {
  */
 function streetTreeProps(cityId, stopPositions, geometry) {
   const treeId = CITY_STREET_TREE[cityId];
-  if (!treeId) return [];
+  const scatterId = CITY_STREET_SCATTER[cityId];
+  /**
+   * Scatter used to be locked behind having a street tree.
+   *
+   * The early return was `if (!treeId) return []`, true of every city with
+   * scatter until Erzurum wanted snow banks and had no tree yet — and the banks
+   * silently did not appear. Two unrelated things sharing one gate is the sort
+   * of coupling that only shows when the second is used on its own.
+   */
+  if (!treeId && !scatterId) return [];
 
   const firstZ = stopPositions[0]?.[2] ?? -26;
   const lastZ = stopPositions[stopPositions.length - 1]?.[2] ?? -100;
@@ -1478,7 +1517,7 @@ function streetTreeProps(cityId, stopPositions, geometry) {
       return gap > geometry[index].triggerRadius + margin;
     });
 
-  const count = Math.max(12, Math.round(span / 7));
+  const count = treeId ? Math.max(12, Math.round(span / 7)) : 0;
   for (let i = 0; i < count; i += 1) {
     const side = i % 2 === 0 ? -1 : 1;
     const z = firstZ + 16 - (span * i) / count - ((i % 3) * 1.7);
@@ -1493,7 +1532,6 @@ function streetTreeProps(cityId, stopPositions, geometry) {
     });
   }
 
-  const scatterId = CITY_STREET_SCATTER[cityId];
   if (scatterId) {
     // Down both sides of the walking line and never on it: a drift underfoot is
     // something a child walks through, and nothing stands where they walk

@@ -1810,6 +1810,101 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
     notes: 'Delivered 2 m buried 1 m, 24.69 MB; re-authored to 4.6 m on y = 0, 2.28 MB.',
   },
   {
+    id: 'city_erzurum_lace_portal',
+    modelUrl: '/assets/city/city_erzurum_lace_portal.glb',
+    checksum: 'afcbcaa1a4ad3371474a9eb21f0c7d6adb8575f3484c028360a34dd43cfd84d4',
+    triangles: 9_969,
+    transferBytes: 2_063_240,
+    /**
+     * Stop one: the carved portal, at the size a child can put a face against.
+     *
+     * The medrese behind the spawn is 22 m and this is 4; they are the same
+     * building twice at two scales, which is how every landmark in the project
+     * is handled since Hagia Sophia had to be moved to the horizon (D-066).
+     *
+     * Canonical sends a child to find a double-headed eagle in the carving, and
+     * that is the one thing on this model worth checking on a screenshot: if
+     * the eagle is not readable the reward is a promise the street does not
+     * keep.
+     */
+    dimensions: [3.1, 4.0, 2.65],
+    label: 'Carved portal',
+    color: '#A98C63',
+    placeholder: 'box',
+    notes: 'Delivered 2 m buried 1 m, 24.82 MB; re-authored to 4 m on y = 0, 1.97 MB.',
+  },
+  {
+    id: 'city_erzurum_ski_gear',
+    modelUrl: '/assets/city/city_erzurum_ski_gear.glb',
+    checksum: '42cdb2f21b525627670f7bb4daea90ba6703117b756669af8996a5eede224343',
+    triangles: 10_097,
+    transferBytes: 2_421_660,
+    /**
+     * Stop two: the gear, not the machinery.
+     *
+     * Bolu already has a lift station and a chairlift chair, and Erzurum is the
+     * province that must not read as Bolu's ski hill — so the stop is skis,
+     * poles and a piste marker rather than another building with a wheel in it.
+     * The chairlift is on the mountain where it belongs.
+     *
+     * Delivered nearly square in plan, 2.98 by 2.9, which is a large footprint
+     * for a stop; two point two metres keeps its trigger ring inside the
+     * spacing `layout` allows (D-100).
+     */
+    dimensions: [2.98, 2.2, 2.9],
+    label: 'Ski gear',
+    color: '#C0392B',
+    placeholder: 'box',
+    notes: 'Delivered 1.4 m buried 0.7 m, 28.35 MB; re-authored to 2.2 m on y = 0, 2.31 MB.',
+  },
+  {
+    id: 'city_erzurum_oltu_workbench',
+    modelUrl: '/assets/city/city_erzurum_oltu_workbench.glb',
+    checksum: 'fd29989751a3793a034357f7bf54ebfe7b08073ff2793f8c1646e0c1d9e81a7e',
+    triangles: 9_865,
+    transferBytes: 2_096_584,
+    /**
+     * Stop three: jet-black Oltu stone, polished.
+     *
+     * The third craft bench in the project, and the one that had to not be a
+     * jeweller's counter — Gaziantep hammers copper and Mardin twists silver.
+     * This is a stone workshop: rough lumps, a wheel, dust, and the polished
+     * beads at the end of it.
+     *
+     * Black against a snow street is the strongest contrast in the city, which
+     * is a good reason for it to be the last thing a child meets.
+     */
+    dimensions: [2.21, 2.2, 1.94],
+    label: 'Oltu stone bench',
+    color: '#2B2B2B',
+    placeholder: 'box',
+    notes: 'Delivered 2 m buried 1 m, 25.45 MB; re-authored to 2.2 m on y = 0, 2.00 MB.',
+  },
+  {
+    id: 'kit_erzurum_snow_drift',
+    modelUrl: '/assets/props/kit_erzurum_snow_drift.glb',
+    checksum: '449b63502eef2ced9b8956fdb709a971a2f44c8b48ea1822883468bd351c9de3',
+    triangles: 10_408,
+    transferBytes: 607_344,
+    /**
+     * Banks of shovelled snow down both sides of the walking line.
+     *
+     * The same job Bolu's leaf fall does and the same mechanism —
+     * `CITY_STREET_SCATTER` — but it earns more here: the ground texture and
+     * the falling snow both say winter at a distance, and this is the only one
+     * of the three a child walks past at arm's length.
+     *
+     * Eighty centimetres. Delivered three times as wide as it is high, so at
+     * that height it is 2.46 m across: a bank you could sit on, not a mountain
+     * range on the pavement.
+     */
+    dimensions: [2.46, 0.8, 2.46],
+    label: 'Snow bank',
+    color: '#E9EEF2',
+    placeholder: 'box',
+    notes: 'Delivered 2 m buried 1 m, 24.70 MB; re-authored to 0.8 m on y = 0, 0.58 MB.',
+  },
+  {
     id: 'kit_erzurum_wolf',
     modelUrl: '/assets/props/kit_erzurum_wolf.glb',
     checksum: 'f7ef3eab22769436f65b3fcbb92c71daf71f902b6c80b1b1d5a9232f6261d4ff',
