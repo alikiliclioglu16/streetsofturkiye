@@ -194,7 +194,7 @@ export const sceneSchema = z
         back: z.number().nonnegative(),
       })
       .default({ x: 2, front: 2, back: 2 }),
-    groundSurface: z.enum(['cobblestone', 'redsand', 'steppe', 'rock', 'forest']).default('cobblestone'),
+    groundSurface: z.enum(['cobblestone', 'redsand', 'steppe', 'rock', 'forest', 'snow']).default('cobblestone'),
     /**
      * Patches of a different ground, laid over the city's own.
      *
@@ -338,6 +338,13 @@ export const sceneSchema = z
      * a sweets cart by its name in the data would be a small lie that someone
      * reads as true later.
      */
+    /**
+     * Falling snow over the whole city.
+     *
+     * A flag rather than a shape: there is nothing to place and nothing to
+     * measure, and a city either is in winter or is not.
+     */
+    snowfall: z.boolean().default(false),
     cartLine: z
       .object({
         from: z.tuple([z.number(), z.number()]),

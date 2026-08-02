@@ -11,6 +11,7 @@ import { WindSlope } from '@/components/three/WindSlope';
 import { Mist } from '@/components/three/Mist';
 import { Birds } from '@/components/three/Birds';
 import { Statue } from '@/components/three/Statue';
+import { Snowfall } from '@/components/three/Snowfall';
 import { CableCarLine, Train, TrainTrack, Tram } from '@/components/three/Tram';
 import { playFerryHorn } from '@/engine/audio/cues';
 import { Balloons } from '@/components/three/Balloons';
@@ -155,6 +156,9 @@ export function CityScene({
           speed={scene.cartLine.speed}
         />
       ) : null}
+
+      {/* Winter. One draw call for a whole season. */}
+      {scene.snowfall ? <Snowfall reducedMotion={reducedMotion} /> : null}
 
       {/* Statues: a delivered model on a drawn plinth. */}
       {scene.statues.map((mount) => (

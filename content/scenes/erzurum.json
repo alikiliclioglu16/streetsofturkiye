@@ -12,10 +12,10 @@
     "timeOfDay": "midday",
     "ambientAudioId": "ambient_eastern_anatolia",
     "skyPreset": [
-      "#C4E2F2",
-      "#F0F9FD"
+      "#C8D6DE",
+      "#EDF3F6"
     ],
-    "groundColor": "#D5C79E"
+    "groundColor": "#E8EDF0"
   },
   "guide": {
     "assetId": "character_keloglan_base"
@@ -451,7 +451,7 @@
     }
   ],
   "musicUrl": null,
-  "groundSurface": "steppe",
+  "groundSurface": "snow",
   "groundPatches": [],
   "balloons": [],
   "paragliders": [],
@@ -467,42 +467,254 @@
   "boatAssetId": null,
   "birdAssetId": null,
   "statues": [],
+  "snowfall": true,
+  "cartLine": null,
+  "cartAssetId": null,
   "birdPaths": [],
   "mistBands": [],
   "canoeLines": [],
   "trainLine": null,
   "water": null,
-  "backdrop": [],
-  "animal": "goose",
+  "backdrop": [
+    {
+      "assetId": "city_erzurum_stone_houses",
+      "position": [
+        -33,
+        0,
+        60
+      ],
+      "rotationY": 1.5707963267948966,
+      "solid": false,
+      "note": "townhouses west 1"
+    },
+    {
+      "assetId": "city_erzurum_stone_houses",
+      "position": [
+        -33,
+        0,
+        30
+      ],
+      "rotationY": 1.5707963267948966,
+      "solid": false,
+      "note": "townhouses west 2"
+    },
+    {
+      "assetId": "city_erzurum_stone_houses",
+      "position": [
+        -33,
+        0,
+        0
+      ],
+      "rotationY": 1.5707963267948966,
+      "solid": false,
+      "note": "townhouses west 3"
+    },
+    {
+      "assetId": "city_erzurum_stone_houses",
+      "position": [
+        -33,
+        0,
+        -30
+      ],
+      "rotationY": 1.5707963267948966,
+      "solid": false,
+      "note": "townhouses west 4"
+    },
+    {
+      "assetId": "city_erzurum_stone_houses",
+      "position": [
+        -33,
+        0,
+        -60
+      ],
+      "rotationY": 1.5707963267948966,
+      "solid": false,
+      "note": "townhouses west 5"
+    },
+    {
+      "assetId": "city_erzurum_stone_houses",
+      "position": [
+        -33,
+        0,
+        -90
+      ],
+      "rotationY": 1.5707963267948966,
+      "solid": false,
+      "note": "townhouses west 6"
+    },
+    {
+      "assetId": "city_erzurum_stone_houses",
+      "position": [
+        33,
+        0,
+        60
+      ],
+      "rotationY": -1.5707963267948966,
+      "solid": false,
+      "note": "townhouses east 1"
+    },
+    {
+      "assetId": "city_erzurum_stone_houses",
+      "position": [
+        33,
+        0,
+        30
+      ],
+      "rotationY": -1.5707963267948966,
+      "solid": false,
+      "note": "townhouses east 2"
+    },
+    {
+      "assetId": "city_erzurum_stone_houses",
+      "position": [
+        33,
+        0,
+        0
+      ],
+      "rotationY": -1.5707963267948966,
+      "solid": false,
+      "note": "townhouses east 3"
+    },
+    {
+      "assetId": "city_erzurum_stone_houses",
+      "position": [
+        33,
+        0,
+        -30
+      ],
+      "rotationY": -1.5707963267948966,
+      "solid": false,
+      "note": "townhouses east 4"
+    },
+    {
+      "assetId": "city_erzurum_stone_houses",
+      "position": [
+        33,
+        0,
+        -60
+      ],
+      "rotationY": -1.5707963267948966,
+      "solid": false,
+      "note": "townhouses east 5"
+    },
+    {
+      "assetId": "city_erzurum_stone_houses",
+      "position": [
+        33,
+        0,
+        -90
+      ],
+      "rotationY": -1.5707963267948966,
+      "solid": false,
+      "note": "townhouses east 6"
+    },
+    {
+      "assetId": "city_erzurum_stone_houses",
+      "position": [
+        -20,
+        0,
+        66
+      ],
+      "rotationY": 3.221592653589793,
+      "solid": false,
+      "note": "townhouses back 1"
+    },
+    {
+      "assetId": "city_erzurum_stone_houses",
+      "position": [
+        20,
+        0,
+        66
+      ],
+      "rotationY": 3.081592653589793,
+      "solid": false,
+      "note": "townhouses back 2"
+    },
+    {
+      "assetId": "city_erzurum_palandoken",
+      "position": [
+        2,
+        0,
+        -130.82999999999998
+      ],
+      "rotationY": -0.07,
+      "solid": true,
+      "note": "Palandöken at the head of the street"
+    },
+    {
+      "assetId": "city_erzurum_cifte_minareli",
+      "position": [
+        -3,
+        0,
+        63.07
+      ],
+      "rotationY": 3.05,
+      "solid": true,
+      "note": "Çifte Minareli Medrese"
+    }
+  ],
+  "animal": "none",
   "catRoutes": [
     [
       {
-        "x": -10.5,
-        "z": -22.6
+        "x": -11.5,
+        "z": -28
       },
       {
-        "x": -7,
-        "z": -26.520000000000003
+        "x": -6,
+        "z": -31.5
+      },
+      {
+        "x": -10,
+        "z": -36
       }
     ],
     [
       {
-        "x": -9,
-        "z": -24.84
+        "x": 12,
+        "z": -24
       },
       {
-        "x": -5.5,
-        "z": -28.759999999999998
+        "x": 16.5,
+        "z": -28.5
       }
     ],
     [
       {
-        "x": 9.5,
-        "z": -53
+        "x": -13,
+        "z": -39
       },
       {
-        "x": 6,
-        "z": -60
+        "x": -7.5,
+        "z": -43
+      },
+      {
+        "x": -12.5,
+        "z": -47.5
+      }
+    ],
+    [
+      {
+        "x": 13,
+        "z": -3
+      },
+      {
+        "x": 17,
+        "z": -8
+      }
+    ],
+    [
+      {
+        "x": 13,
+        "z": -38
+      },
+      {
+        "x": 17,
+        "z": -42
+      },
+      {
+        "x": 12.5,
+        "z": -46
       }
     ]
   ],

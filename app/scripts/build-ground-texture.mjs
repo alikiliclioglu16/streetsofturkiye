@@ -539,6 +539,99 @@ print(f'{SIZE}x{SIZE} grass patch with a soft edge')
 execFileSync('python3', ['-c', GRASS], { stdio: 'inherit' });
 
 
+/**
+ * Snow.
+ *
+ * Erzurum is the first city in the project drawn in winter, and there was no
+ * surface for it — five existed, and steppe is Van's and rock is Kars's, so
+ * without a sixth the coldest city in the country would walk on a neighbour's
+ * summer ground.
+ *
+ * Snow is the hardest of the six to write, because what makes the others
+ * readable is contrast and snow has almost none. Three things are stacked here,
+ * in the order the eye finds them:
+ *
+ *  1. **Wind drift** — long, low, smooth ridges running one way. Snow that has
+ *     lain a while is never flat and never random; the wind combs it.
+ *  2. **Packed tracks** — darker, smoother, slightly lower, where people have
+ *     walked. Without these it reads as a bedsheet.
+ *  3. **Sparkle** — fine grain at very small amplitude. It is what says the
+ *     surface is crystalline rather than painted.
+ *
+ * The albedo sits high and narrow, roughly 0.7 to 1.0. That is the whole point:
+ * a snow texture with the contrast of a cobble texture is a picture of gravel.
+ */
+const SNOW = `
+import numpy as np
+from PIL import Image
+
+SIZE = 1024
+rng = np.random.default_rng(11)
+
+ax = np.arange(SIZE)
+gx, gy = np.meshgrid(ax, ax, indexing='xy')
+
+def wrapped_noise(cells):
+    """Value noise on a torus, so the tile has no seam in any direction."""
+    grid = rng.random((cells, cells))
+    fx = gx / SIZE * cells
+    fy = gy / SIZE * cells
+    x0 = np.floor(fx).astype(int) % cells
+    y0 = np.floor(fy).astype(int) % cells
+    x1 = (x0 + 1) % cells
+    y1 = (y0 + 1) % cells
+    tx = fx - np.floor(fx)
+    ty = fy - np.floor(fy)
+    sx = tx * tx * (3 - 2 * tx)
+    sy = ty * ty * (3 - 2 * ty)
+    top = grid[y0, x0] * (1 - sx) + grid[y0, x1] * sx
+    bot = grid[y1, x0] * (1 - sx) + grid[y1, x1] * sx
+    return top * (1 - sy) + bot * sy
+
+# 1 - wind drift. The wave count is whole so the ridges wrap with the tile.
+drift = 0.5 + 0.5 * np.sin((gx * 0.35 + gy) / SIZE * np.pi * 2 * 5 + wrapped_noise(6) * 3.4)
+drift = drift ** 1.6
+
+# 2 - packed tracks, broad and soft
+packed = np.clip((wrapped_noise(5) - 0.42) * 3.2, 0.0, 1.0)
+
+# 3 - sparkle
+sparkle = wrapped_noise(180) * 0.5 + wrapped_noise(320) * 0.5
+
+height = drift * 0.62 + (1.0 - packed) * 0.24 + sparkle * 0.14
+
+grain = rng.normal(0.0, 0.012, (SIZE, SIZE))
+albedo = np.clip(0.86 + drift * 0.14 - packed * 0.16 + sparkle * 0.03 + grain, 0.0, 1.0)
+
+def wrap_sobel(h):
+    return (np.roll(h, -1, axis=1) - np.roll(h, 1, axis=1),
+            np.roll(h, -1, axis=0) - np.roll(h, 1, axis=0))
+
+STRENGTH = 4.5
+dzdx, dzdy = wrap_sobel(height)
+nx, ny = -dzdx * STRENGTH, -dzdy * STRENGTH
+nz = np.ones_like(nx)
+length = np.sqrt(nx * nx + ny * ny + nz * nz)
+normal = (((np.stack([nx / length, ny / length, nz / length], axis=-1)) * 0.5 + 0.5) * 255).astype(np.uint8)
+
+# Fresh snow is matte and trodden snow is polished, so the packed tracks are
+# the only thing on this surface that catches a highlight. That is what makes
+# a path read as a path.
+rough = np.clip(0.93 - packed * 0.45 - sparkle * 0.06, 0.2, 1.0)
+
+Image.fromarray((albedo * 255).astype(np.uint8), mode='L').convert('RGB').save(
+    'public/assets/textures/ground_snow_albedo.jpg', quality=88, optimize=True)
+Image.fromarray(normal, mode='RGB').save(
+    'public/assets/textures/ground_snow_normal.jpg', quality=88, optimize=True)
+Image.fromarray((rough * 255).astype(np.uint8), mode='L').convert('RGB').save(
+    'public/assets/textures/ground_snow_roughness.jpg', quality=85, optimize=True)
+
+print(f'{SIZE}x{SIZE} wind-drifted snow with packed tracks')
+`;
+
+execFileSync('python3', ['-c', SNOW], { stdio: 'inherit' });
+
+
 for (const file of fs.readdirSync(OUT)) {
   const bytes = fs.statSync(path.join(OUT, file)).size;
   console.log(`  ${file}  ${(bytes / 1024).toFixed(0)} KB`);

@@ -209,6 +209,16 @@ const TRABZON_ROCK_NEAR_Z = -88;
  * Mardin's distances, in metres from the spawn. Near-edge lines (D-101), typed
  * once (D-163).
  */
+/**
+ * Erzurum's two distances, in metres from the spawn. Near-edge lines (D-101),
+ * typed once (D-163).
+ *
+ * The medrese's is derived rather than chosen: it is the distance at which a
+ * 16 m minaret still has its finial inside the frame.
+ */
+const ERZURUM_MOUNTAIN_NEAR_Z = -92;
+const ERZURUM_MEDRESE_NEAR_Z = 58;
+
 const MARDIN_MONASTERY_NEAR_Z = -88;
 const MARDIN_CITADEL_NEAR_Z = 55;
 /** The cliff edge. The parapet stands on it and everything past it is air. */
@@ -553,6 +563,19 @@ const CITY_SURFACE = {
    * bleaches toward the horizon rather than warming.
    */
   mardin: 'redsand',
+  /**
+   * Snow, and it is the sixth ground the project has.
+   *
+   * Erzurum is the third city out of the Eastern Anatolia table and the table
+   * had run out: steppe is Van's and rock is Kars's, so without a sixth surface
+   * the coldest city in the country would have walked on a neighbour's summer
+   * ground. Canonical says snow falls here from November to May.
+   *
+   * Generated rather than commissioned, like the other five — wind drift,
+   * packed tracks and sparkle in one greyscale tile that the city's own colour
+   * tints at render time.
+   */
+  erzurum: 'snow',
   kars: 'rock',
 };
 
@@ -623,6 +646,17 @@ const ANIMAL_OVERRIDES = {
    * third reward.
    */
   mardin: 'none',
+  /**
+   * No animal in Erzurum.
+   *
+   * The Eastern row gives it geese and Kars already walks them; Van has the
+   * cats. A third city out of one table taking a neighbour's animal is how a
+   * region starts reading as one place with three names.
+   *
+   * Its moving life is the mountain: skiers coming down Palandöken, which no
+   * other province has.
+   */
+  erzurum: 'none',
 };
 
 /** Which surface each region's streets are laid with. */
@@ -725,6 +759,20 @@ const CITY_PALETTE = {
    * the paler, greyer stone underfoot.
    */
   mardin: { sky: ['#CFDCE2', '#F4EEDF'], ground: '#CBBE9A' },
+  /**
+   * Erzurum in deep winter, and the first palette in the project with the
+   * warmth taken out of it.
+   *
+   * Kars and Van share `#C4E2F2` over `#D5C79E` — a bright highland sky over
+   * dry summer ground. This is the same latitude four months later: a sky with
+   * the blue washed almost to grey, and a ground tint barely off white because
+   * it is multiplying a snow texture rather than earth.
+   *
+   * Kept very light on purpose. `groundColor` multiplies the surface albedo, so
+   * anything with real colour in it would turn the snow into slush — the
+   * mistake Trabzon's first ground made in the other direction.
+   */
+  erzurum: { sky: ['#C8D6DE', '#EDF3F6'], ground: '#E8EDF0' },
 };
 
 const CITY_THEMES = {
@@ -1632,6 +1680,84 @@ function cityBackdrop(cityId, stopPositions, metrics) {
         solid: false,
         note: `olive grove ${i + 1}`,
       })),
+    ];
+  }
+
+  if (cityId === 'erzurum') {
+    /**
+     * A winter street between black stone and a white mountain.
+     *
+     * Third city out of the Eastern Anatolia table, which had run out of
+     * answers: it arrived in Kars's kit with Kars's geese, Van's steppe surface
+     * and the same sky and ground colour as both of them to the hex. Two
+     * provinces sharing a look is a risk; three is a region that reads as one
+     * place with three names.
+     *
+     * What separates it is the season. Snow underfoot, snow falling, snow on
+     * every roof — the first city in the project not drawn in summer, and it
+     * cost one ground texture.
+     */
+    return [
+      /**
+       * The town, three a side. Delivered 33 m across where the brief planned
+       * 28, so three cover what four were budgeted for.
+       *
+       * They run two pieces *behind* the spawn as well as forward, flanking the
+       * medrese. That is not symmetry for its own sake: the medrese came back
+       * 18.6 m wide against a briefed 30, which subtends only 17° from the
+       * square, and the sweep found thirty-six degrees of bare sky either side
+       * of it. Six a side closes that to nothing.
+       */
+      ...[-1, 1].flatMap((side) =>
+        Array.from({ length: 6 }, (_, i) =>
+          wall('city_erzurum_stone_houses', side * 33, 60 - i * 30, `townhouses ${side < 0 ? 'west' : 'east'} ${i + 1}`),
+        ),
+      ),
+      /**
+       * Two more across the back, flanking the medrese and turned to face the
+       * street rather than run along it.
+       *
+       * The sweep found the last of it: a nine-degree slot either side of the
+       * medrese where the side rows had not yet reached round the corner. The
+       * town continues behind the monument, so these are what a real street
+       * would have there anyway.
+       */
+      ...[-20, 20].map((x, i) => ({
+        assetId: 'city_erzurum_stone_houses',
+        position: [x, 0, 66],
+        rotationY: Math.PI + (i === 0 ? 0.08 : -0.06),
+        solid: false,
+        note: `townhouses back ${i + 1}`,
+      })),
+      /**
+       * Palandöken, near edge on ERZURUM_MOUNTAIN_NEAR_Z, one piece.
+       *
+       * Its centre sits 38.8 m past the line it is measured to (D-101). Thirty-
+       * two metres against a 24.7 m ceiling from the square, so the summit is
+       * cropped from the first step — which is the point.
+       */
+      {
+        assetId: 'city_erzurum_palandoken',
+        position: [2, 0, ERZURUM_MOUNTAIN_NEAR_Z - 38.83],
+        rotationY: -0.07,
+        solid: true,
+        note: 'Palandöken at the head of the street',
+      },
+      /**
+       * The Çifte Minareli Medrese, near edge on ERZURUM_MEDRESE_NEAR_Z.
+       *
+       * Fifty-eight metres back is not a composition choice: at 16 m tall the
+       * minarets need a 16.8 m ceiling to keep their finials, and that is the
+       * distance which buys it (D-183). Nearer and the tops go; further and the
+       * carving stops reading.
+       */
+      {
+        assetId: 'city_erzurum_cifte_minareli',
+        position: [-3, 0, ERZURUM_MEDRESE_NEAR_Z + 5.07],
+        rotationY: 3.05,
+        solid: true,
+        note: 'Çifte Minareli Medrese',
+      },
     ];
   }
 
@@ -3104,6 +3230,7 @@ function buildScene(canonical) {
           : null,
     birdAssetId: ['trabzon', 'balikesir', 'mardin'].includes(canonical.id) ? 'kit_gull' : null,
     statues: canonical.id === 'mardin' ? MARDIN_STATUES : [],
+    snowfall: canonical.id === 'erzurum',
     cartLine: canonical.id === 'mardin' ? MARDIN_CART_LINE : null,
     cartAssetId: canonical.id === 'mardin' ? 'kit_mardin_sweets_cart' : null,
     birdPaths:

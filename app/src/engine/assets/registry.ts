@@ -1796,6 +1796,84 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
     notes: 'Delivered 2 m buried 1 m, 24.69 MB; re-authored to 4.6 m on y = 0, 2.28 MB.',
   },
   {
+    id: 'city_erzurum_stone_houses',
+    modelUrl: '/assets/city/city_erzurum_stone_houses.glb',
+    checksum: '6a924dbfcbc3478e3e16c13dcf462933b82999b9c776cc33b5364f6e0781efb4',
+    triangles: 10_275,
+    transferBytes: 986_708,
+    /**
+     * Both flanks: black volcanic stone under a load of snow.
+     *
+     * Erzurum builds in dark basalt, and against snow that is the strongest
+     * contrast in the project — everywhere else in eighty-one provinces the
+     * buildings are lighter than the ground they stand on.
+     *
+     * Delivered at 2.5 wide for every one high against a briefed 2.15, so at
+     * 13 m it runs 33 m — three a side covers the street where the brief
+     * planned four.
+     */
+    dimensions: [32.99, 13.0, 13.92],
+    label: 'Erzurum townhouses',
+    color: '#5C5A57',
+    placeholder: 'box',
+    notes: 'Delivered 4 m buried 2 m, 26.64 MB; re-authored to 13 m on y = 0, 0.94 MB.',
+  },
+  {
+    id: 'city_erzurum_palandoken',
+    modelUrl: '/assets/city/city_erzurum_palandoken.glb',
+    checksum: 'ebec910331173b32c5aa8cd1f95e52e86fd73493024ced10fd4037e715da610c',
+    triangles: 10_192,
+    transferBytes: 2_084_804,
+    /**
+     * Palandöken. The tenth tall thing in the project and the first that is
+     * white from base to summit.
+     *
+     * Boztepe is a bare green headland, Kartalkaya has snow *on* it and is a
+     * distant peak, Sarıkamış is bare rock, Erek is scree, Sümela is vertical,
+     * Kaz Dağları is forest to the top, and the citadel above Mardin is
+     * bleached limestone. This one fills the end of the street and is a ski
+     * mountain rather than a view.
+     *
+     * Thirty-two metres against a 24.7 m ceiling from the square (D-183), so
+     * its summit is out of frame from the start and stays out. A mountain whose
+     * top you cannot see is the only kind that feels like one.
+     *
+     * Delivered on 2.32 wide for every one high against a briefed 2.44 — the
+     * closest match of any horizon piece so far.
+     */
+    dimensions: [74.21, 32.0, 77.65],
+    label: 'Palandöken',
+    color: '#DDE4EA',
+    placeholder: 'box',
+    notes: 'Delivered 6 m buried 3 m, 21.71 MB; re-authored to 32 m on y = 0 at 2048 base colour, 1.99 MB.',
+  },
+  {
+    id: 'city_erzurum_cifte_minareli',
+    modelUrl: '/assets/city/city_erzurum_cifte_minareli.glb',
+    checksum: '1b964668fed996cf6b5d1c841e2c0f749217725de3ee2ce356daa502bd8f0b9b',
+    triangles: 9_665,
+    transferBytes: 2_785_932,
+    /**
+     * The Çifte Minareli Medrese, behind the spawn.
+     *
+     * **The one model in this city that must not be cropped.** Palandöken loses
+     * its summit on purpose; a minaret with its finial out of frame is a
+     * chimney. Sixteen metres was a ceiling in the brief rather than a
+     * preference — at 58 m back the frame stops at 16.8 m — and the delivery is
+     * held to it.
+     *
+     * It came back narrow: 1.16 wide for every one high against a briefed 1.88,
+     * so it is 18.6 m across rather than 30 and cannot close the direction on
+     * its own. The townhouses run a piece past the spawn on both sides to carry
+     * the shoulders.
+     */
+    dimensions: [18.6, 16.0, 10.13],
+    label: 'Çifte Minareli Medrese',
+    color: '#A9906B',
+    placeholder: 'box',
+    notes: 'Delivered 6 m buried 3 m, 28.24 MB; re-authored to 16 m on y = 0 at 2048 base colour, 2.66 MB.',
+  },
+  {
     id: 'kit_mardin_sweets_cart',
     modelUrl: '/assets/props/kit_mardin_sweets_cart.glb',
     checksum: '2b20fbcde259fdc17dd022056366c73a9ac4d75b27a87ac1e403c612237b7a2c',

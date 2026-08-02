@@ -21,7 +21,7 @@ export interface SceneHotspot {
 }
 
 /** Which region's surface a piece of ground is drawn with. */
-export type GroundSurface = 'cobblestone' | 'redsand' | 'steppe' | 'rock' | 'forest';
+export type GroundSurface = 'cobblestone' | 'redsand' | 'steppe' | 'rock' | 'forest' | 'snow';
 
 /**
  * Surfaces that exist only as a patch over another one.
@@ -104,6 +104,7 @@ export interface SceneDescription {
   readonly backdrop: readonly ScenePropInstance[];
   readonly statues: readonly StatueMount[];
   readonly cartLine: SceneDefinition['cartLine'];
+  readonly snowfall: boolean;
   readonly cartAsset: ResolvedAsset | null;
   readonly water: SceneDefinition['water'];
   readonly musicUrl: string | null;
@@ -387,6 +388,7 @@ export function buildScene(city: CityDefinition, quality: QualityTier): SceneDes
     backdrop,
     statues,
     cartLine: city.cartLine,
+    snowfall: city.snowfall,
     cartAsset:
       city.cartLine && city.cartAssetId ? resolveAsset(city.cartAssetId, quality) : null,
     water: city.water,

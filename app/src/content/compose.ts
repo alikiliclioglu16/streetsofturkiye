@@ -101,6 +101,7 @@ export interface RuntimeCity {
   birdAssetId: SceneDefinition['birdAssetId'];
   statues: SceneDefinition['statues'];
   cartLine: SceneDefinition['cartLine'];
+  snowfall: SceneDefinition['snowfall'];
   cartAssetId: SceneDefinition['cartAssetId'];
   boatAssetId: SceneDefinition['boatAssetId'];
   groundPad: SceneDefinition['groundPad'];
@@ -218,6 +219,7 @@ export function composeCity(canonical: CanonicalCity, scene: SceneDefinition): R
     birdAssetId: scene.birdAssetId,
     statues: scene.statues,
     cartLine: scene.cartLine,
+    snowfall: scene.snowfall,
     cartAssetId: scene.cartAssetId,
     boatAssetId: scene.boatAssetId,
     groundPad: scene.groundPad,
