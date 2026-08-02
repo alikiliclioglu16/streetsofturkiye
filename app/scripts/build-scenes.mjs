@@ -192,6 +192,92 @@ const TRABZON_ROCK_NEAR_Z = -88;
  * shoreline was typed into three places and moved four times in as many
  * sittings (D-163); this is that lesson.
  */
+/**
+ * Balıkesir's three distances, in metres from the spawn.
+ *
+ * Near-edge lines, all of them: the face of the thing that stands there and not
+ * its centre (D-101). Typed once, because Van's shoreline was typed into three
+ * places and moved four times in as many sittings (D-163).
+ */
+const BALIKESIR_MOUNTAIN_NEAR_Z = -96;
+const BALIKESIR_SHORE_Z = 30;
+/**
+ * The far shore, and it is close on purpose.
+ *
+ * It went in at 118 and the sweep found twenty-three degrees of open sky
+ * straight back: a 12 m wooded slope at 110 m subtends 5.5°, well under the 8°
+ * the elevation test holds every direction to. Nothing is wrong with the
+ * models — the lake was simply too big to be closed by anything on it.
+ *
+ * Ninety is what a 12 m slope can close from: `atan(10.5 / 72)` is 8.3° at the
+ * shore's own distance. It also makes it a lake rather than a bay, which is the
+ * point of the whole direction.
+ */
+const BALIKESIR_LAKE_FAR_Z = 90;
+
+/**
+ * Manyas, and why Balıkesir gets the third water plane in the project.
+ *
+ * Five environment models were delivered for this city and **not one of them
+ * has any water in it** — not a vertex of blue between them, measured. The
+ * mountain, the olive terraces, the cattails, the islet and Cunda are all dry.
+ * So the water is a plane or there is none, and there has to be one: the
+ * pelicans have to float, and a pelican on grass is worse than no pelican.
+ *
+ * It is a lake and not a sea, and the difference is that it ends. Trabzon's
+ * water runs 180 m out to the far clip and answers its direction with a
+ * horizon; this one is closed by Cunda across it and by wooded slopes behind,
+ * so a child looks *at* it rather than past it. Two coastal provinces, two
+ * different answers — which is the whole reason the four-directions rule exists.
+ *
+ * Still, for the reason Trabzon's is: the whole surface is in frame at once and
+ * a plane this size rising as one slab reads as a lid lifting.
+ */
+const BALIKESIR_LAKE = {
+  centerX: 0,
+  centerZ: (BALIKESIR_SHORE_Z - 2 + BALIKESIR_LAKE_FAR_Z) / 2,
+  width: 300,
+  depth: BALIKESIR_LAKE_FAR_Z - (BALIKESIR_SHORE_Z - 2),
+  /** Still fresh water under a hazy sky: greener and lighter than a sea. */
+  color: '#3E7A83',
+  still: true,
+};
+
+/**
+ * Gulls over Balıkesir, on the same rings-out-to-the-flanks reasoning Trabzon's
+ * use: the frame stops 13° above horizontal (D-183), so a bird at ten metres is
+ * only in shot from 42 m away and one directly overhead is never in it at all.
+ */
+const BALIKESIR_BIRDS = [
+  { centre: [-54, 11, -24], radius: 24, rate: 0.038, phase: 0.4, bob: 1.3 },
+  { centre: [52, 13, -50], radius: 26, rate: -0.029, phase: 2.2, bob: 1.7 },
+  { centre: [-20, 12, 62], radius: 28, rate: 0.024, phase: 3.9, bob: 1.5 },
+  { centre: [40, 10, 40], radius: 22, rate: -0.033, phase: 5.4, bob: 1.2 },
+  { centre: [-48, 14, -74], radius: 25, rate: 0.02, phase: 1.1, bob: 1.9 },
+];
+
+/**
+ * Pelicans paddling on Manyas.
+ *
+ * The delivery is not rigged and its wings are folded, so it cannot be flown —
+ * it is a bird at rest, which is the right thing for a lake. `Tram` moves it
+ * instead: out, pause, back, at a fifth of a fishing boat's pace. A pelican
+ * working a stretch of water and turning round is what a pelican does, so
+ * nothing new had to be written (D-136).
+ *
+ * Four of them, none in step, all on the near half of the lake where a metre
+ * of bird still subtends something. `heights` are flat because the lake is.
+ */
+function balikesirPelicanLines() {
+  const y = -0.25;
+  return [
+    { from: [-8, 38], to: [8, 38], heights: [y, y], speed: 0.32 },
+    { from: [16, 42], to: [30, 42], heights: [y, y], speed: 0.24 },
+    { from: [4, 48], to: [-10, 48], heights: [y, y], speed: 0.28 },
+    { from: [-30, 36], to: [-42, 36], heights: [y, y], speed: 0.2 },
+  ];
+}
+
 const TRABZON_SHORE_Z = 30;
 
 /**
@@ -370,6 +456,15 @@ const ANIMAL_OVERRIDES = {
    * Its moving life is the sea behind it: the hamsi boats working the shore.
    */
   trabzon: 'none',
+  /**
+   * No cat in Balıkesir either.
+   *
+   * The Marmara row gives it İstanbul's cats, and a third city walking the same
+   * tabbies is the borrowed street furniture that reads as a province nobody
+   * looked at (D-119). Its moving life is Manyas: gulls over the street and
+   * pelicans on the water.
+   */
+  balikesir: 'none',
 };
 
 /** Which surface each region's streets are laid with. */
@@ -447,6 +542,17 @@ const CITY_PALETTE = {
    * (D-132).
    */
   trabzon: { sky: ['#AFC8D2', '#E4EDE8'], ground: '#A2AEA3' },
+  /**
+   * Balıkesir under a dry western sky.
+   *
+   * Second city out of the Marmara table, and the default is İstanbul's exactly
+   * — the same sky and the same warm sand. That is a strait city's palette. This
+   * is olive country: a paler, hotter sky and limestone dust under it, with the
+   * green coming from the terraces and Kaz Dağları rather than from the ground
+   * tint. Kept light for the same reason Trabzon's is: `groundColor` multiplies
+   * the paving texture, and anything much below 65% lightness swallows it.
+   */
+  balikesir: { sky: ['#A6D2E4', '#EDE9D6'], ground: '#C3BC9C' },
 };
 
 const CITY_THEMES = {
@@ -1342,6 +1448,112 @@ function cityBackdrop(cityId, stopPositions, metrics) {
         rotationY: Math.round(i * 1.1 * 1000) / 1000,
         solid: false,
         note: `olive grove ${i + 1}`,
+      })),
+    ];
+  }
+
+  if (cityId === 'balikesir') {
+    /**
+     * An olive valley between a forest mountain and a bird lake.
+     *
+     * Second Marmara city, and the region table dressed it as İstanbul —
+     * İstanbul's cobbles, cats, planting and palette, under a kit called
+     * `marmara-urban-coastal`. None of that survived.
+     *
+     * The harder collision was Trabzon, finished the same day, which also has
+     * water behind and a mountain ahead. The difference is that this water
+     * **ends**: Cunda stands across it and wooded slopes close it behind, so a
+     * child looks at a lake rather than out to a horizon. Ahead is the first
+     * mountain in the project that is forest to its summit.
+     */
+    return [
+      /**
+       * Olive terraces, four a side at 30 m centres for a piece 35 across.
+       *
+       * The brief planned six a side at 26 m; the delivery came back 35 wide
+       * and 34.7 deep, so four cover the same street with two fewer pieces.
+       * They run past the last stop to z = -84 because the mountain is only 71
+       * across and would otherwise leave the front corners open.
+       */
+      ...[-1, 1].flatMap((side) =>
+        Array.from({ length: 4 }, (_, i) =>
+          wall('city_balikesir_olive_terrace', side * 34, 22 - i * 30, `olive ${side < 0 ? 'west' : 'east'} ${i + 1}`),
+        ),
+      ),
+      /** Single stands of olive in front of the terraces, on the shared kit. */
+      ...[
+        [-24, 6], [25, -8], [-26, -36], [24, -50], [-25, -64], [26, 12],
+      ].map(([x, z], i) => ({
+        assetId: 'kit_olive_grove',
+        position: [x, 0, z],
+        rotationY: Math.round(i * 1.1 * 1000) / 1000,
+        solid: false,
+        note: `olive stand ${i + 1}`,
+      })),
+      /**
+       * Kaz Dağları, near edge on BALIKESIR_MOUNTAIN_NEAR_Z.
+       *
+       * One piece at 32 m. Its centre sits 35.5 m further out than the line it
+       * is measured to, because near-edge alignment is the rule and a plate
+       * centred on the boundary swallowed Nevşehir's spawn (D-101).
+       */
+      {
+        assetId: 'city_balikesir_kaz_daglari',
+        position: [0, 0, BALIKESIR_MOUNTAIN_NEAR_Z - 35.56],
+        rotationY: -0.08,
+        solid: true,
+        note: 'Kaz Dağları, at the head of the valley',
+      },
+      /**
+       * Cattails at the waterline, in clumps with lake between them.
+       *
+       * Four rather than a run of them: a continuous reed bank at the near edge
+       * would hide the water it is the edge of, and the water is where the
+       * pelicans are.
+       */
+      ...[-38, -17, 15, 37].map((x, i) => ({
+        assetId: 'city_balikesir_manyas_reeds',
+        position: [x, 0, BALIKESIR_SHORE_Z + 3],
+        rotationY: [0.2, -0.3, 0.15, -0.1][i],
+        solid: false,
+        note: `cattails ${i + 1}`,
+      })),
+      /** The islet, out on the water and off to one side of the view. */
+      {
+        assetId: 'city_balikesir_manyas_islet',
+        position: [-20, 0, 45],
+        rotationY: 0.5,
+        solid: false,
+        note: 'islet on Manyas',
+      },
+      /**
+       * Cunda, across the water and off centre.
+       *
+       * Sixteen metres against a ceiling of 21.5 m from the spawn (D-183), so
+       * it stands whole from the square. Off to the right rather than dead
+       * ahead, so the lake is not symmetrical about the child's line of sight —
+       * which is what would make it read as a backdrop rather than a place.
+       */
+      {
+        assetId: 'city_balikesir_cunda_island',
+        position: [28, 0, 56],
+        rotationY: -0.22,
+        solid: true,
+        note: 'Cunda, across the water',
+      },
+      /**
+       * Wooded slopes closing the far shore, on the olive terrace.
+       *
+       * This is what makes it a lake instead of a sea. Without them the water
+       * runs to the sky and Balıkesir answers its fourth direction exactly the
+       * way Trabzon does.
+       */
+      ...[-58, -24, 12, 48].map((x, i) => ({
+        assetId: 'city_balikesir_olive_terrace',
+        position: [x, 0, BALIKESIR_LAKE_FAR_Z - 18 + (i % 2) * 4],
+        rotationY: Math.PI + i * 0.28,
+        solid: false,
+        note: `far shore ${i + 1}`,
       })),
     ];
   }
@@ -2587,9 +2799,30 @@ function buildScene(canonical) {
            * gone with it — the wharf moved inside the street instead.
            */
           { x: 2, front: 2, back: 10 }
-        : { x: 2, front: 2, back: 2 },
-    boatLines: canonical.id === 'trabzon' ? trabzonBoatLines() : [],
-    birdPaths: canonical.id === 'trabzon' ? TRABZON_BIRDS : [],
+        : canonical.id === 'balikesir'
+          ? /** Paving to the reed line, with the lake drawn over its last two metres. */
+            { x: 2, front: 2, back: 6 }
+          : { x: 2, front: 2, back: 2 },
+    boatLines:
+      canonical.id === 'trabzon'
+        ? trabzonBoatLines()
+        : canonical.id === 'balikesir'
+          ? balikesirPelicanLines()
+          : [],
+    boatAssetId:
+      canonical.id === 'trabzon'
+        ? 'kit_trabzon_fishing_boat'
+        : canonical.id === 'balikesir'
+          ? 'kit_balikesir_pelican'
+          : null,
+    birdAssetId:
+      canonical.id === 'trabzon' || canonical.id === 'balikesir' ? 'kit_gull' : null,
+    birdPaths:
+      canonical.id === 'trabzon'
+        ? TRABZON_BIRDS
+        : canonical.id === 'balikesir'
+          ? BALIKESIR_BIRDS
+          : [],
     mistBands: canonical.id === 'trabzon' ? TRABZON_MIST : [],
     canoeLines:
       canonical.id === 'van'
@@ -2610,8 +2843,10 @@ function buildScene(canonical) {
      * and greener than the sea.
      */
     water:
-      canonical.id === 'trabzon'
-        ? TRABZON_SEA
+      canonical.id === 'balikesir'
+        ? BALIKESIR_LAKE
+        : canonical.id === 'trabzon'
+          ? TRABZON_SEA
         : canonical.id === 'istanbul'
         ? {
             centerX: 0,

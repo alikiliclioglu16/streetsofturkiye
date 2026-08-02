@@ -313,6 +313,16 @@ export const sceneSchema = z
      * ring fly as a bracelet, and the thing that reads as birds is that no two
      * of them are ever doing the same thing.
      */
+    /**
+     * Which bird flies here, and which craft works the water.
+     *
+     * Both used to be resolved from a hard-wired id, which was fine while one
+     * city had birds and one city had boats and stopped being fine the moment a
+     * second wanted either. A `kit_` asset is shared by definition; *which* one
+     * a city uses is the city's business and belongs in its scene.
+     */
+    birdAssetId: z.string().nullable().default(null),
+    boatAssetId: z.string().nullable().default(null),
     birdPaths: z
       .array(
         z.object({

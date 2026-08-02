@@ -1701,6 +1701,123 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
     notes: 'Delivered 10 m buried 5 m, 29.15 MB; re-authored to 26 m on y = 0 at 2048 base colour, 2.56 MB.',
   },
   {
+    id: 'city_balikesir_kaz_daglari',
+    modelUrl: '/assets/city/city_balikesir_kaz_daglari.glb',
+    checksum: '026db27be5287cd27d930c070aad691c7e63af7591c4476f2f7735cc5abe6904',
+    triangles: 10_376,
+    transferBytes: 2_406_988,
+    /**
+     * Kaz Dağları, and it is the first mountain in the project that is forest
+     * to the summit.
+     *
+     * Ninety per cent of its surface samples green — measured, not taken from
+     * the file name — where Boztepe is a bare green headland, Kartalkaya has
+     * snow, Sarıkamış is rock, Erek is scree and Sümela is a vertical crag.
+     * Six provinces, six mountains, no two alike.
+     *
+     * Briefed 90 m across on a 3:1 aspect and delivered on 2.2:1, so at 32 m
+     * tall it is 71 across rather than 90. One piece, not three: three of
+     * Sümela's crag went in side by side and read as three copies of one file.
+     * The olive terraces close the corners it leaves instead.
+     */
+    dimensions: [71.39, 32.0, 71.11],
+    label: 'Kaz Dağları',
+    color: '#4A6B3C',
+    placeholder: 'box',
+    notes: 'Delivered 6 m buried 3 m, 27.14 MB; re-authored to 32 m on y = 0 at 2048 base colour, 2.30 MB.',
+  },
+  {
+    id: 'city_balikesir_olive_terrace',
+    modelUrl: '/assets/city/city_balikesir_olive_terrace.glb',
+    checksum: '0bd92a33d1f562df995437f2d0a4d401946256735963305fc38525914486b349',
+    triangles: 10_336,
+    transferBytes: 1_036_568,
+    /**
+     * The sides: olives on stony terraces.
+     *
+     * Nearly as deep as it is wide — 35 across for 34.7 back — which is a lot
+     * of flank for one piece and means four a side rather than the six the
+     * brief planned for. Kept: the depth is what a hillside has, and it lets
+     * the terraces run back away from the street instead of standing against it.
+     *
+     * Its colour census came back almost entirely earth, with the olive leaves
+     * reading as the grey between. That is what an olive terrace is from thirty
+     * metres — stone, dust and a silver haze — but it is the one delivery here
+     * whose look should be checked on a screenshot before more are ordered.
+     */
+    dimensions: [34.99, 12.0, 34.74],
+    label: 'Olive terraces',
+    color: '#8A8259',
+    placeholder: 'box',
+    notes: 'Delivered 6 m buried 3 m, 26.86 MB; re-authored to 12 m on y = 0, 0.99 MB.',
+  },
+  {
+    id: 'city_balikesir_cunda_island',
+    modelUrl: '/assets/city/city_balikesir_cunda_island.glb',
+    checksum: '950a8051514beeaa589baf06c08c747f40e86b29ae63f20b57d3dfe461fbd3d8',
+    triangles: 10_264,
+    transferBytes: 1_027_380,
+    /**
+     * Cunda, across the water.
+     *
+     * Three quarters of it samples as terracotta and stone with a tenth green —
+     * a town on a hill, which is what Cunda is. **No water in it**, like every
+     * other delivery for this city, so the lake it stands in is a plane.
+     *
+     * It arrived normalised into a box 14 cm across. That number means nothing
+     * (D-124); sixteen metres is what the recorded height says and what draws
+     * it, against a ceiling of 21.5 m from the spawn.
+     */
+    dimensions: [37.68, 16.0, 28.77],
+    label: 'Cunda',
+    color: '#A9825E',
+    placeholder: 'box',
+    notes: 'Delivered 0.06 m tall, 25.46 MB; re-authored to 16 m on y = 0, 0.98 MB.',
+  },
+  {
+    id: 'city_balikesir_manyas_reeds',
+    modelUrl: '/assets/city/city_balikesir_manyas_reeds.glb',
+    checksum: '46c0c0f2db60bb7b84766177a3c052217b05226591f78ffd4717d8acb313cbd0',
+    triangles: 8_832,
+    transferBytes: 1_159_204,
+    /**
+     * Cattails at the waterline.
+     *
+     * Briefed 11 m tall because reeds on a *flank* would be open sky above
+     * them. Manyas went behind instead, where the height that closes the
+     * direction is Cunda's, so these went back down to four and a half — which
+     * is what a reed is. They stand in clumps with water between them rather
+     * than as a bank, because a continuous reed wall at the near edge would
+     * hide the lake it is supposed to be the edge of.
+     */
+    dimensions: [13.24, 4.5, 7.24],
+    label: 'Cattails',
+    color: '#7F8B4A',
+    placeholder: 'box',
+    notes: 'Delivered 2 m buried 1 m, 35.74 MB; re-authored to 4.5 m on y = 0, 1.11 MB.',
+  },
+  {
+    id: 'city_balikesir_manyas_islet',
+    modelUrl: '/assets/city/city_balikesir_manyas_islet.glb',
+    checksum: '1444979214956216ba83640427fa53a9f1fbdd12604a1fce20a52193683e1b13',
+    triangles: 10_089,
+    transferBytes: 968_584,
+    /**
+     * A green islet in the lake.
+     *
+     * Delivered as "Isle of Still Waters" and three quarters green with no blue
+     * anywhere in it — so it is the isle and not the still water, which is the
+     * kind of thing a file name will tell you wrongly (D-078). Five metres and
+     * 26 across on a 5.3:1 aspect: flat, which is right for something a child
+     * sees across water rather than over.
+     */
+    dimensions: [26.52, 5.0, 24.34],
+    label: 'Lake islet',
+    color: '#5E7F45',
+    placeholder: 'box',
+    notes: 'Delivered 2 m buried 1 m, 23.50 MB; re-authored to 5 m on y = 0, 0.92 MB.',
+  },
+  {
     id: 'kit_balikesir_pelican',
     modelUrl: '/assets/props/kit_balikesir_pelican.glb',
     checksum: '1bb4e0b914905fcf446a63e8b60dabf09aadff290fa04bb368ffbbce7aeab40e',
@@ -1777,8 +1894,8 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
     notes: 'Delivered 2 m buried 1 m, 24.61 MB; re-authored to 3.5 m on y = 0, 1.76 MB.',
   },
   {
-    id: 'kit_trabzon_bird',
-    modelUrl: '/assets/props/kit_trabzon_bird.glb',
+    id: 'kit_gull',
+    modelUrl: '/assets/props/kit_gull.glb',
     checksum: '69604e1a8ef57e104354c80c72415b419b1858b7600bf354ea063cdd634c9156',
     triangles: 10_504,
     transferBytes: 1_125_364,
@@ -1796,6 +1913,11 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
      * off the wingspan it measures on load and flies it, the way the heroes
      * are handled. The file is the delivery untouched, which is why the
      * checksum is the one the download had.
+     *
+     * Renamed from `kit_trabzon_bird` when Balıkesir asked for the same birds.
+     * A `kit_` asset is one whose cost is paid in every province that uses it
+     * (D-036), and a province name inside one is a promise the file cannot
+     * keep — this is a gull, and gulls are not Trabzon's.
      */
     dimensions: [3.07, 10.65, 27.19],
     label: 'Bird',

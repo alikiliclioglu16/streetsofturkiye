@@ -12,10 +12,10 @@
     "timeOfDay": "midday",
     "ambientAudioId": "ambient_marmara",
     "skyPreset": [
-      "#8FD2F2",
-      "#CDEFFA"
+      "#A6D2E4",
+      "#EDE9D6"
     ],
-    "groundColor": "#C9B27E"
+    "groundColor": "#C3BC9C"
   },
   "guide": {
     "assetId": "character_keloglan_base"
@@ -461,16 +461,418 @@
   "groundPad": {
     "x": 2,
     "front": 2,
-    "back": 2
+    "back": 6
   },
-  "boatLines": [],
-  "birdPaths": [],
+  "boatLines": [
+    {
+      "from": [
+        -8,
+        38
+      ],
+      "to": [
+        8,
+        38
+      ],
+      "heights": [
+        -0.25,
+        -0.25
+      ],
+      "speed": 0.32
+    },
+    {
+      "from": [
+        16,
+        42
+      ],
+      "to": [
+        30,
+        42
+      ],
+      "heights": [
+        -0.25,
+        -0.25
+      ],
+      "speed": 0.24
+    },
+    {
+      "from": [
+        4,
+        48
+      ],
+      "to": [
+        -10,
+        48
+      ],
+      "heights": [
+        -0.25,
+        -0.25
+      ],
+      "speed": 0.28
+    },
+    {
+      "from": [
+        -30,
+        36
+      ],
+      "to": [
+        -42,
+        36
+      ],
+      "heights": [
+        -0.25,
+        -0.25
+      ],
+      "speed": 0.2
+    }
+  ],
+  "boatAssetId": "kit_balikesir_pelican",
+  "birdAssetId": "kit_gull",
+  "birdPaths": [
+    {
+      "centre": [
+        -54,
+        11,
+        -24
+      ],
+      "radius": 24,
+      "rate": 0.038,
+      "phase": 0.4,
+      "bob": 1.3
+    },
+    {
+      "centre": [
+        52,
+        13,
+        -50
+      ],
+      "radius": 26,
+      "rate": -0.029,
+      "phase": 2.2,
+      "bob": 1.7
+    },
+    {
+      "centre": [
+        -20,
+        12,
+        62
+      ],
+      "radius": 28,
+      "rate": 0.024,
+      "phase": 3.9,
+      "bob": 1.5
+    },
+    {
+      "centre": [
+        40,
+        10,
+        40
+      ],
+      "radius": 22,
+      "rate": -0.033,
+      "phase": 5.4,
+      "bob": 1.2
+    },
+    {
+      "centre": [
+        -48,
+        14,
+        -74
+      ],
+      "radius": 25,
+      "rate": 0.02,
+      "phase": 1.1,
+      "bob": 1.9
+    }
+  ],
   "mistBands": [],
   "canoeLines": [],
   "trainLine": null,
-  "water": null,
-  "backdrop": [],
-  "animal": "cat",
+  "water": {
+    "centerX": 0,
+    "centerZ": 59,
+    "width": 300,
+    "depth": 62,
+    "color": "#3E7A83",
+    "still": true
+  },
+  "backdrop": [
+    {
+      "assetId": "city_balikesir_olive_terrace",
+      "position": [
+        -34,
+        0,
+        22
+      ],
+      "rotationY": 1.5707963267948966,
+      "solid": false,
+      "note": "olive west 1"
+    },
+    {
+      "assetId": "city_balikesir_olive_terrace",
+      "position": [
+        -34,
+        0,
+        -8
+      ],
+      "rotationY": 1.5707963267948966,
+      "solid": false,
+      "note": "olive west 2"
+    },
+    {
+      "assetId": "city_balikesir_olive_terrace",
+      "position": [
+        -34,
+        0,
+        -38
+      ],
+      "rotationY": 1.5707963267948966,
+      "solid": false,
+      "note": "olive west 3"
+    },
+    {
+      "assetId": "city_balikesir_olive_terrace",
+      "position": [
+        -34,
+        0,
+        -68
+      ],
+      "rotationY": 1.5707963267948966,
+      "solid": false,
+      "note": "olive west 4"
+    },
+    {
+      "assetId": "city_balikesir_olive_terrace",
+      "position": [
+        34,
+        0,
+        22
+      ],
+      "rotationY": -1.5707963267948966,
+      "solid": false,
+      "note": "olive east 1"
+    },
+    {
+      "assetId": "city_balikesir_olive_terrace",
+      "position": [
+        34,
+        0,
+        -8
+      ],
+      "rotationY": -1.5707963267948966,
+      "solid": false,
+      "note": "olive east 2"
+    },
+    {
+      "assetId": "city_balikesir_olive_terrace",
+      "position": [
+        34,
+        0,
+        -38
+      ],
+      "rotationY": -1.5707963267948966,
+      "solid": false,
+      "note": "olive east 3"
+    },
+    {
+      "assetId": "city_balikesir_olive_terrace",
+      "position": [
+        34,
+        0,
+        -68
+      ],
+      "rotationY": -1.5707963267948966,
+      "solid": false,
+      "note": "olive east 4"
+    },
+    {
+      "assetId": "kit_olive_grove",
+      "position": [
+        -24,
+        0,
+        6
+      ],
+      "rotationY": 0,
+      "solid": false,
+      "note": "olive stand 1"
+    },
+    {
+      "assetId": "kit_olive_grove",
+      "position": [
+        25,
+        0,
+        -8
+      ],
+      "rotationY": 1.1,
+      "solid": false,
+      "note": "olive stand 2"
+    },
+    {
+      "assetId": "kit_olive_grove",
+      "position": [
+        -26,
+        0,
+        -36
+      ],
+      "rotationY": 2.2,
+      "solid": false,
+      "note": "olive stand 3"
+    },
+    {
+      "assetId": "kit_olive_grove",
+      "position": [
+        24,
+        0,
+        -50
+      ],
+      "rotationY": 3.3,
+      "solid": false,
+      "note": "olive stand 4"
+    },
+    {
+      "assetId": "kit_olive_grove",
+      "position": [
+        -25,
+        0,
+        -64
+      ],
+      "rotationY": 4.4,
+      "solid": false,
+      "note": "olive stand 5"
+    },
+    {
+      "assetId": "kit_olive_grove",
+      "position": [
+        26,
+        0,
+        12
+      ],
+      "rotationY": 5.5,
+      "solid": false,
+      "note": "olive stand 6"
+    },
+    {
+      "assetId": "city_balikesir_kaz_daglari",
+      "position": [
+        0,
+        0,
+        -131.56
+      ],
+      "rotationY": -0.08,
+      "solid": true,
+      "note": "Kaz Dağları, at the head of the valley"
+    },
+    {
+      "assetId": "city_balikesir_manyas_reeds",
+      "position": [
+        -38,
+        0,
+        33
+      ],
+      "rotationY": 0.2,
+      "solid": false,
+      "note": "cattails 1"
+    },
+    {
+      "assetId": "city_balikesir_manyas_reeds",
+      "position": [
+        -17,
+        0,
+        33
+      ],
+      "rotationY": -0.3,
+      "solid": false,
+      "note": "cattails 2"
+    },
+    {
+      "assetId": "city_balikesir_manyas_reeds",
+      "position": [
+        15,
+        0,
+        33
+      ],
+      "rotationY": 0.15,
+      "solid": false,
+      "note": "cattails 3"
+    },
+    {
+      "assetId": "city_balikesir_manyas_reeds",
+      "position": [
+        37,
+        0,
+        33
+      ],
+      "rotationY": -0.1,
+      "solid": false,
+      "note": "cattails 4"
+    },
+    {
+      "assetId": "city_balikesir_manyas_islet",
+      "position": [
+        -20,
+        0,
+        45
+      ],
+      "rotationY": 0.5,
+      "solid": false,
+      "note": "islet on Manyas"
+    },
+    {
+      "assetId": "city_balikesir_cunda_island",
+      "position": [
+        28,
+        0,
+        56
+      ],
+      "rotationY": -0.22,
+      "solid": true,
+      "note": "Cunda, across the water"
+    },
+    {
+      "assetId": "city_balikesir_olive_terrace",
+      "position": [
+        -58,
+        0,
+        72
+      ],
+      "rotationY": 3.141592653589793,
+      "solid": false,
+      "note": "far shore 1"
+    },
+    {
+      "assetId": "city_balikesir_olive_terrace",
+      "position": [
+        -24,
+        0,
+        76
+      ],
+      "rotationY": 3.4215926535897934,
+      "solid": false,
+      "note": "far shore 2"
+    },
+    {
+      "assetId": "city_balikesir_olive_terrace",
+      "position": [
+        12,
+        0,
+        72
+      ],
+      "rotationY": 3.701592653589793,
+      "solid": false,
+      "note": "far shore 3"
+    },
+    {
+      "assetId": "city_balikesir_olive_terrace",
+      "position": [
+        48,
+        0,
+        76
+      ],
+      "rotationY": 3.981592653589793,
+      "solid": false,
+      "note": "far shore 4"
+    }
+  ],
+  "animal": "none",
   "catRoutes": [
     [
       {

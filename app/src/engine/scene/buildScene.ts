@@ -396,10 +396,14 @@ export function buildScene(city: CityDefinition, quality: QualityTier): SceneDes
     ferryAsset: city.ferryLine ? resolveAsset('city_istanbul_ferry_boat', quality) : null,
     canoeAsset: city.canoeLines.length ? resolveAsset('city_van_canoe', quality) : null,
     boatLines: city.boatLines,
-    boatAsset: city.boatLines.length ? resolveAsset('kit_trabzon_fishing_boat', quality) : null,
+    boatAsset:
+      city.boatLines.length && city.boatAssetId ? resolveAsset(city.boatAssetId, quality) : null,
     mistBands: city.mistBands,
     birdPaths: city.birdPaths,
-    birdModelUrl: city.birdPaths.length ? resolveAsset('kit_trabzon_bird', quality).modelUrl : null,
+    birdModelUrl:
+      city.birdPaths.length && city.birdAssetId
+        ? resolveAsset(city.birdAssetId, quality).modelUrl
+        : null,
     trainAsset: city.trainLine ? resolveAsset('city_kars_eastern_express', quality) : null,
     catRoutes: city.catRoutes,
     groundPatches: city.groundPatches ?? [],
