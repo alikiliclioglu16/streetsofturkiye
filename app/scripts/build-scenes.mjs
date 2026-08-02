@@ -26,7 +26,7 @@ const manifestById = new Map(
 const CANONICAL = path.join(ROOT, 'content/canonical');
 const OUT = path.join(ROOT, 'content/scenes');
 
-const PILOT = ['istanbul', 'nevsehir', 'gaziantep', 'kars', 'van', 'ordu', 'bolu', 'trabzon', 'balikesir', 'mardin', 'erzurum'];
+const PILOT = ['istanbul', 'nevsehir', 'gaziantep', 'kars', 'van', 'ordu', 'bolu', 'trabzon', 'balikesir', 'mardin', 'erzurum', 'izmir'];
 
 const readJson = (file) => JSON.parse(fs.readFileSync(file, 'utf8'));
 const manifest = readJson(path.join(CANONICAL, 'manifest.json'));
@@ -1439,6 +1439,14 @@ const CITY_STREET_TREE = {
    * the silver of an olive leaf.
    */
   balikesir: 'kit_balikesir_olive_tree',
+  /**
+   * Erzurum walks under bare oak.
+   *
+   * The fourth city out of this table and the one where the procedural shapes
+   * were worst: a bright green polygon canopy in a snow street is not just
+   * low-poly, it is the wrong season.
+   */
+  erzurum: 'kit_erzurum_oak',
 };
 
 /** Scatter laid along the street, on top of the ground texture. */

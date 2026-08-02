@@ -173,6 +173,7 @@ export const DELIVERED_DIMENSIONS = {
   city_mardin_stone_doorway: [2.59, 3.6, 0.82],
   city_mardin_telkari_bench: [2.43, 2.2, 1.95],
   city_mardin_minaret_courtyard: [4.28, 4.6, 5.32],
+  kit_erzurum_oak: [6.48, 6.5, 6.64],
   city_erzurum_lace_portal: [3.1, 4.0, 2.65],
   city_erzurum_ski_gear: [2.98, 2.2, 2.9],
   city_erzurum_oltu_workbench: [2.21, 2.2, 1.94],

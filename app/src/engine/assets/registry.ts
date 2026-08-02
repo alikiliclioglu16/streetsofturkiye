@@ -1810,6 +1810,31 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
     notes: 'Delivered 2 m buried 1 m, 24.69 MB; re-authored to 4.6 m on y = 0, 2.28 MB.',
   },
   {
+    id: 'kit_erzurum_oak',
+    modelUrl: '/assets/props/kit_erzurum_oak.glb',
+    checksum: 'fbd9bf9a1d6a285518294f5fd2829be894eb1ced05997174ec3fdeda1667812c',
+    triangles: 7_513,
+    transferBytes: 1_374_796,
+    /**
+     * Erzurum's street tree: a bare oak under snow.
+     *
+     * Fourth city out of `CITY_STREET_TREE` and the one where the procedural
+     * shapes were worst — a bright green polygon canopy in a winter street is
+     * not merely low-poly, it is the wrong season.
+     *
+     * Six and a half metres and as broad as it is tall, which is what an oak
+     * is. The four street trees in the project are now a nine metre fir, a
+     * five and a half metre olive, a four and a half metre hazelnut and this;
+     * none of them would pass for another, which is the whole point of the
+     * table.
+     */
+    dimensions: [6.48, 6.5, 6.64],
+    label: 'Snowbound oak',
+    color: '#6E6455',
+    placeholder: 'box',
+    notes: 'Delivered 2 m buried 1 m, 45.60 MB; re-authored to 6.5 m on y = 0, 1.31 MB.',
+  },
+  {
     id: 'city_erzurum_lace_portal',
     modelUrl: '/assets/city/city_erzurum_lace_portal.glb',
     checksum: 'afcbcaa1a4ad3371474a9eb21f0c7d6adb8575f3484c028360a34dd43cfd84d4',

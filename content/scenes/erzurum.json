@@ -450,6 +450,138 @@
       "note": "fountain, near the end"
     },
     {
+      "assetId": "kit_erzurum_oak",
+      "position": [
+        -11,
+        0,
+        -1
+      ],
+      "rotationY": 0,
+      "solid": true,
+      "note": "street tree 1"
+    },
+    {
+      "assetId": "kit_erzurum_oak",
+      "position": [
+        14.2,
+        0,
+        -8.4
+      ],
+      "rotationY": 0.646,
+      "solid": true,
+      "note": "street tree 2"
+    },
+    {
+      "assetId": "kit_erzurum_oak",
+      "position": [
+        -17.4,
+        0,
+        -15.7
+      ],
+      "rotationY": 1.292,
+      "solid": true,
+      "note": "street tree 3"
+    },
+    {
+      "assetId": "kit_erzurum_oak",
+      "position": [
+        12.6,
+        0,
+        -18
+      ],
+      "rotationY": 1.937,
+      "solid": true,
+      "note": "street tree 4"
+    },
+    {
+      "assetId": "kit_erzurum_oak",
+      "position": [
+        -15.8,
+        0,
+        -25.4
+      ],
+      "rotationY": 2.583,
+      "solid": true,
+      "note": "street tree 5"
+    },
+    {
+      "assetId": "kit_erzurum_oak",
+      "position": [
+        11,
+        0,
+        -32.7
+      ],
+      "rotationY": 3.229,
+      "solid": true,
+      "note": "street tree 6"
+    },
+    {
+      "assetId": "kit_erzurum_oak",
+      "position": [
+        -14.2,
+        0,
+        -35
+      ],
+      "rotationY": 3.875,
+      "solid": true,
+      "note": "street tree 7"
+    },
+    {
+      "assetId": "kit_erzurum_oak",
+      "position": [
+        17.4,
+        0,
+        -42.4
+      ],
+      "rotationY": 4.52,
+      "solid": true,
+      "note": "street tree 8"
+    },
+    {
+      "assetId": "kit_erzurum_oak",
+      "position": [
+        -12.6,
+        0,
+        -49.7
+      ],
+      "rotationY": 5.166,
+      "solid": true,
+      "note": "street tree 9"
+    },
+    {
+      "assetId": "kit_erzurum_oak",
+      "position": [
+        15.8,
+        0,
+        -52
+      ],
+      "rotationY": 5.812,
+      "solid": true,
+      "note": "street tree 10"
+    },
+    {
+      "assetId": "kit_erzurum_oak",
+      "position": [
+        -11,
+        0,
+        -59.4
+      ],
+      "rotationY": 0.175,
+      "solid": true,
+      "note": "street tree 11"
+    },
+    {
+      "assetId": "kit_erzurum_oak",
+      "position": [
+        14.2,
+        0,
+        -66.7
+      ],
+      "rotationY": 0.82,
+      "solid": true,
+      "note": "street tree 12"
+    },
+    {
       "assetId": "kit_erzurum_snow_drift",
       "position": [
         -4.5,
@@ -960,140 +1092,7 @@
       ]
     }
   ],
-  "trees": [
-    {
-      "key": "tree-0",
-      "position": [
-        -11,
-        0,
-        -1
-      ],
-      "kind": "shrub",
-      "scale": 0.8,
-      "rotationY": 0
-    },
-    {
-      "key": "tree-1",
-      "position": [
-        14.2,
-        0,
-        -8.4
-      ],
-      "kind": "poplar",
-      "scale": 1.1,
-      "rotationY": 0.646
-    },
-    {
-      "key": "tree-2",
-      "position": [
-        -17.4,
-        0,
-        -15.7
-      ],
-      "kind": "shrub",
-      "scale": 0.9,
-      "rotationY": 1.292
-    },
-    {
-      "key": "tree-3",
-      "position": [
-        12.6,
-        0,
-        -18
-      ],
-      "kind": "shrub",
-      "scale": 1.2,
-      "rotationY": 1.937
-    },
-    {
-      "key": "tree-4",
-      "position": [
-        -15.8,
-        0,
-        -25.4
-      ],
-      "kind": "poplar",
-      "scale": 1,
-      "rotationY": 2.583
-    },
-    {
-      "key": "tree-5",
-      "position": [
-        11,
-        0,
-        -32.7
-      ],
-      "kind": "shrub",
-      "scale": 0.8,
-      "rotationY": 3.229
-    },
-    {
-      "key": "tree-6",
-      "position": [
-        -14.2,
-        0,
-        -35
-      ],
-      "kind": "poplar",
-      "scale": 1.1,
-      "rotationY": 3.875
-    },
-    {
-      "key": "tree-7",
-      "position": [
-        17.4,
-        0,
-        -42.4
-      ],
-      "kind": "shrub",
-      "scale": 0.9,
-      "rotationY": 4.52
-    },
-    {
-      "key": "tree-8",
-      "position": [
-        -12.6,
-        0,
-        -49.7
-      ],
-      "kind": "shrub",
-      "scale": 1.2,
-      "rotationY": 5.166
-    },
-    {
-      "key": "tree-9",
-      "position": [
-        15.8,
-        0,
-        -52
-      ],
-      "kind": "poplar",
-      "scale": 1,
-      "rotationY": 5.812
-    },
-    {
-      "key": "tree-10",
-      "position": [
-        -11,
-        0,
-        -59.4
-      ],
-      "kind": "shrub",
-      "scale": 0.8,
-      "rotationY": 0.175
-    },
-    {
-      "key": "tree-11",
-      "position": [
-        14.2,
-        0,
-        -66.7
-      ],
-      "kind": "poplar",
-      "scale": 1.1,
-      "rotationY": 0.82
-    }
-  ],
+  "trees": [],
   "quizPresentation": {
     "shuffleOptions": true
   },
