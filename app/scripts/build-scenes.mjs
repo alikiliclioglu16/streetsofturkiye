@@ -3028,17 +3028,17 @@ function cityBackdrop(cityId, stopPositions, metrics) {
         solid: true,
         note: 'Van Castle on its rock, behind the town',
       },
-      {
-        /**
-         * Erek behind the castle, and taller than it by nearly double, so the
-         * two read as rock in front of mountain rather than as two walls.
-         */
-        assetId: 'city_van_erek_mountain',
-        position: [8, 0, Math.round((behind + 52 + 90 / 2) * 10) / 10],
-        rotationY: Math.PI - 0.2,
-        solid: false,
-        note: 'Erek, behind the castle',
-      },
+      /*
+        Erek used to stand behind the castle here and it was never delivered:
+        the scene named `city_van_erek_mountain`, the registry had no entry for
+        it and the file was not on disk, so for as long as Van has been open the
+        mountain has silently not been drawn. An audit of every scene's assets
+        against the registry found it — nothing had failed, which is why it
+        lasted.
+
+        Van's other three directions are full and the owner does not want it
+        back, so the reference is gone rather than the model ordered.
+      */
     ];
   }
 

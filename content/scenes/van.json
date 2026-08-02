@@ -485,7 +485,11 @@
     "front": 2,
     "back": 2
   },
-  "boatLines": [],
+  "shuttleLines": [],
+  "birdAssetId": null,
+  "statues": [],
+  "cableCarAssetId": null,
+  "snowfall": false,
   "birdPaths": [],
   "mistBands": [],
   "canoeLines": [
@@ -718,17 +722,6 @@
       "rotationY": 3.141592653589793,
       "solid": true,
       "note": "Van Castle on its rock, behind the town"
-    },
-    {
-      "assetId": "city_van_erek_mountain",
-      "position": [
-        8,
-        0,
-        123
-      ],
-      "rotationY": 2.941592653589793,
-      "solid": false,
-      "note": "Erek, behind the castle"
     }
   ],
   "animal": "cat",

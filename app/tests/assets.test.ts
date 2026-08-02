@@ -1,4 +1,4 @@
-import { existsSync, readFileSync, readdirSync } from 'node:fs';
+import { existsSync, readFileSync, readdirSync, statSync } from 'node:fs';
 import path from 'node:path';
 import { describe, expect, it } from 'vitest';
 
@@ -141,7 +141,9 @@ describe('delivered street props', () => {
   it('registers the lamp with the measurements taken from the file', () => {
     expect(lamp).toBeDefined();
     expect(lamp!.triangles).toBe(1_834);
-    expect(lamp!.transferBytes).toBe(1_371_280);
+    expect(lamp!.transferBytes).toBe(
+      statSync(path.resolve(process.cwd(), 'public', lamp!.modelUrl.replace(/^\//, ''))).size,
+    );
     expect(lamp!.dimensions).toEqual([1.25, 5.0, 1.1]);
     expect(lamp!.checksum).toHaveLength(64);
   });

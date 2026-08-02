@@ -62,9 +62,9 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
   {
     id: 'kit_street_lamp',
     modelUrl: '/assets/props/kit_street_lamp.glb',
-    checksum: '0af61f66a9d80c92ed1bcbafd7d55f73877b0fc6027d041f1905c5c303677ff1',
+    checksum: '799df93a3c4fed6e6e1f0475f4138eb8d26f929bcb29a1b60b73a9ae538984d9',
     triangles: 1_834,
-    transferBytes: 1_371_280,
+    transferBytes: 188_332,
     dimensions: [1.25, 5.0, 1.1],
     label: 'Street lamp',
     color: '#3B4A42',
@@ -416,9 +416,9 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
   {
     id: 'city_kars_eastern_express',
     modelUrl: '/assets/city/city_kars_eastern_express.glb',
-    checksum: 'd1a971094165992ad42cf0f091af02391efe5fc57912b9caeefbb2eb87774a1a',
+    checksum: '0f020eb177a7c9ae7fd92a313adae8976a5e7a23fd56be4363532fb991a77cca',
     triangles: 10_049,
-    transferBytes: 912896,
+    transferBytes: 615_428,
     /**
      * The locomotive itself, which is not a stop and not scenery: it crosses
      * the city and leaves.
@@ -523,9 +523,9 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
   {
     id: 'kit_chairlift_chair',
     modelUrl: '/assets/props/kit_chairlift_chair.glb',
-    checksum: 'c4eb7b8683082e01b72b3d005ddf76cabf2cb0caaa60e0b93d8bae841dc12e76',
+    checksum: '9b966157ab9fa6ccc4c5a745cc8f9c4fad1f0aa2e04e94c5e9057b94a16f62ef',
     triangles: 9_956,
-    transferBytes: 762404,
+    transferBytes: 473_988,
     /**
      * The chair on Bolu's lift, and the thing that stops Ordu's red gondola
      * being borrowed for a ski hill.
@@ -932,9 +932,9 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
   {
     id: 'city_ordu_cable_car',
     modelUrl: '/assets/city/city_ordu_cable_car.glb',
-    checksum: '0d65a89175f56911b0b685c648793d29483443b7fbbe7d12c844c6cffe6aea12',
+    checksum: '5742da2e1fc26906c981f8ba84af6f73725479ef26b09824bac9af707f1f846b',
     triangles: 9_917,
-    transferBytes: 821332,
+    transferBytes: 544_044,
     /**
      * The red cabin, and Ordu's one moving thing that is not an animal.
      *
@@ -953,9 +953,9 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
   {
     id: 'city_van_canoe',
     modelUrl: '/assets/city/city_van_canoe.glb',
-    checksum: '9714a4de5d2181ace518d98a68f7c34ec1a627980039e560ff1626b09dbb9a98',
+    checksum: '37994ac7a76bed7c206bdc25153c7d321f3711c50b6029f6ab05f13726ee58e5',
     triangles: 9_953,
-    transferBytes: 763404,
+    transferBytes: 422_772,
     /**
      * A wooden canoe, three of them out on the lake and all three moving.
      *
@@ -1031,9 +1031,9 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
   {
     id: 'city_van_akdamar_island',
     modelUrl: '/assets/city/city_van_akdamar_island.glb',
-    checksum: 'ed8767332527e0263ab022c6e5479bde602fe58ed681646651eb82557f876ad2',
+    checksum: 'd2daf933b00d83d3f0eb2c91b9897f1ea631f675d68b00231d3e72ddd45f7ca9',
     triangles: 10_239,
-    transferBytes: 1920236,
+    transferBytes: 902_976,
     /**
      * Akdamar, and the piece of lake it came with.
      *
@@ -1050,9 +1050,9 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
   {
     id: 'city_van_odd_eyed_cat',
     modelUrl: '/assets/city/city_van_odd_eyed_cat.glb',
-    checksum: 'aaee758696487a3838b358c09818751ccf4ac5d382d2fa0ae0c96b862ecc6c0c',
+    checksum: '3e2faf2571d7b530d8aaa871f0fd024bbd991a59e1aaa6b893db9a7f48165800',
     triangles: 10_418,
-    transferBytes: 1112984,
+    transferBytes: 612_956,
     /**
      * Stop one: a white long-haired cat, one eye blue and one amber.
      *
@@ -1087,9 +1087,9 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
   {
     id: 'city_van_urartu_stele',
     modelUrl: '/assets/city/city_van_urartu_stele.glb',
-    checksum: '5c4c6a2c45ff256580c91e9d25ed8c0a717dd3899aa95a588200ebb67c2edbff',
+    checksum: '24627e1851d9352b98eb021b96cd7bae4aa6bf13080a73bea91948afe82a9e0d',
     triangles: 9_211,
-    transferBytes: 2039060,
+    transferBytes: 440_540,
     /**
      * An Urartian stele, dressing the street rather than being a stop.
      *
@@ -1271,9 +1271,9 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
   {
     id: 'kit_goose_standing_a',
     modelUrl: '/assets/props/kit_goose_standing_a.glb',
-    checksum: 'd681db3b6338b76c0df3f48d86eb63b0e25602a73ca0c68c499d2811c856763a',
+    checksum: '5af73167ca9982f10637e1f87cc641e248564190f19ecd1e774f7d2c46194eb8',
     triangles: 10_426,
-    transferBytes: 626708,
+    transferBytes: 361_720,
     /**
      * A goose that stands, and does not walk.
      *
@@ -1299,9 +1299,9 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
   {
     id: 'kit_goose_standing_b',
     modelUrl: '/assets/props/kit_goose_standing_b.glb',
-    checksum: '30ec40269ae52c8996f1afad8f0de16a06990aee8539b3be6b487003246787c4',
+    checksum: '2408e00f116f43f34603e18565534c3df57de50e6d7afb256b223c6d751d41ee',
     triangles: 8_610,
-    transferBytes: 774732,
+    transferBytes: 400_360,
     /**
      * The second upright bird, and it is nearly the first: both measure 0.98
      * long for every unit tall with their heads at the same end. The difference
@@ -1318,9 +1318,9 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
   {
     id: 'kit_goose_foraging',
     modelUrl: '/assets/props/kit_goose_foraging.glb',
-    checksum: 'c877d2721d61fed07ae0d7c8b82fce22d19c3c0d46f5709ea9c93b088ed0ece0',
+    checksum: '8cdeddc3373a5cd868e87b5189b04ebd97be608cc6f428d9dc191438d90c0769',
     triangles: 10_395,
-    transferBytes: 729508,
+    transferBytes: 392_464,
     /**
      * Head down, neck stretched out along the ground: 1.73 units long for every
      * one tall, against 0.98 for the two upright birds, with the top of it a
@@ -1427,9 +1427,9 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
   {
     id: 'city_istanbul_ferry_boat',
     modelUrl: '/assets/city/city_istanbul_ferry_boat.glb',
-    checksum: 'eecab180735468a971892e483d45446a7a9805446daf9cc111093893cdaba447',
+    checksum: '3031e8a4b241fb287ea9ec29a15fe9942f45051f20b9196f35d1f3c7cc941d1c',
     triangles: 5_776,
-    transferBytes: 2_604_380,
+    transferBytes: 511_808,
     /**
      * A Şehir Hatları ferry, moored off the quay. It was registered as a row of
      * Beyoğlu facades: the file is 2.24 : 1 : 0.50, wide and shallow, which is
@@ -1452,9 +1452,9 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
   {
     id: 'city_istanbul_maidens_tower',
     modelUrl: '/assets/city/city_istanbul_maidens_tower.glb',
-    checksum: '890da45e8153dc09c284ce486fd01627e729a1e99a88711a46a234a65d0f5c1d',
+    checksum: '087f30292cfe5b72ed46e0d58ac242002ea27491385f47e70b05eeb184d2361d',
     triangles: 9_018,
-    transferBytes: 2490828,
+    transferBytes: 413_372,
     dimensions: [7.7, 10.0, 7.6],
     label: "Maiden's Tower",
     color: '#D8CFC0',
@@ -1517,9 +1517,9 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
   {
     id: 'kit_wall_fountain',
     modelUrl: '/assets/props/kit_wall_fountain.glb',
-    checksum: '2f4f515981692eef849624232a09f1149705eec8285acccde7d790e152c2d018',
+    checksum: '30d5299016473c3b3d57f8af713a4c522c6ac88d6b33af57e23dbc7db2c3273f',
     triangles: 4_100,
-    transferBytes: 510_376,
+    transferBytes: 221_428,
     dimensions: [2.0, 3.0, 1.7],
     label: 'Wall fountain',
     color: '#B9AE97',
@@ -1529,9 +1529,9 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
   {
     id: 'city_istanbul_streetcar',
     modelUrl: '/assets/city/city_istanbul_streetcar.glb',
-    checksum: '41ebf496be094b2422febcb37896ed15c1a33b7a429d715a84cf2fb3e8e66741',
+    checksum: '288dfaedbf012e6a3554cb3be73f2583acd67219d3b79b697d4f4d1e4175f506',
     triangles: 5_339,
-    transferBytes: 768_228,
+    transferBytes: 418_076,
     dimensions: [4.8, 3.4, 1.9],
     label: 'Nostalgic streetcar',
     color: '#B03A2E',
@@ -1541,9 +1541,9 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
   {
     id: 'city_istanbul_stone_dock',
     modelUrl: '/assets/city/city_istanbul_stone_dock.glb',
-    checksum: '7734a0aaf45a5b64d227ecd88ad3035d8c7304cc04f50e080c61a33ee1161a9d',
+    checksum: '9f3fd0bbe07a6a0f28c2b4e9075f758f74798e737a416c719f59345f94d8d1cd',
     triangles: 6_411,
-    transferBytes: 678_060,
+    transferBytes: 312_300,
     dimensions: [4.0, 1.2, 6.6],
     label: 'Stone dock',
     color: '#9E9382',
@@ -1589,9 +1589,9 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
   {
     id: 'kit_crates',
     modelUrl: '/assets/props/kit_crates.glb',
-    checksum: '7f181f1cd132f16e1f23d1ac0cf2599b91a730b5fb805790f6645f5e562e240e',
+    checksum: 'acd17e77ffd64bb7c6766a3a2fcc3db660dcb2e4d1a73a0173070c74ff0efd71',
     triangles: 3_755,
-    transferBytes: 648_088,
+    transferBytes: 218_692,
     dimensions: [1.29, 1.0, 1.19],
     label: 'Crates and barrel',
     color: '#9A7B4F',
@@ -1601,9 +1601,9 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
   {
     id: 'kit_market_stall',
     modelUrl: '/assets/props/kit_market_stall.glb',
-    checksum: 'c7357ded22641d7d10f7e6a1ec1ff4f30bc39e7b0a3b80d4d0580a022ea3e896',
+    checksum: '490b84ae9188c36a1fbf3b555b3920df57c13b243a08017840e6ca9ddc141bc4',
     triangles: 3_851,
-    transferBytes: 482780,
+    transferBytes: 236_388,
     dimensions: [2.25, 2.5, 1.61],
     label: 'Market stall',
     color: '#B5563C',
@@ -1616,9 +1616,9 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
   {
     id: 'kit_planter_cypress',
     modelUrl: '/assets/props/kit_planter_cypress.glb',
-    checksum: 'ee62dec6b98177caae46b6417bcca99ae0e64c500a9ffc6014ca0b1bf52a86e9',
+    checksum: '8a19dcac7914890e4e39db06758158b8ea616f4282245a5410ee292bf7e4953a',
     triangles: 3_747,
-    transferBytes: 679_572,
+    transferBytes: 236_940,
     dimensions: [0.91, 2.5, 0.91],
     label: 'Cypress planter',
     color: '#3E6B4A',
@@ -1645,9 +1645,9 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
   {
     id: 'kit_bench',
     modelUrl: '/assets/props/kit_bench.glb',
-    checksum: '3a36913072da66782987cb06ad0e1b501fa4a2d22b4ac7f707dc9d1d5d4ce767',
+    checksum: '79646975ccfbc02b3cf149545cf3bc71718c8a59aa571c0b218d9e75e29460ee',
     triangles: 1_586,
-    transferBytes: 980_160,
+    transferBytes: 134_356,
     dimensions: [1.82, 0.9, 0.7],
     label: 'Street bench',
     color: '#7A5A38',
@@ -1945,9 +1945,9 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
   {
     id: 'city_izmir_kumru_stall',
     modelUrl: '/assets/city/city_izmir_kumru_stall.glb',
-    checksum: 'f5053ca577248a151aab6260062164525728de133ba8efc2c18d5193a6c95285',
+    checksum: 'ff878bb62b1765bb0c1c86ad43e606c992737156424a66e3081621f5b3975d4a',
     triangles: 9_245,
-    transferBytes: 822_920,
+    transferBytes: 555_120,
     /**
      * A kumru stall on the Kordon.
      *
@@ -2074,9 +2074,9 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
   {
     id: 'city_izmir_clock_tower',
     modelUrl: '/assets/city/city_izmir_clock_tower.glb',
-    checksum: 'b31c33ed222fb011645126d8b433a344293dd1ada0f875ce842b5ed6ebd1bcbd',
+    checksum: '0cb18abcdfd4a058d50848f44a99ec2cf75dd58769be0cde4104a872529a55d8',
     triangles: 10_068,
-    transferBytes: 1_079_068,
+    transferBytes: 712_464,
     /**
      * The clock tower, and where it stands is arithmetic rather than taste.
      *
@@ -2103,9 +2103,9 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
   {
     id: 'kit_izmir_doves_ruin',
     modelUrl: '/assets/props/kit_izmir_doves_ruin.glb',
-    checksum: 'c53a430f906c9ca90d8b134f5c0a8c1ec543f23e393efed5b96571e1d3d3c8aa',
+    checksum: 'b84753007bdf65338fe401c68f76c32d446e3d424f8090a65743d15233e2d8ed',
     triangles: 10_136,
-    transferBytes: 1_180_728,
+    transferBytes: 772_684,
     /**
      * Doves on a piece of fallen marble — one object rather than birds and
      * stone placed separately, which is why it can sit in the street rather
@@ -2124,9 +2124,9 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
   {
     id: 'kit_izmir_pigeon_walking',
     modelUrl: '/assets/props/kit_izmir_pigeon_walking.glb',
-    checksum: '2839bb5986f62369105640d1718effb721ff906fcd7a84b420ad8f5f48515d60',
+    checksum: 'f6166755b465630081735466afec035fb5fc39271346e41701bf951c154ae871',
     triangles: 21_523,
-    transferBytes: 842_356,
+    transferBytes: 770_400,
     /**
      * A pigeon on the ground, for Konak square.
      *
@@ -2149,9 +2149,9 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
   {
     id: 'kit_izmir_surfer_a',
     modelUrl: '/assets/props/kit_izmir_surfer_a.glb',
-    checksum: '989a5dadbee41016a2e7dbdebdbe70699961a9ac2379bd0707d7c28130c4442c',
+    checksum: '2ddcb2ab2b55a0d3441f83725bd2e0fe991b06043d8063964b7696759323409b',
     triangles: 9_613,
-    transferBytes: 560_596,
+    transferBytes: 361_540,
     /**
      * A surfer for the gulf. Wider than deep — 2.27 against 0.82 — so the board
      * lies along X and `Tram` will turn it to run with its line.
@@ -2168,9 +2168,9 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
   {
     id: 'kit_izmir_surfer_b',
     modelUrl: '/assets/props/kit_izmir_surfer_b.glb',
-    checksum: '6dc4c5cf3898aa303f362dd869d4c9a757c77ecde2cd50d505fcf64c405036e1',
+    checksum: '18798800f50d1624cffb8563c2d77d9677815056ca9cd7094076992f4707d45c',
     triangles: 9_996,
-    transferBytes: 607_588,
+    transferBytes: 379_464,
     /**
      * The second surfer, standing upright on a board that runs fore and aft —
      * 0.66 wide against 1.75 deep, the opposite of the first, so `Tram` leaves
@@ -2313,9 +2313,9 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
   {
     id: 'kit_erzurum_wolf',
     modelUrl: '/assets/props/kit_erzurum_wolf.glb',
-    checksum: 'f7ef3eab22769436f65b3fcbb92c71daf71f902b6c80b1b1d5a9232f6261d4ff',
+    checksum: '9c06e1a02809febc8c93171d5a7bfd746b9bf6d563b4c42189bb075c0a7b59cd',
     triangles: 10_363,
-    transferBytes: 645_048,
+    transferBytes: 422_324,
     /**
      * A wolf on Palandöken's ridge.
      *
@@ -2338,9 +2338,9 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
   {
     id: 'kit_erzurum_skier_a',
     modelUrl: '/assets/props/kit_erzurum_skier_a.glb',
-    checksum: '2b0334b2d8f3cc5e599dfce5dbf86f38d0deab32ba81ce27b5b2ce2170ecbb61',
+    checksum: '1224009e4a0cf4881c47136d30d49a32e9225ec18a3728707f7f9b157e4220a6',
     triangles: 21_316,
-    transferBytes: 836_176,
+    transferBytes: 650_252,
     /**
      * A skier, crouched with the skis running fore and aft.
      *
@@ -2362,9 +2362,9 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
   {
     id: 'kit_erzurum_skier_b',
     modelUrl: '/assets/props/kit_erzurum_skier_b.glb',
-    checksum: '597f15a31db0ec270d5d3cb4b24b62a234f521661486022967fba7b88efc2e72',
+    checksum: 'a9cc8108620604abb2dea553300e5c65367daea3802aa1433dc070122656aba7',
     triangles: 10_002,
-    transferBytes: 808_076,
+    transferBytes: 465_124,
     /**
      * The second skier, upright and carving.
      *
@@ -2386,9 +2386,9 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
   {
     id: 'city_erzurum_cag_kebap',
     modelUrl: '/assets/city/city_erzurum_cag_kebap.glb',
-    checksum: '9ed17f0316bfdec31a9cc0a306fe10e315cfb0146d320cf2bd62de1aead55167',
+    checksum: '12c3d239dbb8773a51bcf0845b99599336de39076b60fa71279f1dced30ef1c7',
     triangles: 10_053,
-    transferBytes: 2_181_824,
+    transferBytes: 629_096,
     /**
      * A cağ kebap grill in the street — the horizontal spit that is Erzurum's
      * own, turned on its side over an open wood fire.
@@ -2459,9 +2459,9 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
   {
     id: 'city_erzurum_cifte_minareli',
     modelUrl: '/assets/city/city_erzurum_cifte_minareli.glb',
-    checksum: 'e218334d6aebaa0841ee4f63c15b7885d59a3bbae294b05166c28c6817eb2af7',
+    checksum: '44546f1737db7ea464e88583d8508b935670da6fef3f05e07b4c10bd59408ae8',
     triangles: 9_665,
-    transferBytes: 2_785_932,
+    transferBytes: 1_132_888,
     /**
      * The Çifte Minareli Medrese, behind the spawn.
      *
@@ -2498,9 +2498,9 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
   {
     id: 'kit_mardin_sweets_cart',
     modelUrl: '/assets/props/kit_mardin_sweets_cart.glb',
-    checksum: '2b20fbcde259fdc17dd022056366c73a9ac4d75b27a87ac1e403c612237b7a2c',
+    checksum: '45aaf8d60cb0ba65ef4f4de9957882f05201c0e5912954a265237ea26c2253da',
     triangles: 9_713,
-    transferBytes: 1_074_616,
+    transferBytes: 571_764,
     /**
      * A sweets pedlar's cart, working the street.
      *
@@ -2531,9 +2531,9 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
   {
     id: 'kit_mardin_dove_flight',
     modelUrl: '/assets/props/kit_mardin_dove_flight.glb',
-    checksum: '4ce4e5b5cb96d66c9f7db3e2764440c66fc2a953a9164d1fb9d902eda864567b',
+    checksum: 'ba5cc7b163858ac21d4ca412b6d6b00e0107f52949d77df244e685acf55ccd68',
     triangles: 10_325,
-    transferBytes: 731_380,
+    transferBytes: 421_944,
     /**
      * A dove with its wings open, on a plinth at the head of the street.
      *
@@ -2557,9 +2557,9 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
   {
     id: 'kit_mardin_dove_perched',
     modelUrl: '/assets/props/kit_mardin_dove_perched.glb',
-    checksum: '208ee8eb89bc81939f303b6a08df4c3b1a25dd56d0d157490627f8111bff5e7e',
+    checksum: 'dc679abb1f53426a58374a4cc339648f1d3b0c4271a068c8bc5587bb4a0577fb',
     triangles: 10_187,
-    transferBytes: 801_956,
+    transferBytes: 440_620,
     /**
      * The second dove, at the other end of the street.
      *
@@ -2938,9 +2938,9 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
   {
     id: 'kit_balikesir_pelican',
     modelUrl: '/assets/props/kit_balikesir_pelican.glb',
-    checksum: '1bb4e0b914905fcf446a63e8b60dabf09aadff290fa04bb368ffbbce7aeab40e',
+    checksum: '6f914aa17165951bc62d65f1135cab7509cd62fa06d1dd39a35559884dbe0f12',
     triangles: 9_851,
-    transferBytes: 779_780,
+    transferBytes: 474_584,
     /**
      * A pelican for Manyas. White, with black wingtips and an orange bill —
      * measured, not assumed: white runs through every height band, black sits
@@ -2994,9 +2994,9 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
   {
     id: 'kit_trabzon_trabzonspor_crest',
     modelUrl: '/assets/props/kit_trabzon_trabzonspor_crest.glb',
-    checksum: '28226d4463347e81dbb4f6cf87b73c5a91c633c339f48fccc2e670a46fa0716e',
+    checksum: '3606088c7e06b749e6586c8cbc7be322209919adc95207ba3d3acb941e22d741',
     triangles: 9_907,
-    transferBytes: 1_850_396,
+    transferBytes: 537_936,
     /**
      * The Trabzonspor crest, one each side of the street.
      *
@@ -3014,9 +3014,9 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
   {
     id: 'kit_gull',
     modelUrl: '/assets/props/kit_gull.glb',
-    checksum: '69604e1a8ef57e104354c80c72415b419b1858b7600bf354ea063cdd634c9156',
+    checksum: '03426e5ca9122e12968fcd576be9bfddc8f84011f2bad3f1716f4085cc98f963',
     triangles: 10_504,
-    transferBytes: 1_125_364,
+    transferBytes: 652_848,
     /**
      * Birds over the city. Skinned, with one 2.62 s flap.
      *
@@ -3145,9 +3145,9 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
   {
     id: 'kit_trabzon_fishing_boat',
     modelUrl: '/assets/props/kit_trabzon_fishing_boat.glb',
-    checksum: '8622cf60d8fb9ad9f052f3845b1b0e5bc52a891fa70ea0f98d0f2637110d64b3',
+    checksum: '471cff55d5307788b09272b0f00b97da5f878d1b4b1787de569b87d9c402514c',
     triangles: 9_801,
-    transferBytes: 993_276,
+    transferBytes: 636_072,
     /**
      * A hamsi boat, and the only one of the five whose measurements match what
      * was asked for: 6.05 long against a briefed 7, on a 1.78 aspect.

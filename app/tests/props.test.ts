@@ -634,13 +634,30 @@ describe('optimised street kit', () => {
   it('records the lamp at its re-authored five metres, not its old three', () => {
     expect(lamp.dimensions).toEqual([1.25, 5.0, 1.1]);
     expect(lamp.triangles).toBe(1_834);
-    expect(lamp.transferBytes).toBe(1_371_280);
   });
 
   it('records the bench at its delivered size', () => {
     expect(bench.dimensions).toEqual([1.82, 0.9, 0.7]);
     expect(bench.triangles).toBe(1_586);
-    expect(bench.transferBytes).toBe(980_160);
+  });
+
+  /**
+   * `transferBytes` is what the file weighs, whatever it weighs today.
+   *
+   * The lamp's and the bench's byte counts were written into three assertions
+   * as literals, and a texture pass that took the lamp from 1024 to 512 broke
+   * all three — not because anything was wrong but because the numbers had
+   * moved. A literal is true on the day it is typed and says nothing after
+   * that; the rule underneath it is that the record matches the file (D-127).
+   *
+   * Every delivered asset is checked this way in `assets.test.ts`; this pair is
+   * here because they are the two the street kit was rebuilt around.
+   */
+  it('records the lamp and the bench at whatever they now weigh on disk', () => {
+    for (const entry of [lamp, bench]) {
+      const file = path.resolve(process.cwd(), 'public', entry.modelUrl.replace(/^\//, ''));
+      expect(entry.transferBytes, `${entry.id} transferBytes`).toBe(statSync(file).size);
+    }
   });
 
   it('keeps every shared kit prop under two megabytes', () => {
