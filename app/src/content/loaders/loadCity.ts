@@ -45,7 +45,7 @@ const REGIONS = '/content/canonical/regions.json';
  * have five and two. A layout that only works for five-stop cities would fail
  * on seventy-eight of the eighty-one.
  */
-export const PLAYABLE_CITY_IDS = ['istanbul', 'nevsehir', 'gaziantep', 'kars', 'van', 'ordu', 'bolu'] as const;
+export const PLAYABLE_CITY_IDS = ['istanbul', 'nevsehir', 'gaziantep', 'kars', 'van', 'ordu', 'bolu', 'trabzon'] as const;
 
 /**
  * The pilot is still the three cities the vertical slice was scoped to.

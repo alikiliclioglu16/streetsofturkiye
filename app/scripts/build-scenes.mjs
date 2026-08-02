@@ -26,7 +26,7 @@ const manifestById = new Map(
 const CANONICAL = path.join(ROOT, 'content/canonical');
 const OUT = path.join(ROOT, 'content/scenes');
 
-const PILOT = ['istanbul', 'nevsehir', 'gaziantep', 'kars', 'van', 'ordu', 'bolu'];
+const PILOT = ['istanbul', 'nevsehir', 'gaziantep', 'kars', 'van', 'ordu', 'bolu', 'trabzon'];
 
 const readJson = (file) => JSON.parse(fs.readFileSync(file, 'utf8'));
 const manifest = readJson(path.join(CANONICAL, 'manifest.json'));
@@ -270,6 +270,20 @@ const CITY_PALETTE = {
    * like two places.
    */
   bolu: { sky: ['#A8D8E8', '#EDE4CE'], ground: '#C98A3C' },
+  /**
+   * Trabzon under cloud: a hazed sky and a deeper, cooler green than Ordu's.
+   *
+   * Third city out of the one region table, so this is the third look it has to
+   * produce. Ordu is high summer on a bright coast and Bolu is October inland;
+   * Trabzon is the weather the Black Sea is actually known for. The sky is
+   * deliberately low-contrast — mist reads as mist because the horizon is
+   * nearly the same value as the sky behind it, and the Sümela wall is the one
+   * dark shape standing in it.
+   *
+   * Recorded here rather than by editing canonical, like the guide overrides
+   * (D-132).
+   */
+  trabzon: { sky: ['#AFC8D2', '#E4EDE8'], ground: '#5F8A5C' },
 };
 
 const CITY_THEMES = {
