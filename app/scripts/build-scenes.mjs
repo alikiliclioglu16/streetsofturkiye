@@ -26,7 +26,7 @@ const manifestById = new Map(
 const CANONICAL = path.join(ROOT, 'content/canonical');
 const OUT = path.join(ROOT, 'content/scenes');
 
-const PILOT = ['istanbul', 'nevsehir', 'gaziantep', 'kars', 'van', 'ordu', 'bolu', 'trabzon', 'balikesir'];
+const PILOT = ['istanbul', 'nevsehir', 'gaziantep', 'kars', 'van', 'ordu', 'bolu', 'trabzon', 'balikesir', 'mardin'];
 
 const readJson = (file) => JSON.parse(fs.readFileSync(file, 'utf8'));
 const manifest = readJson(path.join(CANONICAL, 'manifest.json'));
