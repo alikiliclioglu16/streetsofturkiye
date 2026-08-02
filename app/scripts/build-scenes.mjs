@@ -87,6 +87,11 @@ const COMMISSIONED_ASSETS = {
   'erzurum:cami': 'city_erzurum_lace_portal',
   'erzurum:dag': 'city_erzurum_ski_gear',
   'erzurum:craft': 'city_erzurum_oltu_workbench',
+  'izmir:celsus': 'city_izmir_celsus_facade',
+  'izmir:theatre': 'city_izmir_theatre_seats',
+  'izmir:clock': 'city_izmir_clock_tower_base',
+  'izmir:nazar': 'city_izmir_nazar_tree',
+  'izmir:bakery': 'city_izmir_boyoz_cart',
 };
 
 /** Commissioned collectibles, keyed by canonical stop id. */
@@ -1599,12 +1604,14 @@ const CITY_STREET_SCATTER = {
    */
   erzurum: 'kit_erzurum_snow_drift',
   /**
-   * İzmir's pigeons, and **two poses rather than one**.
+   * İzmir's pigeons, and **one pose after all**.
    *
-   * This table took a single id until now, which was fine for leaf fall and
-   * snow banks — a drift is a drift. Birds are not: one pose repeated down a
-   * street is wallpaper, and that is the lesson Kars's geese and Manyas's five
-   * identical pelicans both taught (D-129).
+   * It went in as two, on the rule that a flock is several animals each doing
+   * something slightly different (D-129). The second pose was a bird with its
+   * wings spread, and spread wings standing still on a pavement is not a
+   * variation — it is a bird frozen mid-flight, glued to the stone. The rule
+   * about flocks assumes the poses are all things an animal does *while it is
+   * where you put it*, and that one was not. It is out of the project.
    *
    * They go in the scatter rather than the backdrop because scatter is the only
    * thing in this generator that stands *inside* the play area. A 34 cm bird
@@ -1612,7 +1619,7 @@ const CITY_STREET_SCATTER = {
    * tall and might as well not exist — and canonical promises a child that one
    * might land on their arm.
    */
-  izmir: ['kit_izmir_pigeon_walking', 'kit_izmir_pigeon_flying'],
+  izmir: 'kit_izmir_pigeon_walking',
   bolu: 'kit_bolu_leaf_fall',
 };
 

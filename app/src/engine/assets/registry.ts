@@ -1810,6 +1810,117 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
     notes: 'Delivered 2 m buried 1 m, 24.69 MB; re-authored to 4.6 m on y = 0, 2.28 MB.',
   },
   {
+    id: 'city_izmir_celsus_facade',
+    modelUrl: '/assets/city/city_izmir_celsus_facade.glb',
+    checksum: 'da00cb7874f9bee332a6a8256ff1665109f9cd9146005b76372311fd6544a1a0',
+    triangles: 9_502,
+    transferBytes: 2_000_908,
+    /**
+     * Stop one: a bay of the Celsus Library at a size a child can stand in.
+     *
+     * The real facade is 16 m and Ephesus is 20 m at the head of the street;
+     * this is the third time the same building appears at two scales, after
+     * Hagia Sophia, Sümela, Kaz Dağları and the Çifte Minareli Medrese. A stop
+     * is something to walk up to (D-066).
+     *
+     * Delivered on a 0.74 aspect against a briefed 0.88, so at five metres it
+     * is 3.7 across rather than 4.4 — narrower and taller, which for a Roman
+     * facade bay is if anything more right.
+     */
+    dimensions: [3.68, 5.0, 1.56],
+    label: 'Celsus facade',
+    color: '#D8CEB4',
+    placeholder: 'box',
+    notes: 'Delivered 2 m buried 1 m, 23.34 MB; re-authored to 5 m on y = 0, 1.91 MB.',
+  },
+  {
+    id: 'city_izmir_theatre_seats',
+    modelUrl: '/assets/city/city_izmir_theatre_seats.glb',
+    checksum: '240236d233056ac3914cfa2833bf9c7e476dc46e57b26e57eeb275dad0b5157a',
+    triangles: 10_236,
+    transferBytes: 945_064,
+    /**
+     * Stop two: the theatre mask on the stones.
+     *
+     * **1024, not 2048**, and that was decided in the brief before anything was
+     * drawn: five stops is two more than this project has ever carried and the
+     * weight had to come from somewhere. Broad worn stone and one mask is the
+     * cheapest of the five to lose resolution on — where the Celsus carving,
+     * the fountain moulding and the glass beads all keep it, because fine work
+     * at 1024 becomes a smear (D-057).
+     *
+     * It saved 1.1 MB, which is most of what the poplars cost.
+     */
+    dimensions: [4.17, 2.4, 4.2],
+    label: 'Theatre mask',
+    color: '#C4BCA6',
+    placeholder: 'box',
+    notes: 'Delivered 2 m buried 1 m, 25.58 MB; re-authored to 2.4 m on y = 0 at 1024 base colour, 0.90 MB.',
+  },
+  {
+    id: 'city_izmir_clock_tower_base',
+    modelUrl: '/assets/city/city_izmir_clock_tower_base.glb',
+    checksum: '5b10186ade9123c113ee10a57427d245c95bbaac053da7fab9706416aa02bd7f',
+    triangles: 10_024,
+    transferBytes: 1_750_656,
+    /**
+     * Stop three: the fountain at the tower's foot.
+     *
+     * The tower itself is 18 m and 70 m behind the spawn, which is the distance
+     * its own height demands before its cap is in frame. This is the part a
+     * child can reach, and canonical puts the pigeons here — which is why the
+     * scatter walks them up and down this street rather than parking them in
+     * the scenery.
+     *
+     * The largest footprint of İzmir's five stops at 5.25 by 5.45; the spacing
+     * check in `layout` has the last word on that (D-100), and at 18 m between
+     * stops there is room.
+     */
+    dimensions: [5.25, 4.2, 5.45],
+    label: 'Clock tower fountain',
+    color: '#E4DFD2',
+    placeholder: 'box',
+    notes: 'Delivered 2 m buried 1 m, 20.27 MB; re-authored to 4.2 m on y = 0, 1.67 MB.',
+  },
+  {
+    id: 'city_izmir_nazar_tree',
+    modelUrl: '/assets/city/city_izmir_nazar_tree.glb',
+    checksum: 'd7597e8add8bbfeca9b8c582beddfe682d49ac103f444ab09d201e5c27b29865',
+    triangles: 7_712,
+    transferBytes: 2_775_328,
+    /**
+     * Stop four: the tree hung with evil-eye beads.
+     *
+     * The heaviest stop in the city and the lightest mesh of the five — 7,712
+     * triangles carrying 2.65 MB, because what matters here is entirely in the
+     * texture. Hundreds of small blue glass eyes is exactly the case D-057 was
+     * written about, so this one keeps 2048 whatever else has to give.
+     */
+    dimensions: [3.96, 3.8, 3.73],
+    label: 'Nazar tree',
+    color: '#2E6FA8',
+    placeholder: 'box',
+    notes: 'Delivered 2 m buried 1 m, 31.42 MB; re-authored to 3.8 m on y = 0, 2.65 MB.',
+  },
+  {
+    id: 'city_izmir_boyoz_cart',
+    modelUrl: '/assets/city/city_izmir_boyoz_cart.glb',
+    checksum: 'd3c00dc83bd0b096d4be2c4a671dc840d520fa5003e5099fc397a333eedad1b2',
+    triangles: 9_819,
+    transferBytes: 993_004,
+    /**
+     * Stop five: boyoz on the Kordon, and the last thing a child meets.
+     *
+     * The second of the two stops taken down to 1024. A glass-sided cart is
+     * broad shapes and one repeated pastry; it loses least.
+     */
+    dimensions: [1.67, 2.4, 1.44],
+    label: 'Boyoz cart',
+    color: '#C08A44',
+    placeholder: 'box',
+    notes: 'Delivered 2 m buried 1 m, 28.79 MB; re-authored to 2.4 m on y = 0 at 1024 base colour, 0.95 MB.',
+  },
+  {
     id: 'kit_izmir_poplar',
     modelUrl: '/assets/props/kit_izmir_poplar.glb',
     checksum: 'fa32d75a5740de400935349c41809e17ca5a84add1bc06a28d1e7a32a9f008fb',
@@ -1834,9 +1945,9 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
   {
     id: 'city_izmir_kumru_stall',
     modelUrl: '/assets/city/city_izmir_kumru_stall.glb',
-    checksum: 'fb4780fe1e770a58d55878095ef90abfcd1799a1e8788ea2c90ea08b276ab791',
+    checksum: 'f5053ca577248a151aab6260062164525728de133ba8efc2c18d5193a6c95285',
     triangles: 9_245,
-    transferBytes: 1_752_276,
+    transferBytes: 822_920,
     /**
      * A kumru stall on the Kordon.
      *
@@ -1848,7 +1959,7 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
     label: 'Kumru stall',
     color: '#B07A46',
     placeholder: 'box',
-    notes: 'Delivered 2 m buried 1 m, 24.09 MB; re-authored to 2.6 m on y = 0, 1.67 MB.',
+    notes: 'Delivered 2 m buried 1 m, 24.09 MB; re-authored to 2.6 m on y = 0 at 1024 base colour, 0.78 MB.',
   },
   {
     id: 'city_izmir_konak_facades',
@@ -1963,9 +2074,9 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
   {
     id: 'city_izmir_clock_tower',
     modelUrl: '/assets/city/city_izmir_clock_tower.glb',
-    checksum: '17fd2df4dd2c1df013ee3d5d5f2da5fb260469028ff319f7708ef6751984357e',
+    checksum: 'b31c33ed222fb011645126d8b433a344293dd1ada0f875ce842b5ed6ebd1bcbd',
     triangles: 10_068,
-    transferBytes: 2_338_624,
+    transferBytes: 1_079_068,
     /**
      * The clock tower, and where it stands is arithmetic rather than taste.
      *
@@ -1977,12 +2088,17 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
      * So it goes behind the spawn at 70 m, which is where Konak Square is in
      * the real city anyway — at the seaward end of the Kordon. A child turns
      * round from the first stop and it is the thing they see.
+     *
+     * Base colour dropped from 2048 to 1024 when İzmir's real per-visit weight
+     * turned out to be 29 MB. Seventy metres is the argument: at that range
+     * 2048 over a 12 m tower is five times oversampled, and it was costing
+     * 1.2 MB for detail no child can resolve.
      */
     dimensions: [12.26, 18.0, 12.26],
     label: 'Konak clock tower',
     color: '#E8E4DA',
     placeholder: 'box',
-    notes: 'Delivered 3 m buried 1.5 m, 25.87 MB; re-authored to 18 m on y = 0 at 2048 base colour, 2.23 MB.',
+    notes: 'Delivered 3 m buried 1.5 m, 25.87 MB; re-authored to 18 m on y = 0 at 1024 base colour, 1.03 MB.',
   },
   {
     id: 'kit_izmir_doves_ruin',
@@ -2008,9 +2124,9 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
   {
     id: 'kit_izmir_pigeon_walking',
     modelUrl: '/assets/props/kit_izmir_pigeon_walking.glb',
-    checksum: 'ceb0065b9d10a810244c94f73ee9b0b1bfc70a9ce587d6fc5c006b8276b350e4',
+    checksum: '2839bb5986f62369105640d1718effb721ff906fcd7a84b420ad8f5f48515d60',
     triangles: 21_523,
-    transferBytes: 1_068_924,
+    transferBytes: 842_356,
     /**
      * A pigeon on the ground, for Konak square.
      *
@@ -2028,31 +2144,7 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
     label: 'Pigeon, walking',
     color: '#8A8C90',
     placeholder: 'box',
-    notes: 'Delivered 497,423 tris at 45.17 MB; simplified to 2% and re-authored to 0.34 m on y = 0, 1.02 MB.',
-  },
-  {
-    id: 'kit_izmir_pigeon_flying',
-    modelUrl: '/assets/props/kit_izmir_pigeon_flying.glb',
-    checksum: '8d3320e54ee8253041154d8d3a4895540fe2a1e857a765cd60f17fba3a4d4780',
-    triangles: 10_063,
-    transferBytes: 730_924,
-    /**
-     * The second pigeon, wings out.
-     *
-     * Two poses rather than one repeated, which is the lesson Manyas's five
-     * identical pelicans taught and Kars's geese taught before that: a flock is
-     * several animals each doing something slightly different, and one pose
-     * copied is wallpaper.
-     *
-     * Unrigged, so it does not fly — it is the bird caught mid-hop that a flock
-     * on a paved square always has one or two of. Also held until the square
-     * exists.
-     */
-    dimensions: [0.34, 0.3, 0.29],
-    label: 'Pigeon, wings out',
-    color: '#8A8C90',
-    placeholder: 'box',
-    notes: 'Delivered 0.7 m buried 0.35 m, 11.13 MB; re-authored to 0.30 m on y = 0, 0.70 MB.',
+    notes: 'Delivered 497,423 tris at 45.17 MB; simplified to 2% and re-authored to 0.34 m on y = 0 at 512 base colour, 0.80 MB.',
   },
   {
     id: 'kit_izmir_surfer_a',
