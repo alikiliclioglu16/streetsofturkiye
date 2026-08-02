@@ -1094,6 +1094,16 @@ const CITY_STREET_TREE = {
    * are different objects.
    */
   ordu: 'kit_ordu_hazelnut_tree',
+  /**
+   * Balıkesir walks under olive.
+   *
+   * Three cities out of this table now, and the reason is the same each time:
+   * the procedural shapes are honest low-poly blobs and they only read as such
+   * once there is a delivered horizon behind them. Here it was worse than
+   * usual — flat bright green in front of stone terraces whose whole subject is
+   * the silver of an olive leaf.
+   */
+  balikesir: 'kit_balikesir_olive_tree',
 };
 
 /** Scatter laid along the street, on top of the ground texture. */

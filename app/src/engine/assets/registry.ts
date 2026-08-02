@@ -1896,6 +1896,37 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
     notes: 'Delivered 2 m buried 1 m, 23.50 MB; re-authored to 5 m on y = 0, 0.92 MB.',
   },
   {
+    id: 'kit_balikesir_olive_tree',
+    modelUrl: '/assets/props/kit_balikesir_olive_tree.glb',
+    checksum: 'b4ad7a74bae3caf29d2b961052da681aee55de77a8583fd49225c23e727ed737',
+    triangles: 5_850,
+    transferBytes: 1_154_408,
+    /**
+     * Balıkesir's street tree: an old olive.
+     *
+     * The street was lined with the procedural shapes — instanced boxes for a
+     * trunk and a canopy — and they were the third thing wrong in every
+     * screenshot of this city: bright flat green blobs standing in front of
+     * delivered stone terraces and a hand-painted town. That is the split
+     * `CITY_STREET_TREE` exists to close, and it has now closed for Bolu, Ordu
+     * and here.
+     *
+     * Five and a half metres and as broad as it is tall, which is what an olive
+     * is — Bolu's nine metre fir and Ordu's four and a half metre hazelnut are
+     * the other two points on that scale, and none of the three would pass for
+     * another.
+     *
+     * The lightest model in the project at 5,850 triangles: an olive is mostly
+     * one thick trunk and a few masses of leaf, so there is nothing to spend
+     * geometry on.
+     */
+    dimensions: [5.65, 5.5, 5.51],
+    label: 'Ancient olive',
+    color: '#6B7A4E',
+    placeholder: 'box',
+    notes: 'Delivered 2 m buried 1 m, 34.51 MB; re-authored to 5.5 m on y = 0, 1.10 MB.',
+  },
+  {
     id: 'kit_balikesir_pelican',
     modelUrl: '/assets/props/kit_balikesir_pelican.glb',
     checksum: '1bb4e0b914905fcf446a63e8b60dabf09aadff290fa04bb368ffbbce7aeab40e',

@@ -164,6 +164,7 @@ export const DELIVERED_DIMENSIONS = {
   city_ordu_cable_car: [2.4, 2.4, 2.26],
   kit_ordu_hazelnut_tree: [4.3, 4.5, 4.4],
   kit_balikesir_pelican: [1.08, 1.0, 1.0],
+  kit_balikesir_olive_tree: [5.65, 5.5, 5.51],
   city_balikesir_kaz_daglari: [71.39, 32.0, 71.11],
   city_balikesir_olive_terrace: [34.99, 12.0, 34.74],
   city_balikesir_cunda_island: [37.68, 16.0, 28.77],
