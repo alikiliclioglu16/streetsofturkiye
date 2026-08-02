@@ -595,8 +595,9 @@
     "front": 2,
     "back": 6
   },
-  "boatLines": [
+  "shuttleLines": [
     {
+      "assetId": "kit_balikesir_pelican",
       "from": [
         -8,
         38
@@ -612,6 +613,7 @@
       "speed": 0.32
     },
     {
+      "assetId": "kit_balikesir_pelican",
       "from": [
         16,
         42
@@ -627,6 +629,7 @@
       "speed": 0.24
     },
     {
+      "assetId": "kit_balikesir_pelican",
       "from": [
         4,
         48
@@ -642,6 +645,7 @@
       "speed": 0.28
     },
     {
+      "assetId": "kit_balikesir_pelican",
       "from": [
         -30,
         36
@@ -657,6 +661,7 @@
       "speed": 0.2
     },
     {
+      "assetId": "kit_balikesir_pelican",
       "from": [
         22,
         51
@@ -672,8 +677,9 @@
       "speed": 0.36
     }
   ],
-  "boatAssetId": "kit_balikesir_pelican",
   "birdAssetId": "kit_gull",
+  "statues": [],
+  "snowfall": false,
   "birdPaths": [
     {
       "centre": [

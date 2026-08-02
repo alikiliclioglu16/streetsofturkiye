@@ -95,15 +95,12 @@ export interface RuntimeCity {
   tramLine: SceneDefinition['tramLine'];
   trainLine: SceneDefinition['trainLine'];
   canoeLines: SceneDefinition['canoeLines'];
-  boatLines: SceneDefinition['boatLines'];
   mistBands: SceneDefinition['mistBands'];
   birdPaths: SceneDefinition['birdPaths'];
   birdAssetId: SceneDefinition['birdAssetId'];
   statues: SceneDefinition['statues'];
-  cartLine: SceneDefinition['cartLine'];
+  shuttleLines: SceneDefinition['shuttleLines'];
   snowfall: SceneDefinition['snowfall'];
-  cartAssetId: SceneDefinition['cartAssetId'];
-  boatAssetId: SceneDefinition['boatAssetId'];
   groundPad: SceneDefinition['groundPad'];
   ferryLine: SceneDefinition['ferryLine'];
   cableCarLine: SceneDefinition['cableCarLine'];
@@ -213,15 +210,12 @@ export function composeCity(canonical: CanonicalCity, scene: SceneDefinition): R
     tramLine: scene.tramLine,
     trainLine: scene.trainLine,
     canoeLines: scene.canoeLines,
-    boatLines: scene.boatLines,
     mistBands: scene.mistBands,
     birdPaths: scene.birdPaths,
     birdAssetId: scene.birdAssetId,
     statues: scene.statues,
-    cartLine: scene.cartLine,
+    shuttleLines: scene.shuttleLines,
     snowfall: scene.snowfall,
-    cartAssetId: scene.cartAssetId,
-    boatAssetId: scene.boatAssetId,
     groundPad: scene.groundPad,
     ferryLine: scene.ferryLine,
     cableCarLine: scene.cableCarLine,

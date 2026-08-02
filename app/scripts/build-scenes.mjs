@@ -216,6 +216,59 @@ const TRABZON_ROCK_NEAR_Z = -88;
  * The medrese's is derived rather than chosen: it is the distance at which a
  * 16 m minaret still has its finial inside the frame.
  */
+/**
+ * Two skiers running the street, not the mountain.
+ *
+ * The brief put them on Palandöken's pistes and the arithmetic says no: the
+ * mountain's near face is 92 m out and its slopes run back to 170, where a
+ * 1.8 m person subtends about half a degree. That is a smudge. A skier cannot
+ * be scaled up out of the problem either — a boat can be exaggerated because
+ * nothing tells a child how big a boat is, and a person cannot.
+ *
+ * So they ski the street, which in Erzurum is a snowfield from November to May
+ * and is where a child can actually see them. At sixteen metres out they are
+ * five degrees tall and two metres from the walking line, and at four metres a
+ * second they overtake a child rather than crawling.
+ *
+ * Just outside the play bounds on both sides, like Mardin's pedlar: the paving
+ * runs to ±21 so they read as being *in* the street, and there is no moment
+ * where a skier passes through a six-year-old.
+ */
+const ERZURUM_SKIER_LINES = [
+  {
+    assetId: 'kit_erzurum_skier_a',
+    from: [-16, 24],
+    to: [-16, -54],
+    heights: [0, 0],
+    speed: 4.2,
+  },
+  {
+    assetId: 'kit_erzurum_skier_b',
+    from: [16, -50],
+    to: [16, 20],
+    heights: [0, 0],
+    speed: 3.4,
+  },
+];
+
+/**
+ * The wolf on the summit.
+ *
+ * Placed from the mountain's own geometry rather than by eye: the mesh's top
+ * 67 vertices average to a point which, run through the piece's rotation and
+ * position, lands at x = -0.3, z = -147.9 in the world. That is the ridge, not
+ * a single spike, so the wolf stands on the skyline instead of balancing on a
+ * needle.
+ *
+ * **Three and a half metres, which is deliberately far too big.** Everything
+ * inside a 32 m mountain standing in for a real one is at mountain scale, so a
+ * wolf at true size would be about ten centimetres and invisible from 155 m.
+ * At 3.5 it subtends 1.3° — a small dark shape on a white ridge, which is what
+ * was asked for. The lake taught this the other way round: a real-scale boat
+ * inside a miniature village could not be seen at all.
+ */
+const ERZURUM_WOLF = { position: [-0.3, 30.5, -147.9], rotationY: 2.4 };
+
 const ERZURUM_MOUNTAIN_NEAR_Z = -92;
 const ERZURUM_MEDRESE_NEAR_Z = 58;
 
@@ -288,11 +341,15 @@ const MARDIN_PLAIN_SURFACE_FRACTION = 0.3;
  * walking at 3 m/s overtakes it — which is what makes it read as a person
  * rather than as scenery sliding past.
  */
-const MARDIN_CART_LINE = {
-  from: [-16, 20],
-  to: [-16, -48],
-  speed: 0.9,
-};
+const MARDIN_CART_LINE = [
+  {
+    assetId: 'kit_mardin_sweets_cart',
+    from: [-16, 20],
+    to: [-16, -48],
+    heights: [0, 0],
+    speed: 0.9,
+  },
+];
 
 const MARDIN_STATUES = [
   {
@@ -414,12 +471,13 @@ const BALIKESIR_BIRDS = [
  */
 function balikesirPelicanLines() {
   const y = -0.25;
+  const PELICAN = 'kit_balikesir_pelican';
   return [
-    { from: [-8, 38], to: [8, 38], heights: [y, y], speed: 0.32 },
-    { from: [16, 42], to: [30, 42], heights: [y, y], speed: 0.24 },
-    { from: [4, 48], to: [-10, 48], heights: [y, y], speed: 0.28 },
-    { from: [-30, 36], to: [-42, 36], heights: [y, y], speed: 0.2 },
-    { from: [22, 51], to: [8, 51], heights: [y, y], speed: 0.36 },
+    { assetId: PELICAN, from: [-8, 38], to: [8, 38], heights: [y, y], speed: 0.32 },
+    { assetId: PELICAN, from: [16, 42], to: [30, 42], heights: [y, y], speed: 0.24 },
+    { assetId: PELICAN, from: [4, 48], to: [-10, 48], heights: [y, y], speed: 0.28 },
+    { assetId: PELICAN, from: [-30, 36], to: [-42, 36], heights: [y, y], speed: 0.2 },
+    { assetId: PELICAN, from: [22, 51], to: [8, 51], heights: [y, y], speed: 0.36 },
   ];
 }
 
@@ -491,9 +549,10 @@ const TRABZON_SEA = {
  */
 function trabzonBoatLines() {
   const y = -0.4;
+  const BOAT = 'kit_trabzon_fishing_boat';
   return [
-    { from: [-34, TRABZON_SHORE_Z + 26], to: [32, TRABZON_SHORE_Z + 26], heights: [y, y], speed: 2.2 },
-    { from: [30, TRABZON_SHORE_Z + 58], to: [-28, TRABZON_SHORE_Z + 58], heights: [y, y], speed: 1.5 },
+    { assetId: BOAT, from: [-34, TRABZON_SHORE_Z + 26], to: [32, TRABZON_SHORE_Z + 26], heights: [y, y], speed: 2.2 },
+    { assetId: BOAT, from: [30, TRABZON_SHORE_Z + 58], to: [-28, TRABZON_SHORE_Z + 58], heights: [y, y], speed: 1.5 },
   ];
 }
 
@@ -1742,6 +1801,35 @@ function cityBackdrop(cityId, stopPositions, metrics) {
         rotationY: -0.07,
         solid: true,
         note: 'Palandöken at the head of the street',
+      },
+      /**
+       * The wolf, on Palandöken's ridge. Solid is meaningless at 150 m; it is
+       * false so nothing builds a collider a child could never reach.
+       */
+      {
+        assetId: 'kit_erzurum_wolf',
+        position: ERZURUM_WOLF.position,
+        rotationY: ERZURUM_WOLF.rotationY,
+        solid: false,
+        note: 'wolf on the summit',
+      },
+      /**
+       * The cağ kebap grill, on the west side of the street.
+       *
+       * Out at x = -18 so its inner edge clears the walking area with room to
+       * spare — scenery has to stay out of the play rectangle, and a 3.3 m
+       * stall placed by eye was exactly how the Balıkesir olive stands failed
+       * their test by twenty centimetres.
+       *
+       * Between the spawn and the first stop, where a child walks past it
+       * before they have anything to do.
+       */
+      {
+        assetId: 'city_erzurum_cag_kebap',
+        position: [-18, 0, -6],
+        rotationY: Math.PI / 2 + 0.1,
+        solid: false,
+        note: 'cağ kebap grill',
       },
       /**
        * The Çifte Minareli Medrese, near edge on ERZURUM_MEDRESE_NEAR_Z.
@@ -3215,24 +3303,36 @@ function buildScene(canonical) {
         : canonical.id === 'balikesir'
           ? /** Paving to the reed line, with the lake drawn over its last two metres. */
             { x: 2, front: 2, back: 6 }
-          : { x: 2, front: 2, back: 2 },
-    boatLines:
+          : canonical.id === 'erzurum'
+            ? /**
+               * Six a side rather than two. The skiers run at x = ±16 and the
+               * kebap grill stands at -18, all outside the play bounds so a
+               * child cannot collide with them — but snow has to reach under
+               * them or they slide along the edge of nothing.
+               */
+              { x: 6, front: 2, back: 2 }
+            : { x: 2, front: 2, back: 2 },
+    /**
+     * Everything that works a line, in one list.
+     *
+     * Four cities, one motion: hamsi boats off Trabzon, pelicans on Manyas, a
+     * sweets pedlar in Mardin, skiers down an Erzurum street. It used to be
+     * three separate fields with two asset-id fields beside them, which is what
+     * happens when each addition is judged on its own.
+     */
+    shuttleLines:
       canonical.id === 'trabzon'
         ? trabzonBoatLines()
         : canonical.id === 'balikesir'
           ? balikesirPelicanLines()
-          : [],
-    boatAssetId:
-      canonical.id === 'trabzon'
-        ? 'kit_trabzon_fishing_boat'
-        : canonical.id === 'balikesir'
-          ? 'kit_balikesir_pelican'
-          : null,
+          : canonical.id === 'mardin'
+            ? MARDIN_CART_LINE
+            : canonical.id === 'erzurum'
+              ? ERZURUM_SKIER_LINES
+              : [],
     birdAssetId: ['trabzon', 'balikesir', 'mardin'].includes(canonical.id) ? 'kit_gull' : null,
     statues: canonical.id === 'mardin' ? MARDIN_STATUES : [],
     snowfall: canonical.id === 'erzurum',
-    cartLine: canonical.id === 'mardin' ? MARDIN_CART_LINE : null,
-    cartAssetId: canonical.id === 'mardin' ? 'kit_mardin_sweets_cart' : null,
     birdPaths:
       canonical.id === 'trabzon'
         ? TRABZON_BIRDS

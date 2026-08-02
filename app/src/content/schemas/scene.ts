@@ -281,25 +281,6 @@ export const sceneSchema = z
       )
       .default([]),
     /**
-     * Boats working a lake that is not at y = 0.
-     *
-     * Van's canoes cross a lake whose surface is the ground plane, so a line
-     * with two ends is enough for them. Trabzon's water is a tilted plate and
-     * its height depends on where you are on it, so a boat here carries the two
-     * heights its line runs between — which is the lifted line the cable car
-     * already uses, not a new kind of motion (D-136).
-     */
-    boatLines: z
-      .array(
-        z.object({
-          from: z.tuple([z.number(), z.number()]),
-          to: z.tuple([z.number(), z.number()]),
-          heights: z.tuple([z.number(), z.number()]),
-          speed: z.number().positive(),
-        }),
-      )
-      .default([]),
-    /**
      * Bands of mist drifting across something, in world metres.
      *
      * Cloud on the face of Sümela is the one thing the canonical description
@@ -322,22 +303,35 @@ export const sceneSchema = z
      * a city uses is the city's business and belongs in its scene.
      */
     /**
-     * Statues: a delivered model standing on a drawn plinth.
+     * Things that work a line: out, pause, back.
      *
-     * The plinth is not an asset. A pedestal is a box with a lip on it, and
-     * commissioning one would cost a registry entry and thirty megabytes of
-     * baked texture to get a cuboid — the play bounds are drawn as primitives
-     * for the same reason.
-     */
-    /**
-     * A pedlar's cart working the street.
+     * One field, because it is one motion. It began as `boatLines` for
+     * Trabzon's hamsi boats, was copied to carry Balıkesir's pelicans, and then
+     * again as `cartLine` for Mardin's pedlar — three fields and two asset-id
+     * fields for a single behaviour, and Erzurum's skiers would have made it
+     * four. That is the drift a stale list has (D-127): every addition was
+     * reasonable and the shape was wrong.
      *
-     * The motion is the tram's — out, pause, back — because that is what a
-     * street vendor does, and `Tram` is the motion rather than the vehicle
-     * (D-136). What it is not is a tram: İstanbul has one of those and calling
-     * a sweets cart by its name in the data would be a small lie that someone
-     * reads as true later.
+     * D-136 still holds — different motions are different things, and the train
+     * that crosses and leaves, the cable car that circles and the animals that
+     * wander all stay separate. But a boat working a shore, a pelican paddling,
+     * a pedlar pushing a cart and a skier running a street are all *this*, and
+     * the asset is not the motion.
+     *
+     * `heights` carries the two ends' y, which is what a tilted lake needed and
+     * a flat street does not.
      */
+    shuttleLines: z
+      .array(
+        z.object({
+          assetId: z.string(),
+          from: z.tuple([z.number(), z.number()]),
+          to: z.tuple([z.number(), z.number()]),
+          heights: z.tuple([z.number(), z.number()]).default([0, 0]),
+          speed: z.number().positive(),
+        }),
+      )
+      .default([]),
     /**
      * Falling snow over the whole city.
      *
@@ -345,15 +339,14 @@ export const sceneSchema = z
      * measure, and a city either is in winter or is not.
      */
     snowfall: z.boolean().default(false),
-    cartLine: z
-      .object({
-        from: z.tuple([z.number(), z.number()]),
-        to: z.tuple([z.number(), z.number()]),
-        speed: z.number().positive(),
-      })
-      .nullable()
-      .default(null),
-    cartAssetId: z.string().nullable().default(null),
+    /**
+     * Statues: a delivered model standing on a drawn plinth.
+     *
+     * The plinth is not an asset. A pedestal is a box with a lip on it, and
+     * commissioning one would cost a registry entry and thirty megabytes of
+     * baked texture to get a cuboid — the play bounds are drawn as primitives
+     * for the same reason.
+     */
     statues: z
       .array(
         z.object({
@@ -367,7 +360,6 @@ export const sceneSchema = z
       )
       .default([]),
     birdAssetId: z.string().nullable().default(null),
-    boatAssetId: z.string().nullable().default(null),
     birdPaths: z
       .array(
         z.object({

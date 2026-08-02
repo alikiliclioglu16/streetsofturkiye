@@ -143,19 +143,21 @@ export function CityScene({
       )}
 
       {/*
-        A pedlar working the street. The tram's motion on a much shorter line
-        and at walking pace — out to the end of the street, a pause while the
-        seller sells, and back.
+        Everything that works a line: hamsi boats off Trabzon, pelicans on
+        Manyas, a sweets pedlar in Mardin, skiers down an Erzurum street. One
+        motion, so one list and one component.
       */}
-      {scene.cartAsset && scene.cartLine ? (
+      {scene.shuttles.map((s) => (
         <Tram
-          asset={scene.cartAsset}
-          from={scene.cartLine.from}
-          to={scene.cartLine.to}
+          key={s.key}
+          asset={s.asset}
+          from={s.from}
+          to={s.to}
+          heights={s.heights}
           reducedMotion={reducedMotion}
-          speed={scene.cartLine.speed}
+          speed={s.speed}
         />
-      ) : null}
+      ))}
 
       {/* Winter. One draw call for a whole season. */}
       {scene.snowfall ? <Snowfall reducedMotion={reducedMotion} /> : null}
@@ -271,25 +273,6 @@ export function CityScene({
               asset={scene.canoeAsset!}
               from={line.from}
               to={line.to}
-              reducedMotion={reducedMotion}
-              speed={line.speed}
-            />
-          ))
-        : null}
-
-      {/*
-        Hamsi boats on Uzungöl. The tram's motion again — out, pause, back —
-        but on a lifted line, because Trabzon's water is a tilted plate and its
-        height depends on where along it you are.
-      */}
-      {scene.boatAsset
-        ? scene.boatLines.map((line, index) => (
-            <Tram
-              key={`boat-${index}`}
-              asset={scene.boatAsset!}
-              from={line.from}
-              to={line.to}
-              heights={line.heights}
               reducedMotion={reducedMotion}
               speed={line.speed}
             />

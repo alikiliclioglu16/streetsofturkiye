@@ -8,6 +8,16 @@ import { npcById, type FeaturedNpc } from '@/engine/npc/registry';
 import type { StreetTreeSpec } from '@/components/three/StreetTree';
 import type { StatueMount } from '@/components/three/Statue';
 
+/** A model that runs out along a line, pauses, and comes back. */
+export interface ShuttleInstance {
+  readonly key: string;
+  readonly asset: ResolvedAsset;
+  readonly from: readonly [number, number];
+  readonly to: readonly [number, number];
+  readonly heights: readonly [number, number];
+  readonly speed: number;
+}
+
 export interface SceneHotspot {
   readonly id: string;
   readonly order: number;
@@ -103,9 +113,8 @@ export interface SceneDescription {
   /** Scenery beyond the play area; never solid. */
   readonly backdrop: readonly ScenePropInstance[];
   readonly statues: readonly StatueMount[];
-  readonly cartLine: SceneDefinition['cartLine'];
+  readonly shuttles: readonly ShuttleInstance[];
   readonly snowfall: boolean;
-  readonly cartAsset: ResolvedAsset | null;
   readonly water: SceneDefinition['water'];
   readonly musicUrl: string | null;
   readonly groundSurface: SceneDefinition['groundSurface'];
@@ -121,9 +130,6 @@ export interface SceneDescription {
   readonly cableCarAsset: ResolvedAsset | null;
   readonly ferryAsset: ResolvedAsset | null;
   readonly canoeAsset: ResolvedAsset | null;
-  readonly boatLines: SceneDefinition['boatLines'];
-  /** Trabzon's hamsi boat. Null anywhere without a boat line. */
-  readonly boatAsset: ResolvedAsset | null;
   readonly mistBands: SceneDefinition['mistBands'];
   readonly birdPaths: SceneDefinition['birdPaths'];
   readonly birdModelUrl: string | null;
@@ -224,6 +230,18 @@ export function buildScene(city: CityDefinition, quality: QualityTier): SceneDes
       halfDepth: halfW * sin + halfD * cos,
     };
   };
+
+  /**
+   * Everything that works a line. One list, one component, four cities.
+   */
+  const shuttles: ShuttleInstance[] = city.shuttleLines.map((line, index) => ({
+    key: `shuttle-${index}`,
+    asset: resolveAsset(line.assetId, quality),
+    from: line.from,
+    to: line.to,
+    heights: line.heights,
+    speed: line.speed,
+  }));
 
   const statues: StatueMount[] = city.statues.map((statue, index) => ({
     key: `statue-${index}`,
@@ -387,10 +405,8 @@ export function buildScene(city: CityDefinition, quality: QualityTier): SceneDes
     cityId: city.id,
     backdrop,
     statues,
-    cartLine: city.cartLine,
+    shuttles,
     snowfall: city.snowfall,
-    cartAsset:
-      city.cartLine && city.cartAssetId ? resolveAsset(city.cartAssetId, quality) : null,
     water: city.water,
     musicUrl: city.musicUrl,
     tramLine: city.tramLine,
@@ -415,9 +431,6 @@ export function buildScene(city: CityDefinition, quality: QualityTier): SceneDes
       : null,
     ferryAsset: city.ferryLine ? resolveAsset('city_istanbul_ferry_boat', quality) : null,
     canoeAsset: city.canoeLines.length ? resolveAsset('city_van_canoe', quality) : null,
-    boatLines: city.boatLines,
-    boatAsset:
-      city.boatLines.length && city.boatAssetId ? resolveAsset(city.boatAssetId, quality) : null,
     mistBands: city.mistBands,
     birdPaths: city.birdPaths,
     birdModelUrl:

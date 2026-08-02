@@ -1796,6 +1796,100 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
     notes: 'Delivered 2 m buried 1 m, 24.69 MB; re-authored to 4.6 m on y = 0, 2.28 MB.',
   },
   {
+    id: 'kit_erzurum_wolf',
+    modelUrl: '/assets/props/kit_erzurum_wolf.glb',
+    checksum: 'f7ef3eab22769436f65b3fcbb92c71daf71f902b6c80b1b1d5a9232f6261d4ff',
+    triangles: 10_363,
+    transferBytes: 645_048,
+    /**
+     * A wolf on Palandöken's ridge.
+     *
+     * **Three and a half metres, and that is deliberately wrong.** Everything
+     * inside a 32 m mountain that stands in for a real one is at mountain
+     * scale, so a true-size wolf would be about ten centimetres and invisible
+     * from a hundred and fifty-five metres away. At 3.5 it subtends 1.3° — a
+     * dark shape on a white skyline, which is what it is for.
+     *
+     * Uzungöl taught this in the other direction: a correctly-sized boat inside
+     * a miniature village could not be seen at all, and the fix was to break
+     * the scale on purpose and write down that it was broken.
+     */
+    dimensions: [2.52, 3.5, 4.62],
+    label: 'Wolf',
+    color: '#D6D8DA',
+    placeholder: 'box',
+    notes: 'Delivered 1 m buried 0.5 m, 5.29 MB; re-authored to 3.5 m on y = 0, 0.62 MB.',
+  },
+  {
+    id: 'kit_erzurum_skier_a',
+    modelUrl: '/assets/props/kit_erzurum_skier_a.glb',
+    checksum: '2b0334b2d8f3cc5e599dfce5dbf86f38d0deab32ba81ce27b5b2ce2170ecbb61',
+    triangles: 21_316,
+    transferBytes: 836_176,
+    /**
+     * A skier, crouched with the skis running fore and aft.
+     *
+     * Twenty-one thousand triangles, twice the usual and the heaviest mesh in
+     * the project. It stays: the bytes are what the budget counts and 0.8 MB is
+     * well inside a `kit_` asset's two megabytes, and a skier is seen at
+     * sixteen metres where silhouette matters.
+     *
+     * Longer than it is wide — 2.34 m of ski against 0.9 m of shoulder — so
+     * `Tram` reads its footprint and leaves it pointing along its line rather
+     * than turning it broadside.
+     */
+    dimensions: [0.9, 1.8, 2.34],
+    label: 'Skier, tucked',
+    color: '#C0392B',
+    placeholder: 'box',
+    notes: 'Delivered 1.85 m buried 0.92 m, 1.58 MB; re-authored to 1.8 m on y = 0, 0.80 MB.',
+  },
+  {
+    id: 'kit_erzurum_skier_b',
+    modelUrl: '/assets/props/kit_erzurum_skier_b.glb',
+    checksum: '597f15a31db0ec270d5d3cb4b24b62a234f521661486022967fba7b88efc2e72',
+    triangles: 10_002,
+    transferBytes: 808_076,
+    /**
+     * The second skier, upright and carving.
+     *
+     * **Wider than deep** — 1.16 against 0.96 — which means `Tram` will read it
+     * as facing along X and give it a quarter turn. That is right for a tram
+     * and may be wrong for a person: if this one runs the street sideways, the
+     * fix is a rotation on the asset rather than a change to the rule, because
+     * the rule is what stopped İstanbul's streetcar running down its own street
+     * broadside.
+     *
+     * Worth a look on the first screenshot.
+     */
+    dimensions: [1.16, 1.8, 0.96],
+    label: 'Skier, carving',
+    color: '#2E86C1',
+    placeholder: 'box',
+    notes: 'Delivered 2 m buried 1 m, 17.14 MB; re-authored to 1.8 m on y = 0, 0.77 MB.',
+  },
+  {
+    id: 'city_erzurum_cag_kebap',
+    modelUrl: '/assets/city/city_erzurum_cag_kebap.glb',
+    checksum: '9ed17f0316bfdec31a9cc0a306fe10e315cfb0146d320cf2bd62de1aead55167',
+    triangles: 10_053,
+    transferBytes: 2_181_824,
+    /**
+     * A cağ kebap grill in the street — the horizontal spit that is Erzurum's
+     * own, turned on its side over an open wood fire.
+     *
+     * Dressing rather than a stop: it hands over nothing and asks nothing. It
+     * stands where a child walks past it before they have anything to do, which
+     * is the best place in the street for something that is only there to make
+     * the city smell of somewhere.
+     */
+    dimensions: [3.3, 2.6, 2.37],
+    label: 'Cağ kebap grill',
+    color: '#8C5A33',
+    placeholder: 'box',
+    notes: 'Delivered 2 m buried 1 m, 26.48 MB; re-authored to 2.6 m on y = 0, 2.08 MB.',
+  },
+  {
     id: 'city_erzurum_stone_houses',
     modelUrl: '/assets/city/city_erzurum_stone_houses.glb',
     checksum: '6a924dbfcbc3478e3e16c13dcf462933b82999b9c776cc33b5364f6e0781efb4',

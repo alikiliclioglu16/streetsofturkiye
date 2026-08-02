@@ -463,8 +463,9 @@
     "front": 2,
     "back": 10
   },
-  "boatLines": [
+  "shuttleLines": [
     {
+      "assetId": "kit_trabzon_fishing_boat",
       "from": [
         -34,
         56
@@ -480,6 +481,7 @@
       "speed": 2.2
     },
     {
+      "assetId": "kit_trabzon_fishing_boat",
       "from": [
         30,
         88
@@ -495,8 +497,9 @@
       "speed": 1.5
     }
   ],
-  "boatAssetId": "kit_trabzon_fishing_boat",
   "birdAssetId": "kit_gull",
+  "statues": [],
+  "snowfall": false,
   "birdPaths": [
     {
       "centre": [

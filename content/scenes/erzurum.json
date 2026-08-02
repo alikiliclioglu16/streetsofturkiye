@@ -459,17 +459,47 @@
   "cableCarLine": null,
   "ferryLine": null,
   "groundPad": {
-    "x": 2,
+    "x": 6,
     "front": 2,
     "back": 2
   },
-  "boatLines": [],
-  "boatAssetId": null,
+  "shuttleLines": [
+    {
+      "assetId": "kit_erzurum_skier_a",
+      "from": [
+        -16,
+        24
+      ],
+      "to": [
+        -16,
+        -54
+      ],
+      "heights": [
+        0,
+        0
+      ],
+      "speed": 4.2
+    },
+    {
+      "assetId": "kit_erzurum_skier_b",
+      "from": [
+        16,
+        -50
+      ],
+      "to": [
+        16,
+        20
+      ],
+      "heights": [
+        0,
+        0
+      ],
+      "speed": 3.4
+    }
+  ],
   "birdAssetId": null,
   "statues": [],
   "snowfall": true,
-  "cartLine": null,
-  "cartAssetId": null,
   "birdPaths": [],
   "mistBands": [],
   "canoeLines": [],
@@ -640,6 +670,28 @@
       "rotationY": -0.07,
       "solid": true,
       "note": "Palandöken at the head of the street"
+    },
+    {
+      "assetId": "kit_erzurum_wolf",
+      "position": [
+        -0.3,
+        30.5,
+        -147.9
+      ],
+      "rotationY": 2.4,
+      "solid": false,
+      "note": "wolf on the summit"
+    },
+    {
+      "assetId": "city_erzurum_cag_kebap",
+      "position": [
+        -18,
+        0,
+        -6
+      ],
+      "rotationY": 1.6707963267948966,
+      "solid": false,
+      "note": "cağ kebap grill"
     },
     {
       "assetId": "city_erzurum_cifte_minareli",

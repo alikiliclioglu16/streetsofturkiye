@@ -452,8 +452,24 @@
     "front": 2,
     "back": 2
   },
-  "boatLines": [],
-  "boatAssetId": null,
+  "shuttleLines": [
+    {
+      "assetId": "kit_mardin_sweets_cart",
+      "from": [
+        -16,
+        20
+      ],
+      "to": [
+        -16,
+        -48
+      ],
+      "heights": [
+        0,
+        0
+      ],
+      "speed": 0.9
+    }
+  ],
   "birdAssetId": "kit_gull",
   "statues": [
     {
@@ -481,18 +497,7 @@
       "stoneColor": "#C9BFA3"
     }
   ],
-  "cartLine": {
-    "from": [
-      -16,
-      20
-    ],
-    "to": [
-      -16,
-      -48
-    ],
-    "speed": 0.9
-  },
-  "cartAssetId": "kit_mardin_sweets_cart",
+  "snowfall": false,
   "birdPaths": [
     {
       "centre": [
