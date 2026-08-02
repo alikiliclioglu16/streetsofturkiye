@@ -169,6 +169,9 @@ export const DELIVERED_DIMENSIONS = {
   city_balikesir_cunda_island: [37.68, 16.0, 28.77],
   city_balikesir_manyas_reeds: [13.24, 4.5, 7.24],
   city_balikesir_manyas_islet: [26.52, 5.0, 24.34],
+  city_balikesir_mossy_cascade: [4.9, 2.4, 5.2],
+  city_balikesir_olive_press: [3.44, 2.6, 3.3],
+  city_balikesir_hosmerim_counter: [2.9, 2.4, 1.35],
   /**
    * Trabzon, measured off the delivered files.
    *

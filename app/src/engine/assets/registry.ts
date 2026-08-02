@@ -1701,6 +1701,84 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
     notes: 'Delivered 10 m buried 5 m, 29.15 MB; re-authored to 26 m on y = 0 at 2048 base colour, 2.56 MB.',
   },
   {
+    id: 'city_balikesir_mossy_cascade',
+    modelUrl: '/assets/city/city_balikesir_mossy_cascade.glb',
+    checksum: 'de52a4f922f6a8d2adb48cbf5cd5c7aa8a676c2cd4369eddf041a5b1d0ffb485',
+    triangles: 10_130,
+    transferBytes: 2_404_228,
+    /**
+     * Stop one: water over mossy rock on Kaz Dağları.
+     *
+     * The mountain itself is 32 m tall at the head of the valley, because a
+     * child cannot climb one and a stop is something to walk up to (D-066).
+     * This is the half of it that can be stood in front of, and the canonical
+     * line is about air and water rather than rock — so a cascade rather than a
+     * summit is the right small object.
+     *
+     * Briefed as a spring at 2.6 across; what arrived is 2 wide for every one
+     * high and spreads to 4.9 × 5.2 at 2.4 m tall. Named for what it is rather
+     * than what was asked for, the way the olive grove briefed as pistachio was
+     * (D-117). It carries a little flat water of its own — twenty-two
+     * upward-facing vertices sampling blue — which nothing else in this city
+     * does.
+     *
+     * The footprint is the largest of any stop in the project, so its trigger
+     * ring is wide; the spacing check in `layout` has the last word on that
+     * (D-100) and it passes at fourteen metres.
+     */
+    dimensions: [4.9, 2.4, 5.2],
+    label: 'Mossy cascade',
+    color: '#5B7A46',
+    placeholder: 'box',
+    notes: 'Delivered 2 m buried 1 m, 27.06 MB; re-authored to 2.4 m on y = 0, 2.29 MB.',
+  },
+  {
+    id: 'city_balikesir_olive_press',
+    modelUrl: '/assets/city/city_balikesir_olive_press.glb',
+    checksum: 'e51b0f3d43052c43247115851b8380697756acbf661bf4e6d1704ef60cfb81c4',
+    triangles: 10_273,
+    transferBytes: 2_278_460,
+    /**
+     * Stop two: the press where the olives become oil.
+     *
+     * The groves are the west side of the street and the terraces behind them;
+     * this is the part of it a child can stand at. Two thirds timber and stone
+     * with a grey band that reads as the millstone — measured, not taken from
+     * the file name.
+     *
+     * The closest of the three to its brief: 1.33 wide for every one high
+     * against a briefed 1.08.
+     */
+    dimensions: [3.44, 2.6, 3.3],
+    label: 'Olive press',
+    color: '#7A6242',
+    placeholder: 'box',
+    notes: 'Delivered 2 m buried 1 m, 26.47 MB; re-authored to 2.6 m on y = 0, 2.17 MB.',
+  },
+  {
+    id: 'city_balikesir_hosmerim_counter',
+    modelUrl: '/assets/city/city_balikesir_hosmerim_counter.glb',
+    checksum: '4754d24421aa894c9e3915ffc0a652548561c0a1249ba85184d0218a34ada25e',
+    triangles: 9_441,
+    transferBytes: 1_872_736,
+    /**
+     * Stop three: höşmerim over a copper pan.
+     *
+     * Over a third of its surface samples copper, which is the thing the
+     * dessert is made in and the thing that identifies the model without a
+     * look. Shallow — 1.35 m deep against 2.9 wide — which is what a counter is
+     * and why its trigger ring is the tightest of the three.
+     *
+     * Canonical names the sign but nothing in the game draws text on a model.
+     * The words are the fact card's job.
+     */
+    dimensions: [2.9, 2.4, 1.35],
+    label: 'Höşmerim counter',
+    color: '#A2643A',
+    placeholder: 'box',
+    notes: 'Delivered 2 m buried 1 m, 23.06 MB; re-authored to 2.4 m on y = 0, 1.79 MB.',
+  },
+  {
     id: 'city_balikesir_kaz_daglari',
     modelUrl: '/assets/city/city_balikesir_kaz_daglari.glb',
     checksum: '026db27be5287cd27d930c070aad691c7e63af7591c4476f2f7735cc5abe6904',

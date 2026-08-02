@@ -48,32 +48,32 @@
       [
         0,
         0,
-        -14.3
+        -12.9
       ],
       [
-        -3.4,
+        -4.65,
         0,
-        -20.4
+        -21.8
       ],
       [
         4.3,
         0,
-        -28.3
+        -27.85
       ],
       [
-        0.9,
+        0.38,
         0,
-        -34.4
+        -34.85
       ],
       [
         5.3,
         0,
-        -42.3
+        -42.83
       ],
       [
-        1.9,
+        1.65,
         0,
-        -48.4
+        -47.87
       ]
     ],
     "bounds": [
@@ -111,8 +111,8 @@
         "stopId": "balikesir-stop-01"
       },
       "sceneStatus": "ready",
-      "assetId": "graybox_dag",
-      "assetStatus": "graybox",
+      "assetId": "city_balikesir_mossy_cascade",
+      "assetStatus": "commissioned",
       "transform": {
         "position": [
           0,
@@ -131,10 +131,10 @@
         ]
       },
       "collider": {
-        "halfWidth": 1.2,
-        "halfDepth": 1.2
+        "halfWidth": 2.45,
+        "halfDepth": 2.6
       },
-      "triggerRadius": 5.2,
+      "triggerRadius": 6.6,
       "camera": {
         "position": [
           2.3,
@@ -163,8 +163,8 @@
         "stopId": "balikesir-stop-02"
       },
       "sceneStatus": "ready",
-      "assetId": "graybox_agac",
-      "assetStatus": "graybox",
+      "assetId": "city_balikesir_olive_press",
+      "assetStatus": "commissioned",
       "transform": {
         "position": [
           4.3,
@@ -183,10 +183,10 @@
         ]
       },
       "collider": {
-        "halfWidth": 1.2,
-        "halfDepth": 1.2
+        "halfWidth": 1.72,
+        "halfDepth": 1.65
       },
-      "triggerRadius": 5.2,
+      "triggerRadius": 5.65,
       "camera": {
         "position": [
           6.6,
@@ -195,7 +195,7 @@
         ],
         "target": [
           4.3,
-          1.1,
+          1.2,
           -31
         ],
         "durationMs": 900
@@ -215,8 +215,8 @@
         "stopId": "balikesir-stop-03"
       },
       "sceneStatus": "ready",
-      "assetId": "graybox_tatli",
-      "assetStatus": "graybox",
+      "assetId": "city_balikesir_hosmerim_counter",
+      "assetStatus": "commissioned",
       "transform": {
         "position": [
           5.3,
@@ -235,10 +235,10 @@
         ]
       },
       "collider": {
-        "halfWidth": 1.2,
-        "halfDepth": 1.2
+        "halfWidth": 1.45,
+        "halfDepth": 0.675
       },
-      "triggerRadius": 5.2,
+      "triggerRadius": 4.67,
       "camera": {
         "position": [
           7.6,
@@ -945,13 +945,13 @@
     {
       "npcId": "featured_soldier",
       "position": [
-        10.7,
+        11.2,
         0,
         -27.5
       ],
       "rotationY": 2.4,
       "walkTo": [
-        9.2,
+        9.7,
         0,
         -31.7
       ]
@@ -959,13 +959,13 @@
     {
       "npcId": "featured_traveler",
       "position": [
-        10.7,
+        11.2,
         0,
         -34
       ],
       "rotationY": -2.1,
       "walkTo": [
-        12.2,
+        12.7,
         0,
         -38.2
       ]
@@ -973,13 +973,13 @@
     {
       "npcId": "featured_craftsman_male",
       "position": [
-        11.7,
+        11.2,
         0,
         -42.4
       ],
       "rotationY": 1.9,
       "walkTo": [
-        10.2,
+        9.7,
         0,
         -46.6
       ]

@@ -78,6 +78,9 @@ const COMMISSIONED_ASSETS = {
   'trabzon:manastir': 'city_trabzon_sumela_fresco_door',
   'trabzon:muzik': 'city_trabzon_kemence_stand',
   'trabzon:stall': 'city_trabzon_hamsi_stall',
+  'balikesir:dag': 'city_balikesir_mossy_cascade',
+  'balikesir:agac': 'city_balikesir_olive_press',
+  'balikesir:tatli': 'city_balikesir_hosmerim_counter',
 };
 
 /** Commissioned collectibles, keyed by canonical stop id. */
