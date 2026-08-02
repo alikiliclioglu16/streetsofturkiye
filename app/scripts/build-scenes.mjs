@@ -271,19 +271,27 @@ const CITY_PALETTE = {
    */
   bolu: { sky: ['#A8D8E8', '#EDE4CE'], ground: '#C98A3C' },
   /**
-   * Trabzon under cloud: a hazed sky and a deeper, cooler green than Ordu's.
+   * Trabzon under cloud: a hazed sky over wet grey stone.
    *
    * Third city out of the one region table, so this is the third look it has to
    * produce. Ordu is high summer on a bright coast and Bolu is October inland;
-   * Trabzon is the weather the Black Sea is actually known for. The sky is
-   * deliberately low-contrast — mist reads as mist because the horizon is
-   * nearly the same value as the sky behind it, and the Sümela wall is the one
-   * dark shape standing in it.
+   * Trabzon is the weather the Black Sea is actually known for.
+   *
+   * The ground colour is nearly neutral on purpose. `groundColor` multiplies the
+   * surface albedo rather than painting the land beside it, so it is a cast over
+   * the paving and not a colour of its own. The first value here was a saturated
+   * mid-green at 45% lightness, which did not tint the cobbles — it replaced
+   * them, and the street read as a cracked lawn. Anything below about 66%
+   * lightness swallows the texture, so this sits at 66% with under 7% saturation:
+   * wet stone with the green of the slopes cast onto it.
+   *
+   * The green in this city comes from the tea slopes and the pines on the cliff,
+   * which is where a child would actually see it.
    *
    * Recorded here rather than by editing canonical, like the guide overrides
    * (D-132).
    */
-  trabzon: { sky: ['#AFC8D2', '#E4EDE8'], ground: '#5F8A5C' },
+  trabzon: { sky: ['#AFC8D2', '#E4EDE8'], ground: '#A2AEA3' },
 };
 
 const CITY_THEMES = {
