@@ -120,6 +120,8 @@ export interface SceneDescription {
   /** Trabzon's hamsi boat. Null anywhere without a boat line. */
   readonly boatAsset: ResolvedAsset | null;
   readonly mistBands: SceneDefinition['mistBands'];
+  readonly birdPaths: SceneDefinition['birdPaths'];
+  readonly birdModelUrl: string | null;
   readonly trainAsset: ResolvedAsset | null;
   readonly tramAsset: ResolvedAsset | null;
   readonly sky: SceneSky;
@@ -396,6 +398,8 @@ export function buildScene(city: CityDefinition, quality: QualityTier): SceneDes
     boatLines: city.boatLines,
     boatAsset: city.boatLines.length ? resolveAsset('kit_trabzon_fishing_boat', quality) : null,
     mistBands: city.mistBands,
+    birdPaths: city.birdPaths,
+    birdModelUrl: city.birdPaths.length ? resolveAsset('kit_trabzon_bird', quality).modelUrl : null,
     trainAsset: city.trainLine ? resolveAsset('city_kars_eastern_express', quality) : null,
     catRoutes: city.catRoutes,
     groundPatches: city.groundPatches ?? [],
@@ -412,9 +416,11 @@ export function buildScene(city: CityDefinition, quality: QualityTier): SceneDes
     bounds: city.route.bounds,
     ground: {
       centerX: (minX + maxX) / 2,
-      centerZ: (minZ + maxZ) / 2,
+      // Asymmetric: Trabzon reaches back to the waterline without dragging the
+      // paving the same distance forward under Sümela.
+      centerZ: (minZ - city.groundPad.front + (maxZ + city.groundPad.back)) / 2,
       width: maxX - minX + city.groundPad.x * 2,
-      depth: maxZ - minZ + city.groundPad.z * 2,
+      depth: maxZ - minZ + city.groundPad.front + city.groundPad.back,
       color: city.environment.groundColor ?? '#D9CFBC',
     },
     groundSurface: city.groundSurface,

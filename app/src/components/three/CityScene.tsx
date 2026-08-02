@@ -9,6 +9,7 @@ import { AssetInstance } from '@/components/three/AssetInstance';
 import { WindProp } from '@/components/three/WindProp';
 import { WindSlope } from '@/components/three/WindSlope';
 import { Mist } from '@/components/three/Mist';
+import { Birds } from '@/components/three/Birds';
 import { CableCarLine, Train, TrainTrack, Tram } from '@/components/three/Tram';
 import { playFerryHorn } from '@/engine/audio/cues';
 import { Balloons } from '@/components/three/Balloons';
@@ -140,6 +141,13 @@ export function CityScene({
 
       {/* Cloud crossing Sümela. Weather, so it has to move or it is a stain. */}
       <Mist bands={scene.mistBands} reducedMotion={reducedMotion} />
+
+      {/* Birds over the city, one circle each. */}
+      <Birds
+        modelUrl={scene.birdModelUrl}
+        paths={scene.birdPaths}
+        reducedMotion={reducedMotion}
+      />
 
       {/* Boundary posts: the play area is visible rather than an invisible wall.
           Corner posts are essential; decorative density is applied to props. */}

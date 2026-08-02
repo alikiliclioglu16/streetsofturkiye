@@ -250,15 +250,30 @@ describe('mixer ownership', () => {
     };
     walk(root);
     /**
-     * The guide's animation lives in exactly one file. The street cat has its
-     * own mixer because it is a separate animated entity with its own skeleton
-     * — sharing one mixer between them would mean sharing skeletons, which is
-     * the bug that rendered the guide at bind pose.
+     * Every file that drives a mixer must clone its own skeleton.
+     *
+     * This was a list of the three files allowed to hold one, and it went stale
+     * the first time a fourth animated thing was added — the birds, which have
+     * as much right to a mixer as the street cat does. A list is not a test
+     * (D-127): it was true the day it was written and said nothing about
+     * whether anything worked.
+     *
+     * The rule underneath it is what actually matters, and it is the D-042 bug:
+     * sharing a mixer means sharing a skeleton, and a skeleton driven from
+     * somewhere else renders at bind pose — which is what drew the guide 1.7 cm
+     * tall. So what is asserted is that anything animating has cloned with
+     * `SkeletonUtils`, and that the guide's own animation still lives in one
+     * place.
      */
-    expect(offenders.sort()).toEqual([
-      'components/three/FeaturedNpc.tsx',
+    expect(offenders.length).toBeGreaterThan(0);
+    for (const file of offenders) {
+      const source = readFileSync(path.join(root, file), 'utf8');
+      expect(source, `${file} drives a mixer without cloning its skeleton`).toContain(
+        'SkeletonUtils',
+      );
+    }
+    expect(offenders.filter((file) => /HeroCharacter/.test(file))).toEqual([
       'components/three/HeroCharacter.tsx',
-      'components/three/StreetCat.tsx',
     ]);
   });
 

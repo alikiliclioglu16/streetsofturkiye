@@ -1733,6 +1733,53 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
     notes: 'Delivered 1 m buried 0.5 m, 26.45 MB; re-authored to 26 m on y = 0, 0.98 MB.',
   },
   {
+    id: 'kit_trabzon_trabzonspor_crest',
+    modelUrl: '/assets/props/kit_trabzon_trabzonspor_crest.glb',
+    checksum: '28226d4463347e81dbb4f6cf87b73c5a91c633c339f48fccc2e670a46fa0716e',
+    triangles: 9_907,
+    transferBytes: 1_850_396,
+    /**
+     * The Trabzonspor crest, one each side of the street.
+     *
+     * Both faces measure the same claret and blue to within a few points of
+     * saturation, so it is very likely printed on both — but that is an
+     * inference from colour and not a look at it, and if the back turns out to
+     * be blank it is a half turn on two backdrop entries.
+     */
+    dimensions: [1.87, 3.5, 0.89],
+    label: 'Trabzonspor crest',
+    color: '#7B1E3C',
+    placeholder: 'box',
+    notes: 'Delivered 2 m buried 1 m, 24.61 MB; re-authored to 3.5 m on y = 0, 1.76 MB.',
+  },
+  {
+    id: 'kit_trabzon_bird',
+    modelUrl: '/assets/props/kit_trabzon_bird.glb',
+    checksum: '69604e1a8ef57e104354c80c72415b419b1858b7600bf354ea063cdd634c9156',
+    triangles: 10_504,
+    transferBytes: 1_125_364,
+    /**
+     * Birds over the city. Skinned, with one 2.62 s flap.
+     *
+     * **The triple below is armature scale and draws nothing.** It is the box
+     * around the skeleton in bind pose, which is what the file measures and
+     * what the aspect test reads; the mesh inside it is a bird 0.53 m across
+     * the wings. Height is a useless key for a shape held flat with its wings
+     * out — the same trap as three geese at one height in different poses
+     * (D-129), taken to its limit.
+     *
+     * So this one is not mounted by `AssetInstance` at all. `Birds` scales it
+     * off the wingspan it measures on load and flies it, the way the heroes
+     * are handled. The file is the delivery untouched, which is why the
+     * checksum is the one the download had.
+     */
+    dimensions: [3.07, 10.65, 27.19],
+    label: 'Bird',
+    color: '#5A5148',
+    placeholder: 'box',
+    notes: 'Delivered unmodified. Armature at 0.01; the mesh is 0.53 m across the wings and Birds scales it to 1.6.',
+  },
+  {
     id: 'city_trabzon_sumela_fresco_door',
     modelUrl: '/assets/city/city_trabzon_sumela_fresco_door.glb',
     checksum: 'b3fb6028d5391a90486389d85b5d9764de9f2e775f507689f9083b423423cda1',
@@ -1809,7 +1856,7 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
   {
     id: 'kit_trabzon_fishing_boat',
     modelUrl: '/assets/props/kit_trabzon_fishing_boat.glb',
-    checksum: '7b1ec6506b370eb4dfb9371c55f55e9da18a723cb715b66cf996a9089c457030',
+    checksum: 'f65014e52b5a1fcf86265baebdb05d8a71a9b2bbdf36df97e7821b766089d838',
     triangles: 9_801,
     transferBytes: 993_272,
     /**
@@ -1825,11 +1872,11 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
      * boat sitting on grass is worse than no boat — the way Kars's geese and
      * Bolu's deer were held until they had somewhere to be (D-129).
      */
-    dimensions: [6.05, 3.4, 2.44],
+    dimensions: [12.45, 7.0, 5.02],
     label: 'Hamsi boat',
     color: '#2E6E9E',
     placeholder: 'box',
-    notes: 'Delivered 2 m buried 1 m, 24.28 MB; re-authored to 3.4 m on y = 0, 0.95 MB.',
+    notes: 'Delivered 2 m buried 1 m, 24.28 MB; re-authored to 7 m on y = 0, 0.95 MB.',
   },
 ];
 

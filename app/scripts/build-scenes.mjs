@@ -222,7 +222,7 @@ const TRABZON_LAKE = {
  * a lake shore is.
  */
 const TRABZON_LAKE_BURY = 1.2;
-const TRABZON_LAKE_SETBACK = 10;
+const TRABZON_LAKE_SETBACK = 28;
 
 /**
  * Where the paving stops. The ground is drawn to the play bounds plus four
@@ -343,6 +343,32 @@ function trabzonBoatLines() {
  * The opacities are low on purpose. Mist that hides the monastery defeats the
  * stop it belongs to; this is meant to pass across it, not cover it.
  */
+/**
+ * Five birds, five circles.
+ *
+ * Spread down the street rather than gathered over the square, so a child sees
+ * one wherever they are on the walk, and none of the rings is concentric with
+ * another — five circles about one centre is a fairground ride.
+ *
+ * **None of them circles overhead**, which is where they went first and where
+ * they could never be seen. The follow camera's frame stops 13° above
+ * horizontal (D-183), so a bird at ten metres is only in shot from 42 m away
+ * and one directly above the child is out of frame however high it flies. The
+ * rings are pushed out to the flanks and over the lake for that reason, not for
+ * composition — measured, and between 86% and 100% of each lap is in frame from
+ * somewhere on the street.
+ *
+ * Altitude and radius move together: the higher one flies the further out its
+ * ring has to be, which is why the lowest bird has the smallest circle.
+ */
+const TRABZON_BIRDS = [
+  { centre: [-52, 10, -18], radius: 24, rate: 0.042, phase: 0.0, bob: 1.2 },
+  { centre: [50, 12, -36], radius: 26, rate: -0.031, phase: 1.9, bob: 1.6 },
+  { centre: [-46, 11, -66], radius: 22, rate: 0.026, phase: 3.4, bob: 1.3 },
+  { centre: [0, 13, 52], radius: 30, rate: -0.021, phase: 5.1, bob: 1.8 },
+  { centre: [44, 9, 16], radius: 20, rate: 0.035, phase: 2.6, bob: 1.1 },
+];
+
 const TRABZON_MIST = [
   { centre: [0, 9, -85.5], width: 40, height: 7.5, drift: 1.3, opacity: 0.42 },
   { centre: [-4, 14.5, -83.5], width: 34, height: 6, drift: -0.85, opacity: 0.3 },
@@ -1445,6 +1471,22 @@ function cityBackdrop(cityId, stopPositions, metrics) {
         solid: true,
         note: 'Sümela, at the head of the valley',
       },
+      /**
+       * The Trabzonspor crest, one each side of the street.
+       *
+       * Out at x = ±17, two metres past the play bounds, so it is roadside
+       * furniture a child walks between rather than something they collide
+       * with. Turned a quarter turn to face the street; if the crest is only
+       * printed on one face and the wrong one is showing, this is where the
+       * half turn goes.
+       */
+      ...[-1, 1].map((side) => ({
+        assetId: 'kit_trabzon_trabzonspor_crest',
+        position: [side * 17, 0, -24],
+        rotationY: side * -(Math.PI / 2),
+        solid: false,
+        note: `Trabzonspor crest ${side < 0 ? 'west' : 'east'}`,
+      })),
       /**
        * Uzungöl, sunk until its rock is under the square.
        *
@@ -2592,12 +2634,16 @@ function buildScene(canonical) {
         ? /**
            * Uzungöl's rim has to be under the square, and buried is only buried
            * if there is paving on top of it. Thirteen a side takes the ground
-           * out to x = ±28 for a lake 55 m across; twelve at the back takes it
-           * to the waterline at z = 38.
+           * out to x = ±28 for a lake 55 m across; thirty at the back takes it
+           * to the waterline once the lake is stood off.
+           *
+           * The front stays at two. Padding both ends equally would have run
+           * cobbles thirty metres past the last stop and out under Sümela.
            */
-          { x: 13, z: 12 }
-        : { x: 2, z: 2 },
+          { x: 13, front: 2, back: 30 }
+        : { x: 2, front: 2, back: 2 },
     boatLines: canonical.id === 'trabzon' ? trabzonBoatLines() : [],
+    birdPaths: canonical.id === 'trabzon' ? TRABZON_BIRDS : [],
     mistBands: canonical.id === 'trabzon' ? TRABZON_MIST : [],
     canoeLines:
       canonical.id === 'van'

@@ -179,8 +179,12 @@ export const sceneSchema = z
      * is ground on top of it, so the paving reaches the waterline.
      */
     groundPad: z
-      .object({ x: z.number().nonnegative(), z: z.number().nonnegative() })
-      .default({ x: 2, z: 2 }),
+      .object({
+        x: z.number().nonnegative(),
+        front: z.number().nonnegative(),
+        back: z.number().nonnegative(),
+      })
+      .default({ x: 2, front: 2, back: 2 }),
     groundSurface: z.enum(['cobblestone', 'redsand', 'steppe', 'rock', 'forest']).default('cobblestone'),
     /**
      * Patches of a different ground, laid over the city's own.
@@ -293,6 +297,24 @@ export const sceneSchema = z
      * leans on that no model can carry: it is weather, and it has to move or it
      * is a grey smear painted on a rock.
      */
+    /**
+     * Birds circling over the city.
+     *
+     * A circle each rather than one flock on one path: five birds sharing a
+     * ring fly as a bracelet, and the thing that reads as birds is that no two
+     * of them are ever doing the same thing.
+     */
+    birdPaths: z
+      .array(
+        z.object({
+          centre: vec3Schema,
+          radius: z.number().positive(),
+          rate: z.number(),
+          phase: z.number(),
+          bob: z.number().nonnegative(),
+        }),
+      )
+      .default([]),
     mistBands: z
       .array(
         z.object({

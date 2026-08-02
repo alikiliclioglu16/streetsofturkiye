@@ -97,6 +97,7 @@ export interface RuntimeCity {
   canoeLines: SceneDefinition['canoeLines'];
   boatLines: SceneDefinition['boatLines'];
   mistBands: SceneDefinition['mistBands'];
+  birdPaths: SceneDefinition['birdPaths'];
   groundPad: SceneDefinition['groundPad'];
   ferryLine: SceneDefinition['ferryLine'];
   cableCarLine: SceneDefinition['cableCarLine'];
@@ -208,6 +209,7 @@ export function composeCity(canonical: CanonicalCity, scene: SceneDefinition): R
     canoeLines: scene.canoeLines,
     boatLines: scene.boatLines,
     mistBands: scene.mistBands,
+    birdPaths: scene.birdPaths,
     groundPad: scene.groundPad,
     ferryLine: scene.ferryLine,
     cableCarLine: scene.cableCarLine,
