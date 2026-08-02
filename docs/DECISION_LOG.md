@@ -3345,3 +3345,52 @@ now, before anything looks at the name.
 With the briefed sizes in place the horizon sweep gives a lowest elevation of
 19.4° away from the front, against the 8° the rule wants — so the layout holds
 before any art arrives.
+
+## D-187 — Bolu's art, in one delivery (2 Aug 2026)
+
+Seven models and the theme, all at once, and six of the seven needed only
+re-authoring on to y = 0.
+
+| | Delivered | Shipped |
+|---|---|---|
+| Forest edge | 4 m, buried 2 | 2.65 MB at 13 m |
+| Fir | 4 m, buried 2 | 0.99 MB at 9 m |
+| Kartalkaya | 10 m, buried 5 | 2.42 MB at 30 m |
+| Yedigöller | 3 m, buried 1.5 | 1.03 MB at 2.6 m |
+| Mengen kitchen | 2 m, buried 1 | 0.90 MB at 2.4 m |
+| Chairlift station | 3 m, buried 1.5 | 2.03 MB at 4.2 m |
+| Deer | armature scale, rigged | 1.60 MB |
+
+**The forest edge is forty-two metres wide, not twenty-six.** Its own proportion
+is 3.2 across for every one high, and squashing it to the brief would have made
+a hedge of it. So Bolu takes three stands a side where a town takes four
+narrower pieces — the file's shape decided the layout rather than the other way
+round.
+
+**The separate lake-shore plate is retired.** The brief asked for one and it is
+not needed: the far shore of Yedigöller *is* a forest edge, so three more of the
+same stand across the water do the job. One fewer thing to draw, and truer than
+a purpose-made plate.
+
+**Stop one is a lake rather than a jetty.** The brief reasoned that a lake is
+not child-scale and asked for a boarding point; what arrived is a small lake
+carrying its own shore, which is the better answer — the child walks up to the
+water instead of to a structure beside it. Same shape as Ordu's beach, which
+went the same way.
+
+**The deer is three times the weight of any other animal**: 31,258 triangles
+against the dogs' 10,300 and the geese's 10,000, so three of them cost 94,000 —
+more resident geometry than İstanbul's entire horizon. Accepted, because the
+guides came down to 8,400 (D-168) and there is room, but it is the heaviest
+thing in the city and worth a lighter export if one is ever cheap to ask for.
+
+Its clip is `Armature|Unreal Take|baselayer`. One clip, so the fallback is
+unambiguous — the same situation as the street dogs (D-133).
+
+With everything in place the horizon sweep reports no gap over five degrees from
+any of four viewpoints, and the lowest elevation away from the front is 20.3°
+against the 8° the rule wants.
+
+**Still missing: a chair for the chairlift.** The line runs and draws nothing,
+because Ordu's red gondola would be wrong on a ski hill and reusing it is the
+kind of borrowing the whole four-directions rule exists to stop.

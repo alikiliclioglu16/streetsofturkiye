@@ -279,6 +279,7 @@ const CITY_THEMES = {
   kars: '/assets/audio/kars_theme.webm',
   van: '/assets/audio/van_theme.webm',
   ordu: '/assets/audio/ordu_theme.webm',
+  bolu: '/assets/audio/bolu_theme.webm',
 };
 
 /**
@@ -1084,14 +1085,19 @@ function cityBackdrop(cityId, stopPositions, metrics) {
      * provinces from one region table, and the only way they read as two places
      * is if nothing at all is shared.
      */
-    const stands = 4;
+    /**
+     * Three stands a side rather than four: the delivered forest edge is forty-
+     * two metres across where the brief asked for twenty-six, so three of them
+     * close a street that would have taken four narrower pieces.
+     */
+    const stands = 3;
     return [
       ...[-1, 1].flatMap((side) =>
         Array.from({ length: stands }, (_, i) => {
-          const z = firstZ + 12 - ((span + 26) * i) / (stands - 1);
+          const z = firstZ + 14 - ((span + 30) * i) / (stands - 1);
           return wall(
             'city_bolu_forest_row',
-            side * 27,
+            side * 31,
             z,
             `forest ${side < 0 ? 'west' : 'east'} ${i + 1}`,
           );
@@ -1114,17 +1120,21 @@ function cityBackdrop(cityId, stopPositions, metrics) {
         solid: false,
         note: `fir ${i + 1}`,
       })),
-      {
-        /**
-         * The far shore of Yedigöller, across the water the street runs out to.
-         * Near-edge aligned like every landscape plate (D-101).
-         */
-        assetId: 'city_bolu_lake_forest',
-        position: [-6, 0, Math.round((lastZ - 30 - 60 / 2) * 10) / 10],
-        rotationY: 0.14,
+      /**
+       * The far shore of Yedigöller: forest coming down to the waterline.
+       *
+       * The brief asked for a separate shore plate and it is not needed — the
+       * forest edge is what a Yedigöller shore *is*, so three more of the same
+       * stand across the water do the job with a model that already exists.
+       * One fewer thing to draw, and more honest than a purpose-made plate.
+       */
+      ...[-38, 2, 42].map((x, i) => ({
+        assetId: 'city_bolu_forest_row',
+        position: [x, 0, Math.round((BOLU_SHORE_Z - 34 - (i % 2) * 7) * 10) / 10],
+        rotationY: Math.PI + (i - 1) * 0.16,
         solid: true,
-        note: 'the far shore of Yedigöller',
-      },
+        note: `the far shore of Yedigöller ${i + 1}`,
+      })),
       {
         /**
          * Kartalkaya closes the back — Eagle Rock, and the reason stop three

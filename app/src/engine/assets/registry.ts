@@ -521,6 +521,151 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
     notes: 'Delivered 23.29 MB at 0.5 m buried 0.25 m; re-authored to 1.2 m on y = 0, 0.79 MB.',
   },
   {
+    id: 'city_bolu_forest_row',
+    modelUrl: '/assets/city/city_bolu_forest_row.glb',
+    checksum: 'a9e654587693d3977f647b976ecd6980614f9a8e41eed39c47ae1bc25fc57c8d',
+    triangles: 9_704,
+    transferBytes: 2780456,
+    /**
+     * Bolu's sides: firs standing dark behind beech that has turned.
+     *
+     * Forty-two metres across at thirteen tall, which is much wider than the
+     * briefed twenty-six — the file's own proportion is 3.2 wide for every one
+     * high and squashing it to the brief would have made a hedge of it. Wide
+     * suits a forest edge: four of these a side close the street with two
+     * fewer pieces than a town would need.
+     */
+    dimensions: [41.9, 13.0, 20.43],
+    label: 'Autumn forest',
+    color: '#B4632A',
+    placeholder: 'box',
+    notes: 'Delivered 4 m buried 2 m; re-authored to 13 m on y = 0, 2.65 MB.',
+  },
+  {
+    id: 'kit_bolu_fir',
+    modelUrl: '/assets/props/kit_bolu_fir.glb',
+    checksum: '585056e97a4e93da8ad12d1f19376be0b6ad191838fae84104832bccb4abef5f',
+    triangles: 10_411,
+    transferBytes: 1040304,
+    /**
+     * A single fir: nine metres tall and under five across.
+     *
+     * Every other tree in the project is round-crowned. A fir that is not
+     * conspicuously conical reads as one of them, and Bolu stops looking like
+     * a conifer forest — which is most of what it is.
+     *
+     * A `kit_` asset, so its cost is paid wherever it is planted: 0.99 MB,
+     * under the 2 MB shared budget (D-036).
+     */
+    dimensions: [4.65, 9.0, 4.66],
+    label: 'Fir',
+    color: '#2F5233',
+    placeholder: 'box',
+    notes: 'Delivered 4 m buried 2 m; re-authored to 9 m on y = 0, 0.99 MB.',
+  },
+  {
+    id: 'city_bolu_kartalkaya_peak',
+    modelUrl: '/assets/city/city_bolu_kartalkaya_peak.glb',
+    checksum: '32a4b65cfd02cc688627ef35b57ade3c13c5918e06842b1721154f7ef7953f77',
+    triangles: 10_381,
+    transferBytes: 2540868,
+    /**
+     * Kartalkaya, snow on it while the valley below is still turning.
+     *
+     * Both are true of Bolu at once, and together they are what stops the
+     * project's mountains blurring: Ordu's Boztepe is green to the summit,
+     * Kars's Sarıkamış is bare rock, Van's Erek is scree. Four provinces, four
+     * mountains, no two the same colour.
+     */
+    dimensions: [72.29, 30.0, 68.5],
+    label: 'Kartalkaya',
+    color: '#8FA6B5',
+    placeholder: 'box',
+    notes: 'Delivered 10 m buried 5 m; re-authored to 30 m on y = 0, 2.42 MB.',
+  },
+  {
+    id: 'city_bolu_yedigoller_jetty',
+    modelUrl: '/assets/city/city_bolu_yedigoller_jetty.glb',
+    checksum: 'a83afdbd89b33b7e3cdb039f08930c0fc7efb34c9305373f0d0b052355458dd2',
+    triangles: 10_214,
+    transferBytes: 1077700,
+    /**
+     * Stop one: a piece of Yedigöller, pines and water together.
+     *
+     * The brief asked for a jetty with a rowing boat, on the reasoning that a
+     * lake is not child-scale. What arrived is a small lake carrying its own
+     * shore — the same answer Ordu's beach gave, and a better one: the child
+     * walks up to the lake rather than to a structure beside it.
+     *
+     * 2.6 m, so a child sees over it to the water beyond.
+     */
+    dimensions: [8.51, 2.6, 9.0],
+    label: 'Yedigöller',
+    color: '#4A7C6B',
+    placeholder: 'box',
+    notes: 'Delivered 3 m buried 1.5 m; re-authored to 2.6 m on y = 0, 1.03 MB.',
+  },
+  {
+    id: 'city_bolu_mengen_kitchen',
+    modelUrl: '/assets/city/city_bolu_mengen_kitchen.glb',
+    checksum: '9b57ac424ce6d838d4139040d1161d3d50336ae2e4a8b130ce9cca6df1c13a06',
+    triangles: 9_785,
+    transferBytes: 940384,
+    /**
+     * Stop two: the copper kitchen of a town famous for its cooks.
+     *
+     * Came out at very nearly the briefed size, which has happened twice now.
+     */
+    dimensions: [2.57, 2.4, 2.0],
+    label: 'Mengen kitchen',
+    color: '#B87333',
+    placeholder: 'box',
+    notes: 'Delivered 2 m buried 1 m; re-authored to 2.4 m on y = 0, 0.90 MB.',
+  },
+  {
+    id: 'city_bolu_ski_lift_station',
+    modelUrl: '/assets/city/city_bolu_ski_lift_station.glb',
+    checksum: '35e15b62668e55f35520d04aa9a0911af254d3c958059bb6fd8fe59d318dafb0',
+    triangles: 8_875,
+    transferBytes: 2125792,
+    /**
+     * Stop three: the bottom station of the chairlift up Kartalkaya, and the
+     * building the chairs on the line leave from.
+     */
+    dimensions: [7.1, 4.2, 7.05],
+    label: 'Chairlift station',
+    color: '#7C8FA0',
+    placeholder: 'box',
+    notes: 'Delivered 3 m buried 1.5 m; re-authored to 4.2 m on y = 0, 2.03 MB.',
+  },
+  {
+    id: 'kit_bolu_deer',
+    modelUrl: '/assets/props/kit_bolu_deer.glb',
+    checksum: 'e2a524cc1f46155c75eab461aa07b7bc18e122108fd8ff0716d545cb1f9b7ba8',
+    triangles: 31_258,
+    transferBytes: 1677880,
+    /**
+     * A deer, rigged and walking on the first delivery — the third animal to
+     * arrive that way after the two street dogs.
+     *
+     * **Three times the triangles of any other animal**: 31,258 against the
+     * dogs' 10,300 and the geese's 10,000. Three of them cost 94,000, which is
+     * more resident geometry than İstanbul's entire horizon. It is accepted for
+     * now because the guides came down to 8,400 (D-168) and there is room, but
+     * it is the single heaviest thing in Bolu and worth reducing if a lighter
+     * export is ever cheap to ask for.
+     *
+     * Its clip is `Armature|Unreal Take|baselayer`, not `Walking`. There is only
+     * one, so the fallback to the first clip is unambiguous — the same
+     * situation as the dogs (D-133).
+     */
+    dimensions: [0.6, 1.4, 1.7],
+    label: 'Deer',
+    color: '#6B4A2F',
+    placeholder: 'box',
+    notes: 'Delivered 5.62 MB at armature scale; recompressed to 1.60 MB.',
+  },
+  {
     id: 'city_ordu_timber_houses',
     modelUrl: '/assets/city/city_ordu_timber_houses.glb',
     checksum: 'a95af8828b1989cb4c30b3ca9b372eb09057ca5b9081649d310e0706b260d9f9',

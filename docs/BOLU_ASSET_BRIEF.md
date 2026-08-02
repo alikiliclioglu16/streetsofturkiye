@@ -30,20 +30,20 @@ If a model here could plausibly be dropped into Ordu, it is wrong.
 
 ## The whole list, in the order I would draw it
 
-Eleven files. **Part A first** — a street with placeholder stops and a real
+Four files left — three rewards and a chairlift chair. **Part A first** — a street with placeholder stops and a real
 horizon reads as a place under construction; real stops and no horizon reads as
 a diorama.
 
 | # | Asset id | What it is | Size (w × h × d) | Base colour |
 |---|---|---|---|---|
-| 1 | `city_bolu_forest_row` | a stand of forest, pine and turned beech | 26 × 14 × 12 m | 2048 |
-| 2 | `kit_bolu_fir` | single fir, shared kit | 5 × 9 × 5 m | 1024 |
-| 3 | `city_bolu_kartalkaya_peak` | Kartalkaya under snow | 86 × 30 × 62 m | 2048 |
-| 4 | `city_bolu_lake_forest` | the far shore of Yedigöller | 70 × 12 × 60 m | 2048 |
-| 5 | `city_bolu_yedigoller_jetty` | **stop 1** — the lake and a rowing boat | 3.2 × 1.9 × 5.4 m | 1024 |
-| 6 | `city_bolu_mengen_kitchen` | **stop 2** — the chefs' town | 3.0 × 2.4 × 1.8 m | 1024 |
-| 7 | `city_bolu_ski_lift_station` | **stop 3** — Kartalkaya | 4.6 × 4.2 × 4.0 m | 2048 |
-| 8 | `kit_bolu_deer` | the animal, **rigged, `Walking` clip** | 0.6 × 1.4 × 1.7 m | 1024 |
+| 1 | ~~`city_bolu_forest_row`~~ | **delivered** — 41.9 × 13 × 20.4, three a side | — | — |
+| 2 | ~~`kit_bolu_fir`~~ | **delivered** — 4.7 × 9 × 4.7 | — | — |
+| 3 | ~~`city_bolu_kartalkaya_peak`~~ | **delivered** — 72.3 × 30 × 68.5 | — | — |
+| 4 | ~~`city_bolu_lake_forest`~~ | **retired** — the far shore is three more forest stands | — | — |
+| 5 | ~~`city_bolu_yedigoller_jetty`~~ | **delivered** — a lake with its own shore, 8.5 × 2.6 × 9 | — | — |
+| 6 | ~~`city_bolu_mengen_kitchen`~~ | **delivered** — 2.6 × 2.4 × 2.0 | — | — |
+| 7 | ~~`city_bolu_ski_lift_station`~~ | **delivered** — 7.1 × 4.2 × 7.1 | — | — |
+| 8 | ~~`kit_bolu_deer`~~ | **delivered, rigged and walking** — 0.6 × 1.4 × 1.7 | — | — |
 | 9 | `collectible_bolu_autumn_leaf` | reward 1 | 0.14 × 0.12 × 0.01 m | 1024 |
 | 10 | `collectible_bolu_chef_hat` | reward 2 | 0.14 × 0.20 × 0.14 m | 1024 |
 | 11 | `collectible_bolu_snowboard_sticker` | reward 3 | 0.11 × 0.14 × 0.01 m | 1024 |
@@ -52,8 +52,12 @@ Normal and roughness always one step below the base colour. **Do not fight the
 exporter over sizes** — deliver at whatever comes out, say what it is, and it is
 re-authored here in one command.
 
-**Also needed from you:** a theme. Anything from the region; it converts to Opus
-and lands at about 1.5 MB.
+**Theme delivered:** *Yedigöller Yolu*.
+
+**Still wanted:** a single chairlift chair, so the line above the town carries
+something. It runs already and draws nothing — Ordu's red gondola would be wrong
+on a ski hill. Two-person chair with a raised safety bar, roughly 1.6 × 1.8 ×
+1.2 m, 1024 colour map.
 
 ---
 

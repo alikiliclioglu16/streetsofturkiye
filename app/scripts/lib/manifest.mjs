@@ -142,13 +142,13 @@ export const DELIVERED_DIMENSIONS = {
    * for what is coming: `gol` would otherwise hand the jetty the lake's own
    * sixteen metre square and a twelve metre trigger ring.
    */
-  city_bolu_yedigoller_jetty: [3.2, 1.9, 5.4],
-  city_bolu_mengen_kitchen: [3.0, 2.4, 1.8],
-  city_bolu_ski_lift_station: [4.6, 4.2, 4.0],
-  city_bolu_forest_row: [26.0, 14.0, 12.0],
+  city_bolu_yedigoller_jetty: [8.51, 2.6, 9.0],
+  city_bolu_mengen_kitchen: [2.57, 2.4, 2.0],
+  city_bolu_ski_lift_station: [7.1, 4.2, 7.05],
+  city_bolu_forest_row: [41.9, 13.0, 20.43],
   city_bolu_lake_forest: [70.0, 12.0, 60.0],
-  city_bolu_kartalkaya_peak: [86.0, 30.0, 62.0],
-  kit_bolu_fir: [5.0, 9.0, 5.0],
+  city_bolu_kartalkaya_peak: [72.29, 30.0, 68.5],
+  kit_bolu_fir: [4.65, 9.0, 4.66],
   kit_bolu_deer: [0.6, 1.4, 1.7],
   city_ordu_hazelnut_stall: [2.49, 2.0, 1.93],
   city_ordu_paraglider: [5.55, 4.5, 3.03],
