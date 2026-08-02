@@ -173,6 +173,7 @@ export const DELIVERED_DIMENSIONS = {
   city_mardin_stone_doorway: [2.59, 3.6, 0.82],
   city_mardin_telkari_bench: [2.43, 2.2, 1.95],
   city_mardin_minaret_courtyard: [4.28, 4.6, 5.32],
+  kit_mardin_sweets_cart: [1.91, 1.9, 1.08],
   kit_mardin_dove_flight: [2.14, 1.6, 2.42],
   kit_mardin_dove_perched: [2.04, 1.6, 0.71],
   city_mardin_terrace_houses: [15.17, 14.0, 16.11],

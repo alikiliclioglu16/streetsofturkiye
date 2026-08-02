@@ -1796,6 +1796,39 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
     notes: 'Delivered 2 m buried 1 m, 24.69 MB; re-authored to 4.6 m on y = 0, 2.28 MB.',
   },
   {
+    id: 'kit_mardin_sweets_cart',
+    modelUrl: '/assets/props/kit_mardin_sweets_cart.glb',
+    checksum: '2b20fbcde259fdc17dd022056366c73a9ac4d75b27a87ac1e403c612237b7a2c',
+    triangles: 9_713,
+    transferBytes: 1_074_616,
+    /**
+     * A sweets pedlar's cart, working the street.
+     *
+     * Mardin had no moving thing on the ground: gulls turn over the escarpment
+     * and two doves stand still on plinths, and everything else in the city is
+     * stone. A cart being pushed up and down is the one kind of motion a street
+     * has that a horizon cannot supply.
+     *
+     * Nearly twice as wide as it is deep, so `Tram` reads its footprint and
+     * turns it to run lengthwise down the street rather than sideways — the
+     * same fix İstanbul's streetcar needed.
+     *
+     * One point nine metres, which is the cart with its canopy. It runs at
+     * 0.9 m/s: a person pushing something heavy, not a vehicle.
+     *
+     * Base colour 1024, not 2048. It went in at 2048 like a stop object and the
+     * budget test refused it at 2.29 MB — a `kit_` asset is one whose cost is
+     * paid in every province that uses it, so the cap is two megabytes and not
+     * four (D-036 / D-055). The test was right and the reasoning behind it is
+     * too: a stop is walked up to and this passes at ten metres.
+     */
+    dimensions: [1.91, 1.9, 1.08],
+    label: 'Sweets cart',
+    color: '#9C5A2E',
+    placeholder: 'box',
+    notes: 'Delivered 2 m buried 1 m, 27.23 MB; re-authored to 1.9 m on y = 0 at 1024 base colour, 1.02 MB.',
+  },
+  {
     id: 'kit_mardin_dove_flight',
     modelUrl: '/assets/props/kit_mardin_dove_flight.glb',
     checksum: '4ce4e5b5cb96d66c9f7db3e2764440c66fc2a953a9164d1fb9d902eda864567b',

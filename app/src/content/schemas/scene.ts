@@ -329,6 +329,24 @@ export const sceneSchema = z
      * baked texture to get a cuboid — the play bounds are drawn as primitives
      * for the same reason.
      */
+    /**
+     * A pedlar's cart working the street.
+     *
+     * The motion is the tram's — out, pause, back — because that is what a
+     * street vendor does, and `Tram` is the motion rather than the vehicle
+     * (D-136). What it is not is a tram: İstanbul has one of those and calling
+     * a sweets cart by its name in the data would be a small lie that someone
+     * reads as true later.
+     */
+    cartLine: z
+      .object({
+        from: z.tuple([z.number(), z.number()]),
+        to: z.tuple([z.number(), z.number()]),
+        speed: z.number().positive(),
+      })
+      .nullable()
+      .default(null),
+    cartAssetId: z.string().nullable().default(null),
     statues: z
       .array(
         z.object({

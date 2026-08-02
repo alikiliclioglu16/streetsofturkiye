@@ -141,6 +141,21 @@ export function CityScene({
         ),
       )}
 
+      {/*
+        A pedlar working the street. The tram's motion on a much shorter line
+        and at walking pace — out to the end of the street, a pause while the
+        seller sells, and back.
+      */}
+      {scene.cartAsset && scene.cartLine ? (
+        <Tram
+          asset={scene.cartAsset}
+          from={scene.cartLine.from}
+          to={scene.cartLine.to}
+          reducedMotion={reducedMotion}
+          speed={scene.cartLine.speed}
+        />
+      ) : null}
+
       {/* Statues: a delivered model on a drawn plinth. */}
       {scene.statues.map((mount) => (
         <Statue key={mount.key} mount={mount} />

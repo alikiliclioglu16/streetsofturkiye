@@ -481,6 +481,18 @@
       "stoneColor": "#C9BFA3"
     }
   ],
+  "cartLine": {
+    "from": [
+      -16,
+      20
+    ],
+    "to": [
+      -16,
+      -48
+    ],
+    "speed": 0.9
+  },
+  "cartAssetId": "kit_mardin_sweets_cart",
   "birdPaths": [
     {
       "centre": [

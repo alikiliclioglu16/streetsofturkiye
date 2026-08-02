@@ -258,6 +258,32 @@ const MARDIN_PLAIN_SURFACE_FRACTION = 0.3;
  * Both clear of the walking line and of every trigger ring — 2.4 m of plinth
  * plus a bird is not something to bump into on the way to a stop (D-070).
  */
+/**
+ * The sweets pedlar's round.
+ *
+ * Down the town side of the street at x = -16, which is two metres outside the
+ * play bounds. That is the whole trick: the cart reads as being *in* the street
+ * because the paving runs to ±17 and a child cannot see where the invisible
+ * wall is — but it can never be walked into, so it needs no collider and there
+ * is no moment where a cart passes through a six-year-old.
+ *
+ * The escarpment side is not available for this: it is the parapet, the drop
+ * and Mesopotamia, and a cart trundling along the cliff edge would be the one
+ * thing out there breaking the emptiness the city is built on.
+ *
+ * It turns short of the dove statue at z = -55 rather than running the whole
+ * street, so the two never overlap from the square.
+ *
+ * 0.9 m/s. A person pushing something heavy, and slow enough that a child
+ * walking at 3 m/s overtakes it — which is what makes it read as a person
+ * rather than as scenery sliding past.
+ */
+const MARDIN_CART_LINE = {
+  from: [-16, 20],
+  to: [-16, -48],
+  speed: 0.9,
+};
+
 const MARDIN_STATUES = [
   {
     assetId: 'kit_mardin_dove_perched',
@@ -3078,6 +3104,8 @@ function buildScene(canonical) {
           : null,
     birdAssetId: ['trabzon', 'balikesir', 'mardin'].includes(canonical.id) ? 'kit_gull' : null,
     statues: canonical.id === 'mardin' ? MARDIN_STATUES : [],
+    cartLine: canonical.id === 'mardin' ? MARDIN_CART_LINE : null,
+    cartAssetId: canonical.id === 'mardin' ? 'kit_mardin_sweets_cart' : null,
     birdPaths:
       canonical.id === 'trabzon'
         ? TRABZON_BIRDS

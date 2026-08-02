@@ -103,6 +103,8 @@ export interface SceneDescription {
   /** Scenery beyond the play area; never solid. */
   readonly backdrop: readonly ScenePropInstance[];
   readonly statues: readonly StatueMount[];
+  readonly cartLine: SceneDefinition['cartLine'];
+  readonly cartAsset: ResolvedAsset | null;
   readonly water: SceneDefinition['water'];
   readonly musicUrl: string | null;
   readonly groundSurface: SceneDefinition['groundSurface'];
@@ -384,6 +386,9 @@ export function buildScene(city: CityDefinition, quality: QualityTier): SceneDes
     cityId: city.id,
     backdrop,
     statues,
+    cartLine: city.cartLine,
+    cartAsset:
+      city.cartLine && city.cartAssetId ? resolveAsset(city.cartAssetId, quality) : null,
     water: city.water,
     musicUrl: city.musicUrl,
     tramLine: city.tramLine,
