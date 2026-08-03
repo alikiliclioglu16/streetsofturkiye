@@ -2685,11 +2685,38 @@ function cityBackdrop(cityId, stopPositions, metrics) {
         were in front of it — the first screenshot with the lake in showed a
         snowy ridge glimpsed between tree trunks and no water at all.
 
-        The lake is its own far shore. The rows are gone and it has taken the
-        whole direction, which is also what let it grow from 51 m across to 75:
-        the only thing that had been capping its depth was having to stop short
-        of them.
+        The lake is its own far shore. The rows moved out of its way and into
+        the corners beside it, which is also what let it grow from 51 m across
+        to 75: the only thing that had been capping its depth was having to stop
+        short of them.
       */
+      /**
+       * Forest in the corners the lake cannot reach.
+       *
+       * The lake is a disc 75 m across and the street's front quadrant is 90°
+       * wide, so past its edges the ground ran out to meet the sky. The angular
+       * sweep never saw it — every direction was covered, because coverage and
+       * *filling the picture* are not the same measurement, and this is the
+       * first time in the project that the difference has mattered.
+       *
+       * Four stands angled in toward the child, two flanking the water and two
+       * further out beside its far end. Thirteen metres against 24° to 41° of
+       * lake, so they sit under it rather than competing — which is what a
+       * shore forest does at Yedigöller, where the trees come down to the
+       * waterline on every side.
+       */
+      ...[
+        [-56, -80, 0.95],
+        [56, -80, -0.95],
+        [-48, -112, 0.75],
+        [48, -112, -0.75],
+      ].map(([x, z, ry], i) => ({
+        assetId: 'city_bolu_forest_row',
+        position: [x, 0, z],
+        rotationY: ry,
+        solid: false,
+        note: `forest beside the lake ${i + 1}`,
+      })),
       {
         /**
          * Kartalkaya closes the back — Eagle Rock, and the reason stop three

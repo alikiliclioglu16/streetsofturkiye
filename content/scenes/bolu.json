@@ -892,6 +892,50 @@
       "note": "fir 8"
     },
     {
+      "assetId": "city_bolu_forest_row",
+      "position": [
+        -56,
+        0,
+        -80
+      ],
+      "rotationY": 0.95,
+      "solid": false,
+      "note": "forest beside the lake 1"
+    },
+    {
+      "assetId": "city_bolu_forest_row",
+      "position": [
+        56,
+        0,
+        -80
+      ],
+      "rotationY": -0.95,
+      "solid": false,
+      "note": "forest beside the lake 2"
+    },
+    {
+      "assetId": "city_bolu_forest_row",
+      "position": [
+        -48,
+        0,
+        -112
+      ],
+      "rotationY": 0.75,
+      "solid": false,
+      "note": "forest beside the lake 3"
+    },
+    {
+      "assetId": "city_bolu_forest_row",
+      "position": [
+        48,
+        0,
+        -112
+      ],
+      "rotationY": -0.75,
+      "solid": false,
+      "note": "forest beside the lake 4"
+    },
+    {
       "assetId": "city_bolu_kartalkaya_peak",
       "position": [
         3,
