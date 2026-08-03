@@ -180,10 +180,19 @@ const VAN_SHORE_Z = -80;
 /**
  * Where Bolu's street runs out and Yedigöller begins.
  *
- * One constant, and everything on the water is measured off it — the discipline
- * Van's four moved shorelines forced (D-163).
+ * It used to place three forest rows standing in for the far shore. Those are
+ * gone — the lake is its own shore now — and this is what the water is measured
+ * against instead: the lake is set so its surface breaks the ground within a
+ * couple of metres of this line, and the check below is what keeps the two from
+ * drifting apart the way Van's shoreline did (D-163).
  */
 const BOLU_SHORE_Z = -74;
+
+/** The lake's surface crosses y = 0 here, solved from its tilt and height. */
+const BOLU_WATERLINE_Z = -76.2;
+if (Math.abs(BOLU_WATERLINE_Z - BOLU_SHORE_Z) > 4) {
+  throw new Error('bolu: the lake no longer meets its own shoreline');
+}
 const VAN_LAKE_DEPTH = 200;
 
 /**
@@ -1045,6 +1054,8 @@ const CITY_THEMES = {
   trabzon: '/assets/audio/trabzon_theme.webm',
   balikesir: '/assets/audio/balikesir_theme.webm',
   mardin: '/assets/audio/mardin_theme.webm',
+  erzurum: '/assets/audio/erzurum_theme.webm',
+  izmir: '/assets/audio/izmir_theme.webm',
 };
 
 /**
@@ -2603,16 +2614,18 @@ function cityBackdrop(cityId, stopPositions, metrics) {
      * rest is solved from it:
      *
      *  - the near rim stands 3 m proud at z = -60, a metre past the bounds;
-     *  - the far rim reaches -105, three metres short of the forest rows;
-     *  - 80% of the water clears the sightline over its own near rim.
+     *  - the water breaks the ground at -76 and rises to 27 m at -128;
+     *  - 84% of it clears the sightline over its own near rim.
+     *
+     * Seventy-five metres across, up from fifty-one. The three forest rows that
+     * used to stand across the water were what capped it: the lake had to stop
+     * short of them, and they hid it anyway.
      *
      * It first went in with that rim buried flush — 3 cm above a ground plane
-     * that runs 44 m past the bounds to z = -105. On screen nothing appeared.
-     * Either the shot was looking across the street rather than down it, or a
-     * fifty-metre piece sitting three centimetres off the ground was fighting
-     * it for depth and losing. Three metres settles both without costing much:
-     * the waterline comes 5.6 m nearer and the visible water drops from 100% to
-     * 80%, and there is no longer anything for the ground to fight over.
+     * that runs 44 m past the bounds. Nothing appeared, and three metres of
+     * clearance was the guess that fixed it. The screenshot after that showed
+     * what was really wrong: the lake had been drawing the whole time, and the
+     * forest rows were standing in front of it.
      *
      * The y is 17.9 m lower than a section drawing gives, because
      * `AssetInstance` grounds on the box *after* the tilt — the same 
@@ -2622,7 +2635,7 @@ function cityBackdrop(cityId, stopPositions, metrics) {
     return [
       {
         assetId: 'city_bolu_yedigoller_lake',
-        position: [0, -6.23, -87.2],
+        position: [0, -10.42, -100.0],
         rotationY: 0.08,
         rotationX: (28 * Math.PI) / 180,
         solid: true,
@@ -2657,21 +2670,18 @@ function cityBackdrop(cityId, stopPositions, metrics) {
         solid: false,
         note: `fir ${i + 1}`,
       })),
-      /**
-       * The far shore of Yedigöller: forest coming down to the waterline.
-       *
-       * The brief asked for a separate shore plate and it is not needed — the
-       * forest edge is what a Yedigöller shore *is*, so three more of the same
-       * stand across the water do the job with a model that already exists.
-       * One fewer thing to draw, and more honest than a purpose-made plate.
-       */
-      ...[-38, 2, 42].map((x, i) => ({
-        assetId: 'city_bolu_forest_row',
-        position: [x, 0, Math.round((BOLU_SHORE_Z - 34 - (i % 2) * 7) * 10) / 10],
-        rotationY: Math.PI + (i - 1) * 0.16,
-        solid: true,
-        note: `the far shore of Yedigöller ${i + 1}`,
-      })),
+      /*
+        Three forest rows used to stand across the water here, standing in for
+        the far shore of Yedigöller with a model that already existed. They were
+        the right answer while there was no lake. Now there is one, and they
+        were in front of it — the first screenshot with the lake in showed a
+        snowy ridge glimpsed between tree trunks and no water at all.
+
+        The lake is its own far shore. The rows are gone and it has taken the
+        whole direction, which is also what let it grow from 51 m across to 75:
+        the only thing that had been capping its depth was having to stop short
+        of them.
+      */
       {
         /**
          * Kartalkaya closes the back — Eagle Rock, and the reason stop three

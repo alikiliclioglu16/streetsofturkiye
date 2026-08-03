@@ -608,7 +608,7 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
   {
     id: 'city_bolu_yedigoller_lake',
     modelUrl: '/assets/city/city_bolu_yedigoller_lake.glb',
-    checksum: 'bfe2ef1e0de7b545c6f3001e6ff687ca1454aaf635577d792b913d05a7b16fe4',
+    checksum: 'c541c776102873d09a7de1db05c66fbf14b9b932eeef72bf9d7cf99401c57492',
     triangles: 10_147,
     transferBytes: 2_928_040,
     /**
@@ -636,11 +636,11 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
      * frame, about 1,555 pixels, so 2048 is only 1.3× oversampled. Halving it
      * would be the one place in the recent trim where detail was actually lost.
      */
-    dimensions: [51.27, 11.0, 51.21],
+    dimensions: [74.58, 16.0, 74.49],
     label: 'Yedigöller',
     color: '#8FA3A8',
     placeholder: 'box',
-    notes: 'Delivered 0.41 m tall, 35.83 MB; re-authored to 11 m on y = 0 at 2048 base colour, 2.79 MB.',
+    notes: 'Delivered 0.41 m tall, 35.83 MB; re-authored to 16 m on y = 0 at 2048 base colour, 2.79 MB.',
   },
   {
     id: 'city_bolu_kartalkaya_peak',
