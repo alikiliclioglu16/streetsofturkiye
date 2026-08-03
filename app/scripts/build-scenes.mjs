@@ -2602,9 +2602,17 @@ function cityBackdrop(cityId, stopPositions, metrics) {
      * it shows a bank and nothing else. Twenty-eight degrees of tilt, and the
      * rest is solved from it:
      *
-     *  - the near rim lands on the ground at z = -60, a metre past the bounds;
-     *  - the far rim reaches -107, one metre short of the forest rows;
-     *  - 76% of the water clears the sightline over its own near rim.
+     *  - the near rim stands 3 m proud at z = -60, a metre past the bounds;
+     *  - the far rim reaches -105, three metres short of the forest rows;
+     *  - 80% of the water clears the sightline over its own near rim.
+     *
+     * It first went in with that rim buried flush — 3 cm above a ground plane
+     * that runs 44 m past the bounds to z = -105. On screen nothing appeared.
+     * Either the shot was looking across the street rather than down it, or a
+     * fifty-metre piece sitting three centimetres off the ground was fighting
+     * it for depth and losing. Three metres settles both without costing much:
+     * the waterline comes 5.6 m nearer and the visible water drops from 100% to
+     * 80%, and there is no longer anything for the ground to fight over.
      *
      * The y is 17.9 m lower than a section drawing gives, because
      * `AssetInstance` grounds on the box *after* the tilt — the same 
@@ -2614,7 +2622,7 @@ function cityBackdrop(cityId, stopPositions, metrics) {
     return [
       {
         assetId: 'city_bolu_yedigoller_lake',
-        position: [0, -9.2, -87.2],
+        position: [0, -6.23, -87.2],
         rotationY: 0.08,
         rotationX: (28 * Math.PI) / 180,
         solid: true,
