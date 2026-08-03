@@ -189,7 +189,7 @@ const VAN_SHORE_Z = -80;
 const BOLU_SHORE_Z = -74;
 
 /** The lake's surface crosses y = 0 here, solved from its tilt and height. */
-const BOLU_WATERLINE_Z = -76.2;
+const BOLU_WATERLINE_Z = -70.9;
 if (Math.abs(BOLU_WATERLINE_Z - BOLU_SHORE_Z) > 4) {
   throw new Error('bolu: the lake no longer meets its own shoreline');
 }
@@ -2610,12 +2610,20 @@ function cityBackdrop(cityId, stopPositions, metrics) {
      *
      * The placement is the part that had to be right. It is a bowl whose water
      * sits at 31% of its height inside a rim cresting at 87–95%, so laid flat
-     * it shows a bank and nothing else. Twenty-eight degrees of tilt, and the
+     * it shows a bank and nothing else. Thirty-four degrees of tilt, and the
      * rest is solved from it:
      *
-     *  - the near rim stands 3 m proud at z = -60, a metre past the bounds;
-     *  - the water breaks the ground at -76 and rises to 27 m at -128;
-     *  - 84% of it clears the sightline over its own near rim.
+     *  - the near rim stands 5 m proud at z = -60, a metre past the bounds;
+     *  - the water breaks the ground at -71 and rises to 30 m at -122;
+     *  - 76% of it clears the sightline over its own near rim.
+     *
+     * The rim went from three metres to five because the lake still read as
+     * buried, and the tilt went from 28° to 34° in the same edit for a reason
+     * worth keeping: raising the rim alone costs visibility, because the rim is
+     * the thing the water has to be seen over. At 28° the raise would have
+     * taken the last stop's view of the water from 84% down to 68%. Six more
+     * degrees hands most of that back — a steeper bowl shows more of its own
+     * floor — so the two numbers move together or not at all.
      *
      * Seventy-five metres across, up from fifty-one. The three forest rows that
      * used to stand across the water were what capped it: the lake had to stop
@@ -2635,9 +2643,9 @@ function cityBackdrop(cityId, stopPositions, metrics) {
     return [
       {
         assetId: 'city_bolu_yedigoller_lake',
-        position: [0, -10.42, -100.0],
+        position: [0, -7.6, -99.4],
         rotationY: 0.08,
-        rotationX: (28 * Math.PI) / 180,
+        rotationX: (34 * Math.PI) / 180,
         solid: true,
         note: 'Yedigöller, tilted so its water reads',
       },

@@ -729,11 +729,11 @@
       "assetId": "city_bolu_yedigoller_lake",
       "position": [
         0,
-        -10.42,
-        -100
+        -7.6,
+        -99.4
       ],
       "rotationY": 0.08,
-      "rotationX": 0.4886921905584123,
+      "rotationX": 0.5934119456780721,
       "solid": true,
       "note": "Yedigöller, tilted so its water reads"
     },
