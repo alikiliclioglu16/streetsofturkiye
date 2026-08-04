@@ -1718,6 +1718,18 @@ const CITY_STREET_TREE = {
    * what lines a promenade without roofing it.
    */
   izmir: 'kit_izmir_poplar',
+  /**
+   * Gaziantep walks under pistachio, at the owner's word.
+   *
+   * The sixth and the plainest: a stone city on a plain whose one agricultural
+   * fact is the nut, and it was lined with the procedural cypress-and-shrub
+   * blobs every city starts with. Those shapes are honest low-poly stand-ins
+   * and they only read as such once there is delivered stone behind them,
+   * which there now is on both sides of the street.
+   *
+   * `kit_pistachio` and not `kit_gaziantep_pistachio` — see the registry.
+   */
+  gaziantep: 'kit_pistachio',
 };
 
 /** Scatter laid along the street, on top of the ground texture. */

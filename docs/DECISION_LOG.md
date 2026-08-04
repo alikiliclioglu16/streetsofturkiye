@@ -3774,3 +3774,48 @@ asset is a promise the file cannot keep. The rename is not done here because the
 GLB is not in this package and a rename that depends on the owner moving a file
 by hand would draw a placeholder box in two cities if it were missed. It is
 recorded as owed, to be done in the round the file is in hand.
+
+## D-210 — `kit_bolu_deer` became `kit_deer`, and it broke two cities first (3 Aug 2026)
+
+D-209 recorded the rename as owed rather than done, because the GLB was not in
+the package and a rename depending on the owner moving a file by hand would draw
+a placeholder box if it were missed. The owner renamed the file the same day and
+the code still asked for the old name, so Bolu and Ordu — the two deer cities,
+and exactly the "some cities" reported — went down.
+
+All twelve routes build and serve 200 locally, and the error page is Chrome's
+renderer-crash screen rather than anything in this app, so a 404'd model is not
+a proven cause: `ModelErrorBoundary` exists to draw a placeholder instead. It is
+the one thing that was certainly wrong and it points at precisely the two cities
+that failed.
+
+The lesson is about the shape of the handoff, not the rule. **A rename that is
+split across two people in two directions is a broken build in between.** Either
+ship the id and the file together, or leave both alone and say so.
+
+## D-211 — A shared asset is named for the species (3 Aug 2026)
+
+`kit_pistachio`, not `kit_gaziantep_pistachio`, which breaks the habit of the
+five street trees before it — fir, hazelnut, olive, oak and poplar all carry
+their province.
+
+Antep fıstığı grows in Şanlıurfa and Siirt too. D-194's rule has now been paid
+for three times, most recently a deer, and the cheapest moment to obey it is
+before a second province wants the file. The five existing names stay until
+something else forces them; this is the direction, not a migration.
+
+## D-212 — Trees arrive by two routes and a test knew only one (3 Aug 2026)
+
+"Every city is planted" was checked by counting `scene.trees`, the procedural
+list. Six cities now line their streets with a delivered model instead and their
+count is zero, so the check failed the moment Gaziantep was given pistachios —
+for a city that had just gained better trees than it had.
+
+Rewritten to count both, over every playable city rather than three named ones,
+with the second half of the rule made explicit: never both at once. A delivered
+olive standing next to a green polygon is how a pavement ends up with two kinds
+of tree on it.
+
+`note` is now carried through `scenePropSchema`. The generator always wrote one
+and the schema always dropped it, which is why asking a simple question about a
+prop meant counting the wrong list.

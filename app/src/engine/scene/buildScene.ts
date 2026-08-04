@@ -360,7 +360,7 @@ export function buildScene(city: CityDefinition, quality: QualityTier): SceneDes
      * street.
      */
     vancat: ['kit_van_cat'],
-    deer: ['kit_bolu_deer'],
+    deer: ['kit_deer'],
     cat: ['kit_street_cat'],
   };
   const animalIds = ANIMAL_ASSETS[city.animal] ?? ['kit_street_cat'];

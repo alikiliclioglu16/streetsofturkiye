@@ -81,7 +81,15 @@ describe('pilot cities', () => {
     const scene = buildScene(gaziantep, 'high');
     // Everything the five-stop cities get, scaled to a shorter street.
     expect(scene.props.length).toBeGreaterThan(5);
-    expect(scene.trees.length).toBeGreaterThan(8);
+    /**
+     * Planted, by whichever of the two routes this city uses. Gaziantep lines
+     * its street with delivered pistachios now, so the procedural list is empty
+     * and counting it alone said a planted street was bare.
+     */
+    const planted =
+      scene.trees.length +
+      gaziantep.props.filter((prop) => prop.note?.startsWith('street tree')).length;
+    expect(planted).toBeGreaterThan(8);
     expect(scene.catRoutes.length).toBeGreaterThan(0);
     expect(scene.routePoints.length).toBeGreaterThan(3);
 

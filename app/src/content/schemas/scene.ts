@@ -82,6 +82,15 @@ export const scenePropSchema = z.object({
   rotationX: z.number().default(0),
   /** False for dressing the player walks through, like a stray cat. */
   solid: z.boolean().default(true),
+  /**
+   * What the generator called this piece, carried through rather than dropped.
+   *
+   * The generator has always written one and the schema has always thrown it
+   * away, which meant the only way to ask "is this street planted" was to count
+   * a list that six cities no longer use. Kept optional: it describes a piece,
+   * it never drives one.
+   */
+  note: z.string().optional(),
 });
 export type SceneProp = z.infer<typeof scenePropSchema>;
 

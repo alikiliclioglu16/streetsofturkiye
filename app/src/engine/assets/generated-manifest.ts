@@ -607,7 +607,7 @@ export const MANIFEST_ENTRIES: readonly ManifestEntry[] = [
     "notes": "Tall fir; shared kit, dark evergreen"
   },
   {
-    "id": "kit_bolu_deer",
+    "id": "kit_deer",
     "kind": "model",
     "tier": "midground",
     "status": "briefed",
@@ -619,7 +619,7 @@ export const MANIFEST_ENTRIES: readonly ManifestEntry[] = [
     "triangleBudget": 8000,
     "textureBudget": "1K",
     "fallbackShape": "box",
-    "notes": "Roe deer; rigged, Walking clip, no root motion"
+    "notes": "Roe deer; rigged, Walking clip, no root motion. Bolu and Ordu"
   },
   {
     "id": "collectible_bolu_autumn_leaf",

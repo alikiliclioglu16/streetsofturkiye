@@ -1306,8 +1306,27 @@ describe('street trees', () => {
     expect(kindsFor('istanbul').has('plane')).toBe(true);
     expect(kindsFor('istanbul')).not.toEqual(kindsFor('nevsehir'));
 
-    for (const cityId of ['istanbul', 'nevsehir', 'gaziantep']) {
-      expect(buildScene(loadComposedCity(cityId), 'high').trees.length, cityId).toBeGreaterThan(8);
+    /**
+     * Every city is planted, by one route or the other.
+     *
+     * This used to name the three pilot cities and count `trees`, which is the
+     * procedural list. Six cities now line their streets with a delivered
+     * model instead, and the count for those is zero — so the test failed the
+     * moment Gaziantep got its pistachios, for a city that had just gained
+     * *better* trees than it had.
+     *
+     * The rule underneath is that a street is planted, not which of the two
+     * mechanisms did it. Checked over every playable city rather than a list,
+     * so a city added later cannot arrive bare.
+     */
+    for (const cityId of PLAYABLE_CITY_IDS) {
+      const city = loadComposedCity(cityId);
+      const scene = buildScene(city, 'high');
+      const delivered = city.props.filter((prop) => prop.note?.startsWith('street tree'));
+      expect(scene.trees.length + delivered.length, cityId).toBeGreaterThan(8);
+      // One or the other, never both: two kinds of tree on one pavement is how
+      // a street ends up with a delivered olive next to a green polygon.
+      expect(Math.min(scene.trees.length, delivered.length), cityId).toBe(0);
     }
   });
 });

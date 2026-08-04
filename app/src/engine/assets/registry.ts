@@ -739,8 +739,8 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
     notes: 'Delivered 3 m buried 1.5 m; re-authored to 4.2 m on y = 0, 2.03 MB.',
   },
   {
-    id: 'kit_bolu_deer',
-    modelUrl: '/assets/props/kit_bolu_deer.glb',
+    id: 'kit_deer',
+    modelUrl: '/assets/props/kit_deer.glb',
     checksum: 'e2a524cc1f46155c75eab461aa07b7bc18e122108fd8ff0716d545cb1f9b7ba8',
     triangles: 31_258,
     transferBytes: 1677880,
@@ -748,12 +748,18 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
      * A deer, rigged and walking on the first delivery — the third animal to
      * arrive that way after the two street dogs.
      *
+     * Was `kit_bolu_deer` until Ordu was given one too. A shared asset's cost is
+     * paid by every province that draws it, so a province inside the name is a
+     * promise the file cannot keep (D-194) — the same rename Trabzon's bird and
+     * Bolu's chairlift chair went through. The GLB was renamed by the owner in
+     * the same round, so the id and the file changed together.
+     *
      * **Three times the triangles of any other animal**: 31,258 against the
      * dogs' 10,300 and the geese's 10,000. Three of them cost 94,000, which is
      * more resident geometry than İstanbul's entire horizon. It is accepted for
      * now because the guides came down to 8,400 (D-168) and there is room, but
-     * it is the single heaviest thing in Bolu and worth reducing if a lighter
-     * export is ever cheap to ask for.
+     * it is the single heaviest thing in Bolu — and now in Ordu as well, which
+     * makes a lighter export twice as worth asking for.
      *
      * Its clip is `Armature|Unreal Take|baselayer`, not `Walking`. There is only
      * one, so the fallback to the first clip is unambiguous — the same
@@ -1985,6 +1991,45 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
     color: '#C08A44',
     placeholder: 'box',
     notes: 'Delivered 2 m buried 1 m, 28.79 MB; re-authored to 2.4 m on y = 0 at 1024 base colour, 0.95 MB.',
+  },
+  {
+    id: 'kit_pistachio',
+    modelUrl: '/assets/props/kit_pistachio.glb',
+    checksum: '0d892d5290a72fa391b03dc5c010a5c108cea02ae8682653a7d217e987fed529',
+    triangles: 8_674,
+    transferBytes: 1_260_512,
+    /**
+     * Gaziantep walks under pistachio, and the tree it is named for.
+     *
+     * Sixth city out of `CITY_STREET_TREE` and the plainest case yet: a stone
+     * city on a plain whose one agricultural fact is the nut, lined with the
+     * procedural green blobs every city starts with.
+     *
+     * **Named for the species and not the province**, which breaks the habit of
+     * the five trees before it. Antep fıstığı is grown in Şanlıurfa and Siirt
+     * as well, and a shared asset with a province inside its name is a promise
+     * the file cannot keep — a rule the project has now paid for three times
+     * (D-194), most recently a fortnight's worth of deer. This one is named so
+     * the second province that wants it costs nothing.
+     *
+     * Five metres, between the hazelnut's 4.5 and the olive's 5.5. A pistachio
+     * is a low spreading orchard tree rather than a tall one, and the delivery
+     * is almost as wide as it is high — 5.33 across at 5 — which is the shape
+     * it should be.
+     *
+     * 1024 on the colour map rather than 2048, and the difference is not small:
+     * 1.20 MB against 2.71. At the ten metres a child first passes one, 5.33 m
+     * of tree covers about 1,100 screen pixels, so 1024 texels across it is
+     * already one to one and 2048 is paying twice for samples nothing can
+     * resolve (D-196). It now weighs what its five siblings weigh.
+     */
+    dimensions: [5.33, 5.0, 5.36],
+    label: 'Pistachio tree',
+    color: '#7C8B5A',
+    placeholder: 'cylinder',
+    notes:
+      'Delivered 31.87 MB with a 4096 roughness map on an 8,674 triangle tree; ' +
+      're-authored to 5 m on y = 0 at 1.20 MB.',
   },
   {
     id: 'kit_izmir_poplar',
