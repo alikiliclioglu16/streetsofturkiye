@@ -711,8 +711,8 @@
   },
   "ferryLine": null,
   "groundPad": {
-    "x": 18,
-    "front": 72,
+    "x": 22,
+    "front": 34,
     "back": 26
   },
   "shuttleLines": [],
@@ -727,16 +727,59 @@
   "water": null,
   "backdrop": [
     {
-      "assetId": "city_bolu_yedigoller_lake",
+      "assetId": "city_bolu_forest_row",
+      "position": [
+        -40,
+        0,
+        -84
+      ],
+      "rotationY": -0.06,
+      "solid": true,
+      "note": "forest closing the front 1.1"
+    },
+    {
+      "assetId": "city_bolu_forest_row",
       "position": [
         0,
-        -13.9,
-        -117.1
+        0,
+        -84
       ],
-      "rotationY": 0.08,
-      "rotationX": 0.5934119456780721,
+      "rotationY": 0,
       "solid": true,
-      "note": "Yedigöller, tilted so its water reads"
+      "note": "forest closing the front 1.2"
+    },
+    {
+      "assetId": "city_bolu_forest_row",
+      "position": [
+        40,
+        0,
+        -84
+      ],
+      "rotationY": 0.06,
+      "solid": true,
+      "note": "forest closing the front 1.3"
+    },
+    {
+      "assetId": "city_bolu_forest_row",
+      "position": [
+        -20,
+        0,
+        -104
+      ],
+      "rotationY": -0.06,
+      "solid": true,
+      "note": "forest closing the front 2.1"
+    },
+    {
+      "assetId": "city_bolu_forest_row",
+      "position": [
+        20,
+        0,
+        -104
+      ],
+      "rotationY": 0,
+      "solid": true,
+      "note": "forest closing the front 2.2"
     },
     {
       "assetId": "city_bolu_forest_row",

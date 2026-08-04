@@ -637,13 +637,19 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
      * would be the one place in the recent trim where detail was actually lost.
      */
     /**
-     * Re-recorded at half again its delivered read, which is what draws it
-     * (D-124). The aspect is the file's own, so the collider and the camera
-     * still come off the same triple; only how big the thing is meant to be has
-     * changed. Seventy-five metres of water could not close the front of the
-     * street — see the placement in `build-scenes.mjs` for the factor.
+     * Back to the file's delivered read.
+     *
+     * It was re-recorded at 111.87 to reach the forest stands flanking it, and
+     * that scale went out with the plate itself — nothing draws this now. Bolu's
+     * front is closed by trees instead, because water and forest could not both
+     * have the same thirty degrees.
+     *
+     * The entry stays. The file is on disk, the measurements are true, and if
+     * Yedigöller comes back it should come back at the size it arrived at, not
+     * at a number chosen to solve a problem that is no longer being solved this
+     * way.
      */
-    dimensions: [111.87, 24.0, 111.73],
+    dimensions: [74.58, 16.0, 74.49],
     label: 'Yedigöller',
     color: '#8FA3A8',
     placeholder: 'box',

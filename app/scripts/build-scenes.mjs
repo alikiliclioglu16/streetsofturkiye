@@ -2790,84 +2790,60 @@ function cityBackdrop(cityId, stopPositions, metrics) {
      */
     const stands = 3;
     /**
-     * Yedigöller, at last.
+     * Yedigöller comes out of the backdrop, and the front of the street becomes
+     * forest.
      *
-     * The far shore has been in this scene since Bolu opened — three forest
-     * rows with `the far shore of Yedigöller` in their note — with nothing in
-     * front of them. The lake was measured then and set aside: it is snow-white
-     * where this street is October amber, and that has not changed. The owner
-     * has looked at both and asked for it, which is the call that matters here.
+     * The lake has been argued with over three rounds. It was measured and set
+     * aside; then commissioned and tilted 34° so its floor would show; then
+     * scaled half again to reach the stands flanking it. The owner has now
+     * looked at all three and said the lake is not going to work here, and to
+     * fill the front with the red trees the rest of the city already has.
      *
-     * The placement is the part that had to be right. It is a bowl whose water
-     * sits at 31% of its height inside a rim cresting at 87–95%, so laid flat
-     * it shows a bank and nothing else. Thirty-four degrees of tilt, and the
-     * rest is solved from it:
+     * **The two cannot share the space, and that is arithmetic rather than
+     * taste.** The plate's water breaks the ground at z = -74.5 and the play
+     * boundary is at -61: thirteen metres of shore, into which a forest row
+     * 20.4 m deep does not go. Anything planted far enough forward to close the
+     * view stands in the water; anything planted near enough to stay dry is
+     * inside the bounds. So the wedge belongs to one of them.
      *
-     *  - the near rim stands 5 m proud at z = -60, a metre past the bounds;
-     *  - the water breaks the ground at -71 and rises to 30 m at -122;
-     *  - 76% of it clears the sightline over its own near rim.
+     * Measured before deciding: with the lake discounted, the forward view is
+     * bare from -15° to +15° and forested everywhere else — 7.9° at ±18°,
+     * rising past 20° beyond that. That 30° hole is the brown ground in the
+     * screenshot, and it is exactly what the lake was supposed to be filling.
      *
-     * The rim went from three metres to five because the lake still read as
-     * buried, and the tilt went from 28° to 34° in the same edit for a reason
-     * worth keeping: raising the rim alone costs visibility, because the rim is
-     * the thing the water has to be seen over. At 28° the raise would have
-     * taken the last stop's view of the water from 84% down to 68%. Six more
-     * degrees hands most of that back — a steeper bowl shows more of its own
-     * floor — so the two numbers move together or not at all.
+     * Two bands of `city_bolu_forest_row` close it. The near band is three rows
+     * abreast at z = -84, which is 39 m from the last stop and 23 m from the
+     * far boundary: 13 m of forest at that distance fills 16°, past the 13° top
+     * of the frame (D-183), so it closes the direction rather than sitting in
+     * it. The far band is two rows staggered behind at z = -104, because one
+     * wall of trees at one distance is a fence and two are a wood.
      *
-     * Seventy-five metres across, up from fifty-one. The three forest rows that
-     * used to stand across the water were what capped it: the lake had to stop
-     * short of them, and they hid it anyway.
+     * **What is lost is the water**, and it is worth saying plainly: Bolu's
+     * first stop is Yedigöller and there is now no lake anywhere in the city
+     * except the jetty a child stands on. The plate is not the only way to fix
+     * that — a flat water plane past the boundary is what İstanbul, Van,
+     * Trabzon and Balıkesir use and it is unambiguous where a tilted bowl was
+     * not — but it needs a gap left in this treeline, which is the owner's call
+     * to make and not one to make on their behalf (D-156).
      *
-     * It first went in with that rim buried flush — 3 cm above a ground plane
-     * that runs 44 m past the bounds. Nothing appeared, and three metres of
-     * clearance was the guess that fixed it. The screenshot after that showed
-     * what was really wrong: the lake had been drawing the whole time, and the
-     * forest rows were standing in front of it.
-     *
-     * The y is 17.9 m lower than a section drawing gives, because
-     * `AssetInstance` grounds on the box *after* the tilt — the same 
-     * correction Ephesus needed, and the same one that had a wolf hanging in
-     * the sky over Palandöken.
+     * Bolu is 2.8 MB lighter for it: 16.0 MB a visit down to 13.3.
      */
+    const forestBands = [
+      { xs: [-40, 0, 40], z: -84 },
+      { xs: [-20, 20], z: -104 },
+    ];
+
     return [
-      {
-        /**
-         * Half again as big, and the factor is the flanking forest's.
-         *
-         * The owner is looking at the same fault D-192 named and says it is not
-         * fixed: the lake does not read as a lake, and either side of it the
-         * ground still meets the sky. Both come from one number — 75 m across
-         * at 55 m out is ±34°, and the forward view is wider than that. Four
-         * forest stands were put in those corners last time at x = ±56 and they
-         * are 12 m tall at 80 m, which is 7° of elevation: too low to close
-         * anything.
-         *
-         * So the lake grows to meet them. 56 / 37.3 is 1.50, and at that scale
-         * its own edge arrives where the stands are instead of stopping
-         * nineteen metres short of them.
-         *
-         * Everything else is held rather than re-chosen, because both numbers
-         * were derived and both still apply:
-         *
-         *  - the near lip stays at z = -64, so the walk up to the water is the
-         *    same walk and the bounds are still clear of it by three metres;
-         *  - the rim stays 5 m proud rather than 7.5, which is what scaling y
-         *    with everything else would have given. The rim is the thing the
-         *    water has to be seen *over*, so it is the one measurement that
-         *    must not grow with the lake.
-         *
-         * y is -13.9 rather than the -8.9 a section drawing gives, for the
-         * reason it was -7.6 before: `AssetInstance` grounds on the box *after*
-         * the tilt (D-190).
-         */
-        assetId: 'city_bolu_yedigoller_lake',
-        position: [0, -13.9, -117.1],
-        rotationY: 0.08,
-        rotationX: (34 * Math.PI) / 180,
-        solid: true,
-        note: 'Yedigöller, tilted so its water reads',
-      },
+      ...forestBands.flatMap((band, bandIndex) =>
+        band.xs.map((x, i) => ({
+          assetId: 'city_bolu_forest_row',
+          position: [x, 0, band.z],
+          // Facing the street, the way every piece ahead of the spawn is turned.
+          rotationY: Math.round((i - 1) * 0.06 * 1000) / 1000,
+          solid: true,
+          note: `forest closing the front ${bandIndex + 1}.${i + 1}`,
+        })),
+      ),
 
       ...[-1, 1].flatMap((side) =>
         Array.from({ length: stands }, (_, i) => {
@@ -4033,15 +4009,15 @@ function buildScene(canonical) {
                 { x: 17, front: 2, back: 2 }
               : canonical.id === 'bolu'
               ? /**
-                 * Forest floor out under Yedigöller and the stands beside it.
+                 * Forest floor out under every stand of trees.
                  *
-                 * The lake reaches z = -170 and x = ±56 and the forest rows
-                 * ±66; the paving stopped at -107 and ±61, so the far half of
-                 * the water and the outer edge of every stand were over nothing
-                 * — the same fault as Nevşehir's rim, found by measuring rather
-                 * than by a screenshot.
+                 * Was 72 m at the front to carry Yedigöller's far half; the
+                 * plate is gone and the forest reaches -122, so the pad follows
+                 * the trees instead. The rule is unchanged and is the one
+                 * D-204 wrote down: whatever stands on the horizon needs ground
+                 * under all of it, and the bounds are not that measurement.
                  */
-                { x: 18, front: 72, back: 26 }
+                { x: 22, front: 34, back: 26 }
               : canonical.id === 'nevsehir'
                 ? /**
                    * Cappadocia needs ground all the way out to its own rim.

@@ -3819,3 +3819,41 @@ of tree on it.
 `note` is now carried through `scenePropSchema`. The generator always wrote one
 and the schema always dropped it, which is why asking a simple question about a
 prop meant counting the wrong list.
+
+## D-213 — Bolu's front is forest, and the lake comes out (3 Aug 2026)
+
+Three rounds of arguing with Yedigöller: measured and set aside, then
+commissioned and tilted 34° so its floor would show, then scaled half again to
+reach the stands flanking it. The owner looked at all three and said the lake is
+not going to work here — fill the front with the red trees the rest of the city
+already has.
+
+**The two could not share the space, and that is arithmetic rather than taste.**
+The plate's water breaks the ground at z = -74.5 and the play boundary is at
+-61. Thirteen metres of shore, into which a 20.4 m forest row does not go:
+anything planted far enough forward to close the view stands in the water, and
+anything near enough to stay dry is inside the bounds. The wedge belongs to one
+of them.
+
+Measured before deciding rather than after. Discounting the lake, the forward
+view is bare from -15° to +15° and forested everywhere else — 7.9° at ±18°,
+past 20° beyond. That 30° hole is what the lake was there to fill and what the
+screenshot shows as brown ground.
+
+Two bands close it. Three rows abreast at z = -84 — 39 m from the last stop, 23
+from the far boundary, so 13 m of trees fills 16° and clears the frame's 13° top
+(D-183) — and two staggered behind at -104, because one wall of trees at one
+distance is a fence and two are a wood. The sweep now reads 16.4° or better
+across the whole forward 120°.
+
+**What is lost is the water.** Bolu's first stop is Yedigöller and there is now
+no lake in the city except the jetty a child stands on. The plate was never the
+only way: a flat plane past the boundary is what four other cities use and is
+unambiguous where a tilted bowl was not. It needs a gap left in this treeline,
+which is the owner's call and not one to make for them (D-156).
+
+The registry entry stays and goes back to the file's delivered 74.58 m. If the
+lake returns it should return at the size it arrived at, not at a number chosen
+to solve a problem no longer being solved that way.
+
+Bolu: 16.0 MB a visit down to 13.3.
