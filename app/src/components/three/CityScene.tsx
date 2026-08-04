@@ -104,6 +104,26 @@ export function CityScene({
         shadow-camera-bottom={-40}
       />
 
+      {/*
+        A shadowless fill from where the child stands, for cities whose stops
+        are dark on the side that faces them.
+
+        The key light is up and to the right; only 37% of it lands on a face
+        turned to the street, which is fine on pale stone and not on a
+        smoked-timber kitchen or a bench of black oltu stone. This arrives
+        almost along the camera's own axis, so a vertical face takes nearly all
+        of it and the ground takes a third — which is why it can lift Erzurum's
+        bench without flaring its snow.
+
+        No shadow map: a second shadow-casting light would double the shadow
+        pass for something whose whole job is to stop faces going black, and two
+        sets of shadows from two directions is how a street starts looking like
+        a showroom.
+      */}
+      {scene.fillLight > 0 ? (
+        <directionalLight position={[-6, 8, 26]} intensity={scene.fillLight} castShadow={false} />
+      ) : null}
+
       <Ground ground={scene.ground} surface={scene.groundSurface} patches={scene.groundPatches} />
 
       {scene.water ? (

@@ -15,7 +15,8 @@
       "#CFDCE2",
       "#F4EEDF"
     ],
-    "groundColor": "#CBBE9A"
+    "groundColor": "#CBBE9A",
+    "fillLight": 0
   },
   "guide": {
     "assetId": "character_keloglan_base"
@@ -497,6 +498,7 @@
       "stoneColor": "#C9BFA3"
     }
   ],
+  "cableCarAssetId": null,
   "snowfall": false,
   "birdPaths": [
     {

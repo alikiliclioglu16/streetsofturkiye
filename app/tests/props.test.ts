@@ -1456,6 +1456,65 @@ describe('the street kit is complete', () => {
 });
 
 describe('the sea', () => {
+  it('keeps the fill light a fill', () => {
+    /**
+     * The rule, rather than the two cities that currently use it.
+     *
+     * A fill exists to stop a dark face going black, and it casts no shadow. If
+     * it ever grew past the key light it would become the key — a shadowless
+     * one, arriving from the camera, which is the flat lighting every one of
+     * these scenes was built to avoid. So it is bounded by the light it
+     * supports, and off unless a city has asked for it.
+     */
+    const KEY_LIGHT_INTENSITY = 1.35;
+    const lit = PLAYABLE_CITY_IDS.filter(
+      (cityId) => buildScene(loadComposedCity(cityId), 'high').fillLight > 0,
+    );
+    expect(lit.length, 'a fill light everywhere is not a fill light').toBeLessThan(
+      PLAYABLE_CITY_IDS.length / 2,
+    );
+    for (const cityId of PLAYABLE_CITY_IDS) {
+      const fill = buildScene(loadComposedCity(cityId), 'high').fillLight;
+      expect(fill, cityId).toBeGreaterThanOrEqual(0);
+      expect(fill, cityId).toBeLessThan(KEY_LIGHT_INTENSITY);
+    }
+  });
+
+  it('never lets the swell put the water under the ground', async () => {
+    /**
+     * The regression that beached Van's boats, held as arithmetic.
+     *
+     * Water is drawn *over* the ground (D-154), and the resting position was
+     * corrected to match. The frame loop was not: it wrote a bob that swung
+     * between -0.10 and -0.02, every value of it below the paving that runs
+     * 44 m past the boundary. At a grazing angle a waterline that dips under
+     * the ground does not read as a plane rising and falling — it reads as the
+     * lake running out, and whatever is floating on it is left on the beach.
+     *
+     * So the rule is not "the bob is small". It is that the whole of it stays
+     * above the ground, which is what a test can hold and a screenshot cannot.
+     */
+    const { waterSurfaceY, WATER_SURFACE_Y } = await import('@/components/three/Water');
+
+    const samples = Array.from({ length: 400 }, (_, i) => waterSurfaceY(i * 0.05));
+    expect(Math.min(...samples), 'the swell dips under the ground').toBeGreaterThanOrEqual(
+      WATER_SURFACE_Y,
+    );
+    // And it still moves, or the flag that turns it off would mean nothing.
+    expect(Math.max(...samples) - Math.min(...samples)).toBeGreaterThan(0.005);
+    // Not so far that the waterline itself travels.
+    expect(Math.max(...samples) - Math.min(...samples)).toBeLessThan(0.06);
+  });
+
+  it('holds Van still, and leaves the seas breathing', () => {
+    /**
+     * Per-city, and a decision rather than a motion preference: reduced motion
+     * already stops every surface for anyone who asks for it.
+     */
+    expect(buildScene(loadComposedCity('van'), 'high').water!.still).toBe(true);
+    expect(buildScene(loadComposedCity('istanbul'), 'high').water!.still).toBe(false);
+  });
+
   it('gives İstanbul water and leaves the inland cities dry', () => {
     const istanbul = buildScene(loadComposedCity('istanbul'), 'high');
     expect(istanbul.water).not.toBeNull();
@@ -1523,7 +1582,7 @@ describe('the sea', () => {
     expect(scene.ferryAsset!.entry.id).toBe('city_istanbul_ferry_boat');
 
     const hull = scene.ferryAsset!.entry.dimensions[0];
-    const terminal = resolveAsset('city_istanbul_ferry_terminal', 'high').entry.dimensions[0];
+    const terminal = resolveAsset('city_istanbul_kadikoy_pier', 'high').entry.dimensions[0];
     // A boat longer than its own terminal by a factor reads as a cruise liner.
     expect(hull / terminal).toBeGreaterThan(1);
     expect(hull / terminal).toBeLessThan(2);

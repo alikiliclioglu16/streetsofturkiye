@@ -3429,3 +3429,348 @@ Three more corrections in the same pass:
   gondola and Bolu's open two-person chair are the same machine doing different
   jobs, and a sightseeing gondola on a ski hill is the borrowing the whole
   four-directions rule exists to stop.
+
+## D-189 — Five more provinces, and one region table that ran out (2 Aug 2026)
+
+Trabzon, Balıkesir, Mardin, Erzurum and İzmir opened, taking the project from
+seven to twelve. Each one's first problem was the same and it got worse each
+time: the region table dresses a new city in its neighbour's clothes, and by the
+third city out of one row the defaults were not a starting point but a fault.
+
+Erzurum arrived in Kars's kit with Kars's geese and Van's steppe surface, under
+the identical sky and ground colour as both. Mardin arrived as Gaziantep to the
+hex. What separated them in the end was never a table entry:
+
+- **Trabzon** — the street runs *inland* from the harbour, so its sea is behind
+  and its rock is ahead. Ordu walks the other way.
+- **Balıkesir** — its water is a lake that *ends*, closed by Cunda across it,
+  where Trabzon's runs to the horizon.
+- **Mardin** — one whole flank is empty on purpose: a parapet, a drop, and
+  Mesopotamia. No other city has a side with nothing on it.
+- **Erzurum** — the first city drawn in **winter**. One ground texture bought a
+  look nothing else in eighty-one provinces will have.
+- **İzmir** — the first Aegean city, so for once nothing had to be argued away.
+
+## D-190 — `rotationX` and grounding are measured in the same space (2 Aug 2026)
+
+`AssetInstance` grounds a model by measuring `Box3.setFromObject` in **world**
+space, so the box it stands on is the box *after* any tilt on its parent group.
+Tilting a 92 m plate by 22° drops its lowest corner 17.27 m, and the grounding
+hands all of it straight back.
+
+Ephesus hung in the sky by exactly that. The section drawing was right and the
+mounting was wrong, which is the hardest kind of error to see: every number
+checked out on its own.
+
+**Anything with a `rotationX` has to have `half-depth · sin θ` taken off its y.**
+Ordu's plateau was tuned by eye and never showed it; Ephesus was the first
+tilted piece whose height was derived, and so the first where the discrepancy
+had somewhere to hide.
+
+## D-191 — A bowl shows its rim, not its water (2 Aug 2026)
+
+Four deliveries in this run were dioramas built to be looked down on: Uzungöl,
+Ephesus, Yedigöller, and the first Manyas plate. From a camera 2.3 m off the
+ground their top faces are seen at under a degree — edge-on — and a child gets a
+lump.
+
+**This is not a distance problem and cannot be solved like one.** Moving the
+plate back recedes its rim at the same rate as its floor. Tilt is the only tool,
+and the sign depends on which side of the child the piece is: a piece **ahead**
+takes a positive `rotationX`, a piece **behind** takes a negative one. Ordu's
+test warns that a sign asserted off what is on screen confirms the bug instead
+of catching it, and this run proved it twice.
+
+Solve the tilt first and let the height and distance fall out of it. For
+Yedigöller: 34° puts the near rim 5 m proud at the play boundary, breaks the
+water at z = -71 and shows 76% of the surface. Raising the rim alone costs
+visibility — the rim is the thing the water has to be seen over — so the tilt
+and the height move together or not at all.
+
+## D-192 — Angular coverage is not the same as filling the picture (2 Aug 2026)
+
+The circle sweep (D-149 / D-174) reported Bolu's front quadrant at 0/360 empty
+directions while the owner was looking at bare corners either side of the lake.
+Both were right. The sweep asks whether *something* stands in each direction; it
+cannot ask whether the frame is full, because a 75 m disc in a 90° quadrant
+leaves ground meeting sky past its edges and still occupies every degree.
+
+When the complaint is about corners rather than a direction, walk the forward
+80° and look at the shape of the elevation profile, not at whether it is
+non-zero.
+
+## D-193 — One motion, one field (2 Aug 2026)
+
+`boatLines` was written for Trabzon's hamsi boats, copied to carry Balıkesir's
+pelicans, and copied again as `cartLine` for Mardin's pedlar. Erzurum's skiers
+would have made a fourth. Three fields and two asset-id fields for one
+behaviour, each addition reasonable on its own — the same drift a stale list has
+(D-127).
+
+They are now one `shuttleLines`, with the asset named per line. D-136 still
+holds: the train that crosses and leaves, the cable car that circles and the
+animals that wander stay separate. But a boat working a shore, a pelican
+paddling, a pedlar pushing a cart and a skier running a street are all the same
+motion, and **the asset is not the motion.**
+
+The same generalisation was needed three more times in this run:
+`birdAssetId`, `cableCarAssetId` and the cart's asset were all hard-wired to one
+city's model until a second city wanted them.
+
+## D-194 — A `kit_` asset may not carry a province name (2 Aug 2026)
+
+`kit_trabzon_bird` became `kit_gull` when Balıkesir wanted the same birds;
+`city_bolu_chairlift_chair` became `kit_chairlift_chair` when Erzurum wanted a
+lift. A `kit_` asset is one whose cost is paid in every province that uses it,
+and a province name inside one is a promise the file cannot keep. A gull is not
+Trabzon's and a chair on a wire is a fitting rather than a landmark.
+
+## D-195 — A flock's poses must be things the animal does where it stands (2 Aug 2026)
+
+D-129 says a flock is several animals each doing something slightly different.
+İzmir's pigeons went in as two poses on that reading, and the second was a bird
+with its wings spread — which standing still on a pavement is not a variation
+but a bird frozen mid-flight and glued to the stone. It is out of the project.
+
+The rule assumes the poses are all things the animal does *while it is where you
+put it*. Kars's three geese pass; a flying pose on the ground does not.
+
+## D-196 — Texture budget is a ratio, not a habit (2 Aug 2026)
+
+Per-visit weight was measured properly for the first time and every figure
+before it had been an undercount: the city's own files were being added up and
+the shared kit props and the guide were not. Ten of twelve cities were over the
+20 MB line, including cities nobody had touched in weeks.
+
+The trim that followed was measured rather than guessed. For every asset:
+divide its base-colour resolution by the pixels it covers on screen at its
+nearest viewing distance, given a 50° vertical frame and 1440 device pixels.
+Over six times oversampled drops two steps, three to six drops one, stops drop
+at most one. Forty-three assets, three passes, **22.62 → 18.14 MB on average.**
+
+The largest single waste was found only because the first pass missed it:
+**things that move are not in `backdrop` or `props`**, so boats, birds, surfers
+and cable cars were never audited. İstanbul's ferry was carrying a 2048 map at
+199 m — twelve times oversampled, two megabytes.
+
+Two exceptions were kept and both are arguable in the same terms: Yedigöller at
+2048 is 1.3× oversampled at 50 m, and Ephesus likewise. Where the number says
+keep it, keep it.
+
+## D-197 — Two silent references, found by auditing rather than by failing (2 Aug 2026)
+
+`city_van_erek_mountain` was named by Van's scene, had no registry entry, and no
+file on disk. Erek had therefore never been drawn in the direction it was meant
+to close, for as long as Van has been open. Nothing failed; a missing asset is
+skipped.
+
+`CityScene` also held the street-prop block **twice**, identical but for its
+comment, so every lamp, bench, fountain and tree in every city was drawn twice.
+Kars was running 200 draw calls and twenty of them were that.
+
+Neither was visible from inside the game and neither broke a test. Both came out
+of walking every scene's asset ids against the registry and the disk, which is
+now worth doing after any run of city work.
+
+## D-198 — Snow, and the sixth ground (2 Aug 2026)
+
+Erzurum needed a surface the other five could not give: steppe is Van's, rock is
+Kars's, and the coldest city in the country was walking on a neighbour's summer
+ground. `build-ground-texture.mjs` grew a snow tile — wind drift, packed tracks,
+sparkle — and it is the hardest of the six to write, because what makes the
+others readable is contrast and snow has almost none. The albedo sits high and
+narrow on purpose: a snow texture with a cobble's contrast is a picture of
+gravel.
+
+Falling snow is one draw call and 1,200 points in a box that follows the camera,
+so the flakes are always the ones nearest the child. It carries a whole season
+for less than any model in the project.
+
+## D-199 — Statues are a drawn plinth under a delivered model (2 Aug 2026)
+
+Mardin's two doves stand on plinths built from three boxes in the city's own
+stone. A pedestal is a rectangle with a lip on it, and commissioning one would
+cost a registry entry and thirty megabytes of baked texture to get a cuboid. The
+play bounds are drawn as primitives for the same reason. What stands on top is a
+real asset, because a dove is not a rectangle.
+
+## D-200 — İstanbul's fifth stop is a pier rather than a terminal (3 Aug 2026)
+
+The owner looked at `city_istanbul_ferry_terminal` and rejected it: dark patches
+around its base that read as holes in the quay. Kadıköy İskelesi replaces it —
+the same job done with a delivery that depicts a specific pier, and the pier the
+crossing this stop is about actually starts from.
+
+Delivered at 61.75 MB with four 4096 px maps, 9,985 triangles, normalised into a
+4 m box with its base 2 m under the origin. Geometry was already in budget so
+the whole cost was in the maps: sized by role to 2048 base colour and 1024 for
+the rest, then re-authored to 8 m on y = 0. 2.06 MB.
+
+Kept at the height the model it replaces was authored to, which is not laziness.
+The stop camera, the collider and the trigger ring all derive from that number
+(D-051, D-062), and the two footprints agree to within a metre — 13.12 × 8.45
+against 13.9 × 8.9. Nothing in the layout had to move to take it.
+
+The emissive map was measured rather than assumed. Its brightest channel is 40,
+well over the threshold, so it carries something and was kept. The rule from
+D-118 is *measure before dropping*, not *Meshy always bakes a black one*.
+
+## D-201 — A stop hidden behind a taller stop is moved sideways, once (3 Aug 2026)
+
+From the spawn, Galata Tower covers 88% of the Grand Bazaar's silhouette. A child
+standing where İstanbul opens sees four stops and a tower.
+
+The new x is derived: Galata stands at x = 5.5, z = -44 with a 2.14 m half-width,
+so projected to the bazaar's z = -62 its shadow runs from 4.7 to 10.8; clearing
+it needs the bazaar's own 2.685 m on top, which is 13.5. Outward rather than
+inward — 2.1 is the nearer solution and the middle of the street is where the
+child walks (D-070).
+
+**It is authored, not automatic.** The same measurement flags stops in Nevşehir
+and İzmir as hidden from their spawns. Those cities are finished and nobody has
+complained about them, so they are reported and left alone (D-156). A rule that
+would silently relayout four finished streets is not a bug fix.
+
+Keyed by canonical art type rather than by index, so inserting a stop cannot move
+the wrong one.
+
+## D-202 — The swell was breathing under the ground (3 Aug 2026)
+
+Van's boats kept ending up on the beach. The boats were never the problem: the
+shore, the canoes and the island all come off one constant precisely so they
+cannot drift apart, and they had not.
+
+`Water` wrote `sin(t * 0.6) * 0.04 - 0.06` into the frame loop — a swing from
+-0.10 to -0.02, **every value of it below the ground.** The resting position was
+corrected to +0.02 when water started being drawn over the paving (D-154) and
+this line was not, so on the first frame the sea rose to where it belonged and
+then sank under the floor and stayed there.
+
+Seen at a grazing angle, a plane oscillating either side of the ground does not
+read as a plane rising and falling. It reads as the water running in and out, and
+anything floating on it is left on dry land at low tide.
+
+The swell now breathes above the surface and at half the amplitude. The rule held
+by the test is not "the bob is small" but "the whole of it stays above the
+ground" — arithmetic, because no screenshot catches a two-centimetre error.
+
+Van is `still` on top of that, at the owner's request: the highest large lake in
+the country seen from two hundred metres, where nothing reads as chop (D-163).
+
+## D-203 — Scenery is placed against the camera, not against the bounds (3 Aug 2026)
+
+Three separate complaints about Gaziantep — trees inside the houses, the camera
+passing behind them, the street feeling crowded — were one number. The house is
+12 m deep and turned side-on at x = ±21, so its inner face sat at x = 15: exactly
+the play boundary, which is the one place scenery may not be.
+
+A child reaches ±15 and the follow camera trails 5.2 m behind whichever way they
+face, so it reaches ±20.2. With a margin the inner face belongs at 22, which puts
+the row at 28. The street trees scatter to 17.4 and are now clear of it.
+
+It does not open the street out. From the middle, 12 m of house at 22 m still
+subtends 29°, and from the far kerb 18°. What closes a direction is the angle it
+fills, not how near it stands.
+
+The same measurement says İstanbul's facades and Erzurum's rows have the same
+fault. Reported, not moved (D-156).
+
+## D-204 — Ground is scenery, and a backdrop needs ground under all of it (3 Aug 2026)
+
+Nevşehir's valley ring stands 66 m off the street and is 79 m across, so its
+outer edge reaches x = 105 and z = 117. The paving reached 61 and 72. **Every one
+of the six plates had its outer half hanging over nothing**, and wherever a rim
+dipped below the horizon what showed underneath was sky.
+
+This is D-082 at the other end of the map: ground is scenery and bounds are
+gameplay, and a backdrop placed against the bounds is not placed against the
+ground. `groundPad` is the knob and it is per-city for exactly this.
+
+Bolu had it too, found by measuring rather than by a screenshot. Both are fixed,
+and the check — every backdrop piece's footprint inside the ground plane — is
+cheap enough to run on any city that gains a horizon piece.
+
+## D-205 — Six plates close four sides and leave four corners (3 Aug 2026)
+
+The other half of Nevşehir's blue. The ring's west rim ended at z = 37 and the
+rim behind the square began at z = 37: they met along a line with no width, and
+past x = -40 there was nothing at all between the ground and the sky. Four wedges
+of it, one at each diagonal.
+
+Filled with the front and back plates repeated out at the side rims' own x, so
+every plate stays axis-aligned on the setback the other six already use and each
+overlaps two neighbours by more than thirteen metres. No download cost: it is the
+same GLB the ring had already loaded.
+
+Held by a sweep rather than by counting plates — a ray in each of 360 directions
+from the middle of the play area, every one of which must meet valley.
+
+## D-206 — A dark face needs a light from where the child is standing (3 Aug 2026)
+
+Bolu's smokehouse and Erzurum's oltu bench both went unreadable on the side that
+faces the street, which is the only side with anything on it. The city's one
+directional light comes from up and to the right and delivers 37% of its
+intensity to a street-facing face — enough on pale stone, nothing at all on
+smoked timber or jet-black stone.
+
+`environment.fillLight` adds a second, shadowless directional light arriving
+almost along the camera's axis. A vertical face takes nearly all of it and the
+ground takes a third, which is why Erzurum's bench can be lifted without its snow
+flaring. Raising the hemisphere light would have done the opposite in both
+cities.
+
+Zero everywhere it is not asked for, and bounded below the key light's intensity
+by a test: a shadowless fill that outgrows the key becomes the key, and flat
+front lighting is what every one of these scenes was composed to avoid.
+
+## D-207 — Yedigöller grows to meet the forest beside it (3 Aug 2026)
+
+D-192 said angular coverage is not the same as filling the picture, and put four
+forest stands in Bolu's empty corners. The owner says it is still empty, and the
+measurement agrees: 75 m of lake at 55 m out is ±34°, the stands sit at x = ±56,
+and 12 m of forest at 80 m is 7° of elevation — too low to close anything.
+
+So the lake grows to reach them. 56 / 37.3 is 1.50, and at that scale its own
+edge arrives where the stands are instead of stopping nineteen metres short.
+
+The two numbers that were derived are held rather than re-chosen: the near lip
+stays at z = -64 so the walk up to the water is unchanged, and the rim stays 5 m
+proud rather than the 7.5 that scaling y with everything else would have given.
+The rim is the thing the water has to be seen *over*, so it is the one
+measurement that must not grow with the lake.
+
+y is -13.9 rather than the -8.9 a section drawing gives, for the same reason it
+was -7.6 before: grounding happens on the box *after* the tilt (D-190).
+
+## D-208 — The wolf comes down off the mountain (3 Aug 2026)
+
+It stood on Palandöken's ridge at 155 m subtending 1.3°. The owner asked for it
+in the square instead, and the size that was a trick becomes the honest one:
+3.5 m was chosen because everything inside a 32 m stand-in mountain is at
+mountain scale, and down in the town 3.5 m is simply what a cast bronze animal on
+a civic monument measures. Nothing about the file changes; only what the number
+means.
+
+Drawn plinth under a delivered model (D-199): 2.4 m shaft, 3.6 m base, 1.8 m
+high, so the top of the head is 5.3 m up and inside the frame from eleven metres.
+
+## D-209 — Ordu takes Bolu's deer, and the region rule survives it (3 Aug 2026)
+
+Ordu was emptied on purpose: the Black Sea row hands out cats, İstanbul's are
+famous, Van already walks them, and a third city on the same tabbies reads as a
+province nobody looked at (D-119). That was a reason there should be no *cat*,
+not a reason there should be nothing, and the owner has asked for the deer.
+
+Taken with D-189 understood — neighbours arriving in each other's clothes is the
+trap this region has already sprung once. A roe deer on the Black Sea coast is
+not borrowed street furniture; it is the same animal in both places for the same
+reason. What keeps the two apart is everything around it: Ordu is a coast in high
+summer under cable cars and paragliders, Bolu a forest in late October under a
+chairlift.
+
+**It leaves a name that is now false.** `kit_bolu_deer` is paid for by two
+provinces, which is exactly what D-194 forbids — a province inside a shared
+asset is a promise the file cannot keep. The rename is not done here because the
+GLB is not in this package and a rename that depends on the owner moving a file
+by hand would draw a placeholder box in two cities if it were missed. It is
+recorded as owed, to be done in the round the file is in hand.

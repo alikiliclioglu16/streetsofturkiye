@@ -15,7 +15,8 @@
       "#C8D6DE",
       "#EDF3F6"
     ],
-    "groundColor": "#E8EDF0"
+    "groundColor": "#E8EDF0",
+    "fillLight": 0.4
   },
   "guide": {
     "assetId": "character_keloglan_base"
@@ -775,7 +776,20 @@
     }
   ],
   "birdAssetId": null,
-  "statues": [],
+  "statues": [
+    {
+      "assetId": "kit_erzurum_wolf",
+      "position": [
+        9,
+        0,
+        13
+      ],
+      "rotationY": 3.141592653589793,
+      "plinthHeight": 1.8,
+      "plinthWidth": 2.4,
+      "stoneColor": "#8C8A86"
+    }
+  ],
   "cableCarAssetId": "kit_chairlift_chair",
   "snowfall": true,
   "birdPaths": [],
@@ -948,17 +962,6 @@
       "rotationY": -0.07,
       "solid": true,
       "note": "Palandöken at the head of the street"
-    },
-    {
-      "assetId": "kit_erzurum_wolf",
-      "position": [
-        -0.73,
-        26.2,
-        -149.1
-      ],
-      "rotationY": 0,
-      "solid": false,
-      "note": "wolf on the summit"
     },
     {
       "assetId": "city_erzurum_cag_kebap",

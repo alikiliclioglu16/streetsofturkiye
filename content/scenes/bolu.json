@@ -15,7 +15,8 @@
       "#A8D8E8",
       "#EDE4CE"
     ],
-    "groundColor": "#C98A3C"
+    "groundColor": "#C98A3C",
+    "fillLight": 0.55
   },
   "guide": {
     "assetId": "character_keloglan_base"
@@ -710,9 +711,9 @@
   },
   "ferryLine": null,
   "groundPad": {
-    "x": 2,
-    "front": 2,
-    "back": 2
+    "x": 18,
+    "front": 72,
+    "back": 26
   },
   "shuttleLines": [],
   "birdAssetId": null,
@@ -729,8 +730,8 @@
       "assetId": "city_bolu_yedigoller_lake",
       "position": [
         0,
-        -7.6,
-        -99.4
+        -13.9,
+        -117.1
       ],
       "rotationY": 0.08,
       "rotationX": 0.5934119456780721,

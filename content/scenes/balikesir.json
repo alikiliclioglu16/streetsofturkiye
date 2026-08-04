@@ -15,7 +15,8 @@
       "#A6D2E4",
       "#EDE9D6"
     ],
-    "groundColor": "#C3BC9C"
+    "groundColor": "#C3BC9C",
+    "fillLight": 0
   },
   "guide": {
     "assetId": "character_keloglan_base"
@@ -679,6 +680,7 @@
   ],
   "birdAssetId": "kit_gull",
   "statues": [],
+  "cableCarAssetId": null,
   "snowfall": false,
   "birdPaths": [
     {

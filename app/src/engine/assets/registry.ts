@@ -636,7 +636,14 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
      * frame, about 1,555 pixels, so 2048 is only 1.3× oversampled. Halving it
      * would be the one place in the recent trim where detail was actually lost.
      */
-    dimensions: [74.58, 16.0, 74.49],
+    /**
+     * Re-recorded at half again its delivered read, which is what draws it
+     * (D-124). The aspect is the file's own, so the collider and the camera
+     * still come off the same triple; only how big the thing is meant to be has
+     * changed. Seventy-five metres of water could not close the front of the
+     * street — see the placement in `build-scenes.mjs` for the factor.
+     */
+    dimensions: [111.87, 24.0, 111.73],
     label: 'Yedigöller',
     color: '#8FA3A8',
     placeholder: 'box',
@@ -1502,20 +1509,42 @@ const DELIVERED_PROPS: readonly DeliveredProp[] = [
       'Delivered 23.90 MB; recompressed to 2.38 MB.',
   },
   {
-    id: 'city_istanbul_ferry_terminal',
-    modelUrl: '/assets/city/city_istanbul_ferry_terminal.glb',
-    checksum: 'ce52736a3c5df76c8455fe9c2525c1cc5cad52a7633868c775d6136c6f307b89',
-    triangles: 12_168,
-    transferBytes: 1994936,
-    dimensions: [13.9, 8.0, 8.9],
-    label: 'Ferry terminal',
+    id: 'city_istanbul_kadikoy_pier',
+    modelUrl: '/assets/city/city_istanbul_kadikoy_pier.glb',
+    checksum: '57ae7bacd10efa4ff89bccdd029cc553b5a69efa3c79464b921cc221d5309daa',
+    triangles: 9_985,
+    transferBytes: 2_163_540,
+    /**
+     * Kadıköy İskelesi, and the object at the Bosphorus ferry stop.
+     *
+     * It replaces `city_istanbul_ferry_terminal`, which stood here from the day
+     * the city opened and which the owner has now looked at and rejected: dark
+     * patches around its base that read as holes in the quay. This is the same
+     * job done with a delivery that depicts a specific pier rather than a
+     * generic terminal — Kadıköy is where the crossing this stop is about
+     * actually starts.
+     *
+     * Kept at the height the old one was authored to, which is not laziness:
+     * the stop camera, the collider and the trigger ring are all derived from
+     * that number (D-051, D-062), and the two footprints agree to within a
+     * metre — 13.12 x 8.45 against 13.9 x 8.9. Nothing in the layout had to
+     * move to take it.
+     *
+     * Delivered at 61.75 MB with four 4096 px maps and normalised into a 4 m
+     * box. Textures sized by role (2048 base colour, 1024 for the rest) and the
+     * file re-authored to 8 m on y = 0: 2.06 MB, 60 KB more than the model it
+     * replaces. The emissive map was measured rather than assumed — brightest
+     * channel 40, so it carries something and was kept (D-118).
+     */
+    dimensions: [13.12, 8.0, 8.45],
+    label: 'Kadıköy pier',
     color: '#B7A98F',
     placeholder: 'box',
     notes:
-      'Stands in for the ferry itself at the last stop. The boat was briefed as ' +
-      'city_istanbul_ferry and never delivered; a terminal is where a child ' +
-      'would board one, and it sits on the quay rather than on grass. ' +
-      'Delivered 50.82 MB with four 4096 px maps; recompressed to 2.6 MB.',
+      'The ferry pier at the last stop. The boat itself was briefed as ' +
+      'city_istanbul_ferry and never delivered; a pier is where a child would ' +
+      'board one, and it sits on the quay rather than on grass. ' +
+      'Delivered 61.75 MB with four 4096 px maps; 2.06 MB at 8 m on y = 0.',
   },
   {
     id: 'city_istanbul_grand_bazaar',

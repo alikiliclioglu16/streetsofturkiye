@@ -15,7 +15,8 @@
       "#FFE0B8",
       "#FFF3DE"
     ],
-    "groundColor": "#E0BC7E"
+    "groundColor": "#E0BC7E",
+    "fillLight": 0
   },
   "guide": {
     "assetId": "character_keloglan_base"
@@ -474,7 +475,11 @@
     "front": 2,
     "back": 2
   },
-  "boatLines": [],
+  "shuttleLines": [],
+  "birdAssetId": null,
+  "statues": [],
+  "cableCarAssetId": null,
+  "snowfall": false,
   "birdPaths": [],
   "mistBands": [],
   "canoeLines": [],
@@ -484,7 +489,7 @@
     {
       "assetId": "city_gaziantep_stone_houses",
       "position": [
-        -21,
+        -28,
         0,
         -5
       ],
@@ -495,7 +500,7 @@
     {
       "assetId": "city_gaziantep_stone_houses",
       "position": [
-        -21,
+        -28,
         0,
         -23
       ],
@@ -506,7 +511,7 @@
     {
       "assetId": "city_gaziantep_stone_houses",
       "position": [
-        -21,
+        -28,
         0,
         -41
       ],
@@ -517,7 +522,7 @@
     {
       "assetId": "city_gaziantep_stone_houses",
       "position": [
-        -21,
+        -28,
         0,
         -59
       ],
@@ -528,7 +533,7 @@
     {
       "assetId": "city_gaziantep_stone_houses",
       "position": [
-        21,
+        28,
         0,
         -5
       ],
@@ -539,7 +544,7 @@
     {
       "assetId": "city_gaziantep_stone_houses",
       "position": [
-        21,
+        28,
         0,
         -23
       ],
@@ -550,7 +555,7 @@
     {
       "assetId": "city_gaziantep_stone_houses",
       "position": [
-        21,
+        28,
         0,
         -41
       ],
@@ -561,7 +566,7 @@
     {
       "assetId": "city_gaziantep_stone_houses",
       "position": [
-        21,
+        28,
         0,
         -59
       ],

@@ -48,7 +48,7 @@ const COMMISSIONED_ASSETS = {
   'istanbul:galata': 'city_istanbul_galata_tower',
   'istanbul:bazaar': 'city_istanbul_grand_bazaar',
   'istanbul:simit': 'city_istanbul_simit_cart',
-  'istanbul:ferry': 'city_istanbul_ferry_terminal',
+  'istanbul:ferry': 'city_istanbul_kadikoy_pier',
   'nevsehir:chimneys': 'city_nevsehir_fairy_chimney_cluster',
   'nevsehir:balloon': 'kit_hot_air_balloon',
   'nevsehir:pottery': 'city_nevsehir_pottery_wheel',
@@ -301,31 +301,55 @@ const ERZURUM_SKIER_LINES = [
 ];
 
 /**
- * The wolf on the summit.
+ * The wolf stood on Palandöken's summit until the owner asked for it in the
+ * town. That placement is gone; two things it worked out are not, because the
+ * monument below still needs them.
  *
- * It floated the first time, and the reason is worth writing down: the wolf was
- * placed on the summit, and *then* the mountain was sunk 5.5 m to bury its rock
- * plinth. The wolf stayed where it was put. Two correct edits made in the wrong
- * order, and the screenshot showed a wolf hanging in the sky.
+ * **Which way it faces.** `rotationY = 0` points the head at +z, measured
+ * rather than guessed: the mesh's +z quarter averages 2.46 m high against
+ * 1.05 m at the -z end. So a wolf that should look down the street from the
+ * square behind it turns by π.
  *
- * So this is derived. Slicing the mountain's mesh along its own z puts the
- * summit at local y = 32 around local z = -18; through the piece's rotation,
- * position and the 5.5 m sink that lands at (-0.73, 26.5, -149.1) in the world.
- * The wolf is set 0.3 m into it so it stands on the rock rather than on top of
- * it.
- *
- * `rotationY = 0` faces the city, measured rather than guessed: the mesh's +z
- * quarter averages 2.46 m high against 1.05 m at the -z end, so the head is at
- * +z — and the town is at +z from a wolf standing at z = -149.
- *
- * **Three and a half metres, which is deliberately far too big.** Everything
- * inside a 32 m mountain standing in for a real one is at mountain scale, so a
- * wolf at true size would be about ten centimetres and invisible from 155 m.
- * At 3.5 it subtends 1.3° — a small dark shape on a white ridge, which is what
- * was asked for. The lake taught this the other way round: a real-scale boat
- * inside a miniature village could not be seen at all.
+ * **Why it floated the first time**, which is worth keeping wherever it goes:
+ * it was placed on the summit and the mountain was *then* sunk 5.5 m to bury
+ * its rock plinth. Two correct edits in the wrong order, and the screenshot
+ * showed a wolf hanging in the sky.
  */
-const ERZURUM_WOLF = { position: [-0.73, 26.2, -149.1], rotationY: 0 };
+/**
+ * The wolf, brought down off the mountain and made a monument.
+ *
+ * It stood on Palandöken's ridge at 155 m, where it subtended 1.3° — a dark
+ * speck on a white summit, and the owner has looked at it and asked for it in
+ * the square instead. A wolf on a skyline is an idea; a wolf on a plinth in the
+ * middle of a town is a thing a child walks up to.
+ *
+ * **The size that was a trick becomes the honest one.** Three and a half metres
+ * was chosen because everything inside a 32 m mountain standing in for a real
+ * one is at mountain scale, and a true-size wolf up there would have been ten
+ * centimetres. Down here 3.5 m is not an exaggeration at all — it is what a
+ * cast bronze animal on a civic monument measures. Nothing about the file
+ * changes; only what the number means does.
+ *
+ * On the east side of the square behind the spawn, facing back down the street.
+ * It stands clear of the medrese's line so the thing a child turns round to see
+ * is still the medrese, with the monument off to one side of it — and clear of
+ * the route, which never comes behind the spawn.
+ *
+ * The plinth is drawn rather than delivered (D-199). Its shaft is 2.4 m, which
+ * puts the base at 3.6 m against a 4.62 m animal: a bronze that overhangs its
+ * pedestal slightly, which is what they do. At 1.8 m the top of the wolf's head
+ * is 5.3 m up — inside the 13° frame from anywhere past eleven metres.
+ */
+const ERZURUM_WOLF_STATUE = [
+  {
+    assetId: 'kit_erzurum_wolf',
+    position: [9, 0, 13],
+    rotationY: Math.PI,
+    plinthHeight: 1.8,
+    plinthWidth: 2.4,
+    stoneColor: '#8C8A86',
+  },
+];
 
 /**
  * İzmir's two distances, in metres from the spawn. Near-edge lines (D-101).
@@ -790,6 +814,33 @@ const TRABZON_BIRDS = [
   { centre: [44, 9, 16], radius: 20, rate: 0.035, phase: 2.6, bob: 1.1 },
 ];
 
+/**
+ * Gulls over İstanbul, which is the one city that should have had them first.
+ *
+ * Scaled to this street rather than copied from Trabzon's: İstanbul is 44 m
+ * across and 154 m long where every other city is 30 by 60, so the same circles
+ * would have sat on top of the facades.
+ *
+ * The rule the four existing bird cities already follow, made explicit here
+ * because it is the whole reason these numbers are what they are: **the far
+ * side of a lap has to fall inside the frame.** The follow camera sees thirteen
+ * degrees above horizontal (D-183), so a circle is placed by its far point —
+ * every one of these lands between 3° and 7°, and the near side of the lap
+ * passing overhead and out of shot is what makes them read as birds going
+ * somewhere rather than a mobile hanging over the street.
+ *
+ * Four over the city, one behind over the square, and one out across the water
+ * towards the Maiden's Tower, which is where a gull in İstanbul actually is.
+ */
+const ISTANBUL_BIRDS = [
+  { centre: [-58, 11, -22], radius: 26, rate: 0.033, phase: 0.5, bob: 1.4 },
+  { centre: [56, 12, -52], radius: 24, rate: -0.027, phase: 2.2, bob: 1.7 },
+  { centre: [-52, 13, -88], radius: 28, rate: 0.023, phase: 3.9, bob: 1.5 },
+  { centre: [18, 10, -132], radius: 30, rate: -0.019, phase: 5.4, bob: 1.2 },
+  { centre: [0, 14, 66], radius: 30, rate: 0.021, phase: 1.1, bob: 1.9 },
+  { centre: [62, 11, 8], radius: 22, rate: -0.036, phase: 4.6, bob: 1.3 },
+];
+
 const TRABZON_MIST = [
   { centre: [0, 9, -85.5], width: 40, height: 7.5, drift: 1.3, opacity: 0.42 },
   { centre: [-4, 14.5, -83.5], width: 34, height: 6, drift: -0.85, opacity: 0.3 },
@@ -855,15 +906,23 @@ const ANIMAL_OVERRIDES = {
    */
   van: 'cat',
   /**
-   * No animal in Ordu.
+   * Deer in Ordu, at the owner's request.
    *
-   * The Black Sea row gives the region cats, which is there because İstanbul's
-   * are famous and the table was filled in from the coast that had them. They
-   * are not what Ordu is about, and borrowed street furniture reads as a city
-   * nobody looked at — the same fault as a Bosphorus song over Cappadocia
-   * (D-119). Its moving life is the cable cars and the paragliders.
+   * Ordu was deliberately emptied: the Black Sea row hands the region cats,
+   * İstanbul's are famous and Van already walks them, and a third city on the
+   * same tabbies reads as a province nobody looked at (D-119). That reasoning
+   * holds, and it is the reason there was no cat here — not a reason there
+   * should be nothing.
+   *
+   * The deer is Bolu's, and Bolu is in this same region, which is the trap
+   * D-189 names: neighbours arriving in each other's clothes. It is taken with
+   * that understood, because a roe deer on the Black Sea coast is not borrowed
+   * street furniture — it is the same animal in both places for the same
+   * reason. What keeps the two cities apart is everything around it: Ordu is a
+   * coast in high summer with cable cars and paragliders over it, Bolu is a
+   * forest in late October under a chairlift.
    */
-  ordu: 'none',
+  ordu: 'deer',
   /**
    * Deer in Bolu's forest. Briefed and not delivered, so the routes are
    * reserved and nothing is drawn until a model exists — the way Kars's geese
@@ -1043,6 +1102,30 @@ const CITY_PALETTE = {
   erzurum: { sky: ['#C8D6DE', '#EDF3F6'], ground: '#E8EDF0' },
 };
 
+/**
+ * Cities that need a second light on the faces a child looks at.
+ *
+ * Nothing here is a taste adjustment. Both entries are objects the owner has
+ * looked at and could not read: Bolu's smokehouse, which is smoked timber
+ * against a forest floor, and Erzurum's oltu bench, whose whole subject is
+ * jet-black stone laid out on dark wood. The key light gives a street-facing
+ * face 37% of its intensity, and 37% of a strong light on a very dark material
+ * is still nothing.
+ *
+ * Two different numbers because the two cities are lit differently to begin
+ * with. Bolu's hemisphere bounce comes off an amber forest floor and its sky is
+ * the dimmest palette in the project, so it takes more. Erzurum is a white city
+ * under a white sky where everything except the two dark objects is already
+ * bright, so it takes as little as will do the job.
+ *
+ * Everywhere else stays at zero: ten finished cities, none of them relit
+ * because two needed it (D-156).
+ */
+const CITY_FILL_LIGHT = {
+  bolu: 0.55,
+  erzurum: 0.4,
+};
+
 const CITY_THEMES = {
   istanbul: '/assets/audio/istanbul_theme.webm',
   nevsehir: '/assets/audio/nevsehir_theme.webm',
@@ -1086,6 +1169,37 @@ const COMPACT_STOP_SPACING = 14;
  */
 const FIRST_STOP_Z = -26;
 const COMPACT_FIRST_STOP_Z = -17;
+
+/**
+ * A stop moved sideways because a taller stop in front of it was in the way.
+ *
+ * The S-curve places stops from a sine, which spaces them along the street but
+ * knows nothing about what is seen from the square. In İstanbul that put the
+ * Grand Bazaar directly behind Galata Tower: measured from the spawn, the
+ * tower covers 88% of the bazaar's silhouette, and a child standing where the
+ * city opens sees four stops and a tower.
+ *
+ * The number is derived rather than nudged. Galata stands at x = 5.5, z = -44
+ * with a 2.14 m half-width; projected to the bazaar's z = -62 its shadow runs
+ * from x = 4.7 to x = 10.8. Clearing it needs the bazaar's own 2.685 m
+ * half-width on top of that: x = 13.5, which is where it now stands. The
+ * street's half-width is 22 m, so it is still well inside the play area, and
+ * the ring check downstream still has the last word on spacing.
+ *
+ * It goes outward rather than inward — 13.5 rather than 2.1, which is the
+ * nearer solution — because the middle of the street is where the child walks
+ * (D-070) and the route already threads between these two objects.
+ *
+ * Keyed by the canonical art type rather than by an index, so inserting a stop
+ * cannot silently move the wrong one.
+ *
+ * The same measurement flags stops in Nevşehir and İzmir as hidden from their
+ * spawn. Those cities are finished and nobody has complained about them, so
+ * they are reported rather than moved (D-156).
+ */
+const STOP_LATERAL_X = {
+  'istanbul:bazaar': 13.5,
+};
 
 function layoutMetrics(cityId) {
   return cityId === 'istanbul'
@@ -1896,6 +2010,40 @@ function cityBackdrop(cityId, stopPositions, metrics) {
       }
     }
 
+    /**
+     * And the corners, which is where the sky was getting in.
+     *
+     * Six plates close four *sides* of a rectangle and leave its four diagonals
+     * open. The west rim ends at z = 37 and the rim behind the square begins at
+     * z = 37, so they meet along a line with no width — and past x = -40 there
+     * was nothing at all between the ground and the sky. Four wedges of blue,
+     * one at each corner, which is what the owner is pointing at.
+     *
+     * Filled with the back and front plates repeated out at the side rims' own
+     * x. That keeps every plate axis-aligned and on the setback the other six
+     * already use, and each new one overlaps two neighbours by more than
+     * thirteen metres rather than meeting them at an edge.
+     *
+     * They cost no download: it is the same GLB the other six already loaded.
+     */
+    const cornerX = inner + half + VALLEY_SETBACK;
+    for (const sx of [-1, 1]) {
+      ring.push(
+        {
+          x: sx * cornerX,
+          z: behind + half + VALLEY_SETBACK,
+          rot: Math.PI,
+          note: `valley corner ${sx < 0 ? 'west' : 'east'} back`,
+        },
+        {
+          x: sx * cornerX,
+          z: lastZ - 14 - half - VALLEY_SETBACK,
+          rot: 0,
+          note: `valley corner ${sx < 0 ? 'west' : 'east'} front`,
+        },
+      );
+    }
+
     return [
       /**
        * Fairy chimneys stand between the street and the rim, so a child sees
@@ -1929,7 +2077,21 @@ function cityBackdrop(cityId, stopPositions, metrics) {
       ),
       ...ring.map((entry) => ({
         assetId: 'city_nevsehir_valley',
-        position: [entry.x, 0, Math.round(entry.z * 10) / 10],
+        /**
+         * Bedded 0.8 m into the ground rather than stood exactly on it.
+         *
+         * A plate grounded at y = 0 has its lowest vertex on the paving and
+         * every other part of its base above it, so wherever the underside is
+         * not dead flat there is a slot between the rock and the floor. On a
+         * rim seen end-on that slot is a bright line, and with sky behind it, it
+         * was a bright blue one.
+         *
+         * Eight tenths of a metre out of twelve is a hem: it cannot be seen on
+         * the rim and there is no base profile that survives it. It is a guess
+         * only in the sense that the file is not here to be measured — the size
+         * is chosen so that being wrong about it costs nothing either way.
+         */
+        position: [entry.x, -0.8, Math.round(entry.z * 10) / 10],
         rotationY: Math.round(entry.rot * 1000) / 1000,
         // Solid: a child walks to the rim of a valley and stops there.
         solid: true,
@@ -1946,9 +2108,36 @@ function cityBackdrop(cityId, stopPositions, metrics) {
      * olive groves run out in front — the direction İstanbul answers with sea
      * and Nevşehir with a valley.
      */
+    /**
+     * The rows stand at 28 m, and the number is the camera's rather than the
+     * composition's.
+     *
+     * They were at 21. The house is 12 m deep and turned side-on, so its inner
+     * face sat at x = 15 — **exactly the play boundary**, which is the one place
+     * scenery may not be. Three separate complaints came out of that single
+     * number: the street trees scatter to 17.4 m and were standing inside the
+     * stonework; a child walking the right-hand edge and turning to look left
+     * put the follow camera at 20.2 m, five metres into the wall and looking at
+     * the street from behind it; and the wall itself was close enough to crowd
+     * the walk.
+     *
+     * Derived, not nudged. A child reaches x = ±15 and the camera trails 5.2 m
+     * behind whichever way they face (D-183's constants), so it reaches ±20.2.
+     * Add a margin and the inner face belongs at 22, which with a 6 m half-depth
+     * puts the row at 28.
+     *
+     * It does not open the street out: from the middle, 12 m of house at 22 m
+     * still subtends 29°, and from the far kerb 18°. What closes a direction is
+     * the angle it fills, not how near it is.
+     *
+     * The same measurement says İstanbul's facades and Erzurum's rows have the
+     * same fault. They are finished cities and nobody has complained about
+     * them, so they are reported rather than moved (D-156).
+     */
     const houseCount = 4;
+    const houseX = 28;
     return [
-      ...[-21, 21].flatMap((x) =>
+      ...[-houseX, houseX].flatMap((x) =>
         Array.from({ length: houseCount }, (_, i) => {
           const z = firstZ + 12 - ((span + 26) * i) / (houseCount - 1);
           return wall(
@@ -2207,17 +2396,6 @@ function cityBackdrop(cityId, stopPositions, metrics) {
         rotationY: -0.07,
         solid: true,
         note: 'Palandöken at the head of the street',
-      },
-      /**
-       * The wolf, on Palandöken's ridge. Solid is meaningless at 150 m; it is
-       * false so nothing builds a collider a child could never reach.
-       */
-      {
-        assetId: 'kit_erzurum_wolf',
-        position: ERZURUM_WOLF.position,
-        rotationY: ERZURUM_WOLF.rotationY,
-        solid: false,
-        note: 'wolf on the summit',
       },
       /**
        * The cağ kebap grill, on the west side of the street.
@@ -2642,8 +2820,37 @@ function cityBackdrop(cityId, stopPositions, metrics) {
      */
     return [
       {
+        /**
+         * Half again as big, and the factor is the flanking forest's.
+         *
+         * The owner is looking at the same fault D-192 named and says it is not
+         * fixed: the lake does not read as a lake, and either side of it the
+         * ground still meets the sky. Both come from one number — 75 m across
+         * at 55 m out is ±34°, and the forward view is wider than that. Four
+         * forest stands were put in those corners last time at x = ±56 and they
+         * are 12 m tall at 80 m, which is 7° of elevation: too low to close
+         * anything.
+         *
+         * So the lake grows to meet them. 56 / 37.3 is 1.50, and at that scale
+         * its own edge arrives where the stands are instead of stopping
+         * nineteen metres short of them.
+         *
+         * Everything else is held rather than re-chosen, because both numbers
+         * were derived and both still apply:
+         *
+         *  - the near lip stays at z = -64, so the walk up to the water is the
+         *    same walk and the bounds are still clear of it by three metres;
+         *  - the rim stays 5 m proud rather than 7.5, which is what scaling y
+         *    with everything else would have given. The rim is the thing the
+         *    water has to be seen *over*, so it is the one measurement that
+         *    must not grow with the lake.
+         *
+         * y is -13.9 rather than the -8.9 a section drawing gives, for the
+         * reason it was -7.6 before: `AssetInstance` grounds on the box *after*
+         * the tilt (D-190).
+         */
         assetId: 'city_bolu_yedigoller_lake',
-        position: [0, -7.6, -99.4],
+        position: [0, -13.9, -117.1],
         rotationY: 0.08,
         rotationX: (34 * Math.PI) / 180,
         solid: true,
@@ -3424,7 +3631,7 @@ function balloonSky(cityId, stopPositions) {
 }
 
 /** Deterministic S-curve layout; the same city always lays out identically. */
-function layout(stopCount, approaches, geometry, metrics) {
+function layout(stopCount, approaches, geometry, metrics, lateralX = []) {
   const { firstZ } = metrics;
 
   /**
@@ -3444,7 +3651,17 @@ function layout(stopCount, approaches, geometry, metrics) {
   // The S-curve narrows with the street, or a compact city zig-zags absurdly.
   const sway = spacing / STOP_SPACING * 7;
   for (let i = 0; i < stopCount; i += 1) {
-    stopPositions.push([Math.round(Math.sin(i * 0.9) * sway * 10) / 10, 0, firstZ - i * spacing]);
+    const swept = Math.round(Math.sin(i * 0.9) * sway * 10) / 10;
+    /**
+     * An authored x wins over the sine, but not over the boundary: a stop the
+     * child cannot reach is worse than one they cannot see from the square.
+     * The margin is the object's own half-width and two metres to stand in.
+     */
+    const authored = lateralX[i];
+    const limit = metrics.halfWidth - geometry[i].halfWidth - 2;
+    const x =
+      authored == null ? swept : Math.sign(authored) * Math.min(Math.abs(authored), limit);
+    stopPositions.push([Math.round(x * 10) / 10, 0, firstZ - i * spacing]);
   }
   /**
    * The route stops in front of each object, then steps round it.
@@ -3498,11 +3715,15 @@ function buildScene(canonical) {
     return geometryFor(assetId, artType);
   });
   const metrics = layoutMetrics(canonical.id);
+  const lateralX = canonical.stops.map(
+    (stop) => STOP_LATERAL_X[`${canonical.id}:${stop.legacyArt.type}`] ?? null,
+  );
   const { stopPositions, route, bounds } = layout(
     canonical.stops.length,
     geometry.map((entry) => entry.approach),
     geometry,
     metrics,
+    lateralX,
   );
 
   const hotspots = canonical.stops.map((stop, index) => {
@@ -3549,6 +3770,7 @@ function buildScene(canonical) {
       ambientAudioId: `ambient_${canonical.regionId.replace(/-/g, '_')}`,
       skyPreset: CITY_PALETTE[canonical.id]?.sky ?? region.sourceVisual.sky,
       groundColor: CITY_PALETTE[canonical.id]?.ground ?? region.sourceVisual.ground,
+      fillLight: CITY_FILL_LIGHT[canonical.id] ?? 0,
     },
     guide: {
       /**
@@ -3797,7 +4019,39 @@ function buildScene(canonical) {
             : canonical.id === 'izmir'
               ? /** Paving out to the Kordon's palms; the gulf is drawn over its last two metres. */
                 { x: 17, front: 2, back: 2 }
-              : { x: 2, front: 2, back: 2 },
+              : canonical.id === 'bolu'
+              ? /**
+                 * Forest floor out under Yedigöller and the stands beside it.
+                 *
+                 * The lake reaches z = -170 and x = ±56 and the forest rows
+                 * ±66; the paving stopped at -107 and ±61, so the far half of
+                 * the water and the outer edge of every stand were over nothing
+                 * — the same fault as Nevşehir's rim, found by measuring rather
+                 * than by a screenshot.
+                 */
+                { x: 18, front: 72, back: 26 }
+              : canonical.id === 'nevsehir'
+                ? /**
+                   * Cappadocia needs ground all the way out to its own rim.
+                   *
+                   * The valley is a ring of six plates 79 m across standing 66 m
+                   * off the street, so its outer edge reaches x = 105 and z = 117.
+                   * The paving reached 61 and 72. **Every plate in the ring had
+                   * its outer half hanging over nothing**, and where a rim dips
+                   * below the horizon what showed through underneath it was sky —
+                   * which is the blue the owner is pointing at.
+                   *
+                   * This is the same fault as D-082, at the other end of the map:
+                   * ground is scenery and bounds are gameplay, and a valley placed
+                   * against the bounds is not placed against the ground.
+                   *
+                   * The numbers are the ring's, with three metres to spare over the
+                   * furthest plate on each side. A ground plane is two triangles
+                   * whatever size it is; the only thing that grows is how many
+                   * times a nine-metre sand tile repeats across it.
+                   */
+                  { x: 50, front: 50, back: 50 }
+                : { x: 2, front: 2, back: 2 },
     /**
      * Everything that works a line, in one list.
      *
@@ -3818,8 +4072,15 @@ function buildScene(canonical) {
               : canonical.id === 'izmir'
                 ? IZMIR_SURFER_LINES
                 : [],
-    birdAssetId: ['trabzon', 'balikesir', 'mardin', 'izmir'].includes(canonical.id) ? 'kit_gull' : null,
-    statues: canonical.id === 'mardin' ? MARDIN_STATUES : [],
+    birdAssetId: ['istanbul', 'trabzon', 'balikesir', 'mardin', 'izmir'].includes(canonical.id)
+      ? 'kit_gull'
+      : null,
+    statues:
+      canonical.id === 'mardin'
+        ? MARDIN_STATUES
+        : canonical.id === 'erzurum'
+          ? ERZURUM_WOLF_STATUE
+          : [],
     /**
      * Bolu's chair now rides Erzurum's cable too, so it stopped being Bolu's.
      * Renamed `city_bolu_chairlift_chair` -> `kit_chairlift_chair`: a chair on
@@ -3834,7 +4095,9 @@ function buildScene(canonical) {
           : null,
     snowfall: canonical.id === 'erzurum',
     birdPaths:
-      canonical.id === 'trabzon'
+      canonical.id === 'istanbul'
+        ? ISTANBUL_BIRDS
+        : canonical.id === 'trabzon'
         ? TRABZON_BIRDS
         : canonical.id === 'balikesir'
           ? BALIKESIR_BIRDS
@@ -3907,6 +4170,17 @@ function buildScene(canonical) {
             width: 420,
             depth: VAN_LAKE_DEPTH,
             color: '#3E93A0',
+            /**
+             * Van's lake does not move at all, at the owner's request.
+             *
+             * The swell that was washing the boats up the beach is fixed at
+             * source — it was breathing either side of the ground rather than
+             * above it — but Van is asked to be still on top of that, and it
+             * should be. It is the highest large lake in the country, seen from
+             * a shore two hundred metres away, and nothing at that distance
+             * reads as chop. `still` exists for exactly this call (D-163).
+             */
+            still: true,
           }
           : null,
     /**

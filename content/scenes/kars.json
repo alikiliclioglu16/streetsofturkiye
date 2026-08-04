@@ -15,7 +15,8 @@
       "#C4E2F2",
       "#F0F9FD"
     ],
-    "groundColor": "#D5C79E"
+    "groundColor": "#D5C79E",
+    "fillLight": 0
   },
   "guide": {
     "assetId": "character_nasreddin_hoca_base"
@@ -507,7 +508,11 @@
     "front": 2,
     "back": 2
   },
-  "boatLines": [],
+  "shuttleLines": [],
+  "birdAssetId": null,
+  "statues": [],
+  "cableCarAssetId": null,
+  "snowfall": false,
   "birdPaths": [],
   "mistBands": [],
   "canoeLines": [],

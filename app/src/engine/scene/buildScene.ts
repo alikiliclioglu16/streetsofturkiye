@@ -136,6 +136,11 @@ export interface SceneDescription {
   readonly trainAsset: ResolvedAsset | null;
   readonly tramAsset: ResolvedAsset | null;
   readonly sky: SceneSky;
+  /**
+   * Strength of the shadowless fill from the camera's side, or 0 for none.
+   * Lifts the faces a child looks at without touching the ground or the sky.
+   */
+  readonly fillLight: number;
   readonly colliders: readonly RectCollider[];
   readonly hotspots: readonly SceneHotspot[];
   readonly routePoints: readonly Vec3[];
@@ -467,6 +472,7 @@ export function buildScene(city: CityDefinition, quality: QualityTier): SceneDes
       top: city.environment.skyPreset?.[0] ?? '#BFE4F2',
       horizon: city.environment.skyPreset?.[1] ?? city.environment.skyPreset?.[0] ?? '#DCF1FA',
     },
+    fillLight: city.environment.fillLight,
     spawn: city.spawn.position,
     spawnHeading: city.spawn.rotation[1],
     routeMarker,

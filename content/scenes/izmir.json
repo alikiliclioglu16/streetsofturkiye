@@ -15,7 +15,8 @@
       "#9FE0EE",
       "#E3F7FB"
     ],
-    "groundColor": "#D8C48C"
+    "groundColor": "#D8C48C",
+    "fillLight": 0
   },
   "guide": {
     "assetId": "character_keloglan_base"

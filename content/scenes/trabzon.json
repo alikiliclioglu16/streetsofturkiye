@@ -15,7 +15,8 @@
       "#AFC8D2",
       "#E4EDE8"
     ],
-    "groundColor": "#A2AEA3"
+    "groundColor": "#A2AEA3",
+    "fillLight": 0
   },
   "guide": {
     "assetId": "character_nasreddin_hoca_base"
@@ -499,6 +500,7 @@
   ],
   "birdAssetId": "kit_gull",
   "statues": [],
+  "cableCarAssetId": null,
   "snowfall": false,
   "birdPaths": [
     {

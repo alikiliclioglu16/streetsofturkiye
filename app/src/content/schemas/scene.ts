@@ -102,6 +102,25 @@ export const sceneSchema = z
       ambientAudioId: z.string().optional(),
       skyPreset: z.array(z.string()).optional(),
       groundColor: z.string().optional(),
+      /**
+       * A second, shadowless light from where the child is standing.
+       *
+       * The city's one directional light comes from up and to the right, and
+       * only 37% of it reaches a face turned towards the street. That is enough
+       * on pale stone and not enough on dark wood or black stone: Bolu's
+       * smokehouse and Erzurum's oltu bench both went dark on the side a child
+       * looks at, which is the only side that has anything on it.
+       *
+       * Deliberately narrow in what it changes. It arrives almost horizontally
+       * from the camera's side, so a vertical face takes nearly all of it and
+       * the ground takes a third — Erzurum can have its bench lifted without
+       * its snow blowing out. Raising the hemisphere light instead would have
+       * done the opposite in both cities.
+       *
+       * Zero everywhere it is not asked for, so no finished city changes by
+       * default (D-156).
+       */
+      fillLight: z.number().min(0).max(1.2).default(0),
     }),
     guide: z.object({ assetId: z.string() }),
     spawn: transformSchema,

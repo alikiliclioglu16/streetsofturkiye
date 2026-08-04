@@ -15,7 +15,8 @@
       "#C4E2F2",
       "#F0F9FD"
     ],
-    "groundColor": "#D5C79E"
+    "groundColor": "#D5C79E",
+    "fillLight": 0
   },
   "guide": {
     "assetId": "character_nasreddin_hoca_base"
@@ -533,7 +534,8 @@
     "centerZ": -180,
     "width": 420,
     "depth": 200,
-    "color": "#3E93A0"
+    "color": "#3E93A0",
+    "still": true
   },
   "backdrop": [
     {

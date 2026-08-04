@@ -108,7 +108,7 @@ export const DEFAULT_GRAYBOX_DIMENSIONS = [2.4, 2.4, 2.4];
 export const DELIVERED_DIMENSIONS = {
   city_istanbul_hagia_sophia: [16.9, 10.0, 17.9],
   city_istanbul_iznik_tile_panel: [1.51, 2.2, 1.06],
-  city_istanbul_ferry_terminal: [13.9, 8.0, 8.9],
+  city_istanbul_kadikoy_pier: [13.12, 8.0, 8.45],
   city_istanbul_ferry_boat: [20.2, 9.0, 4.5],
   city_istanbul_beyoglu_row: [30.7, 14.0, 12.3],
   kit_turkish_flag: [3.5, 6.0, 1.0],
@@ -147,7 +147,7 @@ export const DELIVERED_DIMENSIONS = {
   city_bolu_ski_lift_station: [7.1, 4.2, 7.05],
   city_bolu_forest_row: [41.9, 13.0, 20.43],
   city_bolu_lake_forest: [70.0, 12.0, 60.0],
-  city_bolu_yedigoller_lake: [74.58, 16.0, 74.49],
+  city_bolu_yedigoller_lake: [111.87, 24.0, 111.73],
   city_bolu_kartalkaya_peak: [72.3, 27.67, 68.51],
   kit_bolu_fir: [4.65, 9.0, 4.66],
   kit_chairlift_chair: [1.54, 1.9, 0.9],
