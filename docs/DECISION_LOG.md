@@ -3921,3 +3921,60 @@ the real delivery would not have fitted the hole left for it.
 
 Five metres, which is where every orchard tree in this project has landed:
 hazelnut 4.5, pistachio 5.0, olive 5.5.
+
+## D-218 — The terrain fills the map; it does not become the map (12 Oct 2026)
+
+The owner delivered an `Anatolian Highlands` plate and asked for the entry map to
+be replaced with it. It is not Türkiye: the plate is 1.28 times wider than it is
+deep and Türkiye is 2.33, and mapping the nineteen target cities onto it by
+longitude and latitude puts **three of them — Trabzon, İstanbul and Antalya —
+off the model entirely.**
+
+That is `TurkiyeMap.tsx`'s own opening comment happening in practice: the outline
+and the projection both come from the source, and inventing either one puts
+cities in the sea.
+
+So the delivery is used as a **surface** instead of a place. A top-down render of
+it, relief-shaded from the north-west the way relief maps are, fills the land
+paths through an SVG pattern. The outline, the projection and every dot stay
+exactly where the source put them, and the map gains terrain without moving a
+single city.
+
+Rendered rather than shipped as a GLB, which also makes the map cheaper: 22.08 MB
+of model with three 2048–4096 px maps becomes a 141 KB JPEG, and the entry screen
+stays 2D with no loader.
+
+The plate's own footprint does not reach the corners of Türkiye's bounding box,
+so each row of the render is stretched across the full width before it is
+resized. Without that, Thrace and the south-west coast showed as flat wash.
+
+## D-219 — Nineteen cities, and nothing is dropped (12 Oct 2026)
+
+The owner set the target: nineteen. All thirteen cities open today are on the
+list, so the work is purely additive — Diyarbakır, Bursa, Muğla, Çanakkale,
+Ankara and Adana.
+
+All six are three-stop, one-question cities, and every one falls into a region
+that already has a kit, a ground, a planting table and an animal. None needs a
+new region built.
+
+**Diyarbakır is the one to watch**: the third yellow-stone city, and three
+provinces in one region reading as one place with three names is what Erzurum
+sprang in the east (D-189). Its walls are black basalt rather than honey
+limestone, and that has to carry the difference.
+
+All six also need their stop footprints reserved first. Their art types —
+`kale`, `kopru`, `fruit`, `karagoz`, `sahil`, `hayvan`, `truva`, `anitkabir`,
+`muze`, `flower` — are absent from `GRAYBOX_SHAPES` and fall through to the
+2.4 m default cube, which is the fault D-217 caught in Antalya.
+
+## D-220 — The model tooling is not a declared dependency (12 Oct 2026)
+
+`measure-model.mjs`, `optimize-textures.mjs` and `set-model-scale.mjs` are in the
+repository; `@gltf-transform/*` and `sharp` are not in `package.json`. A fresh
+clone runs the tests and the build fine and cannot measure a delivery at all —
+`npm install` then `node scripts/measure-model.mjs` fails on a missing package.
+
+Noted rather than fixed in this round, because adding them changes the install
+for everyone and the owner's machine evidently has them. They belong in
+`devDependencies`.

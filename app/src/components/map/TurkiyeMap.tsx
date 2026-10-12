@@ -14,6 +14,19 @@ import type { Presentation } from '@/content/schemas/presentation';
  * dots have to land on the coastline, so inventing either one puts every city
  * in the sea. An earlier build drew a bare scatter of dots with no country
  * behind them.
+ *
+ * **The land is now relief rather than a flat wash**, filled from
+ * `map_relief.jpg` — a top-down render of the delivered `Anatolian Highlands`
+ * terrain, lit from the north-west the way relief maps are, and clipped to the
+ * country.
+ *
+ * Clipped, and not used as the map itself, because it is not Türkiye. The
+ * delivery is a terrain plate 1.28 times wider than it is deep; Türkiye is
+ * 2.33. Mapping the nineteen target cities onto that plate by longitude and
+ * latitude puts **three of them — Trabzon, İstanbul and Antalya — off the model
+ * entirely**, which is this comment's own warning happening in practice. So the
+ * outline, the projection and every dot stay exactly where the source put them,
+ * and what the terrain supplies is the surface inside them.
  */
 const project = (longitude: number, latitude: number) => ({
   x: Math.round((longitude - 25.55) * 50 * 10) / 10,
@@ -64,6 +77,36 @@ export function TurkiyeMap({
           <stop offset="0" stopColor="#E8DCBF" />
           <stop offset="1" stopColor="#D6C49A" />
         </linearGradient>
+
+        {/*
+          The relief, laid over the land box the source paths occupy — x 26 to
+          963.5, y 43 to 447.9 in a 1000 x 500 viewBox. `patternUnits` is user
+          space so the image sits at that fixed place on the map rather than
+          repeating per shape: the four land paths (the mainland and three
+          islands) then read as windows cut into one continuous country.
+
+          `preserveAspectRatio="none"` on purpose. The terrain is being used as
+          a surface, not as a place, and letting it letterbox would leave the
+          flat gradient showing at the top and bottom of the land.
+        */}
+        <pattern
+          id="sot-relief"
+          patternUnits="userSpaceOnUse"
+          x={26}
+          y={43}
+          width={937.5}
+          height={404.9}
+        >
+          <rect x="0" y="0" width="937.5" height="404.9" fill="url(#sot-land)" />
+          <image
+            href="/assets/textures/map_relief.jpg"
+            x="0"
+            y="0"
+            width="937.5"
+            height="404.9"
+            preserveAspectRatio="none"
+          />
+        </pattern>
       </defs>
 
       <rect x="0" y="0" width="1000" height="500" fill="url(#sot-sea)" />
@@ -72,7 +115,7 @@ export function TurkiyeMap({
         <path
           key={`land-${index}`}
           d={d}
-          fill="url(#sot-land)"
+          fill="url(#sot-relief)"
           stroke="#FFF8E7"
           strokeWidth={2}
           strokeLinejoin="round"
