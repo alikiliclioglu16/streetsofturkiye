@@ -197,6 +197,18 @@ export const sceneSchema = z
          * a plane that size moving as one slab is a lid lifting, not a swell.
          */
         still: z.boolean().default(false),
+        /**
+         * How far the surface sits below the street, in metres.
+         *
+         * Zero everywhere the land meets the water at its own level, which is
+         * every sea in the project until Antalya. That city stands on a
+         * travertine cliff and its sea is a long way down; without this the
+         * Mediterranean would run up to the old town like a flooded street.
+         *
+         * Negative only. Water above the ground is a burst main, not a view,
+         * and nothing should be able to ask for it by typo.
+         */
+        depthBelowStreet: z.number().max(0).default(0),
       })
       .nullable()
       .default(null),

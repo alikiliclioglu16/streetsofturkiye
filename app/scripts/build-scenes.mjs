@@ -26,7 +26,21 @@ const manifestById = new Map(
 const CANONICAL = path.join(ROOT, 'content/canonical');
 const OUT = path.join(ROOT, 'content/scenes');
 
-const PILOT = ['istanbul', 'nevsehir', 'gaziantep', 'kars', 'van', 'ordu', 'bolu', 'trabzon', 'balikesir', 'mardin', 'erzurum', 'izmir'];
+const PILOT = [
+  'istanbul',
+  'nevsehir',
+  'gaziantep',
+  'kars',
+  'van',
+  'ordu',
+  'bolu',
+  'trabzon',
+  'balikesir',
+  'mardin',
+  'erzurum',
+  'izmir',
+  'antalya',
+];
 
 const readJson = (file) => JSON.parse(fs.readFileSync(file, 'utf8'));
 const manifest = readJson(path.join(CANONICAL, 'manifest.json'));
@@ -414,6 +428,39 @@ const IZMIR_TOWER_Z = 70;
  * Still, like Trabzon's and Balıkesir's: a plane this size rising and falling
  * as one slab reads as a lid lifting.
  */
+/**
+ * The Mediterranean, seen from the top of a cliff.
+ *
+ * Antalya's old town stands on a travertine shelf about forty metres above the
+ * water, which is the one fact about this city that a street-level scene can
+ * actually use — and the reason this sea is placed differently from the other
+ * five. İzmir's gulf meets the Kordon at ground level; Trabzon's and
+ * Balıkesir's sit behind the spawn; İstanbul's and Van's run across the front.
+ * Here the land simply stops, and the water is a long way down.
+ *
+ * So the plane is sunk 8 m rather than set at the usual 0.02. Not forty: at
+ * forty the horizon falls 15° below a child's eye and the whole east half of
+ * the screen is empty blue. Eight is the depth at which the drop still reads as
+ * a drop — the cliff edge cuts a hard line and the water starts well below it —
+ * while the sea keeps enough of the frame to be the sea. It is the first thing
+ * in the project placed below the ground on purpose, so the cliff pieces have
+ * to arrive before it can be judged.
+ *
+ * Still, like İzmir's. A swell at this distance reads as noise, and the one
+ * time the project animated water at a grazing angle it beached Van's boats
+ * (D-202).
+ */
+const ANTALYA_SEA = {
+  centerX: 126,
+  centerZ: -30,
+  width: 190,
+  depth: 320,
+  /** Mediterranean turquoise: lighter and greener than the Aegean. */
+  color: '#2FA3A8',
+  still: true,
+  depthBelowStreet: -8,
+};
+
 const IZMIR_GULF = {
   centerX: 119,
   centerZ: -38,
@@ -841,6 +888,27 @@ const ISTANBUL_BIRDS = [
   { centre: [62, 11, 8], radius: 22, rate: -0.036, phase: 4.6, bob: 1.3 },
 ];
 
+/**
+ * Gulls over Antalya's cliff.
+ *
+ * Placed by the rule the other five bird cities follow: the camera sees 13°
+ * above horizontal (D-183), so a circle is positioned by its **far** arc, which
+ * must fall inside that. All five below land between 3° and 7°, and the near
+ * side of each lap passes overhead and out of frame, which is what makes them
+ * read as birds going somewhere rather than a mobile over the street.
+ *
+ * Weighted to the east, over the water, because that is where gulls are and
+ * because that flank has nothing else in it today. They are the only moving
+ * thing in this city's sky until the Beydağları arrive.
+ */
+const ANTALYA_BIRDS = [
+  { centre: [62, 11, -14], radius: 26, rate: 0.031, phase: 0.4, bob: 1.5 },
+  { centre: [78, 13, -58], radius: 30, rate: -0.024, phase: 2.6, bob: 1.8 },
+  { centre: [54, 10, -96], radius: 24, rate: 0.028, phase: 4.1, bob: 1.3 },
+  { centre: [-46, 12, -40], radius: 26, rate: -0.022, phase: 5.2, bob: 1.6 },
+  { centre: [8, 14, 48], radius: 28, rate: 0.019, phase: 1.3, bob: 1.9 },
+];
+
 const TRABZON_MIST = [
   { centre: [0, 9, -85.5], width: 40, height: 7.5, drift: 1.3, opacity: 0.42 },
   { centre: [-4, 14.5, -83.5], width: 34, height: 6, drift: -0.85, opacity: 0.3 },
@@ -1072,6 +1140,23 @@ const CITY_PALETTE = {
    * the paving texture, and anything much below 65% lightness swallows it.
    */
   balikesir: { sky: ['#A6D2E4', '#EDE9D6'], ground: '#C3BC9C' },
+  /**
+   * Antalya at midday, which is the brightest this project gets.
+   *
+   * First Mediterranean city, so for the second time after İzmir no region
+   * table had to be argued with — the Mediterranean row was written when the
+   * regions were and has waited since. It is kept nearly as it stands: a pale
+   * hot sky over limestone sand is right for a coast that is bare rock and sun.
+   *
+   * Two changes. The sky is a shade deeper than the region's #A8E4F2, because
+   * that value was chosen against a generic city and Antalya's own horizon is
+   * sea — a sky lighter than the water it meets reads as haze. And the ground
+   * goes warmer and paler than #E2CD96: this is travertine, nearer cream than
+   * sand. Kept at 80% lightness because `groundColor` multiplies the cobbles
+   * rather than replacing them, and anything much below 66% swallows the
+   * texture — the lesson Trabzon and Balıkesir each paid for separately.
+   */
+  antalya: { sky: ['#8FD6EC', '#E8F7FA'], ground: '#D8CCAE' },
   /**
    * Mardin, bleached.
    *
@@ -3514,6 +3599,89 @@ function cityBackdrop(cityId, stopPositions, metrics) {
       })),
     ];
   }
+
+  if (cityId === 'antalya') {
+    /**
+     * A grove road along the top of a cliff, and the first city opened with no
+     * art of its own.
+     *
+     * Every other city here was opened the same way — Van and Kars both walked
+     * for weeks as coloured boxes — but those had a horizon commissioned before
+     * the street was. This one has nothing: three graybox stops and whatever
+     * the shared kit already holds. So the question was not what Antalya should
+     * look like, which `docs/ANTALYA_ASSET_BRIEF.md` answers, but what it can
+     * honestly look like today.
+     *
+     * The answer is a grove. Two of Antalya's three stops are outdoors and one
+     * of them *is* an orchard, the shared kit has a 13 m grove piece and a
+     * cypress, and a road running between citrus under a cliff is a real place
+     * in this province rather than a stand-in for one. It needs no model that
+     * does not exist.
+     *
+     * **The east flank is the cliff, and it is deliberately empty of objects.**
+     * The sea is 8 m down and 126 m out, so what closes that side is the drop
+     * itself — and nothing in the kit can draw a cliff edge. A child walking to
+     * the right boundary today sees ground, then sea, with no lip between them.
+     * That is the one thing in this city that is wrong rather than unfinished,
+     * and `city_antalya_falez_edge` is the first line of the brief.
+     *
+     * No olive. `kit_olive_grove` is the only grove in the kit and it is 1.3 MB
+     * already paid for, which was the argument for using it here — but Balıkesir
+     * is olive country and Antalya is citrus, and a province wearing its
+     * neighbour's crop is exactly D-189. The grove pieces below are cypress
+     * stands instead: cypress belongs to this whole coast, carries no other
+     * province's name, and costs 0.23 MB.
+     */
+    const groveZ = Array.from({ length: 7 }, (_, i) => 20 - i * 17);
+    return [
+      /**
+       * The west flank: cypress stands in a staggered double row.
+       *
+       * One tree is 2.5 m and the frame's ceiling at 26 m out is 13.2 m, so a
+       * single row closes 5° of a direction that needs 13. Two rows at
+       * different depths do not fix that either — the honest reading is that
+       * this flank is **open**, and the brief asks for `city_antalya_kaleici_row`
+       * to close it properly.
+       *
+       * What the stagger does buy is depth: a child walking the street passes
+       * trunks at two distances rather than one, which reads as a grove instead
+       * of a fence. They are placed off the sine the rest of the city uses so
+       * they do not line up with the stops.
+       */
+      ...groveZ.flatMap((z, i) => [
+        {
+          assetId: 'kit_planter_cypress',
+          position: [-24, 0, z],
+          rotationY: Math.round(((i * 53) % 360) * (Math.PI / 180) * 1000) / 1000,
+          solid: false,
+          note: `cypress west near ${i + 1}`,
+        },
+        {
+          assetId: 'kit_planter_cypress',
+          position: [-31, 0, Math.round((z - 8.5) * 10) / 10],
+          rotationY: Math.round(((i * 97) % 360) * (Math.PI / 180) * 1000) / 1000,
+          solid: false,
+          note: `cypress west far ${i + 1}`,
+        },
+      ]),
+      /**
+       * Behind the spawn: the Beydağları, which do not exist yet either.
+       *
+       * Antalya sits in a bowl with the Taurus range standing over it, and that
+       * range is the reason the city is where it is. There is no mountain in
+       * the shared kit — every one belongs to a named province — so the back of
+       * this street is open sky until `city_antalya_beydaglari` is delivered.
+       * A cypress line marks where it goes and closes the near ground.
+       */
+      ...[-14, 0, 14].map((x, i) => ({
+        assetId: 'kit_planter_cypress',
+        position: [x, 0, 30],
+        rotationY: Math.round(((i * 71) % 360) * (Math.PI / 180) * 1000) / 1000,
+        solid: false,
+        note: `cypress behind the square ${i + 1}`,
+      })),
+    ];
+  }
   return [];
 }
 
@@ -4004,7 +4172,18 @@ function buildScene(canonical) {
                * them or they slide along the edge of nothing.
                */
               { x: 6, front: 2, back: 2 }
-            : canonical.id === 'izmir'
+            : canonical.id === 'antalya'
+              ? /**
+                 * Ground out to the cliff on one side and under the grove on
+                 * the other.
+                 *
+                 * `x` pads both flanks at once, so it takes the larger of the
+                 * two: the west grove reaches 31 m and the cliff edge belongs
+                 * at about 35, which is where the sea's near edge falls. Twenty
+                 * metres past a 15 m boundary covers both (D-204).
+                 */
+                { x: 20, front: 2, back: 16 }
+              : canonical.id === 'izmir'
               ? /** Paving out to the Kordon's palms; the gulf is drawn over its last two metres. */
                 { x: 17, front: 2, back: 2 }
               : canonical.id === 'bolu'
@@ -4060,7 +4239,9 @@ function buildScene(canonical) {
               : canonical.id === 'izmir'
                 ? IZMIR_SURFER_LINES
                 : [],
-    birdAssetId: ['istanbul', 'trabzon', 'balikesir', 'mardin', 'izmir'].includes(canonical.id)
+    birdAssetId: ['istanbul', 'trabzon', 'balikesir', 'mardin', 'izmir', 'antalya'].includes(
+      canonical.id,
+    )
       ? 'kit_gull'
       : null,
     statues:
@@ -4093,7 +4274,9 @@ function buildScene(canonical) {
             ? MARDIN_BIRDS
             : canonical.id === 'izmir'
               ? IZMIR_BIRDS
-              : [],
+              : canonical.id === 'antalya'
+                ? ANTALYA_BIRDS
+                : [],
     mistBands:
       canonical.id === 'trabzon'
         ? TRABZON_MIST
@@ -4119,7 +4302,9 @@ function buildScene(canonical) {
      * and greener than the sea.
      */
     water:
-      canonical.id === 'izmir'
+      canonical.id === 'antalya'
+        ? ANTALYA_SEA
+        : canonical.id === 'izmir'
         ? IZMIR_GULF
         : canonical.id === 'balikesir'
         ? BALIKESIR_LAKE

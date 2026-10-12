@@ -50,6 +50,7 @@ export function Water({
   depth,
   color,
   still = false,
+  depthBelowStreet = 0,
   reducedMotion,
 }: {
   centerX: number;
@@ -58,6 +59,8 @@ export function Water({
   depth: number;
   color: string;
   still?: boolean;
+  /** Metres below the street, for a sea seen from a cliff. Zero or negative. */
+  depthBelowStreet?: number;
   reducedMotion: boolean;
 }) {
   const mesh = useRef<Mesh>(null);
@@ -71,7 +74,7 @@ export function Water({
      */
     if (still || reducedMotion || !mesh.current) return;
     elapsed.current += delta;
-    mesh.current.position.y = waterSurfaceY(elapsed.current);
+    mesh.current.position.y = waterSurfaceY(elapsed.current) + depthBelowStreet;
   });
 
   return (
@@ -92,7 +95,12 @@ export function Water({
        * centimetres up plus a depth bias keeps it off the ground at distance,
        * where either alone shows through.
        */
-      position={[centerX, WATER_SURFACE_Y, centerZ]}
+      /**
+       * `depthBelowStreet` drops the whole surface for a sea seen from above —
+       * Antalya's cliff. It is zero everywhere else, so this is the same two
+       * centimetres the comment above describes.
+       */
+      position={[centerX, WATER_SURFACE_Y + depthBelowStreet, centerZ]}
       receiveShadow
     >
       <planeGeometry args={[width, depth]} />

@@ -134,6 +134,7 @@ export function CityScene({
           depth={scene.water.depth}
           color={scene.water.color}
           still={scene.water.still}
+          depthBelowStreet={scene.water.depthBelowStreet}
           reducedMotion={reducedMotion}
         />
       ) : null}

@@ -3857,3 +3857,67 @@ lake returns it should return at the size it arrived at, not at a number chosen
 to solve a problem no longer being solved that way.
 
 Bolu: 16.0 MB a visit down to 13.3.
+
+## D-214 — Antalya opens with no art of its own (12 Oct 2026)
+
+Thirteenth city, first Mediterranean one, and the first opened with nothing
+commissioned: three graybox stops, no horizon, no theme. Van and Kars both walked
+as coloured boxes for weeks, but each had a horizon briefed before its street
+was.
+
+The region tables were written when the regions were and had waited since, so for
+the second time after İzmir nothing had to be argued out of the way — kit, cat,
+cobbles and the cypress-plane planting all came out right by default.
+
+What it borrows is the shared kit only: cypress stands for the flanks, gulls on
+the 13° rule, the Mediterranean row's cats, and the street furniture. **No
+`kit_olive_grove`**, which was the obvious filler and is already paid for — but
+Balıkesir is olive country and Antalya is citrus, and a province in its
+neighbour's crop is D-189 exactly.
+
+The honest state of it is in the brief rather than hidden: a forward sweep reads
+**bare from −20° to +20°**, and about forty degrees in all, against İzmir's
+never-below-9.7°. That measurement, not the importance of each piece to the city,
+is what orders Part A of `docs/ANTALYA_ASSET_BRIEF.md`.
+
+## D-215 — A sea can be below the street (12 Oct 2026)
+
+Antalya's old town stands on a travertine shelf about forty metres above the
+water. Every sea in the project until now met the land at its own level, so
+`water` had no way to say otherwise and the Mediterranean would have run up to
+the old town like a flooded street.
+
+`depthBelowStreet` drops the plane. Negative only — water above the ground is a
+burst main, not a view, and nothing should be able to ask for it by typo.
+
+**Eight metres, not forty.** At forty the horizon falls 15° below a child's eye
+and the east half of the screen is empty blue. Eight is where the drop still
+reads as a drop while the sea keeps enough of the frame to be the sea. It cannot
+be judged until `city_antalya_falez_edge` exists, because there is currently no
+lip between the paving and the water — which the brief says in its first line.
+
+## D-216 — Düden is two assets, because ten metres does not fit a stop (12 Oct 2026)
+
+`graybox_selale` is 6 × 10 × 3 m, which is a sensible waterfall and the footprint
+the layout reserved. A child on stop 2's trigger ring stands 5.5 m away, where the
+ceiling is 3.6 m: a ten-metre fall overshoots the frame by six and a half metres
+and reads as a wall of white with no top and no bottom.
+
+The same split Hagia Sophia, Sümela, Kaz Dağları and the Çifte Minareli Medrese
+all needed (D-066). The falls go on the cliff flank where there is 10.4 m of
+ceiling; the stop is the viewing platform at the lip, 2.6 m.
+
+It also puts Düden where Düden is. The lower falls do not land in a pool — they
+go off the shelf straight into the sea, which is the most memorable thing in this
+city's canonical text and is lost entirely if the stop is a pond in a street.
+
+## D-217 — The orchard graybox had no footprint (12 Oct 2026)
+
+`agac` was falling through to the 2.4 m default cube. Not a wrong model — nothing
+there is a model — but a wrong **footprint**, and reserving one is a graybox's
+whole job: the trigger ring, collider and stop camera all derive from these
+numbers (D-051), so a stop briefed as a grove got a camera framed for a crate and
+the real delivery would not have fitted the hole left for it.
+
+Five metres, which is where every orchard tree in this project has landed:
+hazelnut 4.5, pistachio 5.0, olive 5.5.

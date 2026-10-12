@@ -3485,6 +3485,20 @@ const GRAYBOX_SHAPES: Readonly<Record<string, { shape: PlaceholderShape; dimensi
   theatre: { shape: 'cylinder', dimensions: [14, 5, 14] },
   gol: { shape: 'box', dimensions: [16, 0.2, 16] },
   selale: { shape: 'box', dimensions: [6, 10, 3] },
+  /**
+   * A tree, for the stops whose subject is an orchard.
+   *
+   * It was falling through to the 2.4 m default cube, which is not a wrong
+   * *model* — nothing here is a model — but a wrong **footprint**, and a
+   * graybox's whole job is to reserve one. The layout derives each stop's
+   * trigger ring, collider and camera from these numbers (D-051), so a stop
+   * briefed as a grove and boxed at 2.4 m gets a camera framed for a crate, and
+   * the real delivery then does not fit the hole left for it.
+   *
+   * Five metres, which is `kit_pistachio` and the five street trees before it
+   * measured — this project's orchard trees all land between 4.5 and 5.5.
+   */
+  agac: { shape: 'cylinder', dimensions: [5, 5, 5] },
 };
 
 const DEFAULT_GRAYBOX = { shape: 'box' as PlaceholderShape, dimensions: [2.4, 2.4, 2.4] as const };
