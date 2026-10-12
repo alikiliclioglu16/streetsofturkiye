@@ -5,8 +5,8 @@ import { useRouter } from 'next/navigation';
 import {
   loadPresentation,
   loadRegions,
-  PILOT_CITY_IDS,
   PLAYABLE_CITY_IDS,
+  TARGET_CITY_IDS,
 } from '@/content/loaders/loadCity';
 import { loadCityIndex, type CityIndexEntry } from '@/content/loaders/loadCityIndex';
 import type { CanonicalRegion as Region } from '@/content/schemas/canonical';
@@ -58,13 +58,18 @@ export default function MapPage() {
 
   // Widened so the copy reads correctly however many cities are open.
   const openCount: number = PLAYABLE_CITY_IDS.length;
+  const targetCount: number = TARGET_CITY_IDS.length;
 
   const availability = useMemo(() => {
     const playable = new Set<string>(PLAYABLE_CITY_IDS);
-    const pilot = new Set<string>(PILOT_CITY_IDS);
+    const target = new Set<string>(TARGET_CITY_IDS);
     return (cityId: string): CityAvailability => {
       if (playable.has(cityId)) return 'playable';
-      if (pilot.has(cityId)) return 'pilot';
+      /**
+       * In the nineteen but not open yet. This was `PILOT_CITY_IDS`, which
+       * never matched anything the line above had not already claimed.
+       */
+      if (target.has(cityId)) return 'planned';
       return 'locked';
     };
   }, []);
@@ -136,10 +141,17 @@ export default function MapPage() {
               completedCityIds={profile.completedCityIds}
               onSelect={(cityId) => router.push(`/city/${cityId}`)}
             />
+            {/*
+              Counts the nineteen, not the eighty-one. The old line said all
+              81 provinces were on the map and the rest were "waiting for their
+              streets", which stopped being true the moment the target was set:
+              sixty-two of them are not waiting for anything.
+            */}
             <p style={{ fontSize: 13, opacity: 0.72, margin: '10px 2px 0' }}>
-              {`All ${cities.length} provinces are on the map. ${openCount} of them ` +
-                `${openCount === 1 ? 'is' : 'are'} open to explore so far — ` +
-                `the rest already have their stories written and are waiting for their streets.`}
+              {`${targetCount} cities, one from every corner of Türkiye. ` +
+                `${openCount} ${openCount === 1 ? 'is' : 'are'} open to explore — ` +
+                `the other ${targetCount - openCount} already have their stories written ` +
+                `and are waiting for their streets.`}
             </p>
           </>
         )}

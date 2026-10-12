@@ -15,25 +15,39 @@ import type { Presentation } from '@/content/schemas/presentation';
  * in the sea. An earlier build drew a bare scatter of dots with no country
  * behind them.
  *
- * **The land is now relief rather than a flat wash**, filled from
- * `map_relief.jpg` — a top-down render of the delivered `Anatolian Highlands`
- * terrain, lit from the north-west the way relief maps are, and clipped to the
- * country.
- *
- * Clipped, and not used as the map itself, because it is not Türkiye. The
- * delivery is a terrain plate 1.28 times wider than it is deep; Türkiye is
- * 2.33. Mapping the nineteen target cities onto that plate by longitude and
- * latitude puts **three of them — Trabzon, İstanbul and Antalya — off the model
- * entirely**, which is this comment's own warning happening in practice. So the
- * outline, the projection and every dot stay exactly where the source put them,
- * and what the terrain supplies is the surface inside them.
+ * The land was briefly filled with a relief render of the delivered
+ * `Anatolian Highlands` terrain. The owner looked at it and said no, so the
+ * flat wash is back. The measurement that came out of that attempt is still
+ * worth keeping: the plate is 1.28 times wider than it is deep against
+ * Türkiye's 2.33, and three of the nineteen target cities fell off it
+ * altogether (D-218, D-221).
  */
 const project = (longitude: number, latitude: number) => ({
   x: Math.round((longitude - 25.55) * 50 * 10) / 10,
   y: Math.round((30 + (42.25 - latitude) * 65) * 10) / 10,
 });
 
-export type CityAvailability = 'playable' | 'pilot' | 'locked';
+/**
+ * What a province is on the map.
+ *
+ * `planned` replaced `pilot`, which had become a branch nothing reached: it
+ * meant the three cities the pilot was judged on, and all three have been
+ * playable since Kars opened (D-123), so the check above it always won. What
+ * the map actually needs to say now is "this one is coming", which is a
+ * different idea and belongs to the nineteen rather than to the three.
+ *
+ * `locked` is every other province. They are no longer drawn — see below.
+ */
+/**
+ * Cities whose name is drawn under the dot rather than over it.
+ *
+ * Derived rather than eyeballed: every label box is checked against every other
+ * label box and every other dot, and this is the smallest set that clears all
+ * of them. Re-run that check when a city joins the map.
+ */
+const LABEL_BELOW = new Set<string>(['mardin']);
+
+export type CityAvailability = 'playable' | 'planned' | 'locked';
 
 interface TurkiyeMapProps {
   cities: readonly CityIndexEntry[];
@@ -78,35 +92,6 @@ export function TurkiyeMap({
           <stop offset="1" stopColor="#D6C49A" />
         </linearGradient>
 
-        {/*
-          The relief, laid over the land box the source paths occupy — x 26 to
-          963.5, y 43 to 447.9 in a 1000 x 500 viewBox. `patternUnits` is user
-          space so the image sits at that fixed place on the map rather than
-          repeating per shape: the four land paths (the mainland and three
-          islands) then read as windows cut into one continuous country.
-
-          `preserveAspectRatio="none"` on purpose. The terrain is being used as
-          a surface, not as a place, and letting it letterbox would leave the
-          flat gradient showing at the top and bottom of the land.
-        */}
-        <pattern
-          id="sot-relief"
-          patternUnits="userSpaceOnUse"
-          x={26}
-          y={43}
-          width={937.5}
-          height={404.9}
-        >
-          <rect x="0" y="0" width="937.5" height="404.9" fill="url(#sot-land)" />
-          <image
-            href="/assets/textures/map_relief.jpg"
-            x="0"
-            y="0"
-            width="937.5"
-            height="404.9"
-            preserveAspectRatio="none"
-          />
-        </pattern>
       </defs>
 
       <rect x="0" y="0" width="1000" height="500" fill="url(#sot-sea)" />
@@ -115,7 +100,7 @@ export function TurkiyeMap({
         <path
           key={`land-${index}`}
           d={d}
-          fill="url(#sot-relief)"
+          fill="url(#sot-land)"
           stroke="#FFF8E7"
           strokeWidth={2}
           strokeLinejoin="round"
@@ -129,9 +114,19 @@ export function TurkiyeMap({
         const isDone = completed.has(city.id);
         const label = t(city.name, locale);
 
-        if (state === 'locked') {
-          return <circle key={city.id} cx={x} cy={y} r={4} fill={color} opacity={0.5} aria-hidden="true" />;
-        }
+        /**
+         * A province outside the nineteen is not drawn at all.
+         *
+         * It used to be a faint dot, and that was right while the plan was the
+         * whole country: sixty-eight quiet dots said "your province is coming".
+         * Against a nineteen-city product they say the opposite — a child finds
+         * their own town on the map, taps it, and nothing happens, which is a
+         * promise the project is no longer making.
+         *
+         * Their canonical content is untouched and the loader can still reach
+         * them; this is only what the map shows.
+         */
+        if (state === 'locked') return null;
 
         return (
           <g
@@ -139,7 +134,7 @@ export function TurkiyeMap({
             role="button"
             tabIndex={0}
             aria-label={`${label} — ${state === 'playable' ? 'open to explore' : 'coming soon'}`}
-            aria-disabled={state === 'pilot'}
+            aria-disabled={state === 'planned'}
             style={{ cursor: state === 'playable' ? 'pointer' : 'not-allowed' }}
             onClick={() => state === 'playable' && onSelect(city.id)}
             onKeyDown={(event) => {
@@ -155,7 +150,20 @@ export function TurkiyeMap({
             ) : (
               <circle cx={x} cy={y} r={13} fill="none" stroke={color} strokeWidth={2} strokeDasharray="4 4" />
             )}
-            <circle cx={x} cy={y} r={7.5} fill={isDone ? '#4CAF7D' : color} />
+            {/*
+              A planned city is hollow. With the locked dots gone, a solid
+              filled disc would make the six read as open — the dashed ring
+              alone is not enough of a difference at map scale, and the first
+              thing a child does is tap one.
+            */}
+            <circle
+              cx={x}
+              cy={y}
+              r={7.5}
+              fill={state === 'planned' ? '#FFF8E7' : isDone ? '#4CAF7D' : color}
+              stroke={state === 'planned' ? color : 'none'}
+              strokeWidth={state === 'planned' ? 2.5 : 0}
+            />
             {isDone ? (
               <path
                 d={`M ${x - 3.4} ${y} l 2.4 2.6 l 4.6 -5.2`}
@@ -165,9 +173,19 @@ export function TurkiyeMap({
                 strokeLinecap="round"
               />
             ) : null}
+            {/*
+              Labels sit above their dot, except where that collides.
+              
+              At thirteen cities nothing clashed. At nineteen, one pair does:
+              Diyarbakır and Mardin are 70 km apart and Mardin's label landed on
+              top of Diyarbakır's dot. Measuring every label box against every
+              other label and dot, dropping Mardin below clears it completely
+              (0 collisions) while dropping Diyarbakır instead makes it worse
+              (3), because its label then lands on Mardin's.
+            */}
             <text
               x={x}
-              y={y - 22}
+              y={LABEL_BELOW.has(city.id) ? y + 30 : y - 22}
               textAnchor="middle"
               fontSize={18}
               fontWeight={700}

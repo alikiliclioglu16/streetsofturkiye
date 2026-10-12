@@ -3978,3 +3978,41 @@ clone runs the tests and the build fine and cannot measure a delivery at all —
 Noted rather than fixed in this round, because adding them changes the install
 for everyone and the owner's machine evidently has them. They belong in
 `devDependencies`.
+
+## D-221 — The relief map is reverted (12 Oct 2026)
+
+The owner looked at the terrain-filled land and said no. The flat wash is back
+and `map_relief.jpg` is deleted; D-218 stands only as the record of what was
+measured, which is worth keeping — the delivered plate is 1.28 times wider than
+it is deep against Türkiye's 2.33, and three of the nineteen cities fall off it.
+
+One round, one screenshot, reverted. That is the cheap outcome and the reason to
+build the trial as a texture swap rather than as a 3D entry screen: there was
+nothing to unpick.
+
+## D-222 — The map shows nineteen cities and nothing else (12 Oct 2026)
+
+Every province outside the nineteen stops being drawn. They used to be faint
+dots, which was right while the plan was the whole country: sixty-eight quiet
+dots said "your province is coming". Against a nineteen-city product they say
+the opposite — a child finds their own town, taps it, and nothing happens.
+
+Their canonical content is untouched and `validate-canonical.mjs` still checks
+all 81 cities and 249 stops. This is what the map shows, not what the project
+holds.
+
+`CityAvailability` loses `'pilot'` and gains `'planned'`. The pilot branch had
+become unreachable: it meant the three cities the pilot was judged on, all three
+have been playable since Kars opened (D-123), and the playable check above it
+always won. What the map needs to say now is "this one is coming".
+
+A planned city is drawn hollow as well as dashed. With the locked dots gone, a
+filled disc with a dashed ring reads as open at map scale, and the first thing a
+child does is tap one.
+
+**Labels collide at nineteen where they did not at thirteen.** Diyarbakır and
+Mardin are 70 km apart and Mardin's name landed on Diyarbakır's dot. Checking
+every label box against every other label and every dot: dropping Mardin below
+its dot clears all of them, dropping Diyarbakır instead makes it worse — its
+label then lands on Mardin's. `LABEL_BELOW` holds the result, and the check
+should be re-run whenever a city joins the map.

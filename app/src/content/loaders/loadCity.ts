@@ -75,6 +75,43 @@ export const PLAYABLE_CITY_IDS = [
  * manifest covers; widening it to mean "every open city" would quietly move
  * the goalposts of a gate that has not been passed yet.
  */
+/**
+ * The nineteen provinces this product ships, set by the owner on 12 October 2026.
+ *
+ * Canonical content exists for all eighty-one and is not going anywhere — the
+ * source is the authority for every one of them and `validate-canonical.mjs`
+ * still checks all 249 stops. This list is a **product** decision laid over it:
+ * which of the eighty-one get streets.
+ *
+ * It is ordered the way the owner wrote it, east to west and then south, rather
+ * than alphabetically or by region, because that order is a route across the
+ * country and the map reads better for it.
+ *
+ * Every city open today is in here, so nothing is dropped and the remaining
+ * work is purely additive (D-219).
+ */
+export const TARGET_CITY_IDS = [
+  'kars',
+  'erzurum',
+  'van',
+  'trabzon',
+  'ordu',
+  'bolu',
+  'mardin',
+  'gaziantep',
+  'diyarbakir',
+  'istanbul',
+  'bursa',
+  'balikesir',
+  'izmir',
+  'mugla',
+  'canakkale',
+  'nevsehir',
+  'ankara',
+  'antalya',
+  'adana',
+] as const;
+
 export const PILOT_CITY_IDS = ['istanbul', 'nevsehir', 'gaziantep'] as const;
 
 async function fetchJson(path: string, signal?: AbortSignal): Promise<unknown> {
