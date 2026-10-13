@@ -4016,3 +4016,38 @@ every label box against every other label and every dot: dropping Mardin below
 its dot clears all of them, dropping Diyarbakır instead makes it worse — its
 label then lands on Mardin's. `LABEL_BELOW` holds the result, and the check
 should be re-run whenever a city joins the map.
+
+## D-223 — Zaman Penceresi replaces the fact card, and keeps it (12 Oct 2026)
+
+The owner's answer to "the stop cards are too thin": instead of a popup to read,
+an 8–12 second moment in the 3D scene — camera move, one visual event, one
+sound, one sentence, then the existing collectible. No questions. Designed for
+all 63 stops in `docs/TIME_WINDOW_DESIGN.md`.
+
+`FactCard` is **not deleted**, for two reasons. A stop with no window defined
+falls back to it, and 63 windows will not be written in one go. And a child with
+`reducedMotion` on should get the card rather than a cinematic — that setting
+already carries that promise everywhere else in the engine.
+
+**The design is built on what the engine already does.** Bird paths, balloons,
+the tram/train/ferry/cable-car line family, cat routes, snowfall, mist bands,
+wind props, water, statues, `fillLight` and the paraglider system cover most of
+it. Twelve primitives (`focus`, `dim`, `ghost`, `flight`, `rise`, `scatter`,
+`spin`, `fall`, `steam`, `glow`, `travel`, `caption`) express all 63 stops, so a
+new stop is a row of data rather than new code.
+
+**Sound costs nothing.** `cues.ts` synthesises every effect with oscillators
+rather than loading files, so the wind, hammer, crunch and bell this system
+needs are written in the same place. 63 stops, zero new audio files.
+
+Counted from the table rather than asserted: 55 of 63 need no new asset, and of
+the 45 stops in cities that exist today, 42 need none — the whole of the open
+project costs three new assets, about 105 KB.
+
+Time Window data lives in `content/timewindows/`, **beside canonical and never
+inside it**. Canonical is bound to the `index-html-canonical` authority and
+checked by SHA; this is derived content and the two must not mix.
+
+The `do` field is a closed union in zod. Left open, 63 stops would invent 63
+effect names and the system would stop being reusable, which is the whole point
+of it.
