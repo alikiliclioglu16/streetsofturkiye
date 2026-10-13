@@ -1,0 +1,53 @@
+{
+  "cityId": "izmir",
+  "windows": [
+    {
+      "stopId": "izmir-stop-03",
+      "duration": 9,
+      "audioPolicy": "duck",
+      "camera": {
+        "kind": "reveal",
+        "target": "hotspot:3",
+        "offset": [0, 2.2, 0],
+        "distance": 13,
+        "height": 6.5
+      },
+      "requires": ["city_izmir_clock_tower_base", "kit_izmir_pigeon_walking"],
+      "events": [
+        { "do": "sound", "at": 0.8, "cue": "clock-bell" },
+        { "do": "hide", "at": 1.0, "notePrefix": "leaf drift" },
+        { "do": "spawn", "at": 1.0, "id": "pigeon-a", "asset": "kit_izmir_pigeon_walking", "from": [-8.9, 0.2, -39], "scale": 1 },
+        { "do": "spawn", "at": 1.0, "id": "pigeon-b", "asset": "kit_izmir_pigeon_walking", "from": [-10, 0.2, -51.6], "scale": 1 },
+        { "do": "spawn", "at": 1.0, "id": "pigeon-c", "asset": "kit_izmir_pigeon_walking", "from": [-7.8, 0.2, -31.6], "scale": 1 },
+        { "do": "spawn", "at": 1.0, "id": "pigeon-d", "asset": "kit_izmir_pigeon_walking", "from": [11.1, 0.2, -25.3], "scale": 1 },
+        { "do": "spawn", "at": 1.0, "id": "pigeon-e", "asset": "kit_izmir_pigeon_walking", "from": [-11.1, 0.2, -59], "scale": 1 },
+        { "do": "sound", "at": 1.1, "cue": "wing-burst" },
+        { "do": "move", "at": 1.1, "id": "pigeon-a", "to": [-2.4, 9.4, -43.5], "seconds": 3.4, "curve": "arc" },
+        { "do": "move", "at": 1.2, "id": "pigeon-b", "to": [-1.1, 10.2, -52.8], "seconds": 3.4, "curve": "arc" },
+        { "do": "move", "at": 1.35, "id": "pigeon-c", "to": [2.8, 11.1, -38.2], "seconds": 3.3, "curve": "arc" },
+        { "do": "move", "at": 1.25, "id": "pigeon-d", "to": [9.6, 9.8, -33.4], "seconds": 3.5, "curve": "arc" },
+        { "do": "move", "at": 1.45, "id": "pigeon-e", "to": [-6.2, 10.6, -57.4], "seconds": 3.2, "curve": "arc" },
+        {
+          "do": "caption",
+          "at": 3.2,
+          "seconds": 4.6,
+          "text": {
+            "tr": "Saat çalar, güvercinler havalanır — Konak Meydanı'nın ritmi.",
+            "en": "The clock strikes, the pigeons lift — that's how Konak Square keeps time."
+          }
+        },
+        { "do": "move", "at": 5.2, "id": "pigeon-a", "to": [-9.4, 0.2, -40.8], "seconds": 2.6, "curve": "arc" },
+        { "do": "move", "at": 5.3, "id": "pigeon-b", "to": [-10.6, 0.2, -50.2], "seconds": 2.5, "curve": "arc" },
+        { "do": "move", "at": 5.45, "id": "pigeon-c", "to": [-6.9, 0.2, -33.1], "seconds": 2.4, "curve": "arc" },
+        { "do": "move", "at": 5.35, "id": "pigeon-d", "to": [10.4, 0.2, -27.2], "seconds": 2.6, "curve": "arc" },
+        { "do": "move", "at": 5.55, "id": "pigeon-e", "to": [-11.6, 0.2, -57.8], "seconds": 2.4, "curve": "arc" },
+        { "do": "despawn", "at": 8.4, "id": "pigeon-a" },
+        { "do": "despawn", "at": 8.4, "id": "pigeon-b" },
+        { "do": "despawn", "at": 8.4, "id": "pigeon-c" },
+        { "do": "despawn", "at": 8.4, "id": "pigeon-d" },
+        { "do": "despawn", "at": 8.4, "id": "pigeon-e" }
+      ],
+      "reward": "collectible_izmir_3"
+    }
+  ]
+}

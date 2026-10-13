@@ -4051,3 +4051,104 @@ checked by SHA; this is derived content and the two must not mix.
 The `do` field is a closed union in zod. Left open, 63 stops would invent 63
 effect names and the system would stop being reusable, which is the whole point
 of it.
+
+## D-224 — Zaman Penceresi, sürüm 2: geri alma birinci sınıf (12 Oct 2026)
+
+The owner reviewed the design and asked for seven changes before any code. All
+seven are in; `docs/TIME_WINDOW_DESIGN.md` is now version 2.
+
+**The architecture's real problem is not effects, it is undo.** A window
+temporarily breaks the scene — camera, lights, sky, water, emissive, opacity,
+transforms, spawned objects — and can be abandoned from four different places:
+skip, back-to-map, route change, unmount. Version 1 had no lifecycle at all.
+Version 2 makes `cancel()` an equal exit to `complete()`, with one snapshot
+object restored from one place. Per-effect `undo` was rejected: it is correct
+only if all twelve commands are written correctly, where one snapshot recovers
+even when one of them is wrong.
+
+**Reward is now two states, not one.** `windowWatched` and `stopCompleted` are
+separate sets and the reward is granted only on first insertion into the second.
+Version 1 said "reward on window end", which would have paid twice the moment
+replay existed. The `reducedMotion` path goes through the same gate, and a test
+holds that both paths reach the same completion state — that is the kind of bug
+that is invisible on screen and silently corrupts saved progress.
+
+**Effects split into two layers.** Twelve closed commands underneath, nine
+presets above. Sixty-three stops written as raw commands would be an unreadable
+pile, and adding a stop would mean reading engine code; presets keep the JSON in
+something close to human language while the command union keeps the engine
+fixed.
+
+**Captions got a standard and all 63 were rewritten**: one sentence, at most 90
+characters, at least 4 seconds on screen. Mean length is now 58 and the longest
+is 79. The rule behind it: a picture, a sentence, a memory — if the sentence
+describes the picture it is redundant; it should say what the picture cannot.
+
+**Eight claims were softened** because an education project cannot carry them:
+the Van cat is no longer "the only cat breed in the world that swims", Kaz
+Dağları no longer has "the cleanest air in the world", İstanbul is no longer
+"the only city on two continents", and the Kars cheese no longer weighs a number
+that appears nowhere in canonical. Seven more gained "yaklaşık", and a rhetorical
+question was removed — rule 4 forbids questions, rhetorical ones included.
+
+**Sound is no longer required to be file-free.** "Zero new audio files" was the
+wrong target: applause, a kemençe melody, a whisper, laughter and a distant
+crowd are five stops whose whole meaning is the texture of a human sound, and an
+oscillator does not get there. Four shared files for five stops; the other 58
+stay procedural.
+
+**Antalya**: Düden is named as **Aşağı Düden Şelalesi**, since Düden is two
+separate falls and the canonical text means the lower one. The orange stop was
+only naming the award; it now builds the chain blossom → fruit → gold → award,
+which is the thing worth remembering.
+
+Eight open decisions are listed in §11 rather than guessed at. The first
+implementation slice is one stop — İzmir / Konak clock tower — carrying all
+eight behaviours. No code yet.
+
+## D-225 — First Time Window slice: İzmir / Konak clock tower (12 Oct 2026)
+
+One stop, carrying all eight behaviours the system needs, with the other
+sixty-two deliberately untouched.
+
+**The epsilon was a real bug, found by a test rather than by looking.** Ninety
+frames of 0.1 s sum to 8.999999999999998, so a window driven at a steady rate
+sat one frame short of its own end forever — controls locked, HUD hidden, no way
+out but a cancel. The clock now ends on `duration - 1e-4`. This is exactly the
+class of fault this system was given arithmetic tests for: it is invisible until
+it happens to a child.
+
+**The camera is not in the snapshot, on purpose.** `PlayerRig` already takes an
+authored `focus` anchor, lerps to it, and restores the follow rig the frame it
+goes null. A window supplies that anchor instead of driving `camera.position`
+itself, so there are never two writers fighting over it — and the restore is the
+rig's own, which was already correct.
+
+**The snapshot is held twice**, as state and as a ref. State because the scene
+component writes transforms into it while the window plays and a ref read during
+render is a value React has no reason to keep current; ref because `cancel` can
+fire from an unmount handler closed over an older state value, and restoring the
+wrong snapshot is worse than restoring none.
+
+**Four cancel paths, tested separately**: skip, Back to map, route change, and
+unmount with no cancel of its own. Plus the two orderings that follow from them
+— a cancel then an unmount, and a second cancel after settling — both of which
+must be no-ops. `restoreSnapshot` and `SpawnRegistry.clear` are idempotent by
+construction rather than by a guard, so calling either twice cannot break.
+
+**Reward goes through one door.** A completed window calls the same
+`collectFromStop` the fact card calls, and `completeHotspot` was already
+idempotent, so replay pays nothing without a second mechanism. `windowWatched`
+is session-scoped and separate; what survives a reload is the reward, which
+`CityProgress` already carried.
+
+**The graybox guard is a positive rule**: a window runs only when every id in
+`requires` resolves to a delivered model. Antalya's three stops are designed in
+full and not wired up, which is why `content/timewindows/` holds one file.
+
+Sound stayed procedural: a struck bell with its own partials (a sine is a
+doorbell, not a tower clock) and five offset noise bursts for the flock. No
+audio files in this slice.
+
+41 new tests, 402 passing. The five failures are the long-standing GLB-on-disk
+checks, untouched by this work.

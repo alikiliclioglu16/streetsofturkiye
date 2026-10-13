@@ -2,6 +2,8 @@
 
 import { useMemo } from 'react';
 import type { SceneDescription } from '@/engine/scene/buildScene';
+import type { TimeWindow as TimeWindowData } from '@/content/schemas/timewindow';
+import type { SceneSnapshot, SpawnRegistry } from '@/engine/timewindow/snapshot';
 import type { QualitySettings } from '@/engine/quality/quality';
 import type { HeroStatus } from '@/components/three/HeroCharacter';
 import type { HeroClip } from '@/engine/heroes/registry';
@@ -28,6 +30,7 @@ import { CatCalls,
 import { StreetTrees } from '@/components/three/StreetTrees';
 import { FeaturedNpcActor } from '@/components/three/FeaturedNpc';
 import { PlayerRig } from '@/components/three/PlayerRig';
+import { TimeWindowStage } from '@/components/three/TimeWindow';
 
 interface CitySceneProps {
   scene: SceneDescription;
@@ -52,6 +55,19 @@ interface CitySceneProps {
   onHeroMeasured?: (heightMeters: number) => void;
   onHeroDrawCount?: (draws: { meshes: number; perFrame: number }) => void;
   onHeroMotion?: (motion: { weight: number; advancing: boolean; revivals: number }) => void;
+  /**
+   * The Time Window currently playing in this scene, if any.
+   *
+   * Passed as one object rather than as four props, because all of it is
+   * meaningless without the rest: a window with no clock, or a clock with no
+   * snapshot to write into, is a half-started cinematic.
+   */
+  timeWindow?: {
+    data: TimeWindowData;
+    elapsed: number;
+    snapshot: SceneSnapshot;
+    registry: SpawnRegistry;
+  } | null;
 }
 
 /**
@@ -59,6 +75,7 @@ interface CitySceneProps {
  * No city-specific copy or transforms live here (CLAUDE.md rule 3).
  */
 export function CityScene({
+  timeWindow = null,
   scene,
   quality,
   reducedMotion,
@@ -402,6 +419,15 @@ export function CityScene({
           reducedMotion={reducedMotion}
         />
       ))}
+
+      {timeWindow ? (
+        <TimeWindowStage
+          window={timeWindow.data}
+          elapsed={timeWindow.elapsed}
+          snapshot={timeWindow.snapshot}
+          registry={timeWindow.registry}
+        />
+      ) : null}
 
       <PlayerRig
         scene={scene}

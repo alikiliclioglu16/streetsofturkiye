@@ -38,6 +38,13 @@ import { CityScene } from '@/components/three/CityScene';
 import { Hud } from '@/components/game-ui/Hud';
 import { IntroPanel } from '@/components/game-ui/IntroPanel';
 import { FactCard } from '@/components/game-ui/FactCard';
+import { CaptionOverlay } from '@/components/game-ui/CaptionOverlay';
+import { SkipButton } from '@/components/game-ui/SkipButton';
+import { loadTimeWindows, windowForStop } from '@/content/loaders/loadTimeWindows';
+import type { CityTimeWindows } from '@/content/schemas/timewindow';
+import { windowEligibility } from '@/engine/timewindow/eligibility';
+import { ambienceLevel, musicLevel } from '@/engine/audio/engine';
+import { useTimeWindow } from '@/engine/timewindow/useTimeWindow';
 import { QuizPanel } from '@/components/game-ui/QuizPanel';
 import { CompletionPanel } from '@/components/game-ui/CompletionPanel';
 import { SettingsPanel } from '@/components/game-ui/SettingsPanel';
@@ -70,12 +77,35 @@ export function CityExperience({ cityId }: { cityId: string }) {
   const skipIntro = useGameStore((state) => state.skipIntro);
   const dispatchInteraction = useGameStore((state) => state.dispatchInteraction);
   const claimReward = useGameStore((state) => state.claimReward);
+  const markWindowWatched = useGameStore((state) => state.markWindowWatched);
   const openQuiz = useGameStore((state) => state.openQuiz);
   const answerQuiz = useGameStore((state) => state.answerQuiz);
   const toggleSettings = useGameStore((state) => state.toggleSettings);
 
   const [perf, setPerf] = useState<PerfSample | null>(null);
   const [retryToken, setRetryToken] = useState(0);
+
+  /**
+   * The city's Time Windows, if it has any.
+   *
+   * Loaded beside the city rather than with it, and failing softly: one city
+   * out of nineteen has windows today, and a city without them is the normal
+   * case rather than an error. A malformed file does throw, and is reported
+   * here rather than swallowed — a stop that silently loses its window would
+   * look finished while doing nothing.
+   */
+  const [timeWindows, setTimeWindows] = useState<CityTimeWindows | null>(null);
+  useEffect(() => {
+    const controller = new AbortController();
+    loadTimeWindows(cityId, controller.signal)
+      .then((loaded) => {
+        if (!controller.signal.aborted) setTimeWindows(loaded);
+      })
+      .catch((cause: Error) => {
+        if (!controller.signal.aborted) console.warn('[timewindow]', cause.message);
+      });
+    return () => controller.abort();
+  }, [cityId]);
   const devOverlay = useSettingsStore((state) => state.showPerfOverlay);
   /**
    * `?debug=1` turns the telemetry overlay on in a production build.
@@ -174,15 +204,6 @@ export function CityExperience({ cityId }: { cityId: string }) {
 
   // The keyboard drives the player only when no panel owns it.
   useKeyboardControls(phase === 'explore' && !panelOpen);
-
-  const focus =
-    activeHotspot && ['entering', 'active', 'retry', 'success'].includes(interaction.state)
-      ? {
-          position: activeHotspot.camera.position as [number, number, number],
-          target: activeHotspot.camera.target as [number, number, number],
-          durationMs: reducedMotion ? 0 : activeHotspot.camera.durationMs,
-        }
-      : null;
 
   const onNearestChange = useCallback(
     (hotspotId: string | null) => {
@@ -374,6 +395,33 @@ export function CityExperience({ cityId }: { cityId: string }) {
     );
   }, [interaction.state, activeHotspot, locale]);
 
+  /**
+   * Does this stop play a Time Window, or show the card?
+   *
+   * One answer, read from one place. `windowEligibility` folds together the
+   * three reasons a window does not run — no window written, reduced motion,
+   * or an asset still graybox — so there is never a second opinion about it
+   * somewhere else in the tree.
+   */
+  const activeWindow = useMemo(
+    () => windowForStop(timeWindows, activeHotspot?.stopId ?? null),
+    [timeWindows, activeHotspot?.stopId],
+  );
+  const eligibility = useMemo(
+    () => windowEligibility(activeWindow, { reducedMotion }),
+    [activeWindow, reducedMotion],
+  );
+
+  /**
+   * A finished stop does not replay on its own.
+   *
+   * Walking back through a ring you have already completed should not take the
+   * controls away again; the window is offered rather than imposed.
+   */
+  const stopCompleted = activeHotspot
+    ? progress.completedHotspotIds.includes(activeHotspot.id)
+    : false;
+
   const collectFromStop = useCallback(() => {
     playCollect();
     dispatchInteraction({ type: 'ANSWER', correct: true });
@@ -383,6 +431,122 @@ export function CityExperience({ cityId }: { cityId: string }) {
   const onFocusSettled = useCallback(() => {
     dispatchInteraction({ type: 'CAMERA_SETTLED' });
   }, [dispatchInteraction]);
+
+  /**
+   * The window runner.
+   *
+   * `sources` and `targets` are read as functions rather than captured as
+   * values, because they are called at start and restore time — which, for a
+   * route change, is after this component has begun tearing down. A captured
+   * object would be a snapshot of the wrong moment.
+   *
+   * The camera is not in either list: `PlayerRig` already restores it the frame
+   * `focus` goes null, and a second writer would fight it. Everything else a
+   * window can touch is.
+   */
+  const windowSources = useCallback(
+    () => ({
+      camera: null,
+      lights: {},
+      colours: {
+        sky: { top: scene?.sky.top ?? '', horizon: scene?.sky.horizon ?? '' },
+        water: scene?.water?.color ?? null,
+        ground: scene?.ground.color ?? '',
+      },
+      audio: { music: musicLevel(), ambience: ambienceLevel() },
+      hudVisible: true,
+      controlsEnabled: true,
+    }),
+    [scene],
+  );
+  const windowTargets = useCallback(
+    () => ({
+      camera: null,
+      lights: {},
+      objects: {},
+      materials: {},
+      setColours: () => {},
+      setAudio: () => {},
+      setHudVisible: () => {},
+      setControlsEnabled: () => {},
+    }),
+    [],
+  );
+
+  const onWindowComplete = useCallback(() => {
+    if (!activeHotspot) return;
+    markWindowWatched(activeHotspot.stopId);
+    // The one reward path. A completed window pays exactly what the card does.
+    collectFromStop();
+  }, [activeHotspot, markWindowWatched, collectFromStop]);
+
+  const onWindowCancel = useCallback(() => {
+    // Nothing is earned, and the stop stays open for another try.
+    dispatchInteraction({ type: 'DISMISS' });
+  }, [dispatchInteraction]);
+
+  const runner = useTimeWindow({
+    window: eligibility.eligible ? activeWindow : null,
+    sources: windowSources,
+    targets: windowTargets,
+    onComplete: onWindowComplete,
+    onCancel: onWindowCancel,
+  });
+
+  /**
+   * Auto-play on the first visit only.
+   *
+   * A stop already completed offers the window instead of imposing it; that
+   * offer is the prompt button the street already has, so nothing new appears
+   * on screen for it.
+   */
+  const windowRunning = runner.context.state === 'playing' || runner.context.state === 'starting';
+  useEffect(() => {
+    if (!eligibility.eligible || stopCompleted) return;
+    if (interaction.state !== 'active') return;
+    if (runner.context.state !== 'idle') return;
+    runner.start();
+  }, [eligibility.eligible, stopCompleted, interaction.state, runner]);
+
+  /**
+   * Where the camera looks.
+   *
+   * The stop's authored anchor, except while a Time Window is running — then
+   * the window's own `camera` block supplies a wider, higher framing, built
+   * from the same target the stop already names so it cannot be pointed at a
+   * coordinate that holds nothing.
+   *
+   * `PlayerRig` lerps to whatever this is and restores the follow rig when it
+   * goes null, which is why a window needs no camera code of its own and why
+   * the camera is not in the snapshot: the rig already puts it back.
+   */
+  const focus = (() => {
+    if (!activeHotspot) return null;
+    if (windowRunning && activeWindow) {
+      const [ox, oy, oz] = activeWindow.camera.offset;
+      const anchor = activeHotspot.transform.position as [number, number, number];
+      const target: [number, number, number] = [anchor[0] + ox, anchor[1] + oy, anchor[2] + oz];
+      return {
+        // Pulled back along +z and lifted, so the square and the sky are both in.
+        position: [
+          target[0] + 1.5,
+          target[1] + activeWindow.camera.height,
+          target[2] + activeWindow.camera.distance,
+        ] as [number, number, number],
+        target,
+        durationMs: reducedMotion ? 0 : 1400,
+      };
+    }
+    if (['entering', 'active', 'retry', 'success'].includes(interaction.state)) {
+      return {
+        position: activeHotspot.camera.position as [number, number, number],
+        target: activeHotspot.camera.target as [number, number, number],
+        durationMs: reducedMotion ? 0 : activeHotspot.camera.durationMs,
+      };
+    }
+    return null;
+  })();
+
 
 
   // Once every hotspot is done the quiz gate opens on its own.
@@ -427,6 +591,16 @@ export function CityExperience({ cityId }: { cityId: string }) {
         onPerfSample={showPerfOverlay ? setPerf : undefined}
       >
         <CityScene
+          timeWindow={
+            windowRunning && activeWindow && runner.snapshot
+              ? {
+                  data: activeWindow,
+                  elapsed: runner.elapsed,
+                  snapshot: runner.snapshot,
+                  registry: runner.registry,
+                }
+              : null
+          }
           scene={scene}
           quality={settings}
           guideId={effectiveGuideId}
@@ -494,8 +668,18 @@ export function CityExperience({ cityId }: { cityId: string }) {
         />
       ) : null}
 
+      {/*
+        The fact card, for every stop the window does not take.
+
+        Three cases reach it and all three are designed rather than residual:
+        a stop with no window written yet, a player with reduced motion on, and
+        a stop whose art is still graybox. It is also what a replayed stop
+        shows, so walking back through a finished ring still says what it was.
+      */}
       {phase === 'explore' &&
       activeHotspot &&
+      !windowRunning &&
+      (!eligibility.eligible || stopCompleted) &&
       ['active', 'retry', 'success', 'reward'].includes(interaction.state) ? (
         <FactCard
           hotspot={activeHotspot}
@@ -503,6 +687,17 @@ export function CityExperience({ cityId }: { cityId: string }) {
           presentation={presentation}
           onCollect={collectFromStop}
         />
+      ) : null}
+
+      {windowRunning ? (
+        <>
+          <CaptionOverlay
+            text={runner.caption?.text ?? null}
+            locale={locale}
+            visible={runner.caption?.visible ?? false}
+          />
+          <SkipButton visible={runner.canSkip} locale={locale} onSkip={() => runner.cancel('skip')} />
+        </>
       ) : null}
 
       {phase === 'quiz' && quizItem ? (

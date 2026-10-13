@@ -121,6 +121,66 @@ export function duckAmbience(ducked: boolean): void {
   }
 }
 
+/**
+ * The music level while a Time Window plays.
+ *
+ * `duck` is the default policy and the one the first window uses: the theme
+ * steps back to a quarter rather than disappearing, for the same reason the
+ * guide's own ducking does not mute — a bed that vanishes and returns draws
+ * more attention than one that steps back.
+ *
+ * Returns the level it replaced, so the caller can put it in the snapshot and
+ * restore the exact number rather than an assumed default. A window that is
+ * cancelled while the player had already turned the music down must not come
+ * back at full volume.
+ */
+export const WINDOW_DUCK_FACTOR = 0.22;
+
+export function musicLevel(): number {
+  return channelState.music.volume;
+}
+
+export function ambienceLevel(): number {
+  return channelState.ambience.volume;
+}
+
+/**
+ * Applies a Time Window's audio policy and returns the levels it replaced.
+ *
+ * Writes to the gain nodes directly rather than through `setChannelState`,
+ * because this is a temporary override and must not become the player's
+ * remembered volume.
+ */
+export function applyWindowAudio(policy: 'duck' | 'mute' | 'keep'): {
+  music: number;
+  ambience: number;
+} {
+  const before = { music: channelState.music.volume, ambience: channelState.ambience.volume };
+  if (policy === 'keep' || !nodes) return before;
+
+  const factor = policy === 'mute' ? 0 : WINDOW_DUCK_FACTOR;
+  for (const channel of ['music', 'ambience'] as const) {
+    const state = channelState[channel];
+    const target = state.muted ? 0 : state.volume * factor;
+    nodes.channels[channel].gain.setTargetAtTime(target, nodes.context.currentTime, DUCK_SECONDS);
+  }
+  return before;
+}
+
+/** Puts the levels back exactly, from the snapshot. */
+export function restoreWindowAudio(levels: { music: number; ambience: number }): void {
+  if (!nodes) return;
+  for (const channel of ['music', 'ambience'] as const) {
+    const state = channelState[channel];
+    const remembered = channel === 'music' ? levels.music : levels.ambience;
+    nodes.channels[channel].gain.setTargetAtTime(
+      state.muted ? 0 : remembered,
+      nodes.context.currentTime,
+      DUCK_SECONDS,
+    );
+  }
+}
+
 /** Releases everything. Called when the player leaves a city. */
 export function stopAudio(): void {
   if (!nodes) return;

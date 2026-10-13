@@ -2,8 +2,9 @@
  * Publishes content into the app's public folder.
  *
  * Sources, both read-only to the app:
- *   ../content/canonical/  educational authority derived from the source HTML
- *   ../content/scenes/     technical 3D scene data
+ *   ../content/canonical/    educational authority derived from the source HTML
+ *   ../content/scenes/       technical 3D scene data
+ *   ../content/timewindows/  Zaman Penceresi definitions, derived not canonical
  *
  * `public/content/` is a build artifact — never edit it by hand.
  * `--check` compares without writing and is what the tests and CI run.
@@ -44,6 +45,21 @@ for (const file of fs.readdirSync(cityDir).filter((name) => name.endsWith('.json
 const sceneDir = path.join(ROOT, 'content/scenes');
 for (const file of fs.readdirSync(sceneDir).filter((name) => name.endsWith('.json'))) {
   planned.set(path.join(TARGET, 'scenes', file), fs.readFileSync(path.join(sceneDir, file), 'utf8'));
+}
+
+/**
+ * Time Windows are optional per city, so the directory may not exist yet and an
+ * absent file is not an error — a city with no window simply shows the fact
+ * card, which is the designed fallback rather than a missing feature.
+ */
+const windowDir = path.join(ROOT, 'content/timewindows');
+if (fs.existsSync(windowDir)) {
+  for (const file of fs.readdirSync(windowDir).filter((name) => name.endsWith('.json'))) {
+    planned.set(
+      path.join(TARGET, 'timewindows', file),
+      fs.readFileSync(path.join(windowDir, file), 'utf8'),
+    );
+  }
 }
 
 if (check) {

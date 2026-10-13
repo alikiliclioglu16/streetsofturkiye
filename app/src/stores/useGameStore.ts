@@ -40,6 +40,20 @@ interface GameState {
   quizIndex: number;
   saveWarning: boolean;
   settingsOpen: boolean;
+  /**
+   * Stops whose Time Window has played to the end this session.
+   *
+   * Kept apart from `progress.completedHotspotIds` on purpose. "Watched the
+   * window" and "earned the reward" are different facts, and collapsing them
+   * into one flag is how a replay ends up paying out twice — the bug this
+   * separation exists to make impossible rather than merely unlikely.
+   *
+   * Session-scoped rather than saved: what has to survive a reload is the
+   * reward, which `CityProgress` already carries. Whether the cinematic has
+   * been seen is only used to decide whether to auto-play it again, and
+   * `completedHotspotIds` answers that across sessions.
+   */
+  windowWatchedStopIds: string[];
 
   enterCity: (cityId: string, signal?: AbortSignal) => Promise<void>;
   leaveCity: () => void;
@@ -48,6 +62,7 @@ interface GameState {
   resumeExploring: () => void;
   dispatchInteraction: (event: InteractionEvent) => void;
   claimReward: () => Promise<void>;
+  markWindowWatched: (stopId: string) => void;
   answerQuiz: (correct: boolean) => Promise<void>;
   openQuiz: () => void;
   toggleSettings: (open?: boolean) => void;
@@ -67,6 +82,7 @@ export const useGameStore = create<GameState>((set, get) => ({
   quizIndex: 0,
   saveWarning: false,
   settingsOpen: false,
+  windowWatchedStopIds: [],
 
   enterCity: async (cityId, signal) => {
     set({ status: 'loading', errorMessage: null, errorIssues: [], city: null });
@@ -169,6 +185,18 @@ export const useGameStore = create<GameState>((set, get) => ({
 
     await progressRepository.saveCityProgress(nextProgress);
     if (profile.displayName === null) await progressRepository.saveProfile(profile);
+  },
+
+  /**
+   * Records that a window ran to the end. Grants nothing.
+   *
+   * The reward goes through `claimReward` and only through it, so there is
+   * exactly one place in this store that can hand out a collectible.
+   */
+  markWindowWatched: (stopId) => {
+    const { windowWatchedStopIds } = get();
+    if (windowWatchedStopIds.includes(stopId)) return;
+    set({ windowWatchedStopIds: [...windowWatchedStopIds, stopId] });
   },
 
   openQuiz: () => {

@@ -7,6 +7,11 @@
 Bu dosya envanteri koddan çıkarır, her durağa bir Zaman Penceresi tasarlar ve
 hepsini tek bir veri-güdümlü sistemle çalıştıracak mimariyi önerir.
 
+**Sürüm 2 — 12 Ekim 2026.** Bu revizyonda caption standardı, replay/skip, ödül
+idempotansı, iptal-temizlik yaşam döngüsü, `reducedMotion` akışı ve iki katmanlı
+efekt mimarisi eklendi; doğrulanması zor iddialar yumuşatıldı. Ne değiştiğinin
+tam listesi §11'de.
+
 ---
 
 ## 0. Önce rakamlar
@@ -45,40 +50,127 @@ Hiçbir tasarım sıfırdan bir sistem istemiyor. Sahnelerde bugün çalışan �
 | `paragliders` | havada süzülen figür | Ordu |
 | Web Audio cue'ları | `playTrainPass`, `playFerryHorn`, `playMeow`, `playCollect`… | hepsi |
 
-**Sesler dosya değil.** `src/engine/audio/cues.ts` her efekti osilatörle
-sentezliyor. Zaman Penceresi'nin ihtiyaç duyduğu rüzgâr, çekiç, su, alkış, çan
-sesleri de aynı yerde yazılabilir — **yeni ses dosyası gerekmiyor**, ve bu, 63
-durağın ses ihtiyacını sıfır indirmeye düşürür.
+**Sesler büyük ölçüde dosya değil.** `src/engine/audio/cues.ts` her efekti
+osilatörle sentezliyor, ve prosedürel sentez bu sistemin **varsayılan çözümü**
+olmaya devam ediyor: rüzgâr, çekiç, su, çan, cızırtı, tren, kapı — hepsi
+osilatörle yazılabilir.
+
+Ama "63 durak için sıfır ses dosyası" bir hedef olmaktan çıkarıldı, çünkü
+yanlış hedefti. Birkaç durağın anlamı **insan sesinin dokusundadır** ve sentez
+orada inandırıcı olmaz:
+
+| Durak | Gereken ses | Neden sentez yetmez |
+|---|---|---|
+| Antalya / Aspendos | alkış | kalabalık alkışı, tek osilatörle gürültüye benzer |
+| Trabzon / Horon | kemençe ezgisi | gerçek bir enstrümanın tınısı taklit edilemez |
+| İzmir / Tiyatro | fısıltı | durağın bütün fikri insan sesinin kendisi |
+| Bursa / Karagöz | kahkaha | aynı sebep |
+| Kars / Ani | uzak kalabalık uğultusu | silüetlerin anlamı buna bağlı |
+
+**İlke: en az yeni ses dosyası, en çok yeniden kullanım.** Yukarıdaki beş ses
+kısa (2–4 sn), mono ve yüksek sıkıştırmalı (~20–40 KB) olmalı; alkış ve
+uğultu iki ayrı şehirde paylaşılabilir, yani **beş durağa dört dosya** yeter.
+Geri kalan 58 durak prosedürel kalır.
 
 ---
 
-## 2. Ortak efekt kütüphanesi
+## 2. Efekt mimarisi — iki katman
 
-63 durağın tamamı aşağıdaki **on iki ilkelin** birleşimidir. Her durak 2–4
-tanesini kullanır. Yeni durak eklemek yeni kod değil, yeni satır demektir.
+### 2.1 Alt katman: komutlar
 
-| # | İlkel | Ne yapar | Nereden türüyor |
+Bunlar motorun anladığı tek şeydir ve **listesi kapalıdır**. `zod`'da kapalı bir
+birlik olarak tanımlanır; yeni bir anahtar üretilemez.
+
+| Komut | Ne yapar |
+|---|---|
+| `dim` | ortam ışığını hedef orana indirir/yükseltir |
+| `sound` | bir ses işareti çalar (prosedürel veya örnek) |
+| `spawn` | geçici bir nesne/sprite/parçacık yaratır, kimlikle |
+| `despawn` | o kimliği kaldırır |
+| `move` | bir nesneyi eğri veya doğru boyunca taşır |
+| `rotate` | döndürür |
+| `scale` | ölçekler |
+| `glow` | emissive yoğunluğunu değiştirir |
+| `particles` | parçacık yayıcı açar/kapatır |
+| `color` | gökyüzü, su, zemin veya malzeme rengini tweenler |
+| `caption` | ekran cümlesini gösterir |
+| `trigger` | mevcut bir sahne sistemini uyandırır (tren, balon, teleferik…) |
+
+### 2.2 Üst katman: hazır kalıplar (preset)
+
+JSON dosyaları yalnızca komutlardan oluşursa, 63 durak düşük seviyeli bir komut
+çöplüğüne döner ve kimse okuyamaz. Bu yüzden her durak **kalıplarla** yazılır;
+kalıp, komutlara derlenir.
+
+Kalıp sayısı bilerek küçük tutuldu: aşağıdaki **dokuz tanesi 63 durağın
+tamamını** karşılıyor.
+
+| Kalıp | Ne yapar | Derlendiği komutlar | Kullanıldığı durak sayısı |
 |---|---|---|---|
-| E1 | `focus` | kamera hedefe yumuşak pan + hafif zoom, sonra geri | yeni, ~40 satır tween |
-| E2 | `dim` | çevre kararır, hedef aydınlık kalır | `fillLight` + ambient çarpanı |
-| E3 | `ghost` | yarı saydam silüet belirir, hareket eder, söner | `AssetInstance` + opacity tween |
-| E4 | `flight` | bir obje eğri boyunca uçar | `Birds` yörünge matematiği |
-| E5 | `rise` | obje yukarı süzülür | `Balloons` |
-| E6 | `scatter` | duran sürü havalanıp dağılır | `Birds` + mevcut kuş/güvercin modelleri |
-| E7 | `spin` | obje kendi ekseninde döner | `rotationY` tween |
-| E8 | `fall` | parçacık yağar (kar, yaprak, konfeti, çiçek) | `Snowfall`, renk ve hız parametreli |
-| E9 | `steam` | duman/buhar/sprey bandı | `Mist`, dikey ve kısa ömürlü |
-| E10 | `glow` | emissive nabız, ışık parlaması | malzeme `emissiveIntensity` tween |
-| E11 | `travel` | mevcut hat objesini tetikle (tren, vapur, teleferik) | `tramLine` ailesi |
-| E12 | `caption` | ekranda tek cümle, 3 sn | yeni, küçük bir overlay |
+| `cameraReveal` | kamera bir hedefe gidip geri döner | (kamera) | 63 — hepsi |
+| `objectGlow` | bir nesne/parça sırayla parlar | `glow`, `dim` | 14 |
+| `ghostCrowd` | yarı saydam figürler belirir, durur, söner | `spawn`, `move`, `despawn` | 8 |
+| `scatterBirds` | duran sürü havalanır, döner, konar | `trigger`, `spawn`, `move` | 5 |
+| `steamBurst` | buhar/duman/serpinti bandı | `particles` | 7 |
+| `fallField` | parçacık yağar (kar, yaprak, konfeti, fındık, çiçek) | `particles` | 9 |
+| `sunsetShift` | gökyüzü, su ve ışık rengi kayar, sonra döner | `color`, `dim` | 5 |
+| `machineRun` | mevcut hat sistemini çalıştırır (tren, vapur, teleferik, balon) | `trigger` | 8 |
+| `shapeMorph` | bir nesne ölçek/dönüşle başka bir hâle geçer | `scale`, `rotate` | 10 |
 
-**Kural 9'un karşılığı:** aynı ilkel farklı şehirlerde farklı hissettirir çünkü
-hedefi, rengi, sesi ve süresi farklıdır. E8 Erzurum'da kar, Bolu'da yaprak,
-Adana'da konfeti, Antalya'da portakal çiçeğidir.
+Bir durağın JSON'u böylece şöyle okunur:
+
+```jsonc
+{
+  "stopId": "izmir-stop-03",
+  "duration": 9,
+  "preset": "scatterBirds",
+  "with": {
+    "camera": "hotspot:3",
+    "flock": "kit_izmir_pigeon_walking",
+    "flying": "kit_izmir_doves_ruin",
+    "sound": "bell",
+    "caption": { "tr": "Saat çalar, güvercinler havalanır — Konak Meydanı'nın ritmi.", "en": "…" }
+  },
+  "reward": "collectible_izmir_pigeon_feather"
+}
+```
+
+Kalıp yetmediğinde durak `events` dizisine düşer ve komutları doğrudan yazar.
+**Kalıp zorunlu değil, varsayılan.**
+
+### 2.3 Kural 9 nasıl korunuyor
+
+Aynı kalıp farklı şehirde farklı hissettirir çünkü hedefi, rengi, sesi ve süresi
+farklıdır: `fallField` Erzurum'da kar, Bolu'da yaprak, Ordu'da fındık, Adana'da
+konfeti, Antalya'da portakal çiçeğidir. Ama bu kendiliğinden olmaz — §6'daki
+test, **aynı kalıbın arka arkaya gelen iki şehirde aynı parametrelerle
+kullanılmasını** yakalar.
 
 ---
 
-## 3. Şehir şehir envanter ve tasarım
+## 3. Caption standardı
+
+Bir Zaman Penceresi'nin sözü **tek cümledir**.
+
+| Kural | Değer |
+|---|---|
+| Cümle sayısı | 1 |
+| En fazla uzunluk | **90 karakter** |
+| Ekranda en az kalma | **4 saniye** |
+| Dil | çocuğun günlük konuşması; ders kitabı dili yok |
+| Belirsiz anlatı | "rivayete göre", "anlatıya göre", "yaklaşık" açıkça yazılır |
+
+Standardın özeti: **bir görüntü + bir cümle + bir hatıra.** Çocuk duraktan
+ayrılırken aklında bir şey kalacaksa, o şey görüntüdür; cümle onu adlandırır,
+yerine geçmez. Cümle görüntüyü anlatıyorsa fazladır — görüntünün söylemediğini
+söylemelidir.
+
+Bu revizyonda 63 caption'ın tamamı bu standarda çekildi: ortalama 58, en uzunu
+79 karakter, hiçbiri birden fazla cümle değil.
+
+---
+
+## 4. Şehir şehir envanter ve tasarım
 
 Her durakta: **mevcut** veriler koddan alınmıştır (başlık, açıklama özeti,
 ödül, kategori, varlık kimliği). **Zaman Penceresi** yeni tasarımdır.
@@ -105,7 +197,7 @@ gelir.
 **Görsel olay:** E3 — 6–8 adet yarı saydam silüet belirip söner.
 **Ses:** rüzgâr (sentez, beyaz gürültü + alçak geçiren filtre), silüetler
 belirirken çok kısık bir kalabalık uğultusu.
-**Ekran cümlesi:** "Bir zamanlar burada bin bir kilise ve on binlerce insan vardı. Şimdi sadece rüzgâr var."
+**Ekran cümlesi:** "Bin bir kiliseli şehir deniyordu; şimdi sadece rüzgâr var."
 **Collectible:** 🏚️ an Ani stone rubbing — değişmiyor.
 **Teknik çözüm:** Mevcut NPC modellerinden biri (`npc_featured_traveler`),
 `transparent: true` + `opacity` tween, 8 kopya instanced.
@@ -125,7 +217,7 @@ görünür. Geçerken kar savrulur. Tren uzaklaşırken düdük duyulur.
 **Görsel olay:** E11 mevcut `trainLine` tetiklenir + E8 kar savrulması + E10
 far parlaması.
 **Ses:** `playTrainPass` **zaten var**, üstüne düdük.
-**Ekran cümlesi:** "Doğu Ekspresi Ankara'dan Kars'a bir gün bir gece yol gider — hep karın içinden."
+**Ekran cümlesi:** "Doğu Ekspresi Ankara'dan Kars'a yaklaşık bir günde, hep karın içinden gelir."
 **Collectible:** 🚂 — değişmiyor.
 **Teknik çözüm:** Hat ve ses hazır; tek yeni şey kamerayı tetikleme ve kar
 parçacığı. **Bu durak neredeyse bedava.**
@@ -145,7 +237,7 @@ silüeti belirir: tekerlek ondan geniştir.
 **Kamera:** E1 — tezgâha yakın plan, hafif alttan.
 **Görsel olay:** E7 yavaş dönüş + E5 kısa yükselme + E3 boy karşılaştırma silüeti.
 **Ses:** ahşap gıcırtısı, inerken tok bir "tonk".
-**Ekran cümlesi:** "Bir gravyer tekerleği 60 kiloya kadar çıkar — senden ağır."
+**Ekran cümlesi:** "Bir gravyer tekerleği senden daha ağır olabilir."
 **Collectible:** 🧀 — değişmiyor.
 **Teknik çözüm:** Tezgâh modelinin tamamı döner (alt obje ayırmaya gerek yok,
 ölçek karşılaştırması için silüet yeter).
@@ -170,7 +262,7 @@ parlar. Üç saniye durur, söner, ışık normale döner.
 **Kamera:** E1 — kapıya yavaş zoom, ortalanır.
 **Görsel olay:** E2 + E10 — kartal konturu emissive olarak parlar.
 **Ses:** tek, uzun bir taş/çan tınısı.
-**Ekran cümlesi:** "750 yıllık taşın içine gizlenmiş: çift başlı kartal."
+**Ekran cümlesi:** "Yaklaşık 750 yıllık taşın içine gizlenmiş: çift başlı kartal."
 **Collectible:** 🦅 — değişmiyor.
 **Teknik çözüm:** Kartal şeklinde küçük bir emissive düzlem (sprite),
 kapının önüne hizalanır. **Sprite yeri modelden ölçülmeli.**
@@ -189,7 +281,7 @@ zikzak çizerek iner ve kadrajdan çıkar. Arkasında kar izi kalır.
 **Kamera:** E1 — Palandöken zirvesine pan, kayakçıyı takip ederek aşağı iner.
 **Görsel olay:** E11 mevcut `shuttleLines` kayakçısı + E8 kar yoğunlaşması.
 **Ses:** kar üstünde kayma hışırtısı, rüzgâr.
-**Ekran cümlesi:** "Palandöken'de kar Kasım'da başlar, Mayıs'ta biter. Yılın yarısı kış."
+**Ekran cümlesi:** "Palandöken'e kar Kasım'dan Mayıs'a kadar yağabilir."
 **Collectible:** ⛷️ — değişmiyor.
 **Teknik çözüm:** Kayakçı ve kar sistemi hazır; sadece kamera takibi ve
 yoğunluk parametresi.
@@ -233,7 +325,7 @@ doğru koşar ve suya girer; su halkaları yayılır, kedi birkaç saniye yüzer
 **Kamera:** E1 — göz hizasına inip sonra geri çekilerek kediyi takip.
 **Görsel olay:** E10 göz parlaması + E11 kedi rotası suya uzatılır + su halkası.
 **Ses:** `playMeow` **zaten var** + su şıpırtısı.
-**Ekran cümlesi:** "Dünyada suya kendi isteğiyle giren tek kedi cinsi."
+**Ekran cümlesi:** "Van kedisi, çoğu kedinin aksine suya girmeyi sever."
 **Collectible:** 🐱 — değişmiyor.
 **Teknik çözüm:** Mevcut `catRoutes` rotası suya uzatılır; su halkası genişleyen
 bir halka düzlemi.
@@ -273,7 +365,7 @@ Masa dolar ve son tabaklar kenara, masanın dışına taşmak zorunda kalır.
 **Görsel olay:** E5 tersine — tabaklar yukarıdan iner, scale + position tween,
 kademeli gecikmeyle.
 **Ses:** her inişte kısa bir porselen "tink", ritmik.
-**Ekran cümlesi:** "Van kahvaltısında tabaklar masaya sığmaz — yanına ek masa kurarlar."
+**Ekran cümlesi:** "Van kahvaltısında o kadar çok tabak olur ki masaya zor sığar."
 **Collectible:** 🍳 — değişmiyor.
 **Teknik çözüm:** Masanın üstündeki tabaklar **tek model içinde** olduğundan,
 modelin tamamı aşağıdan yukarı "açılır" gibi ölçeklenir ve yanına birkaç basit
@@ -298,7 +390,7 @@ an durur, aşağıdaki orman çok küçük görünür. Sonra geri iner.
 kamera hareketi**, çünkü bu durağın tek bilgisi yükseklik.
 **Görsel olay:** E9 mevcut `mistBands` kamera yükselirken yoğunlaşır.
 **Ses:** rüzgâr, uzaktan tek bir çan.
-**Ekran cümlesi:** "Ormanın 300 metre üstünde, kayanın içine oyulmuş. 1.600 yıl önce."
+**Ekran cümlesi:** "Yaklaşık 1.600 yıl önce, ormanın 300 metre üstüne kayaya oyulmuş."
 **Collectible:** 🧗 — değişmiyor.
 **Teknik çözüm:** Sadece kamera + mevcut sis. **Yeni hiçbir şey yok.**
 **Yeni asset:** Hayır.
@@ -442,7 +534,7 @@ bulutu oluşur ve dağılır.
 **Kamera:** E1 — mutfağa yakın plan, sonra yukarı.
 **Görsel olay:** E9 buhar + E5 külahların yükselişi.
 **Ses:** fokurdama, kapak tıngırtısı.
-**Ekran cümlesi:** "Küçücük Mengen, Türkiye'nin en ünlü aşçılarını yetiştirdi."
+**Ekran cümlesi:** "Küçücük Mengen, kuşaklar boyu Türkiye'ye aşçı yetiştirdi."
 **Collectible:** 👨‍🍳 — değişmiyor.
 **Teknik çözüm:** Külah = basit beyaz silindir+küre, 12 kopya, yukarı tween.
 **Yeni asset:** Hayır.
@@ -460,7 +552,7 @@ beyazlaşır. Üstte bir kartal süzülerek geçer. Sonra manzara sonbahara dön
 **Kamera:** E1 — dağa doğru yavaş pan.
 **Görsel olay:** E8 kar + zemin renginin beyaza tweenlenmesi + E4 kartal uçuşu.
 **Ses:** rüzgâr, tek bir kartal çığlığı.
-**Ekran cümlesi:** "Kartalkaya — 'kartal kayası'. Kış gelince her yeri beyaz olur."
+**Ekran cümlesi:** "Adı 'kartal kayası'; kış gelince her yeri beyaza bürünür."
 **Collectible:** 🏂 — değişmiyor.
 **Teknik çözüm:** Kar sistemi ve `groundColor` tween'i var. Kartal =
 `kit_gull` modeli büyütülüp koyulaştırılır — **yeni model değil, mevcut
@@ -572,7 +664,7 @@ serpilir. Sonra bir kare kesilir ve **çıtırtı** duyulur.
 serpilmesi.
 **Ses:** şerbet dökülme sesi, sonunda net bir çıtırtı. **Bu durağın tek ve en
 önemli sesi odur.**
-**Ekran cümlesi:** "Kırk kat yufka. Ustalar der ki: çıtırtısı duyulmalı."
+**Ekran cümlesi:** "Kırk kat yufka; ustalara göre çıtırtısı duyulmalı."
 **Collectible:** 🥧 — değişmiyor.
 **Teknik çözüm:** Kırk ince düzlem pahalı değil (80 üçgen). Sayaç ekran
 üstünde küçük bir rakam.
@@ -615,7 +707,7 @@ siyahlığı vurgulanır: güneş ışığı duvara vurur ama duvar yutar.
 **Kamera:** E1 — dipten yukarı, sonra yana doğru uzun bir kaydırma.
 **Görsel olay:** Sadece kamera; duvar modelinin tekrarı zaten uzunluğu verir.
 **Ses:** rüzgâr, uzak bir kuş.
-**Ekran cümlesi:** "Altı kilometre siyah bazalt. 1.500 yıldır şehrin etrafında."
+**Ekran cümlesi:** "Yaklaşık altı kilometre siyah bazalt, 1.500 yıldır şehrin etrafında."
 **Collectible:** 🖤 — değişmiyor.
 **Teknik çözüm:** Tamamen kamera. **Şehrin varlıkları geldiğinde bedava.**
 **Yeni asset:** Hayır (şehrin kendi sur varlığı dışında).
@@ -634,7 +726,7 @@ yansıma düşer. Kamera yavaşça kayarken yansımalar birer birer parlar.
 **Kamera:** E1 — köprüye paralel yatay kaydırma.
 **Görsel olay:** Işık rengi + sudaki yansıma düzlemleri.
 **Ses:** su, akşam kuşları.
-**Ekran cümlesi:** "On göz, on yansıma — Diyarbakır'ın en sevdiği fotoğraf."
+**Ekran cümlesi:** "On kemer, suda on yansıma — gün batımında böyle görünür."
 **Collectible:** 🌉 — değişmiyor.
 **Teknik çözüm:** Yansımalar = su üstünde on küçük turuncu düzlem.
 **Yeni asset:** Hayır.
@@ -676,7 +768,7 @@ gibi. Sonra hepsi panoya geri iner.
 **Kamera:** E1 — panoya yakın plan, mavi yükselirken hafif geri çekilme.
 **Görsel olay:** E8 tersine + E10 — çoğalan mavi kareler.
 **Ses:** tek bir çan/cam tınısı, yankılı.
-**Ekran cümlesi:** "Yirmi bin mavi çini. Adını onlardan aldı."
+**Ekran cümlesi:** "Yirmi binden fazla mavi çini — adını onlardan alıyor."
 **Collectible:** 💠 — değişmiyor.
 **Teknik çözüm:** 60–80 küçük mavi düzlem, instanced, tek tween.
 **Yeni asset:** Hayır.
@@ -695,7 +787,7 @@ Sahne normale döner.
 **Kamera:** E1 — kulenin tepesine pan, sonra uçuşu takip.
 **Görsel olay:** E3 + E4 — kanatlı silüet, kuleden suyun karşısına eğri yörünge.
 **Ses:** rüzgâr, kanat çırpışı.
-**Ekran cümlesi:** "1632 — rivayete göre Hezarfen Ahmed Çelebi buradan taktığı kanatlarla Boğaz'ın karşısına uçtu."
+**Ekran cümlesi:** "Rivayete göre 1632'de Hezarfen buradan kanatlarıyla Boğaz'ı geçti."
 **Collectible:** 🪁 a pair of legend wings — değişmiyor. (Kullanıcının
 önerdiği 🪽 ile aynı fikir; mevcut ödül zaten "efsane kanatları".)
 **Teknik çözüm:** Silüet = tek bir billboard sprite (kanatlı insan silüeti),
@@ -716,7 +808,7 @@ görünenden çok daha derin olduğu anlaşılır.
 **Kamera:** E1 — kapıdan içeri doğru ilerleyen kamera.
 **Görsel olay:** E10 — sıralı lamba yanışı, renkli ışıklar.
 **Ses:** uğultu, uzaktan pazarlık sesleri.
-**Ekran cümlesi:** "Tek çatının altında dört bin dükkân. Kaybolmak serbest."
+**Ekran cümlesi:** "Dört bine yakın dükkân; içinde kaybolmak serbest."
 **Collectible:** 🪔 — değişmiyor.
 **Teknik çözüm:** 20–30 küçük renkli nokta ışığı/emissive düzlem, kademeli.
 **Yeni asset:** Hayır.
@@ -753,7 +845,7 @@ kadraja girer ve üstlerinde kısa bir an iki kelime belirir: **Avrupa** ve
 **Kamera:** E1 — iskeleden yükselerek iki yakayı birden gösteren geniş açı.
 **Görsel olay:** E11 mevcut `ferryLine` + yunus zıplayışı (yay şeklinde tween).
 **Ses:** `playFerryHorn` **zaten var** + su.
-**Ekran cümlesi:** "İki kıtaya birden kurulmuş tek şehir: bir yakası Avrupa, bir yakası Asya."
+**Ekran cümlesi:** "Bir yakası Avrupa, bir yakası Asya — vapur ikisinin arasında gider."
 **Collectible:** 🐬 — değişmiyor.
 **Teknik çözüm:** Yunus = küçük gri eğri gövde; iki yakanın etiketlenmesi
 ekran üstü metin.
@@ -776,7 +868,7 @@ yükseldikçe ikisi aynı kadraja girer: yeşil şehir, beyaz dağ.
 **Kamera:** E1 — türbeden dağa dikey açılma.
 **Görsel olay:** Sadece kamera + hafif bir bulut geçişi (E9).
 **Ses:** kuş, uzak şehir uğultusu.
-**Ekran cümlesi:** "Aşağısı yemyeşil, yukarısı bembeyaz. Osmanlı'nın ilk başkenti."
+**Ekran cümlesi:** "Osmanlı'nın ilk başkenti: aşağısı yemyeşil, yukarısı bembeyaz."
 **Collectible:** 🏔️ — değişmiyor.
 **Teknik çözüm:** Kamera.
 **Yeni asset:** Hayır.
@@ -815,7 +907,7 @@ dökülür — ince, parlak bir akış — ve değdiği yerde cızırtı ve kü�
 **Kamera:** E1 — tabağa tepeden yakın.
 **Görsel olay:** Akış = ince silindir, scale.y; E9 buhar.
 **Ses:** cızırtı. **Tek ses, çok etkili.**
-**Ekran cümlesi:** "İskender burada icat edildi. Üstüne kızgın tereyağı dökülünce cızırdar."
+**Ekran cümlesi:** "Anlatıya göre İskender burada doğdu; üstüne kızgın tereyağı dökülür."
 **Collectible:** 🌰 — değişmiyor.
 **Teknik çözüm:** Akış ve buhar hazır ilkeller.
 **Yeni asset:** Hayır.
@@ -838,7 +930,7 @@ sayıda küçük parıltı süzülür. Birkaç saniye nefes alınan bir an.
 **Görsel olay:** Işık huzmeleri (yarı saydam koniler) + E8 yavaş yükselen
 parıltılar.
 **Ses:** su, yoğun kuş sesi, derin bir nefes.
-**Ekran cümlesi:** "Dünyanın en temiz havalarından biri burada. İnsanlar sırf nefes almak için geliyor."
+**Ekran cümlesi:** "Havası çok temiz; insanlar buraya sırf nefes almak için geliyor."
 **Collectible:** 🌲 — değişmiyor.
 **Teknik çözüm:** Huzme = düşük opaklıklı koni geometrisi, 4–5 adet.
 **Yeni asset:** Hayır.
@@ -875,7 +967,7 @@ Buhar çıkar: sıcaktır.
 **Kamera:** E1 — kâseye yakın plan.
 **Görsel olay:** Renk tween + E8 şeker serpimi + E9 buhar.
 **Ses:** karıştırma, serpme.
-**Ekran cümlesi:** "Peynirden tatlı olur mu? Balıkesir'de olur."
+**Ekran cümlesi:** "Höşmerim, taze peynirden yapılan sıcak bir tatlıdır."
 **Collectible:** 🧀 — değişmiyor.
 **Teknik çözüm:** Malzeme rengi tween'i.
 **Yeni asset:** Hayır.
@@ -897,7 +989,7 @@ rulo havada süzülür. Sonra hepsi solar ve geriye yine boş taş kalır.
 **Kamera:** E1 — cepheye yavaş zoom, ortalanmış.
 **Görsel olay:** E3 — yarı saydam raf/rulo dizileri belirip söner.
 **Ses:** kâğıt hışırtısı, uzak yankı.
-**Ekran cümlesi:** "Bu rafların üstünde on iki bin rulo vardı. Şimdi sadece taş."
+**Ekran cümlesi:** "Bu raflarda on iki bine yakın rulo varmış; şimdi sadece taş."
 **Collectible:** 📜 — değişmiyor.
 **Teknik çözüm:** Rulolar = küçük silindirler, düşük opaklık, instanced.
 **Yeni asset:** Hayır.
@@ -916,7 +1008,7 @@ anda bir kez daha, net duyulur.
 **Kamera:** E1 — sahneden en üst sıraya doğru yükselen pan, dalgayı takip eder.
 **Görsel olay:** Genişleyen halka düzlemleri (3–4 adet, kademeli).
 **Ses:** fısıltı → sessizlik → aynı fısıltı net.
-**Ekran cümlesi:** "Sahnedeki bir fısıltı, en üst sıradan duyulur. İki bin yıl önce böyle hesaplamışlar."
+**Ekran cümlesi:** "Sahnedeki fısıltı en üst sıradan bile duyulabiliyor."
 **Collectible:** 🎭 — değişmiyor.
 **Teknik çözüm:** Halkalar = genişleyen torus, opaklık azalarak.
 **Yeni asset:** Hayır.
@@ -935,7 +1027,7 @@ meydandaki bütün güvercinler aynı anda havalanır ve kulenin etrafında dön
 **Görsel olay:** E6 — mevcut `kit_izmir_pigeon_walking` sürüsü havalanır
 (`kit_izmir_doves_ruin` uçuş pozu olarak).
 **Ses:** çan, kanat patırtısı.
-**Ekran cümlesi:** "Saat çalar, güvercinler havalanır. İzmir'in saati böyle işler."
+**Ekran cümlesi:** "Saat çalar, güvercinler havalanır — Konak Meydanı'nın ritmi."
 **Collectible:** 🕊️ — değişmiyor.
 **Teknik çözüm:** Her iki güvercin varlığı da mevcut; yürüyenler gizlenip
 uçanlar gösterilir. **Kullanıcının kendi örneği — ve gerçekten en ucuz olanı.**
@@ -955,7 +1047,7 @@ bir an için ışıldar.
 **Kamera:** E1 — tek boncuğa makro yakınlık, sonra ağacın tamamına geri çekilme.
 **Görsel olay:** E10 — renk geçişi (turuncu→mavi) ve sıralı parlama.
 **Ses:** ocak uğultusu, cam tınısı.
-**Ekran cümlesi:** "Ateşte erir, soğuyunca maviye döner. Nazar boncuğu böyle doğar."
+**Ekran cümlesi:** "Cam ateşte erir, soğuyunca maviye döner: nazar boncuğu böyle yapılır."
 **Collectible:** 🧿 — değişmiyor.
 **Teknik çözüm:** Emissive renk tween'i; boncuk konumları ağaç modelinden
 ölçülmeli.
@@ -1037,7 +1129,7 @@ yavaş, kararlı, hepsi aynı yöne. Suya girince kamera durur.
 **Görsel olay:** Gece geçişi (ışık+gökyüzü rengi) + 8–10 küçük figürün
 senkron yürüyüşü.
 **Ses:** dalga, kumda hafif hışırtı.
-**Ekran cümlesi:** "Milyonlarca yıldır aynı kumsala gelip yumurtluyorlar. Gece doğup geceye yürüyorlar."
+**Ekran cümlesi:** "Caretta'lar çok uzun zamandır aynı kumsala gelip yumurtluyor."
 **Collectible:** 🐢 — değişmiyor.
 **Teknik çözüm:** Yavrular = çok küçük basit modeller veya sprite; yürüyüş
 rota sistemiyle (mevcut `catRoutes` mantığı).
@@ -1080,7 +1172,7 @@ süzülür — on, yirmi tane. Kamera onları izler. Sessizlik.
 **Kamera:** E1 — kaleden suya, yavaş ve alçak.
 **Görsel olay:** E8 — karanfiller suya düşer ve akar.
 **Ses:** **sadece su ve rüzgâr.** Müzik kesilir. Bu durakta ses efekti yok.
-**Ekran cümlesi:** "1915'te burada çok şey yaşandı. Her yıl denize çiçek bırakılır."
+**Ekran cümlesi:** "1915'te burada yaşananlar için denize çiçek bırakılır."
 **Collectible:** 🎖️ — değişmiyor.
 **Teknik çözüm:** Karanfil = küçük kırmızı düzlemler, su üstünde akış.
 **Not:** Bu durak dikkat ister — çocuk yaş grubuna uygun, sakin ve soyut
@@ -1099,7 +1191,7 @@ tatlı uzar (kuymak gibi ama kısa). Buhar çıkar, üstüne toz şeker düşer.
 **Kamera:** E1 — tabağa yakın.
 **Görsel olay:** Uzama + E9 buhar + E8 şeker.
 **Ses:** kaşık sesi.
-**Ekran cümlesi:** "Peynirden yapılan sıcak bir tatlı — ilk duyan şaşırır."
+**Ekran cümlesi:** "Çanakkale'nin peynir helvası sıcak servis edilir."
 **Collectible:** 🍮 — değişmiyor.
 **Teknik çözüm:** Trabzon kuymağının aynı ilkeli, daha kısa.
 **Yeni asset:** Hayır.
@@ -1123,7 +1215,7 @@ Milyonlarca yıl birkaç saniyede geçer.
 **Görsel olay:** Scale tween (kalın→ince) + E8 toz parçacıklarının yanlara
 savrulması.
 **Ses:** rüzgâr, kum hışırtısı.
-**Ekran cümlesi:** "Kimse yapmadı. Rüzgâr ve yağmur milyonlarca yılda oydu."
+**Ekran cümlesi:** "Kimse yapmadı; rüzgâr ve yağmur milyonlarca yılda oydu."
 **Collectible:** 🪨 — değişmiyor.
 **Teknik çözüm:** Modelin x/z ölçeği 1.6'dan 1.0'a tweenlenir. **Tek satırlık
 fikir, çok güçlü anlatım.**
@@ -1163,7 +1255,7 @@ En altta durur.
 **Kamera:** E1 — kapıdan içeri ve **aşağı** inen kamera. Sümela'nın tersi.
 **Görsel olay:** Kapının yuvarlanması (rotation) + E10 sıralı kat ışıkları.
 **Ses:** taşın yuvarlanma gürültüsü, yankı, damla.
-**Ekran cümlesi:** "Sekiz kat aşağı. Binlerce kişi burada saklanabilirdi."
+**Ekran cümlesi:** "Sekiz kat aşağı inen, binlerce kişinin saklanabildiği bir şehir."
 **Collectible:** 🕯️ — değişmiyor.
 **Teknik çözüm:** Kat ışıkları = dikey dizilmiş 8 emissive nokta; gerçek bir
 yeraltı geometrisi gerekmez, karanlık + ışıklar yeter. **Bu numara önemli:
@@ -1203,7 +1295,7 @@ sayaç döner: düğüm sayısı artar. Halı tamamlanınca sayaç durur.
 **Kamera:** E1 — tezgâha karşıdan, sabit.
 **Görsel olay:** Desen dokusunun kademeli açılması (`map` üzerinde clip/scale).
 **Ses:** düğüm atma sesi, ritmik ve hızlanan.
-**Ekran cümlesi:** "Düğüm düğüm dokunur. Bir halı bazen bir yıl sürer."
+**Ekran cümlesi:** "Düğüm düğüm dokunur; bir halı bazen bir yıl sürer."
 **Collectible:** 🧶 — değişmiyor.
 **Teknik çözüm:** Halı yüzeyini kaplayan bir düzlemin `scale.y` tween'i,
 alttan üste. Sayaç ekran üstünde.
@@ -1227,7 +1319,7 @@ aynı anda, tam senkron bir adım atar ve yeniden donar. Bayrak hafif dalgalanı
 kamerası: tamamen simetrik ve sabit hızlı.**
 **Görsel olay:** İki NPC'nin senkron tek hareketi + E8 yok, sade.
 **Ses:** tek davul vuruşu, sonra sessizlik.
-**Ekran cümlesi:** "Nöbetçiler saatlerce kıpırdamaz. Sonra hep birlikte tek adım atarlar."
+**Ekran cümlesi:** "Nöbetçiler uzun süre kıpırdamadan durur, sonra hep birlikte adım atar."
 **Collectible:** 🇹🇷 — değişmiyor.
 **Teknik çözüm:** Mevcut `npc_featured_soldier` iki kopya; tek pozisyon tween.
 Bayrak `kit_turkish_flag` + `WindProp` **zaten var.**
@@ -1247,7 +1339,7 @@ birlikte durur.
 **Kamera:** E1 — vitrine yakın, sonra yana açılarak üçünü birden gösterir.
 **Görsel olay:** E2 + E7 dönüş + E10 sıralı vitrin aydınlanması.
 **Ses:** müze sessizliği, her aydınlanmada tek bir ton.
-**Ekran cümlesi:** "Dokuz bin yıl önce burada yaşayan bir çocuğun oyuncağı."
+**Ekran cümlesi:** "Yaklaşık dokuz bin yıl önce burada yaşayan bir çocuğun oyuncağı."
 **Collectible:** ☀️ — değişmiyor.
 **Teknik çözüm:** Üç küçük obje + nokta ışıkları.
 **Yeni asset:** **Evet** — güneş kursu küçük GLB (~80 KB). Diğer ikisi basit
@@ -1283,7 +1375,7 @@ türetilir.
 #### 1. Aspendos Theatre
 `graybox_theatre` (varlık bekleniyor) · history · 🎶 a concert ticket
 
-**Öğrenme fikri:** İki bin yıllık tiyatroda hâlâ konser veriliyor.
+**Öğrenme fikri:** Yaklaşık iki bin yıllık bu tiyatro bugün de kullanılıyor.
 
 **Zaman Penceresi:** Kamera boş basamaklara bakar. Basamaklarda yarı saydam
 seyirci silüetleri belirir — sıra sıra, aşağıdan yukarı dolar; on beş bin
@@ -1294,18 +1386,25 @@ alkışlar, sonra hepsi solar — ama alkış bir saniye daha devam eder.
 **Görsel olay:** E3 — kademeli beliren seyirci silüetleri (instanced, çok
 düşük opaklık).
 **Ses:** tek enstrüman notası, sonra alkış.
-**Ekran cümlesi:** "İki bin yıl sonra hâlâ dolup taşıyor — burada bugün de konser var."
+**Ekran cümlesi:** "Yaklaşık 2.000 yıllık Aspendos'un sahnesinde bugün de gösteriler düzenleniyor."
 **Collectible:** 🎶 — değişmiyor.
 **Teknik çözüm:** Silüetler = tek bir basit insan düzlemi, 200+ instanced
 kopya, çok düşük opaklık. **Kalabalık hissi için model gerekmez.**
 **Yeni asset:** Hayır.
 **Zorluk:** Orta.
 
-#### 2. Düden Waterfalls
+#### 2. Düden Waterfalls — **Aşağı Düden Şelalesi**
 `graybox_selale` (varlık bekleniyor) · nature · 🌈 a rainbow in the spray
 
-**Öğrenme fikri:** Şelale doğrudan denize dökülüyor, ve serpintide gökkuşağı
-oluyor.
+**Not:** Düden iki ayrı şelaledir. **Yukarı Düden** şehrin içinde, bir mağaranın
+üstünden dökülür; **Aşağı Düden** ise falezden doğrudan Akdeniz'e dökülür.
+Kanonik metnin "one of them leaps straight off a cliff INTO the Mediterranean"
+dediği şey Aşağı Düden'dir ve bu durağın konusu odur. Varlık brifi ve caption
+bunu açıkça söylemelidir; "Düden Şelaleleri" demek iki ayrı yeri birbirine
+karıştırır.
+
+**Öğrenme fikri:** Aşağı Düden'in suyu karaya hiç değmeden doğrudan denize
+dökülüyor.
 
 **Zaman Penceresi:** Kamera seyir terasından şelalenin dibine, sonra denize
 doğru kayar — suyun karaya hiç değmeden denize düştüğü görülür. Güneş açılır,
@@ -1314,7 +1413,7 @@ serpintinin içinde bir gökkuşağı belirir ve birkaç saniye durur.
 **Kamera:** E1 — teras → şelale → deniz, tek sürekli hareket.
 **Görsel olay:** E9 serpinti + gökkuşağı (yarı saydam renkli yay düzlemi).
 **Ses:** şelale gürültüsü, martı.
-**Ekran cümlesi:** "Bu şelale karaya değmeden doğrudan denize dökülür. Güneş vurunca serpintide gökkuşağı çıkar."
+**Ekran cümlesi:** "Aşağı Düden Şelalesi, suyunu doğrudan Akdeniz'e döker."
 **Collectible:** 🌈 — değişmiyor.
 **Teknik çözüm:** Gökkuşağı = yarı saydam, degrade dokulu yay düzlemi.
 **Yeni asset:** Hayır (gökkuşağı degrade kodla üretilir).
@@ -1323,16 +1422,25 @@ serpintinin içinde bir gökkuşağı belirir ve birkaç saniye durur.
 #### 3. Orange Groves
 `graybox_agac` (varlık bekleniyor) · food · 🍊 a golden orange
 
-**Öğrenme fikri:** Antalya'nın ödülü bile portakal: "Altın Portakal".
+**Öğrenme fikri:** Antalya'nın portakalı o kadar kimliğidir ki film ödülünün
+adı bile olmuştur.
 
-**Zaman Penceresi:** Kamera ağaca yaklaşır. Bir portakal dalından kopup düşer
-ve yere değdiği anda **altın rengine döner** ve parlar. Ardından ağaçtaki
-diğer portakallar da sırayla altın parlar. Hafif bir çiçek yağmuru başlar.
+**Zaman Penceresi:** Zincir dört adımda kurulur ve her adım bir öncekinden
+doğar — bu durağın bütün fikri o zincirdir, tek tek görüntüler değil.
 
-**Kamera:** E1 — ağaca yakın, düşen portakalı takip.
-**Görsel olay:** E8 düşüş + E10 altına dönüş + çiçek parçacıkları.
-**Ses:** dal hışırtısı, yere düşen tok ses, tek bir ışıltı tınısı.
-**Ekran cümlesi:** "Antalya'nın film ödülünün adı bile portakal: Altın Portakal."
+1. Kamera çiçek açmış bir dala yaklaşır: **beyaz portakal çiçekleri**, birkaçı
+   havada süzülüyor.
+2. Çiçeklerden biri kadrajın ortasında kalır ve yerinde **küçük yeşil bir
+   portakala dönüşür** (ölçek + renk geçişi).
+3. Portakal büyür, olgunlaşır, turuncuya döner ve **dalından kopup düşer**.
+4. Yere değdiği anda **altın rengine döner** ve parlar; bu, ödülün kendisidir.
+
+**Kamera:** E1 — çiçekli dala yakın plan, düşen meyveyi takip ederek aşağı.
+**Görsel olay:** `fallField` (çiçek) + `shapeMorph` (çiçek→meyve→olgun) +
+`objectGlow` (altına dönüş).
+**Ses:** arı uğultusu ve yaprak hışırtısı, düşerken tok bir ses, altına
+dönerken tek bir ışıltı tınısı.
+**Ekran cümlesi:** "Çiçeği portakal olur, portakalı da filmlere ad: Altın Portakal."
 **Collectible:** 🍊 — değişmiyor.
 **Teknik çözüm:** Renk + emissive tween.
 **Yeni asset:** Hayır.
@@ -1355,7 +1463,7 @@ sadece bugünün yayaları kalır.
 **Kamera:** E1 — köprüye paralel, sabit.
 **Görsel olay:** E3 — farklı dönemleri temsil eden yarı saydam figür akışı.
 **Ses:** ayak sesleri, dönemler değişirken ton değişir.
-**Ekran cümlesi:** "1.800 yıldır insanlar bu köprüden geçiyor. Bugün de geçiyorlar."
+**Ekran cümlesi:** "Yaklaşık 1.800 yıldır insanlar bu köprüden geçiyor, bugün de."
 **Collectible:** 🌉 — değişmiyor.
 **Teknik çözüm:** Mevcut üç NPC varlığı farklı opaklık ve renk tonlarıyla
 dönem hissi verir. **Yeni kostüm modeli gerekmez — silüet yeter.**
@@ -1374,7 +1482,7 @@ kıvılcımlar fırlar. Yanda bir bardak mor şalgam suyu belirir.
 **Kamera:** E1 — mangala yakın, közlerin hizasında.
 **Görsel olay:** E10 köz parlaması (nabız) + E9 duman + kıvılcım parçacıkları.
 **Ses:** cızırtı, kömür çıtırtısı, yelpaze.
-**Ekran cümlesi:** "Geniş şiş, kömür ateşi ve yanında mor şalgam. Adana usulü böyle."
+**Ekran cümlesi:** "Geniş şişte, kömür ateşinde pişer; yanında mor şalgam."
 **Collectible:** 🍢 — değişmiyor.
 **Teknik çözüm:** Köz = emissive düzlemler, nabız tween'i.
 **Yeni asset:** Hayır.
@@ -1401,9 +1509,9 @@ NPC'lerin ritmik hareketi.
 
 ---
 
-## 4. Teknik mimari
+## 5. Teknik mimari
 
-### 4.1 Veri şekli
+### 5.1 Veri şekli
 
 Zaman Penceresi tanımları **kanonik içeriğin yanına, ayrı bir dosyaya** gider.
 Bu kritik: kanonik metin `index-html-canonical` otoritesine bağlı ve SHA ile
@@ -1450,7 +1558,7 @@ Kullanıcının önerdiği şekle yakın, ama ilkel adları sabit bir birlik tip
 Önerilen tam liste: `dim`, `sound`, `spawn`, `despawn`, `move`, `rotate`,
 `scale`, `glow`, `particles`, `color`, `caption`, `trigger`.
 
-### 4.2 Kod yerleşimi
+### 5.2 Kod yerleşimi
 
 | Dosya | İş |
 |---|---|
@@ -1459,41 +1567,174 @@ Kullanıcının önerdiği şekle yakın, ama ilkel adları sabit bir birlik tip
 | `src/engine/timewindow/clock.ts` | saf zamanlayıcı: `(elapsed, events) => aktif efektler`. **Saf fonksiyon, testlenebilir.** |
 | `src/engine/timewindow/effects.ts` | her `do` için bir uygulayıcı |
 | `src/components/three/TimeWindow.tsx` | `useFrame` ile saati ilerletir, efektleri sahneye uygular |
+| `src/components/three/sceneSnapshot.ts` | snapshot alma ve `restore()` |
 | `src/components/game-ui/CaptionOverlay.tsx` | ekran cümlesi |
+| `src/components/game-ui/SkipButton.tsx` | 1,2 sn sonra beliren Atla |
+| `src/engine/timewindow/presets.ts` | dokuz kalıbın komutlara derlenmesi |
 
-### 4.3 Etkileşim makinesiyle ilişkisi
+### 5.3 Yaşam döngüsü — ve `cancel()` birinci sınıftır
+
+Bir Zaman Penceresi sahnenin durumunu geçici olarak bozar. Bu yüzden sistemin
+asıl zor kısmı efektler değil, **geri alma**dır.
+
+```
+start
+  └─ snapshot            sahnenin değiştirilecek her alanını kaydet
+       └─ run events
+            ├─ complete  → restore → cleanup → reward (ilk kezse)
+            └─ cancel    → restore → cleanup → ödül YOK
+```
+
+`cancel()` yan bir durum değil, eşit bir çıkıştır. Dört yoldan tetiklenir:
+
+1. oyuncu **Atla** der,
+2. oyuncu **Haritaya dön**'e basar,
+3. rota değişir (`/city/x` → `/map`),
+4. bileşen sökülür (unmount).
+
+**Snapshot'ın kapsaması gerekenler.** Eksik biri, pencere iptal edilince
+sahneyi bozuk bırakır ve sebebi aylar sonra anlaşılmaz:
+
+| Alan | Neden |
+|---|---|
+| kamera konumu, hedefi, fov | en görünür bozukluk |
+| `fillLight` yoğunluğu ve ambient çarpanı | `dim` bunu değiştirir |
+| `sky.top`, `sky.horizon`, `water.color`, `groundColor` | `sunsetShift` bunları tweenler |
+| dokunulan her malzemenin `emissiveIntensity` | `glow` |
+| dokunulan her nesnenin `opacity` ve `transparent` | `ghostCrowd` |
+| taşınan/döndürülen/ölçeklenen nesnelerin transform'u | `move`, `rotate`, `scale` |
+| çalışan parçacık yayıcıları | `particles` |
+| HUD görünürlüğü | pencere boyunca gizlenir |
+| oyuncu kontrolleri (hareket, dokun-yürü, orbit) | pencere boyunca kilitli |
+| çalan müzik seviyesi | bazı pencereler müziği kısar |
+
+**Spawn edilen her şey kimliklidir.** `spawn` bir `id` zorunlu kılar ve
+temizlik o kimlikler üzerinden yapılır — "sahnedeki geçici nesneleri tara" gibi
+bir yaklaşım, bir sonraki pencerede kalıntı bırakır.
+
+Uygulama notu: snapshot'ı tek bir nesnede toplayıp `restore()`'u tek yerden
+çalıştırmak, her efektin kendi geri almasını yazmasından güvenlidir. Her efektin
+kendi `undo`'sunu yazdığı tasarım, on iki komutun on ikisinin de doğru yazılmış
+olmasına bağlıdır; tek snapshot ise bir yerde yanlış olsa bile sahneyi
+toparlar.
+
+### 5.4 Atlama (skip)
+
+Küçük bir **Atla** düğmesi, pencere başladıktan **1,2 saniye sonra** belirir ve
+sağ alt köşede durur. Hemen görünmez: ilk bir saniye, çocuğun ne olduğunu
+anlamasına ayrılmıştır; düğme en baştan oradaysa pencere "atlanacak bir şey"
+olarak okunur.
+
+Atlama `cancel()` çağırır — yani restore ve cleanup aynen çalışır — ve **ödül
+vermez.** Çocuk duraktan ödülsüz ayrılır ve halkaya yeniden girerse pencere
+baştan oynar.
+
+`reducedMotion` açıkken Atla düğmesi yoktur, çünkü sinematik de yoktur.
+
+### 5.5 Tekrar izleme (replay)
+
+| Durum | Davranış |
+|---|---|
+| Durağa ilk giriş | pencere **otomatik** oynar |
+| Durak daha önce tamamlanmış, tekrar giriliyor | pencere **oynamaz**; küçük bir "Zaman Penceresini tekrar izle" düğmesi çıkar |
+| O düğmeye basılır | pencere oynar, **ödül verilmez** |
+| Pencere atlanmış ama ödül alınmamış | bir sonraki girişte **yine otomatik** oynar |
+
+Son satır önemli: "izlendi" ile "tamamlandı" aynı şey değildir. Atlayan çocuk
+durağı bitirmemiştir ve bir dahaki sefere yine karşılanır.
+
+### 5.6 Ödül idempotansı
+
+Bu, sistemin bozulmaya en açık yeri, çünkü ödül hem pencereden hem de eski
+`FactCard` akışından gelebiliyor.
+
+İki ayrı durum tutulur ve asla tek bayrağa indirgenmez:
+
+```
+windowWatched: Set<stopId>     // bu durağın penceresi en az bir kez sonuna kadar izlendi
+stopCompleted: Set<stopId>     // bu durağın ödülü verildi
+```
+
+Kural: **ödül yalnızca `stopCompleted`'a ilk ekleme anında verilir.** Ödül verme
+çağrısı, mevcut `useGameStore` içinde tek bir yerden geçmeli ve o yer kümeye
+bakmalı; iki ayrı çağrı noktası olursa er geç ikisi birden çalışır.
+
+`reducedMotion` akışı da aynı kapıdan geçer: kart kapatıldığında `stopCompleted`
+aynı şekilde işaretlenir. **İki akış aynı sonucu üretir** — bu bir test
+maddesidir (§6), çünkü gözle fark edilmez.
+
+### 5.7 `reducedMotion`
+
+Ayar açıksa **sinematik hiç oynamaz.** Kamera alınmaz, ışık değişmez, hiçbir şey
+spawn edilmez. Onun yerine mevcut `FactCard` açılır — ama penceredeki tek
+cümleyi de taşıyarak, çünkü o cümle artık durağın en iyi özeti.
+
+`FactCard` bu yüzden **silinmiyor.** İki işi var: `reducedMotion` karşılığı
+olmak, ve penceresi henüz yazılmamış duraklara düşmek. 63 pencere bir günde
+yazılmaz; yazılana kadar o duraklar bugünkü gibi çalışır.
+
+### 5.8 Etkileşim makinesiyle ilişkisi
 
 Mevcut `src/engine/interactions/machine.ts` durağa girince `FactCard` açıyor.
 Yeni akış:
 
 ```
-halkaya gir → 'timewindow' durumu → (kontroller kilitli, HUD gizli)
-            → pencere biter → ödül verilir → 'idle'
+halkaya gir
+  ├─ reducedMotion? ──────────────► factcard → (kapat) → reward
+  ├─ pencere yok? ────────────────► factcard → (kapat) → reward
+  ├─ zaten tamamlanmış? ──────────► idle + "tekrar izle" düğmesi
+  └─ aksi hâlde ─────────────────► timewindow
+                                      ├─ complete → reward
+                                      └─ cancel/skip → ödül yok
 ```
 
-`FactCard` **silinmez**. İki sebeple: Zaman Penceresi tanımı olmayan durak ona
-düşer (63 durağın hepsi bir günde yazılmaz), ve "hareketi azalt" ayarı açık
-olan çocuk için sinematik yerine kart gösterilmelidir. Bu, erişilebilirlik
-gereği değil, mevcut `reducedMotion` ayarının zaten taşıdığı bir söz.
-
-### 4.4 Test edilebilirlik
-
-Bu projenin alışkanlığı, ekranda görülemeyen şeyi aritmetikle tutmaktır. Zaman
-Penceresi için tutulacaklar:
-
-- her pencerenin süresi 8–12 sn aralığında;
-- son olay `duration`dan önce biter (sarkan efekt yok);
-- `caption` en az 2.5 sn ekranda kalır ve en fazla 120 karakterdir;
-- her `spawn` için bir `despawn` vardır;
-- her pencerenin `reward`'ı o durağın kanonik ödülüyle aynıdır;
-- kamera hedefi o sahnede gerçekten var olan bir nesnedir.
-
-Sonuncusu en önemlisi: "kamera var olmayan bir şeye bakıyor" hatası ekran
-görüntüsünde boş gökyüzü olarak çıkar ve sebebi anlaşılmaz.
+`timewindow` durumundayken kontroller kilitli, HUD gizlidir; her iki çıkış da
+`restore` + `cleanup` çağırır.
 
 ---
 
-## 5. Gereken yeni varlıkların toplu listesi
+## 6. Test kuralları
+
+Bu projenin alışkanlığı, ekranda görülemeyen şeyi aritmetikle tutmaktır. Zaman
+Penceresi'nde görülemeyen şeylerin çoğu **sahnede kalan kalıntılar**dır, ve
+onlar ancak testle yakalanır.
+
+**İçerik kuralları**
+
+1. her pencerenin süresi 8–12 sn aralığındadır;
+2. son olay `duration`dan önce biter — sarkan efekt yok;
+3. caption tek cümledir, en fazla 90 karakterdir ve en az 4 sn ekranda kalır;
+4. her pencerenin `reward`'ı o durağın kanonik ödülüyle **birebir** aynıdır;
+5. kamera hedefi o sahnede **gerçekten var olan** bir nesnedir;
+6. `preset` ve `do` anahtarları zod birliğinin dışına çıkamaz — bilinmeyen
+   anahtar şema hatası verir;
+7. arka arkaya gelen iki şehir aynı kalıbı aynı parametrelerle kullanamaz
+   (kural 9'un testi).
+
+**Yaşam döngüsü kuralları** — hepsi sahte bir sahne üzerinde koşar
+
+8. `cancel()` sonrası sahne **başlangıç durumuna döner**: kamera, ışık, gök, su,
+   zemin rengi, emissive, opacity, transform — snapshot'taki her alan tek tek
+   karşılaştırılır;
+9. `skip` sonrası **hiçbir geçici nesne kalmaz**: spawn edilen kimlik kümesi boş;
+10. rota değişiminde (unmount) pencere çalışırken **efekt sızıntısı olmaz** —
+    zamanlayıcı durur, `requestAnimationFrame` iptal edilir, dinleyiciler çözülür;
+11. `spawn` edilen her kimliğin bir `despawn`'ı vardır (statik kontrol) **ve**
+    pencere bittiğinde sahnede o kimliklerden hiçbiri yoktur (çalışma zamanı);
+12. **replay ikinci ödül üretmez**: aynı pencere iki kez tamamlandığında
+    `stopCompleted` bir kez büyür;
+13. **`reducedMotion` akışı aynı tamamlanma durumuna ulaşır**: kart kapatıldıktan
+    sonraki `stopCompleted` ve envanter, sinematik tamamlandıktan sonrakiyle
+    aynıdır;
+14. atlanmış bir durak `stopCompleted` içinde değildir ve yeniden girildiğinde
+    pencere yine otomatik oynar.
+
+12 ve 13 en önemlileri: ikisi de gözle fark edilmeyen, veriyi sessizce bozan
+hatalardır.
+
+---
+
+## 7. Gereken yeni varlıkların toplu listesi
 
 63 durağın **55'i yeni varlık istemiyor.** İstenen sekiz tanesi:
 
@@ -1514,9 +1755,9 @@ Ankara ×2) — yani bugün açık olan 13 şehir için gereken yeni varlık **s
 
 ---
 
-## 6. Sayısal üretim özeti
+## 8. Sayısal üretim özeti
 
-Aşağıdaki sayılar §7'deki tablodan sayılarak üretilmiştir, elle yazılmamıştır.
+Aşağıdaki sayılar §9'daki tablodan sayılarak üretilmiştir, elle yazılmamıştır.
 
 | Ölçü | Sayı |
 |---|---|
@@ -1548,7 +1789,7 @@ toplanıyor ve o şehirler zaten sıfırdan yapılacak.
 
 ---
 
-## 7. Özet tablo
+## 9. Özet tablo
 
 | Şehir | Durak | Zaman Penceresi ana fikri | Yeni asset | Zorluk |
 |---|---|---|---|---|
@@ -1618,7 +1859,123 @@ toplanıyor ve o şehirler zaten sıfırdan yapılacak.
 
 ---
 
-## 8. Üretim sırası önerisi
+## 10. Değişiklik özeti (sürüm 1 → 2)
+
+| Bölüm | Ne değişti | Neden |
+|---|---|---|
+| §1 Ses | "63 durak için sıfır ses dosyası" hedefi kaldırıldı; beş durakta küçük örnek kullanımına izin verildi | Alkış, kemençe, fısıltı, kahkaha ve kalabalık uğultusu osilatörle inandırıcı olmuyor; o beş durağın anlamı sesin dokusunda. Yeni ilke: en az dosya, en çok yeniden kullanım — beş durağa dört dosya |
+| §2 Efektler | Tek düz ilkel listesi yerine **iki katman**: on iki kapalı komut + dokuz kalıp | Düz komut listesiyle yazılan 63 JSON okunamaz bir çöplüğe döner. Kalıplar JSON'u insan diline yaklaştırır, komutlar motoru sabit tutar |
+| §3 Caption | Yeni standart: tek cümle, en çok 90 karakter, en az 4 sn; "bir görüntü + bir cümle + bir hatıra" | Sürüm 1'de iki-üç cümleli captionlar vardı ve ikisi 90 karakteri aşıyordu |
+| §4 Tüm duraklar | **63 caption'ın tamamı yeniden yazıldı** | Standarda uyması için. Ortalama 58, en uzunu 79 karakter, hiçbiri birden fazla cümle değil |
+| §4 Antalya | Düden "Aşağı Düden Şelalesi" olarak netleştirildi; portakal durağı çiçek→meyve→altın→ödül zincirine çevrildi; Aspendos caption'ı sadeleşti | Düden iki ayrı şelale ve kanonik metnin kastettiği Aşağı Düden; portakal durağı sadece ödül adını söylüyordu, şimdi bağı gösteriyor |
+| §5.3 | **Yaşam döngüsü ve `cancel()`** eklendi: snapshot → restore → cleanup, ve geri yüklenecek on alanın listesi | Sürüm 1'de hiç yoktu. Pencere sahnenin durumunu bozuyor ve iptal yolu dört farklı yerden tetikleniyor |
+| §5.4–5.5 | **Atlama** ve **tekrar izleme** eklendi | İstendi; ayrıca ikisi de ödül mantığını etkiliyor |
+| §5.6 | **Ödül idempotansı**: `windowWatched` ve `stopCompleted` ayrı kümeler | Sürüm 1'de ödül "pencere bitince verilir" diyordu; tekrar izlemede ikinci kez verirdi |
+| §5.7 | `reducedMotion` akışı netleşti ve `FactCard`'ın iki işi yazıldı | Sürüm 1 bunu bir cümlede geçiyordu |
+| §6 Testler | 6 kuraldan **14 kurala** çıktı: iptal sonrası geri dönüş, atlama sonrası kalıntı, sızıntı, tekrar ödül, `reducedMotion` eşitliği, şema kapalılığı, kalıp tekrarı | Yeni mimarinin bozulabileceği her yer için bir kural |
+
+**Yumuşatılan iddialar.** Doğrulanması zor veya fazla mutlak bulunan sekiz
+caption elden geçti:
+
+| Durak | Önce | Sonra |
+|---|---|---|
+| Van / Van kedisi | "Dünyada suya kendi isteğiyle giren tek kedi cinsi" | "çoğu kedinin aksine suya girmeyi sever" |
+| Balıkesir / Kaz Dağları | "Dünyanın en temiz havalarından biri" | "Havası çok temiz" |
+| İstanbul / Vapur | "İki kıtaya birden kurulmuş tek şehir" | "Bir yakası Avrupa, bir yakası Asya" |
+| İstanbul / Kapalıçarşı | "Tek çatının altında dört bin dükkân" | "Dört bine yakın dükkân" |
+| Bolu / Mengen | "Türkiye'nin **en ünlü** aşçılarını yetiştirdi" | "kuşaklar boyu Türkiye'ye aşçı yetiştirdi" |
+| Bursa / İskender | "İskender burada icat edildi" | "**Anlatıya göre** İskender burada doğdu" |
+| İzmir / Tiyatro | "İki bin yıl önce **böyle hesaplamışlar**" | "en üst sıradan bile duyulabiliyor" |
+| Kars / Gravyer | "60 kiloya kadar çıkar" (kanonikte olmayan sayı) | "senden daha ağır olabilir" |
+
+Ayrıca yedi caption'a "yaklaşık" eklendi (Aspendos, Taşköprü, Sümela, Çifte
+Minareli, Anadolu Medeniyetleri, Diyarbakır surları, Palandöken) ve bir retorik
+soru kaldırıldı (Balıkesir / höşmerim) — kural 4 soru sorulmamasını istiyor,
+retorik olsa bile.
+
+**Giderilen riskler**
+
+1. **Bozuk sahne.** Snapshot/restore olmadan, haritaya dönen bir çocuk kamerası
+   kilitli veya gökyüzü turuncu kalmış bir şehre dönebilirdi.
+2. **İkinci ödül.** Tekrar izleme eklenince ödül iki kez verilirdi; iki ayrı
+   durum ve tek ödül kapısı bunu kapatıyor.
+3. **Okunamaz veri.** İki katman olmasa 63 dosya düşük seviyeli komut yığını
+   olurdu ve yeni durak eklemek kod okumayı gerektirirdi.
+4. **Yanlış bilgi.** Sekiz mutlak iddia eğitim projesinde taşınamazdı.
+5. **Caption şişmesi.** Standart olmadan her durak biraz daha uzun yazılır ve
+   sistem yine okunan bir metne döner — yani değiştirmek istediğimiz şeye.
+
+---
+
+## 11. Kodlamaya geçmeden önce açık kararlar
+
+Bunlar tasarımla çözülemez; karar gerektirir.
+
+1. **Captionların İngilizcesi kim yazacak?** Belge Türkçe yazıldı. Uygulama
+   bugün İngilizce çalışıyor ve kanonik metinlerin `tr` alanı boş. 63 cümlenin
+   İngilizcesi gerekiyor, ve bunlar kanonik metnin çevirisi değil, kendi
+   cümleleri.
+
+2. **Türkçe arayüz ne zaman?** Proje adı Türkçe, içerik İngilizce. Zaman
+   Penceresi bu çelişkiyi büyütüyor, çünkü cümleler artık oyunun ana sesi.
+
+3. **Pencere süresince müzik ne olacak?** Kısılsın mı, dursun mu, devam mı
+   etsin? Trabzon/horon ve Çanakkale/Gelibolu'da şehir müziği pencereyle
+   çakışıyor; ikisi zıt yönde çözüm istiyor.
+
+4. **Tablet performansı.** 63 pencerenin en ağırı Antalya/Aspendos (200+
+   instanced silüet) ve Kars/Ani. Hedef cihazda ölçülmedi — performans bütçesi
+   `docs/PERFORMANCE_BUDGET.md`'de var ama sinematik için bir satırı yok.
+
+5. **Atla düğmesi gerçekten 1,2 sn mi?** Tasarım değeri; bir çocukla
+   denenmeden kesinleşmez.
+
+6. **Beş ses örneği nereden?** Telifsiz kaynak mı, kayıt mı? Kemençe ezgisi
+   özellikle dikkat ister.
+
+7. **Yapılmamış altı şehir.** Onların pencereleri tasarlandı ama şehirler
+   yokken test edilemez. Pencere verisi şehirden önce mi yazılsın, sonra mı?
+
+8. **`graybox` duraklarda pencere oynamalı mı?** Antalya'nın üç durağı bugün
+   renkli kutu. Kamera bir kutuya yaklaşıp silüet gösterirse bu, sistemi
+   kötü tanıtır. Öneri: **pencere yalnızca gerçek varlık varsa oynar**, aksi
+   hâlde `FactCard`'a düşer — ama bu bir karar.
+
+---
+
+## 12. İlk dilim — yalnızca bu
+
+**İzmir / Konak Saat Kulesi.** Tek durak, ve sistemin tamamını kanıtlayacak
+sekiz özellik:
+
+| # | Ne | Neden bu durak |
+|---|---|---|
+| 1 | `cameraReveal` + `scatterBirds` kalıbı | iki kalıp birden, ikisi de yeniden kullanılacak |
+| 2 | caption (tek cümle, 90, 4 sn) | standardın ilk gerçek sınavı |
+| 3 | prosedürel ses (çan + kanat) | ses mimarisinin varsayılan yolu |
+| 4 | snapshot → restore → cleanup | güvercinler spawn ediliyor, geri alınması şart |
+| 5 | `cancel()` dört yoldan | Atla, haritaya dön, rota değişimi, unmount |
+| 6 | Atla düğmesi (1,2 sn) | |
+| 7 | tekrar izleme + ödül idempotansı | ödül `collectible_izmir_pigeon_feather`, iki kez verilmemeli |
+| 8 | `reducedMotion` → `FactCard` | iki akış aynı `stopCompleted` sonucunu vermeli |
+
+**Neden bu durak:** kullanıcının kendi örneği, yeni varlık istemiyor, her iki
+güvercin modeli de zaten projede (`kit_izmir_pigeon_walking` yürüyen,
+`kit_izmir_doves_ruin` uçan), ve "saat çalar → güvercinler havalanır → bir
+cümle" tasarım kurallarındaki "her durağı sinematik yapmaya çalışma"
+maddesinin birebir karşılığı.
+
+**Bu dilim bitmeden 63 durağın kodlanmasını önermiyorum.** Sebebi şu: yukarıdaki
+sekiz maddenin yedisi tek bir durakta da, altmış üç durakta da aynı işi yapar —
+ama yanlış tasarlanmışsa, altmış üç durakta altmış üç kez düzeltilir. Bir durak
+çalıştıktan sonra geri kalanı veri girişidir.
+
+Dilim bittiğinde ölçülecek: tablette kare hızı, çocuğun pencereyi atlayıp
+atlamadığı, ve cümleyi okuyup okumadığı.
+
+---
+
+## 13. Üretim sırası önerisi
 
 1. **Önce sistem, sonra içerik.** Şema + saat + beş ilkel (`focus`, `caption`,
    `sound`, `glow`, `particles`) ile İzmir Saat Kulesi yapılır. O durak

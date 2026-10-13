@@ -378,3 +378,99 @@ export function stopMusic(): void {
     musicSource = null;
   }
 }
+
+/**
+ * The Konak clock, striking.
+ *
+ * A tower clock is a struck bell, and a struck bell is not a note: it is a
+ * fundamental with a minor third and a fifth above it that decay at different
+ * rates, which is why a sine wave sounds like a doorbell and this does not. The
+ * partials below are the classic bell set, and the hum tone an octave down is
+ * what makes it sound large rather than close.
+ *
+ * Three strikes, 1.4 s apart, because one is a chime and a dozen is a church.
+ * On the `ambience` channel with the rest of the city's world.
+ */
+export function playClockBell(strikes = 3): void {
+  const context = audioContext();
+  const destination = channelNode('ambience');
+  if (!context || !destination) return;
+
+  const base = context.currentTime + 0.01;
+  for (let strike = 0; strike < strikes; strike += 1) {
+    const start = base + strike * 1.4;
+    // Hum, fundamental, minor third, fifth, nominal — a bell's own partials.
+    for (const [ratio, level, decay] of [
+      [0.5, 0.5, 3.4],
+      [1, 1, 2.8],
+      [1.2, 0.42, 1.9],
+      [1.5, 0.3, 1.5],
+      [2, 0.26, 1.1],
+    ] as const) {
+      const oscillator = context.createOscillator();
+      const gain = context.createGain();
+      oscillator.type = 'sine';
+      oscillator.frequency.setValueAtTime(293.7 * ratio, start);
+      gain.gain.setValueAtTime(0.0001, start);
+      gain.gain.exponentialRampToValueAtTime(0.16 * level, start + 0.012);
+      gain.gain.exponentialRampToValueAtTime(0.0001, start + decay);
+      oscillator.connect(gain).connect(destination);
+      oscillator.start(start);
+      oscillator.stop(start + decay + 0.05);
+    }
+  }
+}
+
+/**
+ * A flock leaving the ground.
+ *
+ * Wingbeats are noise, not tone — short filtered bursts, and the thing that
+ * makes a flock sound like a flock is that the bursts do not line up. Five
+ * birds at slightly different rates, each drifting slower as it climbs, which
+ * is also what the pigeons on screen are doing.
+ *
+ * Built the way `playTrainPass` warns about, but the other way round: there the
+ * noise was the garnish and the horn was the sound, and here noise *is* the
+ * sound, because a wingbeat has no pitch to get wrong.
+ */
+export function playWingBurst(birds = 5): void {
+  const context = audioContext();
+  const destination = channelNode('ambience');
+  if (!context || !destination) return;
+
+  const base = context.currentTime + 0.01;
+  // One noise buffer, shared: a quarter second of white noise is enough.
+  const frames = Math.floor(context.sampleRate * 0.25);
+  const buffer = context.createBuffer(1, frames, context.sampleRate);
+  const channel = buffer.getChannelData(0);
+  for (let i = 0; i < frames; i += 1) channel[i] = Math.random() * 2 - 1;
+
+  for (let bird = 0; bird < birds; bird += 1) {
+    const offset = bird * 0.09 + Math.random() * 0.05;
+    const beats = 6 + bird;
+    for (let beat = 0; beat < beats; beat += 1) {
+      // Beats spread out as the bird gains height and stops working so hard.
+      const start = base + offset + beat * (0.11 + beat * 0.012);
+      const source = context.createBufferSource();
+      const gain = context.createGain();
+      const filter = context.createBiquadFilter();
+      source.buffer = buffer;
+      filter.type = 'bandpass';
+      filter.frequency.value = 900 + bird * 120;
+      filter.Q.value = 0.8;
+      const level = 0.05 * (1 - beat / (beats + 2));
+      gain.gain.setValueAtTime(0.0001, start);
+      gain.gain.exponentialRampToValueAtTime(Math.max(level, 0.001), start + 0.015);
+      gain.gain.exponentialRampToValueAtTime(0.0001, start + 0.1);
+      source.connect(filter).connect(gain).connect(destination);
+      source.start(start);
+      source.stop(start + 0.12);
+    }
+  }
+}
+
+/** Cue names a Time Window may ask for, and what plays them. */
+export const WINDOW_CUES: Readonly<Record<string, () => void>> = {
+  'clock-bell': () => playClockBell(),
+  'wing-burst': () => playWingBurst(),
+};
