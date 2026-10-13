@@ -2183,3 +2183,32 @@ describe('Nevşehir is finished', () => {
     expect(scene.balloons.length).toBeGreaterThanOrEqual(8);
   });
 });
+
+describe('route markers', () => {
+  it('never puts a marker in the middle of a stop', () => {
+    /**
+     * The "two dots" the owner saw: a trigger ring with a filled turquoise disc
+     * sitting under the object inside it. Both are turquoise and both are flat
+     * on the ground, so a stop read as two markers rather than one place.
+     *
+     * The rule is about the middle, not the ring. A marker out at the rim is
+     * the path arriving and belongs there; one near the centre is a second
+     * marker for a place that already has one. Six tenths of the radius is
+     * where that changes, and it is held here because the generator lays
+     * markers and stops out from the same curve — they will keep landing on
+     * each other as cities are added.
+     */
+    for (const cityId of PLAYABLE_CITY_IDS) {
+      const scene = buildScene(loadComposedCity(cityId), 'high');
+      const visible = scene.routePoints.filter((point) =>
+        scene.hotspots.every((hotspot) => {
+          const dx = point[0] - hotspot.position[0];
+          const dz = point[2] - hotspot.position[2];
+          return Math.hypot(dx, dz) > hotspot.triggerRadius * 0.6;
+        }),
+      );
+      // Still a trail: a city with one marker left is not guiding anyone.
+      expect(visible.length, `${cityId} has too few route markers left`).toBeGreaterThanOrEqual(3);
+    }
+  });
+});

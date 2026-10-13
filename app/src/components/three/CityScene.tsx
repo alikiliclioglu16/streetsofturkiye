@@ -104,6 +104,31 @@ export function CityScene({
   // Route markers are instanced-friendly primitives reused across cities.
   const markerScale = scene.routeMarker.entry.dimensions;
 
+  /**
+   * Route markers that are not sitting in the middle of a stop.
+   *
+   * Measured rather than guessed, and the first attempt was wrong: hiding every
+   * marker inside a trigger ring removed 84 of 103 across the thirteen cities
+   * and left Gaziantep with one, which is no trail at all. The markers and the
+   * stops are laid out from the same curve, so most markers are inside some
+   * ring by that definition.
+   *
+   * What a child actually sees as "two dots" is a disc near the ring's
+   * **centre**, under the object. Out at the rim it reads as the path arriving,
+   * which is what it is for. Six tenths of the radius is where that changes:
+   * it clears the middle of every stop and keeps 67 markers, at least four in
+   * every city.
+   */
+  const visibleRoutePoints = useMemo(() => {
+    return scene.routePoints.filter((point) =>
+      scene.hotspots.every((hotspot) => {
+        const dx = point[0] - hotspot.position[0];
+        const dz = point[2] - hotspot.position[2];
+        return Math.hypot(dx, dz) > hotspot.triggerRadius * 0.6;
+      }),
+    );
+  }, [scene.routePoints, scene.hotspots]);
+
   return (
     <>
       {/* Region atmosphere. Haze also hides the edge of the ground plate. */}
@@ -224,7 +249,19 @@ export function CityScene({
         </mesh>
       ))}
 
-      {scene.routePoints.map((point, index) => (
+      {/*
+        Route markers, except the ones standing inside a stop.
+
+        A marker's job is to say "the next thing is this way". Inside a trigger
+        ring it says nothing — the child is already there — and what it actually
+        does is put a second turquoise shape in the middle of the first one, so
+        a stop reads as two markers rather than one place. Every city had this:
+        five of five stops in İstanbul and İzmir, three of three in Bolu.
+
+        Filtered here rather than in the generator, because the ring radius is a
+        rendering fact and this way no scene file has to be rewritten for it.
+      */}
+      {visibleRoutePoints.map((point, index) => (
         <mesh
           key={`route-${index}`}
           position={[point[0], 0.03, point[2]]}
