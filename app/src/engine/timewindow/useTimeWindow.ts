@@ -123,9 +123,27 @@ export function useTimeWindow({
     [onCancel, onComplete, restoreAndCleanup, stopClock],
   );
 
+  /**
+   * A new window — or none — is a fresh runner.
+   *
+   * `settled` latches on the way out and nothing cleared it, so after the
+   * first stop the hook refused to start anything ever again. That refusal is
+   * silent, and the stop it lands on shows no card either, which is how one
+   * missing reset became a blank screen (D-226). Keyed on the window's own
+   * identity, so it cannot fire in the middle of a run.
+   */
+  const identity = data ? `${data.stopId}@${data.duration}` : null;
+  useEffect(() => {
+    settled.current = false;
+    elapsed.current = 0;
+    lastTick.current = 0;
+    dispatch({ type: 'RESET', duration });
+    // `duration` moves with `identity`; listing it would reset twice.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [identity]);
+
   const start = useCallback(() => {
     if (!data || settled.current) return;
-    settled.current = false;
     elapsed.current = 0;
     dispatch({ type: 'START' });
 

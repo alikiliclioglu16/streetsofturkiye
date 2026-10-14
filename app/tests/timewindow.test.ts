@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { readFileSync } from 'node:fs';
 import path from 'node:path';
-import { Object3D, PerspectiveCamera } from 'three';
+import { Object3D, PerspectiveCamera, Vector3 } from 'three';
 
 import {
   cityTimeWindowsSchema,
@@ -15,6 +15,8 @@ import {
   skipAvailable,
   timeWindowReducer,
   SKIP_AVAILABLE_AFTER_SECONDS,
+  WINDOW_STALL_MS,
+  type TimeWindowContext,
 } from '@/engine/timewindow/machine';
 import { activeCommands, captionAt, commandsFiredBetween } from '@/engine/timewindow/clock';
 import {
@@ -438,5 +440,196 @@ describe('the reward gate', () => {
       ? completeHotspot(emptyCityProgress('izmir'), 'izmir-hotspot-03', window().reward)
       : emptyCityProgress('izmir');
     expect(progress.collectedRewardIds).toEqual([]);
+  });
+});
+
+/**
+ * Is any of it actually on screen?
+ *
+ * This is the test that was missing, and its absence cost the owner a stop
+ * that looked broken. The first İzmir window was correct by every rule above
+ * — schema, lifecycle, restore, reward — and still showed a child nothing: the
+ * pigeons spawned sixteen to twenty-two metres from the tower while the camera
+ * framed the tower from thirteen metres back, so every bird in it was outside
+ * the frustum for the whole nine seconds. "Correct" and "visible" are
+ * different properties and only one of them was being checked.
+ *
+ * So the geometry is checked here, against the same framing the game builds:
+ * target = the stop's anchor plus the window's offset, camera = target plus
+ * [1.5, height, distance], 50° vertical FOV (D-183).
+ */
+describe('the window is in shot', () => {
+  const FOV_DEGREES = 50;
+  /** The narrowest common viewport. A wider screen only ever sees more. */
+  const ASPECT = 16 / 10;
+
+  function framing(window: ReturnType<typeof clockTower>) {
+    const city = loadComposedCity('izmir');
+    const hotspot = city.hotspots.find((entry) => entry.stopId === window.stopId);
+    if (!hotspot) throw new Error(`no hotspot for ${window.stopId}`);
+    const [ax, ay, az] = hotspot.transform.position;
+    const [ox, oy, oz] = window.camera.offset;
+    const target = [ax! + ox, ay! + oy, az! + oz] as const;
+    const eye = [
+      target[0] + 1.5,
+      target[1] + window.camera.height,
+      target[2] + window.camera.distance,
+    ] as const;
+    return { target, eye };
+  }
+
+  type Point = readonly [number, number, number];
+
+  /**
+   * Where a point sits in the frame, as two angles off the camera's axis.
+   *
+   * Built with three.js vectors rather than by hand, because the hand-written
+   * version of this is exactly the kind of arithmetic that agrees with itself
+   * and disagrees with the renderer.
+   */
+  function offAxis(eye: Point, target: Point, point: Point) {
+    const origin = new Vector3(...eye);
+    const axis = new Vector3(...target).sub(origin).normalize();
+    const right = new Vector3(axis.z, 0, -axis.x).normalize();
+    const up = new Vector3().crossVectors(right, axis).normalize();
+    const to = new Vector3(...point).sub(origin);
+    const forward = to.dot(axis);
+    return {
+      forward,
+      vertical: (Math.atan2(to.dot(up), forward) * 180) / Math.PI,
+      horizontal: (Math.atan2(to.dot(right), forward) * 180) / Math.PI,
+    };
+  }
+
+  const halfVertical = FOV_DEGREES / 2;
+  const halfHorizontal =
+    (Math.atan(Math.tan((halfVertical * Math.PI) / 180) * ASPECT) * 180) / Math.PI;
+
+  it('spawns every object inside the frame it flies the camera to', () => {
+    const window = clockTower();
+    const { target, eye } = framing(window);
+    const spawns = window.events.filter((event) => event.do === 'spawn');
+    expect(spawns.length).toBeGreaterThan(0);
+
+    for (const spawn of spawns) {
+      if (spawn.do !== 'spawn') continue;
+      const angles = offAxis(eye, target, spawn.from);
+      expect(angles.forward, `${spawn.id} is behind the camera`).toBeGreaterThan(0.5);
+      expect(Math.abs(angles.vertical), `${spawn.id} vertical`).toBeLessThan(halfVertical);
+      expect(Math.abs(angles.horizontal), `${spawn.id} horizontal`).toBeLessThan(halfHorizontal);
+    }
+  });
+
+  it('keeps every move destination inside the frame too', () => {
+    const window = clockTower();
+    const { target, eye } = framing(window);
+    for (const event of window.events) {
+      if (event.do !== 'move') continue;
+      const angles = offAxis(eye, target, event.to);
+      expect(angles.forward, `${event.id} flies behind the camera`).toBeGreaterThan(0.5);
+      expect(Math.abs(angles.vertical), `${event.id} vertical`).toBeLessThan(halfVertical);
+      expect(Math.abs(angles.horizontal), `${event.id} horizontal`).toBeLessThan(halfHorizontal);
+    }
+  });
+
+  it('keeps the objects near enough to read at a child-sized scale', () => {
+    const window = clockTower();
+    const { eye } = framing(window);
+    /**
+     * A pigeon is 0.34 m tall. Three per cent of frame height is about thirty
+     * pixels on a tablet — below that it is a speck, and a speck is what the
+     * owner was shown. The spawn's own scale counts towards it.
+     */
+    for (const event of window.events) {
+      if (event.do !== 'spawn') continue;
+      const distance = Math.hypot(
+        event.from[0] - eye[0],
+        event.from[1] - eye[1],
+        event.from[2] - eye[2],
+      );
+      const frameHeight = 2 * distance * Math.tan((halfVertical * Math.PI) / 180);
+      const share = (0.34 * event.scale) / frameHeight;
+      expect(share, `${event.id} fills ${(share * 100).toFixed(1)}% of frame height`).toBeGreaterThan(
+        0.03,
+      );
+    }
+  });
+
+  it('hides the ground birds it replaces, by something the scene actually carries', () => {
+    const window = clockTower();
+    const hides = window.events.filter((event) => event.do === 'hide');
+    expect(hides.length).toBe(1);
+    const [hide] = hides;
+    if (hide?.do !== 'hide') throw new Error('expected a hide');
+
+    // The handle has to exist in the scene, or the command is a silent no-op.
+    const city = loadComposedCity('izmir');
+    const matches = city.props.filter(
+      (prop) => prop.assetId === hide.notePrefix || (prop.note ?? '').startsWith(hide.notePrefix),
+    );
+    expect(matches.length, `nothing in izmir matches "${hide.notePrefix}"`).toBeGreaterThan(0);
+  });
+});
+
+/**
+ * Reset, which was missing and cost a stop its content.
+ *
+ * `settled` latches on the way out so that a cancel and an unmount cannot both
+ * pay out, and nothing ever cleared it: one runner could therefore play exactly
+ * one window for the life of a city. Because the fact card is withheld
+ * wherever a window is eligible, the stop that followed showed neither — a
+ * screen with nothing on it and the controls still taken away.
+ */
+describe('a runner can be used again', () => {
+  it('returns to idle from any state', () => {
+    const states: Array<(context: TimeWindowContext) => TimeWindowContext> = [
+      (context) => context,
+      (context) => timeWindowReducer(context, { type: 'START' }),
+      (context) =>
+        timeWindowReducer(timeWindowReducer(context, { type: 'START' }), { type: 'SNAPSHOT_TAKEN' }),
+    ];
+    for (const reach of states) {
+      const context = reach(initialTimeWindowContext(9));
+      const reset = timeWindowReducer(context, { type: 'RESET', duration: 11 });
+      expect(reset.state).toBe('idle');
+      expect(reset.elapsed).toBe(0);
+      expect(reset.outcome).toBeNull();
+      expect(reset.duration).toBe(11);
+    }
+  });
+
+  it('resets a finished run, cancelled or completed', () => {
+    let context = initialTimeWindowContext(9);
+    context = timeWindowReducer(context, { type: 'START' });
+    context = timeWindowReducer(context, { type: 'SNAPSHOT_TAKEN' });
+    context = timeWindowReducer(context, { type: 'ELAPSED', seconds: 9 });
+    expect(context.state).toBe('completing');
+    expect(timeWindowReducer(context, { type: 'RESET', duration: 9 }).state).toBe('idle');
+
+    let cancelled = initialTimeWindowContext(9);
+    cancelled = timeWindowReducer(cancelled, { type: 'START' });
+    cancelled = timeWindowReducer(cancelled, { type: 'CANCEL', reason: 'skip' });
+    expect(cancelled.state).toBe('cancelling');
+    expect(timeWindowReducer(cancelled, { type: 'RESET', duration: 9 }).state).toBe('idle');
+  });
+
+  it('pays out nothing after a reset, so a replay cannot double-reward', () => {
+    let context = initialTimeWindowContext(9);
+    context = timeWindowReducer(context, { type: 'START' });
+    context = timeWindowReducer(context, { type: 'SNAPSHOT_TAKEN' });
+    context = timeWindowReducer(context, { type: 'ELAPSED', seconds: 9 });
+    expect(shouldGrantReward(context)).toBe(true);
+    expect(shouldGrantReward(timeWindowReducer(context, { type: 'RESET', duration: 9 }))).toBe(false);
+  });
+});
+
+describe('the stall fallback', () => {
+  it('waits long enough for a normal start and not long enough to be noticed', () => {
+    // A start is one commit. Anything in the hundreds of milliseconds is a
+    // window that is not coming.
+    expect(WINDOW_STALL_MS).toBeGreaterThan(300);
+    expect(WINDOW_STALL_MS).toBeLessThan(1500);
+    // And it must not outlast the skip button it would otherwise race.
+    expect(WINDOW_STALL_MS / 1000).toBeLessThan(SKIP_AVAILABLE_AFTER_SECONDS + 0.5);
   });
 });

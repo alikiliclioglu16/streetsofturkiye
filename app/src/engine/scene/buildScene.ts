@@ -81,6 +81,16 @@ export interface ScenePropInstance {
   readonly rotationX: number;
   /** False for dressing the player should walk through, like a stray cat. */
   readonly solid: boolean;
+  /**
+   * The authored note, carried through to the scene graph.
+   *
+   * Content gives every prop a human note ("street lamp 3", "leaf drift 7")
+   * and it was being dropped here, which quietly made the Time Window `hide`
+   * command a no-op: a window's only handle on something it did not spawn is
+   * that note, and nothing was writing it onto the object. It travels as far as
+   * `userData.note` now (D-226).
+   */
+  readonly note: string | null;
 }
 
 export interface SceneDescription {
@@ -214,6 +224,7 @@ export function buildScene(city: CityDefinition, quality: QualityTier): SceneDes
     rotationY: prop.rotationY,
     rotationX: prop.rotationX ?? 0,
     solid: prop.solid ?? true,
+    note: prop.note ?? null,
   }));
 
   /**
@@ -265,6 +276,7 @@ export function buildScene(city: CityDefinition, quality: QualityTier): SceneDes
     rotationY: prop.rotationY,
     rotationX: prop.rotationX ?? 0,
     solid: prop.solid ?? false,
+    note: prop.note ?? null,
   }));
 
   /**

@@ -210,3 +210,53 @@ describe('the runner pays out once', () => {
     vi.useRealTimers();
   });
 });
+
+describe('the runner is reusable', () => {
+  /**
+   * The defect this covers was invisible and total.
+   *
+   * `settled` latched on the first exit and nothing cleared it, so `start` was
+   * a no-op from the second stop onwards — and because the fact card is
+   * withheld wherever a window is eligible, the stop showed nothing at all.
+   * Re-rendering with a different window is what a child does by walking, so
+   * that is what is simulated: the same hook, a new window, and it must play.
+   */
+  it('starts again once the window it holds has changed', () => {
+    const h = harness();
+    const onCancel = vi.fn();
+    type Window = (typeof IZMIR.windows)[number];
+    const view = renderHook(
+      ({ window }: { window: Window | null }) =>
+        useTimeWindow({
+          window,
+          sources: h.sources,
+          targets: h.targets,
+          onComplete: vi.fn(),
+          onCancel,
+        }),
+      { initialProps: { window: IZMIR.windows[0]! as Window | null } },
+    );
+
+    act(() => view.result.current.start());
+    expect(view.result.current.context.state).toBe('playing');
+    act(() => view.result.current.cancel('skip'));
+    expect(view.result.current.context.state).toBe('cancelling');
+
+    // The child walks out of the ring: no window, then into another one.
+    act(() => view.rerender({ window: null }));
+    expect(view.result.current.context.state).toBe('idle');
+
+    const second = { ...IZMIR.windows[0]!, stopId: 'izmir-stop-04' };
+    act(() => view.rerender({ window: second }));
+    expect(view.result.current.context.state).toBe('idle');
+
+    act(() => view.result.current.start());
+    expect(view.result.current.context.state).toBe('playing');
+    expect(view.result.current.snapshot).not.toBeNull();
+
+    act(() => view.result.current.cancel('leave'));
+    expectRestored(h);
+    expect(onCancel).toHaveBeenNthCalledWith(1, 'skip');
+    expect(onCancel).toHaveBeenNthCalledWith(2, 'leave');
+  });
+});

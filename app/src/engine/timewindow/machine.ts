@@ -34,7 +34,19 @@ export type TimeWindowEvent =
   | { type: 'ELAPSED'; seconds: number }
   /** Skip, Back to map, route change, unmount — all arrive here. */
   | { type: 'CANCEL'; reason: CancelReason }
-  | { type: 'RESTORED' };
+  | { type: 'RESTORED' }
+  /**
+   * Back to the beginning, for a different window or a second visit.
+   *
+   * A run ends in `completing`, `cancelling` or `finished` and nothing walked
+   * it back, so one runner could play exactly one window for the life of a
+   * city: a child who left a stop and returned found a state that was not
+   * `idle`, an auto-play that refused to fire, and — because the card is
+   * withheld wherever a window is eligible — a stop with nothing on it at all.
+   * Reset is dispatched when the window being held changes, which includes
+   * changing to none (D-226).
+   */
+  | { type: 'RESET'; duration: number };
 
 export type CancelReason = 'skip' | 'leave' | 'route' | 'unmount';
 
@@ -64,6 +76,10 @@ export function timeWindowReducer(
   context: TimeWindowContext,
   event: TimeWindowEvent,
 ): TimeWindowContext {
+  // Accepted from every state, including mid-flight: the window it belonged to
+  // is gone, so there is nothing left for the old context to describe.
+  if (event.type === 'RESET') return initialTimeWindowContext(event.duration);
+
   if (event.type === 'CANCEL' && CANCELLABLE.includes(context.state)) {
     return { ...context, state: 'cancelling', outcome: 'cancel', cancelReason: event.reason };
   }
@@ -129,3 +145,17 @@ export const SKIP_AVAILABLE_AFTER_SECONDS = 1.2;
 export function skipAvailable(context: TimeWindowContext, after = SKIP_AVAILABLE_AFTER_SECONDS): boolean {
   return context.state === 'playing' && context.elapsed >= after;
 }
+
+/**
+ * How long a stop waits for its window before giving up and showing the card.
+ *
+ * The card is withheld wherever a window is eligible, which is right until the
+ * window does not start — and then the stop has no card, no cinematic and the
+ * controls still taken away. That is the frozen screen, and no amount of
+ * correctness elsewhere excuses leaving a child in front of it.
+ *
+ * Long enough that a normal start is never cut off (a start is one commit, so
+ * tens of milliseconds), short enough that nobody reads the pause as the
+ * window itself.
+ */
+export const WINDOW_STALL_MS = 900;

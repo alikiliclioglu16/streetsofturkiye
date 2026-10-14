@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
+import type { Object3D } from 'three';
 import { useGameStore } from '@/stores/useGameStore';
 import { useSettingsStore } from '@/stores/useSettingsStore';
 import { buildScene } from '@/engine/scene/buildScene';
@@ -45,6 +46,7 @@ import type { CityTimeWindows } from '@/content/schemas/timewindow';
 import { windowEligibility } from '@/engine/timewindow/eligibility';
 import { ambienceLevel, musicLevel } from '@/engine/audio/engine';
 import { useTimeWindow } from '@/engine/timewindow/useTimeWindow';
+import { WINDOW_STALL_MS } from '@/engine/timewindow/machine';
 import { QuizPanel } from '@/components/game-ui/QuizPanel';
 import { CompletionPanel } from '@/components/game-ui/CompletionPanel';
 import { SettingsPanel } from '@/components/game-ui/SettingsPanel';
@@ -459,11 +461,26 @@ export function CityExperience({ cityId }: { cityId: string }) {
     }),
     [scene],
   );
+  /**
+   * Scene objects the stage touched, shared with the restore pass.
+   *
+   * A ref rather than state: it is written from inside the render loop and
+   * read only at restore time, and re-rendering the city because a pigeon was
+   * hidden would be a frame lost for nothing. The stage fills it; the snapshot
+   * decides what to put back.
+   */
+  const windowObjects = useRef<Record<string, Object3D>>({});
+  const clearWindowObjects = useCallback(() => {
+    windowObjects.current = {};
+  }, []);
+  const rememberWindowObject = useCallback((key: string, object: Object3D) => {
+    windowObjects.current = { ...windowObjects.current, [key]: object };
+  }, []);
   const windowTargets = useCallback(
     () => ({
       camera: null,
       lights: {},
-      objects: {},
+      objects: windowObjects.current,
       materials: {},
       setColours: () => {},
       setAudio: () => {},
@@ -474,16 +491,20 @@ export function CityExperience({ cityId }: { cityId: string }) {
   );
 
   const onWindowComplete = useCallback(() => {
+    // Restore has already run and read these; holding them would keep a torn
+    // down scene's objects alive for as long as the city lasts.
+    clearWindowObjects();
     if (!activeHotspot) return;
     markWindowWatched(activeHotspot.stopId);
     // The one reward path. A completed window pays exactly what the card does.
     collectFromStop();
-  }, [activeHotspot, markWindowWatched, collectFromStop]);
+  }, [activeHotspot, markWindowWatched, collectFromStop, clearWindowObjects]);
 
   const onWindowCancel = useCallback(() => {
+    clearWindowObjects();
     // Nothing is earned, and the stop stays open for another try.
     dispatchInteraction({ type: 'DISMISS' });
-  }, [dispatchInteraction]);
+  }, [dispatchInteraction, clearWindowObjects]);
 
   const runner = useTimeWindow({
     window: eligibility.eligible ? activeWindow : null,
@@ -492,6 +513,39 @@ export function CityExperience({ cityId }: { cityId: string }) {
     onComplete: onWindowComplete,
     onCancel: onWindowCancel,
   });
+
+  /**
+   * The safety net.
+   *
+   * The fact card is withheld while a window is eligible, which is correct
+   * right up until the window does not start — and then the stop has no card,
+   * no cinematic and locked controls, which is exactly the frozen screen the
+   * owner reported. Whatever the cause, a child must never be left looking at
+   * nothing.
+   *
+   * So: if a window has been eligible and idle for nearly a second while the
+   * stop is open, give up on it and show the card. Nine hundred milliseconds
+   * is long enough that a normal start is never interrupted and short enough
+   * that a child does not notice the difference.
+   */
+  const [stalledStopId, setStalledStopId] = useState<string | null>(null);
+  const openStopId = activeHotspot?.stopId ?? null;
+  useEffect(() => {
+    if (!openStopId) return;
+    const shouldPlay =
+      interaction.state === 'active' && eligibility.eligible && !stopCompleted;
+    if (!shouldPlay || runner.context.state !== 'idle') return;
+    const timer = window.setTimeout(() => setStalledStopId(openStopId), WINDOW_STALL_MS);
+    return () => window.clearTimeout(timer);
+  }, [openStopId, interaction.state, eligibility.eligible, stopCompleted, runner.context.state]);
+  /**
+   * Recorded per stop rather than cleared, deliberately.
+   *
+   * A stop whose window would not start once will very likely not start again,
+   * and a child who was shown the card should keep being shown it rather than
+   * meeting the same dead screen on the way back through the ring.
+   */
+  const windowStalled = stalledStopId !== null && stalledStopId === openStopId;
 
   /**
    * Auto-play on the first visit only.
@@ -534,7 +588,13 @@ export function CityExperience({ cityId }: { cityId: string }) {
           target[2] + activeWindow.camera.distance,
         ] as [number, number, number],
         target,
-        durationMs: reducedMotion ? 0 : 1400,
+        /*
+          Shorter than the 1.4 s it was, so the framing has arrived before the
+          first thing happens in it: the İzmir window spawns at 1.2 s, and a
+          camera still travelling at that moment throws the one beat the window
+          has away.
+        */
+        durationMs: reducedMotion ? 0 : 1000,
       };
     }
     if (['entering', 'active', 'retry', 'success'].includes(interaction.state)) {
@@ -598,6 +658,7 @@ export function CityExperience({ cityId }: { cityId: string }) {
                   elapsed: runner.elapsed,
                   snapshot: runner.snapshot,
                   registry: runner.registry,
+                  onTouchObject: rememberWindowObject,
                 }
               : null
           }
@@ -638,7 +699,13 @@ export function CityExperience({ cityId }: { cityId: string }) {
             : null
         }
         onSettings={() => toggleSettings(true)}
-        onLeave={() => router.push('/map')}
+        onLeave={() => {
+          // The second of the four cancel paths, and the only one a child
+          // reaches on purpose. Unmount covers it too, but not until the route
+          // has already changed — this puts the scene back first.
+          if (windowRunning) runner.cancel('leave');
+          router.push('/map');
+        }}
         onInteract={() => dispatchInteraction({ type: 'BEGIN' })}
       />
 
@@ -679,7 +746,7 @@ export function CityExperience({ cityId }: { cityId: string }) {
       {phase === 'explore' &&
       activeHotspot &&
       !windowRunning &&
-      (!eligibility.eligible || stopCompleted) &&
+      (!eligibility.eligible || stopCompleted || windowStalled) &&
       ['active', 'retry', 'success', 'reward'].includes(interaction.state) ? (
         <FactCard
           hotspot={activeHotspot}

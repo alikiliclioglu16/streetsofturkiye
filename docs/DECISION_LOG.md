@@ -4152,3 +4152,62 @@ audio files in this slice.
 
 41 new tests, 402 passing. The five failures are the long-standing GLB-on-disk
 checks, untouched by this work.
+
+## D-226 — The clock tower window was correct and invisible
+
+The owner deployed the slice, walked to Konak and reported: *"sadece ekran donuk
+duruyor… Hiçbir güzel bir geliştirme olmamış. Ekrana kart gelmiyor sadece, öyle
+duruyor."* That judgement is right, and the design was mine.
+
+**The window was outside its own frame.** The camera flew to 13 m back and 6.5 m
+up; the pigeons spawned at the nearest existing scatter points, 16 to 22 m from
+the tower and off to one side. Measured after the fact, every bird in the window
+sat about 59° off the camera axis — outside a 50° frustum for the whole nine
+seconds. The stop played a cinematic of an empty square.
+
+Nothing in the 41 tests could catch that, because every one of them tested
+whether the window was *correct*: schema, lifecycle, restore, reward, cleanup.
+Correct and visible are different properties. `the window is in shot` now checks
+the second one, from the same framing the game builds — spawns and move
+destinations inside the frustum, and every spawned object at least 3% of frame
+height. It failed on the first re-tune, which is the point of it.
+
+New framing: offset 2.2 m, 12 m back, 4.2 m up — 19° of downtilt, the fountain
+at about 40% of frame height. Nine pigeons on a 3.4 m ring around the base at
+1.5× scale, lifting to 4–5 m and crossing the frame laterally rather than rising
+out of the top of it. A bird that leaves the frame to show it is flying has shown
+nothing. The camera lerp came down from 1.4 s to 1.0 s so the framing has
+arrived before the first thing happens in it.
+
+**Three defects found while reading for the cause, all of which could leave a
+dead screen on their own:**
+
+*`hide` was a no-op.* Content writes a note on every prop and `buildScene` was
+dropping it, so the command searched a scene in which no node had one. The note
+now travels to `userData.note`, with the asset id alongside it — a note is
+authored prose and an id is not, so a window that wants "every pigeon" has
+something stable to ask for.
+
+*Hidden objects were never unhidden.* `windowTargets` returned `objects: {}`,
+and the restore pass looks objects up in it by key. The stage is the only thing
+that can resolve a note to an object, so it now hands each one back as it
+touches it. One restore path, still.
+
+*A runner played exactly one window per city.* `settled` latches on the way out
+so a cancel and an unmount cannot both pay out, and nothing cleared it; `RESET`
+clears it when the window being held changes, which includes changing to none.
+
+**And a safety net, because the card is withheld wherever a window is
+eligible.** That is right until the window does not start, and then the stop has
+no card, no cinematic and the controls still taken away. After
+`WINDOW_STALL_MS` (900 ms, configurable, not hard-coded at the call site) an
+eligible-but-idle stop falls back to the fact card and keeps falling back for
+that stop. A window also gets its own `<Suspense fallback={null}>` so a cold
+spawn model cannot blank the street, and `useFrame` catches: an error thrown in
+the render loop stops the whole canvas, which is a still image of the city.
+
+Back to map now cancels explicitly rather than relying on unmount, so the scene
+is restored before the route changes.
+
+9 new tests, 50 in the window suite, 412 passing. The five failures are the
+long-standing GLB-on-disk checks.

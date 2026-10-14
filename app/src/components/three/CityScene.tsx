@@ -1,6 +1,7 @@
 'use client';
 
-import { useMemo } from 'react';
+import { Suspense, useMemo } from 'react';
+import type { Object3D } from 'three';
 import type { SceneDescription } from '@/engine/scene/buildScene';
 import type { TimeWindow as TimeWindowData } from '@/content/schemas/timewindow';
 import type { SceneSnapshot, SpawnRegistry } from '@/engine/timewindow/snapshot';
@@ -67,6 +68,16 @@ interface CitySceneProps {
     elapsed: number;
     snapshot: SceneSnapshot;
     registry: SpawnRegistry;
+    /**
+     * Where the stage reports the scene objects it touched, so the one restore
+     * path can find them again.
+     *
+     * The owner of the snapshot lives outside the canvas and has no way to
+     * reach a pigeon by name; the stage is the only thing that can resolve a
+     * note to an object. Handing each one back as it is touched closes that
+     * gap — without it `hide` hid things that were never unhidden.
+     */
+    onTouchObject: (key: string, object: Object3D) => void;
   } | null;
 }
 
@@ -297,7 +308,21 @@ export function CityScene({
             reducedMotion={reducedMotion}
           />
         ) : (
-          <group key={prop.key} position={prop.position} rotation={[prop.rotationX, prop.rotationY, 0]}>
+          <group
+            key={prop.key}
+            position={prop.position}
+            rotation={[prop.rotationX, prop.rotationY, 0]}
+            /*
+              The window's only handle on a prop it did not spawn.
+
+              `hide` matches on this note, and until now nothing wrote it onto
+              an object, so the command searched a scene in which no node had
+              one and silently did nothing (D-226). The id goes on too: a note
+              is authored prose and an asset id is not, so a window that wants
+              "every pigeon" has something stable to ask for.
+            */
+            userData={{ note: prop.note ?? undefined, assetId: prop.asset.entry.id }}
+          >
             <AssetInstance asset={prop.asset} />
           </group>
         ),
@@ -457,13 +482,26 @@ export function CityScene({
         />
       ))}
 
+      {/*
+        The window's own suspense boundary.
+
+        Without one, a spawn model that is not already in the loader's cache
+        suspends the *whole* scene: the street, the guide and the rig all
+        unmount behind whatever fallback the canvas has, which is a blank
+        screen with the controls still taken away — the frozen stop the owner
+        reported. Scoped here, a cold model costs the window its first frames
+        and costs the street nothing.
+      */}
       {timeWindow ? (
-        <TimeWindowStage
-          window={timeWindow.data}
-          elapsed={timeWindow.elapsed}
-          snapshot={timeWindow.snapshot}
-          registry={timeWindow.registry}
-        />
+        <Suspense fallback={null}>
+          <TimeWindowStage
+            window={timeWindow.data}
+            elapsed={timeWindow.elapsed}
+            snapshot={timeWindow.snapshot}
+            registry={timeWindow.registry}
+            onTouchObject={timeWindow.onTouchObject}
+          />
+        </Suspense>
       ) : null}
 
       <PlayerRig

@@ -43,6 +43,7 @@ export function TimeWindowStage({
   elapsed,
   snapshot,
   registry,
+  onTouchObject,
   onError,
 }: {
   window: TimeWindowData;
@@ -50,6 +51,15 @@ export function TimeWindowStage({
   elapsed: number;
   snapshot: SceneSnapshot;
   registry: SpawnRegistry;
+  /**
+   * Reports a scene object this stage touched, under its snapshot key.
+   *
+   * Handing the object back rather than writing into a shared record, because
+   * the restore pass runs outside the canvas and has no way of its own to turn
+   * a note into a pigeon. Without this, `hide` hid things that nothing ever
+   * unhid (D-226).
+   */
+  onTouchObject?: (key: string, object: Object3D) => void;
   onError?: (message: string) => void;
 }) {
   const { scene } = useThree();
@@ -103,17 +113,16 @@ export function TimeWindowStage({
       const found: Object3D[] = [];
       scene.traverse((node) => {
         const note = node.userData?.note;
+        const assetId = node.userData?.assetId;
         if (typeof note === 'string' && note.startsWith(prefix)) found.push(node);
+        else if (typeof assetId === 'string' && assetId === prefix) found.push(node);
       });
       return found;
     },
     [scene],
   );
 
-  useFrame(() => {
-    const node = holder.current;
-    if (!node) return;
-
+  const runFrame = (node: Group) => {
     // One-shot commands: sounds, spawns, despawns, hides.
     for (const command of commandsFiredBetween(data.events, previousElapsed.current, elapsed)) {
       switch (command.do) {
@@ -159,7 +168,11 @@ export function TimeWindowStage({
           break;
         case 'hide': {
           for (const [index, found] of findByNotePrefix(command.notePrefix).entries()) {
-            rememberVisibility(snapshot, `${command.notePrefix}#${index}`, found);
+            const key = `hide:${command.notePrefix}#${index}`;
+            rememberVisibility(snapshot, key, found);
+            // Handed to the restore pass, which otherwise has no way to reach
+            // it — and an object hidden with nothing to unhide it stays gone.
+            onTouchObject?.(key, found);
             found.visible = false;
           }
           break;
@@ -203,6 +216,26 @@ export function TimeWindowStage({
     }
 
     previousElapsed.current = elapsed;
+  };
+
+  useFrame(() => {
+    const node = holder.current;
+    if (!node) return;
+    try {
+      runFrame(node);
+    } catch (cause) {
+      /*
+        A window must not be able to take the city with it.
+
+        Everything in this loop touches live three.js objects, and an error
+        thrown inside `useFrame` stops the render loop for the whole canvas:
+        one bad clone, one disposed material, and the child is left looking at
+        a still image of the street. Reported and swallowed; the owner's clock
+        carries on and ends the window on time.
+      */
+      onError?.(cause instanceof Error ? cause.message : String(cause));
+      previousElapsed.current = elapsed;
+    }
   });
 
   /**
