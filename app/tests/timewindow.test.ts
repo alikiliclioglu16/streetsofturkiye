@@ -28,7 +28,11 @@ import {
   type RestoreTargets,
   type SnapshotSources,
 } from '@/engine/timewindow/snapshot';
-import { assetsPresent, windowEligibility } from '@/engine/timewindow/eligibility';
+import {
+  assetsPresent,
+  windowEligibility,
+  TIME_WINDOWS_ENABLED,
+} from '@/engine/timewindow/eligibility';
 import { completeHotspot } from '@/engine/progress/rules';
 import { emptyCityProgress } from '@/engine/progress/types';
 import { loadComposedCity } from './helpers';
@@ -388,13 +392,15 @@ describe('the graybox guard', () => {
   });
 
   it('falls back to the fact card under reduced motion', () => {
-    const result = windowEligibility(clockTower(), { reducedMotion: true });
+    const result = windowEligibility(clockTower(), { reducedMotion: true, enabled: true });
     expect(result.eligible).toBe(false);
     expect(result.reason).toBe('reduced-motion');
   });
 
   it('falls back to the fact card when a stop has no window at all', () => {
-    expect(windowEligibility(null, { reducedMotion: false }).reason).toBe('no-window');
+    expect(windowEligibility(null, { reducedMotion: false, enabled: true }).reason).toBe(
+      'no-window',
+    );
   });
 });
 
@@ -631,5 +637,31 @@ describe('the stall fallback', () => {
     expect(WINDOW_STALL_MS).toBeLessThan(1500);
     // And it must not outlast the skip button it would otherwise race.
     expect(WINDOW_STALL_MS / 1000).toBeLessThan(SKIP_AVAILABLE_AFTER_SECONDS + 0.5);
+  });
+});
+
+/**
+ * The switch, and why it is a test rather than a comment.
+ *
+ * The owner saw the finished slice and asked for the old stop back. Turning the
+ * system off is one boolean, which is exactly the kind of thing that gets
+ * flipped back by an unrelated edit and ships a cinematic nobody asked for. So
+ * the off state is asserted, and whoever turns it on has to say so here too.
+ */
+describe('the time window system is off', () => {
+  it('is off by default, so every stop shows its card', () => {
+    expect(TIME_WINDOWS_ENABLED).toBe(false);
+    const result = windowEligibility(clockTower(), { reducedMotion: false });
+    expect(result.eligible).toBe(false);
+    expect(result.reason).toBe('disabled');
+  });
+
+  it('still validates the content it is guarding', () => {
+    // A switch that also stops the content being checked is a switch that
+    // quietly rots what it is holding.
+    expect(() => cityTimeWindowsSchema.parse(IZMIR)).not.toThrow();
+    expect(windowEligibility(clockTower(), { reducedMotion: false, enabled: true }).eligible).toBe(
+      true,
+    );
   });
 });

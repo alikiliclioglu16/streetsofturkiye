@@ -4211,3 +4211,54 @@ is restored before the route changes.
 
 9 new tests, 50 in the window suite, 412 passing. The five failures are the
 long-standing GLB-on-disk checks.
+
+## D-227 — Zaman Penceresi off; the tower and the fountain change places
+
+Two instructions from the owner, after seeing D-226 on the deploy.
+
+**"Bu yeni durak tarzını beğenmedim, eski tarza geri dönelim. Bilgi kartı
+çıkması yeterli."** Every stop shows the fact card again.
+
+Off at one line — `TIME_WINDOWS_ENABLED` in `eligibility.ts` — rather than by
+deletion. The engine underneath was not what was wrong: the restore path, the
+four cancel exits, the reward gate and the graybox guard all hold, and fifty
+tests cover them. What was wrong was the stop it produced, which is a design
+judgement the owner has now made twice. Deleting the machinery would throw the
+sound part away with it and would also throw away
+`docs/TIME_WINDOW_DESIGN.md`'s sixty-three stop designs; one boolean brings it
+back if he ever wants it, and nothing has to be rebuilt.
+
+The switch is an argument with a default rather than a read of the constant, so
+the three eligibility rules stay testable while it is off, and the off state is
+itself asserted — a boolean this consequential gets flipped back by accident
+otherwise. The content keeps being loaded and validated: a switch that also
+stops its content being checked is a switch that quietly rots what it guards.
+
+**"Saat kulesi denen 3. durakta ekteki yapı olmalı, yanlış yapı var. Yerlerini
+değiştir."** He is right, and the earlier reasoning was right about the wrong
+thing. `city_izmir_clock_tower_base` is the fountain at the tower's foot, and it
+was at stop three because an 18 m tower needs 68 m of distance before its cap is
+in frame (D-183) — so the tower went 70 m behind the spawn where Konak Square is
+anyway. Correct arithmetic, wrong object: a stop named for the clock tower that
+holds something else is the wrong thing under the right name, and a child
+reading the card sees a fountain.
+
+Swapped in the generator, not in the derived scene. The layout re-solved itself:
+stop three moved to (6.8, 0, −53) with a 6.13 m half-footprint and a 10.13 m
+ring, the route point nearest it stands 7.6 m out — 1.5 m of clearance — and
+every pair of stops still clears the sum of its rings. `stopCamera` already
+derives distance from height, so the card framing came out at 25.6 m with the
+tower filling about three quarters of the frame; nothing had to be hand-placed.
+The city grew from 91 m to 103 m to carry it.
+
+What the swap costs: the fountain now stands at 70 m, where 4.2 m behind fog
+that starts at 40 m reads as a pale shape. It keeps the slot rather than being
+deleted — removing a delivered asset to tidy a layout is not a decision to take
+on the owner's behalf — but if he would rather have it at the tower's foot in
+Konak Square, that is where it belongs and it is a two-line change.
+
+The İzmir window's coordinates moved with the stop and its `requires` now names
+the tower, so the content still describes the scene it sits in even while
+nothing plays it.
+
+414 passing, 5 failing — the long-standing GLB-on-disk checks, untouched.

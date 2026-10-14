@@ -103,7 +103,7 @@ const COMMISSIONED_ASSETS = {
   'erzurum:craft': 'city_erzurum_oltu_workbench',
   'izmir:celsus': 'city_izmir_celsus_facade',
   'izmir:theatre': 'city_izmir_theatre_seats',
-  'izmir:clock': 'city_izmir_clock_tower_base',
+  'izmir:clock': 'city_izmir_clock_tower',
   'izmir:nazar': 'city_izmir_nazar_tree',
   'izmir:bakery': 'city_izmir_boyoz_cart',
 };
@@ -2384,15 +2384,25 @@ function cityBackdrop(cityId, stopPositions, metrics) {
         note: 'Ephesus, tilted so its plan reads',
       },
       /**
-       * The clock tower, 70 m behind the spawn — the distance its own height
-       * demands, and where Konak Square is anyway.
+       * The fountain, 70 m behind the spawn.
+       *
+       * It and the tower changed places on the owner's instruction: *"saat
+       * kulesi denen 3. durakta ekteki yapı olmalı, yanlış yapı var. Yerlerini
+       * değiştir."* He is right about the stop — a stop called the clock tower
+       * that holds the fountain at its foot is the wrong object under the right
+       * name, however carefully the distance was argued (D-227).
+       *
+       * What the swap costs is this piece: 4.2 m at 70 m, with the fog starting
+       * at 40, is a pale shape rather than a fountain. It keeps the slot rather
+       * than being deleted, because deleting a delivered asset to tidy a layout
+       * is not a decision to take on his behalf.
        */
       {
-        assetId: 'city_izmir_clock_tower',
+        assetId: 'city_izmir_clock_tower_base',
         position: [-8, 0, IZMIR_TOWER_Z],
         rotationY: 0.15,
         solid: true,
-        note: 'Konak clock tower',
+        note: 'Konak fountain',
       },
       /** Konak's terrace wraps the back, flanking the tower. */
       ...[-30, 16].map((x, i) => ({
