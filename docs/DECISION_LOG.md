@@ -4262,3 +4262,99 @@ the tower, so the content still describes the scene it sits in even while
 nothing plays it.
 
 414 passing, 5 failing — the long-standing GLB-on-disk checks, untouched.
+
+## D-228 — A counter of Turkish things on the map page, and the rigged models halved
+
+Two jobs from the owner: put the seven delivered 3D icons somewhere on the home
+page, design decision mine; and hand back the project's animated models smaller.
+
+### The icons
+
+They arrived as **202 MB** — 2048-pixel base colours, 2048 normals and *4096*
+metallic-roughness maps for objects a child sees about 120 pixels wide, and a
+baklava of 3.18 million triangles. They ship at **1.5 MB**, seven files.
+`scripts/tools/optimise-icons.mjs` is the pipeline and the comments in it carry
+the reasoning. No Draco, no meshopt, no KTX2: `useGLTF` here is set up without
+any of those decoders, so a file needing one would load in a test harness and
+fail on the owner's machine. `KHR_mesh_quantization` is the one geometry
+extension three.js reads natively.
+
+Cutting them to 1,500 triangles was tried and reverted. Six of the seven arrived
+at about three thousand, which is already a game mesh — the 202 MB was all
+texture — and the çaydanlık came back as a faceted lump, because a curved metal
+body is exactly what a simplifier spends triangles on. Only baklava is really
+cut, and it needs four passes of loosening error to come down.
+
+**The home page is `/map`**: `/` redirects there, so that is where a child
+starts. The icons sit in a band under the title.
+
+**A shelf rather than icons floating around the title**, because every one of
+these models was exported standing on something — a cream plinth under the
+simit, a tray under the cezve, feet under the Karagöz screen. Scattered in the
+air they read as objects whose table has been taken away, and the only way to
+float them would be to cut the bottoms off models the owner commissioned.
+
+**Three things the first version got wrong, each caught by rendering it:**
+
+*Metal rendered black.* The çaydanlık came out as a faceted lump of coal and the
+cezve with it. Metal with no environment to reflect has nothing to be. A
+`RoomEnvironment` generated in code fixes both for nothing — no file, no
+request, no licence.
+
+*Flat pieces spun edge-on.* A slow turn looks right on a teapot and is wrong on
+a ring, a tray stood on its edge, and a picture with a plain wooden back. The
+screenshot that proved it had caught the baklava as a sliver. Everything sways
+now and the full turn is kept for the moment a child holds one, which is where
+showing off the back of an object belongs.
+
+*A perspective camera fisheyed the row.* A band this wide and this short fits
+its width with the camera almost on top of the row — at 30° and an aspect over
+six the horizontal half-angle is nearly sixty degrees, so the ends are seen from
+the side while the middle is head-on. That, not the sway, was why the Karagöz
+screen showed its edge. Orthographic removes the question and makes the
+per-piece `facing` angles mean the same thing everywhere.
+
+Spacing is from each model's measured width, so the *gaps* are equal rather than
+the centres — the cezve tray is twice as wide as it is tall and the ice cream a
+third as wide, so an even pitch had one pair touching and another with a hole.
+The band's aspect ratio is derived from the row's own, so it fills at every
+width from a phone to a desktop with no breakpoint chosen.
+
+Costs, stated plainly: this is the only 3D on the route and the route's job is
+to get a child into a city. So it is a dynamic import, client-only, behind an
+`IntersectionObserver` — a child who taps straight through to İzmir never pays
+for it, and a tab left alone never starts a WebGL context. The registry lives
+under `engine/` because a component may not name a file (rule 4), and not in
+`engine/assets/registry.ts`, because page decoration has no business being held
+to the city asset budget.
+
+### The rigged models
+
+Twelve of the project's files carry animation: two guides, three NPCs, seven
+animals. Everything else that moves is moved by code. **14.82 MB → 4.80 MB, 68%,
+every clip kept**, by `scripts/tools/optimise-animated.mjs`.
+
+The pass that mattered was not the simplifier. The soldier arrived with **82,009
+vertices for 38,062 triangles** — a welded mesh has about half as many vertices
+as triangles, and one with more than it has triangles has been split along every
+shading seam by the exporter. A simplifier cannot collapse an edge whose two
+sides disagree about their normal, so both the locked and unlocked passes ran
+and both returned having removed 0.4%. Dropping NORMAL lets the weld merge on
+position, UV and skin weight alone: 82,009 to 36,596, and the budget is then
+reachable. Normals are recomputed afterwards without unwelding — the toolkit's
+own `normals()` splits every vertex to write a flat normal per face, which undid
+the welding and came back *larger* than the input on four of the twelve.
+
+Skin weights quantize to eight bits, not sixteen: four weights summing to one,
+each within 0.4%, is far below what a joint rotation can show.
+
+Every one of the twelve was rendered beside its original through a walk cycle
+and compared frame by frame before being handed over. The deer is worth a note:
+it is 3.5 mm tall in its own file and was blank in the harness until the near
+plane was made relative — its bounds before and after agree to three decimals.
+
+Not installed into the project. Dropping them in would fail `assets.test.ts`,
+which checks the registry's `checksum` and `transferBytes` against the files;
+the new values went to the owner with them.
+
+Also paid off D-220: `@gltf-transform/*` and `sharp` are now devDependencies.

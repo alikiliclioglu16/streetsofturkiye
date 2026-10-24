@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useMemo, useState } from 'react';
+import dynamic from 'next/dynamic';
 import { useRouter } from 'next/navigation';
 import {
   loadPresentation,
@@ -18,9 +19,24 @@ import { useGameStore } from '@/stores/useGameStore';
 import { SettingsPanel } from '@/components/game-ui/SettingsPanel';
 import { GuidePortrait } from '@/components/map/GuidePortrait';
 
+/**
+ * The counter of Turkish things, under the title.
+ *
+ * Loaded on its own, client-side only and never during the server render. It
+ * is the only 3D on this route, and the route's job is to get a child into a
+ * city — so it must not be in the bundle that decides how fast the map appears,
+ * and a browser with no WebGL must still get the whole page. The component
+ * then waits for its own scroll position before fetching a single model.
+ */
+const CultureShelf = dynamic(
+  () => import('@/components/map/CultureShelf').then((module) => module.CultureShelf),
+  { ssr: false, loading: () => null },
+);
+
 export default function MapPage() {
   const router = useRouter();
   const locale = useSettingsStore((state) => state.locale);
+  const reducedMotion = useSettingsStore((state) => state.reducedMotion);
   const hydrate = useSettingsStore((state) => state.hydrate);
   const profile = useGameStore((state) => state.profile);
   const loadProfile = useGameStore((state) => state.loadProfile);
@@ -124,6 +140,8 @@ export default function MapPage() {
           {ui('settings', locale)}
         </button>
       </header>
+
+      <CultureShelf locale={locale} reducedMotion={reducedMotion} />
 
       <section className="panel" style={{ padding: 'clamp(14px, 3vw, 28px)' }} aria-live="polite">
         {error ? (
